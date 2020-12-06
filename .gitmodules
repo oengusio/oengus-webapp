@@ -1,0 +1,3 @@
+[submodule "src/assets/i18n"]
+	path = src/assets/i18n
+	url = https://github.com/esamarathon/oengus-localization.git
