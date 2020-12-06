@@ -1,27 +1,36 @@
-# Webapp
+# Oengus
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
+Oengus is a web application that helps manage speedrun marathons
 
-## Development server
+https://oengus.io
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Note that the back-end lives on this repository [https://github.com/esamarathon/oengusio](https://github.com/esamarathon/oengusio).
 
-## Code scaffolding
+## How to run on your computer
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Requirements
 
-## Build
+- NodeJS 10+
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Instructions
 
-## Running unit tests
+#### Dependencies
+```shell script
+npm install
+```
+#### Run
+```shell script
+npm start
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Support
 
-## Running end-to-end tests
+Please join the official [Discord server](https://discord.gg/ZZFS8YT) for questions and support
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-## Further help
+Please make sure to update tests as appropriate (if tests exist).
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## License
+[GNU AGPL v3.0](https://choosealicense.com/licenses/agpl-3.0/)
