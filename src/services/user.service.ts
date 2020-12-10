@@ -38,6 +38,10 @@ export class UserService {
     return environment.twitchSyncClientId;
   }
 
+  getDiscordClientId() {
+    return environment.discordClientId;
+  }
+
   login(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Observable<any> {
     return this.http.post(environment.api + '/user/login', {
       service: service,

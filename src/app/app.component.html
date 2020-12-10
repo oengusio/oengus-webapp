@@ -103,7 +103,7 @@
               <a class="navbar-item is-tooltip-danger" [nwbToolTip]="'navbar.login.disclaimer' | translate"
                  nwbToolTipPosition="left"
                  nwbToolTipIsMultiline="true"
-                 [href]="'https://discordapp.com/api/oauth2/authorize?client_id=559625844197163008&redirect_uri='+userService.getRedirectUri()+'discord&response_type=code&scope=identify'">
+                 [href]="'https://discordapp.com/api/oauth2/authorize?client_id='+userService.getDiscordClientId()+'&redirect_uri='+userService.getRedirectUri()+'discord&response_type=code&scope=identify'">
                 <fa-icon [icon]="faDiscord" style="margin-right: 0.4rem"></fa-icon>
                 {{'navbar.login.discord' | translate}}
               </a>

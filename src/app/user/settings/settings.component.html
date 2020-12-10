@@ -167,7 +167,7 @@
                 (click)="unsyncDiscord()">{{'user.settings.accountSync.unsync' | translate}}
         </button>
         <a *ngIf="!user.discordId" class="button is-info"
-           [href]="'https://discordapp.com/api/oauth2/authorize?client_id=559625844197163008&redirect_uri='+userService.getSyncRedirectUri()+'discord&response_type=code&scope=identify'">
+           [href]="'https://discordapp.com/api/oauth2/authorize?client_id='+userService.getDiscordClientId()+'&redirect_uri='+userService.getSyncRedirectUri()+'discord&response_type=code&scope=identify'">
           {{'user.settings.accountSync.sync' | translate}}</a>
       </div>
     </div>

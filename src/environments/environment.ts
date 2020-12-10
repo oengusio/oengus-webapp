@@ -13,6 +13,7 @@ export const environment = {
   // these two get the service name appended to it (eg twitch, twitter, discord)
   loginRedirect: 'http://localhost:4200/login/',
   syncRedirect: 'http://localhost:4200/user/settings/sync/',
+  discordClientId: '559625844197163008',
   matomoId: 1,
   paypalClientId: 'Ac7rzLgpb5emA9JuRxRXpRDVMdULzgA_BxwyhPlAxPHtg1NtDv3nyjLcWgHBOUEmtdWJ5npWnMN-b7_8'
 };
