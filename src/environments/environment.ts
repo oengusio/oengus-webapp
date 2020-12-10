@@ -7,8 +7,10 @@ export const environment = {
   sandbox: false,
   baseSite: 'http://localhost:8080',
   api: 'http://localhost:8080/api',
-  twitchLoginClientId: '2cq8fq40s8y8wyrhfb8bt3jgybhpnz',
+  twitchLoginClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
+  // TODO: make these the same
   twitchSyncClientId: '5tb0get51hgu1bu8reszobgangbhrq',
+  // these two get the service name appended to it (eg twitch, twitter, discord)
   loginRedirect: 'http://localhost:4200/login/',
   syncRedirect: 'http://localhost:4200/user/settings/sync/',
   matomoId: 1,
