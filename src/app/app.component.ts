@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
   }
 
   closeNotification(): void {
-    localStorage.removeItem('closed');
+    localStorage.setItem('closed', 'msg2');
   }
 
   acceptPrivacyConsent(): void {
@@ -86,7 +86,9 @@ export class AppComponent implements OnInit {
   }
 
   isClosed(): boolean {
-    return localStorage.getItem('closed') === null;
+    const closed = localStorage.getItem('closed');
+
+    return closed !== null && closed === 'msg2';
   }
 
   useLanguage(language: string) {
