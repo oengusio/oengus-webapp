@@ -11,4 +11,4 @@ FROM node:14.15.1
 
 COPY --from=builder ./dist/ .
 
-CMD ["java", "-Dspring.profiles.active=$SPRING_PROFILE", "-Xmx$JAVA_XMX", "-jar", "oengus-all.jar"]
+# serve index.html
