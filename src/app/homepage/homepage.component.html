@@ -32,10 +32,10 @@
       </div>
 
       <div class="box">
-        <h3 class="title is-3">Sponsors</h3>
+        <h3 class="title is-3">{{ 'homepage.sponsors.title' | translate}}</h3>
         <p>
           <img src="assets/ESA-Logo.svg" alt="ESA logo" style="width: 25px;"/>
-          oengus.io is hosted by the <a href="https://esamarathon.com/" target="_blank">European Speedrunner Assembly</a>
+          <span [innerHTML]="'homepage.sponsors.esa' | translate"></span>
         </p>
       </div>
     </div>

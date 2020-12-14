@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "extract-i18n": "ngx-translate-extract --input ./src --output ./src/assets/i18n/en.json ./src/assets/i18n/fr.json ./src/assets/i18n/ja.json ./src/assets/i18n/de.json ./src/assets/i18n/nl.json ./src/assets/i18n/cy.json ./src/assets/i18n/pt_BR.json ./src/assets/i18n/zh_Hant_HK.json --clean --sort --format namespaced-json --marker marker"
+    "extract-i18n": "ngx-translate-extract --input ./src --output ./src/assets/i18n/en.json ./src/assets/i18n/fr.json ./src/assets/i18n/ja.json ./src/assets/i18n/de.json ./src/assets/i18n/nl.json ./src/assets/i18n/cy.json ./src/assets/i18n/pt_BR.json ./src/assets/i18n/zh_Hant_HK.json --clean --sort --format namespaced-json --marker marker --null-as-default-value"
   },
   "private": true,
   "dependencies": {
@@ -53,6 +53,7 @@
     "@angular/cli": "~7.3.8",
     "@angular/compiler-cli": "~8.1.0",
     "@angular/language-service": "~8.1.0",
+    "@biesbjerg/ngx-translate-extract": "^7.0.3",
     "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
