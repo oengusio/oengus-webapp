@@ -10,7 +10,7 @@
           <fa-icon [icon]="faDiscord" style="margin-right: 0.4rem"></fa-icon>
           {{'navbar.login.discord' | translate}}</a>
         <a class="button is-primary" style="margin-left: 1rem" *ngIf="!userService.user"
-           [href]="'https://id.twitch.tv/oauth2/authorize?client_id='+userService.getTwitchLoginClientId()+'&redirect_uri='+userService.getRedirectUri()+'twitch&response_type=code&scope=openid'">
+           [href]="'https://id.twitch.tv/oauth2/authorize?client_id='+userService.getTwitchClientId()+'&redirect_uri='+userService.getRedirectUri()+'twitch&response_type=code&scope=openid'">
           <fa-icon [icon]="faTwitch" style="margin-right: 0.4rem"></fa-icon>
           {{'navbar.login.twitch' | translate}}</a>
         <p [innerHTML]="'homepage.welcomeText.par4.prod' | translate" *ngIf="!environment.sandbox"></p>

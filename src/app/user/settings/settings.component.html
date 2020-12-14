@@ -190,7 +190,7 @@
                 (click)="unsyncTwitch()">{{'user.settings.accountSync.unsync' | translate}}
         </button>
         <a *ngIf="!user.twitchId" class="button is-info"
-           [href]="'https://id.twitch.tv/oauth2/authorize?client_id='+userService.getTwitchSyncClientId()+'&redirect_uri='+userService.getSyncRedirectUri()+'twitch&response_type=code&scope=openid'">
+           [href]="'https://id.twitch.tv/oauth2/authorize?client_id='+userService.getTwitchClientId()+'&redirect_uri='+userService.getSyncRedirectUri()+'twitch&response_type=code&scope=openid'">
           {{'user.settings.accountSync.sync' | translate}}</a>
       </div>
     </div>

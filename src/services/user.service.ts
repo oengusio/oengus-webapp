@@ -30,12 +30,8 @@ export class UserService {
     return encodeURIComponent(environment.syncRedirect);
   }
 
-  getTwitchLoginClientId() {
-    return environment.twitchLoginClientId;
-  }
-
-  getTwitchSyncClientId() {
-    return environment.twitchSyncClientId;
+  getTwitchClientId() {
+    return environment.twitchClientId;
   }
 
   getDiscordClientId() {

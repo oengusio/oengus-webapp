@@ -111,7 +111,7 @@
                  [nwbToolTip]="'navbar.login.disclaimer' | translate"
                  nwbToolTipPosition="left"
                  nwbToolTipIsMultiline="true"
-                 [href]="'https://id.twitch.tv/oauth2/authorize?client_id='+userService.getTwitchLoginClientId()+'&redirect_uri='+userService.getRedirectUri()+'twitch&response_type=code&scope=openid'">
+                 [href]="'https://id.twitch.tv/oauth2/authorize?client_id='+userService.getTwitchClientId()+'&redirect_uri='+userService.getRedirectUri()+'twitch&response_type=code&scope=openid'">
                 <fa-icon [icon]="faTwitch" style="margin-right: 0.4rem"></fa-icon>
                 {{'navbar.login.twitch' | translate}}
               </a>

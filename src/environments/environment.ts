@@ -3,20 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  // is this a production build
   production: false,
+  // is this a sandbox build
   sandbox: false,
   // this is the base of the website where the users will land
   baseSite: 'http://localhost:4200',
-  // api: 'http://localhost:8080/api',
-  api: 'https://oengus.io/api',
-  twitchLoginClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
-  // TODO: make these the same
-  twitchSyncClientId: '5tb0get51hgu1bu8reszobgangbhrq',
+  // the api that the front-end talks to
+  api: 'http://localhost:8080/api',
+  twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
   // these two get the service name appended to it (eg twitch, twitter, discord)
   loginRedirect: 'http://localhost:4200/login/',
   syncRedirect: 'http://localhost:4200/user/settings/sync/',
   discordClientId: '559625844197163008',
-  matomoId: 1,
   paypalClientId: 'Ac7rzLgpb5emA9JuRxRXpRDVMdULzgA_BxwyhPlAxPHtg1NtDv3nyjLcWgHBOUEmtdWJ5npWnMN-b7_8'
 };
 

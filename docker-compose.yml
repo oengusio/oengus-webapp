@@ -5,4 +5,4 @@ services:
     build:
       context: ./
       args:
-        - PROFILE=production # sandbox
+        - PROFILE=production # sandbox or production-dev (for oengus.dev)
