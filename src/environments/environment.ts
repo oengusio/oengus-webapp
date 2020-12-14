@@ -5,8 +5,10 @@
 export const environment = {
   production: false,
   sandbox: false,
-  baseSite: 'http://localhost:8080',
-  api: 'http://localhost:8080/api',
+  // this is the base of the website where the users will land
+  baseSite: 'http://localhost:4200',
+  // api: 'http://localhost:8080/api',
+  api: 'https://oengus.io/api',
   twitchLoginClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
   // TODO: make these the same
   twitchSyncClientId: '5tb0get51hgu1bu8reszobgangbhrq',

@@ -112,6 +112,10 @@ export class AppComponent implements OnInit {
     return moment.tz.guess();
   }
 
+  getYear() {
+    return new Date().getFullYear();
+  }
+
   twitterAuth() {
     this.userService.login('twitterAuth').subscribe(response => {
       window.location.replace(response.token);

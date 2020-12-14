@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  oengus:
+    container_name: oengus-frontend
+    build:
+      context: ./
+      args:
+        - PROFILE=production # sandbox
