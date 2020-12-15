@@ -5,7 +5,7 @@
 // TODO: look into performance impact with getters
 
 export const environment = {
-  twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
+  twitchClientId: 'f4ry4d9k0dt89ha8ks7cb845trvbod',
   discordClientId: '559625844197163008',
   paypalClientId: 'Ac7rzLgpb5emA9JuRxRXpRDVMdULzgA_BxwyhPlAxPHtg1NtDv3nyjLcWgHBOUEmtdWJ5npWnMN-b7_8',
 
