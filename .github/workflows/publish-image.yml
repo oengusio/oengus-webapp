@@ -26,6 +26,7 @@ jobs:
                 username: ${{ github.actor }}
                 password: ${{ secrets.GITHUB_TOKEN }}
                 registry: docker.pkg.github.com
-                repository: esamarathon/oengus-webapp/oengus-frontend-dotdev
+                repository: esamarathon/oengus-webapp/oengus-frontend
+                tags: dev
                 tag_with_ref: true
                 build_args: PROFILE=production-dev
