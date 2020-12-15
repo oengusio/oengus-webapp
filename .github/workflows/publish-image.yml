@@ -11,15 +11,6 @@ jobs:
               uses: actions/checkout@v2
               with:
                 submodules: true
-            - name: Push production to GitHub Packages
-              uses: docker/build-push-action@v1
-              with:
-                  username: ${{ github.actor }}
-                  password: ${{ secrets.GITHUB_TOKEN }}
-                  registry: docker.pkg.github.com
-                  repository: esamarathon/oengus-webapp/oengus-frontend
-                  tags: prod
-                  build_args: PROFILE=production
             - name: Push oengusdotdev to GitHub Packages
               uses: docker/build-push-action@v1
               with:
@@ -29,3 +20,12 @@ jobs:
                 repository: esamarathon/oengus-webapp/oengus-frontend
                 tags: dev
                 build_args: PROFILE=production-dev
+            - name: Push production to GitHub Packages
+              uses: docker/build-push-action@v1
+              with:
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+                  registry: docker.pkg.github.com
+                  repository: esamarathon/oengus-webapp/oengus-frontend
+                  tags: prod
+                  build_args: PROFILE=production
