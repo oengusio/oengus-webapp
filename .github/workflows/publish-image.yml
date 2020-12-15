@@ -18,7 +18,7 @@ jobs:
                   password: ${{ secrets.GITHUB_TOKEN }}
                   registry: docker.pkg.github.com
                   repository: esamarathon/oengus-webapp/oengus-frontend
-                  tag_with_ref: true
+                  tags: prod
                   build_args: PROFILE=production
             - name: Push oengusdotdev to GitHub Packages
               uses: docker/build-push-action@v1
@@ -28,5 +28,4 @@ jobs:
                 registry: docker.pkg.github.com
                 repository: esamarathon/oengus-webapp/oengus-frontend
                 tags: dev
-                tag_with_ref: true
                 build_args: PROFILE=production-dev
