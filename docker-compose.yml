@@ -8,3 +8,4 @@ services:
         - PROFILE=production # sandbox or production-dev (for oengus.dev)
     ports:
       - "4200:80"
+    network_mode: "bridge"
