@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  sandbox: false,
+  sandbox: true,
   baseSite: 'https://oengus.dev',
   api: 'https://oengus.dev/api',
   twitchClientId: 'f4ry4d9k0dt89ha8ks7cb845trvbod',

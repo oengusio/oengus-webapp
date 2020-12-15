@@ -10,7 +10,7 @@ export const environment = {
   // this is the base of the website where the users will land
   baseSite: 'http://localhost:4200',
   // the api that the front-end talks to
-  api: 'http://localhost:8080/api',
+  api: 'http://localhost:8080',
   twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
   // these two get the service name appended to it (eg twitch, twitter, discord)
   loginRedirect: 'http://localhost:4200/login/',
