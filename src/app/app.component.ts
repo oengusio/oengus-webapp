@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { faDiscord, faGitlab, faPaypal, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faGithub, faPatreon, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faBug, faLanguage } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
 import isoLang from '../assets/languages.json';
@@ -32,8 +32,8 @@ export class AppComponent implements OnInit {
   public faDiscord = faDiscord;
   public faTwitch = faTwitch;
   public faBug = faBug;
-  public faGitlab = faGitlab;
-  public faPaypal = faPaypal;
+  public faGithub = faGithub;
+  public faPatreon = faPatreon;
   public faLanguage = faLanguage;
   public languages = (<any>isoLang);
   public language = localStorage.getItem('language') ? localStorage.getItem('language') : navigator.language.split('-')[0];
