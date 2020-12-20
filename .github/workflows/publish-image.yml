@@ -1,4 +1,4 @@
-name: Publish Docker image
+name: Publish Development Docker Image
 on:
     push:
         branches: [master]
@@ -24,16 +24,3 @@ jobs:
               uses: zzzze/webhook-trigger@v1.0.0
               with:
                 webhook_url: ${{ secrets.DEV_WEBHOOK_URL }}
-            - name: Push production to GitHub Packages
-              uses: docker/build-push-action@v1
-              with:
-                  username: ${{ github.actor }}
-                  password: ${{ secrets.GITHUB_TOKEN }}
-                  registry: docker.pkg.github.com
-                  repository: esamarathon/oengus-webapp/oengus-frontend
-                  tags: prod
-                  build_args: PROFILE=production
-            #- name: Trigger prod webhook
-            #  uses: zzzze/webhook-trigger@v1.0.0
-            #  with:
-            #    webhook_url: ${{ secrets.PROD_WEBHOOK_URL }}

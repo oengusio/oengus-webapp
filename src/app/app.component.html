@@ -157,8 +157,7 @@
       <p [innerHTML]="'footer.donate' | translate:{'donationLink': 'https://www.patreon.com/oengusio'}">
       </p>
       <p>
-        &copy; <span [innerHTML]="getYear()"></span>
-        <a href="https://esamarathon.com/" target="_blank"> European Speedrunner Assembly AB</a>
+        &copy; {{ getYear() }} <a href="https://esamarathon.com/" target="_blank">European Speedrunner Assembly AB</a>
       </p>
     </div>
   </footer>
