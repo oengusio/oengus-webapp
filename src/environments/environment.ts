@@ -11,6 +11,8 @@ export const environment = {
   baseSite: 'http://localhost:4200',
   // the api that the front-end talks to
   api: 'http://localhost:8080',
+  // Optional, in case of a custom hosted patreon api, will use api by default
+  patronApi: 'http://localhost:9000',
   twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
   // these two get the service name appended to it (eg twitch, twitter, discord)
   loginRedirect: 'http://localhost:4200/login/',

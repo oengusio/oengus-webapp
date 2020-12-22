@@ -22,6 +22,7 @@ import { AboutComponent } from './about/about.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarComponent } from './calendar/calendar.component';
 import { WebpackTranslateLoader } from '../loader/webpack-translate-loader';
+import {PatronsComponent} from './patrons/patrons.component';
 
 const appRoutes: Routes = [
   {path: 'login/:service', component: LoginComponent},
@@ -40,6 +41,10 @@ const appRoutes: Routes = [
     path: 'about',
     component: AboutComponent
   },
+  {
+    path: 'patrons',
+    component: PatronsComponent
+  },
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ];
 
@@ -49,6 +54,7 @@ const appRoutes: Routes = [
     LoginComponent,
     HomepageComponent,
     AboutComponent,
+    PatronsComponent,
     CalendarComponent
   ],
   imports: [
