@@ -7,5 +7,5 @@ export const environment = {
   loginRedirect: 'https://oengus.dev/login/',
   syncRedirect: 'https://oengus.dev/user/settings/sync/',
   discordClientId: '559625844197163008',
-  paypalClientId: 'AZdzNo_y3Y_JyXJp_Dbv5ulY5EHinZo8S0OFNUyoCe7U9vj-1MfR9xbf0VIja6KYBUAey0tNOrubxT2b'
+  paypalClientId: 'AfkLlDPvmM0v1914bih8VN0x0LZps-jkjdz-A7ydiJ0RVPdaAC730VWtVkTWaXZauBYVs3UbaoRHc6VH'
 };

@@ -18,7 +18,7 @@ export const environment = {
   loginRedirect: 'http://localhost:4200/login/',
   syncRedirect: 'http://localhost:4200/user/settings/sync/',
   discordClientId: '559625844197163008',
-  paypalClientId: 'Ac7rzLgpb5emA9JuRxRXpRDVMdULzgA_BxwyhPlAxPHtg1NtDv3nyjLcWgHBOUEmtdWJ5npWnMN-b7_8'
+  paypalClientId: 'AV9-0fSGWREDWpnMJujrHUbDIibragMgE4-4HuAS-WQPlgHSRyfeU5iqNyiQwLEGZFEKhAiERJdv80a4'
 };
 
 /*

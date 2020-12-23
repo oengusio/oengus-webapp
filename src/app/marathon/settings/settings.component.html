@@ -698,7 +698,7 @@
             <div class="field">
               <label class="label">{{ 'marathon.settings.donations.label' | translate}}</label>
               <div class="control">
-                <nwb-switch [(ngModel)]="marathon.hasDonations" name="hasDonations" [disabled]="true">
+                <nwb-switch [(ngModel)]="marathon.hasDonations" name="hasDonations">
                   <span>{{ 'marathon.settings.donations.hasDonations' | translate}}</span>
                 </nwb-switch>
               </div>
@@ -708,7 +708,7 @@
             <div class="field">
               <label class="label">{{ 'marathon.settings.donationsOpen.label' | translate}}</label>
               <div class="control">
-                <nwb-switch [(ngModel)]="marathon.donationsOpen" name="donationsOpen" [disabled]="true">
+                <nwb-switch [(ngModel)]="marathon.donationsOpen" name="donationsOpen">
                   <span>{{ 'marathon.settings.donations.donationsOpen' | translate}}</span>
                 </nwb-switch>
               </div>
@@ -799,7 +799,7 @@
                        type="text"
                        [(ngModel)]="marathon.donationWebhook"
                        name="donationWebhook"
-                       [disabled]="!marathon.hasDonations && !marathon.hasIncentives || true"
+                       [disabled]="!marathon.hasDonations && !marathon.hasIncentives"
                        maxlength="200"
                        #donationWebhook="ngModel"
                        (ngModelChange)="checkWebhook($event)">
