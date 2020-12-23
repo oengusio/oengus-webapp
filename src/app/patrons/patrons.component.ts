@@ -21,10 +21,6 @@ export class PatronsComponent implements OnInit {
   }
 
   private get patronUrl(): string {
-    if (environment.hasOwnProperty('patronApi')) {
-      return environment.patronApi;
-    }
-
-    return environment.api + '/patreon';
+    return environment.patronApi || environment.api + '/patreon';
   }
 }
