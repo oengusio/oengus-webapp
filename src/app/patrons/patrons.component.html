@@ -2,14 +2,18 @@
   <div class="columns is-multiline">
     <div class="column is-12">
       <div class="box">
-        <h1 class="title">Our Patrons</h1>
-        <p>Bla bla bla</p>
+        <h1 class="title">{{'patrons.title' | translate}}</h1>
+        <p>{{'patrons.par1' | translate}}</p>
+        <p [innerHTML]="'patrons.par2' | translate"></p>
         <br/>
-        <div class="is-flex is-flex-direction-row is-justify-content-space-around is-flex-wrap-wrap" *ngIf="patrons.length">
+        <div class="is-flex is-flex-direction-row is-justify-content-space-around is-flex-wrap-wrap" *ngIf="patrons.length else noPatrons">
           <div class="patron-item" *ngFor="let patron of patrons">
             <a [href]="'https://www.patreon.com/user?u=' + patron.id">{{patron.full_name}}</a>
         </div>
       </div>
+        <ng-template #noPatrons>
+          <div [innerHTML]="'patrons.noPatrons' | translate"></div>
+        </ng-template>
     </div>
   </div>
 </div>
