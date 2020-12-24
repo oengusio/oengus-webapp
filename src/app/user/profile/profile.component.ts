@@ -59,7 +59,16 @@ export class ProfileComponent implements OnInit {
   ];
 
   constructor(private route: ActivatedRoute) {
-    this.user = this.route.snapshot.data.user;
+    this.route.data.subscribe(routeData => {
+      this.updateUser(routeData.user);
+    });
+  }
+
+  ngOnInit() {
+  }
+
+  updateUser(user) {
+    this.user = user;
     this.user.history.forEach(marathon => {
       marathon.games.forEach(game => {
         game.categories.forEach(category => {
@@ -72,9 +81,6 @@ export class ProfileComponent implements OnInit {
       marathon.visible = true;
       marathon.status = this.getTopStatus(marathon.games);
     });
-  }
-
-  ngOnInit() {
   }
 
   getTopStatus(array: any[]) {
