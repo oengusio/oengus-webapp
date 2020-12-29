@@ -1,13 +1,12 @@
 @import '~bulmaswatch/solar/variables';
 
-aside {
-  margin-right: 1rem;
-  width: 220px;
-}
-
 .minimized {
   margin-right: 1rem;
   width: 76px;
+}
+
+.closed {
+  display: none;
 }
 
 .menu-list a.is-emphasized {

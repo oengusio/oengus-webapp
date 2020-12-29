@@ -15,7 +15,9 @@ import {
   faDotCircle,
   faHome,
   faMoneyBill,
-  faPaperPlane
+  faPaperPlane,
+  faBars,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -38,8 +40,11 @@ export class MarathonComponent implements OnInit {
   public faDotCircle = faDotCircle;
   public faCaretLeft = faCaretSquareLeft;
   public faCaretRight = faCaretSquareRight;
+  public faBars = faBars;
+  public faTimes = faTimes;
 
   public minimized = false;
+  public mobileOpen = true;
 
   constructor(private route: ActivatedRoute,
               public userService: UserService,
