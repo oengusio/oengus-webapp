@@ -1,13 +1,8 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 // TODO: look into performance impact with getters
 
 export const environment = {
   twitchClientId: 'f4ry4d9k0dt89ha8ks7cb845trvbod',
   discordClientId: '559625844197163008',
-  paypalClientId: 'Ac7rzLgpb5emA9JuRxRXpRDVMdULzgA_BxwyhPlAxPHtg1NtDv3nyjLcWgHBOUEmtdWJ5npWnMN-b7_8',
 
   // returns true for production builds
   get production() {
@@ -38,7 +33,21 @@ export const environment = {
   },
   get syncRedirect() {
     return environment.baseSite + '/user/settings/sync/';
-  }
+  },
+  get paypalClientId() {
+    if (environment.production) {
+      return 'AfkLlDPvmM0v1914bih8VN0x0LZps-jkjdz-A7ydiJ0RVPdaAC730VWtVkTWaXZauBYVs3UbaoRHc6VH';
+    }
+
+    return 'AV9-0fSGWREDWpnMJujrHUbDIibragMgE4-4HuAS-WQPlgHSRyfeU5iqNyiQwLEGZFEKhAiERJdv80a4';
+  },
+  get patronApi() {
+    if (environment.production) {
+      return environment.api + '/patreon';
+    }
+
+    return 'http://localhost:9000';
+  },
 };
 
 /*
