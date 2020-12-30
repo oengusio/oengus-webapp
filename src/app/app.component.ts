@@ -20,7 +20,7 @@ import { registerLocaleData } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = !environment.sandbox ? 'Oengus' : 'Oengus [Sandbox]';
@@ -38,12 +38,20 @@ export class AppComponent implements OnInit {
   public languages = (<any>isoLang);
   public language = localStorage.getItem('language') ? localStorage.getItem('language') : navigator.language.split('-')[0];
   public environment = environment;
+  // public loading = true;
 
   public availableLocales = ['en', 'fr', 'de', 'es', 'nl', 'ja', 'cy', 'pt_BR', 'zh_Hant_HK'];
 
   constructor(public userService: UserService,
               private translate: TranslateService,
               private dateTimeAdapter: DateTimeAdapter<any>) {
+    /*router.events.pipe(
+      // @ts-ignore
+      filter((e: Event): e is RouterEvent => e instanceof RouterEvent)
+    ).subscribe((e: RouterEvent) => {
+      this.loading = true;
+    });
+*/
     registerLocaleData(localeFr, 'fr');
     registerLocaleData(localeDe, 'de');
     registerLocaleData(localeNl, 'nl');
@@ -64,7 +72,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //
+    // this.loading = false;
   }
 
   closeNotification(): void {

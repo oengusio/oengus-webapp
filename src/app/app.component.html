@@ -1,3 +1,4 @@
+<!--<div *ngIf="loading" class="loading-bar"></div>-->
 <div class="wrapper">
   <div class="privacy-consent has-background-dark is-flex-desktop"
        style="justify-content: space-between"
@@ -37,30 +38,6 @@
         <img src="assets/Oengus.png" style="margin-right: 0.5rem">
         Oengus<span *ngIf="environment.sandbox">.sandbox</span>
       </a>
-      <a class="navbar-item" href="https://discord.gg/ZZFS8YT" target="_blank" [nwbToolTip]="'navbar.discord' |
-    translate" nwbToolTipPosition="bottom">
-        <fa-icon [icon]="faDiscord"></fa-icon>
-      </a>
-      <a class="navbar-item" href="https://twitter.com/OengusIO" target="_blank" [nwbToolTip]="'navbar.twitter' |
-    translate" nwbToolTipPosition="bottom">
-        <fa-icon [icon]="faTwitter"></fa-icon>
-      </a>
-      <a class="navbar-item" href="https://github.com/esamarathon/oengusio" target="_blank"
-         [nwbToolTip]="'navbar.sourceCode' | translate" nwbToolTipPosition="bottom">
-        <fa-icon [icon]="faGithub"></fa-icon>
-      </a>
-      <a class="navbar-item" href="https://github.com/esamarathon/oengusio/issues" target="_blank"
-         [nwbToolTip]="'navbar.bugtracker' | translate" nwbToolTipPosition="bottom">
-        <fa-icon [icon]="faBug"></fa-icon>
-      </a>
-      <a class="navbar-item" href="https://translate.oengus.io/projects/oengus/site/" target="_blank"
-         [nwbToolTip]="'navbar.translate' | translate" nwbToolTipPosition="bottom">
-        <fa-icon [icon]="faLanguage"></fa-icon>
-      </a>
-      <a class="navbar-item" href="https://www.patreon.com/oengusio" target="_blank"
-         [nwbToolTip]="'navbar.donate' | translate" nwbToolTipPosition="bottom">
-        <fa-icon [icon]="faPatreon"></fa-icon>
-      </a>
 
       <a role="button"
          (click)="toggleNavbar()"
@@ -76,6 +53,37 @@
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu" #navMenu>
+      <div class="navbar-start">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <a class="navbar-item" href="https://discord.gg/ZZFS8YT" target="_blank"
+               [nwbToolTip]="'navbar.discord' | translate" nwbToolTipPosition="bottom">
+              <fa-icon [icon]="faDiscord"></fa-icon>
+            </a>
+            <a class="navbar-item" href="https://twitter.com/OengusIO" target="_blank"
+               [nwbToolTip]="'navbar.twitter' | translate" nwbToolTipPosition="bottom">
+              <fa-icon [icon]="faTwitter"></fa-icon>
+            </a>
+            <a class="navbar-item" href="https://github.com/esamarathon/oengusio" target="_blank"
+               [nwbToolTip]="'navbar.sourceCode' | translate" nwbToolTipPosition="bottom">
+              <fa-icon [icon]="faGithub"></fa-icon>
+            </a>
+            <a class="navbar-item" href="https://github.com/esamarathon/oengusio/issues" target="_blank"
+               [nwbToolTip]="'navbar.bugtracker' | translate" nwbToolTipPosition="bottom">
+              <fa-icon [icon]="faBug"></fa-icon>
+            </a>
+            <a class="navbar-item" href="https://translate.oengus.io/projects/oengus/site/" target="_blank"
+               [nwbToolTip]="'navbar.translate' | translate" nwbToolTipPosition="bottom">
+              <fa-icon [icon]="faLanguage"></fa-icon>
+            </a>
+            <a class="navbar-item" href="https://www.patreon.com/oengusio" target="_blank"
+               [nwbToolTip]="'navbar.donate' | translate" nwbToolTipPosition="bottom">
+              <fa-icon [icon]="faPatreon"></fa-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+
       <div class="navbar-end">
         <div class="navbar-item" *ngIf="userService.user && !userService.isBanned()">
           <button class="button is-primary" routerLink="/marathon/new">{{'navbar.createMarathon' | translate}}
