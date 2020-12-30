@@ -16,6 +16,14 @@ import localeEs from '@angular/common/locales/es';
 import localePt from '@angular/common/locales/pt';
 import localeZhHk from '@angular/common/locales/zh-Hant-HK';
 import { registerLocaleData } from '@angular/common';
+import {
+  Router,
+  Event as RouterEvent,
+  NavigationStart,
+  NavigationEnd,
+  NavigationCancel,
+  NavigationError
+} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -38,20 +46,18 @@ export class AppComponent implements OnInit {
   public languages = (<any>isoLang);
   public language = localStorage.getItem('language') ? localStorage.getItem('language') : navigator.language.split('-')[0];
   public environment = environment;
-  // public loading = true;
+  public loading = true;
 
   public availableLocales = ['en', 'fr', 'de', 'es', 'nl', 'ja', 'cy', 'pt_BR', 'zh_Hant_HK'];
 
   constructor(public userService: UserService,
               private translate: TranslateService,
-              private dateTimeAdapter: DateTimeAdapter<any>) {
-    /*router.events.pipe(
-      // @ts-ignore
-      filter((e: Event): e is RouterEvent => e instanceof RouterEvent)
-    ).subscribe((e: RouterEvent) => {
-      this.loading = true;
+              private dateTimeAdapter: DateTimeAdapter<any>,
+              private router: Router) {
+    router.events.subscribe((event: RouterEvent) => {
+      this.navigationInterceptor(event);
     });
-*/
+
     registerLocaleData(localeFr, 'fr');
     registerLocaleData(localeDe, 'de');
     registerLocaleData(localeNl, 'nl');
@@ -130,4 +136,18 @@ export class AppComponent implements OnInit {
     });
   }
 
+  // Shows and hides the loading spinner during RouterEvent changes
+  navigationInterceptor(event: RouterEvent): void {
+    if (event instanceof NavigationStart) {
+      this.loading = true;
+    } else if (event instanceof NavigationEnd) {
+      this.loading = false;
+
+      // Set loading state to false in both of the below events to hide the loader in case a request fails
+    } else if (event instanceof NavigationCancel) {
+      this.loading = false;
+    } else if (event instanceof NavigationError) {
+      this.loading = false;
+    }
+  }
 }

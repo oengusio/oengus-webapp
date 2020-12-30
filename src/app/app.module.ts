@@ -23,6 +23,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarComponent } from './calendar/calendar.component';
 import { WebpackTranslateLoader } from '../loader/webpack-translate-loader';
 import {PatronsComponent} from './patrons/patrons.component';
+import {PatronsResolver} from './resolvers/patrons-resolver';
 
 const appRoutes: Routes = [
   {path: 'login/:service', component: LoginComponent},
@@ -43,7 +44,10 @@ const appRoutes: Routes = [
   },
   {
     path: 'patrons',
-    component: PatronsComponent
+    component: PatronsComponent,
+    resolve: {
+      patrons: PatronsResolver
+    }
   },
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ];
@@ -83,7 +87,7 @@ const appRoutes: Routes = [
   ],
   exports: [RouterModule],
   providers: [httpInterceptorProviders,
-    HomepageMetadataResolver],
+    HomepageMetadataResolver, PatronsResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import Patron, {PatronApiResponse} from '../../model/patron';
+import Patron from '../../model/patron';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-patrons',
@@ -9,18 +8,13 @@ import Patron, {PatronApiResponse} from '../../model/patron';
   styleUrls: ['./patrons.component.scss']
 })
 export class PatronsComponent implements OnInit {
-  public patrons: Patron[] = [];
+  public patrons: Patron[];
 
-  constructor(private http: HttpClient) {
+  constructor(private route: ActivatedRoute) {
+    this.patrons = this.route.snapshot.data.patrons.patrons;
   }
 
   ngOnInit() {
-    this.http.get<PatronApiResponse>(`${this.patronUrl}/patrons`).subscribe((data) => {
-      this.patrons = data.patrons;
-    });
-  }
-
-  private get patronUrl(): string {
-    return environment.patronApi || environment.api + '/patreon';
+    //
   }
 }

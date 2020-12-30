@@ -9,8 +9,8 @@
         <div class="is-flex is-flex-direction-row is-justify-content-space-around is-flex-wrap-wrap" *ngIf="patrons.length else noPatrons">
           <div class="patron-item" *ngFor="let patron of patrons">
             <a [href]="'https://www.patreon.com/user?u=' + patron.id">{{patron.full_name}}</a>
+          </div>
         </div>
-      </div>
         <ng-template #noPatrons>
           <div [innerHTML]="'patrons.noPatrons' | translate"></div>
         </ng-template>
