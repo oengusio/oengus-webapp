@@ -71,56 +71,58 @@
       </article>
     </div>
   </div>
-  <table class="table is-fullwidth is-striped">
-    <thead>
-    <tr>
-      <th>{{ 'marathon.schedule.table.time' | translate}}</th>
-      <th>{{ 'marathon.schedule.table.runner' | translate}}</th>
-      <th>{{ 'marathon.schedule.table.game' | translate}}</th>
-      <th>{{ 'marathon.schedule.table.category' | translate}}</th>
-      <th>{{ 'marathon.schedule.table.type' | translate}}</th>
-      <th>{{ 'marathon.schedule.table.console' | translate}}</th>
-      <th>{{ 'marathon.schedule.table.estimate' | translate}}</th>
-      <th>{{ 'marathon.schedule.table.setup' | translate}}</th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-template ngFor let-line [ngForOf]="schedule.lines" let-i="index">
-      <tr *ngIf="i === 0 || moment.tz(line.date, timezone).isAfter(moment.tz(schedule.lines[i-1].date, timezone), 'day')">
-        <td colspan="8" class="is-primary has-text-centered"><b>{{moment.tz(line.date, timezone).format('LL')}}</b></td>
+  <div class="table-container">
+    <table class="table is-fullwidth is-striped">
+      <thead>
+      <tr>
+        <th>{{ 'marathon.schedule.table.time' | translate}}</th>
+        <th>{{ 'marathon.schedule.table.runner' | translate}}</th>
+        <th>{{ 'marathon.schedule.table.game' | translate}}</th>
+        <th>{{ 'marathon.schedule.table.category' | translate}}</th>
+        <th>{{ 'marathon.schedule.table.type' | translate}}</th>
+        <th>{{ 'marathon.schedule.table.console' | translate}}</th>
+        <th>{{ 'marathon.schedule.table.estimate' | translate}}</th>
+        <th>{{ 'marathon.schedule.table.setup' | translate}}</th>
       </tr>
-      <tr *ngIf="!line.setupBlock" [ngClass]="{'is-emphasized': currentIndex === i}">
-        <td>{{moment.tz(line.date, timezone).format('HH:mm')}}</td>
-        <td>
-          <div class="is-flex" style="flex-direction: column">
-            <app-user *ngFor="let user of line.runners" [user]="user" [showSocialLinks]="true"></app-user>
-            <br/>
-          </div>
-        </td>
-        <td>
-          {{line.gameName}}
-        </td>
-        <td>
-          {{line.categoryName}}
-        </td>
-        <td>
-          {{ 'marathon.schedule.type.' + line.type | translate}}
-        </td>
-        <td>
-          {{line.console}}<sup *ngIf="line.emulated">{{ 'global.emu' | translate }}</sup>
-        </td>
-        <td>{{line.estimateHuman}}</td>
-        <td>{{line.setupTimeHuman}}</td>
-      </tr>
-      <tr *ngIf="line.setupBlock" [ngClass]="{'is-emphasized': currentIndex === i}">
-        <td>{{moment(line.date).format('HH:mm')}}</td>
-        <td colspan="6" class="has-text-centered">
-          <b *ngIf="!line.setupBlockText">{{'marathon.schedule.setupBlock' | translate}}</b>
-          <b *ngIf="line.setupBlockText">{{line.setupBlockText}}</b>
-        </td>
-        <td>{{line.setupTimeHuman}}</td>
-      </tr>
-    </ng-template>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-line [ngForOf]="schedule.lines" let-i="index">
+        <tr *ngIf="i === 0 || moment.tz(line.date, timezone).isAfter(moment.tz(schedule.lines[i-1].date, timezone), 'day')">
+          <td colspan="8" class="is-primary has-text-centered"><b>{{moment.tz(line.date, timezone).format('LL')}}</b></td>
+        </tr>
+        <tr *ngIf="!line.setupBlock" [ngClass]="{'is-emphasized': currentIndex === i}">
+          <td>{{moment.tz(line.date, timezone).format('HH:mm')}}</td>
+          <td>
+            <div class="is-flex" style="flex-direction: column">
+              <app-user *ngFor="let user of line.runners" [user]="user" [showSocialLinks]="true"></app-user>
+              <br/>
+            </div>
+          </td>
+          <td>
+            {{line.gameName}}
+          </td>
+          <td>
+            {{line.categoryName}}
+          </td>
+          <td>
+            {{ 'marathon.schedule.type.' + line.type | translate}}
+          </td>
+          <td>
+            {{line.console}}<sup *ngIf="line.emulated">{{ 'global.emu' | translate }}</sup>
+          </td>
+          <td>{{line.estimateHuman}}</td>
+          <td>{{line.setupTimeHuman}}</td>
+        </tr>
+        <tr *ngIf="line.setupBlock" [ngClass]="{'is-emphasized': currentIndex === i}">
+          <td>{{moment(line.date).format('HH:mm')}}</td>
+          <td colspan="6" class="has-text-centered">
+            <b *ngIf="!line.setupBlockText">{{'marathon.schedule.setupBlock' | translate}}</b>
+            <b *ngIf="line.setupBlockText">{{line.setupBlockText}}</b>
+          </td>
+          <td>{{line.setupTimeHuman}}</td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </table>
+  </div>
 </div>
