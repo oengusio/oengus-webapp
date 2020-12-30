@@ -72,12 +72,12 @@ export class AppComponent implements OnInit {
   }
 
   acceptPrivacyConsent(): void {
-    //
+    window['ga-disable-G-26CN947SSZ'] = false;
     localStorage.setItem('consent', 'true');
   }
 
   declinePrivacyConsent(): void {
-    //
+    window['ga-disable-G-26CN947SSZ'] = true;
     localStorage.setItem('consent', 'false');
   }
 
