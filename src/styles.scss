@@ -63,3 +63,54 @@
   background-color: rgba($primary, 0.3) !important;
   color: #fff
 }
+
+$bar_height: 5px;
+
+div.loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $bar_height;
+  overflow: hidden;
+  background-color: $grey-light;
+  z-index: 100;
+
+  &:before {
+    display: block;
+    position: absolute;
+    content: " ";
+    left: -200px;
+    width: 200px;
+    height: $bar_height;
+    background-color: $primary;
+    animation: loading 2s linear infinite;
+  }
+}
+
+@keyframes loading {
+  from {
+    left: -200px;
+    width: 30%;
+  }
+
+  50% {
+    width: 30%;
+  }
+
+  70% {
+    width: 70%;
+  }
+
+  80% {
+    left: 50%;
+  }
+
+  95% {
+    left: 120%;
+  }
+
+  to {
+    left: 100%;
+  }
+}

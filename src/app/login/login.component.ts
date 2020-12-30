@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
+import {LoadingBarService} from '../../services/loading-bar.service';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +16,14 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private toastr: NwbAlertService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private loader: LoadingBarService) {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.loader.setLoading(true);
+    }, 0);
     this.route.params.subscribe(params => {
       this.route.queryParams.subscribe(queryParams => {
         this.userService.login(params['service'],

@@ -24,6 +24,7 @@ import {
   NavigationCancel,
   NavigationError
 } from '@angular/router';
+import {LoadingBarService} from '../services/loading-bar.service';
 
 @Component({
   selector: 'app-root',
@@ -53,8 +54,12 @@ export class AppComponent implements OnInit {
   constructor(public userService: UserService,
               private translate: TranslateService,
               private dateTimeAdapter: DateTimeAdapter<any>,
-              private router: Router) {
-    router.events.subscribe((event: RouterEvent) => {
+              private router: Router,
+              private loader: LoadingBarService) {
+    this.loader.stateObserver.subscribe((loading) => {
+      this.loading = loading;
+    });
+    this.router.events.subscribe((event: RouterEvent) => {
       this.navigationInterceptor(event);
     });
 
@@ -139,15 +144,15 @@ export class AppComponent implements OnInit {
   // Shows and hides the loading spinner during RouterEvent changes
   navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
-      this.loading = true;
+      this.loader.setLoading(true);
     } else if (event instanceof NavigationEnd) {
-      this.loading = false;
+      this.loader.setLoading(false);
 
       // Set loading state to false in both of the below events to hide the loader in case a request fails
     } else if (event instanceof NavigationCancel) {
-      this.loading = false;
+      this.loader.setLoading(false);
     } else if (event instanceof NavigationError) {
-      this.loading = false;
+      this.loader.setLoading(false);
     }
   }
 }
