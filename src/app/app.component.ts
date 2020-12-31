@@ -84,11 +84,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.loading = false;
-  }
-
-  closeNotification(): void {
-    localStorage.setItem('closed', 'msg2');
+    //
   }
 
   acceptPrivacyConsent(): void {
@@ -105,10 +101,8 @@ export class AppComponent implements OnInit {
     return localStorage.getItem('consent') !== null;
   }
 
-  isClosed(): boolean {
-    const closed = localStorage.getItem('closed');
-
-    return closed !== null && closed === 'msg2';
+  isBlockingAds(): boolean {
+    return !document.getElementById('xaa1xsXL55MTOABSrN');
   }
 
   useLanguage(language: string) {
