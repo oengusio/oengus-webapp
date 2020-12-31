@@ -1,0 +1,16 @@
+<div class="container">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">
+          {{ titleKey | translate }}
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="container has-text-centered">
+    <br/>
+    <p [innerHTML]="'errors.404.body' | translate:{'path': path}"></p>
+  </div>
+</div>

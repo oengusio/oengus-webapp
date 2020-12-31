@@ -15,7 +15,7 @@ import localeCy from '@angular/common/locales/cy';
 import localeEs from '@angular/common/locales/es';
 import localePt from '@angular/common/locales/pt';
 import localeZhHk from '@angular/common/locales/zh-Hant-HK';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, Location } from '@angular/common';
 import {
   Router,
   Event as RouterEvent,
@@ -29,7 +29,7 @@ import {LoadingBarService} from '../services/loading-bar.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   title = !environment.sandbox ? 'Oengus' : 'Oengus [Sandbox]';
@@ -55,6 +55,7 @@ export class AppComponent implements OnInit {
               private translate: TranslateService,
               private dateTimeAdapter: DateTimeAdapter<any>,
               private router: Router,
+              private location: Location,
               private loader: LoadingBarService) {
     this.loader.stateObserver.subscribe((loading) => {
       this.loading = loading;
@@ -153,6 +154,10 @@ export class AppComponent implements OnInit {
       this.loader.setLoading(false);
     } else if (event instanceof NavigationError) {
       this.loader.setLoading(false);
+
+      // stay on the same route if something fails
+      this.router.navigate(['/404'], {skipLocationChange: true})
+        .then(() =>  this.location.go(event.url));
     }
   }
 }

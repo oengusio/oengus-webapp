@@ -24,6 +24,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { WebpackTranslateLoader } from '../loader/webpack-translate-loader';
 import {PatronsComponent} from './patrons/patrons.component';
 import {PatronsResolver} from './resolvers/patrons-resolver';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {path: 'login/:service', component: LoginComponent},
@@ -49,7 +50,10 @@ const appRoutes: Routes = [
       patrons: PatronsResolver
     }
   },
-  {path: '**', redirectTo: '/', pathMatch: 'full'}
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({
@@ -59,7 +63,8 @@ const appRoutes: Routes = [
     HomepageComponent,
     AboutComponent,
     PatronsComponent,
-    CalendarComponent
+    CalendarComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
