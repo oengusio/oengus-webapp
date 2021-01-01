@@ -139,6 +139,10 @@ export class AppComponent implements OnInit {
   // Shows and hides the loading spinner during RouterEvent changes
   navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
+      // close the navbar
+      this.navBurger.nativeElement.classList.remove('is-active');
+      this.navMenu.nativeElement.classList.remove('is-active');
+
       this.loader.setLoading(true);
     } else if (event instanceof NavigationEnd) {
       this.loader.setLoading(false);
