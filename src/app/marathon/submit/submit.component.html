@@ -249,15 +249,10 @@
               <div class="column is-6">
                 <label class="label">{{'marathon.submit.game.console.label' | translate}}</label>
                 <div class="field has-addons">
-                  <div class="control is-expanded">
-                    <input class="input"
-                           type="text"
-                           [(ngModel)]="game.console"
-                           name="gameConsole{{i}}"
-                           [ngClass]="{'is-danger': gameConsole.invalid}"
-                           required
-                           maxlength="10"
-                           #gameConsole="ngModel">
+                  <div class="select is-expanded">
+                    <select [(ngModel)]="game.console" name="gameConsole{{i}}">
+                      <option *ngFor="let opt of possibleConsoles" [value]="opt" [selected]="opt === game.console">{{opt}}</option>
+                    </select>
                   </div>
                   <fieldset class="control is-tooltip-danger" [disabled]="!marathonService.marathon.emulatorAuthorized"
                             [nwbToolTip]="'marathon.submit.game.console.emulatorNotAllowed' | translate"
@@ -277,12 +272,6 @@
                       </label>
                     </button>
                   </p>
-                </div>
-                <p class="help is-pulled-right">{{game.console?.length}}/10</p>
-                <div *ngIf="gameConsole.invalid">
-                  <p class="help is-danger"
-                     *ngIf="gameConsole.errors.required">
-                    {{'marathon.submit.game.console.error.required' | translate}}</p>
                 </div>
               </div>
               <div class="column is-6">
