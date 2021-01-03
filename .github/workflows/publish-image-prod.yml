@@ -3,7 +3,6 @@ on:
   release:
     types: [ published ]
 jobs:
-   # TODO: make sandbox release
     push_to_registry:
         name: Push Docker image to GitHub Packages
         runs-on: ubuntu-latest
@@ -12,6 +11,16 @@ jobs:
               uses: actions/checkout@v2
               with:
                 submodules: true
+            # publish the sandbox package
+            - name: Push production to GitHub Packages
+              uses: docker/build-push-action@v1
+              with:
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+                registry: docker.pkg.github.com
+                repository: esamarathon/oengus-webapp/oengus-frontend
+                tags: sandbox
+                build_args: PROFILE=sandbox
             - name: Push production to GitHub Packages
               uses: docker/build-push-action@v1
               with:
@@ -19,7 +28,7 @@ jobs:
                   password: ${{ secrets.GITHUB_TOKEN }}
                   registry: docker.pkg.github.com
                   repository: esamarathon/oengus-webapp/oengus-frontend
-                  tags: prod
+                  tags: latest
                   build_args: PROFILE=production
             #- name: Trigger prod webhook
             #  uses: zzzze/webhook-trigger@v1.0.0
