@@ -22,7 +22,7 @@ import {
   NavigationStart,
   NavigationEnd,
   NavigationCancel,
-  NavigationError, ActivatedRoute
+  NavigationError
 } from '@angular/router';
 import {LoadingBarService} from '../services/loading-bar.service';
 import {TitleService} from '../services/title.service';
@@ -56,7 +56,6 @@ export class AppComponent implements OnInit {
               private translate: TranslateService,
               private dateTimeAdapter: DateTimeAdapter<any>,
               private router: Router,
-              private activatedRoute: ActivatedRoute,
               private location: Location,
               private titleService: TitleService,
               private loader: LoadingBarService) {
@@ -139,6 +138,14 @@ export class AppComponent implements OnInit {
     });
   }
 
+  onRouteActivated(component) {
+    if (Object.getPrototypeOf(component).hasOwnProperty('title')) {
+      this.titleService.setTitle(component.title);
+    } else {
+      this.titleService.resetTitle();
+    }
+  }
+
   // Shows and hides the loading spinner during RouterEvent changes
   navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
@@ -149,25 +156,6 @@ export class AppComponent implements OnInit {
       this.loader.setLoading(true);
     } else if (event instanceof NavigationEnd) {
       this.loader.setLoading(false);
-
-      let child = this.activatedRoute.firstChild;
-
-      while (child.firstChild) {
-        child = child.firstChild;
-      }
-
-      // NOTE: dynamic titles have to be implemented by the component self
-      // @ts-ignore
-      const component = child.component;
-
-      console.log(component.hasOwnProperty('setsOwnTitle'));
-
-      if (component.hasOwnProperty('title')) {
-        // @ts-ignore
-        this.titleService.setTitle(`${component.title} | ${this.title}`);
-      } else if (!component.hasOwnProperty('setsOwnTitle')) {
-        this.titleService.resetTitle();
-      }
 
       // Set loading state to false in both of the below events to hide the loader in case a request fails
     } else if (event instanceof NavigationCancel) {

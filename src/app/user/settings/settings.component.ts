@@ -116,4 +116,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  get title(): string {
+    return 'Settings';
+  }
 }

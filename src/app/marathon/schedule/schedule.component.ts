@@ -16,7 +16,6 @@ import { Subscription, timer } from 'rxjs';
   styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
-  static setsOwnTitle = true;
 
   public schedule: Schedule;
   public moment = moment;

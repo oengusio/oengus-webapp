@@ -6,12 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-  static title = 'About';
 
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  get title(): string {
+    return 'About';
   }
 
 }

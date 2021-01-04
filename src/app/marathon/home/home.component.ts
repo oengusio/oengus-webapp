@@ -14,7 +14,6 @@ declare const Twitch: any;
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  static setsOwnTitle = true;
 
   public moment = moment;
   public languages = (<any>isoLang);

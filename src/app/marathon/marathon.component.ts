@@ -19,7 +19,6 @@ import {
   faBars,
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
-import {TitleService} from '../../services/title.service';
 
 @Component({
   selector: 'app-marathon',
@@ -48,15 +47,12 @@ export class MarathonComponent implements OnInit {
   public mobileOpen = true;
 
   constructor(private route: ActivatedRoute,
-              private titleService: TitleService,
               public userService: UserService,
               public marathonService: MarathonService) {
     if (!this.marathonService.marathon || this.marathonService.marathon.id !== this.route.snapshot.data.marathon.id) {
       delete this.marathonService.marathon;
       this.marathonService.marathon = {...this.route.snapshot.data.marathon};
     }
-
-    this.titleService.setTitle(this.marathonService.marathon.name);
   }
 
   ngOnInit() {
@@ -64,6 +60,10 @@ export class MarathonComponent implements OnInit {
 
   isAdmin() {
     return this.marathonService.isAdmin(this.userService.user);
+  }
+
+  get title(): string {
+    return this.marathonService.marathon.name;
   }
 
 }

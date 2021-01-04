@@ -31,4 +31,7 @@ export class NewMarathonComponent implements OnInit {
     });
   }
 
+  get title(): string {
+    return 'Create a new marathon';
+  }
 }
