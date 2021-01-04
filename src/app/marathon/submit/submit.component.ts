@@ -20,6 +20,7 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './submit.component.html',
 })
 export class SubmitComponent implements OnInit {
+  static setsOwnTitle = true;
 
   public submission: Submission;
   public faCheck = faCheck;

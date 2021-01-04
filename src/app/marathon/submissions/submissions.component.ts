@@ -18,6 +18,7 @@ import { CategoryService } from '../../../services/category.service';
   styleUrls: ['./submissions.component.scss']
 })
 export class SubmissionsComponent implements OnInit {
+  static setsOwnTitle = true;
 
   public games: Game[];
   public answers: Submission[];

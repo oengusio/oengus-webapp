@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
+  static title = 'Calendar';
 
   public calendarPlugins = [dayGridPlugin];
   public localStorage = localStorage;

@@ -7,6 +7,7 @@ import { Game } from '../../../model/game';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment';
 import { UserProfileHistory } from '../../../model/user-profile-history';
+import {TitleService} from '../../../services/title.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,7 @@ import { UserProfileHistory } from '../../../model/user-profile-history';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  static setsOwnTitle = true;
 
   public user: UserProfile;
   public localStorage = localStorage;
@@ -58,7 +60,12 @@ export class ProfileComponent implements OnInit {
     }
   ];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private titleService: TitleService) {
+    this.user = this.route.snapshot.data.user;
+
+    console.log('constructor');
+    console.log(this.user);
+
     this.route.data.subscribe(routeData => {
       this.updateUser(routeData.user);
     });
@@ -68,6 +75,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser(user) {
+    this.titleService.setTitle(user.username);
     this.user = user;
     this.user.history.forEach(marathon => {
       marathon.games.forEach(game => {

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Schedule } from '../../../model/schedule';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment-timezone';
-//import 'moment-timezone/builds/moment-timezone-with-data-10-year-range';
+// import 'moment-timezone/builds/moment-timezone-with-data-10-year-range';
 import { MarathonService } from '../../../services/marathon.service';
 import { ScheduleService } from '../../../services/schedule.service';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +16,7 @@ import { Subscription, timer } from 'rxjs';
   styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
+  static setsOwnTitle = true;
 
   public schedule: Schedule;
   public moment = moment;
