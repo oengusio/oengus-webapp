@@ -54,11 +54,11 @@ export class CalendarComponent implements OnInit {
   }
 
   goToEvent(eventClickInfo) {
-    // @ts-ignore
+    /*// @ts-ignore
     const { activeStart, activeEnd } = this.calendarComponent.calendar.view;
     const json = JSON.stringify({ activeStart, activeEnd });
 
-    localStorage.setItem('calendar-range', json);
+    localStorage.setItem('calendar-range', json);*/
 
     this.router.navigate(['/marathon', eventClickInfo.event.id]);
   }
