@@ -42,6 +42,7 @@ import { DonationsComponent } from './donations/donations.component';
 import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
 import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
+import {AdsenseComponent} from '../adsense.component';
 
 const marathonRoutes: Routes = [
   {
@@ -178,33 +179,34 @@ const marathonRoutes: Routes = [
     IncentiveManagementComponent,
     IncentiveComponent,
     DonateComponent,
-    DonationsComponent
+    DonationsComponent,
+    AdsenseComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(marathonRoutes),
-    FormsModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-    NwbSwitchModule,
-    DirectivesModule,
-    FontAwesomeModule,
-    NgxMdModule.forRoot(),
-    NwbCommonModule,
-    AutocompleteLibModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    OengusCommonModule,
-    DragDropModule,
-    NwbEditInPlaceModule,
-    NgxPayPalModule,
-    NwbPaginatorModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(marathonRoutes),
+        FormsModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule,
+        NwbSwitchModule,
+        DirectivesModule,
+        FontAwesomeModule,
+        NgxMdModule.forRoot(),
+        NwbCommonModule,
+        AutocompleteLibModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        OengusCommonModule,
+        DragDropModule,
+        NwbEditInPlaceModule,
+        NgxPayPalModule,
+        NwbPaginatorModule
+    ],
   exports: [
     RouterModule
   ],

@@ -30,7 +30,7 @@ jobs:
                   repository: esamarathon/oengus-webapp/oengus-frontend
                   tags: latest
                   build_args: PROFILE=production
-            #- name: Trigger prod webhook
-            #  uses: zzzze/webhook-trigger@v1.0.0
-            #  with:
-            #    webhook_url: ${{ secrets.PROD_WEBHOOK_URL }}
+            - name: Trigger prod webhook
+              uses: zzzze/webhook-trigger@v1.0.0
+              with:
+                webhook_url: ${{ secrets.PROD_WEBHOOK_URL }}
