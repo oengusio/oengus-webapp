@@ -156,4 +156,7 @@ export class ProfileComponent implements OnInit {
     return i;
   }
 
+  get title(): string {
+    return this.user.username;
+  }
 }

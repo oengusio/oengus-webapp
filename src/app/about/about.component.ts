@@ -13,4 +13,8 @@ export class AboutComponent implements OnInit {
   ngOnInit() {
   }
 
+  get title(): string {
+    return 'About';
+  }
+
 }

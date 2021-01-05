@@ -28,4 +28,7 @@ export class NewUserComponent implements OnInit {
     });
   }
 
+  get title(): string {
+    return 'Sign Up';
+  }
 }

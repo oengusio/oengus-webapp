@@ -17,4 +17,8 @@ export class PatronsComponent implements OnInit {
   ngOnInit() {
     //
   }
+
+  get title(): string {
+    return 'Our patrons';
+  }
 }

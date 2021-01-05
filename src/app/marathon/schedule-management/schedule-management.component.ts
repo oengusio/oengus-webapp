@@ -333,4 +333,7 @@ export class ScheduleManagementComponent implements OnInit {
       }));
   }
 
+  get title(): string {
+    return 'Manage Schedule';
+  }
 }

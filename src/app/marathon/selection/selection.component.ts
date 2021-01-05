@@ -206,4 +206,8 @@ export class SelectionComponent implements OnInit {
     });
     this.availabilitiesSelected = [];
   }
+
+  get title(): string {
+    return 'Select Runs';
+  }
 }

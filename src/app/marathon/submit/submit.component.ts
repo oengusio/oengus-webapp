@@ -205,4 +205,8 @@ export class SubmitComponent implements OnInit {
   deleteSubmission(marathonId: string, submissionId: number) {
     this.submissionService.delete(marathonId, submissionId, () => this.router.navigate(['/marathon', this.marathonService.marathon.id]));
   }
+
+  get title(): string {
+    return 'Submit';
+  }
 }

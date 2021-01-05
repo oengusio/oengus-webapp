@@ -25,6 +25,7 @@ import {
   NavigationError
 } from '@angular/router';
 import {LoadingBarService} from '../services/loading-bar.service';
+import {TitleService} from '../services/title.service';
 
 @Component({
   selector: 'app-root',
@@ -56,6 +57,7 @@ export class AppComponent implements OnInit {
               private dateTimeAdapter: DateTimeAdapter<any>,
               private router: Router,
               private location: Location,
+              private titleService: TitleService,
               private loader: LoadingBarService) {
     this.loader.stateObserver.subscribe((loading) => {
       this.loading = loading;
@@ -134,6 +136,14 @@ export class AppComponent implements OnInit {
     this.userService.login('twitterAuth').subscribe(response => {
       window.location.replace(response.token);
     });
+  }
+
+  onRouteActivated(component) {
+    if (Object.getPrototypeOf(component).hasOwnProperty('title')) {
+      this.titleService.setTitle(component.title);
+    } else {
+      this.titleService.resetTitle();
+    }
   }
 
   // Shows and hides the loading spinner during RouterEvent changes

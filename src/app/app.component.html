@@ -150,7 +150,7 @@
   </nav>
 
   <div class="content-wrapper">
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="onRouteActivated($event)"></router-outlet>
   </div>
 
   <footer class="footer" style="flex-grow: 0; flex-shrink: 0">

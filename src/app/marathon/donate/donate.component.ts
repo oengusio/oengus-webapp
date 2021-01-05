@@ -140,6 +140,10 @@ export class DonateComponent implements OnInit {
       }
     };
   }
+
+  get title(): string {
+    return 'Donate';
+  }
 }
 
 export class Link {
