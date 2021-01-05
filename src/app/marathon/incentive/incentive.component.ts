@@ -20,4 +20,8 @@ export class IncentiveComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  get title(): string {
+    return 'Incentives';
+  }
 }

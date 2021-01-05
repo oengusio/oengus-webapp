@@ -83,4 +83,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.scheduleRefresher.unsubscribe();
   }
 
+  get title(): string {
+    return 'Schedule';
+  }
 }

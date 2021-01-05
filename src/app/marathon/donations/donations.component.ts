@@ -43,4 +43,7 @@ export class DonationsComponent implements OnInit {
     this.donationService.exportAllForMarathon(this.marathonService.marathon.id);
   }
 
+  get title(): string {
+    return 'Donations';
+  }
 }

@@ -65,4 +65,8 @@ export class IncentiveManagementComponent implements OnInit {
   countNotDeletedBids(incentive: Incentive) {
     return incentive.bids.filter(bid => !bid.toDelete).length;
   }
+
+  get title(): string {
+    return 'Mange Incentives';
+  }
 }

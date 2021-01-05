@@ -174,4 +174,8 @@ export class SubmissionsComponent implements OnInit {
       }
     });
   }
+
+  get title(): string {
+    return 'Submissions';
+  }
 }

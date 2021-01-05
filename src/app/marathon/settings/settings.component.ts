@@ -171,4 +171,8 @@ export class SettingsComponent implements OnInit {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     this.computeQuestionsPositions();
   }
+
+  get title(): string {
+    return 'Settings';
+  }
 }

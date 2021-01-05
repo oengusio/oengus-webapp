@@ -7,11 +7,23 @@ import {Title} from '@angular/platform-browser';
 })
 export class TitleService {
   private baseTitle = !environment.sandbox ? 'Oengus' : 'Oengus [Sandbox]';
+  private mainTitle: string;
 
-  constructor(private title: Title) { }
+  constructor(private title: Title) {
+    this.mainTitle = this.baseTitle;
+  }
+
+  setSubTitle(subTitle: string) {
+    this.title.setTitle(`${subTitle} | ${this.mainTitle}`);
+  }
+
+  resetSubTitle() {
+    this.title.setTitle(this.mainTitle);
+  }
 
   setTitle(title: string) {
     this.title.setTitle(`${title} | ${this.baseTitle}`);
+    this.mainTitle = this.title.getTitle();
   }
 
   resetTitle() {

@@ -133,6 +133,6 @@
     <google-adsense></google-adsense>
   </div>
   <div class="column">
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="marathonRouteActivate($event)"></router-outlet>
   </div>
 </div>
