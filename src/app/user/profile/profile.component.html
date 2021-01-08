@@ -14,11 +14,11 @@
     <button class="button is-danger"
             (click)="unbanUser()"
             [disabled]="banLoading"
-            *ngIf="user.banned else banUserTemplate">Unban User</button>
+            *ngIf="user.banned else banUserTemplate">{{ 'user.profile.unban' | translate }}</button>
     <ng-template #banUserTemplate>
       <button class="button is-warning"
               [disabled]="banLoading"
-              (click)="banUser()">Ban User</button>
+              (click)="banUser()">{{ 'user.profile.ban' | translate }}</button>
     </ng-template>
   </div>
 
