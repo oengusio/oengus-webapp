@@ -127,12 +127,28 @@ export class UserService {
     return this.http.get<User[]>(environment.api + '/user/' + name + '/search');
   }
 
+  ban(id: number): Observable<void> {
+    return this.http.post<void>(environment.api + '/user/ban/' + id, null);
+  }
+
+  unban(id: number): Observable<void> {
+    return this.http.delete<void>(environment.api + '/user/ban/' + id);
+  }
+
   getProfile(name: string): Observable<UserProfile> {
     return this.http.get<UserProfile>(environment.api + '/user/' + name);
   }
 
   isBanned(): boolean {
     return this._user.roles.includes('ROLE_BANNED');
+  }
+
+  isAdmin(): boolean {
+    return this._user.roles.includes('ROLE_ADMIN');
+  }
+
+  isLoggedIn(): boolean {
+    return Boolean(this._user);
   }
 
   set token(value: string) {

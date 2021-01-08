@@ -7,6 +7,7 @@ import { Game } from '../../../model/game';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment';
 import { UserProfileHistory } from '../../../model/user-profile-history';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,8 @@ export class ProfileComponent implements OnInit {
   public faTrophy = faTrophy;
   public faAngleDown = faAngleDown;
   public moment = moment;
+
+  public banLoading = false;
 
   public statusFilter = [
     {
@@ -58,7 +61,7 @@ export class ProfileComponent implements OnInit {
     }
   ];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, public userService: UserService) {
     this.route.data.subscribe(routeData => {
       this.updateUser(routeData.user);
     });
@@ -146,6 +149,22 @@ export class ProfileComponent implements OnInit {
     return marathon.games.map(this.visibleCategories).reduce((previousValue, currentValue) => previousValue + currentValue);
   }
 
+  public isAdmin() {
+    if (!this.userService.isLoggedIn()) {
+      return false;
+    }
+
+    return this.userService.isAdmin();
+  }
+
+  public isSelf() {
+    if (!this.userService.isLoggedIn()) {
+      return false;
+    }
+
+    return this.userService.user.id === this.user.id;
+  }
+
   firstDisplayed(list: any[]) {
     let i = 0;
     for (i; i < list.length; i++) {
@@ -154,6 +173,30 @@ export class ProfileComponent implements OnInit {
       }
     }
     return i;
+  }
+
+  public banUser(): void {
+    this.banLoading = true;
+
+    this.userService.ban(this.user.id).subscribe({
+      next: () => {
+        this.user.banned = true;
+      }, complete: () => {
+        this.banLoading = false;
+      }
+    });
+  }
+
+  public unbanUser(): void {
+    this.banLoading = true;
+
+    this.userService.unban(this.user.id).subscribe({
+      next: () => {
+        this.user.banned = false;
+      }, complete: () => {
+        this.banLoading = false;
+      }
+    });
   }
 
   get title(): string {
