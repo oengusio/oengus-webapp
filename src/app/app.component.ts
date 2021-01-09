@@ -7,6 +7,7 @@ import isoLang from '../assets/languages.json';
 import moment from 'moment-timezone';
 import { DateTimeAdapter } from '@busacca/ng-pick-datetime';
 import { environment } from '../environments/environment';
+import localeEn from '@angular/common/locales/en';
 import localeFr from '@angular/common/locales/fr';
 import localeDe from '@angular/common/locales/de';
 import localeNl from '@angular/common/locales/nl';
@@ -14,6 +15,7 @@ import localeJa from '@angular/common/locales/ja';
 import localeCy from '@angular/common/locales/cy';
 import localeEs from '@angular/common/locales/es';
 import localePt from '@angular/common/locales/pt';
+import localeEl from '@angular/common/locales/el';
 import localeZhHk from '@angular/common/locales/zh-Hant-HK';
 import { registerLocaleData, Location } from '@angular/common';
 import {
@@ -50,7 +52,18 @@ export class AppComponent implements OnInit {
   public environment = environment;
   public loading = true;
 
-  public availableLocales = ['en', 'fr', 'de', 'es', 'nl', 'ja', 'cy', 'pt_BR', 'zh_Hant_HK'];
+  public availableLocales = {
+    'en': localeEn,
+    'fr': localeFr,
+    'de': localeDe,
+    'es': localeEs,
+    'nl': localeNl,
+    'ja': localeJa,
+    'cy': localeCy,
+    'el': localeEl,
+    'pt_BR': localePt,
+    'zh_Hant_HK': localeZhHk,
+  };
 
   constructor(public userService: UserService,
               private translate: TranslateService,
@@ -66,20 +79,8 @@ export class AppComponent implements OnInit {
       this.navigationInterceptor(event);
     });
 
-    registerLocaleData(localeFr, 'fr');
-    registerLocaleData(localeDe, 'de');
-    registerLocaleData(localeNl, 'nl');
-    registerLocaleData(localeEs, 'es');
-    registerLocaleData(localeJa, 'ja');
-    registerLocaleData(localeCy, 'cy');
-    registerLocaleData(localePt, 'pt_BR');
-    registerLocaleData(localeZhHk, 'zh_Hant_HK');
-    translate.setDefaultLang('en');
-    if (this.availableLocales.includes(this.language)) {
-      this.useLanguage(this.language);
-    } else {
-      this.useLanguage('en');
-    }
+    this.setupLanguages();
+
     if (!this.userService.user) {
       this.userService.me();
     }
@@ -107,15 +108,42 @@ export class AppComponent implements OnInit {
     return !document.getElementById('xaa1xsXL55MTOABSrN');
   }
 
-  useLanguage(language: string) {
+  setupLanguages(): void {
+    const host = window.location.hostname;
+
+    if (host !== 'localhost' && host !== 'oengus.dev') {
+      // remove greek on the live site
+      delete this.availableLocales['el'];
+    }
+
+    for (const lang of this.availableLocaleNames) {
+      registerLocaleData(this.availableLocales[lang], lang);
+    }
+
+    this.translate.setDefaultLang('en');
+
+    if (this.language in this.availableLocales) {
+      this.useLanguage(this.language);
+    } else {
+      this.useLanguage('en');
+    }
+  }
+
+  get availableLocaleNames(): string [] {
+    return Object.keys(this.availableLocales);
+  }
+
+  useLanguage(language: string): void {
     this.language = language;
     localStorage.setItem('language', language);
     this.translate.use(language);
+
     if (language === 'zh_Hant_HK') {
       moment.locale('zh_hk');
     } else {
       moment.locale(language.split('_')[0]);
     }
+
     this.dateTimeAdapter.setLocale(language.split('_')[0]);
   }
 

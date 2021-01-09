@@ -21,6 +21,10 @@ jobs:
                 repository: esamarathon/oengus-webapp/oengus-frontend
                 tags: sandbox
                 build_args: PROFILE=sandbox
+            - name: Trigger sandbox webhook
+              uses: zzzze/webhook-trigger@v1.0.0
+              with:
+                webhook_url: ${{ secrets.SANDBOX_WEBHOOK_URL }}
             - name: Push production to GitHub Packages
               uses: docker/build-push-action@v1
               with:

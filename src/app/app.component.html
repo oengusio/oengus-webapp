@@ -90,7 +90,7 @@
             {{languages[language].nativeName | titlecase}}
           </a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" *ngFor="let locale of availableLocales" (click)="useLanguage(locale)">
+            <a class="navbar-item" *ngFor="let locale of availableLocaleNames" (click)="useLanguage(locale)">
               {{languages[locale].nativeName | titlecase}}
             </a>
           </div>
