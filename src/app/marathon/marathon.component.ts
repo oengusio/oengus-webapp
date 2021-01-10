@@ -72,7 +72,7 @@ export class MarathonComponent implements OnInit {
 
     setTimeout(() => {
       this.showAdsense = true;
-    }, 0);
+    }, 100);
 
     if (Object.getPrototypeOf(component).hasOwnProperty('title')) {
       this.titleService.setSubTitle(component.title);
