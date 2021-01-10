@@ -17,6 +17,7 @@ import localeEs from '@angular/common/locales/es';
 import localePt from '@angular/common/locales/pt';
 import localeEl from '@angular/common/locales/el';
 import localeZhHk from '@angular/common/locales/zh-Hant-HK';
+import localeTr from '@angular/common/locales/tr';
 import { registerLocaleData, Location } from '@angular/common';
 import {
   Router,
@@ -63,6 +64,7 @@ export class AppComponent implements OnInit {
     'el': localeEl,
     'pt_BR': localePt,
     'zh_Hant_HK': localeZhHk,
+    'tr': localeTr,
   };
 
   constructor(public userService: UserService,
@@ -111,9 +113,10 @@ export class AppComponent implements OnInit {
   setupLanguages(): void {
     const host = window.location.hostname;
 
+    // remove a few languages from the prod site
     if (host !== 'localhost' && host !== 'oengus.dev') {
-      // remove greek on the live site
       delete this.availableLocales['el'];
+      delete this.availableLocales['tr'];
     }
 
     for (const lang of this.availableLocaleNames) {
