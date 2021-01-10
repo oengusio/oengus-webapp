@@ -13,7 +13,7 @@
     </li>
   </ul>
 </div>
-<div [hidden]="displaysTabs() && active !== 'submissions'">
+<div [hidden]="displaysTabs() && active !== 'submissions'" class="container">
   <div class="table-container">
     <table class="table is-fullwidth {{marathonService.marathon.selectionDone ? '' : 'is-striped'}}">
       <thead>
