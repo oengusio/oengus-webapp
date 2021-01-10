@@ -42,7 +42,7 @@ import { DonationsComponent } from './donations/donations.component';
 import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
 import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
-import {AdsenseComponent} from '../adsense.component';
+import {AdsenseComponent} from '../adsense/adsense.component';
 
 const marathonRoutes: Routes = [
   {

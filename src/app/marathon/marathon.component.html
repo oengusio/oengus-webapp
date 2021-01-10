@@ -130,7 +130,7 @@
         </ng-template>
       </div>
     </aside>
-    <google-adsense></google-adsense>
+    <google-adsense *ngIf="showAdsense"></google-adsense>
   </div>
   <div class="column">
     <router-outlet (activate)="marathonRouteActivate($event)"></router-outlet>

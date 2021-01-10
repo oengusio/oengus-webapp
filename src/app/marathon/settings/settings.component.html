@@ -432,7 +432,7 @@
         </div>
       </fieldset>
     </div>
-    <fieldset [disabled]="marathonService.isArchived()">
+    <fieldset [disabled]="marathonService.isArchived() && !marathonService.isAdmin(userService.user)">
       <div [hidden]="active !== 'submissions'">
         <h1 class="title">{{ 'marathon.settings.submissionsTitle' | translate}}</h1>
         <div class="field">
