@@ -38,7 +38,7 @@ export class Marathon {
   payee: string;
   donationCurrency: string;
   supportedCharity: string;
-  donationWebhook: string;
+  webhook: string;
   donationsTotal: number;
   hasSubmitted: boolean;
   donationsOpen: boolean;

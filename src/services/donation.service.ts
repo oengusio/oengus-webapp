@@ -28,13 +28,6 @@ export class DonationService {
     });
   }
 
-  isWebhookOnline(marathonId: string, url: string): Observable<any> {
-    const params = new HttpParams().set('url', url);
-    return this.http.get(environment.api + '/marathon/' + marathonId + '/donation/webhook', {
-      params: params
-    });
-  }
-
   findStats(marathonId: string): Observable<DonationStats> {
     return this.http.get<DonationStats>(environment.api + '/marathon/' + marathonId + '/donation/stats');
   }
