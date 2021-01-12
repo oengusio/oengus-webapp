@@ -3,7 +3,7 @@ export const environment = {
   sandbox: true,
   baseSite: 'https://sandbox.oengus.io',
   api: 'https://sandbox.oengus.io/api',
-  twitchClientId: 'yvlsv2i2pf9euy7jy9rarqlnlccagn',
+  twitchClientId: 'f4ry4d9k0dt89ha8ks7cb845trvbod',
   loginRedirect: 'https://sandbox.oengus.io/login/',
   syncRedirect: 'https://sandbox.oengus.io/user/settings/sync/',
   discordClientId: '559625844197163008',
