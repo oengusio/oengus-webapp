@@ -63,25 +63,9 @@ export class SettingsComponent implements OnInit {
   checkWebhook(text: any) {
     if (text) {
       this.loadWebhookCheck = true;
-
-      fetch(text, {
-        method: 'POST',
-        body: JSON.stringify({ event: 'PING' }),
-        headers: {
-          'User-Agent': 'oengus.io webhook',
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((res) => {
-          this.isWebhookOnline = res.ok;
-        })
-        .catch(() => {
-          this.isWebhookOnline = false;
-        })
-        .then(() => {
-          this.loadWebhookCheck = false;
-        })
-      ;
+      this.marathonService.isWebhookOnline(this.marathonService.marathon.id, text)
+        .subscribe(() => this.isWebhookOnline = true, () => this.isWebhookOnline = false)
+        .add(() => this.loadWebhookCheck = false);
     } else {
       this.isWebhookOnline = true;
     }
