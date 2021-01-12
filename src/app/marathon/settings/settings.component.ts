@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Question } from '../../../model/question';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { DonationService } from '../../../services/donation.service';
+import { debounce } from 'lodash';
 
 @Component({
   selector: 'app-settings',
@@ -41,14 +41,16 @@ export class SettingsComponent implements OnInit {
   public submissionsQuestions: Question[];
   public donationsQuestions: Question[];
 
-  public loadDonationWebhookCheck: boolean;
+  public loadWebhookCheck: boolean;
   public isWebhookOnline = true;
+  public checkWebhookDebounced;
 
   constructor(public marathonService: MarathonService,
-              private donationService: DonationService,
               public userService: UserService) {
     this.now = new Date();
     this.now.setSeconds(0);
+
+    this.checkWebhookDebounced = debounce(this.checkWebhook, 250);
   }
 
   ngOnInit() {
@@ -60,10 +62,10 @@ export class SettingsComponent implements OnInit {
 
   checkWebhook(text: any) {
     if (text) {
-      this.loadDonationWebhookCheck = true;
-      this.donationService.isWebhookOnline(this.marathonService.marathon.id, text)
+      this.loadWebhookCheck = true;
+      this.marathonService.isWebhookOnline(this.marathonService.marathon.id, text)
         .subscribe(() => this.isWebhookOnline = true, () => this.isWebhookOnline = false)
-        .add(() => this.loadDonationWebhookCheck = false);
+        .add(() => this.loadWebhookCheck = false);
     } else {
       this.isWebhookOnline = true;
     }

@@ -128,11 +128,11 @@ export class UserService {
   }
 
   ban(id: number): Observable<void> {
-    return this.http.post<void>(environment.api + '/user/ban/' + id, null);
+    return this.http.post<void>(environment.api + '/user/' + id + '/ban', null);
   }
 
   unban(id: number): Observable<void> {
-    return this.http.delete<void>(environment.api + '/user/ban/' + id);
+    return this.http.delete<void>(environment.api + '/user/' + id + '/ban');
   }
 
   getProfile(name: string): Observable<UserProfile> {

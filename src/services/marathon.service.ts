@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Marathon } from '../model/marathon';
 import { environment } from '../environments/environment';
@@ -145,5 +145,12 @@ export class MarathonService {
 
   hasDstChange(): boolean {
     return moment(this.marathon.startDate).isDST() !== moment(this.marathon.endDate).isDST();
+  }
+
+  isWebhookOnline(marathonId: string, url: string): Observable<any> {
+    const params = new HttpParams().set('url', url);
+    return this.http.get(environment.api + '/marathon/' + marathonId + '/webhook', {
+      params: params
+    });
   }
 }

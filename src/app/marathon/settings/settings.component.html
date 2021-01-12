@@ -431,6 +431,34 @@
           </div>
         </div>
       </fieldset>
+      <fieldset [disabled]="marathonService.isArchived()">
+        <div class="columns">
+          <div class="column is-half-desktop">
+            <div class="field">
+              <label class="label">{{ 'marathon.settings.webhook.label' | translate}}</label>
+              <div class="control" [ngClass]="{'is-loading': loadWebhookCheck}">
+                <input class="input"
+                       [ngClass]="{'is-danger': webhook.invalid || !isWebhookOnline}"
+                       type="text"
+                       [(ngModel)]="marathon.webhook"
+                       name="webhook"
+                       maxlength="200"
+                       #webhook="ngModel"
+                       (ngModelChange)="checkWebhookDebounced($event)">
+                <p class="help is-pulled-right">{{marathon.webhook?.length}}/200</p>
+                <p class="help">{{ 'marathon.settings.webhook.help' | translate}}</p>
+              </div>
+              <div *ngIf="webhook.invalid">
+                <p class="help is-danger"
+                   *ngIf="webhook.errors.maxlength">{{'marathon.settings.webhook.error.max' | translate}}</p>
+              </div>
+              <div *ngIf="!isWebhookOnline">
+                <p class="help is-danger">{{'marathon.settings.webhook.error.offline' | translate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
     </div>
     <fieldset [disabled]="marathonService.isArchived() && !marathonService.isAdmin(userService.user)">
       <div [hidden]="active !== 'submissions'">
@@ -719,7 +747,6 @@
               <label class="label">{{ 'marathon.settings.supportedCharity.label' | translate}}</label>
               <div class="control">
                 <input class="input"
-                       disabled
                        [ngClass]="{'is-danger': supportedCharity.invalid}"
                        type="text"
                        [(ngModel)]="marathon.supportedCharity"
@@ -743,7 +770,6 @@
               <label class="label">{{ 'marathon.settings.payee.label' | translate}}</label>
               <div class="control">
                 <input class="input"
-                       disabled
                        [ngClass]="{'is-danger': payee.invalid}"
                        type="email"
                        email
@@ -787,31 +813,6 @@
                    *ngIf="currencyIso.errors.required">{{'marathon.settings.currencyIso.error.required' | translate}}</p>
                 <p class="help is-danger"
                    *ngIf="currencyIso.errors.maxlength">{{'marathon.settings.currencyIso.error.max' | translate}}</p>
-              </div>
-            </div>
-          </div>
-          <div class="column is-half-desktop">
-            <div class="field">
-              <label class="label">{{ 'marathon.settings.donationWebhook.label' | translate}}</label>
-              <div class="control" [ngClass]="{'is-loading': loadDonationWebhookCheck}">
-                <input class="input"
-                       [ngClass]="{'is-danger': donationWebhook.invalid || !isWebhookOnline}"
-                       type="text"
-                       [(ngModel)]="marathon.donationWebhook"
-                       name="donationWebhook"
-                       [disabled]="!marathon.hasDonations && !marathon.hasIncentives"
-                       maxlength="200"
-                       #donationWebhook="ngModel"
-                       (ngModelChange)="checkWebhook($event)">
-                <p class="help is-pulled-right">{{marathon.donationWebhook?.length}}/200</p>
-                <p class="help">{{ 'marathon.settings.donationWebhook.help' | translate}}</p>
-              </div>
-              <div *ngIf="donationWebhook.invalid">
-                <p class="help is-danger"
-                   *ngIf="donationWebhook.errors.maxlength">{{'marathon.settings.donationWebhook.error.max' | translate}}</p>
-              </div>
-              <div *ngIf="!isWebhookOnline">
-                <p class="help is-danger">{{'marathon.settings.donationWebhook.error.offline' | translate}}</p>
               </div>
             </div>
           </div>
