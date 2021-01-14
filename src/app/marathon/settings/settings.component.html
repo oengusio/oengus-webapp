@@ -622,23 +622,21 @@
             <fieldset>
               <div class="field">
                 <div class="control" [ngClass]="{'is-loading': loadingDiscordCheck}" style="width: 10px"></div>
-                <label class="label">Discord requirement</label>
+                <label class="label">{{ 'marathon.settings.discordRequirement.label' | translate }}</label>
                 <div class="control">
                   <nwb-switch [(ngModel)]="marathon.discordRequired"
                               name="discordRequired"
                               [disabled]="loadingDiscordCheck"
                               (change)="checkDiscordStatus()">
-                    <span>Require user to be in your discord</span>
+                    <span>{{ 'marathon.settings.discordRequirement.required' | translate }}</span>
                   </nwb-switch>
                 </div>
               </div>
-              <p class="help">This feature can only be used when the following conditions are met:  <br/>
-                Oengus bot is your discord server, your discord invite is filled in and valid, your discord is set to public.
-              </p>
+              <p class="help" [innerHTML]="'marathon.settings.discordRequirement.help' | translate"></p>
               <div class="field" *ngIf="marathon.discordGuildId">
-                <p>Guild from invite found:</p>
-                <p>Guild Name: <em>{{ marathon.discordGuildName }}</em></p>
-                <p>Guild Id: <em>{{ marathon.discordGuildId }}</em></p>
+                <p>{{ 'marathon.settings.discordRequirement.found.title' | translate }}</p>
+                <p [innerHTML]="'marathon.settings.discordRequirement.found.name' | translate: { guildName: marathon.discordGuildName }"></p>
+                <p [innerHTML]="'marathon.settings.discordRequirement.found.id' | translate: { guildId: marathon.discordGuildId }"></p>
               </div>
             </fieldset>
           </div>

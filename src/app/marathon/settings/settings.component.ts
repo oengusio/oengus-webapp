@@ -5,7 +5,7 @@ import isoLang from '../../../assets/languages.json';
 import countries from '../../../assets/countries.json';
 import { User } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
-import * as _ from 'lodash';
+import { cloneDeep } from 'lodash';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment';
 import { environment } from '../../../environments/environment';
@@ -59,7 +59,7 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.marathon = _.cloneDeep(this.marathonService.marathon);
+    this.marathon = cloneDeep(this.marathonService.marathon);
     this.marathon.defaultSetupTimeHuman = DurationService.toHuman(this.marathon.defaultSetupTime);
     this.submissionsQuestions = this.marathon.questions.filter(q => q.questionType === 'SUBMISSION');
     this.donationsQuestions = this.marathon.questions.filter(q => q.questionType === 'DONATION');
@@ -181,6 +181,8 @@ export class SettingsComponent implements OnInit {
 
   checkDiscordStatus() {
     if (!this.marathon.discordRequired) {
+      this.marathon.discordGuildId = null;
+      this.marathon.discordGuildName = null;
       return;
     }
 
