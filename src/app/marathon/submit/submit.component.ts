@@ -14,6 +14,8 @@ import {faTwitter} from '@fortawesome/free-brands-svg-icons';
 import {CategoryService} from '../../../services/category.service';
 import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
 import {TranslateService} from '@ngx-translate/core';
+import {UserService} from '../../../services/user.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-submit',
@@ -37,12 +39,21 @@ export class SubmitComponent implements OnInit {
 
   public code: string;
 
+  public isDiscordCheckLoading = false;
+  private showDiscordRequirement = true;
+  public discordErrors = {
+    userNotInGuild: false,
+    botNotInGuild: false,
+  };
+
   constructor(public submissionService: SubmissionService,
               public marathonService: MarathonService,
               private categoryService: CategoryService,
               private translateService: TranslateService,
+              private userService: UserService,
               private toastr: NwbAlertService,
               private route: ActivatedRoute,
+              private http: HttpClient,
               private router: Router) {
     if (this.route.snapshot.data.submission && this.route.snapshot.data.submission !== {}) {
       this.initSubmission(this.route.snapshot.data.submission);
@@ -204,6 +215,62 @@ export class SubmitComponent implements OnInit {
 
   deleteSubmission(marathonId: string, submissionId: number) {
     this.submissionService.delete(marathonId, submissionId, () => this.router.navigate(['/marathon', this.marathonService.marathon.id]));
+  }
+
+  checkUserInDiscord() {
+    if (!this.userHasDiscord) {
+      return;
+    }
+
+    this.discordErrors.botNotInGuild = false;
+    this.discordErrors.userNotInGuild = false;
+    this.isDiscordCheckLoading = true;
+
+    const marathonId = this.marathonService.marathon.id;
+    const discordUserId = this.userService.user.discordId;
+
+    this.http.get<string>(
+      `${environment.api}/marathon/${marathonId}/discord/in-guild/${discordUserId}`
+    )
+      .subscribe(
+        () => {
+          this.showDiscordRequirement = false;
+
+          const alertConfig: NwbAlertConfig = {
+            message: 'Verified that you are in the discord server, you may now submit',
+            duration: 3000,
+            position: 'is-right',
+            color: 'is-success'
+          };
+          this.toastr.open(alertConfig);
+        },
+        error => {
+          console.log(error);
+
+          if (error.status === 404) { // user not in guild
+            this.discordErrors.userNotInGuild = true;
+          } else if (error.status === 403) { // bot not in guild
+            this.discordErrors.botNotInGuild = true;
+          }
+        }
+      )
+      .add(() => this.isDiscordCheckLoading = false);
+  }
+
+  get discordRequired(): boolean {
+    const marathon = this.marathonService.marathon;
+
+    return !marathon.discordPrivacy && marathon.discordRequired && !marathon.hasSubmitted && this.showDiscordRequirement;
+  }
+
+  get userHasDiscord(): boolean {
+    const user = this.userService.user;
+
+    return user && Boolean(user.discordId);
+  }
+
+  get marathonDiscord(): string {
+    return `https://discord.gg/${this.marathonService.marathon.discord}`;
   }
 
   get title(): string {

@@ -632,7 +632,14 @@
                   </nwb-switch>
                 </div>
               </div>
-              <p class="help" [innerHTML]="'marathon.settings.discordRequirement.help' | translate"></p>
+              <div class="help">
+                <p>{{ 'marathon.settings.discordRequirement.help.title' | translate }}</p>
+                <ul class="default">
+                  <li>{{ 'marathon.settings.discordRequirement.help.1' | translate }}</li>
+                  <li>{{ 'marathon.settings.discordRequirement.help.2' | translate }}</li>
+                  <li>{{ 'marathon.settings.discordRequirement.help.3' | translate }}</li>
+                </ul>
+              </div>
               <div class="field" *ngIf="marathon.discordGuildId">
                 <p>{{ 'marathon.settings.discordRequirement.found.title' | translate }}</p>
                 <p [innerHTML]="'marathon.settings.discordRequirement.found.name' | translate: { guildName: marathon.discordGuildName }"></p>
