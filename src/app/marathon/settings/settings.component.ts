@@ -13,6 +13,7 @@ import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Question } from '../../../model/question';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { debounce } from 'lodash';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-settings',
@@ -29,7 +30,8 @@ export class SettingsComponent implements OnInit {
   public now: Date;
 
   public data = [];
-  public active = 'general';
+  // public active = 'general';
+  public active = 'submissions';
 
   public deleteConfirm = false;
   public deleteShortname: string;
@@ -45,7 +47,10 @@ export class SettingsComponent implements OnInit {
   public isWebhookOnline = true;
   public checkWebhookDebounced;
 
+  public loadingDiscordCheck = false;
+
   constructor(public marathonService: MarathonService,
+              private http: HttpClient,
               public userService: UserService) {
     this.now = new Date();
     this.now.setSeconds(0);
@@ -172,6 +177,23 @@ export class SettingsComponent implements OnInit {
   drop(event: CdkDragDrop<Question[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     this.computeQuestionsPositions();
+  }
+
+  checkDiscordStatus() {
+    if (!this.marathon.discordRequired) {
+      return;
+    }
+
+    if (this.marathon.discord) {
+      this.loadingDiscordCheck = true;
+      this.marathonService.fetchDiscordInfo(this.marathon)
+        .subscribe(({ id, name }) => {
+          this.marathon.discordGuildId = id;
+          this.marathon.discordGuildName = name;
+          this.isWebhookOnline = true;
+        }, () => this.isWebhookOnline = false)
+        .add(() => this.loadingDiscordCheck = false);
+    }
   }
 
   get title(): string {

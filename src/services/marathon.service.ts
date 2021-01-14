@@ -134,6 +134,10 @@ export class MarathonService {
     return moment(marathon.endDate).isBefore(moment());
   }
 
+  fetchDiscordInfo(marathon: Marathon): Observable<{ id: string, name: string }> {
+    return this.http.get<any>(`${environment.api}/marathon/${marathon.id}/discord/lookup-invite?invite_code=${marathon.discord}`);
+  }
+
   isAdmin(user: User): boolean {
     if (!user) {
       return false;

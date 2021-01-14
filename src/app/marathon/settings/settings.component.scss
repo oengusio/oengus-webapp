@@ -1,1 +1,5 @@
-
+.is-loading::after {
+  border-color: #ffba00;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}

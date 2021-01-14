@@ -378,6 +378,7 @@
           </div>
         </div>
         <div class="columns">
+          <!-- moderators -->
           <div class="column">
             <table class="table">
               <thead>
@@ -409,6 +410,7 @@
               </tbody>
             </table>
           </div>
+          <!-- default setup time -->
           <div class="column">
             <div class="field">
               <label class="label">{{'marathon.settings.defaultSetupTime.label' | translate}}</label>
@@ -613,6 +615,35 @@
             </div>
           </div>
         </div>
+        <!-- Discord requirement -->
+        <div class="columns">
+          <div class="column">
+            <!--            <fieldset [disabled]="!marathon.discord && !marathon.discordPrivacy">-->
+            <fieldset>
+              <div class="field">
+                <div class="control" [ngClass]="{'is-loading': loadingDiscordCheck}" style="width: 10px"></div>
+                <label class="label">Discord requirement</label>
+                <div class="control">
+                  <nwb-switch [(ngModel)]="marathon.discordRequired"
+                              name="discordRequired"
+                              [disabled]="loadingDiscordCheck"
+                              (change)="checkDiscordStatus()">
+                    <span>Require user to be in your discord</span>
+                  </nwb-switch>
+                </div>
+              </div>
+              <p class="help">This feature can only be used when the following conditions are met:  <br/>
+                Oengus bot is your discord server, your discord invite is filled in and valid, your discord is set to public.
+              </p>
+              <div class="field" *ngIf="marathon.discordGuildId">
+                <p>Guild from invite found:</p>
+                <p>Guild Name: <em>{{ marathon.discordGuildName }}</em></p>
+                <p>Guild Id: <em>{{ marathon.discordGuildId }}</em></p>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <!-- custom fields -->
         <h1 class="title">{{ 'marathon.settings.customFields.title' | translate}}</h1>
         <p>{{ 'marathon.settings.customFields.description1' | translate}}</p>
         <p>{{ 'marathon.settings.customFields.description2' | translate}}</p>
@@ -817,6 +848,7 @@
             </div>
           </div>
         </div>
+        <!-- has incentives -->
         <div class="columns">
           <div class="column">
             <div class="field">
@@ -829,6 +861,7 @@
             </div>
           </div>
         </div>
+        <!-- custom fields -->
         <fieldset [disabled]="!marathon.hasDonations">
           <h1 class="title">{{ 'marathon.settings.customFields.title' | translate}}</h1>
           <p>{{ 'marathon.settings.customFields.description1' | translate}}</p>
