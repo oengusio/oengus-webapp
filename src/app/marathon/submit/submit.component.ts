@@ -16,6 +16,7 @@ import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
 import {TranslateService} from '@ngx-translate/core';
 import {UserService} from '../../../services/user.service';
 import {HttpClient} from '@angular/common/http';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-submit',
@@ -54,6 +55,7 @@ export class SubmitComponent implements OnInit {
               private toastr: NwbAlertService,
               private route: ActivatedRoute,
               private http: HttpClient,
+              private location: Location,
               private router: Router) {
     if (this.route.snapshot.data.submission && this.route.snapshot.data.submission !== {}) {
       this.initSubmission(this.route.snapshot.data.submission);
@@ -120,6 +122,10 @@ export class SubmitComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   addGame() {

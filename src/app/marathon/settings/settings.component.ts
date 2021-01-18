@@ -13,7 +13,6 @@ import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Question } from '../../../model/question';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { debounce } from 'lodash';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-settings',
@@ -30,8 +29,7 @@ export class SettingsComponent implements OnInit {
   public now: Date;
 
   public data = [];
-  // public active = 'general';
-  public active = 'submissions';
+  public active = 'general';
 
   public deleteConfirm = false;
   public deleteShortname: string;
@@ -45,12 +43,13 @@ export class SettingsComponent implements OnInit {
 
   public loadWebhookCheck: boolean;
   public isWebhookOnline = true;
+  public isOengusBotWebhook = false;
+  public isMissingMarathon = false;
   public checkWebhookDebounced;
 
   public loadingDiscordCheck = false;
 
   constructor(public marathonService: MarathonService,
-              private http: HttpClient,
               public userService: UserService) {
     this.now = new Date();
     this.now.setSeconds(0);
@@ -66,14 +65,27 @@ export class SettingsComponent implements OnInit {
   }
 
   checkWebhook(text: any) {
-    if (text) {
-      this.loadWebhookCheck = true;
-      this.marathonService.isWebhookOnline(this.marathonService.marathon.id, text)
-        .subscribe(() => this.isWebhookOnline = true, () => this.isWebhookOnline = false)
-        .add(() => this.loadWebhookCheck = false);
-    } else {
+    if (!text) {
       this.isWebhookOnline = true;
+      this.isOengusBotWebhook = false;
+      this.isMissingMarathon = false;
+      return;
     }
+
+    if (text.startsWith('oengus-bot')) {
+      this.isWebhookOnline = true;
+      this.isOengusBotWebhook = true;
+      this.isMissingMarathon = !text.includes('marathon=' + this.marathonService.marathon.id);
+      this.isWebhookOnline = !this.isMissingMarathon;
+
+      return;
+    }
+
+    this.loadWebhookCheck = true;
+    this.isOengusBotWebhook = false;
+    this.marathonService.isWebhookOnline(this.marathonService.marathon.id, text)
+      .subscribe(() => this.isWebhookOnline = true, () => this.isWebhookOnline = false)
+      .add(() => this.loadWebhookCheck = false);
   }
 
   onSelectMod(item: User) {
