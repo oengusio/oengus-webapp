@@ -12,8 +12,6 @@
       <h5 class="title">{{'marathon.submit.requirements.discord.lead' | translate}}</h5>
       <p>{{'marathon.submit.requirements.discord.par1' | translate}}</p>
       <p>{{'marathon.submit.requirements.discord.par2' | translate}}</p>
-      <p *ngIf="!userHasDiscord">IMPORTANT: before you can do this check
-        you will need to sync Discord with your account in your <a routerLink="/user/settings">user settings</a>.</p>
       <p *ngIf="!userHasDiscord">
         {{ 'marathon.submit.requirements.discord.syncNotice.0' | translate }}
         <a routerLink="/user/settings">{{

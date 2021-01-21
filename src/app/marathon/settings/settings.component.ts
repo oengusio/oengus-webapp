@@ -207,8 +207,7 @@ export class SettingsComponent implements OnInit {
         .subscribe(({ id, name }) => {
           this.marathon.discordGuildId = id;
           this.marathon.discordGuildName = name;
-          this.isWebhookOnline = true;
-        }, () => this.isWebhookOnline = false)
+        })
         .add(() => this.loadingDiscordCheck = false);
     }
   }

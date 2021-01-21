@@ -242,13 +242,15 @@ export class SubmitComponent implements OnInit {
         () => {
           this.showDiscordRequirement = false;
 
-          const alertConfig: NwbAlertConfig = {
-            message: 'Verified that you are in the discord server, you may now submit',
-            duration: 3000,
-            position: 'is-right',
-            color: 'is-success'
-          };
-          this.toastr.open(alertConfig);
+          this.translateService.get('alert.submit.DISCORD_VERIFIED').subscribe((res: string) => {
+            const alertConfig: NwbAlertConfig = {
+              message: res,
+              duration: 3000,
+              position: 'is-right',
+              color: 'is-success'
+            };
+            this.toastr.open(alertConfig);
+          });
         },
         error => {
           console.log(error);
