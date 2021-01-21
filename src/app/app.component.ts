@@ -18,6 +18,7 @@ import localePt from '@angular/common/locales/pt';
 import localeEl from '@angular/common/locales/el';
 import localeZhHk from '@angular/common/locales/zh-Hant-HK';
 import localeTr from '@angular/common/locales/tr';
+import localeKo from '@angular/common/locales/ko';
 import { registerLocaleData, Location } from '@angular/common';
 import {
   Router,
@@ -65,6 +66,7 @@ export class AppComponent implements OnInit {
     'pt_BR': localePt,
     'zh_Hant_HK': localeZhHk,
     'tr': localeTr,
+    'ko': localeKo,
   };
 
   constructor(public userService: UserService,
