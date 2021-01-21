@@ -49,6 +49,8 @@ export class SettingsComponent implements OnInit {
 
   public loadingDiscordCheck = false;
 
+  public botInvite = 'https://discord.com/api/oauth2/authorize?client_id=559625844197163008&permissions=68608&scope=bot';
+
   constructor(public marathonService: MarathonService,
               public userService: UserService) {
     this.now = new Date();
