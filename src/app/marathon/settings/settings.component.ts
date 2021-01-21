@@ -62,6 +62,7 @@ export class SettingsComponent implements OnInit {
     this.marathon.defaultSetupTimeHuman = DurationService.toHuman(this.marathon.defaultSetupTime);
     this.submissionsQuestions = this.marathon.questions.filter(q => q.questionType === 'SUBMISSION');
     this.donationsQuestions = this.marathon.questions.filter(q => q.questionType === 'DONATION');
+    this.isOengusBotWebhook = (this.marathon.webhook || '').startsWith('oengus-bot');
   }
 
   checkWebhook(text: any) {

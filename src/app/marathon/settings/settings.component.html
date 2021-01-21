@@ -472,6 +472,7 @@
       </fieldset>
     </div>
     <fieldset [disabled]="marathonService.isArchived() && !marathonService.isAdmin(userService.user)">
+      <!-- submissions -->
       <div [hidden]="active !== 'submissions'">
         <h1 class="title">{{ 'marathon.settings.submissionsTitle' | translate}}</h1>
         <div class="field">
@@ -762,6 +763,7 @@
           </tbody>
         </table>
       </div>
+      <!-- incentives -->
       <div [hidden]="active !== 'incentives'">
         <h1 class="title">{{'marathon.settings.incentivesTitle' | translate}}</h1>
         <div class="notification" *ngIf="env.sandbox === true">{{'marathon.settings.sandbox.warning' | translate}}</div>
@@ -983,6 +985,7 @@
           </table>
         </fieldset>
       </div>
+      <!-- dangerZone -->
       <div [hidden]="active !== 'dangerZone'">
         <h1 class="title">{{ 'marathon.settings.dangerZone' | translate}}</h1>
         <div class="field">
