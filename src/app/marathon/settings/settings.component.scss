@@ -1,1 +1,10 @@
+.is-loading::after {
+  border-color: #ffba00;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
 
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}

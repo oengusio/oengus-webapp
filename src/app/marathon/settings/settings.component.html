@@ -248,6 +248,7 @@
         <p class="help">{{ 'marathon.settings.marathonDescription.help' | translate}}</p>
       </div>
       <fieldset [disabled]="marathonService.isArchived()">
+        <!-- twitch/twitter/discord/youtube -->
         <div class="columns">
           <div class="column">
             <label class="label">Twitch</label>
@@ -352,6 +353,7 @@
             </div>
           </div>
         </div>
+        <!-- discord privacy/marathon privacy -->
         <div class="columns">
           <div class="column">
             <div class="field">
@@ -378,6 +380,7 @@
           </div>
         </div>
         <div class="columns">
+          <!-- moderators -->
           <div class="column">
             <table class="table">
               <thead>
@@ -409,6 +412,7 @@
               </tbody>
             </table>
           </div>
+          <!-- default setup time -->
           <div class="column">
             <div class="field">
               <label class="label">{{'marathon.settings.defaultSetupTime.label' | translate}}</label>
@@ -432,6 +436,7 @@
         </div>
       </fieldset>
       <fieldset [disabled]="marathonService.isArchived()">
+        <!-- webhook -->
         <div class="columns">
           <div class="column is-half-desktop">
             <div class="field">
@@ -452,6 +457,12 @@
                 <p class="help is-danger"
                    *ngIf="webhook.errors.maxlength">{{'marathon.settings.webhook.error.max' | translate}}</p>
               </div>
+              <div *ngIf="isMissingMarathon">
+                <p class="help is-danger">{{'marathon.settings.webhook.error.marathonParameter' | translate}}</p>
+              </div>
+              <div *ngIf="isOengusBotWebhook">
+                <p class="help is-success">{{'marathon.settings.webhook.botNotice' | translate}}</p>
+              </div>
               <div *ngIf="!isWebhookOnline">
                 <p class="help is-danger">{{'marathon.settings.webhook.error.offline' | translate}}</p>
               </div>
@@ -461,6 +472,7 @@
       </fieldset>
     </div>
     <fieldset [disabled]="marathonService.isArchived() && !marathonService.isAdmin(userService.user)">
+      <!-- submissions -->
       <div [hidden]="active !== 'submissions'">
         <h1 class="title">{{ 'marathon.settings.submissionsTitle' | translate}}</h1>
         <div class="field">
@@ -613,6 +625,39 @@
             </div>
           </div>
         </div>
+        <!-- Discord requirement -->
+        <div class="columns">
+          <div class="column">
+          <fieldset [disabled]="!marathon.discord && !marathon.discordPrivacy">
+              <div class="field">
+                <div class="control" [ngClass]="{'is-loading': loadingDiscordCheck}" style="width: 10px"></div>
+                <label class="label">{{ 'marathon.settings.discordRequirement.label' | translate }}</label>
+                <div class="control">
+                  <nwb-switch [(ngModel)]="marathon.discordRequired"
+                              name="discordRequired"
+                              [disabled]="loadingDiscordCheck"
+                              (change)="checkDiscordStatus()">
+                    <span>{{ 'marathon.settings.discordRequirement.required' | translate }}</span>
+                  </nwb-switch>
+                </div>
+              </div>
+              <div class="help">
+                <p>{{ 'marathon.settings.discordRequirement.help.title' | translate }}</p>
+                <ul class="default">
+                  <li>{{ 'marathon.settings.discordRequirement.help.1' | translate }} <a [href]="botInvite" target="_blank">{{ botInvite }}</a></li>
+                  <li>{{ 'marathon.settings.discordRequirement.help.2' | translate }}</li>
+                  <li>{{ 'marathon.settings.discordRequirement.help.3' | translate }}</li>
+                </ul>
+              </div>
+              <div class="field" *ngIf="marathon.discordGuildId">
+                <p>{{ 'marathon.settings.discordRequirement.found.title' | translate }}</p>
+                <p [innerHTML]="'marathon.settings.discordRequirement.found.name' | translate: { guildName: marathon.discordGuildName }"></p>
+                <p [innerHTML]="'marathon.settings.discordRequirement.found.id' | translate: { guildId: marathon.discordGuildId }"></p>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <!-- custom fields -->
         <h1 class="title">{{ 'marathon.settings.customFields.title' | translate}}</h1>
         <p>{{ 'marathon.settings.customFields.description1' | translate}}</p>
         <p>{{ 'marathon.settings.customFields.description2' | translate}}</p>
@@ -718,6 +763,7 @@
           </tbody>
         </table>
       </div>
+      <!-- incentives -->
       <div [hidden]="active !== 'incentives'">
         <h1 class="title">{{'marathon.settings.incentivesTitle' | translate}}</h1>
         <div class="notification" *ngIf="env.sandbox === true">{{'marathon.settings.sandbox.warning' | translate}}</div>
@@ -817,6 +863,7 @@
             </div>
           </div>
         </div>
+        <!-- has incentives -->
         <div class="columns">
           <div class="column">
             <div class="field">
@@ -829,6 +876,7 @@
             </div>
           </div>
         </div>
+        <!-- custom fields -->
         <fieldset [disabled]="!marathon.hasDonations">
           <h1 class="title">{{ 'marathon.settings.customFields.title' | translate}}</h1>
           <p>{{ 'marathon.settings.customFields.description1' | translate}}</p>
@@ -937,6 +985,7 @@
           </table>
         </fieldset>
       </div>
+      <!-- dangerZone -->
       <div [hidden]="active !== 'dangerZone'">
         <h1 class="title">{{ 'marathon.settings.dangerZone' | translate}}</h1>
         <div class="field">

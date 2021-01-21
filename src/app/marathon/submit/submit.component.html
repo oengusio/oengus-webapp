@@ -1,7 +1,48 @@
 <h1 class="title">{{'marathon.submit.title' | translate}}</h1>
 
 <hr/>
-<nav class="level is-mobile">
+
+<div class="modal" [ngClass]="{ 'is-active': discordRequired }">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">{{'marathon.submit.requirements.discord.title' | translate}}</p>
+    </header>
+    <section class="modal-card-body">
+      <h5 class="title">{{'marathon.submit.requirements.discord.lead' | translate}}</h5>
+      <p>{{'marathon.submit.requirements.discord.par1' | translate}}</p>
+      <p>{{'marathon.submit.requirements.discord.par2' | translate}}</p>
+      <p *ngIf="!userHasDiscord">
+        {{ 'marathon.submit.requirements.discord.syncNotice.0' | translate }}
+        <a routerLink="/user/settings">{{
+          'marathon.submit.requirements.discord.syncNotice.1' | translate
+          }}</a>{{ 'marathon.submit.requirements.discord.syncNotice.2' | translate }}
+        <!-- ^ ugly hack for punctuation stuff -->
+      </p>
+
+      <article class="message is-danger" *ngIf="discordErrors.botNotInGuild || discordErrors.userNotInGuild">
+        <div class="message-body">
+          <p *ngIf="discordErrors.botNotInGuild">{{'marathon.submit.requirements.discord.errors.botMissing' | translate}}</p>
+          <p [innerHTML]="'marathon.submit.requirements.discord.errors.userMissing' | translate: { invite: marathonDiscord }"
+            *ngIf="discordErrors.userNotInGuild"></p>
+        </div>
+      </article>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success"
+              (click)="checkUserInDiscord()"
+              [disabled]="!userHasDiscord || isDiscordCheckLoading"
+              [ngClass]="{ 'is-loading': isDiscordCheckLoading }">
+        {{'marathon.submit.requirements.discord.check' | translate}}
+      </button>
+      <button class="button" (click)="goBack()" [disabled]="isDiscordCheckLoading">
+        {{'marathon.submit.requirements.discord.back' | translate}}
+      </button>
+    </footer>
+  </div>
+</div>
+
+<nav class="level is-mobile is-flex-wrap-wrap">
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">{{'marathon.home.from' | translate}}</p>

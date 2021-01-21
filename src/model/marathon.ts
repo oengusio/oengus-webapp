@@ -46,6 +46,9 @@ export class Marathon {
   unlimitedGames: boolean;
   unlimitedCategories: boolean;
   emulatorAuthorized: boolean;
+  discordGuildId: string;
+  discordGuildName: string;
+  discordRequired: boolean;
 
   constructor() {
     this.onsite = false;

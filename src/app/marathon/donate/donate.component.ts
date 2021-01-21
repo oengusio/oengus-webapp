@@ -108,13 +108,16 @@ export class DonateComponent implements OnInit {
             this.donation.donationIncentiveLinks.push(donationIncentiveLink);
           });
           this.donationService.donate(this.marathonService.marathon.id, this.donation).subscribe(response => {
-            console.log(response);
+            console.log(JSON.stringify(response));
             resolve(response.body.id);
-          });
+          }, reject);
         });
       },
       advanced: {
-        commit: 'true'
+        commit: 'true',
+        extraQueryParams: [
+          { name: 'merchant-id', value: this.marathonService.marathon.payee }
+        ]
       },
       style: {
         label: 'paypal',

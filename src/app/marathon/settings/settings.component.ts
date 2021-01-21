@@ -5,7 +5,7 @@ import isoLang from '../../../assets/languages.json';
 import countries from '../../../assets/countries.json';
 import { User } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
-import * as _ from 'lodash';
+import { cloneDeep } from 'lodash';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment';
 import { environment } from '../../../environments/environment';
@@ -43,7 +43,13 @@ export class SettingsComponent implements OnInit {
 
   public loadWebhookCheck: boolean;
   public isWebhookOnline = true;
+  public isOengusBotWebhook = false;
+  public isMissingMarathon = false;
   public checkWebhookDebounced;
+
+  public loadingDiscordCheck = false;
+
+  public botInvite = 'https://discord.com/api/oauth2/authorize?client_id=559625844197163008&permissions=68608&scope=bot';
 
   constructor(public marathonService: MarathonService,
               public userService: UserService) {
@@ -54,21 +60,35 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.marathon = _.cloneDeep(this.marathonService.marathon);
+    this.marathon = cloneDeep(this.marathonService.marathon);
     this.marathon.defaultSetupTimeHuman = DurationService.toHuman(this.marathon.defaultSetupTime);
     this.submissionsQuestions = this.marathon.questions.filter(q => q.questionType === 'SUBMISSION');
     this.donationsQuestions = this.marathon.questions.filter(q => q.questionType === 'DONATION');
+    this.isOengusBotWebhook = (this.marathon.webhook || '').startsWith('oengus-bot');
   }
 
   checkWebhook(text: any) {
-    if (text) {
-      this.loadWebhookCheck = true;
-      this.marathonService.isWebhookOnline(this.marathonService.marathon.id, text)
-        .subscribe(() => this.isWebhookOnline = true, () => this.isWebhookOnline = false)
-        .add(() => this.loadWebhookCheck = false);
-    } else {
+    if (!text) {
       this.isWebhookOnline = true;
+      this.isOengusBotWebhook = false;
+      this.isMissingMarathon = false;
+      return;
     }
+
+    if (text.startsWith('oengus-bot')) {
+      this.isWebhookOnline = true;
+      this.isOengusBotWebhook = true;
+      this.isMissingMarathon = !text.includes('marathon=' + this.marathonService.marathon.id);
+      this.isWebhookOnline = !this.isMissingMarathon;
+
+      return;
+    }
+
+    this.loadWebhookCheck = true;
+    this.isOengusBotWebhook = false;
+    this.marathonService.isWebhookOnline(this.marathonService.marathon.id, text)
+      .subscribe(() => this.isWebhookOnline = true, () => this.isWebhookOnline = false)
+      .add(() => this.loadWebhookCheck = false);
   }
 
   onSelectMod(item: User) {
@@ -172,6 +192,24 @@ export class SettingsComponent implements OnInit {
   drop(event: CdkDragDrop<Question[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     this.computeQuestionsPositions();
+  }
+
+  checkDiscordStatus() {
+    if (!this.marathon.discordRequired) {
+      this.marathon.discordGuildId = null;
+      this.marathon.discordGuildName = null;
+      return;
+    }
+
+    if (this.marathon.discord) {
+      this.loadingDiscordCheck = true;
+      this.marathonService.fetchDiscordInfo(this.marathon)
+        .subscribe(({ id, name }) => {
+          this.marathon.discordGuildId = id;
+          this.marathon.discordGuildName = name;
+        })
+        .add(() => this.loadingDiscordCheck = false);
+    }
   }
 
   get title(): string {
