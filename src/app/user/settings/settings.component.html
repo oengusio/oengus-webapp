@@ -162,36 +162,58 @@
     <div class="columns">
       <div class="column is-one-fifth vertical-center"><b>Discord</b></div>
       <div class="column is-four-fifths vertical-center">
-        <span *ngIf="!!user.discordId">{{user.discordName}}</span>
-        <button type="button" *ngIf="!!user.discordId" class="button is-warning" style="margin-left: 1rem"
-                (click)="unsyncDiscord()">{{'user.settings.accountSync.unsync' | translate}}
-        </button>
-        <a *ngIf="!user.discordId" class="button is-info"
-           [href]="'https://discordapp.com/api/oauth2/authorize?client_id='+userService.getDiscordClientId()+'&redirect_uri='+userService.getSyncRedirectUri()+'discord&response_type=code&scope=identify'">
-          {{'user.settings.accountSync.sync' | translate}}</a>
+        <ng-template [ngIf]="user.discordId" [ngIfElse]="discordSyncButton">
+          <span>{{user.discordName}}</span>
+          <button type="button" class="button is-info" style="margin-left: 1rem" (click)="syncDiscord()">
+            <fa-icon [icon]="faSyncAlt"></fa-icon>
+          </button>
+          <button type="button" class="button is-warning" style="margin-left: 0.5rem" (click)="unsyncDiscord()">
+            {{'user.settings.accountSync.unsync' | translate}}
+          </button>
+        </ng-template>
+        <ng-template #discordSyncButton>
+          <button class="button is-info" (click)="syncDiscord()">
+            {{'user.settings.accountSync.sync' | translate}}
+          </button>
+        </ng-template>
       </div>
     </div>
     <div class="columns">
       <div class="column is-one-fifth vertical-center"><b>Twitter</b></div>
       <div class="column is-four-fifths vertical-center">
-        <span *ngIf="!!user.twitterId">{{user.twitterName}}</span>
-        <button type="button" *ngIf="!!user.twitterId" class="button is-warning" style="margin-left: 1rem"
-                (click)="unsyncTwitter()">{{'user.settings.accountSync.unsync' | translate}}
-        </button>
-        <a *ngIf="!user.twitterId" class="button is-info" (click)="syncTwitter()">
-          {{'user.settings.accountSync.sync' | translate}}</a>
+        <ng-template [ngIf]="user.twitterId" [ngIfElse]="twitterSyncButton">
+          <span>{{user.twitterName}}</span>
+          <button type="button" class="button is-info" style="margin-left: 1rem" (click)="syncTwitter()">
+            <fa-icon [icon]="faSyncAlt"></fa-icon>
+          </button>
+          <button type="button" class="button is-warning" style="margin-left: 0.5rem" (click)="unsyncTwitter()">
+            {{'user.settings.accountSync.unsync' | translate}}
+          </button>
+        </ng-template>
+        <ng-template #twitterSyncButton>
+          <a *ngIf="!user.twitterId" class="button is-info" (click)="syncTwitter()">
+            {{'user.settings.accountSync.sync' | translate}}
+          </a>
+        </ng-template>
       </div>
     </div>
     <div class="columns">
       <div class="column is-one-fifth vertical-center"><b>Twitch</b></div>
       <div class="column is-four-fifths vertical-center">
-        <span *ngIf="!!user.twitchId">{{user.twitchName}}</span>
-        <button type="button" *ngIf="!!user.twitchId" class="button is-warning" style="margin-left: 1rem"
-                (click)="unsyncTwitch()">{{'user.settings.accountSync.unsync' | translate}}
-        </button>
-        <a *ngIf="!user.twitchId" class="button is-info"
-           [href]="'https://id.twitch.tv/oauth2/authorize?client_id='+userService.getTwitchClientId()+'&redirect_uri='+userService.getSyncRedirectUri()+'twitch&response_type=code&scope=openid'">
-          {{'user.settings.accountSync.sync' | translate}}</a>
+        <ng-template [ngIf]="user.twitchId" [ngIfElse]="twitchSyncButton">
+          <span >{{user.twitchName}}</span>
+          <button type="button" class="button is-info" style="margin-left: 1rem" (click)="syncTwitch()">
+            <fa-icon [icon]="faSyncAlt"></fa-icon>
+          </button>
+          <button type="button" class="button is-warning" style="margin-left: 0.5rem" (click)="unsyncTwitch()">
+            {{'user.settings.accountSync.unsync' | translate}}
+          </button>
+        </ng-template>
+        <ng-template #twitchSyncButton>
+          <button class="button is-info" (click)="syncTwitch()">
+            {{'user.settings.accountSync.sync' | translate}}
+          </button>
+        </ng-template>
       </div>
     </div>
     <p class="help is-danger"

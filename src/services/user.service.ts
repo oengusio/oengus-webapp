@@ -38,6 +38,22 @@ export class UserService {
     return environment.discordClientId;
   }
 
+  getDiscordAuthUri(sync = false) {
+    const redirectUri = sync ? this.getSyncRedirectUri() : this.getRedirectUri();
+
+    return 'https://discordapp.com/api/oauth2/authorize?client_id=' +
+      this.getDiscordClientId() + '&redirect_uri=' +
+      redirectUri + 'discord&response_type=code&scope=identify';
+  }
+
+  getTwitchAuthUrl(sync = false) {
+    const redirectUri = sync ? this.getSyncRedirectUri() : this.getRedirectUri();
+
+    return 'https://id.twitch.tv/oauth2/authorize?client_id=' +
+      this.getTwitchClientId() + '&redirect_uri=' +
+      redirectUri + 'twitch&response_type=code&scope=openid';
+  }
+
   login(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Observable<any> {
     return this.http.post(environment.api + '/user/login', {
       service: service,

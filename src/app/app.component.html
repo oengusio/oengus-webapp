@@ -106,7 +106,7 @@
               <a class="navbar-item is-tooltip-danger" [nwbToolTip]="'navbar.login.disclaimer' | translate"
                  nwbToolTipPosition="left"
                  nwbToolTipIsMultiline="true"
-                 [href]="'https://discordapp.com/api/oauth2/authorize?client_id='+userService.getDiscordClientId()+'&redirect_uri='+userService.getRedirectUri()+'discord&response_type=code&scope=identify'">
+                 [href]="userService.getDiscordAuthUri()">
                 <fa-icon [icon]="faDiscord" style="margin-right: 0.4rem"></fa-icon>
                 {{'navbar.login.discord' | translate}}
               </a>
@@ -114,7 +114,7 @@
                  [nwbToolTip]="'navbar.login.disclaimer' | translate"
                  nwbToolTipPosition="left"
                  nwbToolTipIsMultiline="true"
-                 [href]="'https://id.twitch.tv/oauth2/authorize?client_id='+userService.getTwitchClientId()+'&redirect_uri='+userService.getRedirectUri()+'twitch&response_type=code&scope=openid'">
+                 [href]="userService.getTwitchAuthUrl()">
                 <fa-icon [icon]="faTwitch" style="margin-right: 0.4rem"></fa-icon>
                 {{'navbar.login.twitch' | translate}}
               </a>
