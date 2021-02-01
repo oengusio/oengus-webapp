@@ -19,6 +19,8 @@ import localeEl from '@angular/common/locales/el';
 import localeZhHk from '@angular/common/locales/zh-Hant-HK';
 import localeTr from '@angular/common/locales/tr';
 import localeKo from '@angular/common/locales/ko';
+import localeDa from '@angular/common/locales/da';
+import localeFi from '@angular/common/locales/fi';
 import { registerLocaleData, Location } from '@angular/common';
 import {
   Router,
@@ -67,6 +69,8 @@ export class AppComponent implements OnInit {
     'zh_Hant_HK': localeZhHk,
     'tr': localeTr,
     'ko': localeKo,
+    'da': localeDa,
+    'fi': localeFi,
   };
 
   constructor(public userService: UserService,
@@ -119,6 +123,8 @@ export class AppComponent implements OnInit {
     if (host !== 'localhost' && host !== 'oengus.dev') {
       delete this.availableLocales['el'];
       delete this.availableLocales['tr'];
+      delete this.availableLocales['da'];
+      delete this.availableLocales['fi'];
     }
 
     for (const lang of this.availableLocaleNames) {

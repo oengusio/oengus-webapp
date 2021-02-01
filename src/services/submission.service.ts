@@ -17,24 +17,28 @@ export class SubmissionService {
   }
 
   mine(marathonId: string): Observable<Submission> {
-    return this.http.get<Submission>(environment.api + '/marathon/' + marathonId + '/submission/me');
+    return this.http.get<Submission>(environment.api + '/marathon/' + marathonId + '/submissions/me');
   }
 
   availabilities(marathonId: string): Observable<any> {
-    return this.http.get<any>(environment.api + '/marathon/' + marathonId + '/submission/availabilities');
+    return this.http.get<any>(environment.api + '/marathon/' + marathonId + '/submissions/availabilities');
+  }
+
+  submissions(marathonId: string): Observable<Submission[]> {
+    return this.http.get<Submission[]>(environment.api + '/marathon/' + marathonId + '/submissions');
   }
 
   answers(marathonId: string): Observable<Submission[]> {
-    return this.http.get<Submission[]>(environment.api + '/marathon/' + marathonId + '/submission/answers');
+    return this.http.get<Submission[]>(environment.api + '/marathon/' + marathonId + '/submissions/answers');
   }
 
   availabilitiesForUser(marathonId: string, userId: number): Observable<any> {
-    return this.http.get<any>(environment.api + '/marathon/' + marathonId + '/submission/availabilities/' + userId);
+    return this.http.get<any>(environment.api + '/marathon/' + marathonId + '/submissions/availabilities/' + userId);
   }
 
   create(marathonId: string, submission: Submission) {
     return this.http
-      .post(environment.api + '/marathon/' + marathonId + '/submission', submission, {observe: 'response'})
+      .post(environment.api + '/marathon/' + marathonId + '/submissions', submission, {observe: 'response'})
       .subscribe((response: any) => {
         this.translateService.get('alert.submission.save.success').subscribe((res: string) => {
           const alertConfig: NwbAlertConfig = {
@@ -60,7 +64,7 @@ export class SubmissionService {
 
   update(marathonId: string, submission: Submission) {
     return this.http
-      .put(environment.api + '/marathon/' + marathonId + '/submission', submission, {observe: 'response'})
+      .put(environment.api + '/marathon/' + marathonId + '/submissions', submission, {observe: 'response'})
       .subscribe((response: any) => {
         this.translateService.get('alert.submission.save.success').subscribe((res: string) => {
           const alertConfig: NwbAlertConfig = {
@@ -85,7 +89,7 @@ export class SubmissionService {
   }
 
   delete(marathonId: string, submissionId: number, callback?) {
-    return this.http.delete(environment.api + '/marathon/' + marathonId + '/submission/' + submissionId).subscribe(response => {
+    return this.http.delete(environment.api + '/marathon/' + marathonId + '/submissions/' + submissionId).subscribe(response => {
       this.translateService.get('alert.submission.deletion.success').subscribe((res: string) => {
         const alertConfig: NwbAlertConfig = {
           message: res,
