@@ -34,6 +34,12 @@ export class SubmissionsComponent implements OnInit {
     category: {}
   };
 
+  private statusMap = {
+    'VALIDATED': 'is-success',
+    'REJECTED': 'is-warning',
+    'BACKUP': 'is-dark',
+  };
+
   public active = 'submissions';
 
   public faFilm = faFilm;
