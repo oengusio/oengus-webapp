@@ -43,6 +43,7 @@ import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
 import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
 import {AdsenseComponent} from '../adsense/adsense.component';
+import {SubmissionsResolver} from '../resolvers/submissions-resolver';
 
 const marathonRoutes: Routes = [
   {
@@ -77,7 +78,8 @@ const marathonRoutes: Routes = [
         path: 'submissions',
         component: SubmissionsComponent,
         resolve: {
-          submissions: GamesResolver,
+          games: GamesResolver,
+          submissions: SubmissionsResolver,
           selection: SelectionResolver,
           answers: AnswersResolver
         }
@@ -219,6 +221,7 @@ const marathonRoutes: Routes = [
     MarathonResolver,
     SubmissionResolver,
     GamesResolver,
+    SubmissionsResolver,
     ScheduleResolver,
     SelectionResolver,
     IncentivesResolver,

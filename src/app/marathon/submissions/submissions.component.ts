@@ -20,6 +20,7 @@ import { CategoryService } from '../../../services/category.service';
 export class SubmissionsComponent implements OnInit {
 
   public games: Game[];
+  public submissions: Submission[];
   public answers: Submission[];
   public selection: Map<number, Selection>;
 
@@ -47,7 +48,8 @@ export class SubmissionsComponent implements OnInit {
               public gameService: GameService,
               private submissionService: SubmissionService,
               private categoryService: CategoryService) {
-    this.games = this.route.snapshot.data.submissions;
+    this.submissions = this.route.snapshot.data.submissions;
+    this.games = this.route.snapshot.data.games;
     this.selection = this.route.snapshot.data.selection;
     this.answers = this.route.snapshot.data.answers;
     this.games.forEach(game => {
