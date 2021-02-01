@@ -52,6 +52,17 @@ export class SubmissionsComponent implements OnInit {
     this.games = this.route.snapshot.data.games;
     this.selection = this.route.snapshot.data.selection;
     this.answers = this.route.snapshot.data.answers;
+    this.submissions.forEach(submission => {
+      submission.answers = submission.answers.filter(answer => answer.question.fieldType !== 'FREETEXT');
+      submission.games.forEach(game => {
+        game.visible = true;
+        game.categories.forEach(category => {
+          category.estimateHuman = DurationService.toHuman(category.estimate);
+          category.visible = true;
+        });
+      });
+    });
+
     this.games.forEach(game => {
       game.visible = true;
       game.categories.forEach(category => {
