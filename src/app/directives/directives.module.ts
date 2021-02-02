@@ -19,13 +19,14 @@ import { TotalValidatorDirective } from './total-validator.directive';
   imports: [
     CommonModule
   ],
-  exports: [
-    UsernameExistsValidatorDirective,
-    MarathonExistsValidatorDirective,
-    MinNumberValidatorDirective,
-    MaxNumberValidatorDirective,
-    TotalValidatorDirective
-  ]
+    exports: [
+        UsernameExistsValidatorDirective,
+        MarathonExistsValidatorDirective,
+        MinNumberValidatorDirective,
+        MaxNumberValidatorDirective,
+        TotalValidatorDirective,
+        MinDurationValidatorDirective
+    ]
 })
 export class DirectivesModule {
 }

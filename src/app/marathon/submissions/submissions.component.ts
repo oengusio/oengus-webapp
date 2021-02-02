@@ -36,6 +36,7 @@ export class SubmissionsComponent implements OnInit {
     'VALIDATED': 'is-success',
     'REJECTED': 'is-warning',
     'BACKUP': 'is-dark',
+    'BONUS': 'is-info',
   };
 
   public active = 'submissions';

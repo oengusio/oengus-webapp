@@ -391,7 +391,7 @@
                              [ngClass]="{'is-danger': categoryEstimate.invalid}"
                              required
                              pattern="^(?:\d{1,3}):(?:[012345]\d):(?:[012345]\d)$"
-                             appMinDurationValidator="0"
+                             appMinDurationValidator="1"
                              #categoryEstimate="ngModel">
                       <div *ngIf="categoryEstimate.invalid">
                         <p class="help is-danger" *ngIf="categoryEstimate.errors.required">
