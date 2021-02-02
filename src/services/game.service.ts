@@ -18,7 +18,7 @@ export class GameService {
   }
 
   getAllForMarathon(marathonId: string): Observable<Game[]> {
-    return this.http.get<Game[]>(environment.api + '/marathon/' + marathonId + '/game');
+    return this.http.get<Game[]>(environment.api + '/marathon/' + marathonId + '/submissions/games');
   }
 
   exportAllForMarathon(marathonId: string) {

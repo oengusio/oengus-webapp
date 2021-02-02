@@ -34,7 +34,6 @@ import { IncentiveManagementComponent } from './incentive-management/incentive-m
 import { IncentivesResolver } from '../resolvers/incentives-resolver';
 import { IncentiveComponent } from './incentive/incentive.component';
 import { CanActivateMarathonIncentivesGuard } from '../guards/can-activate-marathon-incentives-guard.service';
-import { AnswersResolver } from '../resolvers/answers-resolver';
 import { DonateComponent } from './donate/donate.component';
 import { CanActivateMarathonDonationsGuard } from '../guards/can-activate-marathon-donations-guard.service';
 import { NgxPayPalModule } from 'ngx-paypal';
