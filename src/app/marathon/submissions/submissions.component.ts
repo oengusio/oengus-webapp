@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game } from '../../../model/game';
-import { faCheck, faFilm, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faFilm, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import { MarathonService } from '../../../services/marathon.service';
 import { DurationService } from '../../../services/duration.service';
@@ -11,6 +11,7 @@ import { Submission } from '../../../model/submission';
 import { GameService } from '../../../services/game.service';
 import { SubmissionService } from '../../../services/submission.service';
 import { CategoryService } from '../../../services/category.service';
+import {User} from '../../../model/user';
 
 @Component({
   selector: 'app-submissions',
@@ -19,13 +20,11 @@ import { CategoryService } from '../../../services/category.service';
 })
 export class SubmissionsComponent implements OnInit {
 
-  public games: Game[];
   public submissions: Submission[];
   public answers: Submission[];
   public selection: Map<number, Selection>;
 
-  public runnerFilter = '';
-  public gameFilter = '';
+  public runnerGameFilter = '';
   public categoryFilter = '';
 
   public confirmDeletion = {
@@ -45,6 +44,7 @@ export class SubmissionsComponent implements OnInit {
   public faFilm = faFilm;
   public faTimes = faTimes;
   public faCheck = faCheck;
+  public faSearch = faSearch;
 
   public moment = moment;
 
@@ -55,7 +55,6 @@ export class SubmissionsComponent implements OnInit {
               private submissionService: SubmissionService,
               private categoryService: CategoryService) {
     this.submissions = this.route.snapshot.data.submissions;
-    this.games = this.route.snapshot.data.games;
     this.selection = this.route.snapshot.data.selection;
     this.answers = this.route.snapshot.data.answers;
     this.submissions.forEach(submission => {
@@ -66,14 +65,6 @@ export class SubmissionsComponent implements OnInit {
           category.estimateHuman = DurationService.toHuman(category.estimate);
           category.visible = true;
         });
-      });
-    });
-
-    this.games.forEach(game => {
-      game.visible = true;
-      game.categories.forEach(category => {
-        category.estimateHuman = DurationService.toHuman(category.estimate);
-        category.visible = true;
       });
     });
     this.answers.forEach(submission => {
@@ -117,7 +108,14 @@ export class SubmissionsComponent implements OnInit {
     if (!this.marathonService.marathon.selectionDone || !this.selection[category.id]) {
       return '';
     }
-    return this.selection[category.id].status.toLowerCase();
+
+    const status = this.selection[category.id].status;
+
+    if (status in this.statusMap) {
+      return this.statusMap[status];
+    }
+
+    return status.toLowerCase();
   }
 
   displaysTabs() {
@@ -131,31 +129,43 @@ export class SubmissionsComponent implements OnInit {
   }
 
   filter() {
-    this.games.forEach(game => {
-      game.categories.forEach(category => {
-        category.visible = !this.categoryFilter || this.selection[category.id].status === this.categoryFilter;
+    this.submissions.forEach((submission) => {
+      submission.games.forEach(game => {
+        game.categories.forEach(category => {
+          category.visible = !this.categoryFilter || this.selection[category.id].status === this.categoryFilter;
+        });
+        game.visible = this.filterGame(game, submission.user);
       });
-      game.visible = this.filterGame(game);
     });
   }
 
-  private filterGame(game: Game) {
-    if (!this.runnerFilter && !this.gameFilter && !this.categoryFilter) {
+  private filterGame(game: Game, user: User) {
+    if (!this.runnerGameFilter && !this.categoryFilter) {
       return true;
     }
+
+    const filter = this.runnerGameFilter;
     let visible = true;
-    if (!!this.runnerFilter) {
-      if (localStorage.getItem('language') === 'ja' && !!game.user.usernameJapanese) {
-        visible = visible && game.user.usernameJapanese.toLowerCase().includes(this.runnerFilter.toLowerCase());
+
+    const gameFound = game.name.toLowerCase().includes(filter.toLowerCase());
+
+    if (gameFound) {
+      visible = visible && game.name.toLowerCase().includes(filter.toLowerCase());
+    } else {
+      if (localStorage.getItem('language') === 'ja' && !!user.usernameJapanese) {
+        visible = visible && user.usernameJapanese.toLowerCase().includes(filter.toLowerCase());
       } else {
-        visible = visible && game.user.username.toLowerCase().includes(this.runnerFilter.toLowerCase());
+        visible = visible && user.username.toLowerCase().includes(filter.toLowerCase());
       }
     }
-    if (!!this.gameFilter) {
-      visible = visible && game.name.toLowerCase().includes(this.gameFilter.toLowerCase());
-    }
+
     visible = visible && game.categories.map(c => c.visible).includes(true);
+
     return visible;
+  }
+
+  showSubmission(submission: Submission) {
+    return submission.games.find(g => g.visible);
   }
 
   firstDisplayed(game: Game) {
@@ -174,27 +184,39 @@ export class SubmissionsComponent implements OnInit {
 
   deleteSubmission(id: number) {
     this.submissionService.delete(this.marathonService.marathon.id, id).add(() => {
-      this.games = this.games.filter(game => game.submissionId !== id);
+      this.submissions = this.submissions.filter(submission => submission.id !== id);
     });
   }
 
   deleteGame(id: number) {
     this.gameService.delete(this.marathonService.marathon.id, id).add(() => {
-      this.games = this.games.filter(game => game.id !== id);
+      this.submissions.forEach((submission) => {
+        submission.games = submission.games.filter(game => game.id !== id);
+      });
     });
   }
 
   deleteCategory(gameId: number, id: number) {
     this.categoryService.delete(this.marathonService.marathon.id, id).add(() => {
-      const game = this.games.find(g => g.id === gameId);
-      game.categories = game.categories.filter(c => c.id !== id);
-      if (game.categories.length === 0) {
-        this.deleteGame(gameId);
-      }
+      this.submissions.forEach((submission) => {
+        const game = submission.games.find(g => g.id === gameId);
+        game.categories = game.categories.filter(c => c.id !== id);
+        if (game.categories.length === 0) {
+          this.deleteGame(gameId);
+        }
+      });
     });
   }
 
   get title(): string {
     return 'Submissions';
+  }
+
+  get showDelete(): boolean {
+    return !this.marathonService.marathon.selectionDone && this.userIsAdmin;
+  }
+
+  get userIsAdmin(): boolean {
+    return this.marathonService.isAdmin(this.userService.user);
   }
 }

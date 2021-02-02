@@ -15,28 +15,49 @@
 </div>
 
 <div class="container">
+
+  <nav class="panel">
+    <div class="panel-block">
+      <p class="control has-icons-left">
+        <input class="input" type="text" placeholder="Search users and games" [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()">
+        <span class="icon is-left">
+          <fa-icon [icon]="faSearch"></fa-icon>
+        </span>
+      </p>
+    </div>
+    <div class="panel-block">
+
+    </div>
+  </nav>
+
   <ng-template ngFor let-submission [ngForOf]="submissions">
-    <div class="box">
+    <div class="box" *ngIf="showSubmission(submission)">
       <h4 class="title is-4">
         <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
+        <button *ngIf="showDelete" class="delete" aria-label="delete"></button>
       </h4>
       <ng-template ngFor let-game [ngForOf]="submission.games">
-        <div class="card {{getGameStatus(game)}}">
+        <div class="card {{getGameStatus(game)}}" *ngIf="game.visible">
           <div class="card-content">
             <div class="media">
               <div class="media-content">
                 <p class="title is-4">
-                  {{ game.name }} on {{ game.console }}<sup *ngIf="game.emulated">{{ 'global.emu' | translate }}</sup>
+                  {{ game.name }} - {{ game.console }}<sup *ngIf="game.emulated">{{ 'global.emu' | translate }}</sup>
+                  <!-- TODO: buttons are broken with tooltips -->
+                  <button *ngIf="showDelete"
+                          class="delete"
+                          aria-label="delete"
+                          [nwbToolTip]="'marathon.submissions.game.delete' | translate"
+                          nwbToolTipIsMultiline="true"></button>
                 </p>
-                <span class="subtitle is-6">{{ 'marathon.submissions.table.ratio' | translate}}: {{ game.ratio }}</span>
+                <span *ngIf="userIsAdmin" class="subtitle is-6">{{ 'marathon.submissions.table.ratio' | translate }}: {{ game.ratio }}</span>
                 <p class="subtitle is-6">{{ game.description }}</p>
 
                 <ng-template ngFor let-category [ngForOf]="game.categories" let-i="index">
-
-                  <article class="message">
+                  <article class="message {{getCategoryStatus(category)}}" *ngIf="category.visible">
                     <div class="message-header">
-                      <p>{{ category.name }} ({{ 'marathon.schedule.type.' + category.type | translate}})</p>
-                      <button class="delete" aria-label="delete"></button>
+                      <p>{{ category.name }} ({{ 'marathon.schedule.type.' + category.type | translate}}) - {{ category.estimateHuman }}</p>
+                      <button *ngIf="showDelete" class="delete" aria-label="delete"></button>
                     </div>
                     <div class="message-body">
                       <p *ngIf="category.type !== 'SINGLE' && category.opponentDtos && category.opponentDtos.length > 0">
@@ -51,14 +72,9 @@
                           </a>
                         </span>
                       </p>
-                      <p>
-                        Estimate: {{ category.estimateHuman }}
-                      </p>
-
                       {{ category.description }}
                     </div>
                   </article>
-
                 </ng-template>
 
               </div>
@@ -74,6 +90,7 @@
 <br>
 <br>
 <div [hidden]="displaysTabs() && active !== 'submissions'" class="container">
+<!--<div [hidden]="true" class="container">-->
   <div class="table-container">
     <table class="table is-fullwidth {{marathonService.marathon.selectionDone ? '' : 'is-striped'}}">
       <thead>
@@ -90,8 +107,8 @@
         <th *ngIf="marathonService.marathon.selectionDone">{{ 'marathon.submissions.table.status' | translate}}</th>
       </tr>
       <tr>
-        <th><input class="input" type="text" [(ngModel)]="runnerFilter" (ngModelChange)="filter()"></th>
-        <th><input class="input" type="text" [(ngModel)]="gameFilter" (ngModelChange)="filter()"></th>
+        <th><input class="input" type="text" [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()"></th>
+        <th><input class="input" type="text" [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()"></th>
         <th></th>
         <th *ngIf="marathonService.isAdmin(userService.user)"></th>
         <th></th>
