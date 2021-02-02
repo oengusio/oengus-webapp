@@ -14,27 +14,61 @@
   </ul>
 </div>
 
-<div class="container">
+<div [hidden]="displaysTabs() && active !== 'submissions'" class="container">
 
-  <nav class="panel">
-    <div class="panel-block">
-      <p class="control has-icons-left">
-        <input class="input" type="text" placeholder="Search users and games" [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()">
-        <span class="icon is-left">
+  <div class="columns">
+    <div class="column is-half-desktop">
+      <nav class="panel">
+        <div class="panel-block">
+          <p class="control has-icons-left">
+            <input class="input" type="text" placeholder="Filter users and games" [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()">
+            <span class="icon is-left">
           <fa-icon [icon]="faSearch"></fa-icon>
         </span>
-      </p>
+          </p>
+        </div>
+        <div class="panel-block" *ngIf="marathonService.marathon.selectionDone">
+          <p class="control">
+        <span class="select is-fullwidth">
+          <select [(ngModel)]="categoryFilter" (ngModelChange)="filter()">
+            <option value="">{{ 'marathon.selection.status.ALL' | translate}}</option>
+            <option value="REJECTED">{{ 'marathon.selection.status.REJECTED' | translate}}</option>
+            <option value="BONUS">{{ 'marathon.selection.status.BONUS' | translate}}</option>
+            <option value="BACKUP">{{ 'marathon.selection.status.BACKUP' | translate}}</option>
+            <option value="VALIDATED">{{ 'marathon.selection.status.VALIDATED' | translate}}</option>
+          </select>
+        </span>
+          </p>
+        </div>
+      </nav>
     </div>
-    <div class="panel-block">
-
-    </div>
-  </nav>
+  </div>
 
   <ng-template ngFor let-submission [ngForOf]="submissions">
     <div class="box" *ngIf="showSubmission(submission)">
       <h4 class="title is-4">
         <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
-        <button *ngIf="showDelete" class="delete" aria-label="delete"></button>
+        <div class="is-pulled-right"
+             *ngIf="!marathonService.marathon.selectionDone && marathonService.isAdmin(this.userService.user)">
+          <a class="is-tooltip-danger" (click)="confirmDeletion.submission[submission.id] = true"
+             *ngIf="confirmDeletion.submission[submission.id] !== true"
+             [nwbToolTip]="'marathon.submissions.submission.delete' | translate"
+             nwbToolTipPosition="left"
+             nwbToolTipIsMultiline="true">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </a>
+          <a class="is-tooltip-danger" (click)="deleteSubmission(submission.id)"
+             *ngIf="confirmDeletion.submission[submission.id] === true"
+             [nwbToolTip]="'action.confirm' | translate">
+            <fa-icon [icon]="faCheck"></fa-icon>
+          </a>
+          <a class="is-tooltip-danger" (click)="confirmDeletion.submission[submission.id] = false"
+             style="margin-left: 0.4rem"
+             *ngIf="confirmDeletion.submission[submission.id] === true"
+             [nwbToolTip]="'action.cancel' | translate">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </a>
+        </div>
       </h4>
       <ng-template ngFor let-game [ngForOf]="submission.games">
         <div class="card {{getGameStatus(game)}}" *ngIf="game.visible">
@@ -43,12 +77,25 @@
               <div class="media-content">
                 <p class="title is-4">
                   {{ game.name }} - {{ game.console }}<sup *ngIf="game.emulated">{{ 'global.emu' | translate }}</sup>
-                  <!-- TODO: buttons are broken with tooltips -->
-                  <button *ngIf="showDelete"
-                          class="delete"
-                          aria-label="delete"
-                          [nwbToolTip]="'marathon.submissions.game.delete' | translate"
-                          nwbToolTipIsMultiline="true"></button>
+                  <span class="is-pulled-right" *ngIf="showDelete">
+                    <a class="is-tooltip-danger" (click)="confirmDeletion.game[game.id] = true"
+                       *ngIf="confirmDeletion.game[game.id] !== true"
+                       [nwbToolTip]="'marathon.submissions.game.delete' | translate"
+                       nwbToolTipPosition="left"
+                       nwbToolTipIsMultiline="true">
+                      <fa-icon [icon]="faTimes"></fa-icon>
+                    </a>
+                    <a class="is-tooltip-danger" (click)="deleteGame(game.id)"
+                       *ngIf="confirmDeletion.game[game.id] === true"
+                       [nwbToolTip]="'action.confirm' | translate">
+                      <fa-icon [icon]="faCheck"></fa-icon>
+                    </a>
+                    <a class="is-tooltip-danger" (click)="confirmDeletion.game[game.id] = false" style="margin-left: 0.4rem"
+                       *ngIf="confirmDeletion.game[game.id] === true"
+                       [nwbToolTip]="'action.cancel' | translate">
+                      <fa-icon [icon]="faTimes"></fa-icon>
+                    </a>
+                  </span>
                 </p>
                 <span *ngIf="userIsAdmin" class="subtitle is-6">{{ 'marathon.submissions.table.ratio' | translate }}: {{ game.ratio }}</span>
                 <p class="subtitle is-6">{{ game.description }}</p>
@@ -56,8 +103,34 @@
                 <ng-template ngFor let-category [ngForOf]="game.categories" let-i="index">
                   <article class="message {{getCategoryStatus(category)}}" *ngIf="category.visible">
                     <div class="message-header">
-                      <p>{{ category.name }} ({{ 'marathon.schedule.type.' + category.type | translate}}) - {{ category.estimateHuman }}</p>
-                      <button *ngIf="showDelete" class="delete" aria-label="delete"></button>
+                      <p>
+                        {{ category.name }} ({{ 'marathon.schedule.type.' + category.type | translate}}) - {{ category.estimateHuman }}
+                        <a [href]="category.video" class="video" target="_blank" aria-label="Video" *ngIf="category.video">
+                          <span class="icon">
+                            <fa-icon [icon]="faFilm"></fa-icon>
+                          </span>
+                        </a>
+                      </p>
+                      <div class="is-pulled-right"
+                           *ngIf="showDelete">
+                        <a class="is-tooltip-danger" (click)="confirmDeletion.category[category.id] = true"
+                           *ngIf="confirmDeletion.category[category.id] !== true"
+                           [nwbToolTip]="'marathon.submissions.category.delete' | translate"
+                           nwbToolTipPosition="left"
+                           nwbToolTipIsMultiline="false">
+                          <fa-icon [icon]="faTimes"></fa-icon>
+                        </a>
+                        <a class="is-tooltip-danger" (click)="deleteCategory(game.id, category.id)"
+                           *ngIf="confirmDeletion.category[category.id] === true"
+                           [nwbToolTip]="'action.confirm' | translate">
+                          <fa-icon [icon]="faCheck"></fa-icon>
+                        </a>
+                        <a class="is-tooltip-danger" (click)="confirmDeletion.category[category.id] = false"
+                           *ngIf="confirmDeletion.category[category.id] === true" style="margin-left: 0.4rem"
+                           [nwbToolTip]="'action.cancel' | translate">
+                          <fa-icon [icon]="faTimes"></fa-icon>
+                        </a>
+                      </div>
                     </div>
                     <div class="message-body">
                       <p *ngIf="category.type !== 'SINGLE' && category.opponentDtos && category.opponentDtos.length > 0">
@@ -89,8 +162,8 @@
 <br>
 <br>
 <br>
-<div [hidden]="displaysTabs() && active !== 'submissions'" class="container">
-<!--<div [hidden]="true" class="container">-->
+<!--<div [hidden]="displaysTabs() && active !== 'submissions'" class="container">-->
+<div [hidden]="true" class="container">
   <div class="table-container">
     <table class="table is-fullwidth {{marathonService.marathon.selectionDone ? '' : 'is-striped'}}">
       <thead>
@@ -147,7 +220,7 @@
                        nwbToolTipIsMultiline="true">
                       <fa-icon [icon]="faTimes"></fa-icon>
                     </a>
-                    <a class="is-tooltip-danger" (click)="deleteSubmission(game.submissionId)"
+                    <a class="is-tooltip-danger" (click)="deleteSubmission(submission.id)"
                        *ngIf="confirmDeletion.submission[submission.id] === true"
                        [nwbToolTip]="'action.confirm' | translate">
                       <fa-icon [icon]="faCheck"></fa-icon>
@@ -259,7 +332,7 @@
       </tr>
       </thead>
       <tbody>
-      <ng-template ngFor let-submission [ngForOf]="answers">
+      <ng-template ngFor let-submission [ngForOf]="submissions">
         <tr *ngFor="let answer of submission.answers; let i = index">
           <ng-template [ngIf]="i === 0">
             <td [attr.rowspan]="submission.answers.length">

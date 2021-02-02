@@ -78,10 +78,8 @@ const marathonRoutes: Routes = [
         path: 'submissions',
         component: SubmissionsComponent,
         resolve: {
-          games: GamesResolver,
           submissions: SubmissionsResolver,
           selection: SelectionResolver,
-          answers: AnswersResolver
         }
       },
       {
@@ -226,7 +224,6 @@ const marathonRoutes: Routes = [
     SelectionResolver,
     IncentivesResolver,
     AvailabilitiesResolver,
-    AnswersResolver,
     DonationsResolver,
     DonationsStatsResolver
   ]

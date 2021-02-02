@@ -21,7 +21,6 @@ import {User} from '../../../model/user';
 export class SubmissionsComponent implements OnInit {
 
   public submissions: Submission[];
-  public answers: Submission[];
   public selection: Map<number, Selection>;
 
   public runnerGameFilter = '';
@@ -56,7 +55,6 @@ export class SubmissionsComponent implements OnInit {
               private categoryService: CategoryService) {
     this.submissions = this.route.snapshot.data.submissions;
     this.selection = this.route.snapshot.data.selection;
-    this.answers = this.route.snapshot.data.answers;
     this.submissions.forEach(submission => {
       submission.answers = submission.answers.filter(answer => answer.question.fieldType !== 'FREETEXT');
       submission.games.forEach(game => {
@@ -66,9 +64,6 @@ export class SubmissionsComponent implements OnInit {
           category.visible = true;
         });
       });
-    });
-    this.answers.forEach(submission => {
-      submission.answers = submission.answers.filter(answer => answer.question.fieldType !== 'FREETEXT');
     });
   }
 
