@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Game} from '../../../../model/game';
 import {Marathon} from '../../../../model/marathon';
 import {Category} from '../../../../model/category';
@@ -8,7 +8,7 @@ import {Category} from '../../../../model/category';
   templateUrl: './submission-game.component.html',
   styleUrls: ['./submission-game.component.scss']
 })
-export class SubmissionGameComponent implements OnInit {
+export class SubmissionGameComponent implements OnInit, OnDestroy {
 
   @Input() public game: Game;
   @Input() public marathon: Marathon;
@@ -22,6 +22,11 @@ export class SubmissionGameComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.deleteGame.unsubscribe();
+    this.deleteCategory.unsubscribe();
   }
 
   getRawStatus(category: Category): string {
@@ -45,14 +50,10 @@ export class SubmissionGameComponent implements OnInit {
             status = 'VALIDATED';
             break;
           case 'BONUS':
-            if (status !== 'VALIDATED') {
-              status = 'BONUS';
-            }
+            status = 'BONUS';
             break;
           case 'BACKUP':
-            if (status !== 'VALIDATED' && status !== 'BONUS') {
-              status = 'BACKUP';
-            }
+            status = 'BACKUP';
             break;
           default:
             break;

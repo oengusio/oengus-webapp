@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game } from '../../../model/game';
-import { faCheck, faFilm, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import { MarathonService } from '../../../services/marathon.service';
 import { DurationService } from '../../../services/duration.service';
-import { Category } from '../../../model/category';
 import { UserService } from '../../../services/user.service';
 import { Submission } from '../../../model/submission';
 import { GameService } from '../../../services/game.service';
@@ -26,24 +25,9 @@ export class SubmissionsComponent implements OnInit {
   public runnerGameFilter = '';
   public categoryFilter = '';
 
-  public confirmDeletion = {
-    submission: {},
-    game: {},
-    category: {}
-  };
-
-  private statusMap = {
-    'VALIDATED': 'is-success',
-    'REJECTED': 'is-danger',
-    'BACKUP': 'is-primary',
-    'BONUS': 'is-info',
-  };
-
   public active = 'submissions';
 
-  public faFilm = faFilm;
   public faTimes = faTimes;
-  public faCheck = faCheck;
   public faSearch = faSearch;
 
   public moment = moment;
@@ -69,49 +53,6 @@ export class SubmissionsComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  getGameStatus(game: Game) {
-    if (!this.marathonService.marathon.selectionDone) {
-      return '';
-    }
-    let status = 'REJECTED';
-    game.categories.filter(c => c.visible).forEach(category => {
-      if (!!this.selection[category.id]) {
-        switch (this.selection[category.id].status) {
-          case 'VALIDATED':
-            status = 'VALIDATED';
-            break;
-          case 'BONUS':
-            if (status !== 'VALIDATED') {
-              status = 'BONUS';
-            }
-            break;
-          case 'BACKUP':
-            if (status !== 'VALIDATED' && status !== 'BONUS') {
-              status = 'BACKUP';
-            }
-            break;
-          default:
-            break;
-        }
-      }
-    });
-    return status.toLowerCase();
-  }
-
-  getCategoryStatus(category: Category) {
-    if (!this.marathonService.marathon.selectionDone || !this.selection[category.id]) {
-      return '';
-    }
-
-    const status = this.selection[category.id].status;
-
-    if (status in this.statusMap) {
-      return this.statusMap[status];
-    }
-
-    return status.toLowerCase();
   }
 
   displaysTabs() {
@@ -162,20 +103,6 @@ export class SubmissionsComponent implements OnInit {
 
   showSubmission(submission: Submission) {
     return submission.games.find(g => g.visible);
-  }
-
-  firstDisplayed(game: Game) {
-    let i = 0;
-    for (i; i < game.categories.length; i++) {
-      if (game.categories[i].visible) {
-        break;
-      }
-    }
-    return i;
-  }
-
-  visibleCategories(game: Game) {
-    return game.categories.filter(c => c.visible).length;
   }
 
   deleteSubmission(id: number) {

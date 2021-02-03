@@ -14,14 +14,16 @@
         <span *ngIf="userIsAdmin" class="subtitle is-6">{{ 'marathon.submissions.table.ratio' | translate }}: {{ game.ratio }}</span>
         <p class="subtitle is-6 has-text-light">{{ game.description }}</p>
 
-        <app-submission-category
-          *ngFor="let category of game.categories"
-          [category]="category"
-          [marathon]="marathon"
-          [rawStatus]="getRawStatus(category)"
-          [showDelete]="showDelete"
-          (triggerDelete)="deleteCategory.next(category.id)"
-        ></app-submission-category>
+        <ng-template ngFor let-category [ngForOf]="game.categories">
+          <app-submission-category
+            *ngIf="category.visible"
+            [category]="category"
+            [marathon]="marathon"
+            [rawStatus]="getRawStatus(category)"
+            [showDelete]="showDelete"
+            (triggerDelete)="deleteCategory.next(category.id)"
+          ></app-submission-category>
+        </ng-template>
       </div>
     </div>
   </div>

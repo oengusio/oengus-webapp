@@ -23,14 +23,14 @@
       <p>
         {{'marathon.submit.category.opponent.with' | translate}}
         <span *ngFor="let opponent of category.opponentDtos; let i = index">
-                          <span *ngIf="i > 0">, </span>
-                          <app-user [user]="opponent.user" [showSocialLinks]="true"></app-user>
-                          <a [href]="opponent.video" target="_blank" aria-label="Video" *ngIf="opponent.video">
-                            <span class="icon">
-                              <fa-icon [icon]="faFilm"></fa-icon>
-                            </span>
-                          </a>
-                        </span>
+          <span *ngIf="i > 0">, </span>
+          <app-user [user]="opponent.user" [showSocialLinks]="true"></app-user>
+          <a [href]="opponent.video" target="_blank" aria-label="Video" *ngIf="opponent.video">
+            <span class="icon">
+              <fa-icon [icon]="faFilm"></fa-icon>
+            </span>
+          </a>
+        </span>
       </p>
       <hr />
     </ng-template>

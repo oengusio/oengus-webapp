@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Category} from '../../../../model/category';
 import {Marathon} from '../../../../model/marathon';
 import { faFilm, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +8,7 @@ import { faFilm, faTimes } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './submission-category.component.html',
   styleUrls: ['./submission-category.component.scss']
 })
-export class SubmissionCategoryComponent implements OnInit {
+export class SubmissionCategoryComponent implements OnInit, OnDestroy {
 
   @Input() public category: Category;
   @Input() public marathon: Marathon;
@@ -32,5 +32,9 @@ export class SubmissionCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.status = this.statusMap[this.rawStatus] || '';
+  }
+
+  ngOnDestroy(): void {
+    this.triggerDelete.unsubscribe();
   }
 }

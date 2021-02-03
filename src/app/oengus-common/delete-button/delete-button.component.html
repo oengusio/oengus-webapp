@@ -8,12 +8,14 @@
   </a>
   <a class="is-tooltip-danger" (click)="confirmHandler.next()"
      *ngIf="showConfirm"
+     nwbToolTipPosition="left"
      [nwbToolTip]="confirmText">
     <fa-icon [icon]="faCheck"></fa-icon>
   </a>
   <a class="is-tooltip-danger" (click)="cancel()"
      style="margin-left: 0.4rem"
      *ngIf="showConfirm"
+     nwbToolTipPosition="left"
      [nwbToolTip]="cancelText">
     <fa-icon [icon]="faTimes"></fa-icon>
   </a>
