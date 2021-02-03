@@ -50,10 +50,14 @@ export class SubmissionGameComponent implements OnInit, OnDestroy {
             status = 'VALIDATED';
             break;
           case 'BONUS':
-            status = 'BONUS';
+            if (status !== 'VALIDATED') {
+              status = 'BONUS';
+            }
             break;
           case 'BACKUP':
-            status = 'BACKUP';
+            if (status !== 'VALIDATED' && status !== 'BONUS') {
+              status = 'BACKUP';
+            }
             break;
           default:
             break;
