@@ -44,6 +44,7 @@ import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-
 import {AdsenseComponent} from '../adsense/adsense.component';
 import {SubmissionsResolver} from '../resolvers/submissions-resolver';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
+import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
 
 const marathonRoutes: Routes = [
   {
@@ -181,7 +182,8 @@ const marathonRoutes: Routes = [
     DonateComponent,
     DonationsComponent,
     AdsenseComponent,
-    SubmissionCategoryComponent
+    SubmissionCategoryComponent,
+    SubmissionGameComponent
   ],
     imports: [
         CommonModule,

@@ -5,7 +5,8 @@ import { faFilm, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-submission-category',
-  templateUrl: './submission-category.component.html'
+  templateUrl: './submission-category.component.html',
+  styleUrls: ['./submission-category.component.scss']
 })
 export class SubmissionCategoryComponent implements OnInit {
 

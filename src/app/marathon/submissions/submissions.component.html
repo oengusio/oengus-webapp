@@ -42,7 +42,6 @@
     </div>
   </div>
 
-  <!-- TODO: Split this shit up in components -->
   <ng-template ngFor let-submission [ngForOf]="submissions">
     <div class="box" *ngIf="showSubmission(submission)">
       <h4 class="title is-4">
@@ -55,42 +54,22 @@
         ></app-delete-button>
       </h4>
       <ng-template ngFor let-game [ngForOf]="submission.games">
-        <div class="card {{getGameStatus(game)}}" *ngIf="game.visible">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-content">
-                <p class="title is-4 has-text-light">
-                  {{ game.name }} - {{ game.console }}<sup *ngIf="game.emulated">{{ 'global.emu' | translate }}</sup>
-                  <app-delete-button *ngIf="showDelete"
-                                     [baseText]="'marathon.submissions.game.delete' | translate"
-                                     [confirmText]="'action.confirm' | translate"
-                                     [cancelText]="'action.cancel' | translate"
-                                     (confirmHandler)="deleteGame(game.id)"
-                  ></app-delete-button>
-                </p>
-                <span *ngIf="userIsAdmin" class="subtitle is-6">{{ 'marathon.submissions.table.ratio' | translate }}: {{ game.ratio }}</span>
-                <p class="subtitle is-6 has-text-light">{{ game.description }}</p>
-
-                <app-submission-category
-                  *ngFor="let category of game.categories"
-                  [category]="category"
-                  [marathon]="marathonService.marathon"
-                  [rawStatus]="getRawStatus(category)"
-                  [showDelete]="showDelete"
-                  (triggerDelete)="deleteCategory(game.id, category.id)"
-                ></app-submission-category>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-submission-game
+          *ngIf="game.visible"
+          [game]="game"
+          [marathon]="marathonService.marathon"
+          [showDelete]="showDelete"
+          [selection]="selection"
+          [userIsAdmin]="userIsAdmin"
+          (deleteGame)="deleteGame(game.id)"
+          (deleteCategory)="deleteCategory(game.id, $event)"
+        ></app-submission-game>
       </ng-template>
     </div>
   </ng-template>
 </div>
 
-<br>
-<br>
-<br>
+
 <!--<div [hidden]="displaysTabs() && active !== 'submissions'" class="container">-->
 <div [hidden]="true" class="container">
   <div class="table-container">

@@ -100,14 +100,6 @@ export class SubmissionsComponent implements OnInit {
     return status.toLowerCase();
   }
 
-  getRawStatus(category: Category): string {
-    if (!this.marathonService.marathon.selectionDone || !this.selection[category.id]) {
-      return '';
-    }
-
-    return this.selection[category.id].status;
-  }
-
   getCategoryStatus(category: Category) {
     if (!this.marathonService.marathon.selectionDone || !this.selection[category.id]) {
       return '';
