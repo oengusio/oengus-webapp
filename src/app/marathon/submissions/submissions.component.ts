@@ -34,8 +34,8 @@ export class SubmissionsComponent implements OnInit {
 
   private statusMap = {
     'VALIDATED': 'is-success',
-    'REJECTED': 'is-warning',
-    'BACKUP': 'is-dark',
+    'REJECTED': 'is-danger',
+    'BACKUP': 'is-primary',
     'BONUS': 'is-info',
   };
 
@@ -98,6 +98,14 @@ export class SubmissionsComponent implements OnInit {
       }
     });
     return status.toLowerCase();
+  }
+
+  getRawStatus(category: Category): string {
+    if (!this.marathonService.marathon.selectionDone || !this.selection[category.id]) {
+      return '';
+    }
+
+    return this.selection[category.id].status;
   }
 
   getCategoryStatus(category: Category) {

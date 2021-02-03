@@ -19,3 +19,8 @@
 hr {
   border: 1px solid $grey-alt;
 }
+
+app-submission-category:not(:last-child) {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}

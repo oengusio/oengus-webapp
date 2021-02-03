@@ -43,6 +43,7 @@ import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
 import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
 import {AdsenseComponent} from '../adsense/adsense.component';
 import {SubmissionsResolver} from '../resolvers/submissions-resolver';
+import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 
 const marathonRoutes: Routes = [
   {
@@ -179,7 +180,8 @@ const marathonRoutes: Routes = [
     IncentiveComponent,
     DonateComponent,
     DonationsComponent,
-    AdsenseComponent
+    AdsenseComponent,
+    SubmissionCategoryComponent
   ],
     imports: [
         CommonModule,
