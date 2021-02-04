@@ -1,5 +1,4 @@
 import { Category } from './category';
-import { User } from './user';
 
 export class Game {
   static consoles = [
@@ -145,15 +144,12 @@ export class Game {
   console: string;
   ratio: string;
   categories: Category[];
-  user: User;
   emulated: boolean;
   visible: boolean;
-  submissionId: number;
   status: string;
 
   constructor() {
     this.console = Game.consoles[0];
     this.categories = [];
-    this.user = new User();
   }
 }

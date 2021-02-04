@@ -16,7 +16,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { SubmitComponent } from './submit/submit.component';
 import { SubmissionResolver } from '../resolvers/submission-resolver';
 import { SubmissionsComponent } from './submissions/submissions.component';
-import { GamesResolver } from '../resolvers/games-resolver';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
@@ -87,7 +86,7 @@ const marathonRoutes: Routes = [
         path: 'selection',
         component: SelectionComponent,
         resolve: {
-          submissions: GamesResolver,
+          submissions: SubmissionsResolver,
           selection: SelectionResolver
         },
         data: {
@@ -106,7 +105,7 @@ const marathonRoutes: Routes = [
         path: 'schedule/manage',
         component: ScheduleManagementComponent,
         resolve: {
-          submissions: GamesResolver,
+          submissions: SubmissionsResolver,
           selection: SelectionResolver,
           schedule: ScheduleResolver,
           availabilities: AvailabilitiesResolver
@@ -221,7 +220,6 @@ const marathonRoutes: Routes = [
     CanActivateMarathonActiveGuard,
     MarathonResolver,
     SubmissionResolver,
-    GamesResolver,
     SubmissionsResolver,
     ScheduleResolver,
     SelectionResolver,
