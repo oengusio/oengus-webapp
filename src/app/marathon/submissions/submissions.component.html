@@ -21,7 +21,8 @@
       <nav class="panel">
         <div class="panel-block">
           <p class="control has-icons-left">
-            <input class="input" type="text" placeholder="Filter users and games" [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()">
+            <input class="input" type="text" [placeholder]="'marathon.submissions.filter' | translate"
+                   [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()">
             <span class="icon is-left">
               <fa-icon [icon]="faSearch"></fa-icon>
             </span>
