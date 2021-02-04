@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Game } from '../../../model/game';
 import { faCalendarTimes, faCalendarWeek, faFilm } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionService } from '../../../services/selection.service';
@@ -11,6 +10,7 @@ import * as _ from 'lodash';
 import { Availability } from '../../../model/availability';
 import * as vis from 'vis-timeline';
 import { SubmissionService } from '../../../services/submission.service';
+import {Submission} from '../../../model/submission';
 
 @Component({
   selector: 'app-selection',
@@ -19,7 +19,7 @@ import { SubmissionService } from '../../../services/submission.service';
 })
 export class SelectionComponent implements OnInit {
 
-  public games: Game[];
+  public submissions: Submission[];
   public selection: any;
   public loading = false;
 
@@ -41,17 +41,19 @@ export class SelectionComponent implements OnInit {
               private marathonService: MarathonService) {
     this.availabilitiesGroups = new vis.DataSet([]);
     this.availabilitiesItems = new vis.DataSet([]);
-    this.games = this.route.snapshot.data.submissions;
+    this.submissions = this.route.snapshot.data.submissions;
     this.selection = this.route.snapshot.data.selection;
-    this.games.forEach(game => {
-      game.categories.forEach(category => {
-        category.estimateHuman = DurationService.toHuman(category.estimate);
-        if (!Object.keys(this.selection).includes(category.id.toString())) {
-          const selection = new Selection();
-          selection.status = 'TODO';
-          selection.categoryId = category.id;
-          this.selection[category.id] = selection;
-        }
+    this.submissions.forEach(submission => {
+      submission.games.forEach(game => {
+        game.categories.forEach(category => {
+          category.estimateHuman = DurationService.toHuman(category.estimate);
+          if (!Object.keys(this.selection).includes(category.id.toString())) {
+            const selection = new Selection();
+            selection.status = 'TODO';
+            selection.categoryId = category.id;
+            this.selection[category.id] = selection;
+          }
+        });
       });
     });
   }
@@ -94,9 +96,9 @@ export class SelectionComponent implements OnInit {
 
   getNumberOfRunners() {
     const runners = [];
-    this.games.forEach(game => {
-      if (!runners.includes(game.user.id)) {
-        runners.push(game.user.id);
+    this.submissions.forEach(submission => {
+      if (!runners.includes(submission.user.id)) {
+        runners.push(submission.user.id);
       }
     });
     return runners.length;
@@ -104,25 +106,32 @@ export class SelectionComponent implements OnInit {
 
   getTotalTime() {
     const duration = moment.duration(0);
-    this.games.forEach(game => {
-      game.categories.forEach(category => {
-        duration.add(category.estimate);
+    this.submissions.forEach(submission => {
+      submission.games.forEach(game => {
+        game.categories.forEach(category => {
+          duration.add(category.estimate);
+        });
       });
     });
+
     return DurationService.toHuman(duration.toISOString());
   }
 
   getAverageTime() {
-    const duration = moment.duration(0);
-    this.games.forEach(game => {
-      game.categories.forEach(category => {
-        duration.add(category.estimate);
-      });
-    });
     const numberOfRuns = this.getNumberOfRuns();
     if (numberOfRuns === 0) {
       return '0:00:00';
     }
+
+    const duration = moment.duration(0);
+    this.submissions.forEach(submission => {
+      submission.games.forEach(game => {
+        game.categories.forEach(category => {
+          duration.add(category.estimate);
+        });
+      });
+    });
+
     const averageDuration = moment.duration(duration.asMilliseconds() / numberOfRuns);
     return DurationService.toHuman(averageDuration.toISOString());
   }
@@ -140,12 +149,14 @@ export class SelectionComponent implements OnInit {
 
   getValidatedRunsTime() {
     const duration = moment.duration(0);
-    this.games.forEach(game => {
-      game.categories.forEach(category => {
-        if (this.selection[category.id].status === 'VALIDATED') {
-          duration.add(category.estimate);
-          duration.add(moment.duration(this.marathonService.marathon.defaultSetupTime));
-        }
+    this.submissions.forEach(submission => {
+      submission.games.forEach(game => {
+        game.categories.forEach(category => {
+          if (this.selection[category.id].status === 'VALIDATED') {
+            duration.add(category.estimate);
+            duration.add(moment.duration(this.marathonService.marathon.defaultSetupTime));
+          }
+        });
       });
     });
     if (duration.asMilliseconds() > 0) {

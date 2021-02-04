@@ -16,7 +16,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { SubmitComponent } from './submit/submit.component';
 import { SubmissionResolver } from '../resolvers/submission-resolver';
 import { SubmissionsComponent } from './submissions/submissions.component';
-import { GamesResolver } from '../resolvers/games-resolver';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
@@ -34,7 +33,6 @@ import { IncentiveManagementComponent } from './incentive-management/incentive-m
 import { IncentivesResolver } from '../resolvers/incentives-resolver';
 import { IncentiveComponent } from './incentive/incentive.component';
 import { CanActivateMarathonIncentivesGuard } from '../guards/can-activate-marathon-incentives-guard.service';
-import { AnswersResolver } from '../resolvers/answers-resolver';
 import { DonateComponent } from './donate/donate.component';
 import { CanActivateMarathonDonationsGuard } from '../guards/can-activate-marathon-donations-guard.service';
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -43,6 +41,9 @@ import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
 import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
 import {AdsenseComponent} from '../adsense/adsense.component';
+import {SubmissionsResolver} from '../resolvers/submissions-resolver';
+import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
+import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
 
 const marathonRoutes: Routes = [
   {
@@ -77,16 +78,15 @@ const marathonRoutes: Routes = [
         path: 'submissions',
         component: SubmissionsComponent,
         resolve: {
-          submissions: GamesResolver,
+          submissions: SubmissionsResolver,
           selection: SelectionResolver,
-          answers: AnswersResolver
         }
       },
       {
         path: 'selection',
         component: SelectionComponent,
         resolve: {
-          submissions: GamesResolver,
+          submissions: SubmissionsResolver,
           selection: SelectionResolver
         },
         data: {
@@ -105,7 +105,7 @@ const marathonRoutes: Routes = [
         path: 'schedule/manage',
         component: ScheduleManagementComponent,
         resolve: {
-          submissions: GamesResolver,
+          submissions: SubmissionsResolver,
           selection: SelectionResolver,
           schedule: ScheduleResolver,
           availabilities: AvailabilitiesResolver
@@ -180,7 +180,9 @@ const marathonRoutes: Routes = [
     IncentiveComponent,
     DonateComponent,
     DonationsComponent,
-    AdsenseComponent
+    AdsenseComponent,
+    SubmissionCategoryComponent,
+    SubmissionGameComponent
   ],
     imports: [
         CommonModule,
@@ -218,12 +220,11 @@ const marathonRoutes: Routes = [
     CanActivateMarathonActiveGuard,
     MarathonResolver,
     SubmissionResolver,
-    GamesResolver,
+    SubmissionsResolver,
     ScheduleResolver,
     SelectionResolver,
     IncentivesResolver,
     AvailabilitiesResolver,
-    AnswersResolver,
     DonationsResolver,
     DonationsStatsResolver
   ]

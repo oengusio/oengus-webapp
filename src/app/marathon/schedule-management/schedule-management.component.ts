@@ -23,6 +23,7 @@ import { UserService } from '../../../services/user.service';
 import { Availability } from '../../../model/availability';
 import * as vis from 'vis-timeline';
 import { SubmissionService } from '../../../services/submission.service';
+import {Submission} from '../../../model/submission';
 
 @Component({
   selector: 'app-schedule-management',
@@ -48,7 +49,7 @@ export class ScheduleManagementComponent implements OnInit {
 
   public moment = moment;
 
-  private timezone = moment.tz.guess();
+  public timezone = moment.tz.guess();
 
   private timeline: any;
   private timebar: string;
@@ -101,36 +102,40 @@ export class ScheduleManagementComponent implements OnInit {
     }
 
     const selection = this.route.snapshot.data.selection;
-    const games = this.route.snapshot.data.submissions
-      .filter(game =>
-        game.categories
-          .filter(category =>
-            Object.keys(selection).includes(category.id.toString()))
-          .length > 0
-      );
+    const submissions: Submission[] = this.route.snapshot.data.submissions;
+    const filteredSubmissions = submissions.filter(submission =>
+      submission.games.filter(game => game.categories
+        .filter(category =>
+          Object.keys(selection).includes(category.id.toString()))
+        .length > 0).length > 0
+    );
+
+
     this.initSchedule(this.route.snapshot.data.schedule);
     this.scheduleTodo = [];
-    games.forEach(game => {
-      game.categories
-        .filter(category => Object.keys(selection).includes(category.id.toString()))
-        .filter(category => !this.schedule.lines.map(line => line.categoryId).includes(category.id))
-        .forEach(category => {
-          const scheduleLine = new ScheduleLine();
-          scheduleLine.categoryId = category.id;
-          scheduleLine.categoryName = category.name;
-          scheduleLine.console = game.console;
-          scheduleLine.estimate = category.estimate;
-          scheduleLine.estimateHuman = DurationService.toHuman(category.estimate);
-          scheduleLine.gameName = game.name;
-          scheduleLine.ratio = game.ratio;
-          scheduleLine.runners = [game.user];
-          category.opponentDtos.forEach(opponent => scheduleLine.runners.push(opponent.user));
-          scheduleLine.setupTime = this.marathonService.marathon.defaultSetupTime;
-          scheduleLine.setupTimeHuman = DurationService.toHuman(this.marathonService.marathon.defaultSetupTime);
-          scheduleLine.setupBlock = false;
-          scheduleLine.type = scheduleLine.runners.length > 1 ? 'RACE' : 'SINGLE';
-          this.scheduleTodo.push(scheduleLine);
-        });
+    filteredSubmissions.forEach(submission => {
+      submission.games.forEach(game => {
+        game.categories
+          .filter(category => Object.keys(selection).includes(category.id.toString()))
+          .filter(category => !this.schedule.lines.map(line => line.categoryId).includes(category.id))
+          .forEach(category => {
+            const scheduleLine = new ScheduleLine();
+            scheduleLine.categoryId = category.id;
+            scheduleLine.categoryName = category.name;
+            scheduleLine.console = game.console;
+            scheduleLine.estimate = category.estimate;
+            scheduleLine.estimateHuman = DurationService.toHuman(category.estimate);
+            scheduleLine.gameName = game.name;
+            scheduleLine.ratio = game.ratio;
+            scheduleLine.runners = [submission.user];
+            category.opponentDtos.forEach(opponent => scheduleLine.runners.push(opponent.user));
+            scheduleLine.setupTime = this.marathonService.marathon.defaultSetupTime;
+            scheduleLine.setupTimeHuman = DurationService.toHuman(this.marathonService.marathon.defaultSetupTime);
+            scheduleLine.setupBlock = false;
+            scheduleLine.type = scheduleLine.runners.length > 1 ? 'RACE' : 'SINGLE';
+            this.scheduleTodo.push(scheduleLine);
+          });
+      });
     });
   }
 

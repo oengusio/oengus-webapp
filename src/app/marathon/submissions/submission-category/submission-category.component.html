@@ -1,0 +1,39 @@
+<article class="message {{status}}" *ngIf="category.visible">
+  <div class="message-header">
+    <p>
+      {{ category.name }} ({{ 'marathon.schedule.type.' + category.type | translate}}) - {{ category.estimateHuman }}
+      <a [href]="category.video" class="video" target="_blank" aria-label="Video" *ngIf="category.video">
+                          <span class="icon">
+                            <fa-icon [icon]="faFilm"></fa-icon>
+                          </span>
+      </a>
+    </p>
+    <p class="is-pulled-right" *ngIf="marathon.selectionDone">
+      {{'marathon.selection.status.' + rawStatus | translate}}
+    </p>
+    <app-delete-button *ngIf="showDelete"
+                       [baseText]="'marathon.submissions.category.delete' | translate"
+                       [confirmText]="'action.confirm' | translate"
+                       [cancelText]="'action.cancel' | translate"
+                       (confirmHandler)="triggerDelete.next()"
+    ></app-delete-button>
+  </div>
+  <div class="message-body">
+    <ng-template [ngIf]="category.type !== 'SINGLE' && category.opponentDtos && category.opponentDtos.length > 0">
+      <p>
+        {{'marathon.submit.category.opponent.with' | translate}}
+        <span *ngFor="let opponent of category.opponentDtos; let i = index">
+          <span *ngIf="i > 0">, </span>
+          <app-user [user]="opponent.user" [showSocialLinks]="true"></app-user>
+          <a [href]="opponent.video" target="_blank" aria-label="Video" *ngIf="opponent.video">
+            <span class="icon">
+              <fa-icon [icon]="faFilm"></fa-icon>
+            </span>
+          </a>
+        </span>
+      </p>
+      <hr />
+    </ng-template>
+    <p>{{ category.description }}</p>
+  </div>
+</article>

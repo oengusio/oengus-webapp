@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Marathon } from '../model/marathon';
-import { environment } from '../environments/environment';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { Observable, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { UserService } from './user.service';
@@ -11,11 +10,12 @@ import { HomepageMetadata } from '../model/homepage-metadata';
 import { TranslateService } from '@ngx-translate/core';
 import moment from 'moment-timezone';
 import { User } from '../model/user';
+import {BaseService} from './BaseService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MarathonService {
+export class MarathonService extends BaseService {
   private _marathon: Marathon;
 
   get marathon(): Marathon {
@@ -28,106 +28,75 @@ export class MarathonService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private toastr: NwbAlertService,
+              toastr: NwbAlertService,
               private userService: UserService,
               private translateService: TranslateService) {
+    super(toastr);
   }
 
   create(marathon: Marathon): Subscription {
     marathon.creator = this.userService.user;
-    return this.http.put(environment.api + '/marathon', marathon, {observe: 'response'}).subscribe((response: any) => {
+    return this.http.put(this.url('marathon'), marathon, {observe: 'response'}).subscribe((response: any) => {
       this.router.navigate(['/marathon/' + response.headers.get('Location')]);
 
       this.translateService.get('alert.marathon.creation.success').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-success'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res);
       });
-    }, error => {
+    }, () => {
       this.translateService.get('alert.marathon.creation.error').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-warning'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res, 3000, 'warning');
       });
     });
   }
 
   update(marathon: Marathon, showToaster: boolean = true) {
-    return this.http.patch(environment.api + '/marathon/' + marathon.id, marathon).subscribe(() => {
+    return this.http.patch(this.url(`marathon/${marathon.id}`), marathon).subscribe(() => {
       if (showToaster) {
         this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
-          const alertConfig: NwbAlertConfig = {
-            message: res,
-            duration: 3000,
-            position: 'is-right',
-            color: 'is-success'
-          };
-          this.toastr.open(alertConfig);
+          this.toast(res);
         });
       }
 
       this._marathon = {...marathon};
-    }, error => {
+    }, () => {
       this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-warning'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res, 3000, 'warning');
       });
     });
   }
 
   exists(name: string): Observable<ValidationErrors> {
-    return this.http.get<ValidationErrors>(environment.api + '/marathon/' + name + '/exists');
+    return this.http.get<ValidationErrors>(this.url(`marathon/${name}/exists`));
   }
 
   find(name: string): Observable<Marathon> {
-    return this.http.get<Marathon>(environment.api + '/marathon/' + name);
+    return this.http.get<Marathon>(this.url(`marathon/${name}`));
   }
 
   delete(name: string) {
-    this.http.delete(environment.api + '/marathon/' + name).subscribe(response => {
+    this.http.delete(this.url(`marathon/${name}`)).subscribe(() => {
       this.translateService.get('alert.marathon.deletion.success').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-success'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res);
       });
       this.router.navigate(['/']);
-    }, error => {
+    }, () => {
       this.translateService.get('alert.marathon.deletion.error').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-warning'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res, 3000, 'warning');
       });
     });
   }
 
   findHomepageMetadata(): Observable<HomepageMetadata> {
-    return this.http.get<HomepageMetadata>(environment.api + '/marathon');
+    return this.http.get<HomepageMetadata>(this.url('marathon'));
   }
 
   findForMonth(start: Date, end: Date): Observable<Marathon[]> {
-    return this.http.get<Marathon[]>(environment.api + '/marathon/forDates?start=' + start.toISOString() + '&end=' + end.toISOString() +
-      '&zoneId=' + moment.tz.guess());
+    const params = new HttpParams()
+      .set('start', start.toISOString())
+      .set('end', end.toISOString())
+      .set('zoneId', moment.tz.guess());
+
+    return this.http.get<Marathon[]>(this.url(`marathon/forDates`), { params });
   }
 
   isArchived(marathon: Marathon = this._marathon): boolean {
@@ -135,7 +104,7 @@ export class MarathonService {
   }
 
   fetchDiscordInfo(marathon: Marathon): Observable<{ id: string, name: string }> {
-    return this.http.get<any>(`${environment.api}/marathon/${marathon.id}/discord/lookup-invite?invite_code=${marathon.discord}`);
+    return this.http.get<any>(this.url(`marathon/${marathon.id}/discord/lookup-invite?invite_code=${marathon.discord}`));
   }
 
   isAdmin(user: User): boolean {
@@ -153,7 +122,7 @@ export class MarathonService {
 
   isWebhookOnline(marathonId: string, url: string): Observable<any> {
     const params = new HttpParams().set('url', url);
-    return this.http.get(environment.api + '/marathon/' + marathonId + '/webhook', {
+    return this.http.get(this.url(`marathon/${marathonId}/webhook`), {
       params: params
     });
   }

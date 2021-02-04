@@ -1,30 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
-import { Game } from '../model/game';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import moment from 'moment-timezone';
+import {BaseService} from './BaseService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GameService {
+export class GameService extends BaseService {
 
   constructor(private http: HttpClient,
-              private toastr: NwbAlertService,
+              toastr: NwbAlertService,
               private translateService: TranslateService) {
-  }
-
-  getAllForMarathon(marathonId: string): Observable<Game[]> {
-    return this.http.get<Game[]>(environment.api + '/marathon/' + marathonId + '/game');
+    super(toastr);
   }
 
   exportAllForMarathon(marathonId: string) {
-    const exportUrl = environment.api + '/marathon/' + marathonId + '/game/export?locale='
-      + localStorage.getItem('language') + '&zoneId=' + moment.tz.guess();
-    // TODO: tracker this.matomoTracker.trackLink(exportUrl, 'download');
+    const exportUrl = this.url(`marathon/${marathonId}/submissions/export?locale=${
+      localStorage.getItem('language')}&zoneId=${moment.tz.guess()}`);
     this.http.get(exportUrl, {responseType: 'text'})
       .subscribe(response => {
           const blob = new Blob([response], {type: 'text/csv'});
@@ -42,39 +36,21 @@ export class GameService {
           }
           window.URL.revokeObjectURL(url);
         },
-        error => {
+        () => {
           this.translateService.get('alert.game.export.error').subscribe((res: string) => {
-            const alertConfig: NwbAlertConfig = {
-              message: res,
-              duration: 3000,
-              position: 'is-right',
-              color: 'is-warning'
-            };
-            this.toastr.open(alertConfig);
+            this.toast(res, 3000, 'warning');
           });
         });
   }
 
-  delete(marathonId: string, submissionId: number) {
-    return this.http.delete(environment.api + '/marathon/' + marathonId + '/game/' + submissionId).subscribe(response => {
+  delete(marathonId: string, gameId: number) {
+    return this.http.delete(this.url(`marathon/${marathonId}/submissions/games/${gameId}`)).subscribe(() => {
       this.translateService.get('alert.game.deletion.success').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-success'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res);
       });
-    }, error => {
+    }, () => {
       this.translateService.get('alert.game.deletion.error').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-warning'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res, 3000, 'warning');
       });
     });
   }
