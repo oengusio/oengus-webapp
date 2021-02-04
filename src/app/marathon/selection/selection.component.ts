@@ -118,6 +118,11 @@ export class SelectionComponent implements OnInit {
   }
 
   getAverageTime() {
+    const numberOfRuns = this.getNumberOfRuns();
+    if (numberOfRuns === 0) {
+      return '0:00:00';
+    }
+
     const duration = moment.duration(0);
     this.submissions.forEach(submission => {
       submission.games.forEach(game => {
@@ -126,11 +131,6 @@ export class SelectionComponent implements OnInit {
         });
       });
     });
-
-    const numberOfRuns = this.getNumberOfRuns();
-    if (numberOfRuns === 0) {
-      return '0:00:00';
-    }
 
     const averageDuration = moment.duration(duration.asMilliseconds() / numberOfRuns);
     return DurationService.toHuman(averageDuration.toISOString());
