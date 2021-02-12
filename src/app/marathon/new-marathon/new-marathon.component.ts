@@ -14,6 +14,7 @@ export class NewMarathonComponent implements OnInit {
   public now: Date;
   public env = environment;
   public loading = false;
+  public marathonId = '';
 
   constructor(public marathonService: MarathonService) {
     this.now = new Date();
