@@ -21,6 +21,7 @@ import localeTr from '@angular/common/locales/tr';
 import localeKo from '@angular/common/locales/ko';
 import localeDa from '@angular/common/locales/da';
 import localeFi from '@angular/common/locales/fi';
+import localeIt from '@angular/common/locales/it';
 import { registerLocaleData, Location } from '@angular/common';
 import {
   Router,
@@ -71,6 +72,7 @@ export class AppComponent implements OnInit {
     'ko': localeKo,
     'da': localeDa,
     'fi': localeFi,
+    'it': localeIt,
   };
 
   constructor(public userService: UserService,
@@ -117,16 +119,6 @@ export class AppComponent implements OnInit {
   }
 
   setupLanguages(): void {
-    const host = window.location.hostname;
-
-    // remove a few languages from the prod site
-    if (host !== 'localhost' && host !== 'oengus.dev') {
-      delete this.availableLocales['el'];
-      delete this.availableLocales['tr'];
-      delete this.availableLocales['da'];
-      delete this.availableLocales['fi'];
-    }
-
     for (const lang of this.availableLocaleNames) {
       registerLocaleData(this.availableLocales[lang], lang);
     }
