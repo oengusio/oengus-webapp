@@ -3,23 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../model/user';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { Observable } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { UserProfile } from '../model/user-profile';
+import { BaseService } from './BaseService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService extends BaseService {
 
   private _user: User;
 
   constructor(private http: HttpClient,
               private router: Router,
-              private toastr: NwbAlertService,
+              toastr: NwbAlertService,
               private translateService: TranslateService) {
+    super(toastr);
   }
 
   getRedirectUri() {
@@ -55,7 +57,7 @@ export class UserService {
   }
 
   login(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Observable<any> {
-    return this.http.post(environment.api + '/user/login', {
+    return this.http.post(this.url('/user/login'), {
       service: service,
       code: code,
       oauthToken: oauthToken,
@@ -64,7 +66,7 @@ export class UserService {
   }
 
   sync(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Observable<any> {
-    return this.http.post(environment.api + '/user/sync', {
+    return this.http.post(this.url('/user/sync'), {
       service: service,
       code: code,
       oauthToken: oauthToken,
@@ -74,14 +76,13 @@ export class UserService {
 
   logout() {
     this._user = null;
-    // TODO: tracker this.matomoTracker.setUserId(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.router.navigate(['/']);
   }
 
   getMe(): Observable<User> {
-    return this.http.get<User>(environment.api + '/user/me');
+    return this.http.get<User>(this.url('user/me'));
   }
 
   me() {
@@ -97,16 +98,10 @@ export class UserService {
   }
 
   update(user: User) {
-    return this.http.patch(environment.api + '/user/' + user.id, user).subscribe(() => {
+    return this.http.patch(this.url(`user/${user.id}`), user).subscribe(() => {
       if (!user.enabled) {
         this.translateService.get('alert.user.deactivate.success').subscribe((res: string) => {
-          const alertConfig: NwbAlertConfig = {
-            message: res,
-            duration: 3000,
-            position: 'is-right',
-            color: 'is-success'
-          };
-          this.toastr.open(alertConfig);
+          this.toast(res);
         });
         this.logout();
         return;
@@ -114,45 +109,37 @@ export class UserService {
       this._user = {...this._user, ...user};
       localStorage.setItem('user', JSON.stringify(this._user));
       this.translateService.get('alert.user.update.success').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-success'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res);
       });
     }, () => {
       this.translateService.get('alert.user.update.error').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-warning'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res, 3000, 'warning');
       });
     });
   }
 
   exists(name: string): Observable<ValidationErrors> {
-    return this.http.get<ValidationErrors>(environment.api + '/user/' + name + '/exists');
+    return this.http.get<ValidationErrors>(this.url(`user/${name}/exists`));
   }
 
   search(name: string): Observable<User[]> {
-    return this.http.get<User[]>(environment.api + '/user/' + name + '/search');
+    return this.http.get<User[]>(this.url(`user/${name}/search`));
   }
 
   ban(id: number): Observable<void> {
-    return this.http.post<void>(environment.api + '/user/' + id + '/ban', null);
+    return this.http.post<void>(this.url(`user/${id}/ban`), null);
   }
 
   unban(id: number): Observable<void> {
-    return this.http.delete<void>(environment.api + '/user/' + id + '/ban');
+    return this.http.delete<void>(this.url(`user/${id}/ban`));
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(this.url(`user/${id}`));
   }
 
   getProfile(name: string): Observable<UserProfile> {
-    return this.http.get<UserProfile>(environment.api + '/user/' + name);
+    return this.http.get<UserProfile>(this.url(`user/${name}`));
   }
 
   isBanned(): boolean {

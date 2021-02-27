@@ -8,7 +8,7 @@ export class BaseService {
     let parsedPath = path;
 
     if (parsedPath.startsWith('/')) {
-      parsedPath = parsedPath.substr(0, 1);
+      parsedPath = parsedPath.substr(1, parsedPath.length);
     }
 
     return `${environment.api}/${parsedPath}`;

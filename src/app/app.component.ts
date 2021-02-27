@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
   }
 
   isBlockingAds(): boolean {
-    return !document.getElementById('xaa1xsXL55MTOABSrN');
+    return !document.getElementById('https://twitch.tv/duncte123');
   }
 
   setupLanguages(): void {

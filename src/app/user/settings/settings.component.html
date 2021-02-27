@@ -1,3 +1,35 @@
+<div class="modal" [ngClass]="{ 'is-active': deleteConfirm }">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">{{ 'user.settings.deletingAccount.title' | translate }}</p>
+    </header>
+    <section class="modal-card-body">
+      <h5 class="title">{{ 'user.settings.deletingAccount.body.0' | translate }}</h5>
+      <p>{{ 'user.settings.deletingAccount.body.1' | translate }}</p>
+      <p>{{ 'user.settings.deletingAccount.body.2' | translate }}</p>
+      <br />
+      <input class="input"
+             type="text"
+             [(ngModel)]="deleteUsername"
+             name="deleteShortname" style="margin-bottom: 1rem">
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-warning"
+              (click)="deleteUser()"
+              [disabled]="!usernameConfirmed"
+              [ngClass]="{ 'is-loading': loading }">
+        {{ 'user.settings.deletingAccount.btnDelete' | translate }}
+      </button>
+      <button class="button is-success"
+              (click)="deleteConfirm = false; deleteUsername = ''"
+              [ngClass]="{ 'is-loading': loading }">
+        {{ 'user.settings.deletingAccount.btnCancel' | translate }}
+      </button>
+    </footer>
+  </div>
+</div>
+
 <div class="container">
   <h1 class="title">{{'user.settings.title' | translate}}</h1>
 
@@ -233,28 +265,37 @@
     <p>{{'user.settings.deactivateAccount.description' | translate}}</p>
     <br/>
     <div class="field">
-      <div class="control" *ngIf="!deleteConfirm">
-        <button class="button is-danger" type="button" (click)="deleteConfirm = true">
-          {{ 'user.settings.deactivateAccount.action' | translate}}
-        </button>
-      </div>
-      <div class="control" *ngIf="deleteConfirm">
-        <p class="help">{{ 'user.settings.deactivateAccount.confirmText' | translate}}</p>
-        <input class="input"
-               type="text"
-               [(ngModel)]="deleteUsername"
-               name="deleteShortname" style="margin-bottom: 1rem">
-        <br>
-        <button class="button is-primary" type="button"
-                [ngClass]="{'is-loading': loading}"
-                [disabled]="deleteUsername !== userService.user.username" (click)="deactivate()">
-          {{'action.confirm' | translate}}
-        </button>
-        <button class="button is-danger" type="button" (click)="deleteConfirm = false"
-                [ngClass]="{'is-loading': loading}"
-                style="margin-left: 1rem">
-          {{'action.cancel' | translate}}
-        </button>
+      <div class="buttons">
+        <div class="control" *ngIf="!deactivateConfirm">
+          <button class="button is-danger" type="button" (click)="deactivateConfirm = true">
+            {{ 'user.settings.deactivateAccount.action' | translate}}
+          </button>
+        </div>
+        <div class="control" *ngIf="deactivateConfirm">
+          <p class="help">{{ 'user.settings.deactivateAccount.confirmText' | translate}}</p>
+          <input class="input"
+                 type="text"
+                 [(ngModel)]="deleteUsername"
+                 name="deleteShortname" style="margin-bottom: 1rem">
+          <br>
+          <button class="button is-primary" type="button"
+                  [ngClass]="{'is-loading': loading}"
+                  [disabled]="!usernameConfirmed" (click)="deactivate()">
+            {{'action.confirm' | translate}}
+          </button>
+          <button class="button is-danger" type="button" (click)="deactivateConfirm = false"
+                  [ngClass]="{'is-loading': loading}"
+                  style="margin-left: 1rem">
+            {{'action.cancel' | translate}}
+          </button>
+        </div>
+
+        <!-- DELETING account -->
+        <div class="control" style="margin-left: 0.5rem">
+          <button class="button is-danger" type="button" [disabled]="deleteConfirm" (click)="deleteConfirm = true">
+            Delete account
+          </button>
+        </div>
       </div>
     </div>
   </form>

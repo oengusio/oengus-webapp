@@ -18,7 +18,8 @@ export class SettingsComponent implements OnInit {
   public user: User;
   public loading = false;
 
-  public deleteConfirm = false;
+  public deactivateConfirm = false;
+  public deleteConfirm = true;
   public deleteUsername: string;
 
   constructor(public userService: UserService,
@@ -98,6 +99,26 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  deleteUser() {
+    this.loading = true;
+    this.userService.delete(this.user.id).subscribe(() => {
+      this.loading = false;
+      this.translateService.get('user.settings.deletingAccount.success').subscribe((res: string) => {
+        this.showSuccessToast(res);
+      });
+      // redirects to home
+      this.userService.logout();
+    });
+  }
+
+  get usernameConfirmed(): boolean {
+    if (!this.userService.user) {
+      return false;
+    }
+
+    return this.deleteUsername === this.userService.user.username;
+  }
+
   get title(): string {
     return 'Settings';
   }
@@ -140,6 +161,16 @@ export class SettingsComponent implements OnInit {
           break;
       }
     });
+  }
+
+  private showSuccessToast(message: string) {
+    const alertConfig: NwbAlertConfig = {
+      message: message,
+      duration: 3000,
+      position: 'is-right',
+      color: 'is-success'
+    };
+    this.toastr.open(alertConfig);
   }
 
   private showWarningToast(message: string) {

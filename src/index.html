@@ -6,7 +6,8 @@
 
   <script>
     // disable google analytics if consent is not given
-    window['ga-disable-G-26CN947SSZ'] = (localStorage.getItem('consent') || 'false') === 'false';
+    window['ga-disable-G-26CN947SSZ'] = navigator.doNotTrack === '1' ||
+      (localStorage.getItem('consent') || 'false') === 'false';
   </script>
 
   <!-- OGP metatags -->
@@ -17,6 +18,16 @@
   <meta property="og:url" content="https://oengus.io" />
   <meta property="og:image" content="/assets/Oengus.png" />
   <meta property="og:description" content="Oengus is a free tool to manage your speedrunning marathons from submissions to schedule, available as a hosted service."/>
+
+  <!-- Twitter meta tags -->
+  <meta name="twitter:card" content="summary" />
+  <!-- TODO: make these dynamic with server side rendering -->
+  <meta name="twitter:site" content="@OengusIO" />
+  <!-- Use the twitter name of the marathon when serverside rendering -->
+  <!--<meta name="twitter:creator" content="@OengusIO" />-->
+  <meta name="twitter:title" content="Oengus" />
+  <meta name="twitter:description" content="Oengus is a free tool to manage your speedrunning marathons from submissions to schedule, available as a hosted service." />
+  <meta name="twitter:image" content="/assets/Oengus.png" />
 
   <base href="/">
 
@@ -40,6 +51,6 @@
 <app-root>
   <div class="loading-bar"></div>
 </app-root>
-<script src="/assets/adblocker.js" type="text/javascript"></script>
+<script src="/assets/adblocker.js?v=2" type="text/javascript"></script>
 </body>
 </html>
