@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
   public loading = false;
 
   public deactivateConfirm = false;
-  public deleteConfirm = true;
+  public deleteConfirm = false;
   public deleteUsername: string;
 
   constructor(public userService: UserService,
