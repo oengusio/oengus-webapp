@@ -33,6 +33,7 @@ import {
 } from '@angular/router';
 import {LoadingBarService} from '../services/loading-bar.service';
 import {TitleService} from '../services/title.service';
+import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
 
 @Component({
   selector: 'app-root',
@@ -77,6 +78,7 @@ export class AppComponent implements OnInit {
 
   constructor(public userService: UserService,
               private translate: TranslateService,
+              private toastr: NwbAlertService,
               private dateTimeAdapter: DateTimeAdapter<any>,
               private router: Router,
               private location: Location,
@@ -92,7 +94,23 @@ export class AppComponent implements OnInit {
     this.setupLanguages();
 
     if (!this.userService.user) {
-      this.userService.me();
+      this.userService.me().add(() => {
+        const user = this.userService.user;
+
+        // Is this user activated?
+        if (user && user.mail && !user.enabled) {
+          this.userService.logout(false);
+          this.translate.get('alert.user.login.disabledAccount').subscribe((res: string) => {
+            const alertConfig: NwbAlertConfig = {
+              message: res,
+              duration: 5000,
+              position: 'is-right',
+              color: 'is-warning'
+            };
+            this.toastr.open(alertConfig);
+          });
+        }
+      });
     }
   }
 

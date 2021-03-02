@@ -74,11 +74,14 @@ export class UserService extends BaseService {
     });
   }
 
-  logout() {
+  logout(redirectHome: boolean = true) {
     this._user = null;
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.router.navigate(['/']);
+
+    if (redirectHome) {
+      this.router.navigate(['/']);
+    }
   }
 
   getMe(): Observable<User> {
@@ -88,7 +91,6 @@ export class UserService extends BaseService {
   me() {
     return this.getMe().subscribe((response: User) => {
       this._user = response;
-      // TODO: tracker this.matomoTracker.setUserId(this._user.username);
       if (!this._user.mail) {
         this.router.navigate(['user/new']);
       }
@@ -136,6 +138,10 @@ export class UserService extends BaseService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(this.url(`user/${id}`));
+  }
+
+  setEnabled(id: number, enabled: boolean): Observable<void> {
+    return this.http.post<void>(this.url(`user/${id}/enabled?status=${enabled}`), null);
   }
 
   getProfile(name: string): Observable<UserProfile> {

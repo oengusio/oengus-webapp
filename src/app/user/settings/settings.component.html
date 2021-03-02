@@ -283,7 +283,7 @@
                   [disabled]="!usernameConfirmed" (click)="deactivate()">
             {{'action.confirm' | translate}}
           </button>
-          <button class="button is-danger" type="button" (click)="deactivateConfirm = false"
+          <button class="button is-danger is-light" type="button" (click)="deactivateConfirm = false"
                   [ngClass]="{'is-loading': loading}"
                   style="margin-left: 1rem">
             {{'action.cancel' | translate}}
@@ -293,7 +293,7 @@
         <!-- DELETING account -->
         <div class="control" style="margin-left: 0.5rem">
           <button class="button is-danger" type="button" [disabled]="deleteConfirm" (click)="deleteConfirm = true">
-            Delete account
+            {{ 'user.settings.deletingAccount.settingsDeleteBtn' | translate }}
           </button>
         </div>
       </div>

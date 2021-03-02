@@ -8,6 +8,7 @@ import { DurationService } from '../../../services/duration.service';
 import moment from 'moment';
 import { UserProfileHistory } from '../../../model/user-profile-history';
 import {UserService} from '../../../services/user.service';
+import {User} from '../../../model/user';
 
 @Component({
   selector: 'app-profile',
@@ -196,6 +197,15 @@ export class ProfileComponent implements OnInit {
       }, complete: () => {
         this.banLoading = false;
       }
+    });
+  }
+
+  public setActivated(activated: boolean): void {
+    this.banLoading = true;
+
+    this.userService.setEnabled(this.user.id, !activated).subscribe(() => {
+      this.user.enabled = !activated;
+      this.banLoading = false;
     });
   }
 

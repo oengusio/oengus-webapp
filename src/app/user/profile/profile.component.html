@@ -9,16 +9,29 @@
     </div>
   </section>
 
-  <div *ngIf="isAdmin() && !isSelf()">
+  <div *ngIf="isAdmin() && !isSelf()" class="buttons">
     <hr/>
     <button class="button is-danger"
             (click)="unbanUser()"
             [disabled]="banLoading"
+            [ngClass]="{'is-loading': banLoading}"
             *ngIf="user.banned else banUserTemplate">{{ 'user.profile.unban' | translate }}</button>
     <ng-template #banUserTemplate>
       <button class="button is-warning"
+              [ngClass]="{'is-loading': banLoading}"
               [disabled]="banLoading"
               (click)="banUser()">{{ 'user.profile.ban' | translate }}</button>
+    </ng-template>
+    <button class="button is-warning"
+            (click)="setActivated(true)"
+            [ngClass]="{'is-loading': banLoading}"
+            [disabled]="banLoading"
+            *ngIf="user.enabled else deactivateUserTemplate">{{ 'user.profile.deactivate' | translate }}</button>
+    <ng-template #deactivateUserTemplate>
+      <button class="button is-warning"
+              [ngClass]="{'is-loading': banLoading}"
+              [disabled]="banLoading"
+              (click)="setActivated(false)">{{ 'user.profile.activate' | translate }}</button>
     </ng-template>
   </div>
 
