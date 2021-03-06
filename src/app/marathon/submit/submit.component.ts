@@ -143,15 +143,28 @@ export class SubmitComponent implements OnInit {
   }
 
   duplicateAvailabilityToNextDay(index: number) {
+    const endDate = this.marathonService.marathon.endDate;
     const availability = {...this.submission.availabilities[index]};
-    const duration = moment.duration(moment.tz(this.submission.availabilities[index].to, this.timezone)
-      .diff(moment.tz(this.submission.availabilities[index].from, this.timezone)));
-    availability.from = moment.tz(availability.to, this.timezone).add(1, 'days').hour(moment.tz(availability.from, this.timezone).hour())
-      .minute(moment.tz(availability.from, this.timezone).minute()).toDate();
-    availability.to = moment.tz(availability.from, this.timezone).add(duration).toDate();
-    if (moment.tz(availability.to, this.timezone).isAfter(moment.tz(this.marathonService.marathon.endDate, this.timezone))) {
-      availability.to = moment.tz(this.marathonService.marathon.endDate, this.timezone).toDate();
+    const fromMoment = moment.tz(availability.from, this.timezone);
+    const toMoment = moment.tz(availability.to, this.timezone);
+    const duration = moment.duration(toMoment.diff(fromMoment));
+    let tmpFrom = moment.tz(availability.to, this.timezone);
+
+    // only add one day if we're not in midnight on the to day
+    if (!(toMoment.hour() >= 0 && toMoment.hour() <= 5)) {
+      tmpFrom = tmpFrom.add(1, 'days');
     }
+
+    availability.from = tmpFrom.hour(fromMoment.hour())
+      .minute(fromMoment.minute())
+      .toDate();
+
+    availability.to = moment.tz(availability.from, this.timezone).add(duration).toDate();
+
+    if (moment.tz(availability.to, this.timezone).isAfter(moment.tz(endDate, this.timezone))) {
+      availability.to = moment.tz(endDate, this.timezone).toDate();
+    }
+
     this.submission.availabilities.push(availability);
   }
 
