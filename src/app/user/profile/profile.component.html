@@ -35,10 +35,10 @@
     </ng-template>
   </div>
 
-  <div *ngIf="!!user.twitchName || !!user.twitterName || !!user.speedruncomName">
+  <div *ngIf="user.twitchName || user.twitterName || user.speedruncomName || user.discordName">
     <hr/>
     <nav class="level">
-      <div class="level-item has-text-centered" *ngIf="!!user.twitchName">
+      <div class="level-item has-text-centered" *ngIf="user.twitchName">
         <div>
           <p class="heading">Twitch</p>
           <p class="title">
@@ -48,7 +48,7 @@
           </p>
         </div>
       </div>
-      <div class="level-item has-text-centered" *ngIf="!!user.twitterName">
+      <div class="level-item has-text-centered" *ngIf="user.twitterName">
         <div>
           <p class="heading">Twitter</p>
           <p class="title">
@@ -58,7 +58,18 @@
           </p>
         </div>
       </div>
-      <div class="level-item has-text-centered" *ngIf="!!user.speedruncomName">
+      <div class="level-item has-text-centered" *ngIf="user.discordName">
+        <div>
+          <p class="heading">Discord</p>
+          <p class="title">
+            <a href="https://patreon.com/oengusio" target="_blank">
+              <fa-icon [icon]="faDiscord"></fa-icon>
+            </a>
+          </p>
+          <p>{{ user.discordName }}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered" *ngIf="user.speedruncomName">
         <div>
           <p class="heading">Speedrun.com</p>
           <p class="title">

@@ -121,6 +121,10 @@ export class UserService extends BaseService {
   }
 
   exists(name: string): Observable<ValidationErrors> {
+    if (!name) {
+      return new Observable();
+    }
+
     return this.http.get<ValidationErrors>(this.url(`user/${name}/exists`));
   }
 

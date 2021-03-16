@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserProfile } from '../../../model/user-profile';
-import { faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faTwitch, faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { faAngleDown, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { Game } from '../../../model/game';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment';
 import { UserProfileHistory } from '../../../model/user-profile-history';
 import {UserService} from '../../../services/user.service';
-import {User} from '../../../model/user';
 
 @Component({
   selector: 'app-profile',
@@ -22,6 +21,7 @@ export class ProfileComponent implements OnInit {
 
   public faTwitch = faTwitch;
   public faTwitter = faTwitter;
+  public faDiscord = faDiscord;
   public faTrophy = faTrophy;
   public faAngleDown = faAngleDown;
   public moment = moment;

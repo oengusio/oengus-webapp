@@ -268,7 +268,7 @@
     <div class="field">
       <div class="buttons">
         <div class="control" *ngIf="!deactivateConfirm">
-          <button class="button is-danger" type="button" (click)="deactivateConfirm = true">
+          <button class="button is-danger is-outlined" type="button" (click)="deactivateConfirm = true">
             {{ 'user.settings.deactivateAccount.action' | translate}}
           </button>
         </div>
@@ -284,7 +284,7 @@
                   [disabled]="!usernameConfirmed" (click)="deactivate()">
             {{'action.confirm' | translate}}
           </button>
-          <button class="button is-danger is-light" type="button" (click)="deactivateConfirm = false"
+          <button class="button is-danger" type="button" (click)="deactivateConfirm = false"
                   [ngClass]="{'is-loading': loading}"
                   style="margin-left: 1rem">
             {{'action.cancel' | translate}}

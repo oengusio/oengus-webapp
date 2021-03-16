@@ -9,6 +9,7 @@ export class UserProfile {
   enabled: boolean;
   twitterName: string;
   twitchName: string;
+  discordName: string;
   speedruncomName: string;
   history: UserProfileHistory[];
   moderatedMarathons: Marathon[];
