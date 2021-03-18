@@ -35,11 +35,11 @@ export const environment = {
     return environment.baseSite + '/user/settings/sync/';
   },
   get paypalClientId() {
-    if (environment.production) {
-      return 'AfkLlDPvmM0v1914bih8VN0x0LZps-jkjdz-A7ydiJ0RVPdaAC730VWtVkTWaXZauBYVs3UbaoRHc6VH';
+    if (environment.sandbox) {
+      return 'AV9-0fSGWREDWpnMJujrHUbDIibragMgE4-4HuAS-WQPlgHSRyfeU5iqNyiQwLEGZFEKhAiERJdv80a4';
     }
 
-    return 'AV9-0fSGWREDWpnMJujrHUbDIibragMgE4-4HuAS-WQPlgHSRyfeU5iqNyiQwLEGZFEKhAiERJdv80a4';
+    return 'AfkLlDPvmM0v1914bih8VN0x0LZps-jkjdz-A7ydiJ0RVPdaAC730VWtVkTWaXZauBYVs3UbaoRHc6VH';
   },
   get patronApi() {
     if (environment.production) {
