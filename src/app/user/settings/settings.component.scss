@@ -1,4 +1,30 @@
+@import '~bulmaswatch/solar/variables';
+
 .vertical-center {
   display: flex;
   align-items: center;
+}
+
+.modal-card {
+  position: relative;
+  background-color: $grey-darker;
+}
+
+.modal-card:before  {
+  content: ' ';
+  opacity: 0.4;
+  position: absolute;
+  background-image:url("/assets/livesplit.png");
+  background-repeat: no-repeat;
+  background-position: 100% 135%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.modal-card-body {
+  position: relative;
+  background: none;
 }
