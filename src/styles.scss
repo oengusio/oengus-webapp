@@ -18,6 +18,10 @@
   }
 }
 
+.clearfix {
+  clear: both;
+}
+
 .vis-timeline, .vis-timeline * {
   border-color: $border !important;
   color: $text !important;

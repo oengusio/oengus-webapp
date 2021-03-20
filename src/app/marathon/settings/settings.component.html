@@ -49,6 +49,7 @@
                    required
                    #name="ngModel">
             <p class="help is-pulled-right">{{marathon.name?.length}}/40</p>
+            <div class="clearfix"></div>
           </div>
           <div *ngIf="name.invalid">
             <p class="help is-danger"
@@ -61,22 +62,35 @@
                *ngIf="name.errors.pattern">{{'marathon.settings.name.error.pattern' | translate}}</p>
           </div>
         </div>
-        <label class="label">{{ 'marathon.settings.shortname.label' | translate}}</label>
-        <div class="field has-addons">
-          <div class="control">
-            <a class="button is-static">
-              {{env.baseSite}}/marathon/
-            </a>
+        <div class="columns">
+          <div class="column">
+            <label class="label">{{ 'marathon.settings.shortname.label' | translate}}</label>
+            <div class="field has-addons">
+              <div class="control">
+                <a class="button is-static">
+                  {{env.baseSite}}/marathon/
+                </a>
+              </div>
+              <div class="control is-expanded">
+                <input class="input"
+                       disabled
+                       type="text"
+                       [(ngModel)]="marathon.id"
+                       name="id"
+                       maxlength="10"
+                       minlength="4"
+                       required>
+              </div>
+            </div>
           </div>
-          <div class="control is-expanded">
-            <input class="input"
-                   disabled
-                   type="text"
-                   [(ngModel)]="marathon.id"
-                   name="id"
-                   maxlength="10"
-                   minlength="4"
-                   required>
+          <div class="column">
+            <div class="field">
+              <label class="label">{{ 'marathon.settings.shortname.shorturl' | translate}}</label>
+              <div class="control">
+                <input class="input" type="text" [value]="'https://oengus.fun/' + marathon.id" readonly>
+              </div>
+              <p class="help">{{ 'marathon.new.shortDomain' | translate}}</p>
+            </div>
           </div>
         </div>
         <div class="columns">
@@ -232,7 +246,6 @@
             </div>
           </div>
         </div>
-
       </fieldset>
       <div class="field">
         <label class="label">{{ 'marathon.settings.marathonDescription.label' | translate}}</label>
