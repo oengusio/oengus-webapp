@@ -34,7 +34,7 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "@wizishop/ng-wizi-bulma": "^8.0.2",
     "angular-ng-autocomplete": "1.1.13",
-    "bulma": "^0.9.1",
+    "bulma": "^0.9.2",
     "bulma-extensions": "^6.2.7",
     "bulmaswatch": "^0.8.1",
     "core-js": "^2.5.4",

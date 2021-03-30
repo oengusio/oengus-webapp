@@ -22,6 +22,7 @@ import localeKo from '@angular/common/locales/ko';
 import localeDa from '@angular/common/locales/da';
 import localeFi from '@angular/common/locales/fi';
 import localeIt from '@angular/common/locales/it';
+import localeCa from '@angular/common/locales/ca';
 import { registerLocaleData, Location } from '@angular/common';
 import {
   Router,
@@ -38,7 +39,7 @@ import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = !environment.sandbox ? 'Oengus' : 'Oengus [Sandbox]';
@@ -57,23 +58,25 @@ export class AppComponent implements OnInit {
   public language = localStorage.getItem('language') ? localStorage.getItem('language') : navigator.language.split('-')[0];
   public environment = environment;
   public loading = true;
+  public languageBarActive = false;
 
   public availableLocales = {
-    'en': localeEn,
-    'fr': localeFr,
-    'de': localeDe,
-    'es': localeEs,
-    'nl': localeNl,
-    'ja': localeJa,
+    'ca': localeCa,
     'cy': localeCy,
-    'el': localeEl,
-    'pt_BR': localePt,
-    'zh_Hant_HK': localeZhHk,
-    'tr': localeTr,
-    'ko': localeKo,
+    'en': localeEn,
     'da': localeDa,
+    'de': localeDe,
+    'el': localeEl,
+    'es': localeEs,
     'fi': localeFi,
+    'fr': localeFr,
     'it': localeIt,
+    'ja': localeJa,
+    'ko': localeKo,
+    'nl': localeNl,
+    'pt_BR': localePt,
+    'tr': localeTr,
+    'zh_Hant_HK': localeZhHk,
   };
 
   constructor(public userService: UserService,
@@ -166,6 +169,7 @@ export class AppComponent implements OnInit {
     }
 
     this.dateTimeAdapter.setLocale(language.split('_')[0]);
+    this.languageBarActive = false;
   }
 
   toggleNavbar() {
