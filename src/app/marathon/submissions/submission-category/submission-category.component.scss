@@ -3,3 +3,11 @@
 hr {
   border: 1px solid $grey-alt;
 }
+
+.message.is-success {
+  .message-body {
+    p {
+      color: darken($green, 4);
+    }
+  }
+}

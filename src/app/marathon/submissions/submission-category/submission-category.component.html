@@ -1,4 +1,4 @@
-<article class="message {{status}}" *ngIf="category.visible">
+<article class="message is-success {{status}}" *ngIf="category.visible">
   <div class="message-header">
     <p>
       {{ category.name }} ({{ 'marathon.schedule.type.' + category.type | translate}}) - {{ category.estimateHuman }}

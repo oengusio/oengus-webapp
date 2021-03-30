@@ -111,12 +111,18 @@ export class SubmissionsComponent implements OnInit {
     });
   }
 
-  deleteGame(id: number) {
-    this.gameService.delete(this.marathonService.marathon.id, id).add(() => {
+  deleteGame(id: number, doApi: boolean = true) {
+    const delFromList = () => {
       this.submissions.forEach((submission) => {
         submission.games = submission.games.filter(game => game.id !== id);
       });
-    });
+    };
+
+    if (doApi) {
+      this.gameService.delete(this.marathonService.marathon.id, id).add(delFromList);
+    } else {
+      delFromList();
+    }
   }
 
   deleteCategory(gameId: number, id: number) {
@@ -125,7 +131,7 @@ export class SubmissionsComponent implements OnInit {
         const game = submission.games.find(g => g.id === gameId);
         game.categories = game.categories.filter(c => c.id !== id);
         if (game.categories.length === 0) {
-          this.deleteGame(gameId);
+          this.deleteGame(gameId, false);
         }
       });
     });
