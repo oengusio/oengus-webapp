@@ -1,5 +1,8 @@
 name: Publish Production Docker image
 on:
+  push:
+    branches:
+      - light-mode
   release:
     types: [ published ]
 jobs:
