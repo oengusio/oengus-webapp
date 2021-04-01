@@ -1,5 +1,5 @@
-@import '~bulma/bulma';
+@import '~bulma/sass/utilities/derived-variables';
 
 .is-static-stat {
-  background-color: $table-striped-row-even-background-color;
+  background-color: $scheme-main-bis;
 }
