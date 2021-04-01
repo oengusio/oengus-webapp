@@ -9,6 +9,10 @@
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 
+.hero {
+  background-color: $grey-lighter;
+}
+
 #twitch-embed {
   iframe {
     width: 100% !important;
