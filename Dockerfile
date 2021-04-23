@@ -8,7 +8,7 @@ COPY . .
 ARG PROFILE
 RUN npm run build -- --prod --c=$PROFILE
 
-FROM nginx
+FROM nginx:alpine
 
 WORKDIR /oengus-frontend
 COPY ./nginx.conf /etc/nginx/nginx.conf
