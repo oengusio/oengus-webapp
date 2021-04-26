@@ -113,6 +113,14 @@ export class DonateComponent implements OnInit {
           }, reject);
         });
       },
+      authorizeOnServer: async (data) => {
+        this.zone.run(() => {
+          this.donationService.validate(this.marathonService.marathon.id, data.orderID).add(() => {
+            this.loading = false;
+            this.router.navigate(['marathon', this.marathonService.marathon.id, 'donations']);
+          });
+        });
+      },
       advanced: {
         commit: 'true',
         extraQueryParams: [
@@ -123,14 +131,6 @@ export class DonateComponent implements OnInit {
         label: 'paypal',
         layout: 'vertical'
       },
-      onClientAuthorization: (data) => {
-        this.zone.run(() => {
-          this.donationService.validate(this.marathonService.marathon.id, data.id).add(() => {
-            this.loading = false;
-            this.router.navigate(['marathon', this.marathonService.marathon.id, 'donations']);
-          });
-        });
-      },
       onApprove: (data) => {
         this.loading = true;
       },
@@ -140,6 +140,10 @@ export class DonateComponent implements OnInit {
             this.loading = false;
           });
         });
+      },
+      onShippingChange: (data, actions) => {
+        // https://github.com/paypal/paypal-checkout-components/issues/1521
+        return actions.resolve();
       }
     };
   }
