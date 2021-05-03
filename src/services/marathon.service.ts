@@ -31,12 +31,12 @@ export class MarathonService extends BaseService {
               toastr: NwbAlertService,
               private userService: UserService,
               private translateService: TranslateService) {
-    super(toastr);
+    super(toastr, 'marathons');
   }
 
   create(marathon: Marathon): Subscription {
     marathon.creator = this.userService.user;
-    return this.http.put(this.url('marathon'), marathon, {observe: 'response'}).subscribe((response: any) => {
+    return this.http.put(this.url(''), marathon, {observe: 'response'}).subscribe((response: any) => {
       this.router.navigate(['/marathon/' + response.headers.get('Location')]);
 
       this.translateService.get('alert.marathon.creation.success').subscribe((res: string) => {
@@ -50,7 +50,7 @@ export class MarathonService extends BaseService {
   }
 
   update(marathon: Marathon, showToaster: boolean = true) {
-    return this.http.patch(this.url(`marathon/${marathon.id}`), marathon).subscribe(() => {
+    return this.http.patch(this.url(`${marathon.id}`), marathon).subscribe(() => {
       if (showToaster) {
         this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
           this.toast(res);
@@ -65,16 +65,26 @@ export class MarathonService extends BaseService {
     });
   }
 
+  publishSelection(marathon: Marathon) {
+    return this.http.post(this.url(`${marathon.id}/selections/publish`), null).subscribe(() => {
+      this._marathon = {...marathon, scheduleDone: true};
+    }, () => {
+      this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
+        this.toast(res, 3000, 'warning');
+      });
+    });
+  }
+
   exists(name: string): Observable<ValidationErrors> {
-    return this.http.get<ValidationErrors>(this.url(`marathon/${name}/exists`));
+    return this.http.get<ValidationErrors>(this.url(`${name}/exists`));
   }
 
   find(name: string): Observable<Marathon> {
-    return this.http.get<Marathon>(this.url(`marathon/${name}`));
+    return this.http.get<Marathon>(this.url(`${name}`));
   }
 
   delete(name: string) {
-    this.http.delete(this.url(`marathon/${name}`)).subscribe(() => {
+    this.http.delete(this.url(`${name}`)).subscribe(() => {
       this.translateService.get('alert.marathon.deletion.success').subscribe((res: string) => {
         this.toast(res);
       });
@@ -87,7 +97,7 @@ export class MarathonService extends BaseService {
   }
 
   findHomepageMetadata(): Observable<HomepageMetadata> {
-    return this.http.get<HomepageMetadata>(this.url('marathon'));
+    return this.http.get<HomepageMetadata>(this.url(''));
   }
 
   findForMonth(start: Date, end: Date): Observable<Marathon[]> {
@@ -96,7 +106,7 @@ export class MarathonService extends BaseService {
       .set('end', end.toISOString())
       .set('zoneId', moment.tz.guess());
 
-    return this.http.get<Marathon[]>(this.url(`marathon/forDates`), { params });
+    return this.http.get<Marathon[]>(this.url(`forDates`), { params });
   }
 
   isArchived(marathon: Marathon = this._marathon): boolean {
@@ -104,7 +114,7 @@ export class MarathonService extends BaseService {
   }
 
   fetchDiscordInfo(marathon: Marathon): Observable<{ id: string, name: string }> {
-    return this.http.get<any>(this.url(`marathon/${marathon.id}/discord/lookup-invite?invite_code=${marathon.discord}`));
+    return this.http.get<any>(this.url(`${marathon.id}/discord/lookup-invite?invite_code=${marathon.discord}`));
   }
 
   isAdmin(user: User): boolean {
@@ -122,7 +132,7 @@ export class MarathonService extends BaseService {
 
   isWebhookOnline(marathonId: string, url: string): Observable<any> {
     const params = new HttpParams().set('url', url);
-    return this.http.get(this.url(`marathon/${marathonId}/webhook`), {
+    return this.http.get(this.url(`${marathonId}/webhook`), {
       params: params
     });
   }

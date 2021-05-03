@@ -49,6 +49,7 @@ export class Marathon {
   discordGuildId: string;
   discordGuildName: string;
   discordRequired: boolean;
+  announceAcceptedSubmissions: boolean;
 
   constructor() {
     this.onsite = false;

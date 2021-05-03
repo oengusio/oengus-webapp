@@ -181,6 +181,11 @@ export class SubmitComponent implements OnInit {
   }
 
   submit() {
+    // ignore double clicks
+    if (this.loading) {
+      return;
+    }
+
     this.loading = true;
     this.submission.games.forEach(game => {
       game.categories.forEach(category => {
