@@ -18,7 +18,7 @@ jobs:
                 password: ${{ secrets.GITHUB_TOKEN }}
                 registry: docker.pkg.github.com
                 repository: esamarathon/oengus-webapp/oengus-frontend
-                tags: dev
+                tags: beta_v2
                 build_args: PROFILE=production-dev
             - name: Trigger dev webhook
               uses: zzzze/webhook-trigger@v1.0.0
