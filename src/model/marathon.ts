@@ -66,5 +66,6 @@ export class Marathon {
     this.emulatorAuthorized = true;
     this.isPrivate = true;
     this.questions = [];
+    this.announceAcceptedSubmissions = false;
   }
 }
