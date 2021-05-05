@@ -17,7 +17,11 @@ export const environment = {
 
   // this is the base of the website where the users will land
   get baseSite() {
-    return window.location.origin;
+    const url = window.location.hostname;
+    const splitUrl = url.split('.');
+    const parts = splitUrl.length > 2 ? [splitUrl[1], splitUrl[2]] : splitUrl;
+
+    return `${window.location.protocol}//${parts[0]}.${parts[1]}`;
   },
   // the api that the front-end talks to
   get api() {

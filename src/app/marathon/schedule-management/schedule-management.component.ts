@@ -220,7 +220,7 @@ export class ScheduleManagementComponent implements OnInit {
 
   publish() {
     this.submit();
-    this.marathonService.update({...this.marathonService.marathon, scheduleDone: true}, false);
+    this.marathonService.publishSelection(this.marathonService.marathon);
   }
 
   onSelectUser(item: User, line: ScheduleLine) {

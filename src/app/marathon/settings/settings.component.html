@@ -453,6 +453,17 @@
         <div class="columns">
           <div class="column is-half-desktop">
             <div class="field">
+              <label for="announceAcceptedSubmissions" class="label">{{ 'marathon.settings.webhook.announceAcceptedSubmissions.title' | translate}}</label>
+              <div class="control">
+                <nwb-switch [(ngModel)]="marathon.announceAcceptedSubmissions" name="announceAcceptedSubmissions" id="announceAcceptedSubmissions">
+                  <span *ngIf="marathon.announceAcceptedSubmissions else announceAcceptedSubmissionsDisabled">{{ 'global.enabled' | translate}}</span>
+                  <ng-template #announceAcceptedSubmissionsDisabled>
+                    <span>{{ 'global.disabled' | translate}}</span>
+                  </ng-template>
+                </nwb-switch>
+              </div>
+            </div>
+            <div class="field">
               <label class="label">{{ 'marathon.settings.webhook.label' | translate}}</label>
               <div class="control" [ngClass]="{'is-loading': loadWebhookCheck}">
                 <input class="input"

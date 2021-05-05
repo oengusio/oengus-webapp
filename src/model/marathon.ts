@@ -49,6 +49,7 @@ export class Marathon {
   discordGuildId: string;
   discordGuildName: string;
   discordRequired: boolean;
+  announceAcceptedSubmissions: boolean;
 
   constructor() {
     this.onsite = false;
@@ -65,5 +66,6 @@ export class Marathon {
     this.emulatorAuthorized = true;
     this.isPrivate = true;
     this.questions = [];
+    this.announceAcceptedSubmissions = false;
   }
 }
