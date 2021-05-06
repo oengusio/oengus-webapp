@@ -21,7 +21,7 @@ export class UserService extends BaseService {
               private router: Router,
               toastr: NwbAlertService,
               private translateService: TranslateService) {
-    super(toastr);
+    super(toastr, 'users');
   }
 
   getRedirectUri() {
@@ -57,7 +57,7 @@ export class UserService extends BaseService {
   }
 
   login(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Observable<any> {
-    return this.http.post(this.url('/users/login'), {
+    return this.http.post(this.url('login'), {
       service: service,
       code: code,
       oauthToken: oauthToken,
@@ -66,7 +66,7 @@ export class UserService extends BaseService {
   }
 
   sync(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Observable<any> {
-    return this.http.post(this.url('/users/sync'), {
+    return this.http.post(this.url('sync'), {
       service: service,
       code: code,
       oauthToken: oauthToken,
@@ -85,7 +85,7 @@ export class UserService extends BaseService {
   }
 
   getMe(): Observable<User> {
-    return this.http.get<User>(this.url('users/me'));
+    return this.http.get<User>(this.url('me'));
   }
 
   me() {
@@ -100,7 +100,7 @@ export class UserService extends BaseService {
   }
 
   update(user: User) {
-    return this.http.patch(this.url(`users/${user.id}`), user).subscribe(() => {
+    return this.http.patch(this.url(`${user.id}`), user).subscribe(() => {
       if (!user.enabled) {
         this.translateService.get('alert.user.deactivate.success').subscribe((res: string) => {
           this.toast(res);
@@ -125,31 +125,31 @@ export class UserService extends BaseService {
       return new Observable();
     }
 
-    return this.http.get<ValidationErrors>(this.url(`users/${name}/exists`));
+    return this.http.get<ValidationErrors>(this.url(`${name}/exists`));
   }
 
   search(name: string): Observable<User[]> {
-    return this.http.get<User[]>(this.url(`users/${name}/search`));
+    return this.http.get<User[]>(this.url(`${name}/search`));
   }
 
   ban(id: number): Observable<void> {
-    return this.http.post<void>(this.url(`users/${id}/ban`), null);
+    return this.http.post<void>(this.url(`${id}/ban`), null);
   }
 
   unban(id: number): Observable<void> {
-    return this.http.delete<void>(this.url(`users/${id}/ban`));
+    return this.http.delete<void>(this.url(`${id}/ban`));
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(this.url(`users/${id}`));
+    return this.http.delete<void>(this.url(`${id}`));
   }
 
   setEnabled(id: number, enabled: boolean): Observable<void> {
-    return this.http.post<void>(this.url(`users/${id}/enabled?status=${enabled}`), null);
+    return this.http.post<void>(this.url(`${id}/enabled?status=${enabled}`), null);
   }
 
   getProfile(name: string): Observable<UserProfile> {
-    return this.http.get<UserProfile>(this.url(`users/${name}`));
+    return this.http.get<UserProfile>(this.url(`${name}`));
   }
 
   isBanned(): boolean {

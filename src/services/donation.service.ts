@@ -1,73 +1,60 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { Donation } from '../model/donation';
-import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Page } from '../model/page';
 import { DonationStats } from '../model/donation-stats';
 import moment from 'moment-timezone';
+import {BaseService} from './BaseService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DonationService {
+export class DonationService extends BaseService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private toastr: NwbAlertService,
+              toastr: NwbAlertService,
               private translateService: TranslateService) {
+    super(toastr, 'marathons');
   }
 
   find(marathonId: string, page: number, size: number): Observable<Page<Donation>> {
     const params = new HttpParams().set('page', String(page)).set('size', String(size));
-    return this.http.get<Page<Donation>>(environment.api + '/marathon/' + marathonId + '/donation', {
+    return this.http.get<Page<Donation>>(this.url(`${marathonId}/donations`), {
       params: params
     });
   }
 
   findStats(marathonId: string): Observable<DonationStats> {
-    return this.http.get<DonationStats>(environment.api + '/marathon/' + marathonId + '/donation/stats');
+    return this.http.get<DonationStats>(this.url(`${marathonId}/donations/stats`));
   }
 
   donate(marathonId: string, donation: Donation): Observable<any> {
-    return this.http.post(environment.api + '/marathon/' + marathonId + '/donation/donate', donation, {observe: 'response'});
+    return this.http.post(this.url(`${marathonId}/donations/donate`), donation, {observe: 'response'});
   }
 
   cancel(marathonId: string, orderId: string): Observable<any> {
-    return this.http.delete(environment.api + '/marathon/' + marathonId + '/donation/' + orderId);
+    return this.http.delete(this.url(`${marathonId}/donations/${orderId}`));
   }
 
   validate(marathonId: string, orderId: string) {
-    return this.http.post(environment.api + '/marathon/' + marathonId + '/donation/validate/' + orderId, null).subscribe(response => {
+    return this.http.post(this.url(`${marathonId}/donations/validate/${orderId}`), null).subscribe(response => {
       this.translateService.get('alert.donation.validate.success').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-success'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res);
       });
     }, error => {
       this.translateService.get('alert.donation.validate.error').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-warning'
-        };
-        this.toastr.open(alertConfig);
+        this.toast(res, 3000, 'warning');
       });
     });
   }
 
   exportAllForMarathon(marathonId: string) {
-    const exportUrl = environment.api + '/marathon/' + marathonId + '/donation/export?zoneId='
-      + moment.tz.guess();
-    // TODO: tracker this.matomoTracker.trackLink(exportUrl, 'download');
+    const exportUrl = this.url(`${marathonId}/donations/export?zoneId=${moment.tz.guess()}`);
     this.http.get(exportUrl, {responseType: 'text'})
       .subscribe(response => {
           const blob = new Blob([response], {type: 'text/csv'});
@@ -87,13 +74,7 @@ export class DonationService {
         },
         error => {
           this.translateService.get('alert.donation.export.error').subscribe((res: string) => {
-            const alertConfig: NwbAlertConfig = {
-              message: res,
-              duration: 3000,
-              position: 'is-right',
-              color: 'is-warning'
-            };
-            this.toastr.open(alertConfig);
+            this.toast(res, 3000, 'warning');
           });
         });
   }

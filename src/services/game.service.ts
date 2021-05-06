@@ -13,11 +13,11 @@ export class GameService extends BaseService {
   constructor(private http: HttpClient,
               toastr: NwbAlertService,
               private translateService: TranslateService) {
-    super(toastr);
+    super(toastr, 'marathons');
   }
 
   exportAllForMarathon(marathonId: string) {
-    const exportUrl = this.url(`marathon/${marathonId}/submissions/export?locale=${
+    const exportUrl = this.url(`${marathonId}/submissions/export?locale=${
       localStorage.getItem('language')}&zoneId=${moment.tz.guess()}`);
     this.http.get(exportUrl, {responseType: 'text'})
       .subscribe(response => {
@@ -44,7 +44,7 @@ export class GameService extends BaseService {
   }
 
   delete(marathonId: string, gameId: number) {
-    return this.http.delete(this.url(`marathon/${marathonId}/submissions/games/${gameId}`)).subscribe(() => {
+    return this.http.delete(this.url(`${marathonId}/submissions/games/${gameId}`)).subscribe(() => {
       this.translateService.get('alert.game.deletion.success').subscribe((res: string) => {
         this.toast(res);
       });
