@@ -220,7 +220,6 @@ export class ScheduleManagementComponent implements OnInit {
 
   publish() {
     this.submit();
-    // this.marathonService.publishSelection(this.marathonService.marathon);
     this.marathonService.update({...this.marathonService.marathon, scheduleDone: true}, false);
   }
 

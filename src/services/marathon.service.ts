@@ -67,7 +67,7 @@ export class MarathonService extends BaseService {
 
   publishSelection(marathon: Marathon) {
     return this.http.post(this.url(`${marathon.id}/selections/publish`), null).subscribe(() => {
-      this._marathon = {...marathon, scheduleDone: true};
+      this._marathon = {...marathon, selectionDone: true, submitsOpen: false};
     }, () => {
       this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
         this.toast(res, 3000, 'warning');

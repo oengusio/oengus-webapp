@@ -172,10 +172,7 @@ export class SelectionComponent implements OnInit {
   publish() {
     this.loading = true;
     this.selectionService.save(this.marathonService.marathon.id, Object.values(this.selection)).add(() => {
-      const marathon = _.cloneDeep(this.marathonService.marathon);
-      marathon.selectionDone = true;
-      marathon.submitsOpen = false;
-      this.marathonService.update(marathon, false).add(() => {
+      this.marathonService.publishSelection(this.marathonService.marathon).add(() => {
         this.loading = false;
       });
     });
