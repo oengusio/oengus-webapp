@@ -436,9 +436,11 @@
                           <option value="RACE">{{ 'marathon.schedule.type.RACE' | translate}}</option>
                           <option value="COOP">{{ 'marathon.schedule.type.COOP' | translate}}</option>
                           <option value="COOP_RACE">{{ 'marathon.schedule.type.COOP_RACE' | translate}}</option>
+                          <option value="RELAY">{{ 'marathon.schedule.type.RELAY' | translate}}</option>
+                          <option value="RELAY_RACE">{{ 'marathon.schedule.type.RELAY_RACE' | translate}}</option>
                         </select>
                       </div>
-                      <div *ngIf="['RACE', 'COOP', 'COOP_RACE'].includes(category.type)">
+                      <div *ngIf="['RACE', 'COOP', 'COOP_RACE', 'RELAY', 'RELAY_RACE'].includes(category.type)">
                         <p class="help" *ngIf="!category.code">
                           {{'marathon.submit.category.code.help.noCode' | translate}}
                         </p>
