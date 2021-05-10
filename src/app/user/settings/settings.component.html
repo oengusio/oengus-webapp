@@ -47,8 +47,8 @@
                name="username"
                #username="ngModel"
                minlength="3"
-               maxlength="16"
-               pattern="^[\w\-]{3,16}$"
+               maxlength="32"
+               pattern="^[\w\-]{3,32}$"
                appUsernameExistsValidator
                required>
       </div>
@@ -75,7 +75,7 @@
                name="usernameJapanese"
                #usernameJapanese="ngModel"
                appUsernameJapaneseExistsValidator
-               maxlength="16">
+               maxlength="32">
       </div>
       <p class="help">{{'user.settings.usernameJapanese.help' | translate}}</p>
       <div *ngIf="usernameJapanese.invalid">
