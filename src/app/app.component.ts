@@ -21,7 +21,6 @@ import localeTr from '@angular/common/locales/tr';
 import localeKo from '@angular/common/locales/ko';
 import localeDa from '@angular/common/locales/da';
 import localeFi from '@angular/common/locales/fi';
-import localeIt from '@angular/common/locales/it';
 import localeCa from '@angular/common/locales/ca';
 import { registerLocaleData, Location } from '@angular/common';
 import {
@@ -60,6 +59,7 @@ export class AppComponent implements OnInit {
   public loading = true;
   public languageBarActive = false;
 
+  // removed languages have none to no translations
   public availableLocales = {
     'ca': localeCa,
     'cy': localeCy,
@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
     'es': localeEs,
     'fi': localeFi,
     'fr': localeFr,
-    'it': localeIt,
+    // 'it': localeIt,
     'ja': localeJa,
     'ko': localeKo,
     'nl': localeNl,
@@ -162,42 +162,51 @@ export class AppComponent implements OnInit {
     localStorage.setItem('language', language);
     this.translate.use(language);
 
-    /*
-    future stuff?
-    switch (language) {
-      case 'zh_Hant_HK':
-        moment.locale('zh_hk');
-        break;
-      case 'en':
-        moment.locale('en_GB'); // use the superior date format ;)
-        break;
-      default:
-        moment.locale(language.split('_')[0]);
-        break;
+    this.setMomentTimezone(language);
+
+    this.dateTimeAdapter.setLocale(language.split('_')[0]);
+    this.languageBarActive = false;
+  }
+
+  toggleNavbar(): void {
+    this.navBurger.nativeElement.classList.toggle('is-active');
+    this.navMenu.nativeElement.classList.toggle('is-active');
+  }
+
+  getTimezone(): string {
+    return moment.tz.guess();
+  }
+
+  getYear(): number {
+    return new Date().getFullYear();
+  }
+
+  setMomentTimezone(language: string): void {
+    // experiment is false if we should use the old way
+    const experimentName = 'oengus_experiment_2021-05-11_automatic-date-format';
+    let item = localStorage.getItem(experimentName);
+
+    // not set yet? create it
+    if (item == null) {
+      // a-b test the new locale setting
+      item = String(Math.random() <= 0.5);
+      localStorage.setItem(experimentName, item);
     }
-    */
+
+    // fun april fools joke :)
+    // moment.locale('x-pseudo');
+
+    // automagically detect the locale
+    if (item === 'true') {
+      moment.locale(window.navigator.language);
+      return;
+    }
 
     if (language === 'zh_Hant_HK') {
       moment.locale('zh_hk');
     } else {
       moment.locale(language.split('_')[0]);
     }
-
-    this.dateTimeAdapter.setLocale(language.split('_')[0]);
-    this.languageBarActive = false;
-  }
-
-  toggleNavbar() {
-    this.navBurger.nativeElement.classList.toggle('is-active');
-    this.navMenu.nativeElement.classList.toggle('is-active');
-  }
-
-  getTimezone() {
-    return moment.tz.guess();
-  }
-
-  getYear() {
-    return new Date().getFullYear();
   }
 
   twitterAuth() {
