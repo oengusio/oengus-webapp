@@ -162,6 +162,21 @@ export class AppComponent implements OnInit {
     localStorage.setItem('language', language);
     this.translate.use(language);
 
+    /*
+    future stuff?
+    switch (language) {
+      case 'zh_Hant_HK':
+        moment.locale('zh_hk');
+        break;
+      case 'en':
+        moment.locale('en_GB'); // use the superior date format ;)
+        break;
+      default:
+        moment.locale(language.split('_')[0]);
+        break;
+    }
+    */
+
     if (language === 'zh_Hant_HK') {
       moment.locale('zh_hk');
     } else {
