@@ -221,7 +221,7 @@ export class SubmitComponent implements OnInit {
     this.categoryService.getFromCode(this.marathonService.marathon.id, this.code).subscribe(response => {
       this.submission.opponentDtos.push(response);
     }, error => {
-      this.translateService.get('alert.submit.' + error.error.message).subscribe((res: string) => {
+      this.translateService.get('alert.submit.' + error.error).subscribe((res: string) => {
         const alertConfig: NwbAlertConfig = {
           message: res,
           duration: 3000,
@@ -253,8 +253,9 @@ export class SubmitComponent implements OnInit {
     const marathonId = this.marathonService.marathon.id;
     const discordUserId = this.userService.user.discordId;
 
+    // why is this not in the marathon service?
     this.http.get<string>(
-      `${environment.api}/marathon/${marathonId}/discord/in-guild/${discordUserId}`
+      `${environment.api}/marathons/${marathonId}/discord/in-guild/${discordUserId}`
     )
       .subscribe(
         () => {
