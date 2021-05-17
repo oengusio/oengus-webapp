@@ -69,6 +69,7 @@
   </div>
   <div class="column is-7">
     <h4 class="subtitle is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
+
     <div class="table-container">
       <table class="table is-fullwidth is-striped">
         <thead>
@@ -199,6 +200,17 @@
               </a>
             </td>
           </tr>
+          <tr *ngIf="showCustomDataInput">
+            <!-- OwO what's this -->
+            <td colspan="9">
+              <label for="'custom-data-index'+i">
+                {{ 'marathon.schedule.management.customData.inputText' | translate }}
+              </label>
+              <textarea id="'custom-data-index'+i" class="textarea"
+                        [(ngModel)]="line.customData"
+                        placeholder='{"layout": "19:9", "other-data": "here"}'></textarea>
+            </td>
+          </tr>
         </ng-template>
         </tbody>
       </table>
@@ -222,6 +234,11 @@
     <button type="button" class="button is-info is-pulled-right" style="margin-left: 1rem"
             (click)="addLine(false)">{{'marathon.schedule.management.action.addRun' | translate}}
     </button>
+
+    <!-- custom data toggle -->
+    <nwb-switch [(ngModel)]="showCustomDataInput" name="discordPrivacy">
+      <span>{{ 'marathon.schedule.management.customData.text' | translate }}</span>
+    </nwb-switch>
   </div>
 </div>
 

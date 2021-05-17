@@ -111,7 +111,8 @@ const marathonRoutes: Routes = [
           availabilities: AvailabilitiesResolver
         },
         data: {
-          statuses: ['VALIDATED', 'BONUS']
+          statuses: ['VALIDATED', 'BONUS'],
+          withCustomData: true,
         },
         canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
       },

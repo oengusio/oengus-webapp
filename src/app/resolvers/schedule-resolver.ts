@@ -12,7 +12,9 @@ export class ScheduleResolver implements Resolve<Schedule> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<Schedule> | Promise<Schedule> | Schedule {
-    return this.scheduleService.getAllForMarathon(route.parent.paramMap.get('id')).toPromise().catch(() => {
+    const withCustomData = route.data['withCustomData'] || false;
+
+    return this.scheduleService.getAllForMarathon(route.parent.paramMap.get('id'), withCustomData).toPromise().catch(() => {
       return new Schedule();
     });
   }

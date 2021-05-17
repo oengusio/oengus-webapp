@@ -21,6 +21,8 @@ export class ScheduleLine {
   runners: User[];
   date: Date;
   type: string;
+  customData: string;
+  customDataDTO: string;
 
   constructor() {
     this.runners = [];

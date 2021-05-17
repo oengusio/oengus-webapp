@@ -76,6 +76,8 @@ export class ScheduleManagementComponent implements OnInit {
     }
   };
 
+  public showCustomDataInput = false;
+
   constructor(private route: ActivatedRoute,
               public marathonService: MarathonService,
               private scheduleService: ScheduleService,
@@ -149,6 +151,7 @@ export class ScheduleManagementComponent implements OnInit {
       line.useSetupBlockText = !!line.setupBlockText;
       line.setupTimeHuman = DurationService.toHuman(line.setupTime);
       line.estimateHuman = DurationService.toHuman(line.estimate);
+      line.customData = line.customDataDTO;
     });
   }
 
@@ -204,13 +207,14 @@ export class ScheduleManagementComponent implements OnInit {
   submit() {
     this.loading = true;
     this.schedule.lines.forEach(line => {
+      line.customData = line.customData.trim();
       if (!line.useSetupBlockText) {
         line.setupBlockText = null;
       }
     });
     this.scheduleService.save(this.marathonService.marathon.id, this.schedule).add(() => {
       this.loading = false;
-      this.scheduleService.getAllForMarathon(this.marathonService.marathon.id).subscribe(response => {
+      this.scheduleService.getAllForMarathon(this.marathonService.marathon.id, true).subscribe(response => {
         this.initSchedule(response);
         this.computeSchedule();
         this.marathonService.find(this.marathonService.marathon.id).subscribe(marathon => this.marathonService.marathon = marathon);
