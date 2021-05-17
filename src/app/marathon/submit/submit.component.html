@@ -95,7 +95,8 @@
   {{'marathon.submit.submitsClosed' | translate}}
 </div>
 <form ngForm="submitForm" (ngSubmit)="submit()" #form="ngForm">
-  <h3 class="title is-3">{{'marathon.submit.availabilities.label' | translate}}
+  <h3 class="title is-3">{{'marathon.submit.availabilities.label' | translate}} <br/>
+    <span class="is-size-6" [innerHTML]="'footer.text' | translate:{'timezone': timezone}"></span>
     <button type="submit" class="button is-primary is-pulled-right" [ngClass]="{'is-loading': loading}"
             [disabled]="form.invalid || submission.availabilities.length === 0 || submission.games.length === 0 &&
             submission.opponentDtos.length === 0">{{'action.submit' |
