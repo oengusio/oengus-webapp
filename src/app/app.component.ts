@@ -135,6 +135,14 @@ export class AppComponent implements OnInit {
     return localStorage.getItem('consent') !== null;
   }
 
+  showKasperskyBanner(): boolean {
+    return localStorage.getItem('oengus_hide_kaspersky_announcement') === null;
+  }
+
+  closeKasperskyBanner(): void {
+    localStorage.setItem('oengus_hide_kaspersky_announcement', 'true');
+  }
+
   isBlockingAds(): boolean {
     return !document.getElementById('https://twitch.tv/duncte123');
   }

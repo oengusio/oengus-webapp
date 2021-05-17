@@ -33,17 +33,27 @@
       </div>
 
       <div class="box">
-        <h3 class="title is-3">{{ 'homepage.sponsors.title' | translate}}</h3>
-        <div class="is-flex">
-          <a href="https://www.kaspersky.com/?ref=oengus.io" target="_blank">
-            <img src="assets/kaspersky_logo.png" alt="Kaspersky"/>
-          </a>
+        <div class="is-flex is-justify-content-center">
+          <figure class="image kaspersky">
+            <a href="https://www.kaspersky.com/?ref=oengus.io" target="_blank">
+              <img src="assets/kaspersky_logo.png" alt="Kaspersky"/>
+            </a>
+          </figure>
         </div>
+        <div class="div is-flex is-justify-content-center">
+          <p class="has-text-white" [innerHTML]="'homepage.sponsors.kaspersky.box' | translate: {readMoreUrl: 'soon'}">
+          </p>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3 class="title is-3">{{ 'homepage.sponsors.title' | translate}}</h3>
         <div class="is-flex img-align">
           <img src="assets/ESA-Logo.svg" class="esa" alt="ESA"/>
           <span [innerHTML]="'homepage.sponsors.esa' | translate"></span>
         </div>
       </div>
+
     </div>
     <div class="column is-half">
       <ng-template [ngIf]="liveMarathons.length > 0">

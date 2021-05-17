@@ -19,6 +19,30 @@
       </p>
     </div>
   </div>
+
+  <div class="privacy-consent has-background-dark is-flex-desktop"
+       style="justify-content: space-between"
+       *ngIf="showKasperskyBanner()">
+    <p class="navbar-item" style="align-items: center;">
+      <a href="https://www.kaspersky.com/?ref=oengus.io" target="_blank" style="height: 18px; margin-top: 2px; margin-right: 10px;">
+        <img src="assets/kaspersky_logo.png" alt="Kaspersky" style="height: 18px"/>
+      </a>
+      {{ 'homepage.sponsors.kaspersky.banner' | translate}}
+    </p>
+    <div class="field is-grouped" style="padding: 0 0.75rem">
+      <p class="control">
+        <a class="button is-light" href="" target="_blank">
+          Read more
+        </a>
+      </p>
+      <p class="control">
+        <a class="button is-primary" (click)="closeKasperskyBanner()">
+          Close
+        </a>
+      </p>
+    </div>
+  </div>
+
   <div class="privacy-consent has-background-white is-flex-desktop"
        style="height: 100px;"
        *ngIf="isBlockingAds()">
@@ -26,6 +50,7 @@
       <span>{{ 'global.adblocker' | translate }}</span>
     </p>
   </div>
+
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" routerLink="/">
