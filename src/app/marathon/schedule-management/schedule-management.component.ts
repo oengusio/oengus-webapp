@@ -207,7 +207,12 @@ export class ScheduleManagementComponent implements OnInit {
   submit() {
     this.loading = true;
     this.schedule.lines.forEach(line => {
-      line.customData = line.customData.trim();
+      if (line.customData) {
+        line.customData = line.customData.trim();
+      } else {
+        line.customData = null;
+      }
+
       if (!line.useSetupBlockText) {
         line.setupBlockText = null;
       }
