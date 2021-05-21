@@ -25,6 +25,7 @@ import { WebpackTranslateLoader } from '../loader/webpack-translate-loader';
 import {PatronsComponent} from './patrons/patrons.component';
 import {PatronsResolver} from './resolvers/patrons-resolver';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { KasperskyAnnouncementComponent } from './news/kaspersky-announcement/kaspersky-announcement.component';
 
 const appRoutes: Routes = [
   {path: 'login/:service', component: LoginComponent},
@@ -51,6 +52,10 @@ const appRoutes: Routes = [
     }
   },
   {
+    path: 'news/kaspersky-partnership',
+    component: KasperskyAnnouncementComponent,
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   }
@@ -64,7 +69,8 @@ const appRoutes: Routes = [
     AboutComponent,
     PatronsComponent,
     CalendarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    KasperskyAnnouncementComponent
   ],
   imports: [
     BrowserModule,
