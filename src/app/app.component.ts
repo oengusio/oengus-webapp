@@ -22,6 +22,7 @@ import localeKo from '@angular/common/locales/ko';
 import localeDa from '@angular/common/locales/da';
 import localeFi from '@angular/common/locales/fi';
 import localeCa from '@angular/common/locales/ca';
+import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData, Location } from '@angular/common';
 import {
   Router,
@@ -75,6 +76,7 @@ export class AppComponent implements OnInit {
     'ko': localeKo,
     'nl': localeNl,
     'pt_BR': localePt,
+    'ru': localeRu,
     'tr': localeTr,
     'zh_Hant_HK': localeZhHk,
   };
