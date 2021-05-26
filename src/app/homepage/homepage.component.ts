@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Marathon } from '../../model/marathon';
+import {Marathon, MarathonWithExtraData} from '../../model/marathon';
 import * as moment from 'moment';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../services/user.service';
@@ -15,7 +15,7 @@ import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
 export class HomepageComponent implements OnInit {
 
   public nextMarathons: Marathon[];
-  public openMarathons: Marathon[];
+  public openMarathons: MarathonWithExtraData[];
   public liveMarathons: Marathon[];
   public moderatedMarathons: Marathon[];
 
@@ -29,9 +29,15 @@ export class HomepageComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               public userService: UserService) {
     this.nextMarathons = this.route.snapshot.data.homepageMetadata.next;
-    this.openMarathons = this.route.snapshot.data.homepageMetadata.open;
+    const openMarathons = this.route.snapshot.data.homepageMetadata.open;
     this.liveMarathons = this.route.snapshot.data.homepageMetadata.live;
     this.moderatedMarathons = this.route.snapshot.data.homepageMetadata.moderated;
+
+    this.openMarathons = openMarathons.map((marathon: Marathon) => ({
+      ...marathon,
+      effectiveDate: marathon.submissionsEndDate || marathon.startDate,
+      translateKey: marathon.submissionsEndDate ? 'homepage.submissions_close' : 'homepage.starts',
+    }));
   }
 
   ngOnInit() {

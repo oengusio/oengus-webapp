@@ -69,3 +69,8 @@ export class Marathon {
     this.announceAcceptedSubmissions = false;
   }
 }
+
+export class MarathonWithExtraData extends Marathon {
+  effectiveDate: Date;
+  translateKey: string;
+}

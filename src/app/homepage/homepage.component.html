@@ -105,7 +105,7 @@
                   *ngIf="marathon.onsite && marathon.country"> </span></td>
           <td>{{marathon.language | uppercase}}</td>
           <td>
-            <span>{{ 'homepage.starts' | translate:{'duration': moment(marathon.startDate).fromNow()} }}</span>
+            <span>{{ marathon.translateKey | translate:{'duration': moment(marathon.effectiveDate).fromNow()} }}</span>
           </td>
         </tr>
         </tbody>
