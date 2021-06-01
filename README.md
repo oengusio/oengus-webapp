@@ -1,20 +1,42 @@
-# oengus-webapp
+# Oengus [![translateBadge]][translateUrl]
 
-## Build Setup
+Oengus is a web application that helps manage speedrun marathons
 
-```bash
-# install dependencies
-$ npm install
+https://oengus.io
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+Note that the back-end lives on this repository [https://github.com/esamarathon/oengusio](https://github.com/esamarathon/oengusio).
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+## How to run on your computer
 
-# generate static project
-$ npm run generate
+### Requirements
+
+- NodeJS 10+
+
+### Instructions
+
+#### Dependencies
+```shell script
+npm install
+```
+#### Run
+```shell script
+npm run dev
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Support
+
+Please join the official [Discord server](https://discord.gg/ZZFS8YT) for questions and support
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate (if tests exist).
+
+### Translating
+This project uses weblate for its translations, you can contribute by visiting https://hosted.weblate.org/projects/oengusio/site
+
+## License
+[GNU AGPL v3.0](https://choosealicense.com/licenses/agpl-3.0/)
+
+[translateBadge]: https://hosted.weblate.org/widgets/oengusio/-/site/svg-badge.svg
+[translateUrl]: https://hosted.weblate.org/engage/oengusio/
