@@ -1,26 +1,53 @@
-name: Publish Development Docker Image
+name: Publish v2 beta
 on:
-    push:
-        branches: [v2]
+  push:
+    branches: [ v2 ]
 jobs:
-    push_to_registry:
-        name: Push Docker image to GitHub Packages
-        runs-on: ubuntu-latest
-        steps:
-            - name: Check out the repo
-              uses: actions/checkout@v2
-              with:
-                submodules: true
-            - name: Push oengusdotdev to GitHub Packages
-              uses: docker/build-push-action@v1
-              with:
-                username: ${{ github.actor }}
-                password: ${{ secrets.GITHUB_TOKEN }}
-                registry: docker.pkg.github.com
-                repository: esamarathon/oengus-webapp/oengus-frontend
-                tags: beta_v2
-                build_args: PROFILE=production-dev
-            - name: Trigger dev webhook
-              uses: zzzze/webhook-trigger@v1.0.0
-              with:
-                webhook_url: ${{ secrets.V2_WEBHOOK_URL }}
+  push_to_registry:
+    name: Push development docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: oengusio/frontend:beta_v2
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+          build-args: |
+            PROFILE=production-dev
+
+      # Temp fix
+      # https://github.com/docker/build-push-action/issues/252
+      # https://github.com/moby/buildkit/issues/1896
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+      - name: Trigger dev webhook
+        uses: zzzze/webhook-trigger@v1.0.0
+        with:
+          webhook_url: ${{ secrets.V2_WEBHOOK_URL }}
