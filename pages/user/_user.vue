@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>Oengus user profile page stub</p>
-    <p>This is for user "{{user}}."</p>
+    <p>This is for user "{{ user }}."</p>
   </div>
 </template>
 

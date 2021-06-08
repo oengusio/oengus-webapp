@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>Oengus marathon main page stub</p>
-    <p>This is for marathon "{{marathon}}."</p>
+    <p>This is for marathon "{{ marathon }}."</p>
   </div>
 </template>
 
