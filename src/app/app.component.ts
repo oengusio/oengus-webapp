@@ -16,6 +16,7 @@ import localeCy from '@angular/common/locales/cy';
 import localeEs from '@angular/common/locales/es';
 import localePt from '@angular/common/locales/pt';
 import localeEl from '@angular/common/locales/el';
+import localeIt from '@angular/common/locales/it';
 import localeZhHk from '@angular/common/locales/zh-Hant-HK';
 import localeTr from '@angular/common/locales/tr';
 import localeKo from '@angular/common/locales/ko';
@@ -71,7 +72,7 @@ export class AppComponent implements OnInit {
     'es': localeEs,
     'fi': localeFi,
     'fr': localeFr,
-    // 'it': localeIt,
+    'it': localeIt,
     'ja': localeJa,
     'ko': localeKo,
     'nl': localeNl,
