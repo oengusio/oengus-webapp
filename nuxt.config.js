@@ -37,11 +37,43 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    'nuxt-i18n',
     '@nuxtjs/sitemap', // This item always last
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  // i18n configuration: https://i18n.nuxtjs.org/
+  i18n: {
+    locales: [
+      { code: 'ca', file: 'ca.json' },
+      { code: 'cy', file: 'cy.json' },
+      { code: 'da', file: 'da.json' },
+      { code: 'de', file: 'de.json' },
+      { code: 'el', file: 'el.json' },
+      { code: 'en', file: 'en.json' },
+      { code: 'fi', file: 'fi.json' },
+      { code: 'fr', file: 'fr.json' },
+      { code: 'it', file: 'it.json' },
+      { code: 'ja', file: 'ja.json' },
+      { code: 'ko', file: 'ko.json' },
+      { code: 'nb_NO', file: 'nb_NO.json' },
+      { code: 'nl', file: 'nl.json' },
+      { code: 'pt_BR', file: 'pt_BR.json' },
+      { code: 'ru', file: 'ru.json' },
+      { code: 'tr', file: 'tr.json' },
+      { code: 'zh_Hans', file: 'zh_Hans.json' },
+      { code: 'zh_Hant_HK', file: 'zh_Hant_HK.json' },
+    ],
+    defaultLocale: 'en',
+    strategy: 'no_prefix',
+    langDir: '~/locales/',
+    lazy: true,
+    vueI18n: {
+      fallbackLocale: 'en',
+    },
   },
 
   // Sitemap configuration: https://sitemap.nuxtjs.org/
