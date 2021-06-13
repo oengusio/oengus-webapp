@@ -54,6 +54,7 @@ export default {
       { code: 'de', file: 'de.json' },
       { code: 'el', file: 'el.json' },
       { code: 'en', file: 'en.json' },
+      { code: 'es', file: 'es.json' },
       { code: 'fi', file: 'fi.json' },
       { code: 'fr', file: 'fr.json' },
       { code: 'it', file: 'it.json' },
