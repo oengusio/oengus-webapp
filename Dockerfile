@@ -9,7 +9,7 @@ RUN npm run build
 FROM node:lts-alpine AS host
 ENV NODE_ENV=production HOST=0.0.0.0 DISABLE_OPENCOLLECTIVE=true
 WORKDIR /oengus-webapp
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "nuxt.config.js", "./"]
 RUN npm ci --silent
 COPY --from=builder /oengus-webapp/.nuxt ./.nuxt
 EXPOSE 3000
