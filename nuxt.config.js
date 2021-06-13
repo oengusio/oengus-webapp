@@ -37,9 +37,19 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/sitemap', // This item always last
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  // Sitemap configuration: https://sitemap.nuxtjs.org/
+  sitemap: {
+    hostname: 'https://v2.oengus.dev',
+    exclude: [
+      '/user/settings',
+      '/user/settings/**',
+    ],
   },
 };
