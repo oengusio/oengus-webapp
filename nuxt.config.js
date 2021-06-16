@@ -69,7 +69,8 @@ export default {
       { code: 'zh_Hant_HK', file: 'zh_Hant_HK.json' },
     ],
     defaultLocale: 'en',
-    strategy: 'no_prefix',
+    strategy: 'prefix',
+    detectBrowserLanguage: false,
     langDir: '~/locales/',
     lazy: true,
     vueI18n: {

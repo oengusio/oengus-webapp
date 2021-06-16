@@ -3,7 +3,7 @@
     <p>Oengus main page stub</p>
     <p>{{ $t('homepage.welcomeTitle') }}</p>
     <select @change="changeLocale">
-      <option v-for="locale in locales" :key="locale.code" :value="locale.code">
+      <option v-for="locale in locales" :key="locale.code" :value="locale.code" :selected="locale.code == currentLocale">
         {{ locale.code }}
       </option>
     </select>
@@ -17,6 +17,9 @@ export default Vue.extend({
   computed: {
     locales() {
       return this.$i18n.locales;
+    },
+    currentLocale() {
+      return this.$i18n.locale;
     },
   },
   methods: {
