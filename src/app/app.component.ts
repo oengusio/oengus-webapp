@@ -204,7 +204,7 @@ export class AppComponent implements OnInit {
     } else if (language === 'zh_Hant_HK') {
       moment.locale('zh_hk');
     } else {
-      moment.locale(language.replace('en', 'en_GB').split('_')[0]);
+      moment.locale(language.split('_')[0].replace('en', 'en_GB'));
     }
   }
 
