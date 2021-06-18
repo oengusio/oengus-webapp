@@ -193,30 +193,18 @@ export class AppComponent implements OnInit {
   }
 
   setMomentTimezone(language: string): void {
-    // experiment is false if we should use the old way
+    // Clear experiment
     const experimentName = 'oengus_experiment_2021-05-11_automatic-date-format';
-    let item = localStorage.getItem(experimentName);
+    localStorage.removeItem(experimentName);
 
-    // not set yet? create it
-    if (item == null) {
-      // a-b test the new locale setting
-      item = String(Math.random() <= 0.5);
-      localStorage.setItem(experimentName, item);
-    }
+    const date = new Date();
 
-    // fun april fools joke :)
-    // moment.locale('x-pseudo');
-
-    // automagically detect the locale
-    if (item === 'true') {
-      moment.locale(window.navigator.language);
-      return;
-    }
-
-    if (language === 'zh_Hant_HK') {
+    if (date.getMonth() === 3 && date.getDay() === 1 && date.getHours() >= 14 ) {
+      moment.locale('x-pseudo');
+    } else if (language === 'zh_Hant_HK') {
       moment.locale('zh_hk');
     } else {
-      moment.locale(language.split('_')[0]);
+      moment.locale(language.replace('en', 'en_GB').split('_')[0]);
     }
   }
 
