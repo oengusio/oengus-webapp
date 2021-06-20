@@ -6,15 +6,22 @@
     <i>{{ 'marathon.help.isArchived' | translate}}</i>
   </div>
   <form ngForm="newMarathonForm" (ngSubmit)="submit()" #form="ngForm">
-    <div class="field">
+    <div class="field is-pulled-right">
       <div class="control">
-        <button class="button is-link is-pulled-right"
+        <button class="button is-link"
                 type="submit"
                 [disabled]="form.invalid || !isWebhookOnline"
                 [ngClass]="{'is-loading': loading}">{{'action.submit' | translate}}</button>
       </div>
+      <br>
+      <div class="control">
+        <nwb-switch [(ngModel)]="updateStartTime" name="updateStartTime">
+          <span>Update start time</span>
+        </nwb-switch>
+      </div>
     </div>
     <div class="is-clearfix"></div>
+    <!-- tabs -->
     <div class="tabs is-centered">
       <ul>
         <li [ngClass]="{'is-active':active==='general'}">
@@ -101,6 +108,7 @@
                 <input class="input"
                        readonly
                        autocomplete="disabled"
+                       [disabled]="!updateStartTime"
                        [ngClass]="{'is-danger': startDate.invalid}"
                        [owlDateTimeTrigger]="dtStartDate"
                        [owlDateTime]="dtStartDate"
@@ -260,8 +268,8 @@
         </div>
         <p class="help">{{ 'marathon.settings.marathonDescription.help' | translate}}</p>
       </div>
+      <!-- twitch/twitter/discord/youtube -->
       <fieldset [disabled]="marathonService.isArchived()">
-        <!-- twitch/twitter/discord/youtube -->
         <div class="columns">
           <div class="column">
             <label class="label">Twitch</label>
@@ -495,8 +503,8 @@
         </div>
       </fieldset>
     </div>
+    <!-- submissions -->
     <fieldset [disabled]="marathonService.isArchived() && !marathonService.isAdmin(userService.user)">
-      <!-- submissions -->
       <div [hidden]="active !== 'submissions'">
         <h1 class="title">{{ 'marathon.settings.submissionsTitle' | translate}}</h1>
         <div class="field">

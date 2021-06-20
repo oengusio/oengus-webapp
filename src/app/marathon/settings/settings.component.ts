@@ -32,6 +32,7 @@ export class SettingsComponent implements OnInit {
   public active = 'general';
 
   public deleteConfirm = false;
+  public updateStartTime = false;
   public deleteShortname: string;
 
   public faTimes = faTimes;
