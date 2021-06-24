@@ -66,6 +66,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    babel: {
+      presets() {
+        return [ [ '@nuxt/babel-preset-app', { corejs: { version: 3 } } ] ];
+      },
+    },
   },
 
   // i18n configuration: https://i18n.nuxtjs.org/
