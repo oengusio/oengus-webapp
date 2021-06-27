@@ -20,7 +20,7 @@ import {Submission} from '../../../model/submission';
 export class SelectionComponent implements OnInit {
 
   public submissions: Submission[];
-  public selection: any;
+  public selection: { [key: string]: Selection };
   public loading = false;
 
   public faFilm = faFilm;
@@ -165,8 +165,17 @@ export class SelectionComponent implements OnInit {
     return DurationService.toHuman(duration.toISOString());
   }
 
+  setTodoToDeclined(): void {
+    // tslint:disable-next-line:forin
+    for (const catId in this.selection) {
+      if (this.selection[catId].status === 'TODO') {
+        this.selection[catId].status = 'REJECTED';
+      }
+    }
+  }
+
   canPublish() {
-    return Object.values(this.selection).filter((value: Selection) => value.status === 'TODO').length === 0;
+    return !Object.values(this.selection).find((value: Selection) => value.status === 'TODO');
   }
 
   publish() {

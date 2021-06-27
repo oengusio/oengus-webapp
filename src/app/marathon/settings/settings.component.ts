@@ -68,13 +68,15 @@ export class SettingsComponent implements OnInit {
     this.isOengusBotWebhook = (this.marathon.webhook || '').startsWith('oengus-bot');
   }
 
-  checkWebhook(text: any) {
+  checkWebhook(text: any): void {
     if (!text) {
       this.isWebhookOnline = true;
       this.isOengusBotWebhook = false;
       this.isMissingMarathon = false;
       return;
     }
+
+    text = text.trim();
 
     if (text.startsWith('oengus-bot')) {
       this.isWebhookOnline = true;

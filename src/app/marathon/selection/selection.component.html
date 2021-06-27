@@ -50,16 +50,32 @@
         </div>
         <div class="column is-full">
           <p class="help">{{'marathon.selection.publish.help' | translate}}</p>
-          <button type="button"
-                  class="button is-success is-pulled-right"
-                  [disabled]="!canPublish()"
-                  [ngClass]="{'is-loading': loading}"
-                  (click)="publish()">
-            {{'marathon.selection.action.publish' | translate}}
-          </button>
-          <button type="submit" style="margin-right: 1rem"
-                  [ngClass]="{'is-loading': loading}"
-                  class="button is-primary is-pulled-right">{{'action.save' | translate}}</button>
+          <div class="is-pulled-left">
+            <div class="control">
+              <button type="submit" style="margin-right: 1rem"
+                      [ngClass]="{'is-loading': loading}"
+                      class="button is-primary">{{'action.save' | translate}}</button>
+
+              <button type="button"
+                      class="button is-danger"
+                      [disabled]="canPublish()"
+                      [ngClass]="{'is-loading': loading}"
+                      (click)="setTodoToDeclined()">
+                {{'marathon.selection.action.decline' | translate}}
+              </button>
+            </div>
+
+            <div class="control">
+              <button type="button"
+                      class="button is-success"
+                      [disabled]="!canPublish()"
+                      [ngClass]="{'is-loading': loading}"
+                      (click)="publish()">
+                {{'marathon.selection.action.publish' | translate}}
+              </button>
+            </div>
+          </div>
+          <div class="is-clearfix"></div>
         </div>
       </div>
     </div>
