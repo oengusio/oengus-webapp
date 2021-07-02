@@ -12,18 +12,19 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { LocaleObject } from 'nuxt-i18n';
 
 export default Vue.extend({
   computed: {
-    locales() {
+    locales(): Array<LocaleObject|string> {
       return this.$i18n.locales;
     },
-    currentLocale() {
+    currentLocale(): string {
       return this.$i18n.locale;
     },
   },
   methods: {
-    changeLocale({ target }: { target: HTMLSelectElement }) {
+    changeLocale({ target }: { target: HTMLSelectElement }): void {
       this.$i18n.setLocale(target.value);
     },
   },
