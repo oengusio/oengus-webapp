@@ -1,36 +1,5 @@
 import { ActionTree, MutationTree } from 'vuex';
-
-export interface User {
-  banned: boolean;
-  discordName: string;
-  enabled: boolean;
-  history: Array<any>;
-  speedruncomName: string;
-  twitchName: string;
-  twitterName: string;
-  username: string;
-  usernameJapanese: string;
-}
-
-export interface UserExists {
-  exists?: boolean;
-}
-
-export interface AddExists {
-  username: string;
-  exists: boolean;
-}
-
-export interface AddSearch {
-  query: string;
-  search: Array<User>;
-}
-
-export interface UserState {
-  users: { [username: string]: User; };
-  exists: { [username: string]: boolean; };
-  searches: { [query: string]: Array<User>; };
-}
+import { AddExists, AddSearch, User, UserExists, UserState } from '~/types/api/user';
 
 export const state = (): UserState => ({
   users: { },

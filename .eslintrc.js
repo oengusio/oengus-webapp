@@ -30,4 +30,17 @@ module.exports = {
 
     // ES6
   },
+
+  overrides: [
+    {
+      files: [
+        'types/**/*.d.ts',
+      ],
+      rules: {
+        // The API like recursions. Recursions either require circular imports and many files or use before define.
+        // Since it's just type definitions that are excluded, there is no risk towards generated code.
+        'no-use-before-define': 'off',
+      },
+    },
+  ],
 };
