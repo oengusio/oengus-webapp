@@ -59,7 +59,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios',
+    '@nuxt/http',
     'nuxt-i18n',
     // sitemap should always come last
     '@nuxtjs/sitemap',
@@ -74,17 +74,15 @@ export default {
     },
   },
 
-  // Axios configuration: https://axios.nuxtjs.org/
-  axios: {
+  // HTTP configuration: https://http.nuxtjs.org/
+  http: {
     prefix: '/api/',
     host: 'oengus.dev',
     port: 443,
     https: true,
     headers: {
-      common: {
-        // Temporarily removed pending update of API to accept over CORS
-        // 'oengus-version': 2,
-      },
+      // Temporarily removed pending update of API to accept over CORS
+      // 'oengus-version': 2,
     },
   },
 

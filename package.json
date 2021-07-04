@@ -12,7 +12,7 @@
     "lint": "npm run lint:js && npm run lint:style"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.13.6",
+    "@nuxt/http": "^0.6.4",
     "@nuxtjs/sitemap": "^2.4.0",
     "core-js": "^3.14.0",
     "nuxt": "^2.15.7",

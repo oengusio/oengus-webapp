@@ -52,17 +52,17 @@ export const mutations: MutationTree<UserState> = {
 
 export const actions: ActionTree<UserState, UserState> = {
   async get({ commit }, username: string): Promise<void> {
-    const user: User = await this.$axios.$get(`/users/${username}`);
+    const user: User = await this.$http.$get(`/users/${username}`);
     if (user) {
       commit('addUser', user);
     }
   },
   async exists({ commit }, username: string): Promise<void> {
-    const exists: UserExists = await this.$axios.$get(`/users/${username}/exists`);
+    const exists: UserExists = await this.$http.$get(`/users/${username}/exists`);
     commit('addExists', { username, exists: !!exists.exists } as AddExists);
   },
   async search({ commit }, query: string): Promise<void> {
-    const search: Array<User> = await this.$axios.$get(`/users/${query}/search`);
+    const search: Array<User> = await this.$http.$get(`/users/${query}/search`);
     commit('addSearch', search);
   },
 };
