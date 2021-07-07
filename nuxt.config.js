@@ -82,7 +82,7 @@ export default {
     https: true,
     headers: {
       // Temporarily removed pending update of API to accept over CORS
-      // 'oengus-version': 2,
+      'oengus-version': 2,
     },
   },
 
