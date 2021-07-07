@@ -9,10 +9,10 @@
     </select>
     <div>
       <input v-model="username">
-      <button @click="getUserExists(username)">
+      <button @click="getUser(username)">
         Get User
       </button>
-      <p>{{ exists }}</p>
+      <p>{{ user }}</p>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@ import Vue from 'vue';
 import { mapActions } from 'vuex';
 /* eslint-disable-next-line import/named */ /* ESLint has trouble with this import... */
 import { LocaleObject } from 'nuxt-i18n';
+import { User, UserState } from '~/types/api/user';
 
 export default Vue.extend({
   data() {
@@ -36,8 +37,8 @@ export default Vue.extend({
     currentLocale(): string {
       return this.$i18n.locale;
     },
-    exists(): string {
-      return this.$store.state.api.user.exists[this.username] ? 'True' : 'False';
+    user(): User {
+      return (this.$store.state.api.user as UserState).users[this.username];
     },
   },
   methods: {
@@ -45,7 +46,7 @@ export default Vue.extend({
       this.$i18n.setLocale(target.value);
     },
     ...mapActions({
-      getUserExists: 'api/user/exists',
+      getUser: 'api/user/get',
     }),
   },
 });
