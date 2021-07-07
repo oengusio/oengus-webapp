@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import { ActionTree, MutationTree } from 'vuex';
 import { AddExists, AddSearch, User, UserExists, UserState } from '~/types/api/user';
 
@@ -9,13 +10,13 @@ export const state = (): UserState => ({
 
 export const mutations: MutationTree<UserState> = {
   addUser(state, user: User): void {
-    state.users[user.username] = user;
+    Vue.set(state.users, user.username, user);
   },
   addExists(state, { username, exists }: AddExists): void {
-    state.exists[username] = exists;
+    Vue.set(state.exists, username, exists);
   },
   addSearch(state, { query, search }: AddSearch): void {
-    state.searches[query] = search;
+    Vue.set(state.searches, query, search);
   },
 };
 
