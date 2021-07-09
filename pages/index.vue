@@ -14,6 +14,9 @@
       </button>
       <p>{{ user }}</p>
     </div>
+    <div>
+      {{ time }}
+    </div>
   </div>
 </template>
 
@@ -28,6 +31,7 @@ export default Vue.extend({
   data() {
     return {
       username: '',
+      time: (new Date()).toString(),
     };
   },
   computed: {

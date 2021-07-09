@@ -16,7 +16,8 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "core-js": "^3.15.2",
     "nuxt": "^2.15.7",
-    "nuxt-i18n": "^6.27.2"
+    "nuxt-i18n": "^6.27.2",
+    "nuxt-ssr-cache": "^1.5.2"
   },
   "devDependencies": {
     "@babel/runtime-corejs3": "^7.14.7",
