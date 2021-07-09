@@ -1,12 +1,16 @@
 version: '3.8'
 
 services:
-  oenguswebapp:
+  app:
     image: oenguswebapp
     build:
       context: .
       dockerfile: ./Dockerfile
     environment:
       NODE_ENV: production
+      # CACHE_HOST: cache
     ports:
       - 3000:3000
+
+  # cache:
+  #   image: memcached:1-alpine
