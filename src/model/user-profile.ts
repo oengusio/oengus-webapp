@@ -1,5 +1,6 @@
 import { UserProfileHistory } from './user-profile-history';
 import { Marathon } from './marathon';
+import SocialAccount from './social-account';
 
 export class UserProfile {
 
@@ -7,12 +8,27 @@ export class UserProfile {
   username: string;
   usernameJapanese: string;
   enabled: boolean;
-  twitterName: string;
-  twitchName: string;
-  discordName: string;
-  speedruncomName: string;
+  connections: SocialAccount[];
   history: UserProfileHistory[];
   moderatedMarathons: Marathon[];
   banned: boolean;
+
+  // TODO: remove
+  /**
+   * @deprecated
+   */
+  twitterName: string;
+  /**
+   * @deprecated
+   */
+  twitchName: string;
+  /**
+   * @deprecated
+   */
+  discordName: string;
+  /**
+   * @deprecated
+   */
+  speedruncomName: string;
 
 }

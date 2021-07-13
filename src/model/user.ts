@@ -1,3 +1,5 @@
+import SocialAccount from './social-account';
+
 export class User {
 
   id: number;
@@ -5,13 +7,27 @@ export class User {
   usernameJapanese: string;
   mail: string;
   roles: string[];
+  connections: SocialAccount[];
   enabled: boolean;
   discordId: number;
-  discordName: string;
   twitterId: string;
-  twitterName: string;
   twitchId: string;
-  twitchName: string;
-  speedruncomName: string;
 
+  // TODO: remove
+  /**
+   * @deprecated
+   */
+  twitterName: string;
+  /**
+   * @deprecated
+   */
+  twitchName: string;
+  /**
+   * @deprecated
+   */
+  discordName: string;
+  /**
+   * @deprecated
+   */
+  speedruncomName: string;
 }
