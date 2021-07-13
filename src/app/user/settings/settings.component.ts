@@ -5,6 +5,7 @@ import { faSyncAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
+import SocialAccount from '../../../model/social-account';
 
 @Component({
   selector: 'app-settings',
@@ -43,6 +44,22 @@ export class SettingsComponent implements OnInit {
 
   }
 
+  addNewConnection() {
+    this.user.connections.push({
+      platform: '',
+      username: '',
+    });
+  }
+
+  deleteConnection(connection: SocialAccount) {
+    const conns = this.user.connections;
+
+    const index = conns.indexOf(connection);
+
+    if (index > -1) {
+      conns.splice(index, 1);
+    }
+  }
   syncDiscord() {
     delete this.user.discordId;
     delete this.user.discordName;

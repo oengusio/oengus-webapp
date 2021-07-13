@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import SocialAccount from '../../../../model/social-account';
 import SocialPlatform from '../../../../model/social-platform';
 
@@ -9,6 +9,8 @@ import SocialPlatform from '../../../../model/social-platform';
 })
 export class ConnectionSettingsComponent implements OnInit {
   @Input() public connection: SocialAccount;
+
+  @Output() public deleteSelf = new EventEmitter<void>();
 
   constructor() { }
 

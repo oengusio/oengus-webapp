@@ -111,9 +111,10 @@
           <app-connection-settings *ngFor="let connection of user.connections"
                                    class="column is-full"
                                    [connection]="connection"
+                                   (deleteSelf)="deleteConnection(connection)"
           ></app-connection-settings>
         </div>
-        <button type="button" class="button is-success is-outlined is-fullwidth">
+        <button type="button" (click)="addNewConnection()" class="button is-success is-outlined is-fullwidth">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </div>
