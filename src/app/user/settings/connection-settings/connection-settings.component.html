@@ -1,0 +1,20 @@
+<div class="columns is-mobile">
+  <div class="column is-two-fifths">
+    <div class="select is-fullwidth">
+      <select name="platform" [(ngModel)]="connection.platform">
+        <option value="" selected disabled hidden>Select a platform</option>
+        <option [value]="platform.key" *ngFor="let platform of platforms | keyvalue">
+          {{ platform.value.display }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="column is-two-fifths">
+    <div class="control">
+      <input class="input" type="text" placeholder="username or similar" [value]="connection.username"/>
+    </div>
+  </div>
+  <div class="column">
+    <button type="button" class="button is-danger is-fullwidth">Delete</button>
+  </div>
+</div>

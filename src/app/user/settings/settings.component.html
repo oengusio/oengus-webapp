@@ -107,107 +107,22 @@
       </div>
       <div class="message-body">
         <p class="pb-2">Publicly visible</p>
+        <div class="row">
+          <app-connection-settings *ngFor="let connection of user.connections"
+                                   class="column is-full"
+                                   [connection]="connection"
+          ></app-connection-settings>
+        </div>
         <button type="button" class="button is-success is-outlined is-fullwidth">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </div>
     </article>
-    <div class="columns">
-      <!-- twitch -->
-      <div class="column">
-        <label class="label">Twitch</label>
-        <div class="field has-addons">
-          <div class="control">
-            <a class="button is-static">
-              https://twitch.tv/
-            </a>
-          </div>
-          <div class="control">
-            <input class="input"
-                   [ngClass]="{'is-danger': twitch.invalid}"
-                   type="text"
-                   [(ngModel)]="user.twitchName"
-                   name="twitch"
-                   maxlength="25"
-                   [disabled]="!!user.twitchId"
-                   pattern="^(|[a-zA-Z0-9][\w]{2,24})$"
-                   #twitch="ngModel">
-            <p class="help is-pulled-right">{{user.twitchName?.length}}/25</p>
-          </div>
-        </div>
-        <div *ngIf="twitch.invalid || !!user.twitchId">
-          <p class="help is-danger"
-             *ngIf="twitch.errors?.maxlength">{{'user.settings.twitch.error.max' | translate}}</p>
-          <p class="help is-danger"
-             *ngIf="twitch.errors?.pattern">{{'user.settings.twitch.error.pattern' | translate}}</p>
-          <p class="help"
-             *ngIf="!!user.twitchId">{{'user.settings.twitch.disabled.help' | translate}}</p>
-        </div>
-      </div>
-      <!-- twitter -->
-      <div class="column">
-        <label class="label">Twitter</label>
-        <div class="field has-addons">
-          <div class="control">
-            <a class="button is-static">
-              @
-            </a>
-          </div>
-          <div class="control">
-            <input class="input"
-                   [ngClass]="{'is-danger': twitter.invalid}"
-                   type="text"
-                   [(ngModel)]="user.twitterName"
-                   [disabled]="!!user.twitterId"
-                   name="twitter"
-                   maxlength="15"
-                   pattern="^(\w){0,15}$"
-                   #twitter="ngModel">
-            <p class="help is-pulled-right">{{user.twitterName?.length}}/15</p>
-          </div>
-        </div>
-        <div *ngIf="twitter.invalid || !!user.twitterId">
-          <p class="help is-danger"
-             *ngIf="twitter.errors?.maxlength">{{'user.settings.twitter.error.max' | translate}}</p>
-          <p class="help is-danger"
-             *ngIf="twitter.errors?.pattern">{{'user.settings.twitter.error.pattern' | translate}}</p>
-          <p class="help"
-             *ngIf="!!user.twitchId">{{'user.settings.twitter.disabled.help' | translate}}</p>
-        </div>
-      </div>
-      <!-- SRDC -->
-      <div class="column">
-        <label class="label">Speedrun.com</label>
-        <div class="field has-addons">
-          <div class="control">
-            <a class="button is-static">
-              https://speedrun.com/user/
-            </a>
-          </div>
-          <div class="control">
-            <input class="input"
-                   [ngClass]="{'is-danger': srcom.invalid}"
-                   type="text"
-                   [(ngModel)]="user.speedruncomName"
-                   name="srcom"
-                   maxlength="20"
-                   pattern="^[\w\.\-À-Üà-øoù-ÿŒœ]{0,20}$"
-                   #srcom="ngModel">
-            <p class="help is-pulled-right">{{user.speedruncomName?.length}}/15</p>
-          </div>
-        </div>
-        <div *ngIf="srcom.invalid">
-          <p class="help is-danger"
-             *ngIf="srcom.errors.maxlength">{{'user.settings.srcom.error.max' | translate}}</p>
-          <p class="help is-danger"
-             *ngIf="srcom.errors.pattern">{{'user.settings.srcom.error.pattern' | translate}}</p>
-        </div>
-      </div>
-    </div>
     <hr/>
     <h4 class="title is-4">{{'user.settings.accountSync.title' | translate}}</h4>
     <p>{{'user.settings.accountSync.description' | translate}}</p>
     <br/>
+    <!-- TODO: components!!!!!! -->
     <div class="columns">
       <div class="column is-one-fifth vertical-center"><b>Discord</b></div>
       <div class="column is-four-fifths vertical-center">
@@ -250,7 +165,7 @@
       <div class="column is-one-fifth vertical-center"><b>Twitch</b></div>
       <div class="column is-four-fifths vertical-center">
         <ng-template [ngIf]="user.twitchId" [ngIfElse]="twitchSyncButton">
-          <span >{{user.twitchName}}</span>
+          <span>{{user.twitchName}}</span>
           <button type="button" class="button is-info" style="margin-left: 1rem" (click)="syncTwitch()">
             <fa-icon [icon]="faSyncAlt"></fa-icon>
           </button>

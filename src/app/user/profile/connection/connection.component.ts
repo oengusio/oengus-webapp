@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { faTwitch, faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faAngleDown, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import SocialAccount from '../../../../model/social-account';
+import SocialPlatform from '../../../../model/social-platform';
 
 @Component({
   selector: 'app-connection',
@@ -25,16 +26,13 @@ export class ConnectionComponent implements OnInit {
   }
 
   get profileLink(): string {
-    switch (this.connection.platform) {
-      case 'TWITCH':
-        return `https://www.twitch.tv/${this.connection.username}`;
-      case 'TWITTER':
-        return `https://www.twitter.com/${this.connection.username}`;
-      case 'SPEEDRUNCOM':
-        return `https://speedrun.com/user/${this.connection.username}`;
-      default:
-        return 'https://patreon.com/oengusio';
+    const urlPrefix = SocialPlatform[this.connection.platform].urlPrefix;
+
+    if (urlPrefix === null) {
+      return 'https://patreon.com/oengusio';
     }
+
+    return `${urlPrefix}${this.connection.username}`;
   }
 
 }
