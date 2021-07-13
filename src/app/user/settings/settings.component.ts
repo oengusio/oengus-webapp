@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
-import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSyncAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class SettingsComponent implements OnInit {
 
   public faSyncAlt = faSyncAlt;
+  public faPlus = faPlus;
 
   public user: User;
   public loading = false;

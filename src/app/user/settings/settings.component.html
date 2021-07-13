@@ -98,7 +98,22 @@
         <p class="help is-danger" *ngIf="mail.errors.required">{{'user.settings.email.error.required' | translate}}</p>
       </div>
     </div>
+    <article class="message">
+      <div class="message-header">
+        <p>
+          Connections <br/>
+          <small>These social media connections are publicly visible on your profile</small>
+        </p>
+      </div>
+      <div class="message-body">
+        <p class="pb-2">Publicly visible</p>
+        <button type="button" class="button is-success is-outlined is-fullwidth">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+      </div>
+    </article>
     <div class="columns">
+      <!-- twitch -->
       <div class="column">
         <label class="label">Twitch</label>
         <div class="field has-addons">
@@ -129,6 +144,7 @@
              *ngIf="!!user.twitchId">{{'user.settings.twitch.disabled.help' | translate}}</p>
         </div>
       </div>
+      <!-- twitter -->
       <div class="column">
         <label class="label">Twitter</label>
         <div class="field has-addons">
@@ -159,6 +175,7 @@
              *ngIf="!!user.twitchId">{{'user.settings.twitter.disabled.help' | translate}}</p>
         </div>
       </div>
+      <!-- SRDC -->
       <div class="column">
         <label class="label">Speedrun.com</label>
         <div class="field has-addons">
