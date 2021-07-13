@@ -21,12 +21,7 @@
             "assets": [
               "src/ads.txt",
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "*.svg",
-                "input": "node_modules/flag-icon-css/flags/4x3/",
-                "output": "/flags/"
-              }
+              "src/assets"
             ],
             "styles": [
               "src/styles.scss"
