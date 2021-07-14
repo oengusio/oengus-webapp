@@ -124,63 +124,24 @@
     <p>{{'user.settings.accountSync.description' | translate}}</p>
     <br/>
     <!-- TODO: components!!!!!! -->
-    <div class="columns">
-      <div class="column is-one-fifth vertical-center"><b>Discord</b></div>
-      <div class="column is-four-fifths vertical-center">
-        <ng-template [ngIf]="user.discordId" [ngIfElse]="discordSyncButton">
-          <span>{{user.discordName}}</span>
-          <button type="button" class="button is-info" style="margin-left: 1rem" (click)="syncDiscord()">
-            <fa-icon [icon]="faSyncAlt"></fa-icon>
-          </button>
-          <button type="button" class="button is-warning" style="margin-left: 0.5rem" (click)="unsyncDiscord()">
-            {{'user.settings.accountSync.unsync' | translate}}
-          </button>
-        </ng-template>
-        <ng-template #discordSyncButton>
-          <button class="button is-info" (click)="syncDiscord()">
-            {{'user.settings.accountSync.sync' | translate}}
-          </button>
-        </ng-template>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="column is-one-fifth vertical-center"><b>Twitter</b></div>
-      <div class="column is-four-fifths vertical-center">
-        <ng-template [ngIf]="user.twitterId" [ngIfElse]="twitterSyncButton">
-          <span>{{user.twitterName}}</span>
-          <button type="button" class="button is-info" style="margin-left: 1rem" (click)="syncTwitter()">
-            <fa-icon [icon]="faSyncAlt"></fa-icon>
-          </button>
-          <button type="button" class="button is-warning" style="margin-left: 0.5rem" (click)="unsyncTwitter()">
-            {{'user.settings.accountSync.unsync' | translate}}
-          </button>
-        </ng-template>
-        <ng-template #twitterSyncButton>
-          <a *ngIf="!user.twitterId" class="button is-info" (click)="syncTwitter()">
-            {{'user.settings.accountSync.sync' | translate}}
-          </a>
-        </ng-template>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="column is-one-fifth vertical-center"><b>Twitch</b></div>
-      <div class="column is-four-fifths vertical-center">
-        <ng-template [ngIf]="user.twitchId" [ngIfElse]="twitchSyncButton">
-          <span>{{user.twitchName}}</span>
-          <button type="button" class="button is-info" style="margin-left: 1rem" (click)="syncTwitch()">
-            <fa-icon [icon]="faSyncAlt"></fa-icon>
-          </button>
-          <button type="button" class="button is-warning" style="margin-left: 0.5rem" (click)="unsyncTwitch()">
-            {{'user.settings.accountSync.unsync' | translate}}
-          </button>
-        </ng-template>
-        <ng-template #twitchSyncButton>
-          <button class="button is-info" (click)="syncTwitch()">
-            {{'user.settings.accountSync.sync' | translate}}
-          </button>
-        </ng-template>
-      </div>
-    </div>
+    <app-sync-button [synced]="!!user.discordId"
+                     [username]="getUsernameByConnectionType('DISCORD')"
+                     title="Discord"
+                     (sync)="syncDiscord()"
+                     (unsync)="unsyncDiscord()">
+    </app-sync-button>
+    <app-sync-button [synced]="!!user.twitchId"
+                     [username]="getUsernameByConnectionType('TWITCH')"
+                     title="Twitch"
+                     (sync)="syncTwitch()"
+                     (unsync)="unsyncTwitch()">
+    </app-sync-button>
+    <app-sync-button [synced]="!!user.twitterId"
+                     [username]="getUsernameByConnectionType('TWITTER')"
+                     title="Twitter"
+                     (sync)="syncTwitter()"
+                     (unsync)="unsyncTwitter()">
+    </app-sync-button>
     <p class="help is-danger"
        *ngIf="!user.discordId && !user.twitchId && !user.twitterId">{{'user.settings.accountSync.error.noService' | translate}}</p>
     <div class="field">

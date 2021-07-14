@@ -40,18 +40,28 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
   }
 
-  addNewConnection() {
+  addNewConnection(): void {
     this.user.connections.push({
       platform: '',
       username: '',
     });
   }
 
-  deleteConnection(connection: SocialAccount) {
+  getUsernameByConnectionType(type: string): string {
+    const conn = this.user.connections.find((c) => c.platform === type);
+
+    if (conn) {
+      return conn.username;
+    }
+
+    return '';
+  }
+
+  deleteConnection(connection: SocialAccount): void {
     const conns = this.user.connections;
 
     const index = conns.indexOf(connection);
@@ -60,20 +70,42 @@ export class SettingsComponent implements OnInit {
       conns.splice(index, 1);
     }
   }
-  syncDiscord() {
+
+  removeConnectionByType(type: string): void {
+    const conn = this.user.connections.find((c) => c.platform === type);
+
+    if (conn) {
+      this.deleteConnection(conn);
+    }
+  }
+
+  addOrUpdateConnectionByType(type: string, username: string): void {
+    const conn = this.user.connections.find((c) => c.platform === type);
+
+    if (conn) {
+      conn.username = username;
+    } else {
+      this.user.connections.push({
+        platform: type,
+        username,
+      });
+    }
+  }
+
+  syncDiscord(): void {
     delete this.user.discordId;
-    delete this.user.discordName;
+    // this.removeConnectionByType('DISCORD');
 
     window.location.assign(this.userService.getDiscordAuthUri(true));
   }
 
-  syncTwitch() {
+  syncTwitch(): void {
     delete this.user.twitchId;
 
     window.location.assign(this.userService.getTwitchAuthUrl(true));
   }
 
-  syncTwitter() {
+  syncTwitter(): void {
     this.loading = true;
     delete this.user.twitterId;
 
@@ -82,23 +114,25 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  unsyncDiscord() {
+  unsyncDiscord(): void {
     delete this.user.discordId;
-    delete this.user.discordName;
+    this.removeConnectionByType('DISCORD');
     this.submit();
   }
 
-  unsyncTwitch() {
+  unsyncTwitch(): void {
     delete this.user.twitchId;
+    this.removeConnectionByType('TWITCH');
     this.submit();
   }
 
-  unsyncTwitter() {
+  unsyncTwitter(): void {
     delete this.user.twitterId;
+    this.removeConnectionByType('TWITTER');
     this.submit();
   }
 
-  submit() {
+  submit(): Promise<void> {
     this.loading = true;
     return new Promise((resolve) => {
       this.userService.update(this.user).add(() => {
@@ -109,7 +143,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  deactivate() {
+  deactivate(): void {
     this.loading = true;
     this.user.enabled = false;
     this.userService.update(this.user).add(() => {
@@ -117,7 +151,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  deleteUser() {
+  deleteUser(): void {
     this.loading = true;
     this.userService.delete(this.user.id).subscribe(() => {
       this.loading = false;
@@ -141,24 +175,25 @@ export class SettingsComponent implements OnInit {
     return 'Settings';
   }
 
-  private syncService(params, queryParams) {
+  private syncService(params, queryParams): void {
     this.loading = true;
     this.userService.sync(params['service'],
       queryParams['code'],
       queryParams['oauth_token'],
       queryParams['oauth_verifier']).subscribe(response => {
+        // TODO: use more javascript magic
       switch (params['service']) {
         case 'discord' :
           this.user.discordId = response.id;
-          this.user.discordName = response.name;
+          this.addOrUpdateConnectionByType('DISCORD', response.name);
           break;
         case 'twitch' :
           this.user.twitchId = response.id;
-          this.user.twitchName = response.name;
+          this.addOrUpdateConnectionByType('TWITCH', response.name);
           break;
         case 'twitter' :
           this.user.twitterId = response.id;
-          this.user.twitterName = response.name;
+          this.addOrUpdateConnectionByType('TWITTER', response.name);
           break;
       }
       this.submit().then(() => {

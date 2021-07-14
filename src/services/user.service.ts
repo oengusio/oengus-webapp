@@ -96,6 +96,8 @@ export class UserService extends BaseService {
       }
     }, error => {
       this._user = null;
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
     });
   }
 
