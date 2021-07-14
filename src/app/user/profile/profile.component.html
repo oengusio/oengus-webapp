@@ -2,9 +2,13 @@
   <section class="hero">
     <div class="hero-body">
       <div class="container has-text-centered">
+        <img src="https://www.gravatar.com/avatar/{{ user.avatarHash }}?s=80&d=404"
+             onerror="this.style.display='none'"/>
         <h1 class="title">
           {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
+          <small>(he/him)</small>
         </h1>
+        <small>The Netherlands</small>
       </div>
     </div>
   </section>

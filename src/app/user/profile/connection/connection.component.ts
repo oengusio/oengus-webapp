@@ -1,8 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { faTwitch, faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTwitch,
+  faTwitter,
+  faDiscord,
+  faInstagram,
+  faFacebookF,
+  faSnapchatGhost
+} from '@fortawesome/free-brands-svg-icons';
+import { faTrophy, faEnvelope, faPhone, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import SocialAccount from '../../../../model/social-account';
-import SocialPlatform from '../../../../model/social-platform';
+import { SocialPlatform } from '../../../../model/social-platform';
 
 @Component({
   selector: 'app-connection',
@@ -14,10 +21,16 @@ export class ConnectionComponent implements OnInit {
   @Input() connection: SocialAccount;
 
   public platformMap = {
-    'DISCORD': faDiscord,
+    'SPEEDRUNCOM': faTrophy,
     'TWITTER': faTwitter,
     'TWITCH': faTwitch,
-    'SPEEDRUNCOM': faTrophy,
+    'FACEBOOK': faFacebookF,
+    'INSTAGRAM': faInstagram,
+    'SNAPCHAT': faSnapchatGhost,
+    'DISCORD': faDiscord,
+    'IRC': faCommentDots,
+    'EMAIL': faEnvelope,
+    'PHONE': faPhone,
   };
 
   constructor() { }
@@ -26,9 +39,9 @@ export class ConnectionComponent implements OnInit {
   }
 
   get profileLink(): string {
-    const urlPrefix = SocialPlatform[this.connection.platform].urlPrefix;
+    const urlPrefix = SocialPlatform[this.connection.platform];
 
-    if (urlPrefix === null) {
+    if (!urlPrefix) {
       return 'https://patreon.com/oengusio';
     }
 

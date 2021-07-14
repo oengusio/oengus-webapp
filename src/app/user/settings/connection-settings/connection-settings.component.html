@@ -1,10 +1,11 @@
+<!-- TODO: validation for inputs -->
 <div class="columns is-mobile">
   <div class="column is-two-fifths">
     <div class="select is-fullwidth">
       <select name="platform" [(ngModel)]="connection.platform" [disabled]="disabled">
-        <option value="" selected disabled hidden>Select a platform</option>
+        <option value="" selected disabled hidden>{{ 'user.settings.connections.select_platform' | translate }}</option>
         <option [value]="platform.key" *ngFor="let platform of platforms | keyvalue">
-          {{ platform.value.display }}
+          {{ 'platform.'+platform.key | translate }}
         </option>
       </select>
     </div>
@@ -13,7 +14,7 @@
     <div class="control">
       <input class="input" type="text"
              [disabled]="disabled"
-             placeholder="username or similar"
+             [placeholder]="'user.settings.connections.username' | translate"
              [(ngModel)]="connection.username"/>
     </div>
   </div>

@@ -101,12 +101,12 @@
     <article class="message">
       <div class="message-header">
         <p>
-          Connections <br/>
-          <small>These social media connections are publicly visible on your profile</small>
+          {{ 'user.settings.connections.title' | translate }} <br/>
+          <small>{{ 'user.settings.connections.subtitle' | translate }}</small>
         </p>
       </div>
       <div class="message-body">
-        <p class="pb-2">Publicly visible</p>
+        <p class="pb-2">{{ 'user.settings.connections.visibility' | translate }}</p>
         <div class="row">
           <app-connection-settings *ngFor="let connection of user.connections"
                                    class="column is-full"
@@ -126,7 +126,6 @@
     <h4 class="title is-4">{{'user.settings.accountSync.title' | translate}}</h4>
     <p>{{'user.settings.accountSync.description' | translate}}</p>
     <br/>
-    <!-- TODO: components!!!!!! -->
     <app-sync-button [synced]="!!user.discordId"
                      [username]="getUsernameByConnectionType('DISCORD')"
                      title="Discord"

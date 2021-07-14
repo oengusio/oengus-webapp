@@ -3,7 +3,6 @@ import { Marathon } from './marathon';
 import SocialAccount from './social-account';
 
 export class UserProfile {
-
   id: number;
   username: string;
   usernameJapanese: string;
@@ -11,24 +10,6 @@ export class UserProfile {
   connections: SocialAccount[];
   history: UserProfileHistory[];
   moderatedMarathons: Marathon[];
+  avatarHash: string;
   banned: boolean;
-
-  // TODO: remove
-  /**
-   * @deprecated
-   */
-  twitterName: string;
-  /**
-   * @deprecated
-   */
-  twitchName: string;
-  /**
-   * @deprecated
-   */
-  discordName: string;
-  /**
-   * @deprecated
-   */
-  speedruncomName: string;
-
 }

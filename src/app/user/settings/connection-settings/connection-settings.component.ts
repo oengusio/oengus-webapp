@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import SocialAccount from '../../../../model/social-account';
-import SocialPlatform from '../../../../model/social-platform';
+import { SocialPlatform } from '../../../../model/social-platform';
 
 @Component({
   selector: 'app-connection-settings',
@@ -9,34 +9,27 @@ import SocialPlatform from '../../../../model/social-platform';
 })
 export class ConnectionSettingsComponent implements OnInit {
   @Input() public connection: SocialAccount;
-  @Input() public discordId: string;
+  @Input() public discordId: number;
   @Input() public twitchId: string;
   @Input() public twitterId: string;
 
   @Output() public deleteSelf = new EventEmitter<void>();
 
-  public disabled = false;
+  public platforms = SocialPlatform;
 
   constructor() { }
 
   ngOnInit() {
+    //
+  }
+
+  get disabled(): boolean {
     const type = this.connection.platform;
 
-    /*this.disabled = Boolean(
+    return Boolean(
       (type === 'DISCORD' && this.discordId) ||
       (type === 'TWITCH' && this.twitchId) ||
       (type === 'TWITTER' && this.twitterId)
-    );*/
+    );
   }
-
-  get platforms() {
-    const data = {};
-
-    for (const platform of Object.keys(SocialPlatform)) {
-      data[platform] = SocialPlatform[platform];
-    }
-
-    return data;
-  }
-
 }
