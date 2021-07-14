@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <Nuxt />
+  <div id="default-layout-wrapper">
+    <Header id="header" />
+    <Nuxt id="nuxt" />
+    <Footer id="footer" />
   </div>
 </template>
 
@@ -29,5 +31,27 @@ html {
 *::after {
   box-sizing: border-box;
   margin: 0;
+}
+
+#default-layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 100vh;
+  overflow-y: auto;
+
+  > * {
+    width: 100%;
+  }
+
+  #header,
+  #footer {
+    flex: 0;
+  }
+
+  #nuxt {
+    flex: 1;
+  }
 }
 </style>
