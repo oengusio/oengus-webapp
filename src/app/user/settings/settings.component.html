@@ -111,6 +111,9 @@
           <app-connection-settings *ngFor="let connection of user.connections"
                                    class="column is-full"
                                    [connection]="connection"
+                                   [discordId]="user.discordId"
+                                   [twitchId]="user.twitchId"
+                                   [twitterId]="user.twitterId"
                                    (deleteSelf)="deleteConnection(connection)"
           ></app-connection-settings>
         </div>

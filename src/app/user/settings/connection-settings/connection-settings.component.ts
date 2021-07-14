@@ -9,12 +9,24 @@ import SocialPlatform from '../../../../model/social-platform';
 })
 export class ConnectionSettingsComponent implements OnInit {
   @Input() public connection: SocialAccount;
+  @Input() public discordId: string;
+  @Input() public twitchId: string;
+  @Input() public twitterId: string;
 
   @Output() public deleteSelf = new EventEmitter<void>();
+
+  public disabled = false;
 
   constructor() { }
 
   ngOnInit() {
+    const type = this.connection.platform;
+
+    /*this.disabled = Boolean(
+      (type === 'DISCORD' && this.discordId) ||
+      (type === 'TWITCH' && this.twitchId) ||
+      (type === 'TWITTER' && this.twitterId)
+    );*/
   }
 
   get platforms() {

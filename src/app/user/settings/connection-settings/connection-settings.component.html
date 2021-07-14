@@ -1,7 +1,7 @@
 <div class="columns is-mobile">
   <div class="column is-two-fifths">
     <div class="select is-fullwidth">
-      <select name="platform" [(ngModel)]="connection.platform">
+      <select name="platform" [(ngModel)]="connection.platform" [disabled]="disabled">
         <option value="" selected disabled hidden>Select a platform</option>
         <option [value]="platform.key" *ngFor="let platform of platforms | keyvalue">
           {{ platform.value.display }}
@@ -11,11 +11,15 @@
   </div>
   <div class="column is-two-fifths">
     <div class="control">
-      <input class="input" type="text" placeholder="username or similar" [(ngModel)]="connection.username"/>
+      <input class="input" type="text"
+             [disabled]="disabled"
+             placeholder="username or similar"
+             [(ngModel)]="connection.username"/>
     </div>
   </div>
   <div class="column">
-    <button type="button" (click)="deleteSelf.emit()" class="button is-danger is-fullwidth">
+    <button type="button" (click)="deleteSelf.emit()"
+            class="button is-danger is-fullwidth" [disabled]="disabled">
       Delete
     </button>
   </div>
