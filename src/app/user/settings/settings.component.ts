@@ -6,7 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import SocialAccount from '../../../model/social-account';
-import BulmaTagsInput from '@duncte123/bulma-tagsinput';
+import BulmaTagsInput from '@creativebulma/bulma-tagsinput';
+import MiscService from '../../../services/misc.service';
 
 @Component({
   selector: 'app-settings',
@@ -27,7 +28,8 @@ export class SettingsComponent implements OnInit {
   public deleteUsername: string;
   private tagsInput: BulmaTagsInput;
 
-  constructor(public userService: UserService,
+  constructor(private userService: UserService,
+              private miscService: MiscService,
               private route: ActivatedRoute,
               private router: Router,
               private toastr: NwbAlertService,
@@ -46,28 +48,29 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     const tagsInput = this.pronounsInput.nativeElement;
 
-    this.tagsInput = window['tagsInput'] = new BulmaTagsInput(tagsInput, {
-      noResultsLabel: 'No results found',
-      selectable: false,
-      caseSensitive: true,
-      trim: false,
-      itemValue: (obj) => {
-        return (obj.aliases && obj.aliases[0]) || obj.canonicalName || obj['undefined'];
-      },
-      // itemValue: (a) => a.aliases,
-      source: async function(value) {
-        // Value equal input value
-        // We can then use it to request data from external API
-        // return `https://en.pronouns.page/api/pronouns/${value}`;
-        return await fetch(`http://cors.test/https://en.pronouns.page/api/pronouns/${value}`)
-          .then((res) => res.json())
-          .then(async (r) => [await r]);
-      }
-    });
+    this.translateService.get('user.settings.pronouns.hint').subscribe((placeholder) => {
+      this.translateService.get('user.settings.pronouns.no_results').subscribe((str) => {
+        this.tagsInput = new BulmaTagsInput(tagsInput, {
+          noResultsLabel: str,
+          selectable: false,
+          freeInput: false,
+          placeholder,
+          caseSensitive: false,
+          trim: true,
+          source: (value) => new Promise((resolve) => {
+            if (!value) {
+              return resolve([]);
+            }
 
-    this.tagsInput.add(
-      (this.user.pronouns || '').split(',').map((item) => ({'undefined': item}))
-    );
+            this.miscService.searchPronouns(value).subscribe(resolve, () => resolve([]));
+          }),
+        });
+
+        this.tagsInput.add(
+          (this.user.pronouns || '').split(',')
+        );
+      });
+    });
   }
 
   addNewConnection(): void {
@@ -160,7 +163,7 @@ export class SettingsComponent implements OnInit {
 
   submit(): Promise<void> {
     this.loading = true;
-    this.user.pronouns = this.tagsInput.items.map((it) => it['undefined']).join(',');
+    this.user.pronouns = this.tagsInput.items.join(',');
     return new Promise((resolve) => {
       this.userService.update(this.user).add(() => {
         this.loading = false;

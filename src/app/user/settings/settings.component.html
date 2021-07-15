@@ -34,7 +34,6 @@
   <h1 class="title">{{'user.settings.title' | translate}}</h1>
 
   <form ngForm="userForm"
-        (ngSubmit)="submit()"
         #form="ngForm">
     <h4 class="title is-4">{{'user.settings.general' | translate}}</h4>
     <!-- username -->
@@ -103,13 +102,12 @@
     </div>
     <!-- pronouns -->
     <div class="field">
-      <label class="label">Pronouns</label>
+      <label class="label">{{'user.settings.pronouns.title' | translate}}</label>
       <div class="control">
         <input id="pronouns"
                class="input"
                type="text"
                name="pronouns"
-               placeholder="Try finding a country name"
                [value]="user.pronouns"
                ngModel #pronouns
         />
@@ -168,7 +166,8 @@
       <div class="control">
         <button class="button is-link"
                 [ngClass]="{'is-loading': loading}"
-                type="submit"
+                type="button"
+                (click)="submit()"
                 [disabled]="form.invalid || (!user.discordId && !user.twitchId && !user.twitterId)">{{'action.save' |
           translate}}
         </button>

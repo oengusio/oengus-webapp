@@ -25,3 +25,4 @@
     </button>
   </div>
 </div>
+<p *ngIf="disabled" class="help">{{ 'user.settings.' + connection.platform.toLowerCase() + '.disabled.help' | translate }}</p>
