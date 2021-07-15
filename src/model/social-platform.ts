@@ -6,7 +6,6 @@ export enum SocialPlatform {
   INSTAGRAM = 'https://www.instagram.com/',
   SNAPCHAT = 'https://www.snapchat.com/add/',
   DISCORD = '',
-  IRC = '',
   EMAIL = 'mailto:',
   PHONE = 'tel:',
 }

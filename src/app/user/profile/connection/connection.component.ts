@@ -7,7 +7,7 @@ import {
   faFacebookF,
   faSnapchatGhost
 } from '@fortawesome/free-brands-svg-icons';
-import { faTrophy, faEnvelope, faPhone, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import SocialAccount from '../../../../model/social-account';
 import { SocialPlatform } from '../../../../model/social-platform';
 
@@ -28,7 +28,6 @@ export class ConnectionComponent implements OnInit {
     'INSTAGRAM': faInstagram,
     'SNAPCHAT': faSnapchatGhost,
     'DISCORD': faDiscord,
-    'IRC': faCommentDots,
     'EMAIL': faEnvelope,
     'PHONE': faPhone,
   };
