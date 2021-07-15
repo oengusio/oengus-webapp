@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import SocialAccount from '../../../model/social-account';
 import BulmaTagsInput from '@creativebulma/bulma-tagsinput';
 import MiscService from '../../../services/misc.service';
+import CountyService from '../../../services/country.service';
 
 @Component({
   selector: 'app-settings',
@@ -27,15 +28,19 @@ export class SettingsComponent implements OnInit {
   public deleteConfirm = false;
   public deleteUsername: string;
   private tagsInput: BulmaTagsInput;
+  public countries: string[] = [];
 
   constructor(private userService: UserService,
               private miscService: MiscService,
+              private countryService: CountyService,
               private route: ActivatedRoute,
               private router: Router,
               private toastr: NwbAlertService,
               private translateService: TranslateService) {
     this.user = {...this.route.snapshot.data.user};
     localStorage.setItem('user', JSON.stringify(this.user));
+    this.loadCountries();
+
     this.route.params.subscribe(params => {
       this.route.queryParams.subscribe(queryParams => {
         if (!!params['service'] && (!!queryParams['code'] || !!queryParams['oauth_token'] && !!queryParams['oauth_verifier'])) {
@@ -246,7 +251,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  private showSuccessToast(message: string) {
+  private showSuccessToast(message: string): void {
     const alertConfig: NwbAlertConfig = {
       message: message,
       duration: 3000,
@@ -256,7 +261,7 @@ export class SettingsComponent implements OnInit {
     this.toastr.open(alertConfig);
   }
 
-  private showWarningToast(message: string) {
+  private showWarningToast(message: string): void {
     const alertConfig: NwbAlertConfig = {
       message: message,
       duration: 3000,
@@ -264,5 +269,11 @@ export class SettingsComponent implements OnInit {
       color: 'is-warning'
     };
     this.toastr.open(alertConfig);
+  }
+
+  private loadCountries(): void {
+    this.countryService.getCountries().subscribe((countries) => {
+      this.countries = countries;
+    });
   }
 }

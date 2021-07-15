@@ -9,9 +9,9 @@
             <small>({{pronoun}})</small>
           </ng-template>
         </h1>
-        <small>
-          <span class="flag-icon flag-icon-nl" style="margin-right: 1px;"></span>
-          The Netherlands
+        <small *ngIf="user.country">
+          <span class="flag-icon flag-icon-{{user.country.toLowerCase()}}" style="margin-right: 1px;"></span>
+          {{ 'country.' + user.country | translate }}
         </small>
       </div>
     </div>

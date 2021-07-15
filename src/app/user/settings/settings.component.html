@@ -114,6 +114,17 @@
         <p class="help">Pronoun data is sourced from <a href="https://en.pronouns.page/" target="_blank">pronouns.page</a>. To learn more about their work and how to contribute, please visit their website</p>
       </div>
     </div>
+    <div class="field">
+      <label class="label">Country</label>
+      <div class="select is-fullwidth">
+        <select name="platform" [(ngModel)]="user.country">
+          <option value="" selected>None selected</option>
+          <option [value]="country" *ngFor="let country of countries">
+            {{'country.' + country | translate}}
+          </option>
+        </select>
+      </div>
+    </div>
     <article class="message">
       <div class="message-header">
         <p>

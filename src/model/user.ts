@@ -8,6 +8,7 @@ export class User {
   mail: string;
   // stored as comma seperated list in db
   pronouns: string;
+  country: string;
   roles: string[];
   connections: SocialAccount[];
   enabled: boolean;

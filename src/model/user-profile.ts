@@ -12,5 +12,6 @@ export class UserProfile {
   history: UserProfileHistory[];
   moderatedMarathons: Marathon[];
   avatarHash: string;
+  country: string;
   banned: boolean;
 }
