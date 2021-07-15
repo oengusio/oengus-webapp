@@ -9,17 +9,8 @@
     {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
   </span>
   <ng-template [ngIf]="showSocialLinks && user.enabled">
-    <a *ngIf="!!user.twitchName" href="https://twitch.tv/{{user.twitchName}}"
-       target="_blank">
-      <fa-icon [icon]="faTwitch" style="margin-left: 0.4rem"></fa-icon>
-    </a>
-    <a *ngIf="!!user.twitterName" href="https://twitter.com/{{user.twitterName}}"
-       target="_blank">
-      <fa-icon [icon]="faTwitter" style="margin-left: 0.4rem"></fa-icon>
-    </a>
-    <a *ngIf="!!user.speedruncomName" href="https://speedrun.com/user/{{user.speedruncomName}}"
-       target="_blank">
-      <fa-icon [icon]="faTrophy" style="margin-left: 0.4rem"></fa-icon>
+    <a [href]="platforms[connection.platform] + connection.username" *ngFor="let connection of profileConnections" target="_blank">
+      <fa-icon [icon]="iconMapping[connection.platform]" style="margin-left: 0.4rem"></fa-icon>
     </a>
   </ng-template>
 </div>

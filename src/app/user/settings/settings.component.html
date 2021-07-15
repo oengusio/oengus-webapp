@@ -95,6 +95,7 @@
         <input class="input" [ngClass]="{'is-danger': mail.invalid}" type="email" [(ngModel)]="user.mail" name="mail"
                #mail="ngModel" email required>
       </div>
+      <p class="help" [innerHTML]="'user.settings.email.help' | translate"></p>
       <div *ngIf="mail.invalid">
         <p class="help is-danger" *ngIf="mail.errors.email">{{'user.settings.email.error.email' | translate}}</p>
         <p class="help is-danger" *ngIf="mail.errors.required">{{'user.settings.email.error.required' | translate}}</p>
@@ -111,7 +112,7 @@
                [value]="user.pronouns"
                ngModel #pronouns
         />
-        <p class="help">Pronoun data is sourced from <a href="https://en.pronouns.page/" target="_blank">pronouns.page</a>. To learn more about their work and how to contribute, please visit their website</p>
+        <p class="help" [innerHTML]="'user.settings.pronouns.help' | translate"></p>
       </div>
     </div>
     <div class="field">

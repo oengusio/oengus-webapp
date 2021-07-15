@@ -15,22 +15,4 @@ export class User {
   discordId: number;
   twitterId: string;
   twitchId: string;
-
-  // TODO: remove
-  /**
-   * @deprecated
-   */
-  twitterName: string;
-  /**
-   * @deprecated
-   */
-  twitchName: string;
-  /**
-   * @deprecated
-   */
-  discordName: string;
-  /**
-   * @deprecated
-   */
-  speedruncomName: string;
 }
