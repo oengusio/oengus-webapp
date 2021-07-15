@@ -2,13 +2,17 @@
   <section class="hero">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <img src="https://www.gravatar.com/avatar/{{ user.avatarHash }}?s=80&d=404"
-             onerror="this.style.display='none'"/>
+        <img src="https://www.gravatar.com/avatar/{{ user.avatarHash }}?s=80&d=retro"/>
         <h1 class="title">
           {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
-          <small>(he/him)</small>
+          <ng-template ngFor let-pronoun [ngForOf]="user.pronouns">
+            <small>({{pronoun}})</small>
+          </ng-template>
         </h1>
-        <small>The Netherlands</small>
+        <small>
+          <span class="flag-icon flag-icon-nl" style="margin-right: 1px;"></span>
+          The Netherlands
+        </small>
       </div>
     </div>
   </section>

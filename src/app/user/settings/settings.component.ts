@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { User } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
 import { faSyncAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import SocialAccount from '../../../model/social-account';
+import BulmaTagsInput from '@duncte123/bulma-tagsinput';
 
 @Component({
   selector: 'app-settings',
@@ -13,6 +14,7 @@ import SocialAccount from '../../../model/social-account';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  @ViewChild('pronouns', { static: true }) pronounsInput: ElementRef<HTMLInputElement>;
 
   public faSyncAlt = faSyncAlt;
   public faPlus = faPlus;
@@ -23,6 +25,7 @@ export class SettingsComponent implements OnInit {
   public deactivateConfirm = false;
   public deleteConfirm = false;
   public deleteUsername: string;
+  private tagsInput: BulmaTagsInput;
 
   constructor(public userService: UserService,
               private route: ActivatedRoute,
@@ -41,7 +44,30 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const tagsInput = this.pronounsInput.nativeElement;
 
+    this.tagsInput = window['tagsInput'] = new BulmaTagsInput(tagsInput, {
+      noResultsLabel: 'No results found',
+      selectable: false,
+      caseSensitive: true,
+      trim: false,
+      itemValue: (obj) => {
+        return (obj.aliases && obj.aliases[0]) || obj.canonicalName || obj['undefined'];
+      },
+      // itemValue: (a) => a.aliases,
+      source: async function(value) {
+        // Value equal input value
+        // We can then use it to request data from external API
+        // return `https://en.pronouns.page/api/pronouns/${value}`;
+        return await fetch(`http://cors.test/https://en.pronouns.page/api/pronouns/${value}`)
+          .then((res) => res.json())
+          .then(async (r) => [await r]);
+      }
+    });
+
+    this.tagsInput.add(
+      (this.user.pronouns || '').split(',').map((item) => ({'undefined': item}))
+    );
   }
 
   addNewConnection(): void {
@@ -134,6 +160,7 @@ export class SettingsComponent implements OnInit {
 
   submit(): Promise<void> {
     this.loading = true;
+    this.user.pronouns = this.tagsInput.items.map((it) => it['undefined']).join(',');
     return new Promise((resolve) => {
       this.userService.update(this.user).add(() => {
         this.loading = false;

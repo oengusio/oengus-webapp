@@ -6,6 +6,8 @@ export class User {
   username: string;
   usernameJapanese: string;
   mail: string;
+  // stored as comma seperated list in db
+  pronouns: string;
   roles: string[];
   connections: SocialAccount[];
   enabled: boolean;

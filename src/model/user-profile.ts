@@ -7,6 +7,7 @@ export class UserProfile {
   username: string;
   usernameJapanese: string;
   enabled: boolean;
+  pronouns: string[];
   connections: SocialAccount[];
   history: UserProfileHistory[];
   moderatedMarathons: Marathon[];
