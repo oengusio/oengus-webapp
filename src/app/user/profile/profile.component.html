@@ -2,7 +2,7 @@
   <section class="hero">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <img src="https://www.gravatar.com/avatar/{{ user.avatarHash }}?s=80&d=retro&r=pg"/>
+        <img [src]="avatarUrl"/>
         <h1 class="title">
           {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
           <ng-template ngFor let-pronoun [ngForOf]="user.pronouns">

@@ -8,6 +8,7 @@ import { DurationService } from '../../../services/duration.service';
 import moment from 'moment';
 import { UserProfileHistory } from '../../../model/user-profile-history';
 import {UserService} from '../../../services/user.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -71,7 +72,11 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateUser(user) {
+  get avatarUrl(): string {
+    return `${environment.api}/users/${this.user.username}/avatar`;
+  }
+
+  updateUser(user): void {
     this.user = user;
     this.user.history.forEach(marathon => {
       marathon.games.forEach(game => {
@@ -87,7 +92,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getTopStatus(array: any[]) {
+  getTopStatus(array: any[]): string {
     let status = 'TODO';
     array.forEach(o => {
       switch (o.status.toUpperCase()) {
@@ -116,7 +121,7 @@ export class ProfileComponent implements OnInit {
     return status.toLowerCase();
   }
 
-  public filter() {
+  public filter(): void {
     const statuses = this.statusFilter.filter(entry => entry.selected).map(entry => entry.title);
     this.user.history.forEach(marathon => {
       marathon.games.forEach(game => {
@@ -129,7 +134,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  private filterTemporality(marathon: UserProfileHistory) {
+  private filterTemporality(marathon: UserProfileHistory): boolean {
     const temporalities = this.dateFilter.filter(entry => entry.selected).map(entry => entry.title);
     if (temporalities.length === this.dateFilter.length) {
       return true;
@@ -142,7 +147,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  public visibleCategories(game: Game) {
+  public visibleCategories(game: Game): number {
     return game.categories.filter(c => c.visible).length;
   }
 
@@ -150,7 +155,7 @@ export class ProfileComponent implements OnInit {
     return marathon.games.map(this.visibleCategories).reduce((previousValue, currentValue) => previousValue + currentValue);
   }
 
-  public isAdmin() {
+  public isAdmin(): boolean {
     if (!this.userService.isLoggedIn()) {
       return false;
     }
@@ -158,7 +163,7 @@ export class ProfileComponent implements OnInit {
     return this.userService.isAdmin();
   }
 
-  public isSelf() {
+  public isSelf(): boolean {
     if (!this.userService.isLoggedIn()) {
       return false;
     }
@@ -166,7 +171,7 @@ export class ProfileComponent implements OnInit {
     return this.userService.user.id === this.user.id;
   }
 
-  firstDisplayed(list: any[]) {
+  firstDisplayed(list: any[]): number {
     let i = 0;
     for (i; i < list.length; i++) {
       if (list[i].visible) {
