@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import SocialAccount from '../../../../model/social-account';
+import { SocialAccount } from '../../../../model/social-account';
 import { SocialPlatform } from '../../../../model/social-platform';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 

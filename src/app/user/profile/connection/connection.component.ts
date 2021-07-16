@@ -8,7 +8,7 @@ import {
   faSnapchatGhost
 } from '@fortawesome/free-brands-svg-icons';
 import { faTrophy, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
-import SocialAccount from '../../../../model/social-account';
+import { SocialAccount } from '../../../../model/social-account';
 import { SocialPlatform } from '../../../../model/social-platform';
 
 @Component({

@@ -1,6 +1,6 @@
 import { UserProfileHistory } from './user-profile-history';
 import { Marathon } from './marathon';
-import SocialAccount from './social-account';
+import { SocialAccount } from './social-account';
 
 export class UserProfile {
   id: number;

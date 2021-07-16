@@ -5,9 +5,9 @@ import {faSyncAlt, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
 import {TranslateService} from '@ngx-translate/core';
-import SocialAccount from '../../../model/social-account';
+import { SocialAccount } from '../../../model/social-account';
 import BulmaTagsInput from '@creativebulma/bulma-tagsinput';
-import MiscService from '../../../services/misc.service';
+import { MiscService } from '../../../services/misc.service';
 
 @Component({
   selector: 'app-settings',
@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
   public deleteConfirm = false;
   public deleteUsername: string;
   private tagsInput: BulmaTagsInput;
-  public countries: string[] = [
+  public countries = [
     'AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ',
     'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BQ', 'BA', 'BW', 'BV', 'BR',
     'IO', 'BN', 'BG', 'BF', 'BI', 'CV', 'KH', 'CM', 'CA', 'KY', 'CF', 'TD', 'CL', 'CN', 'CX', 'CC',

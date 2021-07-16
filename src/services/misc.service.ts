@@ -7,7 +7,7 @@ import {NwbAlertService} from '@wizishop/ng-wizi-bulma';
 @Injectable({
   providedIn: 'root'
 })
-export default class MiscService extends BaseService {
+export class MiscService extends BaseService {
   constructor(private http: HttpClient,
               toastr: NwbAlertService) {
     super(toastr);

@@ -1,4 +1,4 @@
-import SocialAccount from './social-account';
+import { SocialAccount } from './social-account';
 
 export class User {
 

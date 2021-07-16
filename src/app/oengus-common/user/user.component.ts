@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../../model/user';
 import { faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
-import SocialAccount from '../../../model/social-account';
+import { SocialAccount } from '../../../model/social-account';
 import {SocialPlatform} from '../../../model/social-platform';
 
 @Component({

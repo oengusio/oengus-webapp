@@ -1,4 +1,4 @@
-export default class SocialAccount {
+export class SocialAccount {
   platform: string;
   username: string;
 }
