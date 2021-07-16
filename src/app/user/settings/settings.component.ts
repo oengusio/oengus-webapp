@@ -142,7 +142,6 @@ export class SettingsComponent implements OnInit {
 
   syncDiscord(): void {
     delete this.user.discordId;
-    // this.removeConnectionByType('DISCORD');
 
     window.location.assign(this.userService.getDiscordAuthUri(true));
   }
