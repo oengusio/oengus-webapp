@@ -11,11 +11,6 @@ export class UserResolver implements Resolve<User> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> | Promise<User> | User {
-    const user = localStorage.getItem('user');
-    if (!user || !JSON.parse(user).id) {
-      return this.userService.getMe();
-    } else {
-      return JSON.parse(user);
-    }
+    return this.userService.getMe();
   }
 }

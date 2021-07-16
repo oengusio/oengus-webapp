@@ -53,7 +53,7 @@ export class SettingsComponent implements OnInit {
               private toastr: NwbAlertService,
               private translateService: TranslateService) {
     this.user = {...this.route.snapshot.data.user};
-    localStorage.setItem('user', JSON.stringify(this.user));
+    localStorage.removeItem('user');
 
     this.route.params.subscribe(params => {
       this.route.queryParams.subscribe(queryParams => {
@@ -185,7 +185,6 @@ export class SettingsComponent implements OnInit {
     return new Promise((resolve) => {
       this.userService.update(this.user).add(() => {
         this.loading = false;
-        localStorage.setItem('user', JSON.stringify(this.user));
         resolve();
       });
     });
@@ -235,7 +234,6 @@ export class SettingsComponent implements OnInit {
       }
 
       this.submit().then(() => {
-        localStorage.setItem('user', JSON.stringify(this.user));
         this.router.navigate(['/user/settings']);
       });
     }, error => {
