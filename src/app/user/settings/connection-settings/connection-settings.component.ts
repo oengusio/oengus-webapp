@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import SocialAccount from '../../../../model/social-account';
 import { SocialPlatform } from '../../../../model/social-platform';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-connection-settings',
@@ -15,6 +16,7 @@ export class ConnectionSettingsComponent implements OnInit {
 
   @Output() public deleteSelf = new EventEmitter<void>();
 
+  public faTrash = faTrash;
   public platforms = SocialPlatform;
 
   constructor() { }
