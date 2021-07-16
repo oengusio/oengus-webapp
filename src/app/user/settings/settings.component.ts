@@ -229,22 +229,12 @@ export class SettingsComponent implements OnInit {
     this.userService.sync(params['service'],
       queryParams['code'],
       queryParams['oauth_token'],
-      queryParams['oauth_verifier']).subscribe(response => {
-      // TODO: use more javascript magic
-      switch (params['service']) {
-        case 'discord' :
-          this.user.discordId = response.id;
-          this.addOrUpdateConnectionByType('DISCORD', response.name);
-          break;
-        case 'twitch' :
-          this.user.twitchId = response.id;
-          this.addOrUpdateConnectionByType('TWITCH', response.name);
-          break;
-        case 'twitter' :
-          this.user.twitterId = response.id;
-          this.addOrUpdateConnectionByType('TWITTER', response.name);
-          break;
+      queryParams['oauth_verifier']).subscribe((response) => {
+      if (typeof this.user[`${params['service'].toLowerCase()}Id`] !== 'undefined') {
+        this.user[`${params['service'].toLowerCase()}Id`] = response.id;
+        this.addOrUpdateConnectionByType(params['service'].toUpperCase(), response.name);
       }
+
       this.submit().then(() => {
         localStorage.setItem('user', JSON.stringify(this.user));
         this.router.navigate(['/user/settings']);
