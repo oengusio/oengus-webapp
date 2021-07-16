@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bulmaswatch/solar/variables';
 @import '~bulma';
+@import '~@creativebulma/bulma-tagsinput/src/sass/index';
 @import '~bulmaswatch/solar/overrides';
 @import '~bulma-extensions/dist/css/bulma-extensions.min.css';
 @import '~bulma-extensions/bulma-tooltip/src/sass/index';
@@ -10,6 +11,10 @@
 @import "~vis-timeline/dist/vis-timeline-graph2d.min.css";
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
+
+.tags-input.is-filter input{
+  color: $text !important;
+}
 
 #twitch-embed {
   iframe {

@@ -13,6 +13,9 @@ import { UsernameJapaneseExistsValidatorDirective } from '../directives/username
 import { ProfileComponent } from './profile/profile.component';
 import { UserProfileResolver } from '../resolvers/user-profile-resolver';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConnectionComponent } from './profile/connection/connection.component';
+import { ConnectionSettingsComponent } from './settings/connection-settings/connection-settings.component';
+import { SyncButtonComponent } from './settings/sync-button/sync-button.component';
 
 const userRoutes: Routes = [
   {
@@ -38,7 +41,10 @@ const userRoutes: Routes = [
     NewUserComponent,
     SettingsComponent,
     UsernameJapaneseExistsValidatorDirective,
-    ProfileComponent
+    ProfileComponent,
+    ConnectionComponent,
+    ConnectionSettingsComponent,
+    SyncButtonComponent
   ],
   imports: [
     CommonModule,

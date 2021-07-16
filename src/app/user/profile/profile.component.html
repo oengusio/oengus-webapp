@@ -2,9 +2,17 @@
   <section class="hero">
     <div class="hero-body">
       <div class="container has-text-centered">
+        <img [src]="avatarUrl"/>
         <h1 class="title">
           {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
+          <ng-template ngFor let-pronoun [ngForOf]="user.pronouns">
+            <small>({{pronoun}})</small>
+          </ng-template>
         </h1>
+        <small *ngIf="user.country">
+          <span class="flag-icon flag-icon-{{user.country.toLowerCase()}}" style="margin-right: 1px;"></span>
+          {{ 'country.' + user.country | translate }}
+        </small>
       </div>
     </div>
   </section>
@@ -35,50 +43,13 @@
     </ng-template>
   </div>
 
-  <div *ngIf="user.twitchName || user.twitterName || user.speedruncomName || user.discordName">
+  <div *ngIf="user.connections.length">
     <hr/>
     <nav class="level">
-      <div class="level-item has-text-centered" *ngIf="user.twitchName">
-        <div>
-          <p class="heading">Twitch</p>
-          <p class="title">
-            <a href="https://twitch.tv/{{user.twitchName}}" target="_blank">
-              <fa-icon [icon]="faTwitch"></fa-icon>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered" *ngIf="user.twitterName">
-        <div>
-          <p class="heading">Twitter</p>
-          <p class="title">
-            <a href="https://twitter.com/{{user.twitterName}}" target="_blank">
-              <fa-icon [icon]="faTwitter"></fa-icon>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered" *ngIf="user.discordName">
-        <div>
-          <p class="heading">Discord</p>
-          <p class="title">
-            <a href="https://patreon.com/oengusio" target="_blank">
-              <fa-icon [icon]="faDiscord"></fa-icon>
-            </a>
-          </p>
-          <p>{{ user.discordName }}</p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered" *ngIf="user.speedruncomName">
-        <div>
-          <p class="heading">Speedrun.com</p>
-          <p class="title">
-            <a href="https://speedrun.com/user/{{user.speedruncomName}}" target="_blank">
-              <fa-icon [icon]="faTrophy"></fa-icon>
-            </a>
-          </p>
-        </div>
-      </div>
+      <app-connection *ngFor="let connection of user.connections"
+                      class="level-item has-text-centered"
+                      [connection]="connection">
+      </app-connection>
     </nav>
     <hr/>
   </div>

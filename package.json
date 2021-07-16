@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~8.1.0",
     "@angular/router": "~8.1.0",
     "@busacca/ng-pick-datetime": "^8.0.1",
+    "@creativebulma/bulma-tagsinput": "^1.0.3",
     "@fortawesome/angular-fontawesome": "0.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-brands-svg-icons": "^5.9.0",

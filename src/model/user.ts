@@ -1,17 +1,18 @@
+import SocialAccount from './social-account';
+
 export class User {
 
   id: number;
   username: string;
   usernameJapanese: string;
   mail: string;
+  // stored as comma seperated list in db
+  pronouns: string;
+  country: string;
   roles: string[];
+  connections: SocialAccount[];
   enabled: boolean;
   discordId: number;
-  discordName: string;
   twitterId: string;
-  twitterName: string;
   twitchId: string;
-  twitchName: string;
-  speedruncomName: string;
-
 }

@@ -1,0 +1,28 @@
+<!-- TODO: validation for inputs -->
+<div class="columns is-mobile">
+  <div class="column is-two-fifths">
+    <div class="select is-fullwidth">
+      <select name="platform" [(ngModel)]="connection.platform" [disabled]="disabled">
+        <option value="" selected disabled hidden>{{ 'user.settings.connections.select_platform' | translate }}</option>
+        <option [value]="platform.key" *ngFor="let platform of platforms | keyvalue">
+          {{ 'platform.'+platform.key | translate }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="column is-two-fifths">
+    <div class="control">
+      <input class="input" type="text"
+             [disabled]="disabled"
+             [placeholder]="'user.settings.connections.username' | translate"
+             [(ngModel)]="connection.username"/>
+    </div>
+  </div>
+  <div class="column">
+    <button type="button" (click)="deleteSelf.emit()"
+            class="button is-danger is-fullwidth" [disabled]="disabled">
+      <fa-icon [icon]="faTrash"></fa-icon>
+    </button>
+  </div>
+</div>
+<p *ngIf="disabled" class="help">{{ 'user.settings.' + connection.platform.toLowerCase() + '.disabled.help' | translate }}</p>
