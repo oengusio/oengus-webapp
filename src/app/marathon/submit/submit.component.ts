@@ -34,7 +34,6 @@ export class SubmitComponent implements OnInit {
   public timezone = moment.tz.guess();
   public loading = false;
   public localStorage = localStorage;
-  public environment = environment;
   public possibleConsoles = Game.consoles;
   public deleteConfirm = false;
 
@@ -130,6 +129,7 @@ export class SubmitComponent implements OnInit {
 
   addGame() {
     const game = new Game();
+    game.console = '';
     game.categories.push(new Category());
     this.submission.games.push(game);
   }

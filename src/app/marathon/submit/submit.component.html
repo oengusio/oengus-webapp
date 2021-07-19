@@ -108,7 +108,7 @@
        *ngIf="!!submission.id && !marathonService.marathon.isPrivate"
        target="_blank"
        href="https://twitter.com/intent/tweet?text={{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
-     'marathon': marathonService.marathon.name} }}&via=OengusIO&lang={{localStorage.getItem('language')}}&url={{environment.baseSite + '/marathon/' + marathonService.marathon.id + '/submissions'}}">
+     'marathon': marathonService.marathon.name} }}&via=OengusIO&lang={{localStorage.getItem('language')}}&url=https://oengus.fun/{{marathonService.marathon.id}}/submissions">
       <fa-icon [icon]="faTwitter" style="margin-right: 0.4rem"></fa-icon>
       {{'action.sendTweet' | translate}}
     </a>
@@ -293,8 +293,8 @@
                 <div class="field has-addons">
                   <div class="select is-expanded">
                     <select [(ngModel)]="game.console" name="gameConsole{{i}}">
-                      <option selected disabled></option>
-                      <option *ngFor="let opt of possibleConsoles" [value]="opt" [selected]="opt === game.console">{{opt}}</option>
+                      <option value="" disabled></option>
+                      <option *ngFor="let opt of possibleConsoles" [ngValue]="opt">{{opt}}</option>
                     </select>
                   </div>
                   <fieldset class="control is-tooltip-danger" [disabled]="!marathonService.marathon.emulatorAuthorized"
@@ -573,7 +573,7 @@
        *ngIf="!!submission.id && !marathonService.marathon.isPrivate"
        target="_blank"
        href="https://twitter.com/intent/tweet?text={{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
-     'marathon': marathonService.marathon.name} }}&via=OengusIO&lang={{localStorage.getItem('language')}}&url={{environment.baseSite + '/marathon/' + marathonService.marathon.id + '/submissions'}}">
+     'marathon': marathonService.marathon.name} }}&via=OengusIO&lang={{localStorage.getItem('language')}}&url=https://oengus.fun/{{marathonService.marathon.id}}/submissions">
       <fa-icon [icon]="faTwitter" style="margin-right: 0.4rem"></fa-icon>
       {{'action.sendTweet' | translate}}
     </a>

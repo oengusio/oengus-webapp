@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
 import {TranslateService} from '@ngx-translate/core';
 import { SocialAccount } from '../../../model/social-account';
-import BulmaTagsInput from '@creativebulma/bulma-tagsinput';
+import BulmaTagsInput from '@duncte123/bulma-tagsinput';
 import { MiscService } from '../../../services/misc.service';
 
 @Component({
@@ -181,7 +181,7 @@ export class SettingsComponent implements OnInit {
 
   submit(): Promise<void> {
     this.loading = true;
-    this.user.pronouns = this.tagsInput.items.join(',');
+    this.user.pronouns = this.tagsInput.items.join(',') || null;
     return new Promise((resolve) => {
       this.userService.update(this.user).add(() => {
         this.loading = false;

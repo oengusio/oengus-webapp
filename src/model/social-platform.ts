@@ -1,11 +1,11 @@
 export enum SocialPlatform {
-  SPEEDRUNCOM = 'https://speedrun.com/user/',
-  TWITTER = 'https://www.twitter.com/',
-  TWITCH = 'https://www.twitch.tv/',
-  FACEBOOK = 'https://www.facebook.com/',
-  INSTAGRAM = 'https://www.instagram.com/',
-  SNAPCHAT = 'https://www.snapchat.com/add/',
   DISCORD = '',
   EMAIL = 'mailto:',
+  FACEBOOK = 'https://www.facebook.com/',
+  INSTAGRAM = 'https://www.instagram.com/',
   NICO = 'https://com.nicovideo.jp/community/',
+  SNAPCHAT = 'https://www.snapchat.com/add/',
+  SPEEDRUNCOM = 'https://speedrun.com/user/',
+  TWITCH = 'https://www.twitch.tv/',
+  TWITTER = 'https://www.twitter.com/',
 }

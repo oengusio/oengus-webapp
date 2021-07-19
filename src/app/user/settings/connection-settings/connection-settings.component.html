@@ -4,7 +4,7 @@
     <div class="select is-fullwidth">
       <select name="platform" [(ngModel)]="connection.platform" [disabled]="disabled">
         <option value="" selected disabled hidden>{{ 'user.settings.connections.select_platform' | translate }}</option>
-        <option [value]="platform.key" *ngFor="let platform of platforms | keyvalue">
+        <option [value]="platform.key" [hidden]="platform.value.disabled" *ngFor="let platform of parsedPlatforms | keyvalue">
           {{ 'platform.'+platform.key | translate }}
         </option>
       </select>
@@ -16,6 +16,9 @@
              [disabled]="disabled"
              [placeholder]="'user.settings.connections.username' | translate"
              [(ngModel)]="connection.username"/>
+      <p *ngIf="platforms[connection.platform]">
+        {{ platforms[connection.platform] + connection.username }}
+      </p>
     </div>
   </div>
   <div class="column">

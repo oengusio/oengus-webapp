@@ -119,8 +119,8 @@
       <label class="label">Country</label>
       <div class="select is-fullwidth">
         <select name="platform" [(ngModel)]="user.country">
-          <option value="" selected>None selected</option>
-          <option [value]="country" *ngFor="let country of countries">
+          <option [value]="null" selected>{{ 'global.non_select' | translate }}</option>
+          <option [ngValue]="country" *ngFor="let country of countries">
             {{'country.' + country | translate}}
           </option>
         </select>

@@ -34,4 +34,25 @@ export class ConnectionSettingsComponent implements OnInit {
       (type === 'TWITTER' && this.twitterId)
     );
   }
+
+  get parsedPlatforms(): { [key: string]: { url: string, disabled: boolean } } {
+    const cloned = {};
+
+    for (const key of Object.keys(SocialPlatform)) {
+      cloned[key] = {
+        disabled: false,
+        url: cloned[key]
+      };
+
+      if (key === 'DISCORD' && this.discordId) {
+        cloned[key].disabled = true;
+      } else if (key === 'TWITCH' && this.twitchId) {
+        cloned[key].disabled = true;
+      } else if (key === 'TWITTER' && this.twitterId) {
+        cloned[key].disabled = true;
+      }
+    }
+
+    return cloned;
+  }
 }
