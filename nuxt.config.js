@@ -95,9 +95,7 @@ export default {
     detectBrowserLanguage: false,
     langDir: '~/locales/',
     lazy: true,
-    vueI18n: {
-      fallbackLocale: 'en',
-    },
+    vueI18n: '~/vue-i18n.config.js',
   },
 
   // SSR Cache configuration: https://www.npmjs.com/package/nuxt-ssr-cache
