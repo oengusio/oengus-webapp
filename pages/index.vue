@@ -1,5 +1,6 @@
 <template>
   <div>
+    <HomepageWelcome />
     <p>Oengus main page stub</p>
     <p>{{ $t('homepage.welcomeTitle') }}</p>
     <select @change="changeLocale">
