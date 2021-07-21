@@ -10,11 +10,9 @@
       <button class="button is-warning">
         {{ $t('action.decline') }}
       </button>
-      <button class="button is-info">
-        <nuxt-link :to="localePath('/about')">
-          {{ $t('navbar.about') }}
-        </nuxt-link>
-      </button>
+      <nuxt-link :to="localePath('/about')" class="button is-info">
+        {{ $t('navbar.about') }}
+      </nuxt-link>
     </div>
   </div>
 </template>
