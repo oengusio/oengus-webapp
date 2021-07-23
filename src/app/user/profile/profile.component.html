@@ -14,8 +14,8 @@
           {{ 'country.' + user.country | translate }}
         </small>
         <p>{{'user.profile.speak' | translate}}
-          <ng-template ngFor let-language [ngForOf]="user.languagesSpoken">
-            <small>{{'language.' + language | translate}} </small>
+          <ng-template ngFor let-language let-i="index" [ngForOf]="user.languagesSpoken">
+            <small>{{'language.' + language | translate}}<span *ngIf="i + 1 < user.languagesSpoken.length">, </span></small>
           </ng-template>
         </p>
       </div>
