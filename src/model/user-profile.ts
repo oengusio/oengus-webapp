@@ -8,6 +8,7 @@ export class UserProfile {
   usernameJapanese: string;
   enabled: boolean;
   pronouns: string[];
+  languagesSpoken: string[];
   connections: SocialAccount[];
   history: UserProfileHistory[];
   moderatedMarathons: Marathon[];

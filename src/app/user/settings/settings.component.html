@@ -115,6 +115,7 @@
         <p class="help" [innerHTML]="'user.settings.pronouns.help' | translate"></p>
       </div>
     </div>
+    <!-- country -->
     <div class="field">
       <label class="label">Country</label>
       <div class="select is-fullwidth">
@@ -124,6 +125,19 @@
             {{'country.' + country | translate}}
           </option>
         </select>
+      </div>
+    </div>
+    <!-- languages -->
+    <div class="field">
+      <label class="label">{{'user.settings.language.label' | translate}}</label>
+      <div class="control">
+        <input id="languages"
+               class="input"
+               type="text"
+               name="languages"
+               [value]="user.languagesSpoken"
+               ngModel #languages
+        />
       </div>
     </div>
     <article class="message">
