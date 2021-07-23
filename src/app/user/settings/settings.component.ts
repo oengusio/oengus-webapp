@@ -301,16 +301,19 @@ export class SettingsComponent implements OnInit {
     return await Promise.all(promises);
   }
 
-  private initLanguagesInput(): void {
+  private async initLanguagesInput(): Promise<void> {
     const tagsInput = this.languageInput.nativeElement;
 
+    const placeholder = await this.translateService.get('user.settings.language.placeholder').toPromise();
+    const noResults = await this.translateService.get('user.settings.language.no_results').toPromise();
+
     this.languagesTagsInput = window['tagsInput'] = new BulmaTagsInput(tagsInput, {
-      noResultsLabel: 'No languages found',
+      noResultsLabel: noResults,
       selectable: false,
       freeInput: false,
       itemValue: 'value',
       itemText: 'text',
-      placeholder: 'Type to find a language',
+      placeholder: placeholder,
       caseSensitive: false,
       trim: true,
       source: (value) => new Promise((resolve) => {
