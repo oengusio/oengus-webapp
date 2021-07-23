@@ -22,7 +22,7 @@ const locales = [
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
-  head: {
+  'head': {
     title: 'oengus-webapp',
     htmlAttrs: {
       lang: 'en',
@@ -38,19 +38,19 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
+  'css': [
     '~assets/global',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
+  'plugins': [
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  'components': true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
+  'buildModules': [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/stylelint
@@ -58,8 +58,9 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
+  'modules': [
     '@nuxt/http',
+    '@nuxtjs/google-gtag',
     'nuxt-i18n',
     'nuxt-ssr-cache',
     // sitemap should always come last
@@ -67,7 +68,7 @@ export default {
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
+  'build': {
     babel: {
       presets() {
         return [ [ '@nuxt/babel-preset-app', { corejs: { version: 3 } } ] ];
@@ -76,7 +77,7 @@ export default {
   },
 
   // HTTP configuration: https://http.nuxtjs.org/
-  http: {
+  'http': {
     prefix: '/api/',
     host: 'oengus.dev',
     port: 443,
@@ -87,8 +88,20 @@ export default {
     },
   },
 
+  // Google GTag configuration: https://github.com/nuxt-community/google-gtag-module
+  'google-gtag': {
+    // "New Style" GA4 Data Stream
+    id: 'G-26CN947SSZ',
+    additionalAccounts: [
+      {
+        // "Old Style" Web Property
+        id: 'UA-153189507-4',
+      },
+    ],
+  },
+
   // i18n configuration: https://i18n.nuxtjs.org/
-  i18n: {
+  'i18n': {
     locales,
     defaultLocale: 'en',
     strategy: 'prefix',
@@ -99,7 +112,7 @@ export default {
   },
 
   // SSR Cache configuration: https://www.npmjs.com/package/nuxt-ssr-cache
-  cache: {
+  'cache': {
     useHostPrefix: false,
     pages: [ '/' ],
     // The default key function contains a bug that sometimes causes it to fail
@@ -131,7 +144,7 @@ export default {
   },
 
   // Sitemap configuration: https://sitemap.nuxtjs.org/
-  sitemap: {
+  'sitemap': {
     hostname: 'https://v2.oengus.dev',
     i18n: {
       locales,
