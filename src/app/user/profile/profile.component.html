@@ -6,13 +6,18 @@
         <h1 class="title">
           {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
           <ng-template ngFor let-pronoun [ngForOf]="user.pronouns">
-            <small>({{pronoun}})</small>
+            <small>({{pronoun}}) </small>
           </ng-template>
         </h1>
         <small *ngIf="user.country">
           <span class="flag-icon flag-icon-{{user.country.toLowerCase()}}" style="margin-right: 1px;"></span>
           {{ 'country.' + user.country | translate }}
         </small>
+        <p>{{'user.profile.speak' | translate}}
+          <ng-template ngFor let-language [ngForOf]="user.languagesSpoken">
+            <small>{{'language.' + language | translate}} </small>
+          </ng-template>
+        </p>
       </div>
     </div>
   </section>
