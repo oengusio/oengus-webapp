@@ -99,7 +99,6 @@ export default {
         id: 'UA-153189507-4',
       },
     ],
-    debug: true,
   },
 
   // i18n configuration: https://i18n.nuxtjs.org/
