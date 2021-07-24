@@ -14,7 +14,7 @@ class WeblateFormatter {
   }
 };
 
-export default function() {
+export default function () {
   return {
     fallbackLocale: 'en',
     formatter: new WeblateFormatter(),

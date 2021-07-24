@@ -23,7 +23,7 @@ const locales = [
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   'head': {
-    title: 'oengus-webapp',
+    title: 'Oengus v2',
     htmlAttrs: {
       lang: 'en',
     },
@@ -99,6 +99,7 @@ export default {
         id: 'UA-153189507-4',
       },
     ],
+    debug: true,
   },
 
   // i18n configuration: https://i18n.nuxtjs.org/
