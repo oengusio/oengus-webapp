@@ -6,6 +6,16 @@
   </div>
 </template>
 
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
+  mounted(): void {
+    // Provide calls to this.$gtag here to update Analytics
+  },
+});
+</script>
+
 <style lang="scss">
 html {
   font-family:
