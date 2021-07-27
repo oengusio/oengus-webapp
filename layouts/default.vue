@@ -8,8 +8,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { MetaInfo } from 'vue-meta';
 
 export default Vue.extend({
+  head(): Required<Pick<MetaInfo, "htmlAttrs" | "link" | "meta">> {
+    return this.$nuxtI18nHead({ addSeoAttributes: true });
+  },
   mounted(): void {
     // Provide calls to this.$gtag here to update Analytics
   },

@@ -110,6 +110,8 @@ export default {
     langDir: '~/locales/',
     lazy: true,
     vueI18n: '~/vue-i18n.config.js',
+    // Performant language-based SEO: https://i18n.nuxtjs.org/seo#improving-performance
+    seo: false,
   },
 
   // SSR Cache configuration: https://www.npmjs.com/package/nuxt-ssr-cache
