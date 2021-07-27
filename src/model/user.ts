@@ -16,4 +16,5 @@ export class User {
   discordId: number;
   twitterId: string;
   twitchId: string;
+  patreonId: string;
 }

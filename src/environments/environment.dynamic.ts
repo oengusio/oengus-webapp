@@ -3,6 +3,7 @@
 export const environment = {
   twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
   discordClientId: '559625844197163008',
+  patreonClientId: 'qXKJ92UNMBtSTV_N0TN47U6l1o2_VXWmqK3u9_Gv3RXIJuiJ0LTpDyzbl5XZuARH',
 
   // returns true for production builds
   get production() {

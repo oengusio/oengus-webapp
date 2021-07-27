@@ -9,6 +9,8 @@ import { ValidationErrors } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
+import { of } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +58,12 @@ export class UserService extends BaseService {
       redirectUri + 'twitch&response_type=code&scope=openid';
   }
 
+  get patreonSyncUrl(): string {
+    return `https://www.patreon.com/oauth2/authorize?response_type=code&client_id=${
+      environment.patreonClientId
+    }&scope=identity&redirect_uri=${this.getSyncRedirectUri()}patreon`;
+  }
+
   login(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Observable<any> {
     return this.http.post(this.url('login'), {
       service: service,
@@ -66,6 +74,11 @@ export class UserService extends BaseService {
   }
 
   sync(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Observable<any> {
+    if (service === 'patreon') {
+      // todo: check if account is already synced
+      return this.http.get(`${environment.patronApi}/sync?code=${code}`);
+    }
+
     return this.http.post(this.url('sync'), {
       service: service,
       code: code,

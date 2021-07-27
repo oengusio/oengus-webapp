@@ -8,6 +8,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {SocialAccount} from '../../../model/social-account';
 import BulmaTagsInput from '@duncte123/bulma-tagsinput';
 import {MiscService} from '../../../services/misc.service';
+import {SocialPlatform} from '../../../model/social-platform';
 
 interface LangType {
   value: string;
@@ -60,7 +61,6 @@ export class SettingsComponent implements OnInit {
               private toastr: NwbAlertService,
               private translateService: TranslateService) {
     this.user = {...this.route.snapshot.data.user};
-    localStorage.removeItem('user');
 
     this.route.params.subscribe(params => {
       this.route.queryParams.subscribe(queryParams => {
@@ -116,7 +116,7 @@ export class SettingsComponent implements OnInit {
 
     if (conn) {
       conn.username = username;
-    } else {
+    } else if (typeof SocialPlatform[type] !== 'undefined') {
       this.user.connections.push({
         platform: type,
         username,
@@ -134,6 +134,12 @@ export class SettingsComponent implements OnInit {
     delete this.user.twitchId;
 
     window.location.assign(this.userService.getTwitchAuthUrl(true));
+  }
+
+  syncPatreon(): void {
+    delete this.user.patreonId;
+
+    window.location.assign(this.userService.patreonSyncUrl);
   }
 
   syncTwitter(): void {
@@ -154,6 +160,11 @@ export class SettingsComponent implements OnInit {
   unsyncTwitch(): void {
     delete this.user.twitchId;
     this.removeConnectionByType('TWITCH');
+    this.submit();
+  }
+
+  unsyncPatreon(): void {
+    delete this.user.patreonId;
     this.submit();
   }
 
@@ -209,10 +220,12 @@ export class SettingsComponent implements OnInit {
 
   private syncService(params, queryParams): void {
     this.loading = true;
-    this.userService.sync(params['service'],
+    this.userService.sync(
+      params['service'],
       queryParams['code'],
       queryParams['oauth_token'],
-      queryParams['oauth_verifier']).subscribe((response) => {
+      queryParams['oauth_verifier']
+    ).subscribe((response) => {
       if (typeof this.user[`${params['service'].toLowerCase()}Id`] !== 'undefined') {
         this.user[`${params['service'].toLowerCase()}Id`] = response.id;
         this.addOrUpdateConnectionByType(params['service'].toUpperCase(), response.name);
@@ -328,8 +341,6 @@ export class SettingsComponent implements OnInit {
     const items = (this.user.languagesSpoken || '').split(',');
 
     this.collectLanguages(items).then((langs: LangType[]) => {
-      console.log(langs);
-
       this.languagesTagsInput.add(langs);
     });
   }

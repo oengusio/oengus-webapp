@@ -18,7 +18,8 @@ export const environment = {
   loginRedirect: 'http://localhost:4200/login/',
   syncRedirect: 'http://localhost:4200/user/settings/sync/',
   discordClientId: '559625844197163008',
-  paypalClientId: 'AV9-0fSGWREDWpnMJujrHUbDIibragMgE4-4HuAS-WQPlgHSRyfeU5iqNyiQwLEGZFEKhAiERJdv80a4'
+  paypalClientId: 'AV9-0fSGWREDWpnMJujrHUbDIibragMgE4-4HuAS-WQPlgHSRyfeU5iqNyiQwLEGZFEKhAiERJdv80a4',
+  patreonClientId: 'qXKJ92UNMBtSTV_N0TN47U6l1o2_VXWmqK3u9_Gv3RXIJuiJ0LTpDyzbl5XZuARH'
 };
 
 /*

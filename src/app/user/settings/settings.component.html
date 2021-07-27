@@ -180,6 +180,12 @@
                      (sync)="syncTwitch()"
                      (unsync)="unsyncTwitch()">
     </app-sync-button>
+    <app-sync-button [synced]="!!user.patreonId"
+                     username=""
+                     title="Patreon"
+                     (sync)="syncPatreon()"
+                     (unsync)="unsyncPatreon()">
+    </app-sync-button>
     <app-sync-button [synced]="!!user.twitterId"
                      [username]="getUsernameByConnectionType('TWITTER')"
                      title="Twitter"
