@@ -12,6 +12,7 @@ WORKDIR /oengus-webapp
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN npm ci --silent
 COPY ["nuxt.config.js", "vue-i18n.config.js", "./"]
+COPY static ./static
 COPY --from=builder /oengus-webapp/.nuxt ./.nuxt
 EXPOSE 3000
 CMD ["npm", "start"]
