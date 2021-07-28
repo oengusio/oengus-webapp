@@ -9,7 +9,6 @@ import { ValidationErrors } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
-import { of } from 'rxjs';
 
 
 @Injectable({
@@ -73,18 +72,27 @@ export class UserService extends BaseService {
     });
   }
 
-  sync(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Observable<any> {
+  async sync(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Promise<any> {
     if (service === 'patreon') {
-      // todo: check if account is already synced
-      return this.http.get(`${environment.patronApi}/sync?code=${code}`);
+      const patreon = await this.http.get(`${environment.patronApi}/sync?code=${code}`).toPromise() as any;
+
+      // Check if account is already synced
+      await this.http.post(this.url('sync'), {
+        service: 'patreon',
+        code: patreon.id,
+        oauthToken: null,
+        oauthVerifier: null,
+      }).toPromise();
+
+      return patreon;
     }
 
     return this.http.post(this.url('sync'), {
       service: service,
       code: code,
       oauthToken: oauthToken,
-      oauthVerifier: oauthVerifier
-    });
+      oauthVerifier: oauthVerifier,
+    }).toPromise();
   }
 
   logout(redirectHome: boolean = true) {

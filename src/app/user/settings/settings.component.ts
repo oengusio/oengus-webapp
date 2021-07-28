@@ -146,7 +146,7 @@ export class SettingsComponent implements OnInit {
     this.loading = true;
     delete this.user.twitterId;
 
-    this.userService.sync('twitterAuth').subscribe(response => {
+    this.userService.sync('twitterAuth').then(response => {
       window.location.replace(response.token);
     });
   }
@@ -218,14 +218,17 @@ export class SettingsComponent implements OnInit {
     return 'Settings';
   }
 
-  private syncService(params, queryParams): void {
+  private async syncService(params, queryParams): Promise<void> {
     this.loading = true;
-    this.userService.sync(
-      params['service'],
-      queryParams['code'],
-      queryParams['oauth_token'],
-      queryParams['oauth_verifier']
-    ).subscribe((response) => {
+
+    try {
+      const response = await this.userService.sync(
+        params['service'],
+        queryParams['code'],
+        queryParams['oauth_token'],
+        queryParams['oauth_verifier']
+      );
+
       if (typeof this.user[`${params['service'].toLowerCase()}Id`] !== 'undefined') {
         this.user[`${params['service'].toLowerCase()}Id`] = response.id;
         this.addOrUpdateConnectionByType(params['service'].toUpperCase(), response.name);
@@ -234,20 +237,29 @@ export class SettingsComponent implements OnInit {
       this.submit().then(() => {
         this.router.navigate(['/user/settings']);
       });
-    }, error => {
-      switch (error.code) {
-        case 'ACCOUNT_ALREADY_SYNCED':
-          this.translateService.get('alert.user.sync.alreadySynced').subscribe((res: string) => {
-            this.showWarningToast(res);
-          });
-          break;
-        default:
-          this.translateService.get('alert.user.sync.error').subscribe((res: string) => {
-            this.showWarningToast(res);
-          });
-          break;
+    } catch (error) {
+      this.router.navigate(['/user/settings']);
+
+      if (error.error) {
+        if (error.error.error) {
+          this.showWarningToast(error.error.error);
+        } else {
+          switch (error.error) {
+            case 'ACCOUNT_ALREADY_SYNCED':
+              this.translateService.get('alert.user.sync.alreadySynced').subscribe((res: string) => {
+                this.showWarningToast(res);
+              });
+              break;
+            default:
+              this.translateService.get('alert.user.sync.error').subscribe((res: string) => {
+                this.showWarningToast(res);
+              });
+              break;
+          }
+        }
+        return;
       }
-    });
+    }
   }
 
   private showSuccessToast(message: string): void {

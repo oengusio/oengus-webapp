@@ -181,7 +181,7 @@
                      (unsync)="unsyncTwitch()">
     </app-sync-button>
     <app-sync-button [synced]="!!user.patreonId"
-                     username=""
+                     [username]="'ID: ' + user.patreonId"
                      title="Patreon"
                      (sync)="syncPatreon()"
                      (unsync)="unsyncPatreon()">
