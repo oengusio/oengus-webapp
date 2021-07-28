@@ -1,3 +1,4 @@
+
 const locales = [
   { code: 'ca', iso: 'ca', file: 'ca.json' },
   { code: 'cy', iso: 'cy', file: 'cy.json' },
@@ -62,6 +63,7 @@ export default {
   'modules': [
     '@nuxt/http',
     '@nuxtjs/google-gtag',
+    '@nuxtjs/robots',
     'nuxt-i18n',
     'nuxt-ssr-cache',
     // sitemap should always come last
@@ -99,6 +101,20 @@ export default {
         id: 'UA-153189507-4',
       },
     ],
+  },
+
+  // robots configuration: https://github.com/nuxt-community/robots-module
+  // Provides an automated /robots.txt
+  'robots': {
+    UserAgent: '*',
+    Disallow: [
+      'login/',
+      // Disallow both the page and directory
+      'user/settings',
+      'user/settings/',
+    ].reduce((rules, page) => rules.concat(locales.map(locale => `/${locale.code}/${page}`)), []),
+    // TODO Should be a dynamically bound URL to be fed through ENV
+    Sitemap: 'https://v2.oengus.dev/sitemap.xml',
   },
 
   // i18n configuration: https://i18n.nuxtjs.org/
@@ -147,6 +163,7 @@ export default {
   },
 
   // Sitemap configuration: https://sitemap.nuxtjs.org/
+  // Provides an automated /sitemap.xml
   'sitemap': {
     hostname: 'https://v2.oengus.dev',
     i18n: {
