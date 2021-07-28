@@ -11,7 +11,7 @@ import Vue from 'vue';
 import { MetaInfo } from 'vue-meta';
 
 export default Vue.extend({
-  head(): Required<Pick<MetaInfo, "htmlAttrs" | "link" | "meta">> {
+  head(): Required<Pick<MetaInfo, 'htmlAttrs'|'link'|'meta'>> {
     return this.$nuxtI18nHead({ addSeoAttributes: true });
   },
   mounted(): void {
