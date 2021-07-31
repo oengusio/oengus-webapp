@@ -57,6 +57,8 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    // https://github.com/nuxt-community/fontawesome-module
+    '@nuxtjs/fontawesome',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -88,6 +90,21 @@ export default {
     headers: {
       // Temporarily removed pending update of API to accept over CORS
       'oengus-version': 2,
+    },
+  },
+
+  'fontawesome': {
+    icons: {
+      solid: [
+        'faBug',
+        'faLanguage',
+      ],
+      brands: [
+        'faDiscord',
+        'faGithub',
+        'faPatreon',
+        'faTwitter',
+      ],
     },
   },
 

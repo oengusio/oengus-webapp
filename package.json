@@ -12,7 +12,10 @@
     "lint": "npm run lint:js && npm run lint:style"
   },
   "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@nuxt/http": "^0.6.4",
+    "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/google-gtag": "^1.0.4",
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/robots": "^2.5.0",
