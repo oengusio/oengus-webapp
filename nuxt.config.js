@@ -1,4 +1,4 @@
-
+// We use locales in multiple places, so it's easiest to abstract
 const locales = [
   { code: 'ca', iso: 'ca', file: 'ca.json' },
   { code: 'cy', iso: 'cy', file: 'cy.json' },

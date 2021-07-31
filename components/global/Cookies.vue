@@ -1,6 +1,6 @@
 <template>
   <!-- Use v-show over v-if since ssr cannot detect this property properly -->
-  <div class="level box has-dark-background" v-show="showConsentPrompt">
+  <div v-show="showConsentPrompt" class="level box has-dark-background">
     <div class="level-left">
       {{ $t('navbar.privacyConsent') }}
     </div>
