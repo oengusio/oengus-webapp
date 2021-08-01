@@ -36,6 +36,8 @@
         <nuxt-link :to="localePath('/patrons')" class="navbar-item">
           {{ $t('navbar.patrons') }}
         </nuxt-link>
+        <language-picker class="navbar-item has-dropdown" />
+        <sign-in-picker class="navbar-item has-dropdown" />
       </div>
     </div>
   </nav>

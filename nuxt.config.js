@@ -1,24 +1,24 @@
 // We use locales in multiple places, so it's easiest to abstract
 const locales = [
-  { code: 'ca', iso: 'ca', file: 'ca.json' },
-  { code: 'cy', iso: 'cy', file: 'cy.json' },
-  { code: 'da', iso: 'da', file: 'da.json' },
-  { code: 'de', iso: 'de', file: 'de.json' },
-  { code: 'el', iso: 'el', file: 'el.json' },
-  { code: 'en', iso: 'en', file: 'en.json' },
-  { code: 'es', iso: 'es', file: 'es.json' },
-  { code: 'fi', iso: 'fi', file: 'fi.json' },
-  { code: 'fr', iso: 'fr', file: 'fr.json' },
-  { code: 'it', iso: 'it', file: 'it.json' },
-  { code: 'ja', iso: 'ja', file: 'ja.json' },
-  { code: 'ko', iso: 'ko', file: 'ko.json' },
-  { code: 'nb_NO', iso: 'nb-NO', file: 'nb_NO.json' },
-  { code: 'nl', iso: 'nl', file: 'nl.json' },
-  { code: 'pt_BR', iso: 'pt-BR', file: 'pt_BR.json' },
-  { code: 'ru', iso: 'ru', file: 'ru.json' },
-  { code: 'tr', iso: 'tr', file: 'tr.json' },
-  { code: 'zh_Hans', iso: 'zh', file: 'zh_Hans.json' },
-  { code: 'zh_Hant_HK', iso: 'zh-HK', file: 'zh_Hant_HK.json' },
+  { code: 'ca', iso: 'ca', file: 'ca.json', nativeName: 'Català' },
+  { code: 'cy', iso: 'cy', file: 'cy.json', nativeName: 'Cymraeg' },
+  { code: 'da', iso: 'da', file: 'da.json', nativeName: 'dansk' },
+  { code: 'de', iso: 'de', file: 'de.json', nativeName: 'Deutsch' },
+  { code: 'el', iso: 'el', file: 'el.json', nativeName: 'Ελληνικά' },
+  { code: 'en', iso: 'en', file: 'en.json', nativeName: 'English' },
+  { code: 'es', iso: 'es', file: 'es.json', nativeName: 'español' },
+  { code: 'fi', iso: 'fi', file: 'fi.json', nativeName: 'suomi' },
+  { code: 'fr', iso: 'fr', file: 'fr.json', nativeName: 'français' },
+  { code: 'it', iso: 'it', file: 'it.json', nativeName: 'Italiano' },
+  { code: 'ja', iso: 'ja', file: 'ja.json', nativeName: '日本語' },
+  { code: 'ko', iso: 'ko', file: 'ko.json', nativeName: '한국어 (韓國語)' },
+  { code: 'nb_NO', iso: 'nb-NO', file: 'nb_NO.json', nativeName: 'Norsk bokmål' },
+  { code: 'nl', iso: 'nl', file: 'nl.json', nativeName: 'Nederlands' },
+  { code: 'pt_BR', iso: 'pt-BR', file: 'pt_BR.json', nativeName: 'Português (Brazil)' },
+  { code: 'ru', iso: 'ru', file: 'ru.json', nativeName: 'русский язык' },
+  { code: 'tr', iso: 'tr', file: 'tr.json', nativeName: 'Türkçe' },
+  { code: 'zh_Hans', iso: 'zh', file: 'zh_Hans.json', nativeName: '中文 (简体中文)' },
+  { code: 'zh_Hant_HK', iso: 'zh-HK', file: 'zh_Hant_HK.json', nativeName: '中文 (香港)' },
 ];
 
 export default {
@@ -165,7 +165,7 @@ export default {
           type: 'memory',
           max: 100,
           // Five minutes
-          ttl: 5 * 60,
+          ttl: process.env.NODE_ENV === 'production' ? 5 * 60 : 5,
         },
         // Will not let us specify a TTL and so cache is immortal.
         // Improvements or replacements will have to occur.
