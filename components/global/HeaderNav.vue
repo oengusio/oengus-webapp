@@ -30,7 +30,12 @@
         </a>
       </div>
       <div class="navbar-end">
-
+        <nuxt-link :to="localePath('/about')" class="navbar-item">
+          {{ $t('navbar.about') }}
+        </nuxt-link>
+        <nuxt-link :to="localePath('/patrons')" class="navbar-item">
+          {{ $t('navbar.patrons') }}
+        </nuxt-link>
       </div>
     </div>
   </nav>
