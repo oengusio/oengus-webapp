@@ -17,8 +17,6 @@ export class BaseService {
       fullPath = fullPath.substr(0, fullPath.length - 1);
     }
 
-    console.log(`${fullPath}${parsedPath}`);
-
     return `${fullPath}${parsedPath}`;
   }
 

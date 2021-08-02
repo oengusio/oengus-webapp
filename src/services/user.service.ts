@@ -4,11 +4,12 @@ import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../model/user';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
-import { Observable } from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
+import {PatreonStatusDto, RelationShip} from '../model/annoying-patreon-shit';
 
 
 @Injectable({
@@ -72,9 +73,14 @@ export class UserService extends BaseService {
     });
   }
 
-  async sync(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Promise<any> {
+  async sync(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Promise<any|RelationShip> {
     if (service === 'patreon') {
-      const patreon = await this.http.get(`${environment.patronApi}/sync?code=${code}`).toPromise() as any;
+      const response = await this.http.get<RelationShip>(`${environment.patronApi}/sync?code=${code}`).toPromise() as any;
+
+      const patreon = {
+        ...response,
+        id: response.data.id,
+      };
 
       // Check if account is already synced
       await this.http.post(this.url('sync'), {
@@ -95,6 +101,10 @@ export class UserService extends BaseService {
     }).toPromise();
   }
 
+  async updatePatreonStatus(userId: number, data: PatreonStatusDto): Promise<void> {
+    return this.http.put<void>(this.url(`/${userId}/patreon-status`), data).toPromise();
+  }
+
   logout(redirectHome: boolean = true) {
     this._user = null;
     localStorage.removeItem('token');
@@ -109,7 +119,7 @@ export class UserService extends BaseService {
     return this.http.get<User>(this.url('me'));
   }
 
-  me() {
+  me(): Subscription {
     return this.getMe().subscribe((response: User) => {
       this._user = response;
       if (!this._user.mail) {

@@ -9,6 +9,7 @@ import {SocialAccount} from '../../../model/social-account';
 import BulmaTagsInput from '@duncte123/bulma-tagsinput';
 import {MiscService} from '../../../services/misc.service';
 import {SocialPlatform} from '../../../model/social-platform';
+import {PatreonStatusDto, RelationShip} from '../../../model/annoying-patreon-shit';
 
 interface LangType {
   value: string;
@@ -235,6 +236,21 @@ export class SettingsComponent implements OnInit {
       }
 
       this.submit().then(() => {
+        if (params['service'] === 'patreon') {
+          // sync the data to the backend
+          const { data, included } = response as RelationShip;
+
+          if (data.relationships.memberships.data.length > 0) {
+            const dto: PatreonStatusDto = {
+              patreonId: data.id,
+              status: included[0].attributes.patron_status.toUpperCase(),
+              pledgeAmount: included[0].attributes.will_pay_amount_cents,
+            };
+
+            this.userService.updatePatreonStatus(this.user.id, dto).catch(console.log);
+          }
+        }
+
         this.router.navigate(['/user/settings']);
       });
     } catch (error) {
