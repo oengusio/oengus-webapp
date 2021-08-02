@@ -48,7 +48,10 @@ export class IncentiveManagementComponent implements OnInit {
   }
 
   addBid(i: number) {
-    this.incentives[i].bids.push(new Bid());
+    const bid = new Bid();
+    bid.approved = true;
+
+    this.incentives[i].bids.push(bid);
   }
 
   byId(item1: ScheduleLine, item2: ScheduleLine) {
