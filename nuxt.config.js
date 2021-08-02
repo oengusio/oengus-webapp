@@ -12,12 +12,12 @@ const locales = [
   { code: 'it', iso: 'it', file: 'it.json', nativeName: 'Italiano' },
   { code: 'ja', iso: 'ja', file: 'ja.json', nativeName: '日本語' },
   { code: 'ko', iso: 'ko', file: 'ko.json', nativeName: '한국어 (韓國語)' },
-  { code: 'nb_NO', iso: 'nb-NO', file: 'nb_NO.json', nativeName: 'Norsk bokmål' },
+  { code: 'nb_NO', iso: 'nb-NO', momentIso: 'nb', file: 'nb_NO.json', nativeName: 'Norsk bokmål' },
   { code: 'nl', iso: 'nl', file: 'nl.json', nativeName: 'Nederlands' },
   { code: 'pt_BR', iso: 'pt-BR', file: 'pt_BR.json', nativeName: 'Português (Brazil)' },
   { code: 'ru', iso: 'ru', file: 'ru.json', nativeName: 'русский язык' },
   { code: 'tr', iso: 'tr', file: 'tr.json', nativeName: 'Türkçe' },
-  { code: 'zh_Hans', iso: 'zh', file: 'zh_Hans.json', nativeName: '中文 (简体中文)' },
+  { code: 'zh_Hans', iso: 'zh', momentIso: 'zh-CN', file: 'zh_Hans.json', nativeName: '中文 (简体中文)' },
   { code: 'zh_Hant_HK', iso: 'zh-HK', file: 'zh_Hant_HK.json', nativeName: '中文 (香港)' },
 ];
 
@@ -59,6 +59,8 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://github.com/nuxt-community/fontawesome-module
     '@nuxtjs/fontawesome',
+    // https://github.com/nuxt-community/moment-module
+    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -93,6 +95,7 @@ export default {
     },
   },
 
+  // Font Awesome configuration: https://github.com/nuxt-community/fontawesome-module
   'fontawesome': {
     icons: {
       solid: [
@@ -118,6 +121,16 @@ export default {
         id: 'UA-153189507-4',
       },
     ],
+  },
+
+  // Moment configuration: https://github.com/nuxt-community/moment-module
+  'moment': {
+    defaultLocale: 'en',
+    locales: locales
+      // You're not ALLOWED to specify 'en' even though it is always included
+      .filter(locale => locale.iso !== 'en')
+      .map(locale => (locale.momentIso ?? locale.iso).toLocaleLowerCase()),
+    timezone: true,
   },
 
   // robots configuration: https://github.com/nuxt-community/robots-module

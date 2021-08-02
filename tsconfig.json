@@ -27,6 +27,7 @@
       "@nuxt/types",
       "@types/node",
       "@nuxt/http",
+      "@nuxtjs/moment",
       "nuxt-i18n"
     ]
   },
