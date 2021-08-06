@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Cookies />
+    <HeaderCookies />
     <HeaderNav />
   </div>
 </template>

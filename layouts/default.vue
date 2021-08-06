@@ -1,8 +1,8 @@
 <template>
   <div id="default-layout-wrapper">
-    <SiteHeader id="header" />
+    <HeaderBar id="header" />
     <Nuxt id="nuxt" />
-    <SiteFooter id="footer" />
+    <FooterBar id="footer" />
   </div>
 </template>
 

@@ -11,9 +11,9 @@
       <button class="button is-warning" @click="setCookies(false)">
         {{ $t('action.decline') }}
       </button>
-      <nuxt-link :to="localePath('/about')" class="button is-info">
+      <NuxtLink :to="localePath('/about')" class="button is-info">
         {{ $t('navbar.about') }}
-      </nuxt-link>
+      </NuxtLink>
     </div>
   </div>
 </template>

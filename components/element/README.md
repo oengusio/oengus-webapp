@@ -1,0 +1,1 @@
+The folder is for components that are designed to be highly generic, generally as flexible containers for projected content. These components should have no specific purpose (i.e. you cannot say "it's for social buttons"). Think of this as a home for HTML elements that don't actually exist.

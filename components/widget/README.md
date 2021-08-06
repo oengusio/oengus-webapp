@@ -1,0 +1,1 @@
+Similiar to the elements/ folder, this folder contains components that aren't designed to be tied to any particular region of the site, but unlike elements/, these components serve a specific purpose, such as providing language selection rather than serving a generic purpose.
