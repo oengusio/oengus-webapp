@@ -106,6 +106,7 @@ export default {
         'faDiscord',
         'faGithub',
         'faPatreon',
+        'faTwitch',
         'faTwitter',
       ],
     },
