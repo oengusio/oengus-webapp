@@ -7,8 +7,14 @@
           Oengus
         </span>
       </NuxtLink>
+      <button class="button navbar-burger" :class="isActiveClass" @click="toggleNavbarActive">
+        <span />
+        <span />
+        <span />
+      </button>
     </div>
-    <div class="navbar-menu">
+
+    <div class="navbar-menu" :class="isActiveClass">
       <div class="navbar-start">
         <a href="https://discord.gg/ZZFS8YT" class="navbar-item" target="_blank">
           <FontAwesomeIcon :icon="[ 'fab', 'discord' ]" class="icon" />
@@ -36,9 +42,34 @@
         <NuxtLink :to="localePath('/patrons')" class="navbar-item">
           {{ $t('navbar.patrons') }}
         </NuxtLink>
-        <WidgetLanguagePicker class="navbar-item has-dropdown" />
-        <WidgetSignInPicker class="navbar-item has-dropdown" />
+        <WidgetLanguagePicker />
+        <WidgetSignInPicker />
       </div>
     </div>
   </nav>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import { IsActive } from '~/types/components/is-active';
+
+export default Vue.extend({
+  data() {
+    return {
+      isNavbarActive: false,
+    };
+  },
+  computed: {
+    isActiveClass(): IsActive {
+      return {
+        'is-active': this.isNavbarActive,
+      };
+    },
+  },
+  methods: {
+    toggleNavbarActive(): void {
+      this.isNavbarActive = !this.isNavbarActive;
+    },
+  },
+});
+</script>
