@@ -1,24 +1,12 @@
 <template>
-  <div>
-    <select @change="changeLocaleSelect">
-      <option v-for="locale in locales" :key="locale.code" :value="locale.code" :selected="locale.code == currentLocale.code">
+  <div class="navbar-item has-dropdown" :class="isActiveClass">
+    <a class="navbar-link" @click="toggleActive">
+      {{ currentLocale.nativeName }}
+    </a>
+    <div class="navbar-dropdown is-right">
+      <a v-for="locale in locales" :key="locale.code" class="navbar-item" @click="changeLocale(locale)">
         {{ locale.nativeName }}
-      </option>
-    </select>
-
-    <div class="dropdown is-hoverable is-right">
-      <div class="dropdown-trigger">
-        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-          {{ currentLocale.nativeName }}
-        </button>
-      </div>
-      <div class="dropdown-menu" role="menu">
-        <div class="dropdown-content">
-          <a v-for="locale in locales" :key="locale.code" class="dropdown-item" @click="changeLocale(locale)">
-            {{ locale.nativeName }}
-          </a>
-        </div>
-      </div>
+      </a>
     </div>
   </div>
 </template>
@@ -27,24 +15,33 @@
 import Vue from 'vue';
 /* eslint-disable-next-line import/named */ /* ESLint has trouble with this import... */
 import { LocaleObject } from 'nuxt-i18n';
+import { IsActive } from '~/types/components/is-active';
 
 export default Vue.extend({
   data() {
     return {
       locales: this.$i18n.locales as Array<LocaleObject>,
+      isActive: false,
     };
   },
   computed: {
-    currentLocale(): LocaleObject|undefined {
-      return this.locales.find(locale => locale.code === this.$i18n.locale);
+    currentLocale(): LocaleObject {
+      // While .find() can normally return undefined, it shouldn't be possible here, so assert found
+      return this.locales.find(locale => locale.code === this.$i18n.locale)!;
+    },
+    isActiveClass(): IsActive {
+      return {
+        'is-active': this.isActive,
+      };
     },
   },
   methods: {
-    changeLocaleSelect({ target }: { target: HTMLSelectElement }): void {
-      this.$i18n.setLocale(target.value);
-    },
     changeLocale(locale: LocaleObject): void {
       this.$i18n.setLocale(locale.code);
+      this.isActive = false;
+    },
+    toggleActive(): void {
+      this.isActive = !this.isActive;
     },
   },
 });
