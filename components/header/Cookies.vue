@@ -1,10 +1,10 @@
 <template>
   <!-- Use v-show over v-if since ssr cannot detect this property properly -->
-  <div v-show="showConsentPrompt" class="level box has-dark-background">
-    <div class="level-left">
+  <div v-show="showConsentPrompt" class="level-wrap box has-dark-background">
+    <div>
       {{ $t('navbar.privacyConsent') }}
     </div>
-    <div class="buttons are-small level-right">
+    <div class="buttons are-small">
       <button class="button is-primary" @click="setCookies(true)">
         {{ $t('action.accept') }}
       </button>
@@ -48,3 +48,12 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+  .level-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5em;
+  }
+</style>
