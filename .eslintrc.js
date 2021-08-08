@@ -29,6 +29,10 @@ module.exports = {
     'space-before-function-paren': [ 'error', { anonymous: 'always', named: 'never' } ],
 
     // ES6
+
+    // Vue
+    // Due to the way our translation works, it's not possible to avoid v-html
+    'vue/no-v-html': 'off',
   },
 
   overrides: [
