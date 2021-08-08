@@ -1,7 +1,9 @@
 <template>
   <div id="default-layout-wrapper">
     <HeaderBar id="header" />
-    <Nuxt id="nuxt" />
+    <div id="nuxt">
+      <Nuxt />
+    </div>
     <FooterBar id="footer" />
   </div>
 </template>
@@ -66,6 +68,7 @@ html {
 
   #nuxt {
     flex: 1;
+    padding: 1em;
   }
 }
 </style>
