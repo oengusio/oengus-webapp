@@ -99,6 +99,7 @@ export default {
   'fontawesome': {
     icons: {
       solid: [
+        'faAngleDown',
         'faBug',
         'faLanguage',
       ],
