@@ -1,58 +1,58 @@
 <template>
-  <div class="navbar-item has-dropdown" :class="isActiveClass">
-    <a class="navbar-link" @click="toggleActive">
+  <ElementDropdown :type="type" :is-right="isRight">
+    <template #trigger>
       {{ $t('navbar.login.title') }}
-    </a>
-    <div class="navbar-dropdown is-right has-icons-left">
-      <a class="navbar-item">
+    </template>
+    <template #options>
+      <a :class="dropdownItemClass">
         <FontAwesomeIcon :icon="[ 'fab', 'discord' ]" class="icon" />
         <span>
           {{ $t('navbar.login.discord') }}
         </span>
       </a>
-      <a class="navbar-item">
+      <a :class="dropdownItemClass">
         <FontAwesomeIcon :icon="[ 'fab', 'twitch' ]" class="icon" />
         <span>
           {{ $t('navbar.login.twitch') }}
         </span>
       </a>
-      <a class="navbar-item">
+      <a :class="dropdownItemClass">
         <FontAwesomeIcon :icon="[ 'fab', 'twitter' ]" class="icon" />
         <span>
           {{ $t('navbar.login.twitter') }}
         </span>
       </a>
-    </div>
-  </div>
+    </template>
+  </ElementDropdown>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { IsActive } from '~/types/components/is-active';
 
 export default Vue.extend({
+  props: {
+    /** 'DROPDOWN' or 'NAVBAR' indicating type, not case sensitive, optional defaults to 'DROPDOWN' */
+    type: {
+      type: String,
+      default: 'DROPDOWN',
+    },
+    isRight: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
-      isActive: false,
+      dropdownItemClass: /^navbar$/i.test(this.type) ? 'navbar-item' : 'dropdown-item',
     };
-  },
-  computed: {
-    isActiveClass(): IsActive {
-      return {
-        'is-active': this.isActive,
-      };
-    },
-  },
-  methods: {
-    toggleActive(): void {
-      this.isActive = !this.isActive;
-    },
   },
 });
 </script>
 
 <style lang="scss" scoped>
-  a.navbar-item {
+  a.navbar-item,
+  a.dropdown-item {
+    display: flex;
     justify-content: start;
 
     > .icon {

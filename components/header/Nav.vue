@@ -45,7 +45,7 @@
           {{ $t('navbar.patrons') }}
         </NuxtLink>
         <WidgetLanguagePicker />
-        <WidgetSignInPicker />
+        <WidgetSignInPicker type="navbar" is-right />
       </div>
     </div>
   </nav>
