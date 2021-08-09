@@ -7,7 +7,16 @@
     <p>
       {{ $t('homepage.welcomeText.par3') }}
     </p>
-    <WidgetSignInPicker />
+    <div class="is-centered">
+      <WidgetSignInPicker />
+    </div>
     <p v-html="$t('homepage.welcomeText.par4.prod')" />
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .is-centered {
+    display: flex;
+    justify-content: center;
+  }
+</style>
