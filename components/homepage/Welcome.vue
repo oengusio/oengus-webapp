@@ -70,10 +70,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .box {
-    transition: height 5s ease;
-  }
-
   .is-centered {
     display: flex;
     justify-content: center;
