@@ -5,3 +5,10 @@
 @import 'bulmaswatch/solar/variables';
 @import 'bulma';
 @import 'bulmaswatch/solar/overrides';
+
+html {
+  // Controls how far stuff is apart from each other.
+  // Matches the Bulma box padding so that we can have consistent spacing
+  // We're using CSS variables over SASS variables so it can be changed on the fly as needed
+  --spacing: 20px;
+}

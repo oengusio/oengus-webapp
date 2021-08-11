@@ -36,9 +36,6 @@
 
 <style lang="scss" scoped>
   .homepage-grid {
-    // Controls how far stuff is from other stuff
-    --spacing: 1em;
-
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: auto 1fr;
