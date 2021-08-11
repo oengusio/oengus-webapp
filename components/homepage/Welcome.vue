@@ -14,7 +14,7 @@
 
     <br>
 
-    <h3 class="title below-the-fold">
+    <h3 class="title is-3 below-the-fold">
       {{ $t('homepage.plannedFeatures.title') }}
     </h3>
     <ul class="below-the-fold">
