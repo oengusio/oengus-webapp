@@ -101,6 +101,7 @@ export default {
       solid: [
         'faAngleDown',
         'faBug',
+        'faCheck',
         'faLanguage',
       ],
       brands: [
