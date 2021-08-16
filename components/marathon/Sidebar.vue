@@ -1,8 +1,8 @@
 <template>
   <nav class="menu box">
-    <h4 class="title is-4">
+    <h3 class="title is-3">
       {{ marathon }}
-    </h4>
+    </h3>
 
     <p class="menu-label">
       {{ $t('marathon.menu.overview') }}

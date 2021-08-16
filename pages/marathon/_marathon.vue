@@ -7,12 +7,19 @@
 
 <style lang="scss" scoped>
   .marathon-container {
+    width: 100%;
     display: flex;
     gap: var(--spacing);
   }
 
   .marathon-sidebar {
     width: 350px;
+    flex-grow: 1;
+  }
+
+  .marathon-view {
+    width: 100%;
+    flex-grow: 5;
   }
 
   @media (max-width: 1023px) {
