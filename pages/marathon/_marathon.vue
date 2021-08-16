@@ -9,6 +9,8 @@
   .marathon-container {
     width: 100%;
     display: flex;
+    align-items: flex-start;
+    align-items: start;
     gap: var(--spacing);
   }
 
