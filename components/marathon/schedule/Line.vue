@@ -1,5 +1,112 @@
 <template>
-  <div>
-    Single Marathon Line
+  <div class="notification run-detail-container">
+    <span class="is-label">
+      {{ $t('marathon.schedule.table.time') }}
+    </span>
+    <span>
+      {{ new Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(new Date(run.date)) }}
+      ( {{ new Intl.RelativeTimeFormat('en-GB').format(...getTimeDiffSeconds(run.date)) }} )
+    </span>
+    <span class="is-label">
+      {{ $t('marathon.schedule.table.runner') }}
+    </span>
+    <span>
+      <div v-for="runner in run.runners" :key="runner.id">
+        {{ runner.username }}
+      </div>
+    </span>
+    <span class="is-label">
+      {{ $t('marathon.schedule.table.game') }}
+    </span>
+    <span>
+      {{ run.gameName }}
+    </span>
+    <span class="is-label">
+      {{ $t('marathon.schedule.table.category') }}
+    </span>
+    <span>
+      {{ run.categoryName }}
+    </span>
+    <span class="is-label">
+      {{ $t('marathon.schedule.table.type') }}
+    </span>
+    <span>
+      {{ run.type }}
+    </span>
+    <span class="is-label">
+      {{ $t('marathon.schedule.table.console') }}
+    </span>
+    <span>
+      {{ run.console }}
+    </span>
+    <span class="is-label">
+      {{ $t('marathon.schedule.table.estimate') }}
+    </span>
+    <span>
+      {{ run.estimate }}
+    </span>
+    <span class="is-label">
+      {{ $t('marathon.schedule.table.setup') }}
+    </span>
+    <span>
+      {{ run.setupTime }}
+    </span>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
+  props: {
+    run: {
+      type: Object,
+      default: () => ({ }),
+    },
+  },
+  methods: {
+    getTimeDiffSeconds(dateString: string): [ number, string ] {
+      const date = new Date(dateString).getTime();
+      // seconds
+      let diff = (date - Date.now()) / 1000;
+      let unit = 'seconds';
+      if (Math.abs(diff) > 89) {
+        diff /= 60;
+        unit = 'minutes';
+        if (Math.abs(diff) > 89) {
+          diff /= 60;
+          unit = 'hours';
+          if (Math.abs(diff) > 21) {
+            diff /= 24;
+            unit = 'days';
+            if (Math.abs(diff) > 319) {
+              diff /= 365;
+              unit = 'years'; // (ignoring leap years)
+            }
+          }
+        }
+      }
+      return [ Math.round(diff), unit ];
+    },
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+  .run-detail-container {
+    margin-inline-start: var(--spacing);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-auto-rows: auto;
+    gap: calc(var(--spacing) / 2);
+
+    > .is-label {
+      font-weight: bold;
+      justify-self: end;
+
+      &::after {
+        content: ':';
+      }
+    }
+  }
+</style>

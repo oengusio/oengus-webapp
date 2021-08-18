@@ -11,16 +11,31 @@
       </div>
     </div>
 
-    <div class="current-runs-container">
+    <div class="current-runs-container block">
       <MarathonScheduleCurrent />
       <MarathonScheduleCurrent is-next />
     </div>
 
-    <p>
+    <p class="block">
       {{ $t('marathon.schedule.timezone') }}
     </p>
+
+    <MarathonScheduleList :runs="runs" />
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import bsgSchedule from '~/test-data/schedule-bsg2021.json';
+
+export default Vue.extend({
+  data() {
+    return {
+      runs: bsgSchedule.lines,
+    };
+  },
+});
+</script>
 
 <style lang="scss" scoped>
   .current-runs-container {

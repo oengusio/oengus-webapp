@@ -15,6 +15,7 @@
   }
 
   .marathon-sidebar {
+    min-width: 250px;
     width: 350px;
     flex-grow: 1;
   }
