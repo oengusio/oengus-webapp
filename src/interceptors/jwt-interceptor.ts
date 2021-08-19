@@ -9,13 +9,16 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const updateHeaders = {
+      headers: req.headers.set('oengus-version', '1'),
+    };
+
     const token = this.userService.token;
+
     if (token) {
-      const authReq = req.clone({
-        headers: req.headers.set('Authorization', 'Bearer ' + token)
-      });
-      return next.handle(authReq);
+      updateHeaders.headers = updateHeaders.headers.set('Authorization', 'Bearer ' + token);
     }
-    return next.handle(req);
+
+    return next.handle(req.clone(updateHeaders));
   }
 }
