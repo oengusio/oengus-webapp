@@ -30,7 +30,7 @@
       <div v-if="shouldShowDay(index)" :key="'day' + index" class="day notification is-primary">
         {{ Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(new Date(run.date)) }}
       </div>
-      <span :key="'time' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
+      <span :id="'run-' + run.id" :key="'time' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
         {{ Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(new Date(run.date)) }}
       </span>
       <span :key="'runners' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">

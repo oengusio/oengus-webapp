@@ -51,6 +51,12 @@
     <span>
       {{ run.setupTime }}
     </span>
+    <span class="is-label">
+      {{ $t('marathon.schedule.table.link') }}
+    </span>
+    <a :href="'#run-' + run.id" rel="nofollow">
+      {{ `#run-${run.id}` }}
+    </a>
   </div>
 </template>
 
