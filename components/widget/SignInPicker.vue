@@ -59,7 +59,7 @@ export default Vue.extend({
     justify-content: start;
 
     > .icon {
-      margin-right: 0.25em;
+      margin-inline-end: 0.25em;
     }
   }
 </style>
