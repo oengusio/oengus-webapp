@@ -56,7 +56,9 @@
       <span :key="'setup' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
         {{ run.setupTime }}
       </span>
-      <MarathonScheduleLine v-if="run.expanded" :key="'expanded' + index" :run="run" class="expanded-run" :class="getRowParity(index)" />
+      <div v-if="run.expanded" :key="'expanded' + index" class="expanded-run">
+        <MarathonScheduleLine :run="run" :class="getRowParity(index)" />
+      </div>
     </template>
   </div>
 </template>
@@ -106,14 +108,11 @@ export default Vue.extend({
     grid-template-columns: repeat(8, auto);
     grid-auto-rows: auto;
 
-    > * {
+    > *:not(.expanded-run) {
       // A lot of the notification styling is undesirable in this context
-      padding: calc(var(--spacing) / 2) var(--spacing);
-      margin-bottom: 0;
+      padding: calc(var(--spacing) / 2);
+      margin-block-end: 0;
       border-radius: 0;
-      // Subtle line separators
-      border-bottom-color: white;
-      border-bottom-width: 1px;
     }
 
     span {
@@ -130,6 +129,30 @@ export default Vue.extend({
     > .expanded-run {
       // Span from start to finish
       grid-column: 1 / -1;
+      // Needed to allow the proper placement of the before and after
+      position: relative;
+      padding-inline-start: var(--spacing);
+      padding-block: calc(var(--spacing) / 2);
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset-block-start: var(--spacing);
+        inset-inline-start: calc(var(--spacing) / 2);
+        width: calc(var(--spacing) / 2);
+        height: 2px;
+        background-color: #666;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset-block-start: 0;
+        inset-block-end: calc(100% - var(--spacing));
+        inset-inline-start: calc(var(--spacing) / 2);
+        width: 2px;
+        background-color: #666;
+      }
     }
 
     > .is-header {

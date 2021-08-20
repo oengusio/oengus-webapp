@@ -94,7 +94,6 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
   .run-detail-container {
-    margin-inline-start: var(--spacing);
     display: grid;
     grid-template-columns: auto 1fr;
     grid-auto-rows: auto;
