@@ -45,10 +45,15 @@
         {{ run.categoryName }}
       </span>
       <span :key="'type' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
-        {{ run.type }}
+        {{ $t(`marathon.schedule.type.${run.type}`) }}
       </span>
       <span :key="'console' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
-        {{ run.console }}
+        <span>
+          {{ run.console }}
+        </span>
+        <sup v-if="run.emulated">
+          {{ $t('global.emu') }}
+        </sup>
       </span>
       <span :key="'estimate' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
         {{ run.estimate }}
