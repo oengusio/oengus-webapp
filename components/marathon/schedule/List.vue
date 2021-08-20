@@ -139,6 +139,7 @@ export default Vue.extend({
       padding-inline-start: var(--spacing);
       padding-block: calc(var(--spacing) / 2);
 
+      // Provides the strokes for the L connecting the entry to the detail
       &::before {
         content: '';
         position: absolute;
@@ -153,8 +154,8 @@ export default Vue.extend({
         content: '';
         position: absolute;
         inset-block-start: 0;
-        inset-block-end: calc(100% - var(--spacing));
         inset-inline-start: calc(var(--spacing) / 2);
+        height: var(--spacing);
         width: 2px;
         background-color: #666;
       }
