@@ -1,10 +1,10 @@
 <template>
-  <div id="default-layout-wrapper">
-    <HeaderBar id="header" />
-    <div id="nuxt">
+  <div class="default-layout-wrapper">
+    <HeaderBar class="default-layout-header" />
+    <div class="default-layout-nuxt">
       <Nuxt />
     </div>
-    <FooterBar id="footer" />
+    <FooterBar class="default-layout-footer" />
   </div>
 </template>
 
@@ -49,7 +49,7 @@ html {
   margin: 0;
 }
 
-#default-layout-wrapper {
+.default-layout-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -61,12 +61,12 @@ html {
     width: 100%;
   }
 
-  #header,
-  #footer {
+  .default-layout-header,
+  .default-layout-footer {
     flex: 0;
   }
 
-  #nuxt {
+  .default-layout-nuxt {
     flex: 1;
     padding: 1em;
   }
