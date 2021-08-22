@@ -27,7 +27,7 @@
     </span>
     <!-- Main Schedule Loop -->
     <template v-for="(run, index) in runs">
-      <div v-if="shouldShowDay(index)" :key="'day' + index" class="day notification is-primary">
+      <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-primary">
         {{ Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(new Date(run.date)) }}
       </div>
       <span :id="'run-' + run.id" :key="'time' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
