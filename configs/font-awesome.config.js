@@ -16,6 +16,7 @@ const solid = [
   'Cogs',
   'Donate',
   'DotCircle',
+  'Globe',
   'Home',
   'Language',
   'MoneyBill',
