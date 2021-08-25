@@ -20,6 +20,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { getGTagIds } from '~/configs/googe-gtag.config';
 
 export default Vue.extend({
   data() {
@@ -36,10 +37,8 @@ export default Vue.extend({
   },
   methods: {
     setCookies(consent: boolean): void {
-      // Add any other tracking schemes here. Hopefully I can find a simple way to iterate all of them.
-      // We invert for these, because this are DISABLE flags. Consent: yes; disable: no
-      (window as any)['ga-disable-G-26CN947SSZ'] = !consent;
-      (window as any)['ga-disable-UA-153189507-4'] = !consent;
+      // We invert for these, because these are DISABLE flags. Consent: yes; disable: no
+      getGTagIds().forEach(id => (window as any)[`ga-disable-${id}`] = !consent);
 
       localStorage.setItem('consent', consent.toString());
 

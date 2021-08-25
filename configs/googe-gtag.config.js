@@ -12,3 +12,8 @@ export function googleGtagConfig() {
     ],
   };
 }
+
+export function getGTagIds() {
+  const config = googleGtagConfig();
+  return [ config.id, ...config.additionalAccounts.map(account => account.id) ];
+}
