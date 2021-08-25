@@ -6,8 +6,9 @@
           {{ marathon.name }}
         </NuxtLink>
       </span>
-      <span :key="'location' + index" class="notification" :class="getRowParity(index)">
-        <FontAwesomeIcon :icon="[ 'fas', 'globe' ]" />
+      <span :key="'location' + index" class="notification location" :class="getRowParity(index)">
+        <span v-if="marathon.onsite" class="flag-icon" :class="`flag-icon-${marathon.country.toLowerCase()}`" />
+        <FontAwesomeIcon v-else :icon="[ 'fas', 'globe' ]" />
       </span>
       <span :key="'language' + index" class="notification" :class="getRowParity(index)">
         {{ marathon.language.toLocaleUpperCase() }}
@@ -55,6 +56,11 @@ export default Vue.extend({
       padding: calc(var(--spacing) / 2);
       margin-block-end: 0;
       border-radius: 0;
+
+      &.location {
+        display: flex;
+        justify-content: center;
+      }
     }
   }
 </style>
