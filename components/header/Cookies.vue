@@ -38,7 +38,7 @@ export default Vue.extend({
   methods: {
     setCookies(consent: boolean): void {
       // We invert for these, because these are DISABLE flags. Consent: yes; disable: no
-      getGTagIds().forEach(id => (window as any)[`ga-disable-${id}`] = !consent);
+      getGTagIds().forEach((id) => { (window as any)[`ga-disable-${id}`] = !consent; });
 
       localStorage.setItem('consent', consent.toString());
 
