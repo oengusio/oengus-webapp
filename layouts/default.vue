@@ -16,6 +16,11 @@ export default Vue.extend({
   head(): Required<Pick<MetaInfo, 'htmlAttrs'|'link'|'meta'>> {
     return this.$nuxtI18nHead({ addSeoAttributes: true });
   },
+  watch: {
+    $route(): void {
+      this.$scroll();
+    },
+  },
   mounted(): void {
     // Provide calls to this.$gtag here to update Analytics
   },
