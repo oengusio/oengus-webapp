@@ -1,7 +1,7 @@
 import { cacheConfig } from './configs/cache.config';
 import { fontAwesomeConfig } from './configs/font-awesome.config';
 import { googleGtagConfig } from './configs/googe-gtag.config';
-import { httpConfig } from './configs/http.config';
+import { httpConfig, httpPrivateRuntimeConfig, httpRuntimeConfig } from './configs/http.config';
 import { i18nConfig } from './configs/i18n.config';
 import { momentConfig } from './configs/moment.config';
 import { robotsConfig } from './configs/robots.config';
@@ -69,6 +69,14 @@ export default {
         return [ [ '@nuxt/babel-preset-app', { corejs: { version: 3 } } ] ];
       },
     },
+  },
+
+  // Runtime Configuration: https://nuxtjs.org/docs/2.x/directory-structure/nuxt-config#runtimeconfig
+  'publicRuntimeConfig': {
+    http: httpRuntimeConfig(process),
+  },
+  'privateRuntimeConfig': {
+    http: httpPrivateRuntimeConfig(process),
   },
 
   // HTTP configuration: https://http.nuxtjs.org/
