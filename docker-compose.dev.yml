@@ -1,0 +1,5 @@
+services:
+  app:
+    environment:
+      DOMAIN: oengus.dev
+      API: oengus.dev

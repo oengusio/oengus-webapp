@@ -1,0 +1,6 @@
+services:
+  app:
+    environment:
+      NODE_ENV: dev
+      DOMAIN: localhost:3000
+      API: oengus.dev
