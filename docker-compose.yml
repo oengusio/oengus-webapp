@@ -8,6 +8,8 @@ services:
       dockerfile: ./Dockerfile
     environment:
       NODE_ENV: production
+      DOMAIN: v2.oengus.dev
+      API: oengus.dev
       # CACHE_HOST: cache
     ports:
       - 3000:3000

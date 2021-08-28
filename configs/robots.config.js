@@ -2,7 +2,7 @@
 
 import { locales } from './i18n.config';
 
-export function robotsConfig() {
+export function robotsConfig(process) {
   return {
     UserAgent: '*',
     Disallow: [
@@ -11,7 +11,6 @@ export function robotsConfig() {
       'user/settings',
       'user/settings/',
     ].reduce((rules, page) => rules.concat(locales.map(locale => `/${locale.code}/${page}`)), []),
-    // TODO Should be a dynamically bound URL to be fed through ENV
-    Sitemap: 'https://v2.oengus.dev/sitemap.xml',
+    Sitemap: `https://${process.env.DOMAIN ?? 'v2.oengus.dev'}/sitemap.xml`,
   };
 }

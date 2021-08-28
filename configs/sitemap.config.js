@@ -2,9 +2,9 @@
 
 import { locales } from './i18n.config';
 
-export function sitemapConfig() {
+export function sitemapConfig(process) {
   return {
-    hostname: 'https://v2.oengus.dev',
+    hostname: `https://${process.env.DOMAIN ?? 'v2.oengus.dev'}`,
     i18n: {
       locales,
     },

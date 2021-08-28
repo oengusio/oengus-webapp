@@ -1,13 +1,12 @@
 // HTTP configuration: https://http.nuxtjs.org/
 
-export function httpConfig() {
+export function httpConfig(process) {
   return {
     prefix: '/api/',
-    host: 'oengus.dev',
+    host: process.env.API ?? 'oengus.dev',
     port: 443,
     https: true,
     headers: {
-      // Temporarily removed pending update of API to accept over CORS
       'oengus-version': 2,
     },
   };
