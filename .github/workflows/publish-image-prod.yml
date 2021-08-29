@@ -3,8 +3,51 @@ on:
   release:
     types: [ published ]
 jobs:
-  push_to_registry:
+  publish_to_prod:
     name: Push development docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push production
+        id: docker_build_prod
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: oengusio/frontend:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+          build-args: |
+            PROFILE=production
+
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: Trigger prod webhook
+        uses: zzzze/webhook-trigger@v1.0.0
+        with:
+          webhook_url: ${{ secrets.PROD_WEBHOOK_URL }}
+
+  publish_to_sandbox:
+    name: Push sandbox docker image
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -48,25 +91,3 @@ jobs:
         uses: zzzze/webhook-trigger@v1.0.0
         with:
           webhook_url: ${{ secrets.SANDBOX_WEBHOOK_URL }}
-
-      - name: Build and push production
-        id: docker_build_prod
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: oengusio/frontend:latest
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-          build-args: |
-            PROFILE=production
-
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
-      - name: Trigger prod webhook
-        uses: zzzze/webhook-trigger@v1.0.0
-        with:
-          webhook_url: ${{ secrets.PROD_WEBHOOK_URL }}
