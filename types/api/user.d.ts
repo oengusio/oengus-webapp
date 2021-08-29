@@ -1,3 +1,5 @@
+import { OengusState } from '~/plugins/oengus';
+
 export interface User {
   banned: boolean;
   discordName: string;
@@ -24,7 +26,7 @@ export interface AddSearch {
   search: Array<User>;
 }
 
-export interface UserState {
+export interface UserState extends OengusState {
   users: { [username: string]: User; };
   exists: { [username: string]: boolean; };
   searches: { [query: string]: Array<User>; };

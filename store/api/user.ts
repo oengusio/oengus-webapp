@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import { ActionTree, MutationTree } from 'vuex';
+import { OengusAPI } from '~/plugins/oengus';
 import { AddExists, AddSearch, User, UserExists, UserState } from '~/types/api/user';
+
+const UserOengusAPI = new OengusAPI<UserState>('users');
 
 export const state = (): UserState => ({
   users: { },
@@ -21,18 +24,16 @@ export const mutations: MutationTree<UserState> = {
 };
 
 export const actions: ActionTree<UserState, UserState> = {
-  async get({ commit }, username: string): Promise<void> {
-    const user: User = await this.$http.$get(`/users/${username}`);
-    if (user) {
-      commit('addUser', user);
-    }
-  },
-  async exists({ commit }, username: string): Promise<void> {
-    const exists: UserExists = await this.$http.$get(`/users/${username}/exists`);
-    commit('addExists', { username, exists: !!exists.exists } as AddExists);
-  },
-  async search({ commit }, query: string): Promise<void> {
-    const search: Array<User> = await this.$http.$get(`/users/${query}/search`);
-    commit('addSearch', search);
-  },
+  get: UserOengusAPI.get<User>({ key: 'users', mutation: 'addUser' }),
+  exists: UserOengusAPI.get<UserExists, AddExists>({
+    path: 'exists',
+    key: 'exists',
+    transform: (userExists, username: string) => ({ username, exists: !!userExists.exists }),
+  }),
+  search: UserOengusAPI.get<Array<User>, AddSearch>({
+    path: 'search',
+    key: 'searches',
+    mutation: 'addSearch',
+    transform: (search, query: string) => ({ query, search }),
+  }),
 };
