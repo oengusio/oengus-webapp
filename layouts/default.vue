@@ -1,9 +1,9 @@
 <template>
   <div class="default-layout-wrapper">
     <HeaderBar class="default-layout-header" />
-    <div class="default-layout-nuxt">
+    <main class="default-layout-nuxt">
       <Nuxt />
-    </div>
+    </main>
     <FooterBar class="default-layout-footer" />
   </div>
 </template>

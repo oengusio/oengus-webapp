@@ -1,6 +1,6 @@
 <template>
-  <div>
+  <header>
     <HeaderCookies />
     <HeaderNav />
-  </div>
+  </header>
 </template>
