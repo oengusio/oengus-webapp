@@ -42,15 +42,11 @@
     <span class="is-label">
       {{ $t('marathon.schedule.table.estimate') }}
     </span>
-    <span>
-      {{ run.estimate }}
-    </span>
+    <WidgetTemporalDuration :duration="run.estimate" />
     <span class="is-label">
       {{ $t('marathon.schedule.table.setup') }}
     </span>
-    <span>
-      {{ run.setupTime }}
-    </span>
+    <WidgetTemporalDuration :duration="run.setupTime" />
     <span class="is-label">
       {{ $t('marathon.schedule.table.link') }}
     </span>

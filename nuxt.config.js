@@ -35,6 +35,7 @@ export default {
     { src: '~/plugins/google-gtag.client.ts', mode: 'client' },
     { src: '~/plugins/oengus.ts' },
     { src: '~/plugins/scroll.client.ts', mode: 'client' },
+    { src: '~/plugins/temporal/temporal.ts' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
