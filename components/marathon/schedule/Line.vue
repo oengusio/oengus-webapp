@@ -111,3 +111,18 @@ export default Vue.extend({
     }
   }
 </style>
+
+<!-- Temporary language info to avoid having the i18n string -->
+<i18n>
+{
+  "en": {
+    "marathon": {
+      "schedule": {
+        "table": {
+          "link": "Link"
+        }
+      }
+    }
+  }
+}
+</i18n>

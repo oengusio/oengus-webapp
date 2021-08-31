@@ -31,6 +31,7 @@ export function i18nConfig() {
     detectBrowserLanguage: false,
     langDir: '~/locales/',
     lazy: true,
+    vueI18nLoader: true,
     // This import takes places inside webpack from a different PWD, so we need the ~ pathing
     vueI18n: '~/configs/vue-i18n.config.js',
     // Performant language-based SEO: https://i18n.nuxtjs.org/seo#improving-performance
