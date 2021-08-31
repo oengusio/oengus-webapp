@@ -1,5 +1,5 @@
 <template>
-  <div class="homepage-marathons-container box">
+  <div class="homepage-marathons-container">
     <h3 class="title is-3">
       <span>
         {{ $t('calendar.title') }}
@@ -30,7 +30,7 @@
               {{ marathon.language.toLocaleUpperCase() }}
             </span>
             <span :key="marathonsList.key + 'time' + index" class="notification time" :class="getRowParity(index)">
-              {{ $t(marathonsList.timeTranslationKey, { duration: 'DURATION' }) }}
+              {{ $t(marathonsList.timeTranslationKey, { duration: $temporal.distance.format(marathon[marathonsList.timeTranslationValue]) }) }}
             </span>
           </template>
           <div :key="marathonsList.key + 'postspacer'" class="spacer" />
@@ -53,18 +53,21 @@ export default Vue.extend({
           key: 'live',
           label: 'homepage.marathons.live',
           timeTranslationKey: 'homepage.ends',
+          timeTranslationValue: 'endDate',
           headerClass: 'is-3',
         },
         {
           key: 'next',
           label: 'homepage.marathons.upcoming',
           timeTranslationKey: 'homepage.starts',
+          timeTranslationValue: 'startDate',
           headerClass: 'is-4',
         },
         {
           key: 'open',
           label: 'homepage.marathons.open',
           timeTranslationKey: 'homepage.submissions_close',
+          timeTranslationValue: 'submissionsEndDate',
           headerClass: 'is-4',
         },
       ],

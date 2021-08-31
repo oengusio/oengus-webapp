@@ -66,12 +66,13 @@ export const duration = {
         throw new Error('Not a duration');
       }
       const { value, unitSymbol } = match.groups!;
-      (parts as any)[durationUnitConversion[isTime ? 'time' : 'date'][unitSymbol as 'Y'|'M'|'W'|'D'|'H'|'S']] =  Number.parseFloat(value);
+      // This... is hideous. This needs to be better.
+      (parts as any)[durationUnitConversion[isTime ? 'time' : 'date'][unitSymbol as 'Y'|'M'|'W'|'D'|'H'|'S']] = Number.parseFloat(value);
       duration = duration.slice(match[0].length);
     }
     if (parts.error) {
       throw new Error('Not a duration');
     }
     return parts;
-  }
+  },
 };

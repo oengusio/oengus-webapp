@@ -1,5 +1,5 @@
 <template>
-  <time :duration="duration">
+  <time :datetime="duration">
     {{ $temporal.duration.toHumanReadable(duration) }}
   </time>
 </template>

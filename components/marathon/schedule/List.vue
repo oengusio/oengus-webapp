@@ -34,9 +34,9 @@
         {{ Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(new Date(run.date)) }}
       </span>
       <span :key="'runners' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
-        <div v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
+        <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
           {{ runner.username }}
-        </div>
+        </p>
       </span>
       <span :key="'game' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
         {{ run.gameName }}

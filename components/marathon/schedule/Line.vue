@@ -5,15 +5,15 @@
     </span>
     <span>
       {{ new Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(new Date(run.date)) }}
-      ( {{ new Intl.RelativeTimeFormat('en-GB').format(...getTimeDiffSeconds(run.date)) }} )
+      (<WidgetTemporalDistance :datetime="run.date" />)
     </span>
     <span class="is-label">
       {{ $t('marathon.schedule.table.runner') }}
     </span>
     <span>
-      <div v-for="runner in run.runners" :key="runner.id">
+      <p v-for="runner in run.runners" :key="runner.id">
         {{ runner.username }}
-      </div>
+      </p>
     </span>
     <span class="is-label">
       {{ $t('marathon.schedule.table.game') }}
@@ -64,31 +64,6 @@ export default Vue.extend({
     run: {
       type: Object,
       default: () => ({ }),
-    },
-  },
-  methods: {
-    getTimeDiffSeconds(dateString: string): [ number, string ] {
-      const date = new Date(dateString).getTime();
-      // seconds
-      let diff = (date - Date.now()) / 1000;
-      let unit = 'seconds';
-      if (Math.abs(diff) > 89) {
-        diff /= 60;
-        unit = 'minutes';
-        if (Math.abs(diff) > 89) {
-          diff /= 60;
-          unit = 'hours';
-          if (Math.abs(diff) > 21) {
-            diff /= 24;
-            unit = 'days';
-            if (Math.abs(diff) > 319) {
-              diff /= 365;
-              unit = 'years'; // (ignoring leap years)
-            }
-          }
-        }
-      }
-      return [ Math.round(diff), unit ];
     },
   },
 });

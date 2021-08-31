@@ -1,8 +1,10 @@
 import { Plugin } from '@nuxt/types';
 
+import { distance } from './distance';
 import { duration } from './duration';
 
 const temporal = {
+  distance,
   duration,
 };
 
