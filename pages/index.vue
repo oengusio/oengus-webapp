@@ -27,14 +27,17 @@
 
     .welcome {
       grid-area: welcome;
+      order: 1;
     }
 
     .marathons {
       grid-area: marathons;
+      order: 2;
     }
 
     .extra {
       grid-area: extra;
+      order: 3;
       width: 100%;
       display: flex;
       flex-direction: column;
