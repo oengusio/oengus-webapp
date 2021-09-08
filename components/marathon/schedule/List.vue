@@ -62,7 +62,7 @@
         <WidgetTemporalDuration :duration="run.setupTime" />
       </span>
       <div v-if="run.expanded" :key="'expanded' + index" class="expanded-run">
-        <MarathonScheduleLine :run="run" :class="getRowParity(index)" />
+        <MarathonScheduleRun :run="run" :class="getRowParity(index)" />
       </div>
     </template>
   </div>
