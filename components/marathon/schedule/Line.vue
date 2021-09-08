@@ -1,55 +1,45 @@
 <template>
   <div class="notification run-detail-container">
-    <span class="is-label">
-      {{ $t('marathon.schedule.table.time') }}
-    </span>
+    <span class="is-label">{{ $t('marathon.schedule.table.time') }}</span>
     <span>
       {{ new Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(new Date(run.date)) }}
       (<WidgetTemporalDistance :datetime="run.date" />)
     </span>
-    <span class="is-label">
-      {{ $t('marathon.schedule.table.runner') }}
-    </span>
+
+    <span class="is-label">{{ $t('marathon.schedule.table.runner') }}</span>
     <span>
       <p v-for="runner in run.runners" :key="runner.id">
         {{ runner.username }}
       </p>
     </span>
-    <span class="is-label">
-      {{ $t('marathon.schedule.table.game') }}
-    </span>
+
+    <span class="is-label">{{ $t('marathon.schedule.table.game') }}</span>
     <span>
       {{ run.gameName }}
     </span>
-    <span class="is-label">
-      {{ $t('marathon.schedule.table.category') }}
-    </span>
+
+    <span class="is-label">{{ $t('marathon.schedule.table.category') }}</span>
     <span>
       {{ run.categoryName }}
     </span>
-    <span class="is-label">
-      {{ $t('marathon.schedule.table.type') }}
-    </span>
+
+    <span class="is-label">{{ $t('marathon.schedule.table.type') }}</span>
     <span>
       {{ run.type }}
     </span>
-    <span class="is-label">
-      {{ $t('marathon.schedule.table.console') }}
-    </span>
+
+    <span class="is-label">{{ $t('marathon.schedule.table.console') }}</span>
     <span>
       {{ run.console }}
     </span>
-    <span class="is-label">
-      {{ $t('marathon.schedule.table.estimate') }}
-    </span>
+
+    <span class="is-label">{{ $t('marathon.schedule.table.estimate') }}</span>
     <WidgetTemporalDuration :duration="run.estimate" />
-    <span class="is-label">
-      {{ $t('marathon.schedule.table.setup') }}
-    </span>
+
+    <span class="is-label">{{ $t('marathon.schedule.table.setup') }}</span>
     <WidgetTemporalDuration :duration="run.setupTime" />
-    <span class="is-label">
-      {{ $t('marathon.schedule.table.link') }}
-    </span>
+
+    <span class="is-label">{{ $t('marathon.schedule.table.link') }}</span>
     <a :href="'#run-' + run.id" rel="nofollow">
       {{ `#run-${run.id}` }}
     </a>
@@ -79,6 +69,7 @@ export default Vue.extend({
     > .is-label {
       font-weight: bold;
       justify-self: end;
+      white-space: nowrap;
 
       &::after {
         content: ':';
