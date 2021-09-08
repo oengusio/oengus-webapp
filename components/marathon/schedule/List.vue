@@ -1,28 +1,28 @@
 <template>
   <div class="schedule-container">
     <!-- Header -->
-    <span class="notification is-header">
+    <span class="notification is-header time">
       {{ $t('marathon.schedule.table.time') }}
     </span>
-    <span class="notification is-header">
+    <span class="notification is-header runners">
       {{ $t('marathon.schedule.table.runner') }}
     </span>
-    <span class="notification is-header">
+    <span class="notification is-header game">
       {{ $t('marathon.schedule.table.game') }}
     </span>
-    <span class="notification is-header">
+    <span class="notification is-header category">
       {{ $t('marathon.schedule.table.category') }}
     </span>
-    <span class="notification is-header">
+    <span class="notification is-header type">
       {{ $t('marathon.schedule.table.type') }}
     </span>
-    <span class="notification is-header">
+    <span class="notification is-header console">
       {{ $t('marathon.schedule.table.console') }}
     </span>
-    <span class="notification is-header">
+    <span class="notification is-header estimate">
       {{ $t('marathon.schedule.table.estimate') }}
     </span>
-    <span class="notification is-header">
+    <span class="notification is-header setup">
       {{ $t('marathon.schedule.table.setup') }}
     </span>
     <!-- Main Schedule Loop -->
@@ -30,24 +30,24 @@
       <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-primary">
         {{ Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(new Date(run.date)) }}
       </div>
-      <span :id="'run-' + run.id" :key="'time' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
+      <span :id="'run-' + run.id" :key="'time' + index" class="notification time" :class="getRowParity(index)" @click="expand(run)">
         {{ Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(new Date(run.date)) }}
       </span>
-      <span :key="'runners' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
+      <span :key="'runners' + index" class="notification runners" :class="getRowParity(index)" @click="expand(run)">
         <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
           {{ runner.username }}
         </p>
       </span>
-      <span :key="'game' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
+      <span :key="'game' + index" class="notification game" :class="getRowParity(index)" @click="expand(run)">
         {{ run.gameName }}
       </span>
-      <span :key="'category' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
+      <span :key="'category' + index" class="notification category" :class="getRowParity(index)" @click="expand(run)">
         {{ run.categoryName }}
       </span>
-      <span :key="'type' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
+      <span :key="'type' + index" class="notification type" :class="getRowParity(index)" @click="expand(run)">
         {{ $t(`marathon.schedule.type.${run.type}`) }}
       </span>
-      <span :key="'console' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
+      <span :key="'console' + index" class="notification console" :class="getRowParity(index)" @click="expand(run)">
         <span>
           {{ run.console }}
         </span>
@@ -55,10 +55,10 @@
           {{ $t('global.emu') }}
         </sup>
       </span>
-      <span :key="'estimate' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
+      <span :key="'estimate' + index" class="notification estimate" :class="getRowParity(index)" @click="expand(run)">
         <WidgetTemporalDuration :duration="run.estimate" />
       </span>
-      <span :key="'setup' + index" class="notification" :class="getRowParity(index)" @click="expand(run)">
+      <span :key="'setup' + index" class="notification setup" :class="getRowParity(index)" @click="expand(run)">
         <WidgetTemporalDuration :duration="run.setupTime" />
       </span>
       <div v-if="run.expanded" :key="'expanded' + index" class="expanded-run">
@@ -163,6 +163,65 @@ export default Vue.extend({
 
     > .is-header {
       font-weight: bold;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .schedule-container {
+      grid-template-columns: repeat(7, auto);
+    }
+
+    .setup {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .schedule-container {
+      grid-template-columns: repeat(6, auto);
+    }
+
+    .console {
+      display: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .schedule-container {
+      grid-template-columns: repeat(5, auto);
+    }
+
+    .type {
+      display: none;
+    }
+  }
+
+  // Tablet cutoff
+  @media (max-width: 767px) {
+    .schedule-container {
+      grid-template-columns: repeat(4, auto);
+    }
+
+    .estimate {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .schedule-container {
+      grid-template-columns: repeat(3, auto);
+    }
+
+    .category {
+      display: none;
+    }
+
+    // At really small sizes, long names can become problematic
+    // this allows them to take scrollbars instead. We don't do this at every
+    // size, since doing this forces scrolls when they aren't needed
+    .runners,
+    .game {
+      overflow-x: auto;
     }
   }
 </style>
