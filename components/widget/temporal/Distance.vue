@@ -10,9 +10,9 @@ import Vue from 'vue';
 export default Vue.extend({
   props: {
     datetime: {
-      type: Object as () => Date|string,
-      // Because the type is an object, lint wants this
-      default: () => new Date(),
+      type: String,
+      // The Date() function returns a string denoting "now"
+      default: () => Date(),
     },
   },
 });
