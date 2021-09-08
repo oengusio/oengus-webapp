@@ -197,7 +197,7 @@ export default Vue.extend({
   }
 
   // Tablet cutoff
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     .schedule-container {
       grid-template-columns: repeat(4, auto);
     }
