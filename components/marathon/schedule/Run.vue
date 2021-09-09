@@ -65,7 +65,7 @@ export default Vue.extend({
     grid-template-columns: auto 1fr;
     grid-auto-rows: auto;
     gap: calc(var(--spacing) / 2);
-    padding: calc(var(--spacing) / 2);
+    padding: var(--spacing);
 
     > .is-label {
       font-weight: bold;
@@ -79,6 +79,12 @@ export default Vue.extend({
 
     > *:not(.is-label) {
       overflow-x: auto;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .run-detail-container {
+      padding: calc(var(--spacing) / 2);
     }
   }
 </style>
