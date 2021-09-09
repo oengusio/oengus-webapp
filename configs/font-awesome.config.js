@@ -11,6 +11,8 @@ const solid = [
   'Bullseye',
   'Calendar',
   'CalendarCheck',
+  'CaretDown',
+  'CaretRight',
   'Check',
   'CheckSquare',
   'Cogs',

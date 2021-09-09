@@ -1,6 +1,7 @@
 <template>
   <div class="schedule-container">
     <!-- Header -->
+    <span class="notification is-header expandable" />
     <span class="notification is-header time">
       {{ $t('marathon.schedule.table.time') }}
     </span>
@@ -30,6 +31,9 @@
       <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-primary">
         {{ Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(new Date(run.date)) }}
       </div>
+      <span :key="'expandable' + index" class="notification expandable" :class="getRowParity(index)" @click="expand(run)">
+        <FontAwesomeIcon :icon="[ 'fas', run.expanded ? 'caret-down' : 'caret-right' ]" />
+      </span>
       <span :id="'run-' + run.id" :key="'time' + index" class="notification time" :class="getRowParity(index)" @click="expand(run)">
         {{ Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(new Date(run.date)) }}
       </span>
@@ -110,7 +114,7 @@ export default Vue.extend({
   .schedule-container {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(8, auto);
+    grid-template-columns: repeat(9, auto);
     grid-auto-rows: auto;
 
     > *:not(.expanded-run) {
@@ -166,56 +170,26 @@ export default Vue.extend({
     }
   }
 
-  @media (max-width: 1200px) {
-    .schedule-container {
-      grid-template-columns: repeat(7, auto);
-    }
+  @mixin shrink($width, $columns, $column) {
+    @media (max-width: $width) {
+      .schedule-container {
+        grid-template-columns: repeat($columns, auto);
+      }
 
-    .setup {
-      display: none;
-    }
-  }
-
-  @media (max-width: 1100px) {
-    .schedule-container {
-      grid-template-columns: repeat(6, auto);
-    }
-
-    .console {
-      display: none;
+      .#{$column} {
+        display: none;
+      }
     }
   }
 
-  @media (max-width: 900px) {
-    .schedule-container {
-      grid-template-columns: repeat(5, auto);
-    }
-
-    .type {
-      display: none;
-    }
-  }
-
+  @include shrink(1200px, 8, 'setup');
+  @include shrink(1100px, 7, 'console');
+  @include shrink(900px, 6, 'type');
   // Tablet cutoff
-  @media (max-width: 768px) {
-    .schedule-container {
-      grid-template-columns: repeat(4, auto);
-    }
+  @include shrink(768px, 5, 'estimate');
+  @include shrink(600px, 4, 'category');
 
-    .estimate {
-      display: none;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .schedule-container {
-      grid-template-columns: repeat(3, auto);
-    }
-
-    .category {
-      display: none;
-    }
-
+  @media (max-width: 500px) {
     // At really small sizes, long names can become problematic
     // this allows them to take scrollbars instead. We don't do this at every
     // size, since doing this forces scrolls when they aren't needed
