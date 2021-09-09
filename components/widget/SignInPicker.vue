@@ -50,8 +50,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  a.navbar-item,
-  a.dropdown-item {
+  .navbar-item,
+  .dropdown-item {
     display: flex;
     // Apparently `start` has bad coverage and Nuxt (or something) knows but it won't fix it automatically
     // The warning also doesn't seem to be able to tell that we've got a fallback value... *sigh*

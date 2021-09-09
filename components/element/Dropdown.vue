@@ -81,15 +81,15 @@ export default Vue.extend({
 <style lang="scss" scoped>
   // Some SASS variables to help make selecting the navbar and generic dropdown elements together easier
   $dropdowns: '.has-dropdown, .dropdown';
-  $dropdownMenus: '.navbar-dropdown, .dropdown-menu';
+  $dropdown-menus: '.navbar-dropdown, .dropdown-menu';
 
   #{$dropdowns} {
-    #{$dropdownMenus} {
+    #{$dropdown-menus} {
       display: none;
     }
 
     &.is-active {
-      #{$dropdownMenus} {
+      #{$dropdown-menus} {
         display: block;
       }
     }
