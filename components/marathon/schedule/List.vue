@@ -135,6 +135,10 @@ export default Vue.extend({
       text-align: center;
     }
 
+    > .expandable > svg {
+      width: 10px;
+    }
+
     > .expanded-run {
       // Span from start to finish
       grid-column: 1 / -1;
