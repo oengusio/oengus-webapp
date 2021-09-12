@@ -27,67 +27,88 @@
       {{ $t('marathon.schedule.table.setup') }}
     </span>
     <!-- Main Schedule Loop -->
-    <template v-for="(run, index) in runs">
-      <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-primary">
+    <template v-if="runs">
+      <template v-for="(run, index) in runs">
+        <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-primary">
           {{ $d(new Date(run.date), 'longDate') }}
-      </div>
-      <span :key="'expandable' + index" class="notification expandable" :class="getRowParity(index)" @click="expand(run)">
-        <FontAwesomeIcon :icon="[ 'fas', run.expanded ? 'caret-down' : 'caret-right' ]" />
-      </span>
-      <span :id="'run-' + run.id" :key="'time' + index" class="notification time" :class="getRowParity(index)" @click="expand(run)">
-          {{ $d(new Date(run.date), 'shortTime') }}
-      </span>
-      <span :key="'runners' + index" class="notification runners" :class="getRowParity(index)" @click="expand(run)">
-        <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
-          {{ runner.username }}
-        </p>
-      </span>
-      <span :key="'game' + index" class="notification game" :class="getRowParity(index)" @click="expand(run)">
-        {{ run.gameName }}
-      </span>
-      <span :key="'category' + index" class="notification category" :class="getRowParity(index)" @click="expand(run)">
-        {{ run.categoryName }}
-      </span>
-      <span :key="'type' + index" class="notification type" :class="getRowParity(index)" @click="expand(run)">
-        {{ $t(`marathon.schedule.type.${run.type}`) }}
-      </span>
-      <span :key="'console' + index" class="notification console" :class="getRowParity(index)" @click="expand(run)">
-        <span>
-          {{ run.console }}
+        </div>
+        <span :key="'expandable' + index" class="notification expandable" :class="getRowParity(index)" @click="expand(run)">
+          <FontAwesomeIcon :icon="[ 'fas', expanded.has(run.id) ? 'caret-down' : 'caret-right' ]" />
         </span>
-        <sup v-if="run.emulated">
-          {{ $t('global.emu') }}
-        </sup>
-      </span>
-      <span :key="'estimate' + index" class="notification estimate" :class="getRowParity(index)" @click="expand(run)">
-        <WidgetTemporalDuration :duration="run.estimate" />
-      </span>
-      <span :key="'setup' + index" class="notification setup" :class="getRowParity(index)" @click="expand(run)">
-        <WidgetTemporalDuration :duration="run.setupTime" />
-      </span>
-      <div v-if="run.expanded" :key="'expanded' + index" class="expanded-run">
-        <MarathonScheduleRun :run="run" :class="getRowParity(index)" />
-      </div>
+        <span :id="'run-' + run.id" :key="'time' + index" class="notification time" :class="getRowParity(index)" @click="expand(run)">
+          {{ $d(new Date(run.date), 'shortTime') }}
+        </span>
+        <span :key="'runners' + index" class="notification runners" :class="getRowParity(index)" @click="expand(run)">
+          <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
+            {{ runner.username }}
+          </p>
+        </span>
+        <span :key="'game' + index" class="notification game" :class="getRowParity(index)" @click="expand(run)">
+          {{ run.gameName }}
+        </span>
+        <span :key="'category' + index" class="notification category" :class="getRowParity(index)" @click="expand(run)">
+          {{ run.categoryName }}
+        </span>
+        <span :key="'type' + index" class="notification type" :class="getRowParity(index)" @click="expand(run)">
+          {{ $t(`marathon.schedule.type.${run.type}`) }}
+        </span>
+        <span :key="'console' + index" class="notification console" :class="getRowParity(index)" @click="expand(run)">
+          <span>
+            {{ run.console }}
+          </span>
+          <sup v-if="run.emulated">
+            {{ $t('global.emu') }}
+          </sup>
+        </span>
+        <span :key="'estimate' + index" class="notification estimate" :class="getRowParity(index)" @click="expand(run)">
+          <WidgetTemporalDuration :duration="run.estimate" />
+        </span>
+        <span :key="'setup' + index" class="notification setup" :class="getRowParity(index)" @click="expand(run)">
+          <WidgetTemporalDuration :duration="run.setupTime" />
+        </span>
+        <div v-if="expanded.has(run.id)" :key="'expanded' + index" class="expanded-run">
+          <MarathonScheduleRun :run="run" :class="getRowParity(index)" />
+        </div>
+      </template>
     </template>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
+import { ScheduleLine, ScheduleState } from '~/types/api/schedule';
 
 export default Vue.extend({
   props: {
-    runs: {
-      type: Array,
-      default: () => [ ],
+    marathon: {
+      type: String,
+      default: '',
+    },
+  },
+  data() {
+    return {
+      expanded: new Set<number>(),
+    };
+  },
+  async fetch(): Promise<void> {
+    await Promise.allSettled([
+      this.getSchedule(this.marathon),
+    ]);
+  },
+  computed: {
+    runs(): Array<ScheduleLine>|undefined {
+      return (this.$store.state.api.schedule as ScheduleState).schedules[this.marathon]?.lines;
     },
   },
   methods: {
-    expand(run: any): void {
-      if (run.expanded === undefined) {
-        this.$set(run, 'expanded', false);
+    expand(run: ScheduleLine): void {
+      if (this.expanded.has(run.id)) {
+        this.expanded.delete(run.id);
+      } else {
+        this.expanded.add(run.id);
       }
-      run.expanded = !run.expanded;
+      this.expanded = new Set(this.expanded);
     },
     getRowParity(index: number): { 'is-dark': boolean } {
       return {
@@ -100,12 +121,14 @@ export default Vue.extend({
         return true;
       }
       // Otherwise, only show when the day transitioned
-      const currentRun = new Date((this.runs[index] as any).date);
+      const currentRun = new Date(this.runs![index].date);
       // We have an implicit index test for the index=0 case, so this is always safe
-      const previousRun = new Date((this.runs[index - 1] as any).date);
-      const formatter = new Intl.DateTimeFormat('en-GB', { dateStyle: 'short' });
-      return formatter.format(currentRun) !== formatter.format(previousRun);
+      const previousRun = new Date(this.runs![index - 1].date);
+      return this.$i18n.d(currentRun, 'longDate') !== this.$i18n.d(previousRun, 'longDate');
     },
+    ...mapActions({
+      getSchedule: 'api/schedule/schedule',
+    }),
   },
 });
 </script>
