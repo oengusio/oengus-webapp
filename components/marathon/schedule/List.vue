@@ -29,13 +29,13 @@
     <!-- Main Schedule Loop -->
     <template v-for="(run, index) in runs">
       <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-primary">
-        {{ Intl.DateTimeFormat('en-GB', { dateStyle: 'long' }).format(new Date(run.date)) }}
+          {{ $d(new Date(run.date), 'longDate') }}
       </div>
       <span :key="'expandable' + index" class="notification expandable" :class="getRowParity(index)" @click="expand(run)">
         <FontAwesomeIcon :icon="[ 'fas', run.expanded ? 'caret-down' : 'caret-right' ]" />
       </span>
       <span :id="'run-' + run.id" :key="'time' + index" class="notification time" :class="getRowParity(index)" @click="expand(run)">
-        {{ Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(new Date(run.date)) }}
+          {{ $d(new Date(run.date), 'shortTime') }}
       </span>
       <span :key="'runners' + index" class="notification runners" :class="getRowParity(index)" @click="expand(run)">
         <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">

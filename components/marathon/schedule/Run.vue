@@ -92,7 +92,7 @@ export default Vue.extend({
 <!-- Temporary language info to avoid having the i18n string -->
 <i18n>
 {
-  "en": {
+  "en-GB": {
     "marathon": {
       "schedule": {
         "table": {

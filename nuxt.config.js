@@ -11,7 +11,7 @@ export default {
   'head': {
     title: 'Oengus v2',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'en-GB',
     },
     meta: [
       { charset: 'utf-8' },
