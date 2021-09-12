@@ -9,7 +9,7 @@
       </span>
     </h3>
 
-    <div class="marathons-list-container">
+    <div v-if="homepageMarathons" class="marathons-list-container">
       <template v-for="marathonsList in marathonsLists">
         <template v-if="homepageMarathons[marathonsList.key].length">
           <h4 :key="marathonsList.key + 'title'" class="title" :class="marathonsList.headerClass">
@@ -23,7 +23,7 @@
               </NuxtLink>
             </span>
             <span :key="marathonsList.key + 'location' + index" class="notification location" :class="getRowParity(index)">
-              <span v-if="marathon.onsite" class="icon flag-icon" :class="`flag-icon-${marathon.country.toLowerCase()}`" />
+              <span v-if="marathon.onsite && marathon.country" class="icon flag-icon" :class="`flag-icon-${marathon.country.toLowerCase()}`" />
               <FontAwesomeIcon v-else :icon="[ 'fas', 'desktop' ]" class="icon" />
             </span>
             <span :key="marathonsList.key + 'language' + index" class="notification" :class="getRowParity(index)">
@@ -42,12 +42,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import homepageMarathons from '~/test-data/homepage-marathons-20210824.json';
+import { mapActions } from 'vuex';
+import { FrontPageMarathons, MarathonState } from '~/types/api/marathon';
 
 export default Vue.extend({
   data() {
     return {
-      homepageMarathons,
       marathonsLists: [
         {
           key: 'live',
@@ -73,12 +73,25 @@ export default Vue.extend({
       ],
     };
   },
+  async fetch(): Promise<void> {
+    await Promise.allSettled([
+      this.getFrontPage(),
+    ]);
+  },
+  computed: {
+    homepageMarathons(): FrontPageMarathons|undefined {
+      return (this.$store.state.api.marathon as MarathonState).frontPage;
+    },
+  },
   methods: {
     getRowParity(index: number): { 'is-dark': boolean } {
       return {
         'is-dark': index % 2 === 0,
       };
     },
+    ...mapActions({
+      getFrontPage: 'api/marathon/frontPage',
+    }),
   },
 });
 </script>

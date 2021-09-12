@@ -1,4 +1,5 @@
 import { User } from './user';
+import { OengusState } from '~/plugins/oengus';
 
 export interface Marathon {
   id: string;
@@ -65,7 +66,7 @@ export interface FrontPageMarathons {
   live: Array<Marathon>;
 }
 
-export interface MarathonState {
+export interface MarathonState extends OengusState {
   marathons: { [id: string]: FullMarathon|Marathon };
   frontPage?: FrontPageMarathons;
 }
