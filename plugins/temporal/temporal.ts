@@ -6,6 +6,7 @@ import { duration } from './duration';
 const temporal = {
   distance,
   duration,
+  timeZone,
 };
 
 const temporalPlugin: Plugin = (_, inject) => {

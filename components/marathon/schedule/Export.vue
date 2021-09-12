@@ -22,8 +22,7 @@ export default Vue.extend({
   },
   methods: {
     getExportUrl(format: string): string {
-      // Update to point to ENV API location once we split them up
-      return `https://oengus.io/api/marathons/${this.$route.params.marathon}/schedule/export?format=${format}&zoneId=${(this.$moment as any).tz.guess()}&locale=${this.$i18n.locale}`;
+      return `${this.$config.http.browserBaseURL}marathons/${this.$route.params.marathon}/schedule/export?format=${format}&zoneId=${this.$temporal.timeZone.timeZone}&locale=${this.$i18n.locale}`;
     },
   },
 });

@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        {{ $t('footer.text', { timezone: $moment.tz.guess() }) }}
+        {{ $t('footer.text', { timezone: $temporal.timeZone.timeZone }) }}
       </p>
       <p v-html="$t('footer.donate', { donationLink: 'https://www.patreon.com/oengusio' })" />
       <p>

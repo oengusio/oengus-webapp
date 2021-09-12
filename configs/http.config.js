@@ -12,22 +12,14 @@ export function httpConfig() {
   };
 }
 
-// These are wrapped in IF in case someone override the values above on purpose (see config)
-
 export function httpRuntimeConfig(process) {
-  if (process.env.API) {
-    return {
-      browserBaseURL: `https://${process.env.API}/api/`,
-    };
-  }
-  return undefined;
+  return {
+    browserBaseURL: `https://${process.env.API ?? 'oengus.dev'}/api/`,
+  };
 }
 
 export function httpPrivateRuntimeConfig(process) {
-  if (process.env.API) {
-    return {
-      baseURL: `https://${process.env.API}/api/`,
-    };
-  }
-  return undefined;
+  return {
+    baseURL: `https://${process.env.API ?? 'oengus.dev'}/api/`,
+  };
 }
