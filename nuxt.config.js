@@ -3,7 +3,6 @@ import { fontAwesomeConfig } from './configs/font-awesome.config';
 import { googleGtagConfig } from './configs/googe-gtag.config';
 import { httpConfig, httpPrivateRuntimeConfig, httpRuntimeConfig } from './configs/http.config';
 import { i18nConfig } from './configs/i18n.config';
-import { momentConfig } from './configs/moment.config';
 import { robotsConfig } from './configs/robots.config';
 import { sitemapConfig } from './configs/sitemap.config';
 
@@ -49,8 +48,6 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://github.com/nuxt-community/fontawesome-module
     '@nuxtjs/fontawesome',
-    // https://github.com/nuxt-community/moment-module
-    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -89,9 +86,6 @@ export default {
 
   // Google GTag configuration: https://github.com/nuxt-community/google-gtag-module
   'google-gtag': googleGtagConfig(process),
-
-  // Moment configuration: https://github.com/nuxt-community/moment-module
-  'moment': momentConfig(process),
 
   // robots configuration: https://github.com/nuxt-community/robots-module
   // Provides an automated /robots.txt
