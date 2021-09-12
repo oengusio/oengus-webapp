@@ -1,7 +1,8 @@
-export class Distance {
+import { LocaleSensitive } from './i18n';
+
+export class Distance implements LocaleSensitive {
   private relativeTimeFormat: Intl.RelativeTimeFormat;
 
-  /* eslint-disable-next-line no-useless-constructor */ /* ESLint doesn't understand this constructor ISN'T useless in TypeScript */
   constructor(public locale = 'en-GB') {
     this.relativeTimeFormat = new Intl.RelativeTimeFormat(this.locale);
   }
@@ -28,6 +29,13 @@ export class Distance {
       }
     }
     return this.relativeTimeFormat.format(Math.round(diff), unit);
+  }
+
+  public changeLocale(locale: string): void {
+    if (locale !== this.locale) {
+      this.locale = locale;
+      this.relativeTimeFormat = new Intl.RelativeTimeFormat(this.locale);
+    }
   }
 }
 

@@ -31,6 +31,7 @@ export default Vue.extend({
   methods: {
     changeLocale(locale: LocaleObject): void {
       this.$i18n.setLocale(locale.code);
+      this.$temporal.changeLocale(locale.code);
     },
   },
 });
