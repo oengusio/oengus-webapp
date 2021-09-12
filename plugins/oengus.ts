@@ -3,7 +3,7 @@ import { NuxtHTTPInstance } from '@nuxt/http';
 import { Context } from '@nuxt/types';
 
 export interface OengusState {
-  [ key: string ]: { [ id: string ]: any };
+  [ key: string ]: any;
 }
 
 export interface GetterArgs<U, V> {
@@ -42,7 +42,7 @@ export class OengusAPI<T extends OengusState> {
       if (transform) {
         response = transform(response as U, id);
       }
-      commit(mutation ?? `add${key[0].toUpperCase()}${key.slice(1)}`, response as V);
+      commit(mutation ?? `add${key[0].toUpperCase()}${key.slice(1)}`, { id, value: response as V });
       return response as V;
     };
   }
