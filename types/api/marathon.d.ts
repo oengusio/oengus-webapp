@@ -67,7 +67,7 @@ export interface FrontPageMarathons {
 }
 
 export interface MarathonState extends OengusState {
-  marathons: { [id: string]: FullMarathon|Marathon };
+  marathons: { [id: string]: FullMarathon };
   frontPage?: FrontPageMarathons;
 }
 

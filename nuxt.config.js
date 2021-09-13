@@ -3,6 +3,7 @@ import { fontAwesomeConfig } from './configs/font-awesome.config';
 import { googleGtagConfig } from './configs/google-gtag.config';
 import { httpConfig, httpPrivateRuntimeConfig, httpRuntimeConfig } from './configs/http.config';
 import { i18nConfig } from './configs/i18n.config';
+import { markdownItConfig } from './configs/markdown-it.config';
 import { robotsConfig } from './configs/robots.config';
 import { sitemapConfig } from './configs/sitemap.config';
 
@@ -54,6 +55,7 @@ export default {
   'modules': [
     '@nuxt/http',
     '@nuxtjs/google-gtag',
+    '@nuxtjs/markdownit',
     '@nuxtjs/robots',
     'nuxt-i18n',
     'nuxt-ssr-cache',
@@ -86,6 +88,9 @@ export default {
 
   // Google GTag configuration: https://github.com/nuxt-community/google-gtag-module
   'google-gtag': googleGtagConfig(process),
+
+  // Markdown configuration: https://github.com/nuxt-community/markdownit-module
+  'markdownit': markdownItConfig(process),
 
   // robots configuration: https://github.com/nuxt-community/robots-module
   // Provides an automated /robots.txt

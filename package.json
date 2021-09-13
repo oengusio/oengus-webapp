@@ -17,6 +17,7 @@
     "@nuxt/http": "^0.6.4",
     "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/google-gtag": "^1.0.4",
+    "@nuxtjs/markdownit": "^2.0.0",
     "@nuxtjs/robots": "^2.5.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "core-js": "^3.16.1",
