@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { getGTagIds } from '~/configs/googe-gtag.config';
+import { getGTagIds } from '~/configs/google-gtag.config';
 
 export default Vue.extend({
   data() {

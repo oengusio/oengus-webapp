@@ -1,6 +1,6 @@
 import { cacheConfig } from './configs/cache.config';
 import { fontAwesomeConfig } from './configs/font-awesome.config';
-import { googleGtagConfig } from './configs/googe-gtag.config';
+import { googleGtagConfig } from './configs/google-gtag.config';
 import { httpConfig, httpPrivateRuntimeConfig, httpRuntimeConfig } from './configs/http.config';
 import { i18nConfig } from './configs/i18n.config';
 import { robotsConfig } from './configs/robots.config';
