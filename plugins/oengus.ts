@@ -29,20 +29,24 @@ export class OengusAPI<T extends OengusState> {
     return async ({ commit, state }, id) => {
       // Cache check (needs improvements)
       let response: U|V = id ? state[key][id] : state[key];
-      if (response) {
+      if (response !== undefined) {
         return response as V;
       }
+      const resolvedMutation = mutation ?? `add${key[0].toUpperCase()}${key.slice(1)}`;
+      // Mark the entry as "being fetched" by marking it `null` (only `undefined` is empty)
+      commit(resolvedMutation, { id, value: null });
       // Fetch and store into cache
       try {
         response = await OengusAPI.http.$get(`${this.basePath}${id ? `/${id}` : ''}${path ? `/${path}` : ''}`);
       } catch {
-        // This isn't intrinsically bad, just catch the error and return nothing
+        // This isn't intrinsically bad, just catch the error, mark as not fetching, and return nothing
+        commit(resolvedMutation, { id, value: undefined });
         return;
       }
       if (transform) {
         response = transform(response as U, id);
       }
-      commit(mutation ?? `add${key[0].toUpperCase()}${key.slice(1)}`, { id, value: response as V });
+      commit(resolvedMutation, { id, value: response as V });
       return response as V;
     };
   }
