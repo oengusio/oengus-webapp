@@ -61,10 +61,10 @@
           </sup>
         </span>
         <span :key="'estimate' + index" class="notification estimate" :class="getRowParity(index)" @click="expand(run)">
-          <WidgetTemporalDuration :duration="run.estimate" />
+          <ElementTemporalDuration :duration="run.estimate" />
         </span>
         <span :key="'setup' + index" class="notification setup" :class="getRowParity(index)" @click="expand(run)">
-          <WidgetTemporalDuration :duration="run.setupTime" />
+          <ElementTemporalDuration :duration="run.setupTime" />
         </span>
         <div v-if="expanded.has(run.id)" :key="'expanded' + index" class="expanded-run">
           <MarathonScheduleRun :run="run" :class="getRowParity(index)" />

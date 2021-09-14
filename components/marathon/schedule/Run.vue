@@ -3,7 +3,7 @@
     <span class="is-label">{{ $t('marathon.schedule.table.time') }}</span>
     <span>
       {{ new Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(new Date(run.date)) }}
-      (<WidgetTemporalDistance :datetime="run.date" />)
+      (<ElementTemporalDistance :datetime="run.date" />)
     </span>
 
     <span class="is-label">{{ $t('marathon.schedule.table.runner') }}</span>
@@ -34,10 +34,10 @@
     </span>
 
     <span class="is-label">{{ $t('marathon.schedule.table.estimate') }}</span>
-    <WidgetTemporalDuration :duration="run.estimate" />
+    <ElementTemporalDuration :duration="run.estimate" />
 
     <span class="is-label">{{ $t('marathon.schedule.table.setup') }}</span>
-    <WidgetTemporalDuration :duration="run.setupTime" />
+    <ElementTemporalDuration :duration="run.setupTime" />
 
     <span class="is-label">{{ $t('marathon.schedule.table.link') }}</span>
     <a :href="'#run-' + run.id" rel="nofollow">
