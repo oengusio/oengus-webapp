@@ -41,9 +41,9 @@ export interface Schedule {
 }
 
 export interface ScheduleTicker {
-  previous: ScheduleLine;
-  current: ScheduleLine;
-  next: ScheduleLine;
+  previous?: ScheduleLine;
+  current?: ScheduleLine;
+  next?: ScheduleLine;
 }
 
 export interface ScheduleState extends OengusState {

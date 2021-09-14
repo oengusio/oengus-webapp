@@ -32,7 +32,7 @@
         <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-primary">
           {{ $d(new Date(run.date), 'longDate') }}
         </div>
-        <span :key="'expandable' + index" class="notification expandable" :class="getRowParity(index)" @click="expand(run)">
+        <span :id="getId(run)" :key="'expandable' + index" class="notification expandable" :class="getRowParity(index)" @click="expand(run)">
           <FontAwesomeIcon :icon="[ 'fas', expanded.has(run.id) ? 'caret-down' : 'caret-right' ]" />
         </span>
         <span :id="'run-' + run.id" :key="'time' + index" class="notification time" :class="getRowParity(index)" @click="expand(run)">
@@ -77,7 +77,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
-import { ScheduleLine, ScheduleState } from '~/types/api/schedule';
+import { ScheduleLine, ScheduleState, ScheduleTicker } from '~/types/api/schedule';
 
 export default Vue.extend({
   props: {
@@ -94,11 +94,15 @@ export default Vue.extend({
   async fetch(): Promise<void> {
     await Promise.allSettled([
       this.getSchedule(this.marathon),
+      this.getScheduleTicker(this.marathon),
     ]);
   },
   computed: {
     runs(): Array<ScheduleLine>|undefined {
       return (this.$store.state.api.schedule as ScheduleState).schedules[this.marathon]?.lines;
+    },
+    tickers(): ScheduleTicker|undefined {
+      return (this.$store.state.api.schedule as ScheduleState).tickers[this.marathon];
     },
   },
   methods: {
@@ -109,6 +113,16 @@ export default Vue.extend({
         this.expanded.add(run.id);
       }
       this.expanded = new Set(this.expanded);
+    },
+    getId(run: ScheduleLine): string|undefined {
+      switch (run.id) {
+        case this.tickers?.current?.id:
+          return 'current';
+        case this.tickers?.next?.id:
+          return 'next';
+        default:
+          return undefined;
+      }
     },
     getRowParity(index: number): { 'is-dark': boolean } {
       return {
@@ -127,7 +141,8 @@ export default Vue.extend({
       return this.$i18n.d(currentRun, 'longDate') !== this.$i18n.d(previousRun, 'longDate');
     },
     ...mapActions({
-      getSchedule: 'api/schedule/schedule',
+      getSchedule: 'api/schedule/get',
+      getScheduleTicker: 'api/schedule/ticker',
     }),
   },
 });

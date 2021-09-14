@@ -12,8 +12,8 @@
     </div>
 
     <div class="current-runs-container block">
-      <MarathonScheduleCurrent />
-      <MarathonScheduleCurrent is-next />
+      <MarathonScheduleCurrent :marathon="marathon" />
+      <MarathonScheduleCurrent :marathon="marathon" is-next />
     </div>
 
     <p class="block">
