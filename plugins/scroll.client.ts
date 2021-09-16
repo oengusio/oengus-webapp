@@ -32,7 +32,7 @@ const scrollPlugin: Plugin = (_, inject) => {
     const historyKey = +history.state.key;
     if (historyKeyMax < historyKey) {
       historyKeyMax = historyKey;
-      window.scrollTo(0, 0);
+      globalThis.scrollTo(0, 0);
     }
   });
 };
