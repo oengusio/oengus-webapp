@@ -40,9 +40,9 @@
     <ElementTemporalDuration :duration="run.setupTime" />
 
     <span class="is-label">{{ $t('marathon.schedule.table.link') }}</span>
-    <a :href="'#run-' + run.id" rel="nofollow">
+    <NuxtLink :to="'#run-' + run.id" rel="nofollow">
       {{ `#run-${run.id}` }}
-    </a>
+    </NuxtLink>
   </div>
 </template>
 
