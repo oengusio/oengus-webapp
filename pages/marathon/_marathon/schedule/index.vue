@@ -12,15 +12,15 @@
     </div>
 
     <div class="current-runs-container block">
-      <MarathonScheduleCurrent :marathon="marathon" />
-      <MarathonScheduleCurrent :marathon="marathon" is-next />
+      <MarathonScheduleCurrent :marathon-id="marathonId" />
+      <MarathonScheduleCurrent :marathon-id="marathonId" is-next />
     </div>
 
     <p class="block">
       {{ $t('marathon.schedule.timezone') }}
     </p>
 
-    <MarathonScheduleList :marathon="marathon" />
+    <MarathonScheduleList :marathon-id="marathonId" />
   </div>
 </template>
 
@@ -30,7 +30,7 @@ import Vue from 'vue';
 export default Vue.extend({
   data() {
     return {
-      marathon: this.$route.params.marathon,
+      marathonId: this.$route.params.marathon,
     };
   },
 });

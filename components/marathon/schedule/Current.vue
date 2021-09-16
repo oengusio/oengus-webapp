@@ -37,14 +37,14 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
-    marathon: {
+    marathonId: {
       type: String,
       default: '',
     },
   },
   async fetch(): Promise<void> {
     await Promise.allSettled([
-      this.getScheduleTicker(this.marathon),
+      this.getScheduleTicker(this.marathonId),
     ]);
   },
   computed: {
@@ -61,7 +61,7 @@ export default Vue.extend({
       return this.isNext ? { duration: this.$temporal.distance.format(this.ticker?.date ?? new Date()) } : { };
     },
     ticker(): ScheduleLine|undefined {
-      const tickers = (this.$store.state.api.schedule as ScheduleState).tickers[this.marathon];
+      const tickers = (this.$store.state.api.schedule as ScheduleState).tickers[this.marathonId];
       return this.isNext ? tickers?.next : tickers?.current;
     },
   },

@@ -9,19 +9,19 @@ import { MarathonState } from '~/types/api/marathon';
 
 export default Vue.extend({
   props: {
-    marathon: {
+    marathonId: {
       type: String,
       default: '',
     },
   },
   async fetch(): Promise<void> {
     await Promise.allSettled([
-      this.getMarathon(this.marathon),
+      this.getMarathon(this.marathonId),
     ]);
   },
   computed: {
     description(): string|undefined {
-      return (this.$store.state.api.marathon as MarathonState).marathons[this.marathon]?.description;
+      return (this.$store.state.api.marathon as MarathonState).marathons[this.marathonId]?.description;
     },
   },
   methods: {

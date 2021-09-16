@@ -81,7 +81,7 @@ import { ScheduleLine, ScheduleState, ScheduleTicker } from '~/types/api/schedul
 
 export default Vue.extend({
   props: {
-    marathon: {
+    marathonId: {
       type: String,
       default: '',
     },
@@ -93,16 +93,16 @@ export default Vue.extend({
   },
   async fetch(): Promise<void> {
     await Promise.allSettled([
-      this.getSchedule(this.marathon),
-      this.getScheduleTicker(this.marathon),
+      this.getSchedule(this.marathonId),
+      this.getScheduleTicker(this.marathonId),
     ]);
   },
   computed: {
     runs(): Array<ScheduleLine>|undefined {
-      return (this.$store.state.api.schedule as ScheduleState).schedules[this.marathon]?.lines;
+      return (this.$store.state.api.schedule as ScheduleState).schedules[this.marathonId]?.lines;
     },
     tickers(): ScheduleTicker|undefined {
-      return (this.$store.state.api.schedule as ScheduleState).tickers[this.marathon];
+      return (this.$store.state.api.schedule as ScheduleState).tickers[this.marathonId];
     },
   },
   methods: {
