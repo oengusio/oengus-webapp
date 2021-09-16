@@ -5,6 +5,7 @@ import { httpConfig, httpPrivateRuntimeConfig, httpRuntimeConfig } from './confi
 import { i18nConfig } from './configs/i18n.config';
 import { markdownItConfig } from './configs/markdown-it.config';
 import { robotsConfig } from './configs/robots.config';
+import { routerConfig } from './configs/router.config';
 import { sitemapConfig } from './configs/sitemap.config';
 
 export default {
@@ -79,6 +80,9 @@ export default {
   'privateRuntimeConfig': {
     http: httpPrivateRuntimeConfig(process),
   },
+
+  // Router configuration: https://nuxtjs.org/docs/directory-structure/nuxt-config#router
+  'router': routerConfig(process),
 
   // HTTP configuration: https://http.nuxtjs.org/
   'http': httpConfig(process),
