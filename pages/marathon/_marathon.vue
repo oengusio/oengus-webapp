@@ -1,9 +1,23 @@
 <template>
-  <div class="marathon-container">
-    <MarathonSidebar class="marathon-sidebar" />
+  <div class="marathon-container" :class="{ collapsed }">
+    <MarathonSidebar class="marathon-sidebar" :marathon-id="marathonId" :collapsed.sync="collapsed" />
     <NuxtChild class="marathon-view" />
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+
+export default Vue.extend({
+  data() {
+    return {
+      marathonId: this.$route.params.marathon,
+      // Show the sidebar by default on desktop-class devices
+      collapsed: (globalThis.innerWidth ?? 1024) < 1024,
+    };
+  },
+});
+</script>
 
 <style lang="scss" scoped>
   .marathon-container {
@@ -15,9 +29,7 @@
   }
 
   .marathon-sidebar {
-    min-width: 250px;
-    width: 350px;
-    flex-grow: 1;
+    min-width: min(300px, 100%);
   }
 
   .marathon-view {
@@ -27,6 +39,16 @@
 
   @media (max-width: 1023px) {
     .marathon-container {
+      flex-direction: column;
+    }
+
+    .marathon-sidebar {
+      width: 100%;
+    }
+  }
+
+  .collapsed {
+    &.marathon-container {
       flex-direction: column;
     }
 

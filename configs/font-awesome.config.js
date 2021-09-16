@@ -23,6 +23,7 @@ const solid = [
   'Language',
   'MoneyBill',
   'PaperPlane',
+  'Plus',
 ];
 
 const brands = [
