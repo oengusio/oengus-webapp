@@ -16,6 +16,17 @@ export default Vue.extend({
       collapsed: (globalThis.innerWidth ?? 1024) < 1024,
     };
   },
+  watch: {
+    $route(to, from): void {
+      // Detect when the path changes (not anchors in the same page or queries)
+      if (to.path !== from.path) {
+        // On mobile only, collapse the sidebar. This allows users to more easily observe the change
+        if (globalThis.innerWidth < 1024) {
+          this.collapsed = true;
+        }
+      }
+    },
+  },
 });
 </script>
 
