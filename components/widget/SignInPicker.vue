@@ -1,5 +1,5 @@
 <template>
-  <ElementDropdown :type="type" :is-right="isRight">
+  <ElementDropdown :type="type" :is-right="isRight" class="sign-in-picker">
     <template #trigger>
       {{ $t('navbar.login.title') }}
     </template>
@@ -50,16 +50,18 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .navbar-item,
-  .dropdown-item {
-    display: flex;
-    // Apparently `start` has bad coverage and Nuxt (or something) knows but it won't fix it automatically
-    // The warning also doesn't seem to be able to tell that we've got a fallback value... *sigh*
-    justify-content: flex-start;
-    justify-content: start;
+  .sign-in-picker {
+    .navbar-item,
+    .dropdown-item {
+      display: flex;
+      // Apparently `start` has bad coverage and Nuxt (or something) knows but it won't fix it automatically
+      // The warning also doesn't seem to be able to tell that we've got a fallback value... *sigh*
+      justify-content: flex-start;
+      justify-content: start;
 
-    > .icon {
-      margin-inline-end: 0.25em;
+      > .icon {
+        margin-inline-end: 0.25em;
+      }
     }
   }
 </style>
