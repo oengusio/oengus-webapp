@@ -224,12 +224,27 @@ export default Vue.extend({
     }
   }
 
-  @include shrink(1200px, 8, 'setup');
-  @include shrink(1100px, 7, 'console');
+  // Generic rules, used when the List can occupy the whole width
+  @include shrink(1150px, 8, 'setup');
+  // Mobile cutoff
+  @include shrink(1024px, 7, 'console');
   @include shrink(900px, 6, 'type');
   // Tablet cutoff
   @include shrink(768px, 5, 'estimate');
   @include shrink(600px, 4, 'category');
+
+  // This solution is less than ideal.
+  // I'd prefer to avoid leaking information from parents, this isn't portable
+  // var() works in calc(), calc() works in @media, but var() doesn't work in calc() in @media
+  // This allows these rules to work only when in desktop and when the sidebar is expanded
+  @media (min-width: 1023px) {
+    .marathon-container:not(.collapsed) {
+      @include shrink(1450px, 8, 'setup');
+      @include shrink(1350px, 7, 'console');
+      @include shrink(1250px, 6, 'type');
+      @include shrink(1100px, 5, 'estimate');
+    }
+  }
 
   @media (max-width: 500px) {
     // At really small sizes, long names can become problematic
