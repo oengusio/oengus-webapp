@@ -10,7 +10,7 @@ export class PageNotFoundComponent implements OnInit {
   public titleKey: string;
 
   constructor() {
-    const maxTitles = 3;
+    const maxTitles = 5;
 
     this.titleKey = `errors.404.title${Math.floor(Math.random() * maxTitles)}`;
   }
