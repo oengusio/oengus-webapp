@@ -5,7 +5,7 @@
     </p>
     <ul class="menu-list">
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathon.id}`)">
+        <NuxtLink :to="localePath(`/marathon/${marathonId}`)">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'home' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.home') }}
@@ -13,7 +13,7 @@
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathon.id}/schedule`)">
+        <NuxtLink :to="localePath(`/marathon/${marathonId}/schedule`)">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'calendar' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.schedule') }}
@@ -21,15 +21,15 @@
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathon.id}/submissions`)">
+        <NuxtLink :to="localePath(`/marathon/${marathonId}/submissions`)">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'book' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.viewSubmissions') }}
           </span>
         </NuxtLink>
       </li>
-      <li>
-        <NuxtLink :to="localePath(`/marathon/${marathon.id}/submit`)">
+      <li v-if="shouldShowRedirectLinks">
+        <NuxtLink :to="localePath(`/marathon/${marathonId}/submit`)">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'paper-plane' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.submitRuns') }}
@@ -42,18 +42,22 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { FullMarathon } from '~/types/api/marathon';
 
 export default Vue.extend({
   props: {
-    marathon: {
-      type: Object as () => FullMarathon,
-      default: () => {},
+    marathonId: {
+      type: String,
+      default: '',
     },
     collapsed: {
       type: Boolean,
       default: false,
     },
+  },
+  data() {
+    return {
+      shouldShowRedirectLinks: !process.env.DOMAIN_V1,
+    };
   },
 });
 </script>

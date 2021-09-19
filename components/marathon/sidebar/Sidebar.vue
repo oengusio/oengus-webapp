@@ -11,10 +11,10 @@
       </button>
     </div>
 
-    <div v-if="marathon" class="menu-sections">
-      <MarathonSidebarOverview :marathon="marathon" :collapsed="collapsed" class="menu-section" />
-      <MarathonSidebarTracker :marathon="marathon" :collapsed="collapsed" class="menu-section" />
-      <MarathonSidebarAdmin :marathon="marathon" :collapsed="collapsed" class="menu-section" />
+    <div class="menu-sections">
+      <MarathonSidebarOverview :marathon-id="marathonId" :collapsed="collapsed" class="menu-section" />
+      <MarathonSidebarTracker :marathon-id="marathonId" :collapsed="collapsed" class="menu-section" />
+      <MarathonSidebarAdmin :marathon-id="marathonId" :collapsed="collapsed" class="menu-section" />
     </div>
   </nav>
 </template>

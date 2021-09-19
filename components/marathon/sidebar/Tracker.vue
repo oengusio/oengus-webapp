@@ -1,11 +1,11 @@
 <template>
-  <div :class="{ collapsed }">
+  <div v-if="shouldShowRedirectLinks" :class="{ collapsed }">
     <p class="menu-label">
       {{ $t('marathon.menu.tracker') }}
     </p>
     <ul class="menu-list">
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathon.id}/donate`)">
+        <NuxtLink :to="localePath(`/marathon/${marathonId}/donate`)">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'donate' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.donate') }}
@@ -13,7 +13,7 @@
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathon.id}/donations`)">
+        <NuxtLink :to="localePath(`/marathon/${marathonId}/donations`)">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'money-bill' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.donations') }}
@@ -21,7 +21,7 @@
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathon.id}/incentives`)">
+        <NuxtLink :to="localePath(`/marathon/${marathonId}/incentives`)">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'bullseye' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.incentives') }}
@@ -34,18 +34,22 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { FullMarathon } from '~/types/api/marathon';
 
 export default Vue.extend({
   props: {
-    marathon: {
-      type: Object as () => FullMarathon,
-      default: () => {},
+    marathonId: {
+      type: String,
+      default: '',
     },
     collapsed: {
       type: Boolean,
       default: false,
     },
+  },
+  data() {
+    return {
+      shouldShowRedirectLinks: !process.env.DOMAIN_V1,
+    };
   },
 });
 </script>
