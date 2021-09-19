@@ -1,43 +1,57 @@
 <template>
   <div class="notification run-detail-container">
-    <span class="is-label">{{ $t('marathon.schedule.table.time') }}</span>
-    <span>
-      {{ new Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(new Date(run.date)) }}
-      (<ElementTemporalDistance :datetime="run.date" />)
-    </span>
-
-    <span class="is-label">{{ $t('marathon.schedule.table.runner') }}</span>
-    <span>
+    <div class="header">
+      <h4 class="title is-4">
+        {{ run.setupBlock ? run.setupBlockText : run.gameName }}
+      </h4>
       <p v-for="runner in run.runners" :key="runner.id">
-        {{ runner.username }}
+        <NuxtLink :to="localePath(`/user/${runner.username}`)">
+          {{ runner.username }}
+        </NuxtLink>
       </p>
-    </span>
+    </div>
 
-    <span class="is-label">{{ $t('marathon.schedule.table.game') }}</span>
-    <span>
-      {{ run.gameName }}
-    </span>
+    <template v-if="run.date">
+      <span class="is-label">{{ $t('marathon.schedule.table.time') }}</span>
+      <span>
+        {{ $d(new Date(run.date), 'mediumDateTime') }}
+        (<ElementTemporalDistance :datetime="run.date" />)
+      </span>
+    </template>
 
-    <span class="is-label">{{ $t('marathon.schedule.table.category') }}</span>
-    <span>
-      {{ run.categoryName }}
-    </span>
+    <template v-if="run.categoryName">
+      <span class="is-label">{{ $t('marathon.schedule.table.category') }}</span>
+      <span>
+        {{ run.categoryName }}
+      </span>
+    </template>
 
-    <span class="is-label">{{ $t('marathon.schedule.table.type') }}</span>
-    <span>
-      {{ run.type }}
-    </span>
+    <template v-if="run.type">
+      <span class="is-label">{{ $t('marathon.schedule.table.type') }}</span>
+      <span>
+        {{ $t(`marathon.schedule.type.${run.type}`) }}
+      </span>
+    </template>
 
-    <span class="is-label">{{ $t('marathon.schedule.table.console') }}</span>
-    <span>
-      {{ run.console }}
-    </span>
+    <template v-if="run.console">
+      <span class="is-label">{{ $t('marathon.schedule.table.console') }}</span>
+      <span>
+        {{ run.console }}
+      </span>
+      <sup v-if="run.emulated">
+        {{ $t('global.emu') }}
+      </sup>
+    </template>
 
-    <span class="is-label">{{ $t('marathon.schedule.table.estimate') }}</span>
-    <ElementTemporalDuration :duration="run.estimate" />
+    <template v-if="run.estimate">
+      <span class="is-label">{{ $t('marathon.schedule.table.estimate') }}</span>
+      <ElementTemporalDuration :duration="run.estimate" />
+    </template>
 
-    <span class="is-label">{{ $t('marathon.schedule.table.setup') }}</span>
-    <ElementTemporalDuration :duration="run.setupTime" />
+    <template v-if="run.setupTime">
+      <span class="is-label">{{ $t('marathon.schedule.table.setup') }}</span>
+      <ElementTemporalDuration :duration="run.setupTime" />
+    </template>
 
     <span class="is-label">{{ $t('marathon.schedule.table.link') }}</span>
     <NuxtLink :to="'#run-' + run.id" rel="nofollow">
@@ -66,6 +80,15 @@ export default Vue.extend({
     grid-auto-rows: auto;
     gap: calc(var(--spacing) / 2);
     padding: var(--spacing);
+
+    > .header {
+      grid-column: 1 / -1;
+      text-align: center;
+
+      > .title {
+        margin-block-end: calc(var(--spacing) / 2);
+      }
+    }
 
     > .is-label {
       font-weight: bold;

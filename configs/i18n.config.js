@@ -27,6 +27,7 @@ export const locales = [
 export const dateTimeFormats = {
   longDate: { dateStyle: 'long' },
   shortTime: { timeStyle: 'short' },
+  mediumDateTime: { dateStyle: 'medium', timeStyle: 'short' },
 };
 
 export function i18nConfig() {
