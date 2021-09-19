@@ -56,7 +56,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      shouldShowRedirectLinks: !process.env.DOMAIN_V1,
+      shouldShowRedirectLinks: !this.$config.env.DOMAIN_V1,
     };
   },
 });

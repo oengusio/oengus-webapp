@@ -10,8 +10,8 @@ const oengusV2Pages: Array<Array<string>> = [
   [ 'news', 'kaspersky' ],
 ];
 
-const oengusV1Redirect: Middleware = function ({ route, redirect, from }): void {
-  if (!process.env.DOMAIN_V1) {
+const oengusV1Redirect: Middleware = function ({ $config, route, redirect, from }): void {
+  if (!$config.env.DOMAIN_V1) {
     return;
   }
   let to = route.fullPath.split('/');
@@ -35,7 +35,7 @@ const oengusV1Redirect: Middleware = function ({ route, redirect, from }): void 
     // This makes sure we push an entry to the history stack to go back to.
     // If we start having doubled up history, this history.pushState is a good candidate to check.
     history.pushState((Number.parseFloat(history.state) + 1).toFixed(3), document.title, from.fullPath);
-    redirect(`https://${process.env.DOMAIN_V1}/${to.join('/')}`);
+    redirect(`https://${$config.env.DOMAIN_V1}/${to.join('/')}`);
   }
 };
 

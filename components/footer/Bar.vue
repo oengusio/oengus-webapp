@@ -25,7 +25,7 @@ export default Vue.extend({
   data() {
     return {
       thisYear: new Date().getFullYear(),
-      shouldShowRedirectLink: process.env.DOMAIN_V1,
+      shouldShowRedirectLink: this.$config.env.DOMAIN_V1,
     };
   },
 });
