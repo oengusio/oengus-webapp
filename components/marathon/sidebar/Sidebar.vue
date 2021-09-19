@@ -2,7 +2,7 @@
   <nav class="menu box" :class="{ collapsed }">
     <div class="sidebar-header">
       <h3 class="title is-3">
-        {{ marathon ? marathon.name : marathonId }}
+        {{ marathonName }}
       </h3>
       <button class="button navbar-burger" :class="isActiveClass" @click="toggleSidebar">
         <span />
@@ -44,6 +44,18 @@ export default Vue.extend({
   computed: {
     marathon(): FullMarathon|undefined {
       return (this.$store.state.api.marathon as MarathonState).marathons[this.marathonId];
+    },
+    marathonName(): string {
+      let marathonName = '';
+      if (this.marathon) {
+        marathonName = this.marathon.name;
+      } else if (this.marathonId) {
+        const frontPage = (this.$store.state.api.marathon as MarathonState).frontPage;
+        if (frontPage) {
+          marathonName = [ ...frontPage.live ?? [ ], ...frontPage.next ?? [ ], ...frontPage.open ?? [ ] ].find(marathon => marathon.id === this.marathonId)?.name ?? marathonName;
+        }
+      }
+      return marathonName;
     },
     isActiveClass(): IsActive {
       return {
