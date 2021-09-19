@@ -29,30 +29,38 @@
     <!-- Main Schedule Loop -->
     <template v-if="runs">
       <template v-for="(run, index) in runs">
-        <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-primary">
+        <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-info">
           {{ $d(new Date(run.date), 'longDate') }}
         </div>
-        <span :id="getId(run)" :key="'expandable' + index" class="notification expandable" :class="getRowParity(index)" @click="expand(run)">
+
+        <span :id="getId(run)" :key="'expandable' + index" class="notification is-expandable expandable" :class="getRowParity(index, run)" @click="expand(run)">
           <FontAwesomeIcon :icon="[ 'fas', expanded.has(run.id) ? 'caret-down' : 'caret-right' ]" />
         </span>
-        <span :id="'run-' + run.id" :key="'time' + index" class="notification time" :class="getRowParity(index)" @click="expand(run)">
+        <span :id="'run-' + run.id" :key="'time' + index" class="notification is-expandable time" :class="getRowParity(index, run)" @click="expand(run)">
           {{ $d(new Date(run.date), 'shortTime') }}
         </span>
-        <span :key="'runners' + index" class="notification runners" :class="getRowParity(index)" @click="expand(run)">
+
+        <span v-if="run.setupBlock" :key="'setupText' + index" class="notification is-expandable setup-text" :class="getRowParity(index, run)" @click="expand(run)">
+          {{ run.setupBlockText }}
+        </span>
+        <template v-else>
+          <span :key="'runners' + index" class="notification is-expandable runners" :class="getRowParity(index, run)" @click="expand(run)">
           <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
             {{ runner.username }}
           </p>
         </span>
-        <span :key="'game' + index" class="notification game" :class="getRowParity(index)" @click="expand(run)">
+          <span :key="'game' + index" class="notification is-expandable game" :class="getRowParity(index, run)" @click="expand(run)">
           {{ run.gameName }}
         </span>
-        <span :key="'category' + index" class="notification category" :class="getRowParity(index)" @click="expand(run)">
+        </template>
+
+        <span :key="'category' + index" class="notification is-expandable category" :class="getRowParity(index, run)" @click="expand(run)">
           {{ run.categoryName }}
         </span>
-        <span :key="'type' + index" class="notification type" :class="getRowParity(index)" @click="expand(run)">
+        <span :key="'type' + index" class="notification is-expandable type" :class="getRowParity(index, run)" @click="expand(run)">
           {{ $t(`marathon.schedule.type.${run.type}`) }}
         </span>
-        <span :key="'console' + index" class="notification console" :class="getRowParity(index)" @click="expand(run)">
+        <span :key="'console' + index" class="notification is-expandable console" :class="getRowParity(index, run)" @click="expand(run)">
           <span>
             {{ run.console }}
           </span>
@@ -60,14 +68,14 @@
             {{ $t('global.emu') }}
           </sup>
         </span>
-        <span :key="'estimate' + index" class="notification estimate" :class="getRowParity(index)" @click="expand(run)">
+        <span :key="'estimate' + index" class="notification is-expandable estimate" :class="getRowParity(index, run)" @click="expand(run)">
           <ElementTemporalDuration :duration="run.estimate" />
         </span>
-        <span :key="'setup' + index" class="notification setup" :class="getRowParity(index)" @click="expand(run)">
+        <span :key="'setup' + index" class="notification is-expandable setup" :class="getRowParity(index, run)" @click="expand(run)">
           <ElementTemporalDuration :duration="run.setupTime" />
         </span>
         <div v-if="expanded.has(run.id)" :key="'expanded' + index" class="expanded-run">
-          <MarathonScheduleRun :run="run" :class="getRowParity(index)" />
+          <MarathonScheduleRun :run="run" :class="getRowParity(index, run)" />
         </div>
       </template>
     </template>
@@ -124,9 +132,10 @@ export default Vue.extend({
           return undefined;
       }
     },
-    getRowParity(index: number): { 'is-dark': boolean } {
+    getRowParity(index: number, run: ScheduleLine): { 'is-dark': boolean, 'is-primary': boolean } {
       return {
         'is-dark': index % 2 === 1,
+        'is-primary': run.id === this.tickers?.current?.id,
       };
     },
     shouldShowDay(index: number): boolean {
@@ -162,7 +171,7 @@ export default Vue.extend({
       border-radius: 0;
     }
 
-    span {
+    > .is-expandable {
       cursor: pointer;
     }
 
@@ -175,6 +184,10 @@ export default Vue.extend({
 
     > .expandable > svg {
       width: 10px;
+    }
+
+    > .setup-text {
+      grid-column: 3 / 5;
     }
 
     > .expanded-run {
