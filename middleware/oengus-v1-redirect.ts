@@ -14,7 +14,7 @@ const oengusV1Redirect: Middleware = function ({ $config, route, redirect, from 
   if (!$config.env.DOMAIN_V1) {
     return;
   }
-  let to = route.fullPath.split('/');
+  let to = route.path.split('/');
   // Drop the language part of the URL (sorry, you're on your own for lang on v1)
   to = to.slice(2);
   let shouldRedirect = to[to.length - 1] === 'v1';
