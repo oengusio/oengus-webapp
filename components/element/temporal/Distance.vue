@@ -1,7 +1,5 @@
 <template>
-  <time :datetime="datetime">
-    {{ $temporal.distance.format(datetime) }}
-  </time>
+  <time :datetime="datetime">{{ $temporal.distance.format(datetime) }}</time>
 </template>
 
 <script lang="ts">
