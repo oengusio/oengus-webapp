@@ -1,0 +1,6 @@
+services:
+  app:
+    environment:
+      DOMAIN: v2.oengus.io
+      API: oengus.io
+      DOMAIN_V1: oengus.io

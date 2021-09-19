@@ -10,6 +10,8 @@ services:
       NODE_ENV: production
       DOMAIN: v2.oengus.dev
       API: oengus.dev
+      # Only set DOMAIN_V1 if you want redirects
+      # DOMAIN_V1: oengus.io
       # CACHE_HOST: cache
     ports:
       - 3000:3000

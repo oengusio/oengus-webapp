@@ -73,6 +73,11 @@ export default {
     },
   },
 
+  // env configuration: https://nuxtjs.org/docs/configuration-glossary/configuration-env/
+  'env': {
+    DOMAIN_V1: process.env.DOMAIN_V1,
+  },
+
   // Runtime Configuration: https://nuxtjs.org/docs/2.x/directory-structure/nuxt-config#runtimeconfig
   'publicRuntimeConfig': {
     http: httpRuntimeConfig(process),
