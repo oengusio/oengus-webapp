@@ -45,13 +45,13 @@
         </span>
         <template v-else>
           <span :key="'runners' + index" class="notification is-expandable runners" :class="getRowParity(index, run)" @click="expand(run)">
-          <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
-            {{ runner.username }}
-          </p>
-        </span>
+            <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
+              {{ runner.username }}
+            </p>
+          </span>
           <span :key="'game' + index" class="notification is-expandable game" :class="getRowParity(index, run)" @click="expand(run)">
-          {{ run.gameName }}
-        </span>
+            {{ run.gameName }}
+          </span>
         </template>
 
         <span :key="'category' + index" class="notification is-expandable category" :class="getRowParity(index, run)" @click="expand(run)">
@@ -97,6 +97,7 @@ export default Vue.extend({
   data() {
     return {
       expanded: new Set<number>(),
+      interval: undefined as NodeJS.Timeout|undefined,
     };
   },
   async fetch(): Promise<void> {
@@ -112,6 +113,19 @@ export default Vue.extend({
     tickers(): ScheduleTicker|undefined {
       return (this.$store.state.api.schedule as ScheduleState).tickers[this.marathonId];
     },
+  },
+  mounted(): void {
+    // Every 5 minutes, forcibly update data
+    // Eventually, this will be minute-by-minute but not forced, relying on cache expiration
+    this.interval = setInterval(() => {
+      this.getSchedule({ id: this.marathonId, forceFetch: true });
+      this.getScheduleTicker({ id: this.marathonId, forceFetch: true });
+    }, 300_000);
+  },
+  destroyed(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   },
   methods: {
     expand(run: ScheduleLine): void {

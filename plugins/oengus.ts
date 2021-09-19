@@ -13,7 +13,12 @@ export interface GetterArgs<U, V> {
   mutation?: string;
 }
 
-export type GetterFunc<T, V> = (context: ActionContext<T, T>, id?: number|string) => Promise<V|undefined>;
+export interface ExtendedFetch {
+  id?: number|string;
+  forceFetch?: boolean;
+}
+
+export type GetterFunc<T, V> = (context: ActionContext<T, T>, id?: number|string|ExtendedFetch) => Promise<V|undefined>;
 
 export class OengusAPI<T extends OengusState> {
   static http: NuxtHTTPInstance;
@@ -27,20 +32,34 @@ export class OengusAPI<T extends OengusState> {
    */
   public get<U, V = U>({ path, key, transform, mutation }: GetterArgs<U, V>): GetterFunc<T, V> {
     return async ({ commit, state }, id) => {
+      let forceFetch = false;
+      if (typeof id === 'object') {
+        forceFetch = id.forceFetch ?? forceFetch;
+        id = id.id;
+      }
       // Cache check (needs improvements)
       let response: U|V = id ? state[key][id] : state[key];
-      if (response !== undefined) {
+      if (response !== undefined && !forceFetch) {
         return response as V;
       }
+      const updating = response !== undefined;
       const resolvedMutation = mutation ?? `add${key[0].toUpperCase()}${key.slice(1)}`;
-      // Mark the entry as "being fetched" by marking it `null` (only `undefined` is empty)
-      commit(resolvedMutation, { id, value: null });
+      if (updating) {
+        // Mark the entry as updating by changing the cache expired marker
+      } else {
+        // Mark the entry as "being fetched" by marking it `null` (only `undefined` is empty)
+        commit(resolvedMutation, { id, value: null });
+      }
       // Fetch and store into cache
       try {
         response = await OengusAPI.http.$get(`${this.basePath}${id ? `/${id}` : ''}${path ? `/${path}` : ''}`);
       } catch {
         // This isn't intrinsically bad, just catch the error, mark as not fetching, and return nothing
-        commit(resolvedMutation, { id, value: undefined });
+        if (updating) {
+          // What should we do here? Right now, nothing, leave the old value.
+        } else {
+          commit(resolvedMutation, { id, value: undefined });
+        }
         return;
       }
       if (transform) {
