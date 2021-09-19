@@ -1,27 +1,29 @@
 <template>
-  <div v-if="ticker">
-    <div class="message" :class="messageClass">
-      <div class="message-header">
-        <NuxtLink :to="linkedRun">
-          {{ $t(messageHeaderTitle, messageHeaderArgs) }}
-        </NuxtLink>
-      </div>
-      <div class="message-body">
-        <p class="run-info">
-          <span v-if="ticker.gameName">
-            {{ ticker.gameName }}
-          </span>
-          <span v-if="ticker.categoryName">
-            {{ ticker.categoryName }}
-          </span>
-          <span v-if="ticker.console">
-            {{ ticker.console }}
-          </span>
-        </p>
-        <p class="runner-info">
-          <span v-for="runner in ticker.runners" :key="runner.id">{{ runner.username }}</span>
-        </p>
-      </div>
+  <div v-if="ticker" class="message" :class="messageClass">
+    <div class="message-header">
+      <NuxtLink :to="linkedRun">
+        {{ $t(messageHeaderTitle, messageHeaderArgs) }}
+      </NuxtLink>
+    </div>
+
+    <div class="message-body">
+      <p class="run-info">
+        <span v-if="ticker.setupBlock">
+          {{ ticker.setupBlockText }}
+        </span>
+        <span v-if="ticker.gameName">
+          {{ ticker.gameName }}
+        </span>
+        <span v-if="ticker.categoryName">
+          {{ ticker.categoryName }}
+        </span>
+        <span v-if="ticker.console">
+          {{ ticker.console }}
+        </span>
+      </p>
+      <p class="runner-info">
+        <span v-for="runner in ticker.runners" :key="runner.id">{{ runner.username }}</span>
+      </p>
     </div>
   </div>
 </template>
@@ -74,6 +76,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+  .message {
+    margin-block-end: 0;
+  }
+
   .run-info > span:not(:last-of-type)::after {
     content: '-';
   }
