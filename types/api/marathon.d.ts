@@ -61,9 +61,9 @@ export interface FullMarathon {
 }
 
 export interface FrontPageMarathons {
-  next?: Array<Marathon>;
-  open?: Array<Marathon>;
-  live?: Array<Marathon>;
+  next: Array<Marathon>;
+  open: Array<Marathon>;
+  live: Array<Marathon>;
 }
 
 export interface MarathonState extends OengusState {

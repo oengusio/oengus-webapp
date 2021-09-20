@@ -52,7 +52,7 @@ export default Vue.extend({
       } else if (this.marathonId) {
         const frontPage = (this.$store.state.api.marathon as MarathonState).frontPage;
         if (frontPage) {
-          marathonName = [ ...frontPage.live ?? [ ], ...frontPage.next ?? [ ], ...frontPage.open ?? [ ] ].find(marathon => marathon.id === this.marathonId)?.name ?? marathonName;
+          marathonName = [ ...frontPage.live, ...frontPage.next, ...frontPage.open ].find(marathon => marathon.id === this.marathonId)?.name ?? marathonName;
         }
       }
       return marathonName;
