@@ -80,6 +80,12 @@ export default Vue.extend({
     margin-block-end: 0;
   }
 
+  .message-header {
+    // XXX Fixes an issue with Safari renderering not underscoring beneath the word-spacing pixels
+    // Doesn't seem to affect other underlined sources. Should be tested and removed when possible
+    word-spacing: 0;
+  }
+
   .run-info > span:not(:last-of-type)::after {
     content: '-';
   }
