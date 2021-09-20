@@ -38,6 +38,9 @@
         </div>
       </div>
       <div class="navbar-end">
+        <div class="navbar-item">
+          <WidgetV1Redirect />
+        </div>
         <NuxtLink :to="localePath('/about')" class="navbar-item">
           {{ $t('navbar.about') }}
         </NuxtLink>

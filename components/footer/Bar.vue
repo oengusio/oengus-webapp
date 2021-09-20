@@ -11,9 +11,6 @@
           European Speedrunner Assembly AB
         </a>
       </p>
-      <NuxtLink v-if="shouldShowRedirectLink" :to="localePath(`${$route.path}/v1`)" class="button is-warning">
-        {{ $t('footer.v1Link') }}
-      </NuxtLink>
     </div>
   </footer>
 </template>
@@ -25,7 +22,6 @@ export default Vue.extend({
   data() {
     return {
       thisYear: new Date().getFullYear(),
-      shouldShowRedirectLink: this.$config.env.DOMAIN_V1,
     };
   },
 });
@@ -36,14 +32,3 @@ export default Vue.extend({
     padding-block-end: 4rem;
   }
 </style>
-
-<!-- Temporary language info to avoid having the i18n string -->
-<i18n>
-{
-  "en-GB": {
-    "footer": {
-      "v1Link": "View this page on Oengus v1"
-    }
-  }
-}
-</i18n>
