@@ -1,5 +1,5 @@
 <template>
-  <ElementDropdown :type="type" :is-right="isRight" class="sign-in-picker">
+  <ElementDropdown v-if="shouldShowRedirectLink" :type="type" :is-right="isRight" class="sign-in-picker">
     <template #trigger>
       {{ $t('navbar.login.title') }}
     </template>
@@ -44,6 +44,7 @@ export default Vue.extend({
   data() {
     return {
       dropdownItemClass: /^navbar$/i.test(this.type) ? 'navbar-item' : 'dropdown-item',
+      shouldShowRedirectLink: !this.$config.env.DOMAIN_V1,
     };
   },
 });

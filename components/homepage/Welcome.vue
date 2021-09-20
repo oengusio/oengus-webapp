@@ -9,6 +9,7 @@
     </p>
     <div class="is-centered">
       <WidgetSignInPicker />
+      <WidgetV1Redirect />
     </div>
     <p v-html="$t('homepage.welcomeText.par4.prod')" />
 
