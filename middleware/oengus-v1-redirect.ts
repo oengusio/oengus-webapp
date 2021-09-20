@@ -14,9 +14,12 @@ const oengusV1Redirect: Middleware = function ({ $config, route, redirect, from 
   if (!$config.env.DOMAIN_V1) {
     return;
   }
-  let to = route.path.split('/');
-  // Drop the language part of the URL (sorry, you're on your own for lang on v1)
-  to = to.slice(2);
+  let to = route.path
+    .split('/')
+    // Remove leading, trailing, and duplicated `/` portions
+    .filter(part => part)
+    // Drop the language part of the URL (sorry, you're on your own for lang on v1)
+    .slice(1);
   let shouldRedirect = to[to.length - 1] === 'v1';
   if (shouldRedirect) {
     // If this is an explicit redirect, strip out the redirect pointer
