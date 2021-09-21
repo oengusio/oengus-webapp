@@ -93,6 +93,10 @@ export default Vue.extend({
       type: String,
       default: '',
     },
+    runHash: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -121,6 +125,19 @@ export default Vue.extend({
       this.getSchedule({ id: this.marathonId, forceFetch: true });
       this.getScheduleTicker({ id: this.marathonId, forceFetch: true });
     }, 300_000);
+    if (this.runHash) {
+      const runHashRegExp = /^#run-(\d+)$/;
+      const runHashResults = runHashRegExp.exec(this.runHash);
+      if (runHashResults) {
+        this.expand(Number.parseInt(runHashResults[1]));
+      } else if (this.tickers) {
+        if (this.runHash === '#current') {
+          this.expand(this.tickers.current);
+        } else if (this.runHash === '#next') {
+          this.expand(this.tickers.next);
+        }
+      }
+    }
   },
   destroyed(): void {
     if (this.interval) {
@@ -128,11 +145,17 @@ export default Vue.extend({
     }
   },
   methods: {
-    expand(run: ScheduleLine): void {
-      if (this.expanded.has(run.id)) {
-        this.expanded.delete(run.id);
+    expand(run?: ScheduleLine|number): void {
+      if (!run) {
+        return;
+      }
+      if (typeof run !== 'number') {
+        run = run.id;
+      }
+      if (this.expanded.has(run)) {
+        this.expanded.delete(run);
       } else {
-        this.expanded.add(run.id);
+        this.expanded.add(run);
       }
       this.expanded = new Set(this.expanded);
     },

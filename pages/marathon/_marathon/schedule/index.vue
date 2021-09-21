@@ -20,7 +20,7 @@
       {{ $t('marathon.schedule.timezone') }}
     </p>
 
-    <MarathonScheduleList :marathon-id="marathonId" />
+    <MarathonScheduleList :marathon-id="marathonId" :run-hash="runHash" />
   </div>
 </template>
 
@@ -31,6 +31,7 @@ export default Vue.extend({
   data() {
     return {
       marathonId: this.$route.params.marathon,
+      runHash: this.$route.hash,
     };
   },
 });
