@@ -39,7 +39,7 @@ const scrollPlugin: Plugin = (_, inject) => {
         // Take over the browser's usual job of scrolling, because some won't
         const target = globalThis.document.getElementById($route.hash.slice(1));
         const boundingClientRect = target?.getBoundingClientRect();
-        globalThis.scrollTo(0, boundingClientRect?.y ?? 0);
+        globalThis.scrollBy(0, boundingClientRect?.y ?? 0);
       }
     }
   });
