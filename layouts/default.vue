@@ -18,10 +18,11 @@ export default Vue.extend({
   },
   watch: {
     $route(): void {
-      this.$scroll();
+      this.$scroll(this.$route);
     },
   },
   mounted(): void {
+    this.$scroll(this.$route);
     // Provide calls to this.$gtag here to update Analytics
   },
 });

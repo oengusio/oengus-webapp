@@ -1,8 +1,9 @@
 import { Plugin } from '@nuxt/types';
+import { Route } from 'vue-router';
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $scroll(): void;
+    $scroll($route: Route): void;
   }
 }
 
@@ -28,11 +29,18 @@ declare module 'vue/types/vue' {
 const scrollPlugin: Plugin = (_, inject) => {
   let historyKeyMax = 0;
 
-  inject('scroll', () => {
+  inject('scroll', ($route: Route): void => {
     const historyKey = +history.state.key;
     if (historyKeyMax < historyKey) {
       historyKeyMax = historyKey;
-      globalThis.scrollTo(0, 0);
+      if (!$route.hash) {
+        globalThis.scrollTo(0, 0);
+      } else {
+        // Take over the browser's usual job of scrolling, because some won't
+        const target = globalThis.document.getElementById($route.hash.slice(1));
+        const boundingClientRect = target?.getBoundingClientRect();
+        globalThis.scrollTo(0, boundingClientRect?.y ?? 0);
+      }
     }
   });
 };
