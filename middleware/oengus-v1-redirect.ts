@@ -7,7 +7,7 @@ const oengusV2Pages: Array<Array<string>> = [
   [ ],
   [ 'marathon', '*' ],
   [ 'marathon', '*', 'schedule' ],
-  [ 'news', 'kaspersky' ],
+  [ 'news', 'kaspersky-partnership' ],
 ];
 
 const oengusV1Redirect: Middleware = function ({ $config, route, redirect, from }): void {

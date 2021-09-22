@@ -3,7 +3,7 @@
     <a href="https://www.kaspersky.com/?ref=oengus.io" target="_blank" class="image">
       <img src="/kaspersky_logo.png" alt="Kaspersky Logo">
     </a>
-    <p v-html="$t('homepage.sponsors.kaspersky.box', { readMoreUrl: localePath('/news/kaspersky') })" />
+    <p v-html="$t('homepage.sponsors.kaspersky.box', { readMoreUrl: localePath('/news/kaspersky-partnership') })" />
   </div>
 </template>
 
