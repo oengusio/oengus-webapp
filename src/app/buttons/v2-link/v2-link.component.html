@@ -1,0 +1,9 @@
+<a [routerLink]="route"
+   [skipLocationChange]="true"
+   [replaceUrl]=false
+   routerLinkActive="is-active"
+   [routerLinkActiveOptions]="{exact: true}"
+   (click)="redirect()"
+   #theLink>
+  <ng-content></ng-content>
+</a>

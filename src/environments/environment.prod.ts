@@ -12,4 +12,5 @@ export const environment = {
   get patronApi() {
     return environment.api + '/patreon';
   },
+  v2Domain: 'https://v2.oengus.io/',
 };

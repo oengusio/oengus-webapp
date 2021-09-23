@@ -58,9 +58,10 @@
                 <a><b>{{ 'marathon.menu.loginToSubmit' | translate}}</b></a></li>
             </ng-template>
             <li *ngIf="marathonService.marathon.scheduleDone">
-              <a routerLink="schedule" [routerLinkActive]="'is-active'" [routerLinkActiveOptions]="{exact: true}">
+              <app-v2-link route="schedule">
                 <fa-icon [icon]="faCalendar" style="margin-right:0.4rem"></fa-icon>
-                <span *ngIf="!minimized">{{ 'marathon.menu.schedule' | translate}}</span></a>
+                <span *ngIf="!minimized">{{ 'marathon.menu.schedule' | translate}}</span>
+              </app-v2-link>
             </li>
           </ul>
           <ng-template

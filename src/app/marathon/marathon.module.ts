@@ -44,6 +44,7 @@ import {AdsenseComponent} from '../adsense/adsense.component';
 import {SubmissionsResolver} from '../resolvers/submissions-resolver';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
+import {ButtonsModule} from '../buttons/buttons.module';
 
 const marathonRoutes: Routes = [
   {
@@ -185,31 +186,32 @@ const marathonRoutes: Routes = [
     SubmissionCategoryComponent,
     SubmissionGameComponent
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(marathonRoutes),
-        FormsModule,
-        OwlDateTimeModule,
-        OwlNativeDateTimeModule,
-        NwbSwitchModule,
-        DirectivesModule,
-        FontAwesomeModule,
-        NgxMdModule.forRoot(),
-        NwbCommonModule,
-        AutocompleteLibModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        OengusCommonModule,
-        DragDropModule,
-        NwbEditInPlaceModule,
-        NgxPayPalModule,
-        NwbPaginatorModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(marathonRoutes),
+    FormsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    NwbSwitchModule,
+    DirectivesModule,
+    FontAwesomeModule,
+    NgxMdModule.forRoot(),
+    NwbCommonModule,
+    AutocompleteLibModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    OengusCommonModule,
+    DragDropModule,
+    NwbEditInPlaceModule,
+    NgxPayPalModule,
+    NwbPaginatorModule,
+    ButtonsModule
+  ],
   exports: [
     RouterModule
   ],

@@ -21,18 +21,18 @@ export const environment = {
     return window.location.origin;
   },
 
-  get baseSiteNoSub() {
+  get v2Domain() {
     const url = window.location.hostname;
     const splitUrl = url.split('.');
     const parts = splitUrl.length > 2 ? [splitUrl[1], splitUrl[2]] : splitUrl;
 
-    return `${window.location.protocol}//${parts[0]}.${parts[1]}`;
+    return `${window.location.protocol}//v2.${parts[0]}.${parts[1]}/`;
   },
 
   // the api that the front-end talks to
   get api() {
     if (environment.production) {
-      return environment.baseSiteNoSub + '/api';
+      return environment.baseSite + '/api';
     }
 
     return 'http://localhost:8080';
