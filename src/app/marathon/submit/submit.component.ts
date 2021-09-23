@@ -181,6 +181,11 @@ export class SubmitComponent implements OnInit {
   }
 
   submit() {
+    if (this.submission.games.find(g => !g.console)) {
+      alert('One of your submitted games is missing a console!!');
+      return;
+    }
+
     // ignore double clicks
     if (this.loading) {
       return;
