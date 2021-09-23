@@ -13,12 +13,12 @@
         </NuxtLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathonId}/schedule`)">
+        <ElementLink :to="`/marathon/${marathonId}/schedule`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'calendar' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.schedule') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
       <li>
         <NuxtLink :to="localePath(`/marathon/${marathonId}/submissions`)">
