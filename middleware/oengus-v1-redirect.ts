@@ -37,7 +37,7 @@ const oengusV1Redirect: Middleware = function ({ $config, route, redirect, from 
     // If you hit back, you get the page BEFORE the page you clicked the link on.
     // This makes sure we push an entry to the history stack to go back to.
     // If we start having doubled up history, this history.pushState is a good candidate to check.
-    history.pushState((Number.parseFloat(history.state) + 1).toFixed(3), document.title, from.fullPath);
+    globalThis.history?.pushState((Number.parseFloat(history.state) + 1).toFixed(3), document.title, from.fullPath);
     redirect(`https://${$config.env.DOMAIN_V1}/${to.join('/')}`);
   }
 };
