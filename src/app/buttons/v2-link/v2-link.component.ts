@@ -35,7 +35,9 @@ export class V2LinkComponent implements OnInit {
     }, 0);
   }
 
-  redirect (): boolean {
+  redirect (event: MouseEvent): boolean {
+    event.preventDefault();
+
     const href = this.storedUrl;
     const urlLanguage = V2LinkComponent.getUrlLanguage();
     const targetUrl = `${environment.v2Domain}${urlLanguage}${href}`;

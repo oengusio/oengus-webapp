@@ -3,7 +3,7 @@
    [replaceUrl]=false
    routerLinkActive="is-active"
    [routerLinkActiveOptions]="{exact: true}"
-   (click)="redirect()"
+   (click)="redirect($event)"
    #theLink>
   <ng-content></ng-content>
 </a>
