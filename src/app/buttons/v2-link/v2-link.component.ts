@@ -7,13 +7,14 @@ import {Router} from '@angular/router';
   templateUrl: './v2-link.component.html',
   styleUrls: ['./v2-link.component.scss'],
 })
+// TODO: don't forget to add the DeactivateRouteGuard class to the "canDeactivate" clause
 export class V2LinkComponent implements OnInit {
   @Input() public route: string;
-  @ViewChild('theLink', {static: true}) linkInput: ElementRef<HTMLAnchorElement>;
+  @ViewChild('theLink', {static: false}) linkInput: ElementRef<HTMLAnchorElement>;
 
   public storedUrl: string = null;
 
-  constructor(private router: Router) {
+  constructor() {
     //
   }
 

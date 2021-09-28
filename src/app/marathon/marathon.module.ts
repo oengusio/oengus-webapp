@@ -45,6 +45,7 @@ import {SubmissionsResolver} from '../resolvers/submissions-resolver';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
 import {ButtonsModule} from '../buttons/buttons.module';
+import {DeactivateRouteGuard} from '../guards/deactivate-route-guard.service';
 
 const marathonRoutes: Routes = [
   {
@@ -100,7 +101,8 @@ const marathonRoutes: Routes = [
         component: ScheduleComponent,
         resolve: {
           schedule: ScheduleResolver
-        }
+        },
+        canDeactivate: [DeactivateRouteGuard]
       },
       {
         path: 'schedule/manage',
