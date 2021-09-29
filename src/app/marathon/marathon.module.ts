@@ -102,7 +102,7 @@ const marathonRoutes: Routes = [
         resolve: {
           schedule: ScheduleResolver
         },
-        canDeactivate: [DeactivateRouteGuard]
+        canActivate: [DeactivateRouteGuard]
       },
       {
         path: 'schedule/manage',
