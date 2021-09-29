@@ -5,28 +5,28 @@
     </p>
     <ul class="menu-list">
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathonId}/donate`)">
+        <ElementLink :to="`/marathon/${marathonId}/donate`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'donate' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.donate') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathonId}/donations`)">
+        <ElementLink :to="`/marathon/${marathonId}/donations`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'money-bill' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.donations') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathonId}/incentives`)">
+        <ElementLink :to="`/marathon/${marathonId}/incentives`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'bullseye' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.incentives') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
     </ul>
   </div>

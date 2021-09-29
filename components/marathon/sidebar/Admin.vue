@@ -5,36 +5,36 @@
     </p>
     <ul class="menu-list">
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathonId}/settings`)">
+        <ElementLink :to="`/marathon/${marathonId}/settings`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'cogs' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.settings') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathonId}/selection`)">
+        <ElementLink :to="`/marathon/${marathonId}/selection`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'check-square' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.selectRuns') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathonId}/schedule/manage`)">
+        <ElementLink :to="`/marathon/${marathonId}/schedule/manage`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'calendar-check' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.manageSchedule') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathonId}/incentives/manage`)">
+        <ElementLink :to="`/marathon/${marathonId}/incentives/manage`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'dot-circle' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.manageIncentives') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
     </ul>
   </div>

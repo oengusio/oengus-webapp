@@ -5,9 +5,9 @@
         {{ run.setupBlock ? run.setupBlockText : run.gameName }}
       </h4>
       <p v-for="runner in run.runners" :key="runner.id">
-        <NuxtLink :to="localePath(`/user/${runner.username}`)">
+        <ElementLink :to="`/user/${runner.username}`">
           {{ runner.username }}
-        </NuxtLink>
+        </ElementLink>
       </p>
     </div>
 
@@ -54,9 +54,9 @@
     </template>
 
     <span class="is-label">{{ $t('marathon.schedule.table.link') }}</span>
-    <NuxtLink :to="'#run-' + run.id" rel="nofollow">
+    <ElementLink :to="`#run-${run.id}`" rel="nofollow">
       {{ `#run-${run.id}` }}
-    </NuxtLink>
+    </ElementLink>
   </div>
 </template>
 

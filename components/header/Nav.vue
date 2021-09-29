@@ -1,12 +1,12 @@
 <template>
   <nav class="navbar">
     <div class="navbar-brand">
-      <NuxtLink :to="localePath('/')" class="navbar-item icon-text">
+      <ElementLink to="/" class="navbar-item icon-text">
         <img src="~assets/oengus.svg" class="icon" alt="Oengus logo">
         <span>
           Oengus
         </span>
-      </NuxtLink>
+      </ElementLink>
       <button class="button navbar-burger" :class="isActiveClass" @click="toggleNavbarActive">
         <span />
         <span />
@@ -41,12 +41,12 @@
         <div class="navbar-item">
           <WidgetV1Redirect />
         </div>
-        <NuxtLink :to="localePath('/about')" class="navbar-item">
+        <ElementLink to="/about" class="navbar-item">
           {{ $t('navbar.about') }}
-        </NuxtLink>
-        <NuxtLink :to="localePath('/patrons')" class="navbar-item">
+        </ElementLink>
+        <ElementLink to="/patrons" class="navbar-item">
           {{ $t('navbar.patrons') }}
-        </NuxtLink>
+        </ElementLink>
         <WidgetLanguagePicker />
         <WidgetSignInPicker type="navbar" is-right />
       </div>

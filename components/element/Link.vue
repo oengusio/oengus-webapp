@@ -30,11 +30,14 @@ export default Vue.extend({
   computed: {
     isActive(): IsActive {
       return {
-        'is-active': this.$route.path === this.path,
+        'is-active': (this.isHash ? this.$route.hash : this.$route.path) === this.path,
       };
     },
     path(): string {
-      return this.localePath(this.to);
+      return this.isHash ? this.to : this.localePath(this.to);
+    },
+    isHash(): boolean {
+      return this.to.startsWith('#');
     },
   },
 });

@@ -1,9 +1,9 @@
 <template>
   <div v-if="ticker" class="message" :class="messageClass">
     <div class="message-header">
-      <NuxtLink :to="linkedRun">
+      <ElementLink :to="linkedRun">
         {{ $t(messageHeaderTitle, messageHeaderArgs) }}
-      </NuxtLink>
+      </ElementLink>
     </div>
 
     <div class="message-body">

@@ -5,7 +5,7 @@
         {{ $t('calendar.title') }}
       </span>
       <span>
-        (<NuxtLink :to="localePath('/calendar')">{{ $t('homepage.marathons.calendar') }}</NuxtLink>)
+        (<ElementLink to="/calendar">{{ $t('homepage.marathons.calendar') }}</ElementLink>)
       </span>
     </h3>
 
@@ -18,9 +18,9 @@
           <div :key="marathonsList.key + 'prespacer'" class="spacer" />
           <template v-for="(marathon, index) in homepageMarathons[marathonsList.key]">
             <span :key="marathonsList.key + 'name' + index" class="notification" :class="getRowParity(index)">
-              <NuxtLink :to="localePath(`/marathon/${marathon.id}`)">
+              <ElementLink :to="`/marathon/${marathon.id}`">
                 {{ marathon.name }}
-              </NuxtLink>
+              </ElementLink>
             </span>
             <span :key="marathonsList.key + 'location' + index" class="notification location" :class="getRowParity(index)">
               <span v-if="marathon.onsite && marathon.country" class="icon flag-icon" :class="`flag-icon-${marathon.country.toLowerCase()}`" />

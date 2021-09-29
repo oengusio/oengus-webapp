@@ -5,12 +5,12 @@
     </p>
     <ul class="menu-list">
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathonId}`)">
+        <ElementLink :to="`/marathon/${marathonId}`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'home' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.home') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
       <li>
         <ElementLink :to="`/marathon/${marathonId}/schedule`">
@@ -21,20 +21,20 @@
         </ElementLink>
       </li>
       <li>
-        <NuxtLink :to="localePath(`/marathon/${marathonId}/submissions`)">
+        <ElementLink :to="`/marathon/${marathonId}/submissions`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'book' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.viewSubmissions') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
       <li v-if="shouldShowRedirectLinks">
-        <NuxtLink :to="localePath(`/marathon/${marathonId}/submit`)">
+        <ElementLink :to="`/marathon/${marathonId}/submit`">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'paper-plane' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.submitRuns') }}
           </span>
-        </NuxtLink>
+        </ElementLink>
       </li>
     </ul>
   </div>

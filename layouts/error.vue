@@ -13,10 +13,10 @@
           <FontAwesomeIcon :icon="[ 'fas', 'home' ]" />
           <span>Oengus</span>
         </a>
-        <NuxtLink v-else class="error-link" :to="localePath('/')">
+        <ElementLink v-else class="error-link" to="/">
           <FontAwesomeIcon :icon="[ 'fas', 'home' ]" />
           <span>Oengus</span>
-        </NuxtLink>
+        </ElementLink>
       </p>
 
       <div class="logo">

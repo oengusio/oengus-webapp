@@ -1,7 +1,7 @@
 <template>
-  <NuxtLink v-if="shouldShowRedirectLink" :to="localePath(`${$route.path}/v1`)" class="button is-warning">
+  <ElementLink v-if="shouldShowRedirectLink" :to="`${$route.path}/v1`" class="button is-warning">
     {{ $t('footer.v1Link') }}
-  </NuxtLink>
+  </ElementLink>
 </template>
 
 <script lang="ts">
