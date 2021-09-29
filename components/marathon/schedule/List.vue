@@ -118,6 +118,13 @@ export default Vue.extend({
       return (this.$store.state.api.schedule as ScheduleState).tickers[this.marathonId];
     },
   },
+  watch: {
+    runHash(): void {
+      // The `false` makes it so we only expand Current/Next
+      // If we don't do this, the ID hashes self-collapse sometimes
+      this.expandRunHash(false);
+    },
+  },
   mounted(): void {
     // Every 5 minutes, forcibly update data
     // Eventually, this will be minute-by-minute but not forced, relying on cache expiration
@@ -125,19 +132,7 @@ export default Vue.extend({
       this.getSchedule({ id: this.marathonId, forceFetch: true });
       this.getScheduleTicker({ id: this.marathonId, forceFetch: true });
     }, 300_000);
-    if (this.runHash) {
-      const runHashRegExp = /^#run-(\d+)$/;
-      const runHashResults = runHashRegExp.exec(this.runHash);
-      if (runHashResults) {
-        this.expand(Number.parseInt(runHashResults[1]));
-      } else if (this.tickers) {
-        if (this.runHash === '#current') {
-          this.expand(this.tickers.current);
-        } else if (this.runHash === '#next') {
-          this.expand(this.tickers.next);
-        }
-      }
-    }
+    this.expandRunHash();
   },
   destroyed(): void {
     if (this.interval) {
@@ -158,6 +153,21 @@ export default Vue.extend({
         this.expanded.add(run);
       }
       this.expanded = new Set(this.expanded);
+    },
+    expandRunHash(expandRunId = true): void {
+      if (this.runHash) {
+        const runHashRegExp = /^#run-(\d+)$/;
+        const runHashResults = runHashRegExp.exec(this.runHash);
+        if (runHashResults && expandRunId) {
+          this.expand(Number.parseInt(runHashResults[1]));
+        } else if (this.tickers) {
+          if (this.runHash === '#current') {
+            this.expand(this.tickers.current);
+          } else if (this.runHash === '#next') {
+            this.expand(this.tickers.next);
+          }
+        }
+      }
     },
     getId(run: ScheduleLine): string|undefined {
       switch (run.id) {

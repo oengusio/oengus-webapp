@@ -31,8 +31,12 @@ export default Vue.extend({
   data() {
     return {
       marathonId: this.$route.params.marathon,
-      runHash: this.$route.hash,
     };
+  },
+  computed: {
+    runHash(): string {
+      return this.$route.hash;
+    },
   },
 });
 </script>
