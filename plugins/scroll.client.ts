@@ -1,12 +1,6 @@
 import { Plugin } from '@nuxt/types';
 import { Route } from 'vue-router';
 
-declare module 'vue/types/vue' {
-  interface Vue {
-    $scroll($route: Route): void;
-  }
-}
-
 /**
  * How does this work? A good question. It may be buggy.
  *
@@ -26,23 +20,45 @@ declare module 'vue/types/vue' {
  * in the layout for the pages. If it's broken, first confirm your page's
  * layout does call this.$scroll() inside of watch on $route.
  */
-const scrollPlugin: Plugin = (_, inject) => {
-  let historyKeyMax = 0;
 
-  inject('scroll', ($route: Route): void => {
+const scroll = {
+  /**
+   * To be called on navigation
+   */
+  onNavigation($route: Route): void {
     const historyKey = +history.state.key;
-    if (historyKeyMax < historyKey) {
-      historyKeyMax = historyKey;
+    if (this._historyKeyMax < historyKey) {
+      this._historyKeyMax = historyKey;
       if (!$route.hash) {
         globalThis.scrollTo(0, 0);
       } else {
         // Take over the browser's usual job of scrolling, because some won't
-        const target = globalThis.document.getElementById($route.hash.slice(1));
-        const boundingClientRect = target?.getBoundingClientRect();
-        globalThis.scrollBy(0, boundingClientRect?.y ?? 0);
+        this.toHash($route.hash);
       }
     }
-  });
+  },
+  /**
+   * Moves to a given hash on a page if it exists. Can be given without or without a # sign
+   */
+  toHash(hash: string): void {
+    if (hash.startsWith('#')) {
+      hash = hash.slice(1);
+    }
+    const target = globalThis.document.getElementById(hash);
+    const boundingClientRect = target?.getBoundingClientRect();
+    globalThis.scrollBy(0, boundingClientRect?.y ?? 0);
+  },
+  _historyKeyMax: 0,
 };
+
+const scrollPlugin: Plugin = (_, inject) => {
+  inject('scroll', scroll);
+};
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $scroll: typeof scroll;
+  }
+}
 
 export default scrollPlugin;

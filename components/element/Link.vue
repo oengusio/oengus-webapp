@@ -11,7 +11,8 @@ to type it absolutely everywhere.
 -->
 
 <template>
-  <NuxtLink :to="path" :class="isActive">
+  <!-- XXX @click.native will stop working in Vue v3+ (Vue Router v4+), but @click should start working -->
+  <NuxtLink :to="path" :class="isActive" @click.native="navigate">
     <slot />
   </NuxtLink>
 </template>
@@ -38,6 +39,17 @@ export default Vue.extend({
     },
     isHash(): boolean {
       return this.to.startsWith('#');
+    },
+  },
+  methods: {
+    /**
+     * Works around a bug in Vue where anchor links don't work repeatedly.
+     * This feature normally works in browsers, so people exepct it to work.
+     */
+    navigate(): void {
+      if (this.isHash && this.path === this.$route.hash) {
+        this.$scroll.toHash(this.path);
+      }
     },
   },
 });
