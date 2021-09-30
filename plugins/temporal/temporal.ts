@@ -13,7 +13,9 @@ const temporal = {
   },
 };
 
-const temporalPlugin: Plugin = (_, inject) => {
+const temporalPlugin: Plugin = ({ i18n }, inject) => {
+  // Set the current locale when the plugin is loaded
+  temporal.changeLocale(i18n.locale);
   inject('temporal', temporal);
 };
 
