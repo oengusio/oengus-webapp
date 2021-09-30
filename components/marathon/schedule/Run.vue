@@ -2,7 +2,7 @@
   <div class="notification run-detail-container">
     <div class="header">
       <h4 class="title is-4">
-        {{ run.setupBlock ? run.setupBlockText : run.gameName }}
+        {{ run.setupBlock ? (run.setupBlockText || $t('marathon.schedule.setupBlock')) : run.gameName }}
       </h4>
       <p v-for="runner in run.runners" :key="runner.id">
         <ElementLink :to="`/user/${runner.username}`">

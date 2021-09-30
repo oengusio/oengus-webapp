@@ -41,7 +41,7 @@
         </span>
 
         <span v-if="run.setupBlock" :key="'setupText' + index" class="notification is-expandable setup-text" :class="getRowParity(index, run)" @click="expand(run)">
-          {{ run.setupBlockText }}
+          {{ (run.setupBlockText || $t('marathon.schedule.setupBlock')) }}
         </span>
         <template v-else>
           <span :key="'runners' + index" class="notification is-expandable runners" :class="getRowParity(index, run)" @click="expand(run)">

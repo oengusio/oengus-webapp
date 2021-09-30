@@ -9,7 +9,7 @@
     <div class="message-body">
       <p class="run-info">
         <span v-if="ticker.setupBlock">
-          {{ ticker.setupBlockText }}
+          {{ (ticker.setupBlockText || $t('marathon.schedule.setupBlock')) }}
         </span>
         <span v-if="ticker.gameName">
           {{ ticker.gameName }}
