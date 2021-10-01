@@ -1,5 +1,7 @@
 <template>
   <div class="schedule-container">
+    <!-- Ad -->
+    <AdsByGoogle ad-slot="5905320802" ad-format="" class="is-advertisement" />
     <!-- Header -->
     <span class="notification is-header expandable" />
     <span class="notification is-header time">
@@ -29,6 +31,8 @@
     <!-- Main Schedule Loop -->
     <template v-if="runs">
       <template v-for="(run, index) in runs">
+        <AdsByGoogle v-if="shouldShowAdvertisement(index)" :key="'advertisement' + run.id" ad-slot="5905320802" ad-format="" class="is-advertisement" />
+
         <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-info">
           {{ $d(new Date(run.date), 'longDate') }}
         </div>
@@ -101,6 +105,7 @@ export default Vue.extend({
   data() {
     return {
       expanded: new Set<number>(),
+      advertisementIndices: [ ] as Array<number>,
       interval: undefined as NodeJS.Timeout|undefined,
     };
   },
@@ -123,6 +128,10 @@ export default Vue.extend({
       // The `false` makes it so we only expand Current/Next
       // If we don't do this, the ID hashes self-collapse sometimes
       this.expandRunHash(false);
+    },
+    '$temporal.timeZone.timeZone'(): void {
+      // Since the advertisement placement depends on day breaks, reset this when the time zone changes
+      this.advertisementIndices = [ ];
     },
   },
   mounted(): void {
@@ -195,6 +204,18 @@ export default Vue.extend({
       // We have an implicit index test for the index=0 case, so this is always safe
       const previousRun = new Date(this.runs![index - 1].date);
       return this.$i18n.d(currentRun, 'longDate') !== this.$i18n.d(previousRun, 'longDate');
+    },
+    shouldShowAdvertisement(index: number): boolean {
+      // Only show right before a day line
+      if (!this.shouldShowDay(index)) {
+        return false;
+      }
+      // Make sure there's at least 10 runs since the last advertisement
+      if (index >= (this.advertisementIndices[this.advertisementIndices.length - 1] ?? 0) + 10) {
+        this.advertisementIndices.push(index);
+        return true;
+      }
+      return this.advertisementIndices.includes(index);
     },
     ...mapActions({
       getSchedule: 'api/schedule/get',
@@ -269,6 +290,22 @@ export default Vue.extend({
 
     > .is-header {
       font-weight: bold;
+    }
+
+    > .is-advertisement {
+      // Span from start to finish
+      grid-column: 1 / -1;
+      justify-self: center;
+      height: 100%;
+      max-height: 100px;
+      min-height: 0;
+      width: 320px;
+      padding: 0;
+
+      // Hide ads that didn't load any content
+      &[data-ad-status="unfilled"] {
+        display: none !important;
+      }
     }
   }
 

@@ -23,3 +23,5 @@ export function getGTagIds() {
   const config = googleGtagConfig();
   return [ config.id, ...config.additionalAccounts.map(account => account.id) ];
 }
+
+export const mainGTagId = googleGtagConfig().id;

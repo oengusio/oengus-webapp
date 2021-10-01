@@ -1,5 +1,6 @@
 import { cacheConfig } from './configs/cache.config';
 import { fontAwesomeConfig } from './configs/font-awesome.config';
+import { googleAdSenseConfig } from './configs/google-adsense.config';
 import { googleGtagConfig } from './configs/google-gtag.config';
 import { httpConfig, httpPrivateRuntimeConfig, httpRuntimeConfig } from './configs/http.config';
 import { i18nConfig } from './configs/i18n.config';
@@ -55,6 +56,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   'modules': [
     '@nuxt/http',
+    '@nuxtjs/google-adsense',
     '@nuxtjs/google-gtag',
     '@nuxtjs/markdownit',
     '@nuxtjs/robots',
@@ -92,6 +94,9 @@ export default {
 
   // Font Awesome configuration: https://github.com/nuxt-community/fontawesome-module
   'fontawesome': fontAwesomeConfig(process),
+
+  // Google AdSense configuration: https://github.com/nuxt-community/google-adsense-module
+  'google-adsense': googleAdSenseConfig(process),
 
   // Google GTag configuration: https://github.com/nuxt-community/google-gtag-module
   'google-gtag': googleGtagConfig(process),
