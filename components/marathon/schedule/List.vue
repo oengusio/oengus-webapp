@@ -298,7 +298,7 @@ export default Vue.extend({
       justify-self: center;
       height: 100%;
       max-height: 100px;
-      min-height: 0;
+      min-height: 50px;
       width: 320px;
       padding: 0;
 
