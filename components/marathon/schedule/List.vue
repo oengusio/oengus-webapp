@@ -296,16 +296,17 @@ export default Vue.extend({
       // Span from start to finish
       grid-column: 1 / -1;
       justify-self: center;
-      height: 100%;
-      max-height: 100px;
-      min-height: 50px;
-      width: 320px;
+      // Advertisements don't play nice with padding, remove it and use margin
       padding: 0;
-
-      // Hide ads that didn't load any content
-      &[data-ad-status="unfilled"] {
-        display: none !important;
-      }
+      margin: var(--spacing);
+      // Dynamic logic lets AdSense pick from more advertisement options
+      height: 100%;
+      min-height: 50px;
+      max-height: 100px;
+      width: 100%;
+      min-width: 300px;
+      // This computation prevents overflowing the schedule
+      max-width: calc(100% - 4 * var(--spacing));
     }
   }
 
@@ -324,7 +325,7 @@ export default Vue.extend({
   // Generic rules, used when the List can occupy the whole width
   @include shrink(1150px, 8, 'setup');
   // Mobile cutoff
-  @include shrink(1024px, 7, 'console');
+  @include shrink(1023px, 7, 'console');
   @include shrink(900px, 6, 'type');
   // Tablet cutoff
   @include shrink(768px, 5, 'estimate');
