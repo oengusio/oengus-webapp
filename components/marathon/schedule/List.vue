@@ -31,7 +31,9 @@
     <!-- Main Schedule Loop -->
     <template v-if="runs">
       <template v-for="(run, index) in runs">
+        <!-- Ad -->
         <AdsByGoogle v-if="shouldShowAdvertisement(index)" :key="'advertisement' + run.id" ad-slot="5905320802" ad-format="" class="is-advertisement" />
+        <div v-else-if="shouldShowDay(index) && index !== 0" :key="'not-advertisement' + run.id" class="is-advertisement" />
 
         <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-info">
           {{ $d(new Date(run.date), 'longDate') }}
