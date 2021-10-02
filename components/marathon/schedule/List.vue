@@ -127,7 +127,7 @@ export default Vue.extend({
     },
     advertisementIndices(): Array<number> {
       const advertisementIndices: Array<number> = [ ];
-      const minimumGap = 10;
+      const minimumGap = 16;
       let index = minimumGap;
       while (index < (this.runs?.length ?? 0)) {
         if (this.shouldShowDay(index)) {
