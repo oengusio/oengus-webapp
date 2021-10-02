@@ -32,8 +32,10 @@
     <template v-if="runs">
       <template v-for="(run, index) in runs">
         <!-- Ad -->
-        <AdsByGoogle v-if="shouldShowAdvertisement(index)" :key="'advertisement' + run.id" ad-slot="5905320802" ad-format="" class="is-advertisement" />
-        <div v-else-if="shouldShowDay(index) && index !== 0" :key="'not-advertisement' + run.id" class="is-advertisement" />
+        <ClientOnly :key="'wrapper-advertisement' + run.id">
+          <AdsByGoogle v-if="advertisementIndices.includes(index)" :key="'advertisement' + run.id" ad-slot="5905320802" ad-format="" class="is-advertisement" />
+          <div v-else-if="shouldShowDay(index) && index !== 0" :key="'not-advertisement' + run.id" class="is-advertisement" />
+        </ClientOnly>
 
         <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-info">
           {{ $d(new Date(run.date), 'longDate') }}
@@ -107,7 +109,6 @@ export default Vue.extend({
   data() {
     return {
       expanded: new Set<number>(),
-      advertisementIndices: [ ] as Array<number>,
       interval: undefined as NodeJS.Timeout|undefined,
     };
   },
@@ -124,16 +125,26 @@ export default Vue.extend({
     tickers(): ScheduleTicker|undefined {
       return (this.$store.state.api.schedule as ScheduleState).tickers[this.marathonId];
     },
+    advertisementIndices(): Array<number> {
+      const advertisementIndices: Array<number> = [ ];
+      const minimumGap = 10;
+      let index = minimumGap;
+      while (index < (this.runs?.length ?? 0)) {
+        if (this.shouldShowDay(index)) {
+          advertisementIndices.push(index);
+          index += minimumGap;
+          continue;
+        }
+        index++;
+      }
+      return advertisementIndices;
+    },
   },
   watch: {
     runHash(): void {
       // The `false` makes it so we only expand Current/Next
       // If we don't do this, the ID hashes self-collapse sometimes
       this.expandRunHash(false);
-    },
-    '$temporal.timeZone.timeZone'(): void {
-      // Since the advertisement placement depends on day breaks, reset this when the time zone changes
-      this.advertisementIndices = [ ];
     },
   },
   mounted(): void {
@@ -206,18 +217,6 @@ export default Vue.extend({
       // We have an implicit index test for the index=0 case, so this is always safe
       const previousRun = new Date(this.runs![index - 1].date);
       return this.$i18n.d(currentRun, 'longDate') !== this.$i18n.d(previousRun, 'longDate');
-    },
-    shouldShowAdvertisement(index: number): boolean {
-      // Only show right before a day line
-      if (!this.shouldShowDay(index)) {
-        return false;
-      }
-      // Make sure there's at least 10 runs since the last advertisement
-      if (index >= (this.advertisementIndices[this.advertisementIndices.length - 1] ?? 0) + 10) {
-        this.advertisementIndices.push(index);
-        return true;
-      }
-      return this.advertisementIndices.includes(index);
     },
     ...mapActions({
       getSchedule: 'api/schedule/get',
