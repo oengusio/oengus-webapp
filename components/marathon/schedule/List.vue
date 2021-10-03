@@ -32,9 +32,9 @@
     <template v-if="runs">
       <template v-for="(run, index) in runs">
         <!-- Ad -->
-        <ClientOnly :key="'wrapper-advertisement' + run.id">
-          <AdsByGoogle v-if="advertisementIndices.includes(index)" :key="'advertisement' + run.id" ad-slot="5905320802" ad-format="" class="is-advertisement" />
-          <div v-else-if="shouldShowDay(index) && index !== 0" :key="'not-advertisement' + run.id" class="is-advertisement" />
+        <ClientOnly :key="'wrapper-advertisement' + index">
+          <AdsByGoogle v-if="advertisementIndices.includes(index)" :key="'advertisement' + index" ad-slot="5905320802" ad-format="" class="is-advertisement" />
+          <div v-show="shouldShowDay(index) && index !== 0" :key="'not-advertisement' + index" class="is-spacer" />
         </ClientOnly>
 
         <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-info">
@@ -129,7 +129,8 @@ export default Vue.extend({
       const advertisementIndices: Array<number> = [ ];
       const minimumGap = 16;
       let index = minimumGap;
-      while (index < (this.runs?.length ?? 0)) {
+      const runsLength = this.runs?.length ?? 0;
+      while (index < runsLength) {
         if (this.shouldShowDay(index)) {
           advertisementIndices.push(index);
           index += minimumGap;
@@ -229,6 +230,8 @@ export default Vue.extend({
 <style lang="scss" scoped>
   .schedule-container {
     width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
     display: grid;
     grid-template-columns: repeat(9, auto);
     grid-auto-rows: auto;
@@ -293,21 +296,44 @@ export default Vue.extend({
       font-weight: bold;
     }
 
+    > .is-spacer {
+      // Span from start to finish
+      grid-column: 1 / -1;
+      height: 50px;
+    }
+
     > .is-advertisement {
       // Span from start to finish
       grid-column: 1 / -1;
       justify-self: center;
       // Advertisements don't play nice with padding, remove it and use margin
       padding: 0;
-      margin: var(--spacing);
+      margin-block: var(--spacing);
       // Dynamic logic lets AdSense pick from more advertisement options
       height: 100%;
       min-height: 50px;
       max-height: 100px;
       width: 100%;
       min-width: 300px;
-      // This computation prevents overflowing the schedule
-      max-width: calc(100% - 4 * var(--spacing));
+      max-width: 728px;
+
+      & + .is-spacer {
+        display: none;
+      }
+
+      @media (max-width: 1023px) {
+        & {
+          max-width: 320px;
+        }
+      }
+
+      &[data-ad-status="unfilled"] {
+        display: none !important;
+
+        & + .is-spacer {
+          display: block;
+        }
+      }
     }
   }
 
