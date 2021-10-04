@@ -23,6 +23,11 @@ export const environment = {
 
   get v2Domain() {
     const url = window.location.hostname;
+
+    if (url.startsWith('sandbox')) {
+      return null;
+    }
+
     const splitUrl = url.split('.');
     const parts = splitUrl.length > 2 ? [splitUrl[1], splitUrl[2]] : splitUrl;
 
