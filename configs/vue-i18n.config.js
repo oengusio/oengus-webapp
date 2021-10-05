@@ -4,15 +4,31 @@
 import { dateTimeFormats, locales } from './i18n.config';
 
 class WeblateFormatter {
+  tokenRegex = /^(?:{{([\w-]+)}}|{([\w-]+)})/;
+
   interpolate(message, values) {
     if (!values) {
       return [ message ];
     }
-    Object.entries(values).forEach(([ key, value ]) => {
-      const replacement = new RegExp(`{?{${key}}}?`, 'gi');
-      message = message.replace(replacement, value);
-    });
-    return [ message ];
+    const compiled = [ '' ];
+    let index = 0;
+    while (index < message.length) {
+      const character = message[index];
+      if (character === '{') {
+        const tokenMatch = this.tokenRegex.exec(message.slice(index));
+        if (tokenMatch) {
+          const token = tokenMatch[1] ?? tokenMatch[2];
+          if (Object.prototype.hasOwnProperty.call(values, token)) {
+            compiled.push(values[token], '');
+            index += tokenMatch[0].length;
+            continue;
+          }
+        }
+      }
+      compiled[compiled.length - 1] += character;
+      index++;
+    }
+    return compiled;
   }
 };
 
