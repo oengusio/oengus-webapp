@@ -1,5 +1,7 @@
 <template>
   <div>
-    Oengus about page stub
+    <AboutInfo />
+    <AboutContact />
+    <AboutPrivacy />
   </div>
 </template>
