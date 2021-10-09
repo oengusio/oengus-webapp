@@ -37,6 +37,7 @@ export class OengusAPI<T extends OengusState> {
         forceFetch = id.forceFetch ?? forceFetch;
         id = id.id;
       }
+
       // Cache check (needs improvements)
       let response: U|V = id ? state[key][id] : state[key];
       if (response !== undefined && !forceFetch) {
@@ -50,9 +51,11 @@ export class OengusAPI<T extends OengusState> {
         // Mark the entry as "being fetched" by marking it `null` (only `undefined` is empty)
         commit(resolvedMutation, { id, value: null });
       }
+
       // Fetch and store into cache
+      const route = `${this.basePath}${id ? `/${id}` : ''}${path ? `/${path}` : ''}`;
       try {
-        response = await OengusAPI.http.$get(`${this.basePath}${id ? `/${id}` : ''}${path ? `/${path}` : ''}`);
+        response = await OengusAPI.http.$get(route);
       } catch {
         // This isn't intrinsically bad, just catch the error, mark as not fetching, and return nothing
         if (updating) {
