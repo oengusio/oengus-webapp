@@ -10,8 +10,8 @@ export const environment = {
   // this is the base of the website where the users will land
   baseSite: 'http://localhost:4200',
   // the api that the front-end talks to
-  // api: 'http://localhost:8080',
-  api: 'https://oengus.dev/api',
+  api: 'http://localhost:8080',
+  // api: 'https://oengus.dev/api',
   // Optional, in case of a custom hosted patreon api, will use api by default
   patronApi: 'http://localhost:9000',
   twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
@@ -21,7 +21,8 @@ export const environment = {
   discordClientId: '559625844197163008',
   paypalClientId: 'AV9-0fSGWREDWpnMJujrHUbDIibragMgE4-4HuAS-WQPlgHSRyfeU5iqNyiQwLEGZFEKhAiERJdv80a4',
   patreonClientId: 'qXKJ92UNMBtSTV_N0TN47U6l1o2_VXWmqK3u9_Gv3RXIJuiJ0LTpDyzbl5XZuARH',
-  v2Domain: 'https://v2.oengus.dev/',
+  // v2Domain: 'https://v2.oengus.dev/',
+  v2Domain: false,
 };
 
 /*

@@ -36,11 +36,17 @@ export class V2LinkComponent implements OnInit {
 
       console.log(this.storedUrl);
 
-      DeactivateRouteGuard.deactivatedRoutes.push(this.storedUrl);
+      if (environment.v2Domain) {
+        DeactivateRouteGuard.deactivatedRoutes.push(this.storedUrl);
+      }
     }, 0);
   }
 
   redirect (event: MouseEvent): boolean {
+    if (!environment.v2Domain) {
+      return true;
+    }
+
     event.preventDefault();
 
     const href = this.storedUrl;
