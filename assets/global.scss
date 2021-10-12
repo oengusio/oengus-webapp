@@ -12,3 +12,7 @@ html {
   // We're using CSS variables over SASS variables so it can be changed on the fly as needed
   --spacing: 20px;
 }
+
+a {
+  text-decoration: underline;
+}
