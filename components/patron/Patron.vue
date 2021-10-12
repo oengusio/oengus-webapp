@@ -6,11 +6,16 @@
     <p>{{ $t('patrons.par1') }}</p>
     <p v-html="$t('patrons.par2')" />
     <br>
-    <div v-if="patrons" class="tags">
+    <div v-if="patrons" class="field is-grouped is-grouped-multiline">
       <template v-if="patrons.length">
-        <a v-for="patron in patrons" :key="patron.id" :href="`https://www.patreon.com/user?u=${patron.id}`" class="tag is-primary" target="_blank">
-          {{ patron.full_name }}
-        </a>
+        <div v-for="patron in patrons" :key="patron.id" class="tags has-addons">
+          <div class="avatar tag is-primary">
+            <img :src="patron.image_url">
+          </div>
+          <a :href="`https://www.patreon.com/user?u=${patron.id}`" target="_blank" class="tag is-primary is-large">
+            {{ patron.full_name }}
+          </a>
+        </div>
       </template>
       <span v-else v-html="$t('patrons.noPatrons')" />
     </div>
@@ -40,3 +45,33 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+// Make sure there's some space around each patron
+.is-grouped-multiline {
+  gap: 1rem;
+
+  > * {
+    margin: 0;
+  }
+}
+
+// Adapted (heavily) from https://codepen.io/datchley/pen/joZvEx
+.avatar {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+
+  > img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+  }
+}
+</style>
