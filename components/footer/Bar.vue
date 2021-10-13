@@ -4,7 +4,8 @@
       <p>
         {{ $t('footer.text', { timezone: $temporal.timeZone.timeZone }) }}
       </p>
-      <p v-html="$t('footer.donate', { donationLink: 'https://www.patreon.com/oengusio' })" />
+      <FooterPatrons />
+      <br>
       <p>
         &copy; {{ thisYear }}
         <a href="https://esamarathon.com/">

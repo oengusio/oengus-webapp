@@ -71,11 +71,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .is-centered {
-    display: flex;
-    justify-content: center;
-  }
-
   ul {
     list-style: disc;
     padding-inline-start: 20px;

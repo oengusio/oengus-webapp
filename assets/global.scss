@@ -16,3 +16,8 @@ html {
 a {
   text-decoration: underline;
 }
+
+.is-centered {
+  display: flex;
+  justify-content: center;
+}
