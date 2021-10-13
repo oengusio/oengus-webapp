@@ -44,9 +44,6 @@
         <ElementLink to="/about" class="navbar-item">
           {{ $t('navbar.about') }}
         </ElementLink>
-        <ElementLink to="/patrons" class="navbar-item">
-          {{ $t('navbar.patrons') }}
-        </ElementLink>
         <WidgetLanguagePicker />
         <WidgetSignInPicker type="navbar" is-right />
       </div>
