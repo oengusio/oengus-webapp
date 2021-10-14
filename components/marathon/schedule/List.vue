@@ -150,7 +150,6 @@ export default Vue.extend({
   },
   mounted(): void {
     this.interval = setInterval(() => {
-      this.getSchedule(this.marathonId);
       this.getScheduleTicker(this.marathonId);
     }, 60_000);
     this.expandRunHash();
