@@ -11,7 +11,7 @@
 
     <div v-if="homepageMarathons" class="marathons-list-container">
       <template v-for="marathonsList in marathonsLists">
-        <template v-if="homepageMarathons[marathonsList.key].length">
+        <template v-if="shouldRenderList(marathonsList.key)">
           <h4 :key="marathonsList.key + 'title'" class="title" :class="marathonsList.headerClass">
             {{ $t(marathonsList.label) }}
           </h4>
@@ -88,6 +88,9 @@ export default Vue.extend({
       return {
         'is-dark': index % 2 === 0,
       };
+    },
+    shouldRenderList(key: keyof FrontPageMarathons): boolean {
+      return (this.homepageMarathons?.[key]?.length ?? 0) > 0;
     },
     ...mapActions({
       getFrontPage: 'api/marathon/frontPage',

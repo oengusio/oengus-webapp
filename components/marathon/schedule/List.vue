@@ -149,12 +149,10 @@ export default Vue.extend({
     },
   },
   mounted(): void {
-    // Every 5 minutes, forcibly update data
-    // Eventually, this will be minute-by-minute but not forced, relying on cache expiration
     this.interval = setInterval(() => {
-      this.getSchedule({ id: this.marathonId, forceFetch: true });
-      this.getScheduleTicker({ id: this.marathonId, forceFetch: true });
-    }, 300_000);
+      this.getSchedule(this.marathonId);
+      this.getScheduleTicker(this.marathonId);
+    }, 60_000);
     this.expandRunHash();
   },
   destroyed(): void {

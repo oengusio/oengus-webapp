@@ -49,7 +49,8 @@ export default Vue.extend({
       let marathonName = '';
       if (this.marathon) {
         marathonName = this.marathon.name;
-      } else if (this.marathonId) {
+      }
+      if (!marathonName && this.marathonId) {
         const frontPage = (this.$store.state.api.marathon as MarathonState).frontPage;
         if (frontPage) {
           marathonName = [ ...frontPage.live, ...frontPage.next, ...frontPage.open ].find(marathon => marathon.id === this.marathonId)?.name ?? marathonName;

@@ -13,11 +13,6 @@ export interface User {
 }
 
 export interface UserExists {
-  exists?: boolean;
-}
-
-export interface AddExists {
-  username: string;
   exists: boolean;
 }
 
@@ -28,6 +23,6 @@ export interface AddSearch {
 
 export interface UserState extends OengusState {
   users: { [username: string]: User; };
-  exists: { [username: string]: boolean; };
+  exists: { [username: string]: UserExists; };
   searches: { [query: string]: Array<User>; };
 }

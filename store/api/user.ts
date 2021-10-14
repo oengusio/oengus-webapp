@@ -25,11 +25,7 @@ export const mutations: MutationTree<UserState> = {
 
 export const actions: ActionTree<UserState, UserState> = {
   get: UserOengusAPI.get<User>({ key: 'users', mutation: 'addUser' }),
-  exists: UserOengusAPI.get<UserExists, boolean>({
-    path: 'exists',
-    key: 'exists',
-    transform: userExists => !!userExists.exists,
-  }),
+  exists: UserOengusAPI.get<UserExists>({ path: 'exists', key: 'exists' }),
   search: UserOengusAPI.get<Array<User>>({
     path: 'search',
     key: 'searches',
