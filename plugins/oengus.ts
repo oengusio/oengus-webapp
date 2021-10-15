@@ -2,10 +2,12 @@ import { ActionContext } from 'vuex';
 import { NuxtHTTPInstance } from '@nuxt/http';
 import { Context } from '@nuxt/types';
 
-export interface OengusStateCacheable {
-  _expires: number;
+export interface OengusStateCacheable<V> {
+  _cachedAt: number;
+  _fetching: boolean;
+  _promise: Promise<V&OengusStateCacheable<V>>;
 }
-export type OengusStateValue<V> = V&OengusStateCacheable|OengusStateCacheable|undefined;
+export type OengusStateValue<V> = V&OengusStateCacheable<V>|OengusStateCacheable<V>|undefined;
 export interface OengusStateValuesById<V> {
   [ id: string ]: OengusStateValue<V>;
 }
@@ -39,7 +41,7 @@ export interface GetterArgs<U, V = U> {
    * Used to alter the raw API response to whatever is stored in the state
    * This can be strip, change, or add new values or even change into a full class
    */
-  transform?(value: U, id?: number|string): V&OengusStateCacheable;
+  transform?(value: U, id?: number|string): V;
   /**
    * How long should responses be cached for
    * Can be ignored with forceFetch
@@ -84,44 +86,50 @@ export class OengusAPI<T extends OengusState> {
       }
 
       // Cache check
-      let response: OengusStateValue<U|V> = id ? state[key][id] : state[key];
-      const cachedTime = response?._expires ?? 0;
-      if (cachedTime + cacheDuration > Date.now() && !forceFetch) {
-        return response as V;
+      const cachedResponse: OengusStateValue<V> = id ? state[key][id] : state[key];
+      const cachedTime = cachedResponse?._cachedAt ?? 0;
+      const fetching = cachedResponse?._fetching ?? false;
+      if (fetching || (!forceFetch && cachedTime + cacheDuration > Date.now())) {
+        return cachedResponse as V;
       }
 
+      // Setup the fetching promise
+      let fetchingResolve: (value: OengusStateValue<V>) => void;
+      let fetchingReject: (reason: { reason?: any, oldValue: OengusStateValue<V> }) => void;
+      const fetchingPromise = new Promise<OengusStateValue<V>>((resolve, reject) => {
+        fetchingResolve = resolve;
+        fetchingReject = reject;
+      });
+
+      // Mark the entry as updating by changing _fetching property
       if (cachedTime) {
-        // Mark the entry as updating by changing the cache expired marker
         // This allows existing stuff to continue to use the cached value,
-        commit(mutation, { id, value: { ...response, _expires: Date.now() } });
+        commit(mutation, { id, value: { ...cachedResponse, _fetching: true, _promise: fetchingPromise } });
       } else {
-        // Mark the entry as "being fetched" by giving it a promise
-        // Anything that wants to read the value is welcome to await it or use Vuex's observers
-        commit(mutation, { id, value: { _expires: Date.now() } });
+        commit(mutation, { id, value: { _cachedAt: Date.now(), _fetching: true, _promise: fetchingPromise } });
       }
 
       // Fetch and store into cache
       const route = `${this.basePath}${id ? `/${id}` : ''}${path ? `/${path}` : ''}`;
-      let apiResponse: U&OengusStateCacheable;
+      let apiResponse: U;
       try {
         apiResponse = await OengusAPI.http.$get(route);
-      } catch {
-        // This isn't intrinsically bad, just catch the error, mark as not fetching, and return nothing
-        if (cachedTime) {
-          // Reset the old cache timer, maybe the API is just down (should we worry about loops?)
-          commit(mutation, { id, value: response });
-        } else {
-          commit(mutation, { id, value: undefined });
-        }
+      } catch (error) {
+        // This isn't intrinsically bad, just catch the error, mark as not fetching, and return the old value
+        // Put the old value back in full, maybe the API is just down (should we worry about loops?)
+        fetchingReject!({ reason: error, oldValue: cachedResponse });
+        commit(mutation, { id, value: cachedResponse });
         return;
       }
-      response = apiResponse;
 
-      if (transform) {
-        response = transform(response as U, id);
-      }
-      response._expires = Date.now();
-      commit(mutation, { id, value: response as OengusStateValue<V> });
+      const response = {
+        ...(transform ? transform(apiResponse as U, id) : apiResponse),
+        _fetching: false,
+        _cachedAt: Date.now(),
+        _promise: fetchingPromise,
+      } as OengusStateValue<V>;
+      fetchingResolve!(response);
+      commit(mutation, { id, value: response });
       return response as V;
     };
   }
