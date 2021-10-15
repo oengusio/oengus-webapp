@@ -1,99 +1,100 @@
 <template>
-  <div class="schedule-container">
-    <!-- Ad -->
-    <AdsByGoogle ad-slot="5905320802" ad-format="" class="is-advertisement" />
-    <!-- Header -->
-    <span class="notification is-header expandable" />
-    <span class="notification is-header time">
-      {{ $t('marathon.schedule.table.time') }}
-    </span>
-    <span class="notification is-header runners">
-      {{ $t('marathon.schedule.table.runner') }}
-    </span>
-    <span class="notification is-header game">
-      {{ $t('marathon.schedule.table.game') }}
-    </span>
-    <span class="notification is-header category">
-      {{ $t('marathon.schedule.table.category') }}
-    </span>
-    <span class="notification is-header type">
-      {{ $t('marathon.schedule.table.type') }}
-    </span>
-    <span class="notification is-header console">
-      {{ $t('marathon.schedule.table.console') }}
-    </span>
-    <span class="notification is-header estimate">
-      {{ $t('marathon.schedule.table.estimate') }}
-    </span>
-    <span class="notification is-header setup">
-      {{ $t('marathon.schedule.table.setup') }}
-    </span>
-    <!-- Main Schedule Loop -->
-    <template v-if="runs">
-      <template v-for="(run, index) in runs">
-        <!-- Ad -->
-        <ClientOnly :key="'wrapper-advertisement' + index">
-          <AdsByGoogle v-if="advertisementIndices.includes(index)" :key="'advertisement' + index" ad-slot="5905320802" ad-format="" class="is-advertisement" />
-          <div v-show="shouldShowDay(index) && index !== 0" :key="'not-advertisement' + index" class="is-spacer" />
-        </ClientOnly>
-
-        <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-info">
-          {{ $d(new Date(run.date), 'longDate') }}
-        </div>
-
-        <span :id="getId(run)" :key="'expandable' + index" class="notification is-expandable expandable" :class="getRowParity(index, run)" @click="expand(run)">
-          <FontAwesomeIcon :icon="[ 'fas', expanded.has(run.id) ? 'caret-down' : 'caret-right' ]" />
-        </span>
-        <span :id="'run-' + run.id" :key="'time' + index" class="notification is-expandable time" :class="getRowParity(index, run)" @click="expand(run)">
-          {{ $d(new Date(run.date), 'shortTime') }}
-        </span>
-
-        <span v-if="run.setupBlock" :key="'setupText' + index" class="notification is-expandable setup-text" :class="getRowParity(index, run)" @click="expand(run)">
-          {{ (run.setupBlockText || $t('marathon.schedule.setupBlock')) }}
-        </span>
-        <template v-else>
-          <span :key="'runners' + index" class="notification is-expandable runners" :class="getRowParity(index, run)" @click="expand(run)">
-            <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
-              {{ runner.username }}
-            </p>
+  <div>
+    <div class="schedule-container">
+      <!-- Ad -->
+      <AdsByGoogle ad-slot="5905320802" ad-format="" class="is-advertisement" />
+      <!-- Header -->
+      <span class="notification is-header expandable" />
+      <span class="notification is-header time">
+        {{ $t('marathon.schedule.table.time') }}
+      </span>
+      <span class="notification is-header runners">
+        {{ $t('marathon.schedule.table.runner') }}
+      </span>
+      <span class="notification is-header game">
+        {{ $t('marathon.schedule.table.game') }}
+      </span>
+      <span class="notification is-header category">
+        {{ $t('marathon.schedule.table.category') }}
+      </span>
+      <span class="notification is-header type">
+        {{ $t('marathon.schedule.table.type') }}
+      </span>
+      <span class="notification is-header console">
+        {{ $t('marathon.schedule.table.console') }}
+      </span>
+      <span class="notification is-header estimate">
+        {{ $t('marathon.schedule.table.estimate') }}
+      </span>
+      <span class="notification is-header setup">
+        {{ $t('marathon.schedule.table.setup') }}
+      </span>
+      <!-- Main Schedule Loop -->
+      <template v-if="runs">
+        <template v-for="(run, index) in runs">
+          <!-- Ad -->
+          <ClientOnly :key="'wrapper-advertisement' + index">
+            <AdsByGoogle v-if="advertisementIndices.includes(index)" :key="'advertisement' + index" ad-slot="5905320802" ad-format="" class="is-advertisement" />
+            <div v-show="shouldShowDay(index) && index !== 0" :key="'not-advertisement' + index" class="is-spacer" />
+          </ClientOnly>
+          <div v-show="shouldShowDay(index)" :key="'day' + index" class="day notification is-info">
+            {{ $d(new Date(run.date), 'longDate') }}
+          </div>
+          <span :id="getId(run)" :key="'expandable' + index" class="notification is-expandable expandable" :class="getRowParity(index, run)" @click="expand(run)">
+            <FontAwesomeIcon :icon="[ 'fas', expanded.has(run.id) ? 'caret-down' : 'caret-right' ]" />
           </span>
-          <span :key="'game' + index" class="notification is-expandable game" :class="getRowParity(index, run)" @click="expand(run)">
-            {{ run.gameName }}
+          <span :id="'run-' + run.id" :key="'time' + index" class="notification is-expandable time" :class="getRowParity(index, run)" @click="expand(run)">
+            {{ $d(new Date(run.date), 'shortTime') }}
           </span>
+          <span v-if="run.setupBlock" :key="'setupText' + index" class="notification is-expandable setup-text" :class="getRowParity(index, run)" @click="expand(run)">
+            {{ (run.setupBlockText || $t('marathon.schedule.setupBlock')) }}
+          </span>
+          <template v-else>
+            <span :key="'runners' + index" class="notification is-expandable runners" :class="getRowParity(index, run)" @click="expand(run)">
+              <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
+                {{ runner.username }}
+              </p>
+            </span>
+            <span :key="'game' + index" class="notification is-expandable game" :class="getRowParity(index, run)" @click="expand(run)">
+              {{ run.gameName }}
+            </span>
+          </template>
+          <span :key="'category' + index" class="notification is-expandable category" :class="getRowParity(index, run)" @click="expand(run)">
+            {{ run.categoryName }}
+          </span>
+          <span :key="'type' + index" class="notification is-expandable type" :class="getRowParity(index, run)" @click="expand(run)">
+            {{ $t(`marathon.schedule.type.${run.type}`) }}
+          </span>
+          <span :key="'console' + index" class="notification is-expandable console" :class="getRowParity(index, run)" @click="expand(run)">
+            <span>
+              {{ run.console }}
+            </span>
+            <sup v-if="run.emulated">
+              {{ $t('global.emu') }}
+            </sup>
+          </span>
+          <span :key="'estimate' + index" class="notification is-expandable estimate" :class="getRowParity(index, run)" @click="expand(run)">
+            <ElementTemporalDuration :duration="run.estimate" />
+          </span>
+          <span :key="'setup' + index" class="notification is-expandable setup" :class="getRowParity(index, run)" @click="expand(run)">
+            <ElementTemporalDuration :duration="run.setupTime" />
+          </span>
+          <div v-if="expanded.has(run.id)" :key="'expanded' + index" class="expanded-run">
+            <MarathonScheduleRun :run="run" :class="getRowParity(index, run)" />
+          </div>
         </template>
-
-        <span :key="'category' + index" class="notification is-expandable category" :class="getRowParity(index, run)" @click="expand(run)">
-          {{ run.categoryName }}
-        </span>
-        <span :key="'type' + index" class="notification is-expandable type" :class="getRowParity(index, run)" @click="expand(run)">
-          {{ $t(`marathon.schedule.type.${run.type}`) }}
-        </span>
-        <span :key="'console' + index" class="notification is-expandable console" :class="getRowParity(index, run)" @click="expand(run)">
-          <span>
-            {{ run.console }}
-          </span>
-          <sup v-if="run.emulated">
-            {{ $t('global.emu') }}
-          </sup>
-        </span>
-        <span :key="'estimate' + index" class="notification is-expandable estimate" :class="getRowParity(index, run)" @click="expand(run)">
-          <ElementTemporalDuration :duration="run.estimate" />
-        </span>
-        <span :key="'setup' + index" class="notification is-expandable setup" :class="getRowParity(index, run)" @click="expand(run)">
-          <ElementTemporalDuration :duration="run.setupTime" />
-        </span>
-        <div v-if="expanded.has(run.id)" :key="'expanded' + index" class="expanded-run">
-          <MarathonScheduleRun :run="run" :class="getRowParity(index, run)" />
-        </div>
       </template>
-    </template>
+    </div>
+    <div class="is-centered">
+      <WidgetLoading :while="[ schedule ]" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
-import { ScheduleLine, ScheduleState, ScheduleTicker } from '~/types/api/schedule';
+import { Schedule, ScheduleLine, ScheduleState, ScheduleTicker } from '~/types/api/schedule';
 
 export default Vue.extend({
   props: {
@@ -119,8 +120,11 @@ export default Vue.extend({
     ]);
   },
   computed: {
+    schedule(): Schedule|undefined {
+      return (this.$store.state.api.schedule as ScheduleState).schedules[this.marathonId];
+    },
     runs(): Array<ScheduleLine>|undefined {
-      return (this.$store.state.api.schedule as ScheduleState).schedules[this.marathonId]?.lines;
+      return this.schedule?.lines;
     },
     tickers(): ScheduleTicker|undefined {
       return (this.$store.state.api.schedule as ScheduleState).tickers[this.marathonId];

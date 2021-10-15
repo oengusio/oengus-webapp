@@ -1,29 +1,33 @@
 <template>
-  <div v-if="ticker" class="message" :class="messageClass">
-    <div class="message-header">
-      <ElementLink :to="linkedRun">
-        {{ $t(messageHeaderTitle, messageHeaderArgs) }}
-      </ElementLink>
+  <div v-show="isLoading || ticker">
+    <div v-if="ticker" class="message" :class="messageClass">
+      <div class="message-header">
+        <ElementLink :to="linkedRun">
+          {{ $t(messageHeaderTitle, messageHeaderArgs) }}
+        </ElementLink>
+      </div>
+      <div class="message-body">
+        <p class="run-info">
+          <span v-if="ticker.setupBlock">
+            {{ (ticker.setupBlockText || $t('marathon.schedule.setupBlock')) }}
+          </span>
+          <span v-if="ticker.gameName">
+            {{ ticker.gameName }}
+          </span>
+          <span v-if="ticker.categoryName">
+            {{ ticker.categoryName }}
+          </span>
+          <span v-if="ticker.console">
+            {{ ticker.console }}
+          </span>
+        </p>
+        <p class="runner-info">
+          <span v-for="runner in ticker.runners" :key="runner.id">{{ runner.username }}</span>
+        </p>
+      </div>
     </div>
-
-    <div class="message-body">
-      <p class="run-info">
-        <span v-if="ticker.setupBlock">
-          {{ (ticker.setupBlockText || $t('marathon.schedule.setupBlock')) }}
-        </span>
-        <span v-if="ticker.gameName">
-          {{ ticker.gameName }}
-        </span>
-        <span v-if="ticker.categoryName">
-          {{ ticker.categoryName }}
-        </span>
-        <span v-if="ticker.console">
-          {{ ticker.console }}
-        </span>
-      </p>
-      <p class="runner-info">
-        <span v-for="runner in ticker.runners" :key="runner.id">{{ runner.username }}</span>
-      </p>
+    <div class="is-centered">
+      <WidgetLoading :while="[ tickers ]" @done="isLoading = false" />
     </div>
   </div>
 </template>
@@ -31,7 +35,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
-import { ScheduleLine, ScheduleState } from '~/types/api/schedule';
+import { ScheduleLine, ScheduleState, ScheduleTicker } from '~/types/api/schedule';
 
 export default Vue.extend({
   props: {
@@ -43,6 +47,11 @@ export default Vue.extend({
       type: String,
       default: '',
     },
+  },
+  data() {
+    return {
+      isLoading: true,
+    };
   },
   async fetch(): Promise<void> {
     await Promise.allSettled([
@@ -62,9 +71,11 @@ export default Vue.extend({
     messageHeaderArgs(): { duration?: string } {
       return this.isNext ? { duration: this.$temporal.distance.format(this.ticker?.date ?? new Date()) } : { };
     },
+    tickers(): ScheduleTicker|undefined {
+      return (this.$store.state.api.schedule as ScheduleState).tickers[this.marathonId];
+    },
     ticker(): ScheduleLine|undefined {
-      const tickers = (this.$store.state.api.schedule as ScheduleState).tickers[this.marathonId];
-      return this.isNext ? tickers?.next : tickers?.current;
+      return this.isNext ? this.tickers?.next : this.tickers?.current;
     },
   },
   methods: {

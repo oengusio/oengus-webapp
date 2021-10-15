@@ -53,4 +53,3 @@ $logo-height: 40px;
   }
 }
 </i18n>
-

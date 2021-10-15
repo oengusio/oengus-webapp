@@ -37,6 +37,9 @@
         </template>
       </template>
     </div>
+    <div class="is-centered">
+      <WidgetLoading :while="[ homepageMarathons ]" />
+    </div>
   </div>
 </template>
 

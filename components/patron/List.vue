@@ -1,23 +1,28 @@
 <template>
-  <div v-if="patrons" class="field is-grouped is-grouped-multiline">
-    <template v-if="patrons.length">
-      <div v-for="patron in patrons" :key="patron.id" class="tags has-addons">
-        <div class="avatar tag is-primary">
-          <img :src="patron.image_url">
+  <div>
+    <div v-if="patrons" class="field is-grouped is-grouped-multiline">
+      <template v-if="patrons.length">
+        <div v-for="patron in patrons" :key="patron.id" class="tags has-addons">
+          <div class="avatar tag is-primary">
+            <img :src="patron.image_url">
+          </div>
+          <a :href="`https://www.patreon.com/user?u=${patron.id}`" target="_blank" class="tag is-primary is-large">
+            {{ patron.full_name }}
+          </a>
         </div>
-        <a :href="`https://www.patreon.com/user?u=${patron.id}`" target="_blank" class="tag is-primary is-large">
-          {{ patron.full_name }}
-        </a>
-      </div>
-    </template>
-    <span v-else v-html="$t('patrons.noPatrons')" />
+      </template>
+      <span v-else v-html="$t('patrons.noPatrons')" />
+    </div>
+    <div class="is-centered">
+      <WidgetLoading :while="[ patronsWhole ]" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
-import { PatreonState, Patron } from '~/types/api/patreon';
+import { PatreonState, Patron, Patrons } from '~/types/api/patreon';
 
 export default Vue.extend({
   async fetch(): Promise<void> {
@@ -26,8 +31,11 @@ export default Vue.extend({
     ]);
   },
   computed: {
+    patronsWhole(): Patrons|undefined {
+      return (this.$store.state.api.patreon as PatreonState).patrons;
+    },
     patrons(): Array<Patron>|undefined {
-      return (this.$store.state.api.patreon as PatreonState).patrons?.patrons;
+      return this.patronsWhole?.patrons;
     },
   },
   methods: {
