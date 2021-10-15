@@ -61,6 +61,7 @@ export default Vue.extend({
       justify-content: start;
 
       > .icon {
+        min-width: 1.5em;
         margin-inline-end: 0.25em;
       }
     }

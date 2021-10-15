@@ -5,7 +5,7 @@
     </p>
     <ul class="menu-list">
       <li>
-        <ElementLink :to="`/marathon/${marathonId}`">
+        <ElementLink :to="`/marathon/${marathonId}`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'home' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.home') }}
@@ -13,7 +13,7 @@
         </ElementLink>
       </li>
       <li>
-        <ElementLink :to="`/marathon/${marathonId}/schedule`">
+        <ElementLink :to="`/marathon/${marathonId}/schedule`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'calendar' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.schedule') }}
@@ -21,7 +21,7 @@
         </ElementLink>
       </li>
       <li>
-        <ElementLink :to="`/marathon/${marathonId}/submissions`">
+        <ElementLink :to="`/marathon/${marathonId}/submissions`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'book' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.viewSubmissions') }}
@@ -29,7 +29,7 @@
         </ElementLink>
       </li>
       <li v-if="shouldShowRedirectLinks">
-        <ElementLink :to="`/marathon/${marathonId}/submit`">
+        <ElementLink :to="`/marathon/${marathonId}/submit`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'paper-plane' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.submitRuns') }}
@@ -63,10 +63,26 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+  .menu-item-link {
+    display: flex;
+    justify-content: flex-start;
+    justify-content: start;
+    align-items: center;
+  }
+
+  .menu-item-icon {
+    min-width: 1.5em;
+    margin-inline-end: 0.25em;
+  }
+
   .collapsed {
     .menu-label,
     .menu-item-label {
       display: none;
+    }
+
+    .menu-item-icon {
+      margin-inline-end: 0;
     }
 
     .menu-list {
