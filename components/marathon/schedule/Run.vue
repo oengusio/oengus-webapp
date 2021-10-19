@@ -1,5 +1,5 @@
 <template>
-  <div class="notification run-detail-container">
+  <div class="run-detail-container">
     <div class="header">
       <h4 class="title is-4">
         {{ run.setupBlock ? (run.setupBlockText || $t('marathon.schedule.setupBlock')) : run.gameName }}
@@ -79,7 +79,6 @@ export default Vue.extend({
     grid-template-columns: auto 1fr;
     grid-auto-rows: auto;
     gap: calc(var(--spacing) / 2);
-    padding: var(--spacing);
 
     > .header {
       grid-column: 1 / -1;
@@ -102,12 +101,6 @@ export default Vue.extend({
 
     > *:not(.is-label) {
       overflow-x: auto;
-    }
-  }
-
-  @media (max-width: 1023px) {
-    .run-detail-container {
-      padding: calc(var(--spacing) / 2);
     }
   }
 </style>
