@@ -1,0 +1,23 @@
+@use './variables' as *;
+
+@mixin cell-like($default-color: $neutral-color) {
+  position: relative;
+  padding: calc(var(--spacing) / 2);
+  background-color: $default-color;
+}
+
+@mixin cell-varients($selector-before: '', $selector-after: '') {
+  @each $name, $bg-color, $color in $colors {
+    #{$selector-before}&.is-#{$name}#{$selector-after} {
+      background-color: $bg-color;
+
+      @if $color {
+        color: $color;
+
+        ::v-deep .title {
+          color: $color;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@use '../themes/default' as theme;
+
+// Colors are designed to take advantage of playing of the background. Theme neutral
+$neutral-color: rgba(255, 255, 255, 0.1) !default;
+$light-color: rgba(255, 255, 255, 0.05) !default;
+$dark-color: rgba(0, 0, 0, 0.1) !default;
+
+$primary-color: theme.$primary !default;
+$info-color: theme.$info !default;
+$success-color: theme.$success !default;
+$warning-color: theme.$warning !default;
+$danger-color: theme.$danger !default;
+
+/* stylelint-disable function-name-case */
+// I can't help what Bulma named their function...
+$colors:
+  'neutral' $neutral-color null,
+  'light' $light-color null,
+  'dark' $dark-color null,
+  'even' $dark-color null,
+  'odd' $light-color null,
+  'primary' $primary-color theme.findColorInvert($primary-color),
+  'info' $info-color theme.findColorInvert($info-color),
+  'success' $success-color theme.findColorInvert($success-color),
+  'warning' $warning-color theme.findColorInvert($warning-color),
+  'danger' $danger-color theme.findColorInvert($danger-color);
+/* stylelint-enable function-name-case */
