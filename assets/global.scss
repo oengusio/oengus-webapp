@@ -2,9 +2,7 @@
  * Global styles for the site
  */
 
-@import 'bulmaswatch/solar/variables';
-@import 'bulma';
-@import 'bulmaswatch/solar/overrides';
+@use './themes/default' as theme;
 
 html {
   // Controls how far stuff is apart from each other.
@@ -14,7 +12,12 @@ html {
 }
 
 a {
+  color: inherit;
   text-decoration: underline;
+
+  &:hover {
+    color: theme.$link-hover;
+  }
 }
 
 .is-centered {
