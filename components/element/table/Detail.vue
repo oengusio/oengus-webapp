@@ -8,7 +8,7 @@
 
 <style lang="scss" scoped>
 @use '~assets/table';
-@use '~assets/themes/default' as theme;
+@use '~bulmaswatch/solar/variables' as solar;
 
 .element-table-detail-container {
   @include table.cell-varients($selector-after: '> .element-table-detail');
@@ -43,7 +43,7 @@
 
   > .element-table-detail {
     padding: var(--spacing);
-    border-radius: theme.$radius;
+    border-radius: solar.$radius;
 
     @media (max-width: 1023px) {
       & {
