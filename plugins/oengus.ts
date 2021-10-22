@@ -126,7 +126,8 @@ export class OengusAPI<T extends OengusState> {
         ...(transform ? transform(apiResponse as U, id) : apiResponse),
         _fetching: false,
         _cachedAt: Date.now(),
-        _promise: fetchingPromise,
+        // We cannot send promises from the SSR to the client
+        _promise: process.client ? fetchingPromise : undefined,
       } as OengusStateValue<V>;
       fetchingResolve!(response);
       commit(mutation, { id, value: response });
