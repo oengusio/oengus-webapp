@@ -9,7 +9,7 @@
       </span>
     </h3>
 
-    <div v-if="homepageMarathons" class="marathons-list-container">
+    <ElementTable v-if="homepageMarathons" class="marathons-list-container">
       <template v-for="marathonsList in marathonsLists">
         <template v-if="shouldRenderList(marathonsList.key)">
           <h4 :key="marathonsList.key + 'title'" class="title" :class="marathonsList.headerClass">
@@ -17,26 +17,26 @@
           </h4>
           <div :key="marathonsList.key + 'prespacer'" class="spacer" />
           <template v-for="(marathon, index) in homepageMarathons[marathonsList.key]">
-            <span :key="marathonsList.key + 'name' + index" class="notification" :class="getRowParity(index)">
+            <ElementTableCell :key="marathonsList.key + 'name' + index" class="marathon-name" :class="getRowParity(index)">
               <ElementLink :to="`/marathon/${marathon.id}`">
                 {{ marathon.name }}
               </ElementLink>
-            </span>
-            <span :key="marathonsList.key + 'location' + index" class="notification location" :class="getRowParity(index)">
+            </ElementTableCell>
+            <ElementTableCell :key="marathonsList.key + 'location' + index" class="location" :class="getRowParity(index)">
               <span v-if="marathon.onsite && marathon.country" class="icon flag-icon" :class="`flag-icon-${marathon.country.toLowerCase()}`" />
               <FontAwesomeIcon v-else :icon="[ 'fas', 'desktop' ]" class="icon" />
-            </span>
-            <span :key="marathonsList.key + 'language' + index" class="notification" :class="getRowParity(index)">
+            </ElementTableCell>
+            <ElementTableCell :key="marathonsList.key + 'language' + index" class="language" :class="getRowParity(index)">
               {{ marathon.language.toLocaleUpperCase() }}
-            </span>
-            <span :key="marathonsList.key + 'time' + index" class="notification time" :class="getRowParity(index)">
+            </ElementTableCell>
+            <ElementTableCell :key="marathonsList.key + 'time' + index" class="time" :class="getRowParity(index)">
               {{ $t(marathonsList.timeTranslationKey, { duration: $temporal.distance.format(marathon[marathonsList.timeTranslationValue]) }) }}
-            </span>
+            </ElementTableCell>
           </template>
           <div :key="marathonsList.key + 'postspacer'" class="spacer" />
         </template>
       </template>
-    </div>
+    </ElementTable>
     <div class="is-centered">
       <WidgetLoading :while="[ homepageMarathons ]" />
     </div>
@@ -87,9 +87,10 @@ export default Vue.extend({
     },
   },
   methods: {
-    getRowParity(index: number): { 'is-dark': boolean } {
+    getRowParity(index: number): { 'is-even': boolean, 'is-odd': boolean } {
       return {
-        'is-dark': index % 2 === 0,
+        'is-even': index % 2 === 0,
+        'is-odd': index % 2 === 1,
       };
     },
     shouldRenderList(key: keyof FrontPageMarathons): boolean {
@@ -108,38 +109,29 @@ export default Vue.extend({
   }
 
   .marathons-list-container {
-    width: 100%;
-    display: grid;
     grid-template-columns: repeat(4, auto);
     grid-template-columns: auto min-content min-content auto;
-    grid-auto-rows: auto;
 
-    > * {
-      // A lot of the notification styling is undesirable in this context
-      padding: calc(var(--spacing) / 2);
-      margin-block-end: 0;
-      border-radius: 0;
+    > .title {
+      // Span from start to finish
+      grid-column: 1 / -1;
+      padding-inline-start: 0;
+      margin: 0;
+    }
 
-      &.title {
-        // Span from start to finish
-        grid-column: 1 / -1;
-        padding-inline-start: 0;
-      }
+    > .location {
+      display: flex;
+      justify-content: center;
+    }
 
-      &.location {
-        display: flex;
-        justify-content: center;
-      }
+    > .time {
+      text-align: end;
+    }
 
-      &.time {
-        text-align: end;
-      }
-
-      &.spacer {
-        // Span from start to finish
-        grid-column: 1 / -1;
-        height: var(--spacing);
-      }
+    > .spacer {
+      // Span from start to finish
+      grid-column: 1 / -1;
+      height: calc(3 * var(--spacing) / 2);
     }
   }
 </style>
