@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ElementTable class="schedule-container">
+    <div class="schedule-container">
       <!-- Ad -->
       <AdsByGoogle ad-slot="5905320802" ad-format="" class="is-advertisement" />
       <!-- Header -->
@@ -103,7 +103,7 @@
           </ElementTableDetail>
         </template>
       </template>
-    </ElementTable>
+    </div>
     <div class="is-centered">
       <WidgetLoading :while="[ schedule ]" />
     </div>
@@ -257,6 +257,12 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
   .schedule-container {
+    // Temporary relocation of ElementTable styling
+    display: grid;
+    grid-auto-rows: auto;
+    width: 100%;
+    max-width: 100%;
+    // End temporary styles
     overflow-x: auto;
     grid-template-columns: repeat(9, auto);
 
