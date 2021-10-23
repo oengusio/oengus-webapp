@@ -34,11 +34,7 @@
         <template v-for="(run, index) in runs">
           <!-- XXX @click.native will stop working in Vue v3+ (Vue Router v4+), but @click should start working -->
 
-          <!-- Ad -->
-          <ClientOnly :key="'wrapper-advertisement' + index">
-            <AdsByGoogle v-if="advertisementIndices.includes(index)" :key="'advertisement' + index" ad-slot="5905320802" ad-format="" class="is-advertisement" />
-            <div v-show="shouldShowDay(index) && index !== 0" :key="'not-advertisement' + index" class="is-spacer" />
-          </ClientOnly>
+          <WidgetAdvertisement v-show="shouldShowDay(index) && index !== 0" :key="'advertisement' + index" class="is-advertisement" :show-advertisement="advertisementIndices.includes(index)" is-horizontal />
 
           <ElementTableCell v-show="shouldShowDay(index)" :key="'day' + index" class="day is-info" column-start="1" column-end="-1">
             {{ $d(new Date(run.date), 'longDate') }}
@@ -279,44 +275,10 @@ export default Vue.extend({
       width: 10px;
     }
 
-    > .is-spacer {
-      // Span from start to finish
-      grid-column: 1 / -1;
-      height: 50px;
-    }
-
     > .is-advertisement {
       // Span from start to finish
       grid-column: 1 / -1;
       justify-self: center;
-      // Advertisements don't play nice with padding, remove it and use margin
-      padding: 0;
-      margin-block: var(--spacing);
-      // Dynamic logic lets AdSense pick from more advertisement options
-      height: 100%;
-      min-height: 50px;
-      max-height: 100px;
-      width: 100%;
-      min-width: 300px;
-      max-width: 728px;
-
-      & + .is-spacer {
-        display: none;
-      }
-
-      @media (max-width: 1023px) {
-        & {
-          max-width: 320px;
-        }
-      }
-
-      &[data-ad-status="unfilled"] {
-        display: none !important;
-
-        & + .is-spacer {
-          display: block;
-        }
-      }
     }
   }
 
