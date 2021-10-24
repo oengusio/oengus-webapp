@@ -7,22 +7,22 @@
         </ElementLink>
       </div>
       <div class="message-body">
-        <p class="run-info">
-          <span v-if="ticker.setupBlock">
+        <p class="run-info-container">
+          <span v-if="ticker.setupBlock" class="info">
             {{ (ticker.setupBlockText || $t('marathon.schedule.setupBlock')) }}
           </span>
-          <span v-if="ticker.gameName">
+          <span v-if="ticker.gameName" class="info">
             {{ ticker.gameName }}
           </span>
-          <span v-if="ticker.categoryName">
+          <span v-if="ticker.categoryName" class="info">
             {{ ticker.categoryName }}
           </span>
-          <span v-if="ticker.console">
+          <span v-if="ticker.console" class="info">
             {{ ticker.console }}
           </span>
         </p>
         <p class="runner-info">
-          <span v-for="runner in ticker.runners" :key="runner.id">{{ runner.username }}</span>
+          <User v-for="runner in ticker.runners" :key="runner.id" :user="runner" class="runner" />
         </p>
       </div>
     </div>
@@ -48,16 +48,19 @@ export default Vue.extend({
       default: '',
     },
   },
+
   data() {
     return {
       isLoading: true,
     };
   },
+
   async fetch(): Promise<void> {
     await Promise.allSettled([
       this.getScheduleTicker(this.marathonId),
     ]);
   },
+
   computed: {
     linkedRun(): string {
       return this.isNext ? '#next' : '#current';
@@ -78,6 +81,7 @@ export default Vue.extend({
       return this.isNext ? this.tickers?.next : this.tickers?.current;
     },
   },
+
   methods: {
     ...mapActions({
       getScheduleTicker: 'api/schedule/ticker',
@@ -97,11 +101,19 @@ export default Vue.extend({
     word-spacing: 0;
   }
 
-  .run-info > span:not(:last-of-type)::after {
+  .run-info-container > .info:not(:last-of-type)::after {
     content: '-';
   }
 
-  .runner-info > span:not(:last-of-type)::after {
-    content: ', ';
+  .runner-info {
+    display: flex;
+
+    > .runner:not(:last-of-type) {
+      margin-inline-end: 0.25em;
+
+      &::after {
+        content: ',';
+      }
+    }
   }
 </style>

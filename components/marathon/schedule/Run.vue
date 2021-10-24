@@ -4,11 +4,7 @@
       <h4 class="title is-4">
         {{ run.setupBlock ? (run.setupBlockText || $t('marathon.schedule.setupBlock')) : run.gameName }}
       </h4>
-      <p v-for="runner in run.runners" :key="runner.id">
-        <ElementLink :to="`/user/${runner.username}`">
-          {{ runner.username }}
-        </ElementLink>
-      </p>
+      <User v-for="runner in run.runners" :key="runner.id" :user="runner" is-link />
     </div>
 
     <template v-if="run.date">

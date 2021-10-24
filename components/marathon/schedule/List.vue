@@ -60,9 +60,7 @@
           </ElementTableCell>
           <template v-else>
             <ElementTableCell :key="'runners' + index" class="is-expandable runners" :class="getRowParity(index, run)" @click.native="expand(run)">
-              <p v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id">
-                {{ runner.username }}
-              </p>
+              <User v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id" :user="runner" />
             </ElementTableCell>
             <ElementTableCell :key="'game' + index" class="is-expandable game" :class="getRowParity(index, run)" @click.native="expand(run)">
               {{ run.gameName }}
