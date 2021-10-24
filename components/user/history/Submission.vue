@@ -1,8 +1,6 @@
 <template>
   <div>
-    <UserProfile :user-id="userId" />
-    <UserSocial :user-id="userId" />
-    <UserHistory :user-id="userId" />
+    This is a nice list of the submission history. It will hide when moderation is shown.
   </div>
 </template>
 
