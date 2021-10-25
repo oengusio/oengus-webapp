@@ -62,6 +62,17 @@ export interface ExtendedFetch {
  */
 export type GetterFunc<T, V> = (context: ActionContext<T, T>, id?: number|string|ExtendedFetch) => Promise<V|undefined>;
 
+export interface RouteSpecification {
+  // Base portion of the path, typically indicates what type of thing is being requested
+  basePath: string;
+  // Unique identifier for the thing being fetched
+  id?: string|number;
+  // A specific path with the thing being indicated
+  path?: string;
+  // Returns the full url including protocol and domain if provided and true
+  fullURL?: boolean;
+}
+
 export class OengusAPI<T extends OengusState> {
   static http: NuxtHTTPInstance;
 
@@ -110,7 +121,7 @@ export class OengusAPI<T extends OengusState> {
       }
 
       // Fetch and store into cache
-      const route = `${this.basePath}${id ? `/${id}` : ''}${path ? `/${path}` : ''}`;
+      const route = OengusAPI.getRoute({ basePath: this.basePath, id, path });
       let apiResponse: U;
       try {
         apiResponse = await OengusAPI.http.$get(route);
@@ -133,6 +144,10 @@ export class OengusAPI<T extends OengusState> {
       commit(mutation, { id, value: response });
       return response as V;
     };
+  }
+
+  public static getRoute({ basePath, id, path, fullURL }: RouteSpecification): string {
+    return `${fullURL ? OengusAPI.http.getBaseURL() : ''}${basePath}${id ? `/${id}` : ''}${path ? `/${path}` : ''}`;
   }
 }
 
