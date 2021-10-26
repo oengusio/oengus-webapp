@@ -30,7 +30,11 @@
               {{ marathon.language.toLocaleUpperCase() }}
             </ElementTableCell>
             <ElementTableCell :key="marathonsList.key + 'time' + index" class="time" :class="getRowParity(index)">
-              {{ $t(marathonsList.timeTranslationKey, { duration: $temporal.distance.format(marathon[marathonsList.timeTranslationValue]) }) }}
+              <i18n :path="marathonsList.timeTranslationKey">
+                <template #duration>
+                  <ElementTemporalDistance :datetime="getMarathonDistance(marathon, marathonsList.timeTranslationValue)" />
+                </template>
+              </i18n>
             </ElementTableCell>
           </template>
           <div :key="marathonsList.key + 'postspacer'" class="spacer" />
@@ -46,7 +50,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
-import { FrontPageMarathons, MarathonState } from '~/types/api/marathon';
+import { FrontPageMarathons, Marathon, MarathonState } from '~/types/api/marathon';
 
 export default Vue.extend({
   data() {
@@ -56,36 +60,39 @@ export default Vue.extend({
           key: 'live',
           label: 'homepage.marathons.live',
           timeTranslationKey: 'homepage.ends',
-          timeTranslationValue: 'endDate',
+          timeTranslationValue: [ 'endDate' ],
           headerClass: 'is-3',
         },
         {
           key: 'next',
           label: 'homepage.marathons.upcoming',
           timeTranslationKey: 'homepage.starts',
-          timeTranslationValue: 'startDate',
+          timeTranslationValue: [ 'startDate' ],
           headerClass: 'is-4',
         },
         {
           key: 'open',
           label: 'homepage.marathons.open',
           timeTranslationKey: 'homepage.submissions_close',
-          timeTranslationValue: 'submissionsEndDate',
+          timeTranslationValue: [ 'submissionsEndDate', 'startDate' ],
           headerClass: 'is-4',
         },
       ],
     };
   },
+
   async fetch(): Promise<void> {
     await Promise.allSettled([
       this.getFrontPage(),
     ]);
   },
+
   computed: {
     homepageMarathons(): FrontPageMarathons|undefined {
       return (this.$store.state.api.marathon as MarathonState).frontPage;
     },
   },
+
   methods: {
     getRowParity(index: number): { 'is-even': boolean, 'is-odd': boolean } {
       return {
@@ -95,6 +102,9 @@ export default Vue.extend({
     },
     shouldRenderList(key: keyof FrontPageMarathons): boolean {
       return (this.homepageMarathons?.[key]?.length ?? 0) > 0;
+    },
+    getMarathonDistance(marathon: Marathon, keys: Array<keyof Marathon>): Date|undefined {
+      return keys.map(key => marathon[key] as Date).find(date => date);
     },
     ...mapActions({
       getFrontPage: 'api/marathon/frontPage',
