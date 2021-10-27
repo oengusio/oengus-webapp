@@ -9,7 +9,7 @@
         <h3 class="title is-3 username">
           <User :user="user" />
         </h3>
-        <span class="tags">
+        <span v-if="user.pronouns.length" class="tags">
           <span v-for="pronoun of user.pronouns" :key="pronoun" class="tag is-info">
             {{ pronoun }}
           </span>
