@@ -10,7 +10,7 @@
     <template v-if="run.date">
       <span class="is-label">{{ $t('marathon.schedule.table.time') }}</span>
       <span>
-        {{ $d(new Date(run.date), 'mediumDateTime') }}
+        <ElementTemporalDateTime :datetime="run.date" format="mediumDateTime" />
         (<ElementTemporalDistance :datetime="run.date" />)
       </span>
     </template>

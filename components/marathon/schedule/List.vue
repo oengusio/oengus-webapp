@@ -37,7 +37,7 @@
           <WidgetAdvertisement v-show="shouldShowDay(index) && index !== 0" :key="'advertisement' + index" class="is-advertisement" :show-advertisement="advertisementIndices.includes(index)" is-horizontal />
 
           <ElementTableCell v-show="shouldShowDay(index)" :key="'day' + index" class="day is-info" column-start="1" column-end="-1">
-            {{ $d(new Date(run.date), 'longDate') }}
+            <ElementTemporalDateTime :datetime="run.date" format="longDate" />
           </ElementTableCell>
 
           <ElementTableCell :id="getId(run)" :key="'expandable' + index" class="is-expandable expandable" :class="getRowParity(index, run)" @click.native="expand(run)">
@@ -45,7 +45,7 @@
           </ElementTableCell>
 
           <ElementTableCell :id="'run-' + run.id" :key="'time' + index" class="is-expandable time" :class="getRowParity(index, run)" @click.native="expand(run)">
-            {{ $d(new Date(run.date), 'shortTime') }}
+            <ElementTemporalDateTime :datetime="run.date" format="shortTime" />
           </ElementTableCell>
 
           <ElementTableCell
