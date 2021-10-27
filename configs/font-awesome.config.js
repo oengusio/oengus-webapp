@@ -19,17 +19,24 @@ const solid = [
   'Desktop',
   'Donate',
   'DotCircle',
+  'Envelope',
   'Home',
   'Language',
   'MoneyBill',
   'PaperPlane',
+  'Phone',
   'Plus',
+  'Trophy',
+  'Tv',
 ];
 
 const brands = [
   'Discord',
+  'FacebookF',
   'Github',
+  'Instagram',
   'Patreon',
+  'SnapchatGhost',
   'Twitch',
   'Twitter',
 ];
