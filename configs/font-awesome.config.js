@@ -26,6 +26,7 @@ const solid = [
   'PaperPlane',
   'Phone',
   'Plus',
+  'Star',
   'Trophy',
   'Tv',
 ];

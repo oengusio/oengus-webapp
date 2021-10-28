@@ -1,5 +1,5 @@
 <template>
-  <Component :is="connectionMeta.link ? 'a' : 'div'" :href="connectionMeta.link" class="social-link-container">
+  <Component :is="connectionMeta.link ? 'a' : 'div'" :href="connectionMeta.link" target="_blank" class="social-link-container">
     <p>{{ connectionMeta.header || connection.platform }}</p>
     <FontAwesomeIcon :icon="connectionMeta.icon" class="icon fa-6x" />
     <p>{{ connection.username }}</p>
@@ -19,62 +19,59 @@ export default Vue.extend({
   },
 
   computed: {
-    connectionMeta(): Partial<ConnectionMeta> {
-      const connectionMeta = this.connectionMetas[this.connection?.platform] ?? { };
-      if (connectionMeta.linkBase) {
-        connectionMeta.link = connectionMeta.linkBase(this.connection.username);
-      }
+    connectionMeta(): ConnectionMeta {
+      const connectionMeta = connectionMetas[this.connection?.platform] ?? connectionMetas._DEFAULT;
+      connectionMeta.link = connectionMeta.linkBase?.(this.connection.username);
       return connectionMeta;
     },
   },
-
-  /* eslint-disable-next-line vue/order-in-components */ // Here, data is way less interesting than computed
-  data() {
-    return {
-      connectionMetas: {
-        DISCORD: {
-          icon: [ 'fab', 'discord' ],
-        },
-        EMAIL: {
-          linkBase: fragment => `mailto:${fragment}`,
-          icon: [ 'fas', 'envelope' ],
-        },
-        FACEBOOK: {
-          linkBase: fragment => `https://www.facebook.com/${fragment}`,
-          icon: [ 'fab', 'facebook-f' ],
-        },
-        INSTAGRAM: {
-          linkBase: fragment => `https://www.instagram.com/${fragment}`,
-          icon: [ 'fab', 'instagram' ],
-        },
-        PHONE: {
-          linkBase: fragment => `tel:${fragment}`,
-          icon: [ 'fas', 'phone' ],
-        },
-        NICO: {
-          linkBase: fragment => `https://com.nicovideo.jp/community/${fragment}`,
-          icon: [ 'fas', 'tv' ],
-        },
-        SNAPCHAT: {
-          linkBase: fragment => `https://www.snapchat.com/add/${fragment}`,
-          icon: [ 'fab', 'snapchat-ghost' ],
-        },
-        SPEEDRUNCOM: {
-          linkBase: fragment => `https://speedrun.com/user/${fragment}`,
-          icon: [ 'fas', 'trophy' ],
-        },
-        TWITCH: {
-          linkBase: fragment => `https://www.twitch.tv/${fragment}`,
-          icon: [ 'fab', 'twitch' ],
-        },
-        TWITTER: {
-          linkBase: fragment => `https://www.twitter.com/${fragment}`,
-          icon: [ 'fab', 'twitter' ],
-        },
-      } as ConnectionMetas,
-    };
-  },
 });
+
+const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
+  DISCORD: {
+    icon: [ 'fab', 'discord' ],
+  },
+  EMAIL: {
+    linkBase: fragment => `mailto:${fragment}`,
+    icon: [ 'fas', 'envelope' ],
+  },
+  FACEBOOK: {
+    linkBase: fragment => `https://www.facebook.com/${fragment}`,
+    icon: [ 'fab', 'facebook-f' ],
+  },
+  INSTAGRAM: {
+    linkBase: fragment => `https://www.instagram.com/${fragment}`,
+    icon: [ 'fab', 'instagram' ],
+  },
+  PHONE: {
+    linkBase: fragment => `tel:${fragment}`,
+    icon: [ 'fas', 'phone' ],
+  },
+  NICO: {
+    linkBase: fragment => `https://com.nicovideo.jp/community/${fragment}`,
+    icon: [ 'fas', 'tv' ],
+  },
+  SNAPCHAT: {
+    linkBase: fragment => `https://www.snapchat.com/add/${fragment}`,
+    icon: [ 'fab', 'snapchat-ghost' ],
+  },
+  SPEEDRUNCOM: {
+    linkBase: fragment => `https://speedrun.com/user/${fragment}`,
+    icon: [ 'fas', 'trophy' ],
+  },
+  TWITCH: {
+    linkBase: fragment => `https://www.twitch.tv/${fragment}`,
+    icon: [ 'fab', 'twitch' ],
+  },
+  TWITTER: {
+    linkBase: fragment => `https://www.twitter.com/${fragment}`,
+    icon: [ 'fab', 'twitter' ],
+  },
+
+  _DEFAULT: {
+    icon: [ 'fas', 'star' ],
+  },
+};
 </script>
 
 <style lang="scss" scoped>
