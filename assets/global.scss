@@ -26,6 +26,10 @@ a {
   line-break: normal;
 }
 
+hr {
+  border-block-start: 2px solid;
+}
+
 .is-centered {
   display: flex;
   justify-content: center;

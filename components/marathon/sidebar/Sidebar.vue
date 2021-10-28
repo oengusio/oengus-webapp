@@ -15,6 +15,8 @@
       <MarathonSidebarOverview :marathon-id="marathonId" :collapsed="collapsed" class="menu-section" />
       <MarathonSidebarTracker :marathon-id="marathonId" :collapsed="collapsed" class="menu-section" />
       <MarathonSidebarAdmin :marathon-id="marathonId" :collapsed="collapsed" class="menu-section" />
+      <hr v-show="!collapsed">
+      <MarathonSidebarModerators :marathon-id="marathonId" :collapsed="collapsed" class="menu-section" />
     </div>
   </nav>
 </template>
@@ -36,11 +38,13 @@ export default Vue.extend({
       default: false,
     },
   },
+
   async fetch(): Promise<void> {
     await Promise.allSettled([
       this.getMarathon(this.marathonId),
     ]);
   },
+
   computed: {
     marathon(): FullMarathon|undefined {
       return (this.$store.state.api.marathon as MarathonState).marathons[this.marathonId];
@@ -64,6 +68,7 @@ export default Vue.extend({
       };
     },
   },
+
   methods: {
     toggleSidebar(): void {
       this.$emit('update:collapsed', !this.collapsed);

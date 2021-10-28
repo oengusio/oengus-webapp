@@ -54,6 +54,7 @@ export default Vue.extend({
       default: false,
     },
   },
+
   data() {
     return {
       shouldShowRedirectLinks: !this.$config.env.DOMAIN_V1,
