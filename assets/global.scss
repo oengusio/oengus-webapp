@@ -15,8 +15,8 @@ a {
   color: inherit;
   text-decoration: underline;
 
-  &:hover {
-    color: theme.$link-hover;
+  &:hover:not(.is-active) {
+    color: theme.$link-hover !important;
   }
 }
 
