@@ -20,6 +20,12 @@ a {
   }
 }
 
+.title {
+  word-break: normal;
+  // Line break is kinda like word break, but for languages without spaces, like Chinese, Japanese, or Korean
+  line-break: normal;
+}
+
 .is-centered {
   display: flex;
   justify-content: center;
