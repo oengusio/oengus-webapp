@@ -4,6 +4,7 @@
       <img :src="userProfileURL" alt="Profile image">
     </div>
 
+    <WidgetLoading :while="[ user ]" />
     <template v-if="user && !user._fetching">
       <div class="user-address">
         <h3 class="title is-3 username">
@@ -30,7 +31,6 @@
         <span v-for="language of user.languagesSpoken" :key="language" class="language-spoken">{{ $t(`language.${language}`) }}</span>
       </div>
     </template>
-    <WidgetLoading :while="[ user ]" />
   </div>
 </template>
 
@@ -85,7 +85,10 @@ export default Vue.extend({
   display: flex;
   gap: var(--spacing);
   align-items: center;
-  margin-block-end: var(--spacing);
+
+  &:not(:last-child) {
+    margin-block-end: var(--spacing);
+  }
 
   > .username {
     margin: 0;
