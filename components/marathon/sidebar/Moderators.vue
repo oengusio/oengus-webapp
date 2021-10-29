@@ -16,7 +16,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
-import { MarathonState } from '~/types/api/marathon';
+import { FullMarathon, MarathonState } from '~/types/api/marathon';
 import { User } from '~/types/api/user';
 
 export default Vue.extend({
@@ -38,8 +38,17 @@ export default Vue.extend({
   },
 
   computed: {
-    moderators(): Array<User>|undefined {
-      return (this.$store.state.api.marathon as MarathonState).marathons[this.marathonId]?.moderators;
+    marathon(): FullMarathon|undefined {
+      return (this.$store.state.api.marathon as MarathonState).marathons[this.marathonId];
+    },
+    moderators(): Array<User> {
+      const moderators = [ ...(this.marathon?.moderators ?? [ ]) ];
+      const creator = this.marathon?.creator;
+      // XXX Fix to prevent duplication. See https://github.com/esamarathon/oengusio/issues/129
+      if (creator && moderators.every(moderator => moderator.id !== creator.id)) {
+        moderators.unshift(creator);
+      }
+      return moderators;
     },
   },
 
