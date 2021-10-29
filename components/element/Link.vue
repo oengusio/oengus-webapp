@@ -19,28 +19,31 @@ to type it absolutely everywhere.
 
 <script lang="ts">
 import Vue from 'vue';
+import { Location } from 'vue-router';
 import { IsActive } from '~/types/components/is-active';
 
 export default Vue.extend({
   props: {
     to: {
-      type: String,
+      type: [ String, Object ],
       default: '',
     },
   },
+
   computed: {
     isActive(): IsActive {
       return {
         'is-active': (this.isHash ? this.$route.hash : this.$route.path) === this.path,
       };
     },
-    path(): string {
+    path(): string|Location {
       return this.isHash ? this.to : this.localePath(this.to);
     },
     isHash(): boolean {
-      return this.to.startsWith('#');
+      return typeof this.to === 'string' ? this.to.startsWith('#') : true;
     },
   },
+
   methods: {
     /**
      * Works around a bug in Vue where anchor links don't work repeatedly.
