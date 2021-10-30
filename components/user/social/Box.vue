@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Connection, ConnectionMeta, ConnectionMetas } from '~/types/api/user';
+import { Connection, ConnectionMeta, ConnectionMetas } from '~/types/api/connection';
 
 export default Vue.extend({
   props: {
