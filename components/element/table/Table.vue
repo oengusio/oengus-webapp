@@ -1,15 +1,50 @@
 <template>
-  <div class="element-table">
+  <div class="element-table" :style="styles">
     <slot name="header" />
     <slot />
   </div>
 </template>
 
+<script lang="ts">
+import Vue from 'vue';
+
+interface TableStyles {
+  '--border-width': string;
+}
+
+export default Vue.extend({
+  props: {
+    isDivided: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  computed: {
+    styles(): TableStyles {
+      return {
+        '--border-width': this.isDivided ? '1px' : '0',
+      };
+    },
+  },
+});
+</script>
+
 <style lang="scss" scoped>
 .element-table {
+  --border-width: 0;
+
   display: grid;
   grid-auto-rows: auto;
   width: 100%;
   max-width: 100%;
+
+  .element-table-cell {
+    border-block-end: var(--border-width) solid;
+  }
+
+  .element-table-header {
+    border-block-end: calc(2 * var(--border-width)) solid;
+  }
 }
 </style>

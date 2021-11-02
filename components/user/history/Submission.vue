@@ -1,7 +1,7 @@
 <template>
   <div>
     <WidgetLoading :while="[ user ]" class="is-centered" />
-    <ElementTable v-show="submissions" class="submission-table">
+    <ElementTable v-show="submissions" is-divided class="submission-table">
       <ElementTableCell is-header class="marathon">
         {{ $t('marathon.submissions.table.marathon') }}
       </ElementTableCell>
@@ -20,9 +20,8 @@
 
       <template v-for="(marathon, marathonIndex) in submissions">
         <ElementTableCell :key="`marathon-${marathonIndex}`" class="marathon" :class="getCellColor(marathon)" :row-end="getSpan(marathon)">
-          <ElementLink :to="`/marathon/${marathon.marathonId}`">
-            {{ marathon.marathonName }}
-          </ElementLink>
+          <ElementLink :to="`/marathon/${marathon.marathonId}`">{{ marathon.marathonName }}</ElementLink>
+          (<ElementTemporalDistance :datetime="marathon.marathonStartDate" />)
         </ElementTableCell>
 
         <template v-for="(game, gameIndex) in marathon.games">
@@ -36,11 +35,11 @@
             </ElementTableCell>
 
             <ElementTableCell :key="`estimate-${marathonIndex}-${gameIndex}-${categoryIndex}`" class="estimate" :class="getCellColor(category)">
-              <ElementTemporalDuration :duration="category.duration" />
+              <ElementTemporalDuration :duration="category.estimate" />
             </ElementTableCell>
 
             <ElementTableCell :key="`status-${marathonIndex}-${gameIndex}-${categoryIndex}`" class="status" :class="getCellColor(category)">
-              {{ category.status }}
+              {{ $t(`marathon.selection.status.${category.status}`) }}
             </ElementTableCell>
           </template>
         </template>
