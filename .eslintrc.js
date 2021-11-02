@@ -1,3 +1,5 @@
+const INLINE_ELEMENTS = require('eslint-plugin-vue/lib/utils/inline-non-void-elements.json');
+
 module.exports = {
   root: true,
   env: {
@@ -33,6 +35,15 @@ module.exports = {
     // Vue
     // Due to the way our translation works, it's not possible to avoid v-html
     'vue/no-v-html': 'off',
+    // We are adding some components that are nice for inlining
+    'vue/singleline-html-element-content-newline': [
+      'error',
+      {
+        ignoreWhenNoAttributes: true,
+        ignoreWhenEmpty: true,
+        ignores: [ 'pre', 'textarea', ...INLINE_ELEMENTS, 'ElementLink' ],
+      },
+    ],
   },
 
   overrides: [

@@ -1,5 +1,6 @@
 import { Connection } from './connection';
 import { History } from './history';
+import { Marathon } from './marathon';
 import { OengusState } from '~/plugins/oengus';
 
 export interface User {
@@ -8,10 +9,10 @@ export interface User {
   country: string|null;
   discordName: string;
   enabled: boolean;
-  history: Array<History>; // Array<Horribly Nested User History... Thing>
+  history: Array<History>;
   id: number;
   languagesSpoken: Array<string>;
-  moderatedMarathons: Array<any>; // What are these?
+  moderatedMarathons: Array<Marathon>;
   pronouns: Array<string>;
   speedruncomName: string;
   twitchName: string;
