@@ -32,67 +32,24 @@
       <!-- Main Schedule Loop -->
       <template v-if="runs">
         <template v-for="(run, index) in runs">
-          <!-- XXX @click.native will stop working in Vue v3+ (Vue Router v4+), but @click should start working -->
+          <WidgetAdvertisement v-show="shouldShowDay(index) && index !== 0" :key="`advertisement-${index}`" class="is-advertisement" :show-advertisement="advertisementIndices.includes(index)" is-horizontal />
 
-          <WidgetAdvertisement v-show="shouldShowDay(index) && index !== 0" :key="'advertisement' + index" class="is-advertisement" :show-advertisement="advertisementIndices.includes(index)" is-horizontal />
-
-          <ElementTableCell v-show="shouldShowDay(index)" :key="'day' + index" class="day is-info" column-start="1" column-end="-1">
+          <ElementTableCell v-show="shouldShowDay(index)" :key="`day-${index}`" class="day is-info" column-start="1" column-end="-1">
             <ElementTemporalDateTime :datetime="run.date" format="longDate" />
           </ElementTableCell>
 
-          <ElementTableCell :id="getId(run)" :key="'expandable' + index" class="is-expandable expandable" :class="getRowParity(index, run)" @click.native="expand(run)">
-            <FontAwesomeIcon :icon="[ 'fas', expanded.has(run.id) ? 'caret-down' : 'caret-right' ]" />
-          </ElementTableCell>
-
-          <ElementTableCell :id="'run-' + run.id" :key="'time' + index" class="is-expandable time" :class="getRowParity(index, run)" @click.native="expand(run)">
-            <ElementTemporalDateTime :datetime="run.date" format="shortTime" />
-          </ElementTableCell>
-
-          <ElementTableCell
-            v-if="run.setupBlock"
-            :key="'setupText' + index"
-            class="is-expandable setup-text"
+          <!-- XXX @click.native will stop working in Vue v3+ (Vue Router v4+), but @click should start working -->
+          <MarathonScheduleRow
+            :key="`run-${index}`"
+            class="run"
             :class="getRowParity(index, run)"
-            column-end="span 2"
-            @click.native="expand(run)"
-          >
-            {{ (run.setupBlockText || $t('marathon.schedule.setupBlock')) }}
-          </ElementTableCell>
-          <template v-else>
-            <ElementTableCell :key="'runners' + index" class="is-expandable runners" :class="getRowParity(index, run)" @click.native="expand(run)">
-              <User v-for="runner in run.runners" :key="'runners' + index + 'runner' + runner.id" :user="runner" />
-            </ElementTableCell>
-            <ElementTableCell :key="'game' + index" class="is-expandable game" :class="getRowParity(index, run)" @click.native="expand(run)">
-              {{ run.gameName }}
-            </ElementTableCell>
-          </template>
+            :run="run"
+            :is-expanded="expanded.has(run.id)"
+            :internal-id="getId(run)"
+            @click.native="toggleExpand(run)"
+          />
 
-          <ElementTableCell :key="'category' + index" class="is-expandable category" :class="getRowParity(index, run)" @click.native="expand(run)">
-            {{ run.categoryName }}
-          </ElementTableCell>
-
-          <ElementTableCell :key="'type' + index" class="is-expandable type" :class="getRowParity(index, run)" @click.native="expand(run)">
-            {{ $t(`marathon.schedule.type.${run.type}`) }}
-          </ElementTableCell>
-
-          <ElementTableCell :key="'console' + index" class="is-expandable console" :class="getRowParity(index, run)" @click.native="expand(run)">
-            <span>
-              {{ run.console }}
-            </span>
-            <sup v-if="run.emulated">
-              {{ $t('global.emu') }}
-            </sup>
-          </ElementTableCell>
-
-          <ElementTableCell :key="'estimate' + index" class="is-expandable estimate" :class="getRowParity(index, run)" @click.native="expand(run)">
-            <ElementTemporalDuration :duration="run.estimate" />
-          </ElementTableCell>
-
-          <ElementTableCell :key="'setup' + index" class="is-expandable setup" :class="getRowParity(index, run)" @click.native="expand(run)">
-            <ElementTemporalDuration :duration="run.setupTime" />
-          </ElementTableCell>
-
-          <ElementTableDetail v-if="expanded.has(run.id)" :key="'expanded' + index" class="expanded-run" :class="getRowParity(index, run)">
+          <ElementTableDetail v-if="expanded.has(run.id)" :key="`expanded-${index}`" class="expanded-run" :class="getRowParity(index, run)">
             <MarathonScheduleRun :run="run" />
           </ElementTableDetail>
         </template>
@@ -164,9 +121,7 @@ export default Vue.extend({
 
   watch: {
     runHash(): void {
-      // The `false` makes it so we only expand Current/Next
-      // If we don't do this, the ID hashes self-collapse sometimes
-      this.expandRunHash(false);
+      this.expandRunHash();
     },
   },
 
@@ -184,31 +139,31 @@ export default Vue.extend({
   },
 
   methods: {
-    expand(run?: ScheduleLine|number): void {
+    toggleExpand(run?: ScheduleLine|number, openOnly = false): void {
       if (!run) {
         return;
       }
       if (typeof run !== 'number') {
         run = run.id;
       }
-      if (this.expanded.has(run)) {
+      if (this.expanded.has(run) && !openOnly) {
         this.expanded.delete(run);
       } else {
         this.expanded.add(run);
       }
       this.expanded = new Set(this.expanded);
     },
-    expandRunHash(expandRunId = true): void {
+    expandRunHash(): void {
       if (this.runHash) {
         const runHashRegExp = /^#run-(\d+)$/;
         const runHashResults = runHashRegExp.exec(this.runHash);
-        if (runHashResults && expandRunId) {
-          this.expand(Number.parseInt(runHashResults[1]));
+        if (runHashResults) {
+          this.toggleExpand(Number.parseInt(runHashResults[1]), true);
         } else if (this.tickers) {
           if (this.runHash === '#current') {
-            this.expand(this.tickers.current);
+            this.toggleExpand(this.tickers.current, true);
           } else if (this.runHash === '#next') {
-            this.expand(this.tickers.next);
+            this.toggleExpand(this.tickers.next, true);
           }
         }
       }
@@ -250,77 +205,62 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .schedule-container {
-    // Temporary relocation of ElementTable styling
-    display: grid;
-    grid-auto-rows: auto;
-    width: 100%;
-    max-width: 100%;
-    // End temporary styles
+@use '~assets/table';
+
+.schedule-container {
+  @include table.shrink(9, (
+    1150px '.setup' 8,
+    1023px '.console' 7,
+    900px '.type' 6,
+    768px '.estimate' 5,
+    600px '.category' 4,
+  ));
+
+  // Temporary relocation of ElementTable styling
+  display: grid;
+  grid-auto-rows: auto;
+  width: 100%;
+  max-width: 100%;
+  // End temporary styles
+  overflow-x: auto;
+
+  > .run {
+    cursor: pointer;
+  }
+
+  > .day {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  > .is-advertisement {
+    // Span from start to finish
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+}
+
+// This solution is less than ideal.
+// I'd prefer to avoid leaking information from parents, this isn't portable
+// This allows these rules to work only when in desktop and when the sidebar is expanded
+@media (min-width: 1023px) {
+  .marathon-container:not(.collapsed) .schedule-container {
+    @include table.shrink(9, (
+      1450px '.setup' 8,
+      1350px '.console' 7,
+      1250px '.type' 6,
+      1100px '.estimate' 5,
+    ));
+  }
+}
+
+@media (max-width: 500px) {
+  // At really small sizes, long names can become problematic
+  // this allows them to take scrollbars instead. We don't do this at every
+  // size, since doing this forces scrolls when they aren't needed
+  ::v-deep .runners,
+  ::v-deep .game {
     overflow-x: auto;
-    grid-template-columns: repeat(9, auto);
-
-    > .is-expandable {
-      cursor: pointer;
-    }
-
-    > .day {
-      font-weight: bold;
-      text-align: center;
-    }
-
-    > .expandable > svg {
-      width: 10px;
-    }
-
-    > .is-advertisement {
-      // Span from start to finish
-      grid-column: 1 / -1;
-      justify-self: center;
-    }
   }
-
-  @mixin shrink($width, $columns, $column) {
-    @media (max-width: $width) {
-      .schedule-container {
-        grid-template-columns: repeat($columns, auto);
-      }
-
-      .#{$column} {
-        display: none;
-      }
-    }
-  }
-
-  // Generic rules, used when the List can occupy the whole width
-  @include shrink(1150px, 8, 'setup');
-  // Mobile cutoff
-  @include shrink(1023px, 7, 'console');
-  @include shrink(900px, 6, 'type');
-  // Tablet cutoff
-  @include shrink(768px, 5, 'estimate');
-  @include shrink(600px, 4, 'category');
-
-  // This solution is less than ideal.
-  // I'd prefer to avoid leaking information from parents, this isn't portable
-  // var() works in calc(), calc() works in @media, but var() doesn't work in calc() in @media
-  // This allows these rules to work only when in desktop and when the sidebar is expanded
-  @media (min-width: 1023px) {
-    .marathon-container:not(.collapsed) {
-      @include shrink(1450px, 8, 'setup');
-      @include shrink(1350px, 7, 'console');
-      @include shrink(1250px, 6, 'type');
-      @include shrink(1100px, 5, 'estimate');
-    }
-  }
-
-  @media (max-width: 500px) {
-    // At really small sizes, long names can become problematic
-    // this allows them to take scrollbars instead. We don't do this at every
-    // size, since doing this forces scrolls when they aren't needed
-    .runners,
-    .game {
-      overflow-x: auto;
-    }
-  }
+}
 </style>
