@@ -9,17 +9,7 @@
         {{ $t('marathon.submissions.table.date') }}
       </ElementTableCell>
 
-      <template v-for="(marathon, marathonIndex) in moderatedMarathons">
-        <ElementTableCell :key="`marathon-${marathonIndex}`" class="marathon" :class="getRowParity(marathonIndex)">
-          <ElementLink :to="`/marathon/${marathon.id}`">
-            {{ marathon.name }}
-          </ElementLink>
-        </ElementTableCell>
-        <ElementTableCell :key="`date-${marathonIndex}`" class="date" :class="getRowParity(marathonIndex)">
-          <ElementTemporalDateTime :datetime="marathon.startDate" format="mediumDateTime" />
-          (<ElementTemporalDistance :datetime="marathon.startDate" />)
-        </ElementTableCell>
-      </template>
+      <UserHistoryModerationRow v-for="(marathon, index) in moderatedMarathons" :key="index" :marathon="marathon" :class="getRowParity(index)" />
     </ElementTable>
   </div>
 </template>
