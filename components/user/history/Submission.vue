@@ -118,7 +118,21 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@use '~assets/table';
+
 .submission-table {
-  grid-template-columns: repeat(5, auto);
+  @include table.shrink(5, (
+    768px '.estimate' 4,
+    600px '.status' 3,
+  ));
+}
+
+@media (max-width: 500px) {
+  // At really small sizes, long names can become problematic
+  // this allows them to take scrollbars instead. We don't do this at every
+  // size, since doing this forces scrolls when they aren't needed
+  ::v-deep .element-table-cell {
+    overflow-x: auto;
+  }
 }
 </style>
