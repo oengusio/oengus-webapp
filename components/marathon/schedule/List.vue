@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="schedule-container">
-      <!-- Ad -->
-      <AdsByGoogle ad-slot="5905320802" ad-format="" class="is-advertisement" />
+      <WidgetAdvertisement class="is-advertisement" show-advertisement is-horizontal />
       <!-- Header -->
       <ElementTableCell is-header class="expandable" />
       <ElementTableCell is-header class="time">
@@ -32,7 +31,14 @@
       <!-- Main Schedule Loop -->
       <template v-if="runs">
         <template v-for="(run, index) in runs">
-          <WidgetAdvertisement v-show="shouldShowDay(index) && index !== 0" :key="`advertisement-${index}`" class="is-advertisement" :show-advertisement="advertisementIndices.includes(index)" is-horizontal />
+          <WidgetAdvertisement
+            v-show="shouldShowDay(index) && index !== 0"
+            :key="`advertisement-${index}`"
+            class="is-advertisement"
+            :show-advertisement="advertisementIndices.includes(index)"
+            show-spacer
+            is-horizontal
+          />
 
           <ElementTableCell v-show="shouldShowDay(index)" :key="`day-${index}`" class="day is-info" column-start="1" column-end="-1">
             <ElementTemporalDateTime :datetime="run.date" format="longDate" />
