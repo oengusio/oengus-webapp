@@ -26,6 +26,7 @@ export const locales = [
 
 export const dateTimeFormats = {
   longDate: { dateStyle: 'long' },
+  longMonth: { year: 'numeric', month: 'long' },
   shortTime: { timeStyle: 'short' },
   mediumDateTime: { dateStyle: 'medium', timeStyle: 'short' },
 };

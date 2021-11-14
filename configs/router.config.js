@@ -2,7 +2,6 @@
 
 export function routerConfig() {
   return {
-    linkExactActiveClass: 'is-active',
     middleware: 'oengus-v1-redirect',
   };
 }

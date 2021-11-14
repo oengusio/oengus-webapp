@@ -28,12 +28,16 @@ export default Vue.extend({
       type: [ String, Object ],
       default: '',
     },
+    noActive: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   computed: {
     isActive(): IsActive {
       return {
-        'is-active': (this.isHash ? this.$route.hash : this.$route.path) === this.path,
+        'is-active': !this.noActive && ((this.isHash ? this.$route.hash : this.$route.path) === this.path),
       };
     },
     path(): string|Location {

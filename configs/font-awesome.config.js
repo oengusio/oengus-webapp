@@ -12,6 +12,7 @@ const solid = [
   'Calendar',
   'CalendarCheck',
   'CaretDown',
+  'CaretLeft',
   'CaretRight',
   'Check',
   'CheckSquare',
