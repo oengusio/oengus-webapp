@@ -51,8 +51,16 @@ export interface GetterArgs<U, V = U> {
 }
 
 export interface ExtendedFetch {
+  /** The route parameter that needs to be sent as part of the URL */
   id?: number|string;
+  /** If true, ignores cache. If uncached, but actively fetching, won't retrieve again */
   forceFetch?: boolean;
+  /**
+   * Request body (GET params for GET, body for POST/PUT etc)
+   *
+   * Be careful when sending data, as it cannot access the cache
+   */
+  data?: any;
 }
 
 /**
@@ -91,8 +99,10 @@ export class OengusAPI<T extends OengusState> {
     const cacheDuration = _cacheDuration ?? 300_000;
     return async ({ commit, state }, id) => {
       let forceFetch = false;
+      let data: any = '';
       if (typeof id === 'object') {
         forceFetch = id.forceFetch ?? forceFetch;
+        data = id.data ?? '';
         id = id.id;
       }
 
@@ -100,7 +110,7 @@ export class OengusAPI<T extends OengusState> {
       const cachedResponse: OengusStateValue<V> = id ? state[key][id] : state[key];
       const cachedTime = cachedResponse?._cachedAt ?? 0;
       const fetching = cachedResponse?._fetching ?? false;
-      if (fetching || (!forceFetch && cachedTime + cacheDuration > Date.now())) {
+      if (!data && (fetching || (!forceFetch && cachedTime + cacheDuration > Date.now()))) {
         return cachedResponse as V;
       }
 
@@ -124,7 +134,7 @@ export class OengusAPI<T extends OengusState> {
       const route = OengusAPI.getRoute({ basePath: this.basePath, id, path });
       let apiResponse: U;
       try {
-        apiResponse = await OengusAPI.http.$get(route);
+        apiResponse = await OengusAPI.http.$get(route, { searchParams: data });
       } catch (error) {
         // This isn't intrinsically bad, just catch the error, mark as not fetching, and return the old value
         // Put the old value back in full, maybe the API is just down (should we worry about loops?)
@@ -141,7 +151,7 @@ export class OengusAPI<T extends OengusState> {
         _promise: process.client ? fetchingPromise : undefined,
       } as OengusStateValue<V>;
       fetchingResolve!(response);
-      commit(mutation, { id, value: response });
+      commit(mutation, { id, value: response, data });
       return response as V;
     };
   }
