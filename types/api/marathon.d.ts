@@ -68,7 +68,17 @@ export interface FrontPageMarathons {
 
 export interface MarathonState extends OengusState {
   marathons: { [id: string]: FullMarathon };
+  calendars: { [date: string]: Array<Marathon> };
   frontPage?: FrontPageMarathons;
+}
+
+export interface MarathonForDateParams {
+  /** ISO Date string */
+  start: string;
+  /** ISO Date string */
+  end: string;
+  /** IANA Time Zone name */
+  zoneId: string;
 }
 
 export type QuestionType = 'TEXT'|'SELECT'|'TEXTAREA'|'CHECKBOX'|'FREETEXT';
