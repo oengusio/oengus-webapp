@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { OengusStateValue } from '~/plugins/oengus';
+import { OengusStateValue } from '~/types/api/oengus-api';
 
 export default Vue.extend({
   props: {
