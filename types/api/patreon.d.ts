@@ -1,4 +1,4 @@
-import { OengusState } from '~/plugins/oengus';
+import { OengusState } from './oengus-api';
 
 export interface Patron {
   id: string;

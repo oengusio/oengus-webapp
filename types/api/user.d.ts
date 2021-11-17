@@ -1,7 +1,7 @@
 import { Connection } from './connection';
 import { History } from './history';
 import { Marathon } from './marathon';
-import { OengusState } from '~/plugins/oengus';
+import { OengusState } from './oengus-api';
 
 export interface User {
   banned: boolean;

@@ -1,6 +1,6 @@
 import { FullMarathon } from './marathon';
+import { OengusState } from './oengus-api';
 import { User } from './user';
-import { OengusState } from '~/plugins/oengus';
 
 export enum RunType {
   SINGLE = 'SINGLE',

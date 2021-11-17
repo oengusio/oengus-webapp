@@ -1,5 +1,5 @@
+import { OengusState } from './oengus-api';
 import { User } from './user';
-import { OengusState } from '~/plugins/oengus';
 
 export interface Marathon {
   id: string;
