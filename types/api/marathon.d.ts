@@ -66,9 +66,13 @@ export interface FrontPageMarathons {
   live: Array<Marathon>;
 }
 
+export interface Calendars {
+  [date: string]: { calendar: Array<Marathon> };
+}
+
 export interface MarathonState extends OengusState {
   marathons: { [id: string]: FullMarathon };
-  calendars: { [date: string]: Array<Marathon> };
+  calendars: Calendars;
   frontPage?: FrontPageMarathons;
 }
 
