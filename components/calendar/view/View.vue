@@ -1,15 +1,26 @@
 <template>
   <div>
-    <WidgetLoading :while="[ ]" />
+    <WidgetLoading :while="[ calendar ]" />
 
     <ElementTable class="marathon-calendar-table">
-      <template v-for="day in days">
-        <ElementTableCell :key="`day-${day}`" is-header class="day is-info" column-start="1" column-end="-1">
-          <ElementTemporalDateTime :datetime="getDate(day)" format="longDate" />
-        </ElementTableCell>
+      <template v-for="(dailyCalendar, datetime) in dailyCalendars">
+        <template v-if="Array.isArray(dailyCalendar)">
+          <ElementTableCell :key="`day-${datetime}`" is-header class="day is-info" column-start="1" column-end="-1">
+            <ElementTemporalDateTime :datetime="datetime" format="longDate" />
+          </ElementTableCell>
 
-        <template v-for="(marathon, index) in getMarathons(day)">
-          <CalendarViewRow :key="`day-${day}-marathon-${marathon.id}`" :marathon="marathon" :class="getClasses(marathon, index)" />
+          <template v-for="(marathon, index) in dailyCalendar">
+            <CalendarViewRow :key="`day-${datetime}-marathon-${marathon.id}`" :marathon="marathon" :class="getClasses(marathon, index)" />
+          </template>
+        </template>
+        <template v-else>
+          <ElementTableCell :key="`day-range-${datetime}`" is-header class="day-range is-info" column-start="1" column-end="-1">
+            <ElementTemporalRange :start="dailyCalendar" :end="datetime" format="longDate" />
+          </ElementTableCell>
+
+          <ElementTableCell :key="`no-marathons-${datetime}`" class="no-marathons is-even" column-start="1" column-end="-1">
+            {{ $t('calendar.noMarathons') }}
+          </ElementTableCell>
         </template>
       </template>
     </ElementTable>
@@ -19,7 +30,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
-import { Marathon, MarathonForDateParams, MarathonState } from '~/types/api/marathon';
+import { Marathon, MarathonCalendar, MarathonForDateParams, MarathonState } from '~/types/api/marathon';
 
 export default Vue.extend({
   props: {
@@ -41,28 +52,48 @@ export default Vue.extend({
   },
 
   computed: {
-    days(): number {
-      // JS has a date offset of one, but we want the month after to get the length
-      return new Date(this.year, this.month, 0).getDate();
+    calendar(): MarathonCalendar|undefined {
+      return (this.$store.state.api.marathon as MarathonState).calendars?.[`${this.start}-${this.end}`];
     },
-    calendar(): Array<Marathon>|undefined {
-      return (this.$store.state.api.marathon as MarathonState).calendars[`${this.start}-${this.end}`];
+    dailyCalendars(): { [datetime: string]: Array<Marathon>|string } {
+      const dailyCalendars: { [datetime: string]: Array<Marathon>|string } = { };
+      let startNoMarathonRun: Date|undefined;
+      const days = new Date(this.year, this.month, 0).getDate();
+      for (let day = 1; day <= days; day++) {
+        const marathons = this.getMarathons(day);
+        if (marathons?.length) {
+          if (startNoMarathonRun) {
+            dailyCalendars[new Date(this.year, this.month - 1, day - 1).toISOString()] = startNoMarathonRun.toISOString();
+            startNoMarathonRun = undefined;
+          }
+          dailyCalendars[new Date(this.year, this.month - 1, day).toISOString()] = marathons;
+        } else if (!startNoMarathonRun) {
+          startNoMarathonRun = new Date(this.year, this.month - 1, day);
+        }
+      }
+      return dailyCalendars;
     },
-    start(): Date {
-      return new Date(Date.UTC(this.year, this.month - 1, 0));
+    start(): string {
+      return new Date(Date.UTC(this.year, this.month - 1, 0)).toISOString();
     },
-    end(): Date {
-      return new Date(Date.UTC(this.year, this.month, 2));
+    end(): string {
+      return new Date(Date.UTC(this.year, this.month, 2)).toISOString();
     },
     calendarParams(): { data: MarathonForDateParams } {
       return {
         data: {
           // Fetch a slightly larger range the current month
-          start: this.start.toISOString(),
-          end: this.end.toISOString(),
+          start: this.start,
+          end: this.end,
           zoneId: 'Etc/UTC',
         },
       };
+    },
+  },
+
+  watch: {
+    calendarParams(): void {
+      this.getCalendar(this.calendarParams);
     },
   },
 
@@ -73,8 +104,8 @@ export default Vue.extend({
     },
     getMarathons(day: number): Array<Marathon>|undefined {
       const dayStart = new Date(this.year, this.month - 1, day);
-      const dayEnd = new Date(this.year, this.month, day + 1);
-      return this.calendar?.filter(marathon => new Date(marathon.endDate) >= dayStart && new Date(marathon.startDate) <= dayEnd);
+      const dayEnd = new Date(this.year, this.month - 1, day + 1);
+      return this.calendar?.calendar?.filter(marathon => new Date(marathon.endDate) >= dayStart && new Date(marathon.startDate) <= dayEnd);
     },
     getClasses(marathon: Marathon, index: number): { 'is-primary': boolean, 'is-even': boolean, 'is-odd': boolean } {
       const now = new Date();
@@ -97,8 +128,20 @@ export default Vue.extend({
 .marathon-calendar-table {
   @include table.shrink(3);
 
-  > .day {
+  > .day,
+  > .day-range {
     text-align: center;
   }
 }
 </style>
+
+<!-- Temporary language info to avoid having the i18n string -->
+<i18n>
+{
+  "en-GB": {
+    "calendar": {
+      "noMarathons": "There are no marathons in this date range."
+    }
+  }
+}
+</i18n>
