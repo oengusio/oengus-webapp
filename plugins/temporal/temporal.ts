@@ -2,14 +2,17 @@ import { Plugin } from '@nuxt/types';
 
 import { distance } from './distance';
 import { duration } from './duration';
+import { range } from './range';
 import { timeZone } from './time-zone';
 
 const temporal = {
   distance,
   duration,
   timeZone,
+  range,
   changeLocale(locale: string): void {
     this.distance.changeLocale(locale);
+    this.range.changeLocale(locale);
   },
 };
 

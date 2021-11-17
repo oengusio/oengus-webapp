@@ -3,7 +3,7 @@ import { LocaleSensitive } from './i18n';
 export class Distance implements LocaleSensitive {
   private relativeTimeFormat: Intl.RelativeTimeFormat;
 
-  constructor(public locale = 'en-GB') {
+  constructor(private locale = 'en-GB') {
     this.relativeTimeFormat = new Intl.RelativeTimeFormat(this.locale);
   }
 
