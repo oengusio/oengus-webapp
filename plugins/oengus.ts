@@ -46,9 +46,9 @@ export class OengusAPI<T extends OengusState> {
       // Mark the entry as updating by changing _fetching property
       if (cachedTime) {
         // This allows existing stuff to continue to use the cached value,
-        commit(mutation, { id, value: { ...cachedResponse, _fetching: true, _promise: fetchingPromise } });
+        commit(mutation, { id, value: { ...cachedResponse, _fetching: true, _promise: fetchingPromise }, data });
       } else {
-        commit(mutation, { id, value: { _cachedAt: Date.now(), _fetching: true, _promise: fetchingPromise } });
+        commit(mutation, { id, value: { _cachedAt: Date.now(), _fetching: true, _promise: fetchingPromise }, data });
       }
 
       // Fetch and store into cache
@@ -60,12 +60,20 @@ export class OengusAPI<T extends OengusState> {
         // This isn't intrinsically bad, just catch the error, mark as not fetching, and return the old value
         // Put the old value back in full, maybe the API is just down (should we worry about loops?)
         fetchingReject!({ reason: error, oldValue: cachedResponse });
-        commit(mutation, { id, value: cachedResponse });
+        commit(mutation, { id, value: cachedResponse, data });
         return;
       }
 
+      if (Array.isArray(apiResponse) && !transform) {
+        if (process.env.NODE_ENV !== 'production') {
+          /* eslint-disable-next-line no-console */
+          console.warn('Arrays cannot be directly stored via the Oengus API. It is probably an error and results in unexpected behavior. To allow storage, the array was transformed into { value: <array> }.');
+        }
+        transform = ({ value }) => ({ value } as unknown as V);
+      }
+
       const response = {
-        ...(transform ? transform(apiResponse as U, id) : apiResponse),
+        ...(transform?.({ id, value: apiResponse as U, data }) ?? apiResponse),
         _fetching: false,
         _cachedAt: Date.now(),
         // We cannot send promises from the SSR to the client

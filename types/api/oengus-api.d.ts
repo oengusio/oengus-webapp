@@ -14,8 +14,21 @@ export interface OengusState {
 }
 
 /**
+ * Arguments recieved by the transform function.
+ * U refers to the type returned by the API
+ */
+export interface TransformArgs<U> {
+  /** The value returned by the API that is to be transformed */
+  value: U;
+  /** The route parameter that needs to be sent as part of the URL */
+  id?: number|string;
+  /** Request body (GET params for GET, body for POST/PUT etc) */
+  data?: any;
+}
+
+/**
  * Used to create a specific API endpoint
- * U refers to the type retruned by the API
+ * U refers to the type returned by the API
  * V refers to the type that ends up in the state and defaults to U
  */
 export interface GetterArgs<U, V = U> {
@@ -39,7 +52,7 @@ export interface GetterArgs<U, V = U> {
    * Used to alter the raw API response to whatever is stored in the state
    * This can be strip, change, or add new values or even change into a full class
    */
-  transform?(value: U, id?: number|string): V;
+  transform?(transformArgs: TransformArgs<U>): V;
   /**
    * How long should responses be cached for
    * Can be ignored with forceFetch
