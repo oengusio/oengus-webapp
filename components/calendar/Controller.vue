@@ -4,13 +4,13 @@
       <ElementTemporalDateTime :datetime="datetime" format="longMonth" />
     </h4>
     <div class="controls-container">
-      <ElementLink :to="{ query: { ...$route.query, ...previousCalendar }}" class="button">
+      <ElementLink :to="`/calendar/${previousCalendar.year}/${previousCalendar.month}`" class="button">
         <FontAwesomeIcon :icon="[ 'fas', 'caret-left' ]" />
       </ElementLink>
-      <ElementLink :to="{ query: { ...$route.query, ...nowCalendar }}" class="button" no-active>
+      <ElementLink to="/calendar" class="button" no-active>
         {{ $t('calendar.now') }}
       </ElementLink>
-      <ElementLink :to="{ query: { ...$route.query, ...nextCalendar }}" class="button">
+      <ElementLink :to="`/calendar/${nextCalendar.year}/${nextCalendar.month}`" class="button">
         <FontAwesomeIcon :icon="[ 'fas', 'caret-right' ]" />
       </ElementLink>
     </div>
@@ -21,8 +21,8 @@
 import Vue from 'vue';
 
 interface CalendarLinkInfo {
-  calendarYear: number;
-  calendarMonth: number;
+  year: number;
+  month: number;
 }
 
 export default Vue.extend({
@@ -46,21 +46,14 @@ export default Vue.extend({
     },
     previousCalendar(): CalendarLinkInfo {
       return {
-        calendarYear: this.month !== 1 ? this.year : this.year - 1,
-        calendarMonth: this.month !== 1 ? this.month - 1 : 12,
-      };
-    },
-    nowCalendar(): CalendarLinkInfo {
-      return {
-        calendarYear: new Date().getFullYear(),
-        // JavaScript offests by one month (0 indexed)
-        calendarMonth: new Date().getMonth() + 1,
+        year: this.month !== 1 ? this.year : this.year - 1,
+        month: this.month !== 1 ? this.month - 1 : 12,
       };
     },
     nextCalendar(): CalendarLinkInfo {
       return {
-        calendarYear: this.month !== 12 ? this.year : this.year + 1,
-        calendarMonth: this.month !== 12 ? this.month + 1 : 1,
+        year: this.month !== 12 ? this.year : this.year + 1,
+        month: this.month !== 12 ? this.month + 1 : 1,
       };
     },
   },

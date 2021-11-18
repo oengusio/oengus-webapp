@@ -1,8 +1,10 @@
 <template>
   <div>
-    <WidgetLoading :while="[ calendar ]" />
+    <div class="is-centered">
+      <WidgetLoading :while="[ calendar ]" @done="isLoading = false" />
+    </div>
 
-    <ElementTable class="marathon-calendar-table">
+    <ElementTable v-if="!isLoading" class="marathon-calendar-table">
       <template v-for="(dailyCalendar, datetime) in dailyCalendars">
         <template v-if="Array.isArray(dailyCalendar)">
           <ElementTableCell :key="`day-${datetime}`" is-header class="day is-info" column-start="1" column-end="-1">
@@ -45,6 +47,12 @@ export default Vue.extend({
     },
   },
 
+  data() {
+    return {
+      isLoading: true,
+    };
+  },
+
   async fetch(): Promise<void> {
     await Promise.allSettled([
       this.getCalendar(this.calendarParams),
@@ -70,6 +78,10 @@ export default Vue.extend({
         } else if (!startNoMarathonRun) {
           startNoMarathonRun = new Date(this.year, this.month - 1, day);
         }
+      }
+      // If the month ends on a non-run day
+      if (startNoMarathonRun) {
+        dailyCalendars[new Date(this.year, this.month, 0).toISOString()] = startNoMarathonRun.toISOString();
       }
       return dailyCalendars;
     },
@@ -131,6 +143,16 @@ export default Vue.extend({
   > .day,
   > .day-range {
     text-align: center;
+  }
+
+  // Only display the "no marathons" text if there are no marathons for the whole month
+  // Because of compensations dealing with timezones, it's not as simple as "array length"
+  > .no-marathons {
+    display: none;
+
+    &:nth-child(2):last-child {
+      display: inherit;
+    }
   }
 }
 </style>

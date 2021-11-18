@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="marathon-calendar-container">
     <CalendarController :year="year" :month="month" />
     <CalendarView :year="year" :month="month" />
   </div>
@@ -9,13 +9,23 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  computed: {
-    year(): number {
-      return Number.parseInt(this.$route.query.calendarYear as string ?? new Date().getFullYear(), 10);
+  props: {
+    year: {
+      type: Number,
+      default: new Date().getFullYear(),
     },
-    month(): number {
-      return Number.parseInt(this.$route.query.calendarMonth as string ?? new Date().getMonth() + 1, 10);
+    month: {
+      type: Number,
+      default: new Date().getMonth(),
     },
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.marathon-calendar-container {
+  > :not(:last-child) {
+    margin-block-end: var(--spacing);
+  }
+}
+</style>
