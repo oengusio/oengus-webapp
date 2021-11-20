@@ -40,9 +40,7 @@ export default Vue.extend({
 
   computed: {
     datetime(): string {
-      const month = (this.month).toString().padStart(2, '0');
-      // Passing with time is important, otherwise it's handled as UTC.
-      return `${this.year}-${month}-01 00:00:00`;
+      return new Date(this.year, this.month - 1).toISOString();
     },
     previousCalendar(): CalendarLinkInfo {
       return {
