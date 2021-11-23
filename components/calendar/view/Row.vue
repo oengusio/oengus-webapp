@@ -1,7 +1,7 @@
 <template>
   <ElementTableRow>
     <ElementTableCell class="duration">
-      Duration
+      <ElementRange class="is-primary" :min="0" :max="24" :start="start" :end="end" />
     </ElementTableCell>
     <ElementTableCell class="name">
       <ElementLink :to="`/marathon/${marathon.id}`">
@@ -23,6 +23,40 @@ export default Vue.extend({
     marathon: {
       type: Object as () => Marathon,
       default: undefined,
+    },
+    datetime: {
+      type: String,
+      // The Date() function returns a string denoting "now"
+      default: () => Date(),
+    },
+  },
+
+  computed: {
+    start(): number {
+      return this.todayStart < this.marathonStart ? this.getHoursFraction(this.marathonStart) : 0;
+    },
+    end(): number {
+      return this.todayEnd > this.marathonEnd ? this.getHoursFraction(this.marathonEnd) : 24;
+    },
+    todayStart(): Date {
+      return new Date(this.datetime);
+    },
+    todayEnd(): Date {
+      const todayEnd = new Date(this.todayStart);
+      todayEnd.setDate(this.todayStart.getDate() + 1);
+      return todayEnd;
+    },
+    marathonStart(): Date {
+      return new Date(this.marathon.startDate);
+    },
+    marathonEnd(): Date {
+      return new Date(this.marathon.endDate);
+    },
+  },
+
+  methods: {
+    getHoursFraction(date: Date): number {
+      return date.getHours() + date.getMinutes() / 60;
     },
   },
 });

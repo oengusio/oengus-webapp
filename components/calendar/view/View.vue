@@ -12,7 +12,7 @@
           </ElementTableCell>
 
           <template v-for="(marathon, index) in dailyCalendar">
-            <CalendarViewRow :key="`day-${datetime}-marathon-${marathon.id}`" :marathon="marathon" :class="getClasses(marathon, index)" />
+            <CalendarViewRow :key="`day-${datetime}-marathon-${marathon.id}`" :marathon="marathon" :datetime="datetime" :class="getClasses(marathon, index)" />
           </template>
         </template>
         <template v-else>
@@ -117,7 +117,7 @@ export default Vue.extend({
     getMarathons(day: number): Array<Marathon>|undefined {
       const dayStart = new Date(this.year, this.month - 1, day);
       const dayEnd = new Date(this.year, this.month - 1, day + 1);
-      return this.calendar?.calendar?.filter(marathon => new Date(marathon.endDate) >= dayStart && new Date(marathon.startDate) <= dayEnd);
+      return this.calendar?.calendar?.filter(marathon => new Date(marathon.endDate) > dayStart && new Date(marathon.startDate) < dayEnd);
     },
     getClasses(marathon: Marathon, index: number): { 'is-primary': boolean, 'is-even': boolean, 'is-odd': boolean } {
       const now = new Date();
