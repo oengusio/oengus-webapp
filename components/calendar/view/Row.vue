@@ -1,7 +1,20 @@
 <template>
   <ElementTableRow>
     <ElementTableCell class="duration">
-      <ElementRange class="duration-range" :min="0" :max="24" :start="start" :end="end" />
+      <i18n :path="durationText" tag="span">
+        <template #start-time>
+          <ElementTemporalDateTime :datetime="marathon.startDate" format="shortTime" />
+        </template>
+        <template #end-time>
+          <ElementTemporalDateTime :datetime="marathon.endDate" format="shortTime" />
+        </template>
+        <template #time-range>
+          <ElementTemporalRange :start="marathon.startDate" :end="marathon.endDate" format="shortTime" />
+        </template>
+      </i18n>
+    </ElementTableCell>
+    <ElementTableCell class="range">
+      <ElementRange class="range-bar" :min="0" :max="24" :start="start" :end="end" />
     </ElementTableCell>
     <ElementTableCell class="name">
       <ElementLink :to="`/marathon/${marathon.id}`">
@@ -38,6 +51,21 @@ export default Vue.extend({
     end(): number {
       return this.todayEnd > this.marathonEnd ? this.getHoursFraction(this.marathonEnd) : 24;
     },
+    durationText(): string {
+      let durationText: string;
+      if (this.start === 0) {
+        if (this.end === 24) {
+          durationText = 'calendar.allDay';
+        } else {
+          durationText = 'calendar.endsAt';
+        }
+      } else if (this.end === 24) {
+        durationText = 'calendar.startsAt';
+      } else {
+        durationText = 'calendar.between';
+      }
+      return durationText;
+    },
     todayStart(): Date {
       return new Date(this.datetime);
     },
@@ -63,7 +91,21 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.duration-range {
+.range-bar {
   width: 100px;
 }
 </style>
+
+<!-- Temporary language info to avoid having the i18n string -->
+<i18n>
+{
+  "en-GB": {
+    "calendar": {
+      "allDay": "All day",
+      "endsAt": "Ends {{end-time}}",
+      "startsAt": "Begins {{start-time}}",
+      "between": "{{time-range}}"
+    }
+  }
+}
+</i18n>
