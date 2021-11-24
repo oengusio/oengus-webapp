@@ -138,7 +138,9 @@ export default Vue.extend({
 @use '~assets/table';
 
 .marathon-calendar-table {
-  @include table.shrink(3);
+  @include table.shrink(3, (
+    500px '.links' 2,
+  ));
 
   > .day,
   > .day-range {

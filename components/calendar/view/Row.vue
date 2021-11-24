@@ -1,7 +1,7 @@
 <template>
   <ElementTableRow>
     <ElementTableCell class="duration">
-      <ElementRange class="is-primary" :min="0" :max="24" :start="start" :end="end" />
+      <ElementRange class="duration-range" :min="0" :max="24" :start="start" :end="end" />
     </ElementTableCell>
     <ElementTableCell class="name">
       <ElementLink :to="`/marathon/${marathon.id}`">
@@ -61,3 +61,9 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.duration-range {
+  width: 100px;
+}
+</style>

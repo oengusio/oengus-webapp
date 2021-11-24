@@ -1,5 +1,5 @@
 <template>
-  <div class="element-range" :style="rangeCutoffs">
+  <div class="element-range" :style="rangeCutoffs" :aria-valuemin="min" :aria-valuemax="max" :aria-valuetext="`${start} - ${end}`">
     <div class="selected-range" />
   </div>
 </template>
@@ -56,17 +56,28 @@ export default Vue.extend({
   width: 100%;
   background-color: bulma.$grey-lightest;
 
-  .selected-range {
+  > .selected-range {
     position: absolute;
     border: none;
-    border-radius: bulma.$radius-rounded;
+    border-radius: solar.$radius;
     display: block;
     height: 100%;
-    overflow: hidden;
     left: var(--start-range);
     right: var(--end-range);
-    // TODO Make with the colors
     background-color: solar.$primary;
+  }
+
+  $colors:
+    'primary' solar.$primary,
+    'info' solar.$info,
+    'success' solar.$green,
+    'warning' solar.$warning,
+    'danger' solar.$red;
+
+  @each $name, $color in $colors {
+    &.is-#{$name} > .selected-range {
+      background-color: $color;
+    }
   }
 }
 </style>

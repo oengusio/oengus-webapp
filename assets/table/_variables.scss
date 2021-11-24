@@ -1,7 +1,7 @@
 @use '~bulmaswatch/solar/variables' as solar;
 @use '~bulma/sass/utilities/functions' as bulma;
 
-// Colors are designed to take advantage of playing of the background. Theme neutral
+// Colors are designed to take advantage of playing off the background. Theme neutral
 $neutral-color: rgba(255, 255, 255, 0.1) !default;
 $light-color: rgba(255, 255, 255, 0.05) !default;
 $dark-color: rgba(0, 0, 0, 0.1) !default;
