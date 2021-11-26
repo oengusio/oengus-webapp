@@ -7,16 +7,30 @@
     <ElementTable v-if="!isLoading" class="marathon-calendar-table">
       <template v-for="(dailyCalendar, datetime) in dailyCalendars">
         <template v-if="Array.isArray(dailyCalendar)">
-          <ElementTableCell :key="`day-${datetime}`" is-header class="day is-info" column-start="1" column-end="-1">
+          <ElementTableCell
+            :key="`day-${datetime}`"
+            is-header
+            class="day"
+            :class="isToday(datetime)"
+            column-start="1"
+            column-end="-1"
+          >
             <ElementTemporalDateTime :datetime="datetime" format="longDate" />
           </ElementTableCell>
 
           <template v-for="(marathon, index) in dailyCalendar">
-            <CalendarViewRow :key="`day-${datetime}-marathon-${marathon.id}`" :marathon="marathon" :datetime="datetime" :class="getClasses(marathon, index)" />
+            <CalendarViewRow :key="`day-${datetime}-marathon-${marathon.id}`" :marathon="marathon" :datetime="datetime" :class="getClasses(index)" />
           </template>
         </template>
         <template v-else>
-          <ElementTableCell :key="`day-range-${datetime}`" is-header class="day-range is-info" column-start="1" column-end="-1">
+          <ElementTableCell
+            :key="`day-range-${datetime}`"
+            is-header
+            class="day-range"
+            :class="isToday(dailyCalendar, datetime)"
+            column-start="1"
+            column-end="-1"
+          >
             <ElementTemporalRange :start="dailyCalendar" :end="datetime" format="longDate" />
           </ElementTableCell>
 
@@ -119,12 +133,26 @@ export default Vue.extend({
       const dayEnd = new Date(this.year, this.month - 1, day + 1);
       return this.calendar?.calendar?.filter(marathon => new Date(marathon.endDate) > dayStart && new Date(marathon.startDate) < dayEnd);
     },
-    getClasses(marathon: Marathon, index: number): { 'is-primary': boolean, 'is-even': boolean, 'is-odd': boolean } {
-      const now = new Date();
+    getClasses(index: number): { 'is-even': boolean, 'is-odd': boolean } {
       return {
         'is-even': index % 2 === 0,
         'is-odd': index % 2 === 1,
-        'is-primary': new Date(marathon.startDate) <= now && now <= new Date(marathon.endDate),
+      };
+    },
+    isToday(firstDay: string|Date, lastDay?: string|Date): { 'is-primary': boolean, 'is-info': boolean } {
+      if (typeof firstDay === 'string') {
+        firstDay = new Date(firstDay);
+      }
+      if (typeof lastDay === 'string') {
+        lastDay = new Date(lastDay);
+      }
+      lastDay ??= firstDay;
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      const isToday = firstDay.getTime() <= today && today <= lastDay.getTime();
+      return {
+        'is-primary': isToday,
+        'is-info': !isToday,
       };
     },
     ...mapActions({
