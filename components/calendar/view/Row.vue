@@ -14,7 +14,14 @@
       </i18n>
     </ElementTableCell>
     <ElementTableCell class="range">
-      <ElementRange class="range-bar" :min="0" :max="24" :start="start" :end="end" />
+      <ElementRange
+        class="range-bar"
+        :class="rangeColor"
+        :min="0"
+        :max="24"
+        :start="start"
+        :end="end"
+      />
     </ElementTableCell>
     <ElementTableCell class="name">
       <ElementLink :to="`/marathon/${marathon.id}`">
@@ -66,6 +73,14 @@ export default Vue.extend({
       }
       return durationText;
     },
+    rangeColor(): { 'is-primary': boolean, 'is-info': boolean } {
+      const now = Date.now();
+      const isNow = this.marathonStart.getTime() <= now && now <= this.marathonEnd.getTime();
+      return {
+        'is-primary': isNow,
+        'is-info': !isNow,
+      };
+    },
     todayStart(): Date {
       return new Date(this.datetime);
     },
@@ -92,7 +107,8 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .range-bar {
-  width: 100px;
+  max-width: 100px;
+  min-width: 50px;
 }
 </style>
 
