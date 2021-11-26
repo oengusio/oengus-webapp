@@ -29,7 +29,7 @@
       </ElementLink>
     </ElementTableCell>
     <ElementTableCell class="links">
-      <MarathonSidebarOverview :marathon-id="marathon.id" collapsed />
+      <MarathonSidebarOverview :marathon-id="marathon.id" collapsed is-big-home />
     </ElementTableCell>
   </ElementTableRow>
 </template>

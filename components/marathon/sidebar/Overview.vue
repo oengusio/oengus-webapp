@@ -1,12 +1,12 @@
 <template>
-  <div :class="{ collapsed }">
+  <div class="marathon-sidebar-overview-container" :class="{ collapsed }">
     <p class="menu-label">
       {{ $t('marathon.menu.overview') }}
     </p>
     <ul class="menu-list">
       <li>
         <ElementLink :to="`/marathon/${marathonId}`" class="menu-item-link">
-          <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'home' ]" />
+          <FontAwesomeIcon class="menu-item-icon" :class="{ 'fa-lg': isBigHome }" :icon="[ 'fas', 'home' ]" />
           <span class="menu-item-label">
             {{ $t('marathon.menu.home') }}
           </span>
@@ -53,6 +53,10 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    isBigHome: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -64,31 +68,32 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .menu-item-link {
-    display: flex;
-    justify-content: flex-start;
-    justify-content: start;
-    align-items: center;
+.menu-item-link {
+  display: flex;
+  justify-content: flex-start;
+  justify-content: start;
+  align-items: center;
+}
+
+.menu-item-icon {
+  min-width: 1.5em;
+  margin-inline-end: 0.25em;
+}
+
+.collapsed {
+  .menu-label,
+  .menu-item-label {
+    display: none;
   }
 
   .menu-item-icon {
-    min-width: 1.5em;
-    margin-inline-end: 0.25em;
+    margin-inline-end: 0;
   }
 
-  .collapsed {
-    .menu-label,
-    .menu-item-label {
-      display: none;
-    }
-
-    .menu-item-icon {
-      margin-inline-end: 0;
-    }
-
-    .menu-list {
-      display: flex;
-      flex-wrap: wrap;
-    }
+  .menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
   }
+}
 </style>
