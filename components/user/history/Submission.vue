@@ -19,13 +19,13 @@
       </ElementTableCell>
 
       <template v-for="(marathon, marathonIndex) in submissions">
-        <ElementTableCell :key="`marathon-${marathonIndex}`" class="marathon" :class="getCellColor(marathon)" :row-end="getSpan(marathon)">
+        <ElementTableCell v-if="getCategories(marathon).length" :key="`marathon-${marathonIndex}`" class="marathon" :class="getCellColor(marathon)" :row-end="getSpan(marathon)">
           <ElementLink :to="`/marathon/${marathon.marathonId}`">{{ marathon.marathonName }}</ElementLink>
           (<ElementTemporalDistance :datetime="marathon.marathonStartDate" />)
         </ElementTableCell>
 
         <template v-for="(game, gameIndex) in marathon.games">
-          <ElementTableCell :key="`game-${marathonIndex}-${gameIndex}`" class="game" :class="getCellColor(game)" :row-end="getSpan(game)">
+          <ElementTableCell v-if="getCategories(game).length" :key="`game-${marathonIndex}-${gameIndex}`" class="game" :class="getCellColor(game)" :row-end="getSpan(game)">
             {{ game.name }}
           </ElementTableCell>
 
