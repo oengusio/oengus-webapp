@@ -23,8 +23,7 @@
               </ElementLink>
             </ElementTableCell>
             <ElementTableCell :key="marathonsList.key + 'location' + index" class="location" :class="getRowParity(index)">
-              <span v-if="marathon.onsite && marathon.country" class="icon flag-icon" :class="`flag-icon-${marathon.country.toLowerCase()}`" />
-              <FontAwesomeIcon v-else :icon="[ 'fas', 'desktop' ]" class="icon" />
+              <MarathonLocation :marathon="marathon" />
             </ElementTableCell>
             <ElementTableCell :key="marathonsList.key + 'language' + index" class="language" :class="getRowParity(index)">
               {{ marathon.language.toLocaleUpperCase() }}
