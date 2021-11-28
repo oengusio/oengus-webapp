@@ -1,5 +1,6 @@
 <template>
   <div>
+    <MarathonDetails :marathon-id="marathonId" />
     <MarathonDescription :marathon-id="marathonId" />
   </div>
 </template>

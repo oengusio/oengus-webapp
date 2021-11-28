@@ -41,6 +41,7 @@ const brands = [
   'SnapchatGhost',
   'Twitch',
   'Twitter',
+  'Youtube',
 ];
 
 export function fontAwesomeConfig() {

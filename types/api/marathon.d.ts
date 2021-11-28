@@ -24,6 +24,7 @@ export interface FullMarathon {
   discord: string;
   discordGuildId: string;
   discordGuildName: string;
+  /** If true, the Discord is considered private */
   discordPrivacy: boolean;
   discordRequired: boolean;
   donationCurrency: string;
@@ -53,9 +54,9 @@ export interface FullMarathon {
   supportedCharity: string;
   twitch: string;
   twitter: string;
-  unlimitedCateogires: boolean;
+  unlimitedCategories: boolean;
   unlimitedGames: boolean;
-  videoRequiored: boolean;
+  videoRequired: boolean;
   webhook: string;
   youtube: string;
 }
