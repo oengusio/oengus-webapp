@@ -52,6 +52,8 @@
         <FontAwesomeIcon :icon="[ 'fab', 'youtube' ]" class="icon info" />
       </a>
     </div>
+
+    <WidgetTwitchPlayer v-if="marathon.twitch && isLive" :channel="marathon.twitch" class="marathon-live-player" />
   </div>
 </template>
 
@@ -78,8 +80,15 @@ export default Vue.extend({
     marathon(): FullMarathon|undefined {
       return (this.$store.state.api.marathon as MarathonState).marathons[this.marathonId];
     },
-    description(): string|undefined {
-      return this.marathon?.description;
+    isLive(): boolean {
+      if (!this.marathon) {
+        return false;
+      }
+
+      const start = new Date(this.marathon.startDate).getTime();
+      const end = new Date(this.marathon.endDate).getTime();
+      const now = Date.now();
+      return start <= now && now <= end;
     },
   },
 
@@ -116,6 +125,13 @@ export default Vue.extend({
       line-height: 1;
     }
   }
+}
+
+.marathon-live-player {
+  width: 100%;
+  max-width: 2560px;
+  height: 40vh;
+  max-height: 1440px;
 }
 </style>
 
