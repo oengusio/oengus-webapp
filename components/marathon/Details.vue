@@ -128,6 +128,7 @@ export default Vue.extend({
 }
 
 .marathon-live-player {
+  margin-block-start: var(--spacing);
   width: 100%;
   max-width: 2560px;
   height: 40vh;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="marathon-mainpage-container">
     <MarathonDetails :marathon-id="marathonId" />
     <MarathonDescription :marathon-id="marathonId" />
   </div>
@@ -16,3 +16,11 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.marathon-mainpage-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+}
+</style>
