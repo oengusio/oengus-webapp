@@ -1,5 +1,5 @@
 <template>
-  <div class="marathon-details-container">
+  <div v-if="marathon && !marathon._fetching" class="marathon-details-container">
     <div class="marathon-details-info-container">
       <div class="info-box">
         <p class="info-label">
