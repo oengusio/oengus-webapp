@@ -9,8 +9,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { MetaInfo } from 'vue-meta';
 
 export default Vue.extend({
+  head(): MetaInfo {
+    return {
+      title: this.$t('calendar.title') as string,
+    };
+  },
+
   computed: {
     year(): number {
       return Number.parseInt(this.$route.params.year ?? new Date().getFullYear(), 10);

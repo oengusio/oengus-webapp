@@ -12,7 +12,7 @@ import { sitemapConfig } from './configs/sitemap.config';
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   'head': {
-    title: 'Oengus v2',
+    titleTemplate: titleChunk => `${titleChunk ? `${titleChunk} | ` : ''}Oengus v2`,
     htmlAttrs: {
       lang: 'en-GB',
     },

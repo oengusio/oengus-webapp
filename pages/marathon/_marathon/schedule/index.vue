@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { MetaInfo } from 'vue-meta';
 
 export default Vue.extend({
   data() {
@@ -33,6 +34,13 @@ export default Vue.extend({
       marathonId: this.$route.params.marathon,
     };
   },
+
+  head(): MetaInfo {
+    return {
+      title: this.$t('marathon.schedule.title') as string,
+    };
+  },
+
   computed: {
     runHash(): string {
       return this.$route.hash;
@@ -42,16 +50,16 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .current-runs-container {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: stretch;
-    gap: var(--spacing);
+.current-runs-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  gap: var(--spacing);
 
-    > * {
-      min-width: min(400px, 100%);
-      flex-grow: 1;
-    }
+  > * {
+    min-width: min(400px, 100%);
+    flex-grow: 1;
   }
+}
 </style>
