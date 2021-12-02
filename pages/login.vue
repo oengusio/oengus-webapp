@@ -1,7 +1,5 @@
 <template>
-  <div>
-    Oengus user settings main page stub
-  </div>
+  <NuxtChild />
 </template>
 
 <script lang="ts">
@@ -11,7 +9,7 @@ import { MetaInfo } from 'vue-meta';
 export default Vue.extend({
   head(): MetaInfo {
     return {
-      title: this.$t('navbar.settings') as string,
+      title: this.$t('navbar.login.title') as string,
     };
   },
 });
