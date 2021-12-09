@@ -20,6 +20,11 @@ a {
   }
 }
 
+.navbar-item,
+.navbar-link {
+  color: inherit;
+}
+
 .title {
   word-break: normal;
   // Line break is kinda like word break, but for languages without spaces, like Chinese, Japanese, or Korean
