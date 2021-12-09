@@ -5,16 +5,23 @@ import { Middleware } from '@nuxt/types';
 const oengusV2Pages: Array<Array<string>> = [
   // Homepage
   [ ],
+  [ 'about' ],
+  [ 'calendar' ],
+  [ 'calendar', '*', '*' ],
   [ 'marathon', '*' ],
   [ 'marathon', '*', 'schedule' ],
   [ 'news', 'kaspersky-partnership' ],
+  [ 'patrons' ],
+  [ 'user', '*' ],
 ];
 
-const oengusV1Redirect: Middleware = function ({ $config, route, redirect, from }): void {
+const oengusV1Redirect: Middleware = function ({ $config, route, from, redirect, localePath }): void {
   if (!$config.env.DOMAIN_V1) {
     return;
   }
-  let to = route.path
+  // localePath is smart enough to only add/change a locale when necessary, this allows us to handle
+  // incoming requests that don't include the locale portion of the path without weird redirects
+  let to = localePath(route.path)
     .split('/')
     // Remove leading, trailing, and duplicated `/` portions
     .filter(part => part)
