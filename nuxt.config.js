@@ -58,9 +58,9 @@ export default {
     '@nuxt/http',
     '@nuxtjs/google-adsense',
     '@nuxtjs/google-gtag',
+    '@nuxtjs/i18n',
     '@nuxtjs/markdownit',
     '@nuxtjs/robots',
-    'nuxt-i18n',
     'nuxt-ssr-cache',
     // sitemap should always come last
     '@nuxtjs/sitemap',
@@ -101,15 +101,15 @@ export default {
   // Google GTag configuration: https://github.com/nuxt-community/google-gtag-module
   'google-gtag': googleGtagConfig(process),
 
+  // i18n configuration: https://i18n.nuxtjs.org/
+  'i18n': i18nConfig(process),
+
   // Markdown configuration: https://github.com/nuxt-community/markdownit-module
   'markdownit': markdownItConfig(process),
 
   // robots configuration: https://github.com/nuxt-community/robots-module
   // Provides an automated /robots.txt
   'robots': robotsConfig(process),
-
-  // i18n configuration: https://i18n.nuxtjs.org/
-  'i18n': i18nConfig(process),
 
   // SSR Cache configuration: https://www.npmjs.com/package/nuxt-ssr-cache
   'cache': cacheConfig(process),
