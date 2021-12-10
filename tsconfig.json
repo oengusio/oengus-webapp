@@ -28,7 +28,7 @@
       "@nuxt/types",
       "@types/node",
       "@nuxt/http",
-      "nuxt-i18n"
+      "@nuxtjs/i18n"
     ]
   },
   "exclude": [

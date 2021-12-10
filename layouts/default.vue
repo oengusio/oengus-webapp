@@ -14,7 +14,10 @@ import { MetaInfo } from 'vue-meta';
 
 export default Vue.extend({
   head(): Required<Pick<MetaInfo, 'htmlAttrs'|'link'|'meta'>> {
-    return this.$nuxtI18nHead({ addSeoAttributes: true });
+    return this.$nuxtI18nHead({
+      addDirAttribute: true,
+      addSeoAttributes: true,
+    });
   },
   watch: {
     $route(): void {

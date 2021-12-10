@@ -7,7 +7,7 @@ export const locales = [
   { code: 'da', iso: 'da', file: 'da.json', nativeName: 'dansk' },
   { code: 'de', iso: 'de', file: 'de.json', nativeName: 'Deutsch' },
   { code: 'el', iso: 'el', file: 'el.json', nativeName: 'Ελληνικά' },
-  { code: 'en-GB', iso: 'en-GB', file: 'en.json', nativeName: 'English' },
+  { code: 'en-GB', iso: 'en-GB', file: 'en.json', nativeName: 'English', isCatchallLocale: true },
   { code: 'en-US', iso: 'en-US', file: 'en.json', nativeName: 'English (United States)' },
   { code: 'es', iso: 'es', file: 'es.json', nativeName: 'español' },
   { code: 'fi', iso: 'fi', file: 'fi.json', nativeName: 'suomi' },
@@ -20,7 +20,7 @@ export const locales = [
   { code: 'pt-BR', iso: 'pt-BR', file: 'pt_BR.json', nativeName: 'Português (Brazil)' },
   { code: 'ru', iso: 'ru', file: 'ru.json', nativeName: 'русский язык' },
   { code: 'tr', iso: 'tr', file: 'tr.json', nativeName: 'Türkçe' },
-  { code: 'zh-Hans', iso: 'zh', file: 'zh_Hans.json', nativeName: '中文 (简体中文)' },
+  { code: 'zh-Hans', iso: 'zh', file: 'zh_Hans.json', nativeName: '中文 (简体中文)', isCatchallLocale: true },
   { code: 'zh-Hant-HK', iso: 'zh-HK', file: 'zh_Hant_HK.json', nativeName: '中文 (香港)' },
 ];
 
@@ -43,7 +43,5 @@ export function i18nConfig() {
     vueI18nLoader: true,
     // This import takes places inside webpack from a different PWD, so we need the ~ pathing
     vueI18n: '~/configs/vue-i18n.config.js',
-    // Performant language-based SEO: https://i18n.nuxtjs.org/seo#improving-performance
-    seo: false,
   };
 }

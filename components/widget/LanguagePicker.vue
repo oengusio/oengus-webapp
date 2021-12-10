@@ -14,7 +14,7 @@
 <script lang="ts">
 import Vue from 'vue';
 /* eslint-disable-next-line import/named */ /* ESLint has trouble with this import... */
-import { LocaleObject } from 'nuxt-i18n';
+import { LocaleObject } from '@nuxtjs/i18n';
 
 export default Vue.extend({
   data() {
