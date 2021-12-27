@@ -131,7 +131,7 @@ export default Vue.extend({
   margin-block-start: var(--spacing);
   width: 100%;
   max-width: 2560px;
-  height: 40vh;
+  height: 60vh;
   max-height: 1440px;
 }
 </style>
