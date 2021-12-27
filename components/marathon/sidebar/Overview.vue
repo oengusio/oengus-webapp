@@ -4,7 +4,7 @@
       {{ $t('marathon.menu.overview') }}
     </p>
     <ul class="menu-list">
-      <li>
+      <li :title="$t('marathon.menu.home')">
         <ElementLink :to="`/marathon/${marathonId}`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :class="{ 'fa-lg': isBigHome }" :icon="[ 'fas', 'home' ]" />
           <span class="menu-item-label">
@@ -12,7 +12,7 @@
           </span>
         </ElementLink>
       </li>
-      <li>
+      <li v-if="marathon.scheduleDone" :title="$t('marathon.menu.schedule')">
         <ElementLink :to="`/marathon/${marathonId}/schedule`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'calendar' ]" />
           <span class="menu-item-label">
@@ -20,7 +20,7 @@
           </span>
         </ElementLink>
       </li>
-      <li>
+      <li :title="$t('marathon.menu.viewSubmissions')">
         <ElementLink :to="`/marathon/${marathonId}/submissions`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'book' ]" />
           <span class="menu-item-label">
@@ -28,7 +28,7 @@
           </span>
         </ElementLink>
       </li>
-      <li v-if="shouldShowRedirectLinks">
+      <li v-if="shouldShowRedirectLinks" :title="$t('marathon.menu.submitRuns')">
         <ElementLink :to="`/marathon/${marathonId}/submit`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'paper-plane' ]" />
           <span class="menu-item-label">
@@ -42,6 +42,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
+import { FullMarathon, MarathonState } from '~/types/api/marathon';
 
 export default Vue.extend({
   props: {
@@ -63,6 +65,24 @@ export default Vue.extend({
     return {
       shouldShowRedirectLinks: !this.$config.env.DOMAIN_V1,
     };
+  },
+
+  async fetch(): Promise<void> {
+    await Promise.allSettled([
+      this.getMarathon(this.marathonId),
+    ]);
+  },
+
+  computed: {
+    marathon(): FullMarathon|undefined {
+      return (this.$store.state.api.marathon as MarathonState).marathons[this.marathonId];
+    },
+  },
+
+  methods: {
+    ...mapActions({
+      getMarathon: 'api/marathon/get',
+    }),
   },
 });
 </script>

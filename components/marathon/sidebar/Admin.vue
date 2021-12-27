@@ -3,7 +3,7 @@
     <p class="menu-label">
       {{ $t('marathon.menu.admin') }}
     </p>
-    <ul class="menu-list">
+    <ul class="menu-list" :title="$t('marathon.menu.settings')">
       <li>
         <ElementLink :to="`/marathon/${marathonId}/settings`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'cogs' ]" />
@@ -12,7 +12,7 @@
           </span>
         </ElementLink>
       </li>
-      <li>
+      <li :title="$t('marathon.menu.selectRuns')">
         <ElementLink :to="`/marathon/${marathonId}/selection`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'check-square' ]" />
           <span class="menu-item-label">
@@ -20,7 +20,7 @@
           </span>
         </ElementLink>
       </li>
-      <li>
+      <li :title="$t('marathon.menu.manageSchedule')">
         <ElementLink :to="`/marathon/${marathonId}/schedule/manage`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'calendar-check' ]" />
           <span class="menu-item-label">
@@ -28,7 +28,7 @@
           </span>
         </ElementLink>
       </li>
-      <li>
+      <li :title="$t('marathon.menu.manageIncentives')">
         <ElementLink :to="`/marathon/${marathonId}/incentives/manage`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'dot-circle' ]" />
           <span class="menu-item-label">
