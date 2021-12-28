@@ -17,6 +17,10 @@ a {
 
   &:hover {
     color: theme.$link-hover !important;
+
+    .menu-list & {
+      background-color: inherit;
+    }
   }
 }
 
