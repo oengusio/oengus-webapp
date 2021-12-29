@@ -1,6 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {Router} from '@angular/router';
 import {LoadingBarService} from '../../../services/loading-bar.service';
 import {DeactivateRouteGuard} from '../../guards/deactivate-route-guard.service';
 
@@ -31,6 +30,7 @@ export class V2LinkComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // a small timeout to allow angular to update the element
     setTimeout(() => {
       this.storedUrl = this.linkInput.nativeElement.getAttribute('href');
 
@@ -52,6 +52,11 @@ export class V2LinkComponent implements OnInit {
     const href = this.storedUrl;
     const urlLanguage = V2LinkComponent.getUrlLanguage();
     const targetUrl = `${environment.v2Domain}${urlLanguage}${href}`;
+
+    if (environment.baseSite.includes('localhost')) {
+      window.open(targetUrl, '_blank');
+      return false;
+    }
 
     console.log(targetUrl);
 

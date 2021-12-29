@@ -1,7 +1,10 @@
 export const environment = {
   production: true,
   sandbox: false,
-  baseSite: 'https://oengus.io',
+  // baseSite: 'https://oengus.io',
+  get baseSite() {
+    return window.location.origin;
+  },
   api: 'https://oengus.io/api',
   twitchClientId: 'f4ry4d9k0dt89ha8ks7cb845trvbod',
   loginRedirect: 'https://oengus.io/login/',

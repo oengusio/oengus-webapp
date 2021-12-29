@@ -79,7 +79,7 @@
       <table class="table is-fullwidth">
         <tbody>
         <tr *ngFor="let marathon of nextMarathons">
-          <td><a [routerLink]="'/marathon/' + marathon.id">{{marathon.name}}</a></td>
+          <td><app-v2-link [route]="'/marathon/' + marathon.id">{{marathon.name}}</app-v2-link></td>
           <td class="has-text-centered">
             <fa-icon *ngIf="!marathon.country || !marathon.onsite"
                      [icon]="faGlobe"></fa-icon>
@@ -97,7 +97,7 @@
       <table class="table is-fullwidth">
         <tbody>
         <tr *ngFor="let marathon of openMarathons">
-          <td><a [routerLink]="'/marathon/' + marathon.id">{{marathon.name}}</a></td>
+          <td><app-v2-link [route]="'/marathon/' + marathon.id">{{marathon.name}}</app-v2-link></td>
           <td class="has-text-centered">
             <fa-icon *ngIf="!marathon.country || !marathon.onsite"
                      [icon]="faGlobe"></fa-icon>
@@ -116,7 +116,7 @@
         <table class="table is-fullwidth">
           <tbody>
           <tr *ngFor="let marathon of moderatedMarathons">
-            <td><a [routerLink]="'/marathon/' + marathon.id">{{marathon.name}}</a></td>
+            <td><app-v2-link [route]="'/marathon/' + marathon.id">{{marathon.name}}</app-v2-link></td>
             <td class="has-text-centered">
               <fa-icon *ngIf="!marathon.country || !marathon.onsite"
                        [icon]="faGlobe"></fa-icon>
