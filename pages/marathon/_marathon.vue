@@ -41,11 +41,6 @@ export default Vue.extend({
     },
   },
 
-  mounted(): void {
-    // Show the sidebar by default on desktop-class devices
-    this.collapsed = (globalThis.innerWidth ?? 1024) < 1024;
-  },
-
   watch: {
     $route(to, from): void {
       // Detect when the path changes (not anchors in the same page or queries)
@@ -56,6 +51,11 @@ export default Vue.extend({
         }
       }
     },
+  },
+
+  mounted(): void {
+    // Show the sidebar by default on desktop-class devices
+    this.collapsed = (globalThis.innerWidth ?? 1024) < 1024;
   },
 
   methods: {
@@ -84,6 +84,7 @@ export default Vue.extend({
 
 .marathon-sidebar {
   grid-area: sidebar;
+  align-self: start;
   min-width: min(300px, 100%);
 }
 

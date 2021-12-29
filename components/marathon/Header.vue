@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box marathon-header-container">
     <div class="main-header">
       <h3 class="title is-3">
         {{ marathonName }}
@@ -79,6 +79,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.marathon-header-container {
+  margin: 0;
+}
+
 .main-header {
   display: grid;
   grid-template-columns: auto min-content;
