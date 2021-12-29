@@ -16,8 +16,7 @@ export default Vue.extend({
   data() {
     return {
       marathonId: this.$route.params.marathon,
-      // Show the sidebar by default on desktop-class devices
-      collapsed: (globalThis.innerWidth ?? 1024) < 1024,
+      collapsed: false,
     };
   },
 
@@ -40,6 +39,11 @@ export default Vue.extend({
     marathon(): FullMarathon|undefined {
       return (this.$store.state.api.marathon as MarathonState).marathons[this.marathonId];
     },
+  },
+
+  mounted(): void {
+    // Show the sidebar by default on desktop-class devices
+    this.collapsed = (globalThis.innerWidth ?? 1024) < 1024;
   },
 
   watch: {
