@@ -1,6 +1,7 @@
 <template>
   <div class="marathon-container" :class="{ collapsed }">
-    <MarathonSidebar class="marathon-sidebar" :marathon-id="marathonId" :collapsed.sync="collapsed" />
+    <MarathonHeader class="marathon-header" :marathon-id="marathonId" :collapsed.sync="collapsed" />
+    <MarathonSidebar v-show="!collapsed" class="marathon-sidebar" :marathon-id="marathonId" :collapsed.sync="collapsed" />
     <NuxtChild class="marathon-view" />
   </div>
 </template>
@@ -64,24 +65,38 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .marathon-container {
   width: 100%;
-  display: flex;
-  align-items: flex-start;
-  align-items: start;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'sidebar header'
+    'sidebar view';
   gap: var(--spacing);
 }
 
+.marathon-header {
+  grid-area: header;
+}
+
 .marathon-sidebar {
+  grid-area: sidebar;
   min-width: min(300px, 100%);
 }
 
 .marathon-view {
+  grid-area: view;
   width: 100%;
   flex-grow: 5;
 }
 
 @media (max-width: 1023px) {
   .marathon-container {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      'header'
+      'sidebar'
+      'view';
   }
 
   .marathon-sidebar {
