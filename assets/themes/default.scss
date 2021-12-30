@@ -1,7 +1,11 @@
+@use 'sass:color' as color;
+
 @import 'bulmaswatch/solar/variables';
 
-// Improve text contrast for accessibility (this is just solar's color with 5 percentage points extra luminance)
-$text: #91a0a1;
+// Improve text contrast for accessibility
+$-lightness-change: 36%;
+$text: color.scale($text, $lightness: $-lightness-change);
+$title-color: color.scale($title-color, $lightness: $-lightness-change);
 
 @import 'bulma';
 @import 'bulmaswatch/solar/overrides';

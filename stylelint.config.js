@@ -22,6 +22,8 @@ module.exports = {
       },
     ],
     'declaration-block-single-line-max-declarations': 0,
+    // Until Bulma moves to @use, sometimes we'll need to mix @use and @import
+    'no-invalid-position-at-import-rule': null,
     // Allow ::v-deep ( >>> and /deep/ both fail more fundamentally )
     'selector-pseudo-element-no-unknown': [
       true,
