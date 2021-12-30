@@ -65,7 +65,7 @@ export class SettingsComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.route.queryParams.subscribe(queryParams => {
-        if (!!params['service'] && (!!queryParams['code'] || !!queryParams['oauth_token'] && !!queryParams['oauth_verifier'])) {
+        if (!!params['service'] && !!queryParams['code']) {
           this.syncService(params, queryParams);
         }
       });
@@ -144,12 +144,9 @@ export class SettingsComponent implements OnInit {
   }
 
   syncTwitter(): void {
-    this.loading = true;
     delete this.user.twitterId;
 
-    this.userService.sync('twitterAuth').then(response => {
-      window.location.replace(response.token);
-    });
+    window.location.assign(this.userService.getTwitterAuthUrl(true));
   }
 
   unsyncDiscord(): void {
@@ -225,9 +222,7 @@ export class SettingsComponent implements OnInit {
     try {
       const response = await this.userService.sync(
         params['service'],
-        queryParams['code'],
-        queryParams['oauth_token'],
-        queryParams['oauth_verifier']
+        queryParams['code']
       );
 
       if (typeof this.user[`${params['service'].toLowerCase()}Id`] !== 'undefined') {

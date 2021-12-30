@@ -6,6 +6,7 @@ export const environment = {
     return window.location.origin;
   },
   api: 'https://oengus.io/api',
+  twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',
   twitchClientId: 'f4ry4d9k0dt89ha8ks7cb845trvbod',
   loginRedirect: 'https://oengus.io/login/',
   syncRedirect: 'https://oengus.io/user/settings/sync/',

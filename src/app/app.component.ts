@@ -208,12 +208,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  twitterAuth() {
-    this.userService.login('twitterAuth').subscribe(response => {
-      window.location.replace(response.token);
-    });
-  }
-
   onRouteActivated(component) {
     if (Object.getPrototypeOf(component).hasOwnProperty('title')) {
       this.titleService.setTitle(component.title);

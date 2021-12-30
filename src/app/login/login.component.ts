@@ -26,10 +26,7 @@ export class LoginComponent implements OnInit {
     }, 0);
     this.route.params.subscribe(params => {
       this.route.queryParams.subscribe(queryParams => {
-        this.userService.login(params['service'],
-          queryParams['code'],
-          queryParams['oauth_token'],
-          queryParams['oauth_verifier']).subscribe(response => {
+        this.userService.login(params['service'], queryParams['code']).subscribe(response => {
           this.userService.token = response.token;
           this.userService.me().add(() => {
             if (!this.userService.user.mail) {

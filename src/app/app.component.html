@@ -145,7 +145,7 @@
                 {{'navbar.login.twitch' | translate}}
               </a>
               <a class="navbar-item is-tooltip-danger"
-                 (click)="twitterAuth()"
+                 [href]="userService.getTwitterAuthUrl()"
                  nwbToolTipPosition="left"
                  nwbToolTipIsMultiline="true"
                  [nwbToolTip]="'navbar.login.disclaimer' | translate">

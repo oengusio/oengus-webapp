@@ -1,6 +1,7 @@
 // TODO: look into performance impact with getters
 
 export const environment = {
+  twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',
   twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
   discordClientId: '559625844197163008',
   patreonClientId: 'qXKJ92UNMBtSTV_N0TN47U6l1o2_VXWmqK3u9_Gv3RXIJuiJ0LTpDyzbl5XZuARH',

@@ -38,6 +38,10 @@ export class UserService extends BaseService {
     return environment.twitchClientId;
   }
 
+  getTwitterClientId() {
+    return environment.twitterClientId;
+  }
+
   getDiscordClientId() {
     return environment.discordClientId;
   }
@@ -58,22 +62,30 @@ export class UserService extends BaseService {
       redirectUri + 'twitch&response_type=code&scope=openid';
   }
 
+  getTwitterAuthUrl(sync = false) {
+    const redirectUri = sync ? this.getSyncRedirectUri() : this.getRedirectUri();
+
+    return 'https://twitter.com/i/oauth2/authorize?client_id=' +
+      this.getTwitterClientId() + '&redirect_uri=' +
+      redirectUri + 'twitter' +
+      '&response_type=code&scope=users.read%20tweet.read' +
+      '&code_challenge=speedrun&code_challenge_method=plain&state=unused';
+  }
+
   get patreonSyncUrl(): string {
     return `https://www.patreon.com/oauth2/authorize?response_type=code&client_id=${
       environment.patreonClientId
     }&scope=identity&redirect_uri=${this.getSyncRedirectUri()}patreon`;
   }
 
-  login(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Observable<any> {
+  login(service: string, code?: string): Observable<any> {
     return this.http.post(this.url('login'), {
       service: service,
-      code: code,
-      oauthToken: oauthToken,
-      oauthVerifier: oauthVerifier
+      code: code
     });
   }
 
-  async sync(service: string, code?: string, oauthToken?: string, oauthVerifier?: string): Promise<any|RelationShip> {
+  async sync(service: string, code?: string): Promise<any|RelationShip> {
     if (service === 'patreon') {
       const response = await this.http.get<RelationShip>(`${environment.patronApi}/sync?code=${code}`).toPromise() as any;
 
@@ -85,9 +97,7 @@ export class UserService extends BaseService {
       // Check if account is already synced
       await this.http.post(this.url('sync'), {
         service: 'patreon',
-        code: patreon.id,
-        oauthToken: null,
-        oauthVerifier: null,
+        code: patreon.id
       }).toPromise();
 
       return patreon;
@@ -95,9 +105,7 @@ export class UserService extends BaseService {
 
     return this.http.post(this.url('sync'), {
       service: service,
-      code: code,
-      oauthToken: oauthToken,
-      oauthVerifier: oauthVerifier,
+      code: code
     }).toPromise();
   }
 
