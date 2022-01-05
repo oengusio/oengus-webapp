@@ -4,14 +4,14 @@
       <h3 class="title is-3">
         {{ marathonName }}
       </h3>
-      <button v-if="collapsed" class="button navbar-burger" :class="buttonClass" @click="toggleSidebar">
+      <button v-show="collapsed" class="button navbar-burger" :class="buttonClass" @click="toggleSidebar">
         <span />
         <span />
         <span />
       </button>
     </div>
 
-    <div v-if="collapsed" class="menu-sections">
+    <div v-show="collapsed" class="menu-sections">
       <MarathonSidebarOverview :marathon-id="marathonId" collapsed />
       <MarathonSidebarTracker :marathon-id="marathonId" collapsed />
       <MarathonSidebarAdmin :marathon-id="marathonId" collapsed />
