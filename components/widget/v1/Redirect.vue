@@ -21,7 +21,7 @@ export default Vue.extend({
 {
   "en-GB": {
     "footer": {
-      "v1Link": "View this page on Oengus v1"
+      "v1Link": "Login to Oengus on v1"
     }
   }
 }
