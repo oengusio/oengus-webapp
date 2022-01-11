@@ -12,14 +12,20 @@ export function httpConfig() {
   };
 }
 
+export function getApiUrl(process) {
+  const api = process.env.API ?? 'oengus.dev';
+  const protocol = api.match(/^localhost(:\d+)?$/) ? 'http' : 'https';
+  return `${protocol}://${api}/api/`;
+}
+
 export function httpRuntimeConfig(process) {
   return {
-    browserBaseURL: `https://${process.env.API ?? 'oengus.dev'}/api/`,
+    browserBaseURL: getApiUrl(process),
   };
 }
 
 export function httpPrivateRuntimeConfig(process) {
   return {
-    baseURL: `https://${process.env.API ?? 'oengus.dev'}/api/`,
+    baseURL: getApiUrl(process),
   };
 }
