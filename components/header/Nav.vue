@@ -61,6 +61,7 @@ export default Vue.extend({
       isNavbarActive: false,
     };
   },
+
   computed: {
     isActiveClass(): IsActive {
       return {
@@ -68,6 +69,7 @@ export default Vue.extend({
       };
     },
   },
+
   methods: {
     toggleNavbarActive(): void {
       this.isNavbarActive = !this.isNavbarActive;

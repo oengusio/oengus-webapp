@@ -8,13 +8,13 @@
 </template>
 
 <style lang="scss" scoped>
-  .image {
-    display: flex;
-    justify-content: center;
+.image {
+  display: flex;
+  justify-content: center;
 
-    > img {
-      max-height: 60px;
-      width: auto;
-    }
+  > img {
+    max-height: 60px;
+    width: auto;
   }
+}
 </style>

@@ -86,31 +86,31 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .menu-item-link {
-    display: flex;
-    justify-content: flex-start;
-    justify-content: start;
-    align-items: center;
+.menu-item-link {
+  display: flex;
+  justify-content: flex-start;
+  justify-content: start;
+  align-items: center;
+}
+
+.menu-item-icon {
+  min-width: 1.5em;
+  margin-inline-end: 0.25em;
+}
+
+.collapsed {
+  .menu-label,
+  .menu-item-label {
+    display: none;
   }
 
   .menu-item-icon {
-    min-width: 1.5em;
-    margin-inline-end: 0.25em;
+    margin-inline-end: 0;
   }
 
-  .collapsed {
-    .menu-label,
-    .menu-item-label {
-      display: none;
-    }
-
-    .menu-item-icon {
-      margin-inline-end: 0;
-    }
-
-    .menu-list {
-      display: flex;
-      flex-wrap: wrap;
-    }
+  .menu-list {
+    display: flex;
+    flex-wrap: wrap;
   }
+}
 </style>

@@ -29,7 +29,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .footer {
-    padding-block-end: 4rem;
-  }
+.footer {
+  padding-block-end: 4rem;
+}
 </style>

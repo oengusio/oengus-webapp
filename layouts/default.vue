@@ -19,11 +19,13 @@ export default Vue.extend({
       addSeoAttributes: true,
     });
   },
+
   watch: {
     $route(): void {
       this.$scroll.onNavigation(this.$route);
     },
   },
+
   mounted(): void {
     this.$scroll.onNavigation(this.$route);
     // Provide calls to this.$gtag here to update Analytics

@@ -26,11 +26,13 @@ export default Vue.extend({
       default: () => [ ],
     },
   },
+
   data() {
     return {
       isLoading: false,
     };
   },
+
   mounted() {
     this.isLoading = this.while.reduce((isLoading, value: OengusStateValue<any>) => {
       return isLoading || (value?._fetching ?? false);

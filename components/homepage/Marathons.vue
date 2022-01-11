@@ -113,34 +113,34 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .homepage-marathons-container {
-    width: 100%;
+.homepage-marathons-container {
+  width: 100%;
+}
+
+.marathons-list-container {
+  grid-template-columns: repeat(4, auto);
+  grid-template-columns: auto min-content min-content auto;
+
+  > .title {
+    // Span from start to finish
+    grid-column: 1 / -1;
+    padding-inline-start: 0;
+    margin: 0;
   }
 
-  .marathons-list-container {
-    grid-template-columns: repeat(4, auto);
-    grid-template-columns: auto min-content min-content auto;
-
-    > .title {
-      // Span from start to finish
-      grid-column: 1 / -1;
-      padding-inline-start: 0;
-      margin: 0;
-    }
-
-    > .location {
-      display: flex;
-      justify-content: center;
-    }
-
-    > .time {
-      text-align: end;
-    }
-
-    > .spacer {
-      // Span from start to finish
-      grid-column: 1 / -1;
-      height: calc(3 * var(--spacing) / 2);
-    }
+  > .location {
+    display: flex;
+    justify-content: center;
   }
+
+  > .time {
+    text-align: end;
+  }
+
+  > .spacer {
+    // Span from start to finish
+    grid-column: 1 / -1;
+    height: calc(3 * var(--spacing) / 2);
+  }
+}
 </style>

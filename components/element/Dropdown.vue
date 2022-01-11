@@ -39,6 +39,7 @@ export default Vue.extend({
       default: false,
     },
   },
+
   data() {
     return {
       isActive: false,
@@ -46,6 +47,7 @@ export default Vue.extend({
       clickOutsideStatic: undefined as (() => void) | undefined,
     };
   },
+
   computed: {
     dropdownActive(): Array<string> {
       return [
@@ -55,12 +57,15 @@ export default Vue.extend({
       ];
     },
   },
+
   mounted(): void {
     this.clickOutsideStatic = this.clickOutside.bind(this);
   },
+
   destroyed(): void {
     this.clickOutside();
   },
+
   methods: {
     toggleActive(): void {
       this.isActive = !this.isActive;
@@ -79,19 +84,19 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  // Some SASS variables to help make selecting the navbar and generic dropdown elements together easier
-  $dropdowns: '.has-dropdown, .dropdown';
-  $dropdown-menus: '.navbar-dropdown, .dropdown-menu';
+// Some SASS variables to help make selecting the navbar and generic dropdown elements together easier
+$dropdowns: '.has-dropdown, .dropdown';
+$dropdown-menus: '.navbar-dropdown, .dropdown-menu';
 
-  #{$dropdowns} {
+#{$dropdowns} {
+  #{$dropdown-menus} {
+    display: none;
+  }
+
+  &.is-active {
     #{$dropdown-menus} {
-      display: none;
-    }
-
-    &.is-active {
-      #{$dropdown-menus} {
-        display: block;
-      }
+      display: block;
     }
   }
+}
 </style>

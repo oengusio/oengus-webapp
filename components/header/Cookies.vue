@@ -28,6 +28,7 @@ export default Vue.extend({
       showConsentPrompt: false,
     };
   },
+
   beforeMount(): void {
     let showConsentPrompt: boolean = true;
     // doNotTrack is deprecated, let's not break if it gets removed
@@ -35,6 +36,7 @@ export default Vue.extend({
     showConsentPrompt &&= localStorage.getItem('consent') === null;
     this.showConsentPrompt = showConsentPrompt;
   },
+
   methods: {
     setCookies(consent: boolean): void {
       // We invert for these, because these are DISABLE flags. Consent: yes; disable: no
@@ -49,10 +51,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .level-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5em;
-  }
+.level-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5em;
+}
 </style>

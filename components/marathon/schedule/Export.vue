@@ -20,6 +20,7 @@ export default Vue.extend({
       formats: [ 'ics', 'csv', 'json' ],
     };
   },
+
   methods: {
     getExportUrl(format: string): string {
       return `${this.$config.http.browserBaseURL}marathons/${this.$route.params.marathon}/schedule/export?format=${format}&zoneId=${this.$temporal.timeZone.timeZone}&locale=${this.$i18n.locale}`;

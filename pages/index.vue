@@ -11,49 +11,49 @@
 </template>
 
 <style lang="scss" scoped>
-  .homepage-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: auto 1fr;
+.homepage-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto 1fr;
+  gap: var(--spacing);
+  grid-template-areas:
+    'welcome marathons'
+    'extra   marathons';
+  align-items: start;
+
+  > * {
+    margin: 0;
+  }
+
+  .welcome {
+    grid-area: welcome;
+    order: 1;
+  }
+
+  .marathons {
+    grid-area: marathons;
+    order: 2;
+  }
+
+  .extra {
+    grid-area: extra;
+    order: 3;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     gap: var(--spacing);
-    grid-template-areas:
-      'welcome marathons'
-      'extra   marathons';
-    align-items: start;
 
     > * {
       margin: 0;
     }
-
-    .welcome {
-      grid-area: welcome;
-      order: 1;
-    }
-
-    .marathons {
-      grid-area: marathons;
-      order: 2;
-    }
-
-    .extra {
-      grid-area: extra;
-      order: 3;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing);
-
-      > * {
-        margin: 0;
-      }
-    }
   }
+}
 
-  @media (max-width: 1023px) {
-    // When stuff starts to get cramped, give the elements some breathing room
-    .homepage-grid {
-      display: flex;
-      flex-direction: column;
-    }
+@media (max-width: 1023px) {
+  // When stuff starts to get cramped, give the elements some breathing room
+  .homepage-grid {
+    display: flex;
+    flex-direction: column;
   }
+}
 </style>

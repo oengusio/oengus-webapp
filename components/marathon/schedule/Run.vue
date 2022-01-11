@@ -70,35 +70,35 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .run-detail-container {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-auto-rows: auto;
-    gap: calc(var(--spacing) / 2);
+.run-detail-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-auto-rows: auto;
+  gap: calc(var(--spacing) / 2);
 
-    > .header {
-      grid-column: 1 / -1;
-      text-align: center;
+  > .header {
+    grid-column: 1 / -1;
+    text-align: center;
 
-      > .title {
-        margin-block-end: calc(var(--spacing) / 2);
-      }
-    }
-
-    > .is-label {
-      font-weight: bold;
-      justify-self: end;
-      white-space: nowrap;
-
-      &::after {
-        content: ':';
-      }
-    }
-
-    > *:not(.is-label) {
-      overflow-x: auto;
+    > .title {
+      margin-block-end: calc(var(--spacing) / 2);
     }
   }
+
+  > .is-label {
+    font-weight: bold;
+    justify-self: end;
+    white-space: nowrap;
+
+    &::after {
+      content: ':';
+    }
+  }
+
+  > *:not(.is-label) {
+    overflow-x: auto;
+  }
+}
 </style>
 
 <!-- Temporary language info to avoid having the i18n string -->

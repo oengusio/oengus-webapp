@@ -30,6 +30,7 @@ export default Vue.extend({
       this.getPatrons(),
     ]);
   },
+
   computed: {
     patronsWhole(): Patrons|undefined {
       return (this.$store.state.api.patreon as PatreonState).patrons;
@@ -38,6 +39,7 @@ export default Vue.extend({
       return this.patronsWhole?.patrons;
     },
   },
+
   methods: {
     ...mapActions({
       getPatrons: 'api/patreon/patrons',

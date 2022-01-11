@@ -57,11 +57,13 @@ export default Vue.extend({
       ],
     };
   },
+
   computed: {
     isOpenFoldClass(): { 'is-open-fold': boolean } {
       return { 'is-open-fold': this.isFoldOpen };
     },
   },
+
   methods: {
     openFold(): void {
       this.isFoldOpen = true;
@@ -71,30 +73,30 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  ul {
-    list-style: disc;
-    padding-inline-start: 20px;
-  }
+ul {
+  list-style: disc;
+  padding-inline-start: 20px;
+}
 
+.is-fold-trigger {
+  display: none;
+}
+
+@media (max-width: 1023px) {
   .is-fold-trigger {
-    display: none;
-  }
+    display: flex;
 
-  @media (max-width: 1023px) {
-    .is-fold-trigger {
-      display: flex;
-
-      .is-open-fold & {
-        display: none;
-      }
-    }
-
-    .below-the-fold {
+    .is-open-fold & {
       display: none;
-
-      .is-open-fold & {
-        display: inherit;
-      }
     }
   }
+
+  .below-the-fold {
+    display: none;
+
+    .is-open-fold & {
+      display: inherit;
+    }
+  }
+}
 </style>
