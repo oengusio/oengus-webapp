@@ -20,7 +20,7 @@ export default Vue.extend({
     },
     /**
      * Shows a small "space" that persists even if the advertisement is not shown
-     * A "not shown" advertisement can occur due showAdvertisement being false or it not being fulfilled
+     * A "not shown" advertisement can occur due to showAdvertisement being false or it not being fulfilled
      * If the advertisement is fulfilled, there will always be spacers
      */
     showSpacer: {
@@ -46,7 +46,7 @@ export default Vue.extend({
     /**
      * Flag that is listened to. When it becomes true, a reload will be triggered.
      * To trigger additional reloads, it must stop being true before becoming true again.
-     * XXX Corrently does not reload anything
+     * XXX Currently does not reload anything
      */
     shouldReload: {
       type: Boolean,
@@ -106,10 +106,18 @@ export default Vue.extend({
 
   &.is-horizontal {
     margin-block: var(--spacing);
+    min-height: 50px;
+    max-height: 100px;
+    min-width: 300px;
+    max-width: 728px;
   }
 
   &.is-vertical {
     margin-inline: var(--spacing);
+    min-height: 200px;
+    max-height: 1050px;
+    min-width: 100px;
+    max-width: 300px;
   }
 
   + .spacer {
