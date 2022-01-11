@@ -88,6 +88,10 @@ export default Vue.extend({
   grid-template-columns: auto min-content;
   column-gap: var(--spacing);
 
+  .title {
+    margin: 0;
+  }
+
   // Force this element to always display, Bulma wants to hide it by default
   @media (min-width: 1024px) {
     .navbar-burger {
@@ -99,5 +103,6 @@ export default Vue.extend({
 .menu-sections {
   display: flex;
   flex-wrap: wrap;
+  padding-block-start: var(--spacing);
 }
 </style>

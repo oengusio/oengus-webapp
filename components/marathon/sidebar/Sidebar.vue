@@ -67,4 +67,8 @@ export default Vue.extend({
     flex-wrap: wrap;
   }
 }
+
+.box {
+  margin: 0;
+}
 </style>
