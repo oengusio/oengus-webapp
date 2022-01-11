@@ -2,6 +2,7 @@
   <div class="marathon-container" :class="{ collapsed }">
     <MarathonHeader class="marathon-header" :marathon-id="marathonId" :collapsed.sync="collapsed" />
     <MarathonSidebar v-show="!collapsed" class="marathon-sidebar" :marathon-id="marathonId" :collapsed.sync="collapsed" />
+    <WidgetAdvertisement :show-advertisement="!collapsed" is-vertical class="is-advertisement" />
     <NuxtChild class="marathon-view" />
   </div>
 </template>
@@ -71,10 +72,11 @@ export default Vue.extend({
   width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-template-areas:
-    'sidebar header'
-    'sidebar view';
+    'sidebar       header'
+    'sidebar       view'
+    'advertisement view';
   gap: var(--spacing);
 }
 
@@ -91,7 +93,10 @@ export default Vue.extend({
 .marathon-view {
   grid-area: view;
   width: 100%;
-  flex-grow: 5;
+}
+
+.is-advertisement {
+  grid-area: advertisement;
 }
 
 @media (max-width: 1023px) {
@@ -107,15 +112,27 @@ export default Vue.extend({
   .marathon-sidebar {
     width: 100%;
   }
+
+  .is-advertisement {
+    display: none;
+  }
 }
 
 .collapsed {
   &.marathon-container {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'header'
+      'view';
   }
 
   .marathon-sidebar {
-    width: 100%;
+    display: none;
+  }
+
+  .is-advertisement {
+    display: none;
   }
 }
 </style>
