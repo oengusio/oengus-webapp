@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="marathon-description-container">
     <ElementMarkdown v-if="description" :markdown="description" />
     <div class="is-centered">
       <WidgetLoading :while="[ marathon ]" />
@@ -19,11 +19,13 @@ export default Vue.extend({
       default: '',
     },
   },
+
   async fetch(): Promise<void> {
     await Promise.allSettled([
       this.getMarathon(this.marathonId),
     ]);
   },
+
   computed: {
     marathon(): FullMarathon|undefined {
       return (this.$store.state.api.marathon as MarathonState).marathons[this.marathonId];
@@ -32,6 +34,7 @@ export default Vue.extend({
       return this.marathon?.description;
     },
   },
+
   methods: {
     ...mapActions({
       getMarathon: 'api/marathon/get',
@@ -39,3 +42,12 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.marathon-description-container {
+  // Width of the screen minus the global "content padding"
+  max-width: calc(100vw - 2em);
+  // Allow users to view the whole thing anyways, but discourage it
+  overflow-x: auto;
+}
+</style>
