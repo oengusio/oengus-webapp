@@ -1,6 +1,6 @@
 <template>
   <div class="advertisement-container" :class="advertisementType">
-    <AdsByGoogle v-if="showAdvertisement" ad-slot="5905320802" ad-format="" class="advertisement" :class="advertisementType" />
+    <AdsByGoogle v-show="showAdvertisement" ad-slot="5905320802" ad-format="" class="advertisement" :class="advertisementType" />
     <div :class="spacerClass" />
   </div>
 </template>
