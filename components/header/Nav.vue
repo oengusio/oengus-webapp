@@ -78,6 +78,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .logo {
   height: 100%;
-  width: 100%;
+  width: 5em;
 }
 </style>
