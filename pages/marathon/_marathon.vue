@@ -97,6 +97,7 @@ export default Vue.extend({
 
 .is-advertisement {
   grid-area: advertisement;
+  place-self: start;
 }
 
 @media (max-width: 1023px) {
