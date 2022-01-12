@@ -115,7 +115,7 @@ export default Vue.extend({
   }
 
   .is-advertisement {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -129,11 +129,11 @@ export default Vue.extend({
   }
 
   .marathon-sidebar {
-    display: none;
+    display: none !important;
   }
 
   .is-advertisement {
-    display: none;
+    display: none !important;
   }
 }
 </style>
