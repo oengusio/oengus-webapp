@@ -1,11 +1,8 @@
 <template>
   <nav class="navbar">
     <div class="navbar-brand">
-      <ElementLink to="/" class="navbar-item icon-text">
-        <img src="~assets/oengus.svg" class="icon" alt="Oengus logo">
-        <span>
-          Oengus
-        </span>
+      <ElementLink to="/" class="navbar-item">
+        <img src="~assets/Oengus-Wide-Off-White.svg" class="logo" alt="Oengus logo">
       </ElementLink>
       <button class="button navbar-burger" :class="isActiveClass" @click="toggleNavbarActive">
         <span />
@@ -77,3 +74,10 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.logo {
+  height: 100%;
+  width: 100%;
+}
+</style>
