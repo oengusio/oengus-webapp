@@ -80,4 +80,8 @@ export default Vue.extend({
   height: 100%;
   width: 5em;
 }
+
+.navbar-burger {
+  align-self: center;
+}
 </style>
