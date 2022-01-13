@@ -2,7 +2,7 @@
 
 export const environment = {
   twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',
-  twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
+  twitchClientId: 'c3539b9q6x4ba7pomwa9fj1cs2culy', // oengus test
   discordClientId: '559625844197163008',
   patreonClientId: 'qXKJ92UNMBtSTV_N0TN47U6l1o2_VXWmqK3u9_Gv3RXIJuiJ0LTpDyzbl5XZuARH',
 
@@ -38,7 +38,11 @@ export const environment = {
   // the api that the front-end talks to
   get api() {
     if (environment.production) {
-      return environment.baseSite + '/api';
+      const url = window.location.hostname;
+      const splitUrl = url.split('.');
+      const parts = splitUrl.length > 2 ? [splitUrl[1], splitUrl[2]] : splitUrl;
+
+      return `${window.location.protocol}//${parts[0]}.${parts[1]}/api`;
     }
 
     return 'http://localhost:8080';
