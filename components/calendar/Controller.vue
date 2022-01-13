@@ -99,14 +99,3 @@ export default Vue.extend({
   }
 }
 </style>
-
-<!-- Temporary language info to avoid having the i18n string -->
-<i18n>
-{
-  "en-GB": {
-    "calendar": {
-      "now": "Now"
-    }
-  }
-}
-</i18n>

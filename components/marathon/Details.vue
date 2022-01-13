@@ -135,14 +135,3 @@ export default Vue.extend({
   max-height: 1440px;
 }
 </style>
-
-<!-- Temporary language info to avoid having the i18n string -->
-<i18n>
-{
-  "en-GB": {
-    "platform": {
-      "YOUTUBE": "YouTube"
-    }
-  }
-}
-</i18n>

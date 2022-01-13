@@ -186,14 +186,3 @@ export default Vue.extend({
   }
 }
 </style>
-
-<!-- Temporary language info to avoid having the i18n string -->
-<i18n>
-{
-  "en-GB": {
-    "calendar": {
-      "noMarathons": "There are no marathons in this date range."
-    }
-  }
-}
-</i18n>

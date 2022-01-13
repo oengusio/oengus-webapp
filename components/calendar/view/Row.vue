@@ -111,17 +111,3 @@ export default Vue.extend({
   min-width: 50px;
 }
 </style>
-
-<!-- Temporary language info to avoid having the i18n string -->
-<i18n>
-{
-  "en-GB": {
-    "calendar": {
-      "allDay": "All day",
-      "endsAt": "Ends {{end-time}}",
-      "startsAt": "Begins {{start-time}}",
-      "between": "{{time-range}}"
-    }
-  }
-}
-</i18n>

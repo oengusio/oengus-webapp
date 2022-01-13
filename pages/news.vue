@@ -14,14 +14,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<!-- Temporary language info to avoid having the i18n string -->
-<i18n>
-{
-  "en-GB": {
-    "news": {
-      "title": "News"
-    }
-  }
-}
-</i18n>

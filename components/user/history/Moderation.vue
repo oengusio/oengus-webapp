@@ -67,18 +67,3 @@ export default Vue.extend({
   grid-template-columns: repeat(2, auto);
 }
 </style>
-
-<!-- Temporary language info to avoid having the i18n string -->
-<i18n>
-{
-  "en-GB": {
-    "marathon": {
-      "submissions": {
-        "table": {
-          "date": "Date"
-        }
-      }
-    }
-  }
-}
-</i18n>

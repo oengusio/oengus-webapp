@@ -38,18 +38,3 @@ $logo-height: 40px;
   }
 }
 </style>
-
-<!-- Temporary language info to avoid having the i18n string -->
-<i18n>
-{
-  "en-GB": {
-    "footer": {
-      "patron": {
-        "enjoyOengus": "If you enjoy Oengus, please consider {patronLink}",
-        "patronLink": "becoming a patron",
-        "list": "Thank you to our patrons listed below whose contributions keep Oengus free for everyone"
-      }
-    }
-  }
-}
-</i18n>
