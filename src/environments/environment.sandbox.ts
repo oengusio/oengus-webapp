@@ -17,4 +17,5 @@ export const environment = {
   get patronApi() {
     return environment.api + '/patreon';
   },
+  v2Domain: false,
 };
