@@ -18,7 +18,7 @@ a {
   &:hover {
     color: theme.$link-hover !important;
 
-    .menu-list & {
+    &.menu-item-link:not(.is-active) {
       background-color: inherit;
     }
   }
