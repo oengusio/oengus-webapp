@@ -6,9 +6,9 @@ export function routerConfig() {
     extendRoutes(routes) {
       routes.push({
         // Handles old user profiles by pushing them to the new user profiles!
-        path: '/:locale/user/profile/:user',
+        path: '/:locale?/user/profile/:user',
         redirect: to => ({
-          path: '/:locale/user/:user',
+          path: '/:locale?/user/:user',
           params: to.params,
         }),
       });

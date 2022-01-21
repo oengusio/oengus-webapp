@@ -2,6 +2,7 @@
 
 import { Middleware } from '@nuxt/types';
 
+/** These pages are handled by v2 */
 const oengusV2Pages: Array<Array<string>> = [
   // Homepage
   [ ],
@@ -13,6 +14,13 @@ const oengusV2Pages: Array<Array<string>> = [
   [ 'news', 'kaspersky-partnership' ],
   [ 'patrons' ],
   [ 'user', '*' ],
+];
+
+/** These pages match wildcards but are NOT handled by v2. */
+const oengusV2PagesExceptions: Array<Array<string>> = [
+  [ 'marathon', 'new' ],
+  [ 'user', 'new' ],
+  [ 'user', 'settings' ],
 ];
 
 const oengusV1Redirect: Middleware = function ({ $config, route, from, redirect, localePath }): void {
@@ -34,10 +42,7 @@ const oengusV1Redirect: Middleware = function ({ $config, route, from, redirect,
   } else {
     // Otherwise, check if this page should redirected by checking if it should not be kept
     shouldRedirect = !oengusV2Pages.some(v2Page => v2Page.length === to.length && v2Page.every((part, i) => part !== '*' ? part === to[i] : true));
-  }
-  if (to[0] === 'user' && ![ 'new', 'settings' ].includes(to[1])) {
-    // This is a user profile, clean this up before redirecting
-    to.splice(1, 0, 'profile');
+    shouldRedirect ||= oengusV2PagesExceptions.some(v2Page => v2Page.length === to.length && v2Page.every((part, i) => part === to[i]));
   }
   if (shouldRedirect) {
     // For some reason, `redirect` doesn't seem to handle browser history correctly.
