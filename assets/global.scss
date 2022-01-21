@@ -43,3 +43,9 @@ hr {
   display: flex;
   justify-content: center;
 }
+
+.markdown-container {
+  *:not(a) {
+    color: theme.$text;
+  }
+}

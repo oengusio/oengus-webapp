@@ -1,5 +1,5 @@
 <template>
-  <article class="content" v-html="$md.render(markdown)" />
+  <article class="content markdown-container" v-html="$md.render(markdown)" />
 </template>
 
 <script lang="ts">
