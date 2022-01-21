@@ -11,6 +11,6 @@ export function robotsConfig(process) {
       'user/settings',
       'user/settings/',
     ].reduce((rules, page) => rules.concat(locales.map(locale => `/${locale.code}/${page}`)), []),
-    Sitemap: `https://${process.env.DOMAIN ?? 'v2.oengus.dev'}/sitemap.xml`,
+    Sitemap: `https://${process.env.DOMAIN ?? 'oengus.dev'}/sitemap.xml`,
   };
 }

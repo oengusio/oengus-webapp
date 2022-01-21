@@ -9,7 +9,7 @@ import { MetaInfo } from 'vue-meta';
 export default Vue.extend({
   head(): MetaInfo {
     return {
-      titleTemplate: titleChunk => `${titleChunk ? `${titleChunk} | ` : ''}${this.$t('news.title')} | Oengus v2`,
+      titleTemplate: titleChunk => `${titleChunk ? `${titleChunk} | ` : ''}${this.$t('news.title')} | Oengus`,
     };
   },
 });

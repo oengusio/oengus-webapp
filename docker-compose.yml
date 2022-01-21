@@ -8,10 +8,10 @@ services:
       dockerfile: ./Dockerfile
     environment:
       NODE_ENV: production
-      DOMAIN: v2.oengus.dev
+      DOMAIN: oengus.dev
       API: oengus.dev
       # Only set DOMAIN_V1 if you want redirects
-      # DOMAIN_V1: oengus.io
+      # DOMAIN_V1: v1.oengus.dev
       # CACHE_HOST: cache
     ports:
       - 3000:3000

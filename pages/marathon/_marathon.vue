@@ -32,7 +32,7 @@ export default Vue.extend({
     // Without this, Vue doesn't know to recompute these values when marathon is fetched
     const marathon = this.marathon;
     return {
-      titleTemplate: titleChunk => `${titleChunk ? `${titleChunk} | ` : ''}${marathon?.name ? `${marathon.name} | ` : ''}Oengus v2`,
+      titleTemplate: titleChunk => `${titleChunk ? `${titleChunk} | ` : ''}${marathon?.name ? `${marathon.name} | ` : ''}Oengus`,
     };
   },
 
