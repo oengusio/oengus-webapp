@@ -22,6 +22,9 @@ import Vue from 'vue';
 import { Location } from 'vue-router';
 import { IsActive } from '~/types/components/is-active';
 
+/** Used to normalize paths to not have trailing slashes */
+const pathFixer = /\/+$/;
+
 export default Vue.extend({
   props: {
     to: {
@@ -37,7 +40,7 @@ export default Vue.extend({
   computed: {
     isActive(): IsActive {
       return {
-        'is-active': !this.noActive && ((this.isHash ? this.$route.hash : this.$route.path) === this.path),
+        'is-active': !this.noActive && ((this.isHash ? this.$route.hash : this.$route.path.replace(pathFixer, '')) === this.path),
       };
     },
     path(): string|Location {
