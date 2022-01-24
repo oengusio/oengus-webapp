@@ -119,6 +119,7 @@
           <tbody>
           <tr *ngFor="let marathon of moderatedMarathons">
             <td><app-v2-link [route]="'/marathon/' + marathon.id">{{marathon.name}}</app-v2-link></td>
+<!--            <td><a [routerLink]="'/marathon/' + marathon.id">{{marathon.name}}</a></td>-->
             <td class="has-text-centered">
               <fa-icon *ngIf="!marathon.country || !marathon.onsite"
                        [icon]="faGlobe"></fa-icon>

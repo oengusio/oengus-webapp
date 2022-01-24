@@ -1,6 +1,6 @@
 {
   "name": "webapp",
-  "version": "2022.01.15",
+  "version": "2022.01.24",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
