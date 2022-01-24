@@ -32,11 +32,11 @@ export class V2LinkComponent implements OnInit {
   ngOnInit(): void {
     // a small timeout to allow angular to update the element
     setTimeout(() => {
-      this.storedUrl = this.linkInput.nativeElement.getAttribute('href');
-
-      console.log(this.storedUrl);
-
       if (environment.v2Domain) {
+        this.storedUrl = this.linkInput.nativeElement.getAttribute('href');
+
+        console.log(this.storedUrl);
+
         DeactivateRouteGuard.deactivatedRoutes.push(this.storedUrl);
       }
     }, 0);

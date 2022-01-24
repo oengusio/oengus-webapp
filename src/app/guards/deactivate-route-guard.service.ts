@@ -11,6 +11,10 @@ export class DeactivateRouteGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
     : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return environment.v2Domain && !DeactivateRouteGuard.deactivatedRoutes.includes(state.url);
+    if (!environment.v2Domain) {
+      return true;
+    }
+
+    return !DeactivateRouteGuard.deactivatedRoutes.includes(state.url);
   }
 }
