@@ -33,12 +33,17 @@
             {{ 'marathon.menu.overview' | translate}}
           </p>
           <ul class="menu-list">
-            <li>
+            <!--<li>
               <app-v2-link route=".">
                 <fa-icon [icon]="faHome" style="margin-right:0.4rem"></fa-icon>
                 <span *ngIf="!minimized">{{ 'marathon.menu.home' | translate}}</span>
               </app-v2-link>
-            </li>
+            </li>-->
+
+            <li><a routerLink="." [routerLinkActive]="'is-active'" [routerLinkActiveOptions]="{exact: true}">
+              <fa-icon [icon]="faHome" style="margin-right:0.4rem"></fa-icon>
+              <span *ngIf="!minimized">{{ 'marathon.menu.home' | translate}}</span>
+            </a></li>
 
             <li><a routerLink="submissions" [routerLinkActive]="'is-active'" [routerLinkActiveOptions]="{exact: true}">
               <fa-icon [icon]="faBook" style="margin-right:0.4rem"></fa-icon>
