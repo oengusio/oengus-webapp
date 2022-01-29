@@ -21,8 +21,8 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', property: 'og:description', content: 'Oengus is a free tool to manage your speedrunning marathons from submissions to schedule, available as a hosted service.' },
       { hid: 'type', property: 'og:type', content: 'website' },
-      { hid: 'image', property: 'og:image', content: `https://${process.env.DOMAIN ?? 'oengus.dev'}/oengus.svg` },
-      { hid: 'image-type', property: 'og:imge:type', content: 'image/svg+xml' },
+      { hid: 'image', property: 'og:image', content: `https://${process.env.DOMAIN ?? 'oengus.dev'}/oengus.png` },
+      { hid: 'image-type', property: 'og:imge:type', content: 'image/png' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
