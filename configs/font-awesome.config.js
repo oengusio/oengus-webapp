@@ -16,6 +16,7 @@ const solid = [
   'CaretRight',
   'Check',
   'CheckSquare',
+  'Circle',
   'Cogs',
   'Desktop',
   'Donate',

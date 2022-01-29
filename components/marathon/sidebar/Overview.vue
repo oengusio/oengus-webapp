@@ -28,11 +28,15 @@
           </span>
         </ElementLink>
       </li>
-      <li v-if="shouldShowRedirectLinks" :title="$t('marathon.menu.submitRuns')">
-        <ElementLink :to="`/marathon/${marathonId}/submit`" class="menu-item-link">
+      <li v-if="marathon.submitsOpen" :title="$t('marathon.menu.submitRuns')">
+        <ElementLink :to="shouldShowRedirectLinks ? `/${$i18n.locale}/marathon/${marathonId}/v1` : `/marathon/${marathonId}/submit`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'paper-plane' ]" />
           <span class="menu-item-label">
-            {{ $t('marathon.menu.submitRuns') }}
+            <FontAwesomeIcon class="menu-item-icon submit-live-icon" :icon="[ 'fas', 'circle' ]" /><span>{{ $t('marathon.menu.submitRuns') }}</span>
+            <br>
+            <span v-if="shouldShowRedirectLinks">
+              (<span>{{ $t('footer.v1Link') }}</span>)
+            </span>
           </span>
         </ElementLink>
       </li>
@@ -63,7 +67,7 @@ export default Vue.extend({
 
   data() {
     return {
-      shouldShowRedirectLinks: !this.$config.env.DOMAIN_V1,
+      shouldShowRedirectLinks: this.$config.env.DOMAIN_V1,
     };
   },
 
@@ -98,6 +102,25 @@ export default Vue.extend({
 .menu-item-icon {
   min-width: 1.5em;
   margin-inline-end: 0.25em;
+}
+
+@keyframes submit-live-blink {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.25;
+  }
+}
+
+.submit-live-icon {
+  color: #7fff00;
+  animation: 2s 4 alternate submit-live-blink;
+
+  @media (prefers-reduced-motion) {
+    animation-name: none;
+  }
 }
 
 .collapsed {
