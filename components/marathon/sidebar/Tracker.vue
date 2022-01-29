@@ -49,12 +49,6 @@ export default Vue.extend({
     },
   },
 
-  data() {
-    return {
-      shouldShowRedirectLinks: !this.$config.env.DOMAIN_V1,
-    };
-  },
-
   async fetch(): Promise<void> {
     await Promise.allSettled([
       this.getMarathon(this.marathonId),
