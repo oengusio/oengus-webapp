@@ -804,7 +804,7 @@
             <div class="field">
               <label class="label">{{ 'marathon.settings.donations.label' | translate}}</label>
               <div class="control">
-                <nwb-switch [(ngModel)]="marathon.hasDonations" name="hasDonations">
+                <nwb-switch [(ngModel)]="marathon.hasDonations" name="hasDonations" [disabled]="donationsDisabled">
                   <span>{{ 'marathon.settings.donations.hasDonations' | translate}}</span>
                 </nwb-switch>
               </div>
@@ -814,7 +814,7 @@
             <div class="field">
               <label class="label">{{ 'marathon.settings.donationsOpen.label' | translate}}</label>
               <div class="control">
-                <nwb-switch [(ngModel)]="marathon.donationsOpen" name="donationsOpen">
+                <nwb-switch [(ngModel)]="marathon.donationsOpen" name="donationsOpen" [disabled]="donationsDisabled">
                   <span>{{ 'marathon.settings.donations.donationsOpen' | translate}}</span>
                 </nwb-switch>
               </div>
@@ -830,7 +830,7 @@
                        [(ngModel)]="marathon.supportedCharity"
                        name="supportedCharity"
                        [required]="marathon.hasDonations"
-                       [disabled]="!marathon.hasDonations"
+                       [disabled]="!marathon.hasDonations || donationsDisabled"
                        maxlength="100"
                        #supportedCharity="ngModel">
                 <p class="help is-pulled-right">{{marathon.supportedCharity?.length}}/100</p>
@@ -854,7 +854,7 @@
                        [(ngModel)]="marathon.payee"
                        name="payee"
                        [required]="marathon.hasDonations"
-                       [disabled]="!marathon.hasDonations"
+                       [disabled]="!marathon.hasDonations || donationsDisabled"
                        maxlength="100"
                        #payee="ngModel">
                 <p class="help is-pulled-right">{{marathon.payee?.length}}/100</p>
@@ -880,7 +880,7 @@
                        [(ngModel)]="marathon.donationCurrency"
                        name="currencyIso"
                        [required]="marathon.hasDonations || marathon.hasIncentives"
-                       [disabled]="!marathon.hasDonations && !marathon.hasIncentives"
+                       [disabled]="(!marathon.hasDonations && !marathon.hasIncentives) || donationsDisabled"
                        maxlength="3"
                        #currencyIso="ngModel">
                 <p class="help is-pulled-right">{{marathon.donationCurrency?.length}}/3</p>
@@ -901,7 +901,7 @@
             <div class="field">
               <label class="label">{{ 'marathon.settings.incentives.label' | translate}}</label>
               <div class="control">
-                <nwb-switch [(ngModel)]="marathon.hasIncentives" name="hasIncentives">
+                <nwb-switch [(ngModel)]="marathon.hasIncentives" name="hasIncentives" [disabled]="donationsDisabled">
                   <span>{{ 'marathon.settings.incentives.hasIncentives' | translate}}</span>
                 </nwb-switch>
               </div>
@@ -909,7 +909,7 @@
           </div>
         </div>
         <!-- custom fields -->
-        <fieldset [disabled]="!marathon.hasDonations">
+        <fieldset [disabled]="!marathon.hasDonations || donationsDisabled">
           <h1 class="title">{{ 'marathon.settings.customFields.title' | translate}}</h1>
           <p>{{ 'marathon.settings.customFields.description1' | translate}}</p>
           <p>{{ 'marathon.settings.customFields.description2' | translate}}</p>

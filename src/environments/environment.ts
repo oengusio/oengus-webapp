@@ -24,6 +24,7 @@ export const environment = {
   patreonClientId: 'qXKJ92UNMBtSTV_N0TN47U6l1o2_VXWmqK3u9_Gv3RXIJuiJ0LTpDyzbl5XZuARH',
   // v2Domain: 'https://v2.oengus.dev/',
   v2Domain: false,
+  donationsDisabled: false,
 };
 
 /*

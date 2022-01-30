@@ -68,4 +68,5 @@ export const environment = {
 
     return 'http://localhost:9000';
   },
+  donationsDisabled: false,
 };

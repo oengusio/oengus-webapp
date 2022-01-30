@@ -21,6 +21,8 @@ import { debounce } from 'lodash';
 })
 export class SettingsComponent implements OnInit {
 
+  public donationsDisabled = environment.donationsDisabled;
+
   public marathon: Marathon;
   public languages = (<any>isoLang);
   public countries = countries;

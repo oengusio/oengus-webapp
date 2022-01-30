@@ -18,4 +18,5 @@ export const environment = {
     return environment.api + '/patreon';
   },
   v2Domain: false,
+  donationsDisabled: false,
 };
