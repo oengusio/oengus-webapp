@@ -51,7 +51,7 @@ export class UserService extends BaseService {
 
     return 'https://discordapp.com/api/oauth2/authorize?client_id=' +
       this.getDiscordClientId() + '&redirect_uri=' +
-      redirectUri + 'discord&response_type=code&scope=identify';
+      redirectUri + 'discord&response_type=code&scope=identify&prompt=none';
   }
 
   getTwitchAuthUrl(sync = false) {

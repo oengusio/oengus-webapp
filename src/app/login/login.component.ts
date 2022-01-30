@@ -32,7 +32,10 @@ export class LoginComponent implements OnInit {
             if (!this.userService.user.mail) {
               this.router.navigate(['user/new']);
             } else {
-              this.router.navigate(['/']);
+              const item = localStorage.getItem('prev_loc') || '/';
+              localStorage.removeItem('prev_loc');
+
+              this.router.navigate([item]);
             }
           });
         }, error => {

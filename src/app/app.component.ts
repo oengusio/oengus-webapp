@@ -150,6 +150,11 @@ export class AppComponent implements OnInit {
     return !document.getElementById('asjhdflkjashdlfkajsdfs');
   }
 
+  storeCurrentPage(): boolean {
+    localStorage.setItem('prev_loc', this.router.url);
+    return true;
+  }
+
   setupLanguages(): void {
     for (const lang of this.availableLocaleNames) {
       registerLocaleData(this.availableLocales[lang], lang);
