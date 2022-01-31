@@ -55,8 +55,9 @@ export default Vue.extend({
   },
 
   computed: {
-    advertisementType(): { 'is-horizontal': boolean, 'is-vertical': boolean } {
+    advertisementType(): { 'is-shown': boolean, 'is-horizontal': boolean, 'is-vertical': boolean } {
       return {
+        'is-shown': this.showAdvertisement,
         'is-horizontal': this.isHorizontal && !this.isVertical,
         'is-vertical': !this.isHorizontal && this.isVertical,
       };
@@ -120,7 +121,7 @@ export default Vue.extend({
     max-width: 300px;
   }
 
-  + .spacer {
+  &.is-shown + .spacer {
     display: none;
   }
 
