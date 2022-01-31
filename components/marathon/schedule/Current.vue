@@ -92,6 +92,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .message {
+  height: 100%;
   margin-block-end: 0;
 }
 
