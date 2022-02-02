@@ -147,7 +147,7 @@ export class AppComponent implements OnInit {
   }
 
   isBlockingAds(): boolean {
-    return !document.getElementById('asjhdflkjashdlfkajsdfs');
+    return !document.getElementById('mnMzPGBywKre');
   }
 
   storeCurrentPage(): boolean {
