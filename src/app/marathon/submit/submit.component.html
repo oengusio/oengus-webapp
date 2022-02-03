@@ -227,7 +227,7 @@
           </div>
         </div>
         <div class="control" *ngIf="answer.question.fieldType === 'FREETEXT'">
-          <ngx-md [data]="answer.question.description"></ngx-md>
+          <app-oengus-md [data]="answer.question.description"></app-oengus-md>
         </div>
         <div class="control" *ngIf="answer.question.fieldType === 'CHECKBOX'">
           <nwb-switch [(ngModel)]="answer.answer"

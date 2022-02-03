@@ -11,7 +11,6 @@ import { DirectivesModule } from '../directives/directives.module';
 import { CanActivateMarathonSettingsGuard } from '../guards/can-activate-marathon-settings-guard.service';
 import { MarathonResolver } from '../resolvers/marathon-resolver';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgxMdModule } from 'ngx-md';
 import { SettingsComponent } from './settings/settings.component';
 import { SubmitComponent } from './submit/submit.component';
 import { SubmissionResolver } from '../resolvers/submission-resolver';
@@ -46,6 +45,7 @@ import { SubmissionCategoryComponent } from './submissions/submission-category/s
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
 import {ButtonsModule} from '../buttons/buttons.module';
 import {DeactivateRouteGuard} from '../guards/deactivate-route-guard.service';
+import { OengusMdComponent } from '../oengus-md/oengus-md.component';
 
 const marathonRoutes: Routes = [
   {
@@ -187,7 +187,8 @@ const marathonRoutes: Routes = [
     DonationsComponent,
     AdsenseComponent,
     SubmissionCategoryComponent,
-    SubmissionGameComponent
+    SubmissionGameComponent,
+    OengusMdComponent,
   ],
   imports: [
     CommonModule,
@@ -198,7 +199,6 @@ const marathonRoutes: Routes = [
     NwbSwitchModule,
     DirectivesModule,
     FontAwesomeModule,
-    NgxMdModule.forRoot(),
     NwbCommonModule,
     AutocompleteLibModule,
     TranslateModule.forRoot({
