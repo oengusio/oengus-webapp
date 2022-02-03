@@ -2,8 +2,9 @@
 
 export function markdownItConfig() {
   return {
-    preset: 'default',
-    html: true,
+    preset: 'commonmark',
+    html: false,
+    xhtmlOut: true,
     breaks: true,
     linkify: true,
   };

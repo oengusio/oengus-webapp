@@ -14,6 +14,11 @@ Note that the back-end lives on this repository [https://github.com/esamarathon/
 
 ### Instructions
 
+#### Cloning
+```shell script
+git clone git@github.com:esamarathon/oengus-webapp.git --recurse-submodules
+```
+
 #### Dependencies
 ```shell script
 npm install
