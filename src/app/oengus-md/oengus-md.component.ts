@@ -8,7 +8,7 @@ import MarkdownIt from 'markdown-it';
 })
 export class OengusMdComponent implements OnInit {
   @Input() public data: string;
-  private md = new MarkdownIt('commonmark', {
+  private md = new MarkdownIt('default', {
     html: false,
     xhtmlOut: true,
     breaks: true,
