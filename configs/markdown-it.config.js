@@ -2,7 +2,7 @@
 
 export function markdownItConfig() {
   return {
-    preset: 'commonmark',
+    preset: 'default',
     html: false,
     xhtmlOut: true,
     breaks: true,
