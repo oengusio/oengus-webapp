@@ -4,6 +4,7 @@ import { googleAdSenseConfig } from './configs/google-adsense.config';
 import { googleGtagConfig } from './configs/google-gtag.config';
 import { httpConfig, httpPrivateRuntimeConfig, httpRuntimeConfig } from './configs/http.config';
 import { i18nConfig } from './configs/i18n.config';
+import { localForage } from './configs/local-forage.config';
 import { markdownItConfig } from './configs/markdown-it.config';
 import { robotsConfig } from './configs/robots.config';
 import { routerConfig } from './configs/router.config';
@@ -41,6 +42,7 @@ export default {
     { src: '~/plugins/oengus.ts' },
     { src: '~/plugins/scroll.client.ts', mode: 'client' },
     { src: '~/plugins/temporal/temporal.ts' },
+    { src: '~/plugins/vuex-persist.client.ts', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -54,6 +56,8 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://github.com/nuxt-community/fontawesome-module
     '@nuxtjs/fontawesome',
+    // https://github.com/nuxt-community/localforage-module
+    '@nuxtjs/localforage',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -94,6 +98,9 @@ export default {
 
   // HTTP configuration: https://http.nuxtjs.org/
   'http': httpConfig(process),
+
+  // Local Forage configuration: https://github.com/nuxt-community/localforage-module
+  'localforage': localForage(process),
 
   // Font Awesome configuration: https://github.com/nuxt-community/fontawesome-module
   'fontawesome': fontAwesomeConfig(process),

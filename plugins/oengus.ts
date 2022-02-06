@@ -29,9 +29,9 @@ export class OengusAPI<T extends OengusState> {
 
       // Cache check
       const cachedResponse: OengusStateValue<V> = id ? state[key][id] : state[key];
-      const cachedTime = cachedResponse?._cachedAt ?? 0;
+      const expiresAt = cachedResponse?._expiresAt ?? 0;
       const fetching = cachedResponse?._fetching ?? false;
-      if (!data && (fetching || (!forceFetch && cachedTime + cacheDuration > Date.now()))) {
+      if (!data && (fetching || (!forceFetch && expiresAt > Date.now()))) {
         return cachedResponse as V;
       }
 
@@ -44,11 +44,11 @@ export class OengusAPI<T extends OengusState> {
       });
 
       // Mark the entry as updating by changing _fetching property
-      if (cachedTime) {
+      if (expiresAt) {
         // This allows existing stuff to continue to use the cached value,
         commit(mutation, { id, value: { ...cachedResponse, _fetching: true, _promise: fetchingPromise }, data });
       } else {
-        commit(mutation, { id, value: { _cachedAt: Date.now(), _fetching: true, _promise: fetchingPromise }, data });
+        commit(mutation, { id, value: { _expiresAt: Date.now() + cacheDuration, _fetching: true, _promise: fetchingPromise }, data });
       }
 
       // Fetch and store into cache
@@ -75,7 +75,7 @@ export class OengusAPI<T extends OengusState> {
       const response = {
         ...(transform?.({ id, value: apiResponse as U, data }) ?? apiResponse),
         _fetching: false,
-        _cachedAt: Date.now(),
+        _expiresAt: Date.now() + cacheDuration,
         // We cannot send promises from the SSR to the client
         _promise: process.client ? fetchingPromise : undefined,
       } as OengusStateValue<V>;

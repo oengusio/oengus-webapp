@@ -1,8 +1,11 @@
 import { ActionContext } from 'vuex';
 
 export interface OengusStateCacheable<V> {
-  _cachedAt: number;
+  /** Says when an entry stops being valid */
+  _expiresAt: number;
+  /** Denotes if there's an active fetch for this request */
   _fetching: boolean;
+  /** Resolves with the final value of the response */
   _promise: Promise<V&OengusStateCacheable<V>>;
 }
 export type OengusStateValue<V> = V&OengusStateCacheable<V>|OengusStateCacheable<V>|undefined;
