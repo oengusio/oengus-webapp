@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { ActionTree, MutationTree } from 'vuex';
 import { OengusAPI } from '~/plugins/oengus';
-import { FrontPageMarathons, FullMarathon, Marathon, MarathonState } from '~/types/api/marathon';
+import { FrontPageMarathons, FullMarathon, Marathon, MarathonCalendar, MarathonState } from '~/types/api/marathon';
 
 const MarathonOengusAPI = new OengusAPI<MarathonState>('marathons');
 
@@ -26,7 +26,7 @@ export const mutations: MutationTree<MarathonState> = {
 export const actions: ActionTree<MarathonState, MarathonState> = {
   get: MarathonOengusAPI.get<FullMarathon>({ key: 'marathons', mutation: 'addMarathon' }),
   frontPage: MarathonOengusAPI.get<FrontPageMarathons>({ key: 'frontPage' }),
-  calendar: MarathonOengusAPI.get<Array<Marathon>, { calendar: Array<Marathon> }>({
+  calendar: MarathonOengusAPI.get<Array<Marathon>, MarathonCalendar>({
     path: 'forDates',
     key: 'calendars',
     mutation: 'addCalendar',
