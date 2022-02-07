@@ -4,7 +4,6 @@
     <HomepageMarathons class="marathons" />
     <div class="extra">
       <!-- So, you've come here to add stuff to the homepage. Make a component, put it here -->
-      <HomepageKaspersky />
       <HomepageSponsors />
     </div>
   </div>
