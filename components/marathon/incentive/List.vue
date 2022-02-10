@@ -11,11 +11,10 @@
       <ElementTableCell is-header class="description">
         {{ $t('marathon.incentives.management.table.description') }}
       </ElementTableCell>
-      <ElementTableCell is-header class="goal-progress">
-        {{ $t('marathon.incentives.management.table.progress') }}
-      </ElementTableCell>
 
-      <MarathonIncentiveRow v-for="(incentive, index) of incentives" :key="incentive.id" :class="getRowParity(index)" :incentive="incentive" />
+      <template v-for="(incentive, index) of incentives">
+        <MarathonIncentiveRow v-if="!incentive.toDelete" :key="incentive.id" :class="getRowParity(index)" :incentive="incentive" />
+      </template>
     </ElementTable>
   </div>
 </template>
@@ -66,6 +65,6 @@ export default Vue.extend({
 @use '~assets/table';
 
 .incentives-table {
-  @include table.shrink(4, ());
+  @include table.shrink(3);
 }
 </style>
