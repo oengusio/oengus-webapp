@@ -1,7 +1,7 @@
 // We cannot use any settings that cannot be stringified directly in nuxt.config.js
 // https://github.com/nuxt-community/i18n-module/pull/605
 
-import { dateTimeFormats, locales } from './i18n.config';
+import { dateTimeFormats, locales, numberFormats } from './i18n.config';
 
 class WeblateFormatter {
   tokenRegex = /^(?:{{([\w-]+)}}|{([\w-]+)})/;
@@ -38,6 +38,10 @@ export default function () {
     formatter: new WeblateFormatter(),
     dateTimeFormats: locales.reduce((formats, locale) => {
       formats[locale.code] = dateTimeFormats;
+      return formats;
+    }, { }),
+    numberFormats: locales.reduce((formats, locale) => {
+      formats[locale.code] = numberFormats;
       return formats;
     }, { }),
   };

@@ -32,6 +32,10 @@ export const dateTimeFormats = {
   mediumDateTime: { dateStyle: 'medium', timeStyle: 'short' },
 };
 
+export const numberFormats = {
+  currency: { style: 'currency' },
+};
+
 export function i18nConfig() {
   return {
     locales,
