@@ -51,8 +51,10 @@
     @media (max-width: $breakpoint) {
       @include -shrink-template-columns($template-columns);
 
-      ::v-deep #{$selector} {
-        display: none;
+      @if $selector {
+        ::v-deep #{$selector} {
+          display: none;
+        }
       }
     }
   }
