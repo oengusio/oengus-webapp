@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import MarkdownIt from 'markdown-it';
+import dompurify from 'markdown-it-dompurify';
 
 @Component({
   selector: 'app-oengus-md',
@@ -9,11 +10,11 @@ import MarkdownIt from 'markdown-it';
 export class OengusMdComponent implements OnInit {
   @Input() public data: string;
   private md = new MarkdownIt('default', {
-    html: false,
+    html: true,
     xhtmlOut: true,
     breaks: true,
     linkify: true,
-  });
+  }).use(dompurify());
 
   constructor() { }
 
