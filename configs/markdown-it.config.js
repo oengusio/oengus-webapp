@@ -3,9 +3,12 @@
 export function markdownItConfig() {
   return {
     preset: 'default',
-    html: false,
+    html: true,
     xhtmlOut: true,
     breaks: true,
     linkify: true,
+    use: [
+      'markdown-it-dompurify',
+    ],
   };
 }
