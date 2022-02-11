@@ -1,4 +1,4 @@
-FROM node:14-alpine AS builder
+FROM node:16-alpine AS builder
 ENV NODE_ENV=production DISABLE_OPENCOLLECTIVE=true
 WORKDIR /oengus-webapp
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
@@ -6,7 +6,7 @@ RUN npm ci --also=dev --silent && mv node_modules ../
 COPY . .
 RUN npm run build
 
-FROM node:14-alpine AS host
+FROM node:16-alpine AS host
 ENV NODE_ENV=production HOST=0.0.0.0 DISABLE_OPENCOLLECTIVE=true
 WORKDIR /oengus-webapp
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
