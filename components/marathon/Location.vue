@@ -1,5 +1,5 @@
 <template>
-  <span v-if="marathon.onsite && marathon.country" class="icon flag-icon" :class="`flag-icon-${marathon.country.toLowerCase()}`" />
+  <span v-if="marathon.onsite && marathon.country" class="icon fi" :class="`fi-${marathon.country.toLowerCase()}`" />
   <FontAwesomeIcon v-else :icon="[ 'fas', 'desktop' ]" class="icon" />
 </template>
 

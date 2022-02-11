@@ -18,7 +18,7 @@
       </div>
 
       <div v-if="user.country" class="user-location">
-        <span class="icon flag-icon" :class="`flag-icon-${user.country.toLowerCase()}`" />
+        <span class="icon fi" :class="`fi-${user.country.toLowerCase()}`" />
         <span>
           {{ $t(`country.${user.country}`) }}
         </span>

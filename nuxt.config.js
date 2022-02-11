@@ -33,7 +33,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   'css': [
     '~assets/global',
-    'flag-icon-css/sass/flag-icon.scss',
+    'flag-icons/sass/flag-icons.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
