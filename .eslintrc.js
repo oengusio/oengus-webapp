@@ -33,6 +33,7 @@ module.exports = {
     // ES6
 
     // Vue
+    'vue/multi-word-component-names': 'off',
     // Due to the way our translation works, it's not possible to avoid v-html
     'vue/no-v-html': 'off',
     // We are adding some components that are nice for inlining

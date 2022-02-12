@@ -1,9 +1,8 @@
-import { NuxtHTTPInstance } from '@nuxt/http';
 import { Context } from '@nuxt/types';
 import { GetterArgs, GetterFunc, OengusState, OengusStateValue, RouteSpecification } from '~/types/api/oengus-api';
 
 export class OengusAPI<T extends OengusState> {
-  static http: NuxtHTTPInstance;
+  static http: Context['$http'];
 
   /* eslint-disable-next-line no-useless-constructor */ /* ESLint doesn't understand this constructor ISN'T useless in TypeScript */
   constructor(private basePath: string) { }
