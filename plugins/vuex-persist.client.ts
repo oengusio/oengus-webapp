@@ -1,8 +1,9 @@
 // Vuex Persist Config: https://www.npmjs.com/package/vuex-persist
 
 import { Plugin } from '@nuxt/types';
-import VuexPersistence from 'vuex-persist';
+import { VuexPersistence } from 'vuex-persist';
 
+import { IncentiveState } from '~/types/api/incentive';
 import { MarathonState } from '~/types/api/marathon';
 import { PatreonState } from '~/types/api/patreon';
 import { ScheduleState } from '~/types/api/schedule';
@@ -12,7 +13,7 @@ interface State {
   api: {
     category: { }; // CategoryState;
     donation: { }; // DonationState;
-    incentive: { }; // IncentiveState;
+    incentive: IncentiveState;
     marathon: MarathonState;
     patreon: PatreonState;
     schedule: ScheduleState;
@@ -46,7 +47,13 @@ const vuexPersistPlugin: Plugin = ({ $localForage, store }) => {
           ...store.state.api,
           category: store.state.api.category,
           donation: store.state.api.donation,
-          incentive: store.state.api.incentive,
+          incentive: {
+            ...store.state.api.incentive,
+            incentives: {
+              ...state.api.incentive.incentives,
+              ...store.state.api.incentive.incentives,
+            },
+          },
           marathon: {
             ...store.state.api.marathon,
             marathons: {
