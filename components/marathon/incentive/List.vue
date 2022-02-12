@@ -1,6 +1,8 @@
 <template>
   <div>
-    <WidgetLoading :while="[ incentiveList ]" />
+    <div class="is-centered">
+      <WidgetLoading :while="[ incentiveList ]" />
+    </div>
     <ElementTable v-show="incentives" class="incentives-table">
       <ElementTableCell is-header class="game">
         {{ $t('marathon.incentives.management.table.game') }}
