@@ -27,6 +27,7 @@ import {PatronsResolver} from './resolvers/patrons-resolver';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { KasperskyAnnouncementComponent } from './news/kaspersky-announcement/kaspersky-announcement.component';
 import {ButtonsModule} from './buttons/buttons.module';
+import { PlumComponent } from './plum/plum.component';
 
 const appRoutes: Routes = [
   {path: 'login/:service', component: LoginComponent},
@@ -72,6 +73,7 @@ const appRoutes: Routes = [
     CalendarComponent,
     PageNotFoundComponent,
     KasperskyAnnouncementComponent,
+    PlumComponent,
   ],
     imports: [
         BrowserModule,

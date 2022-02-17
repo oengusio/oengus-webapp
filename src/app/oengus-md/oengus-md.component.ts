@@ -10,7 +10,7 @@ import dompurify from 'markdown-it-dompurify';
 export class OengusMdComponent implements OnInit {
   @Input() public data: string;
   private md = new MarkdownIt('default', {
-    html: true,
+    html: false,
     xhtmlOut: true,
     breaks: true,
     linkify: true,
