@@ -16,6 +16,35 @@ export interface OengusState {
   [ key: string ]: OengusStateValuesById<any>|OengusStateValue<any>;
 }
 
+export interface PaginationSortInformation {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+}
+
+export interface PaginationPageable {
+  offset: number;
+  pageNumber: number;
+  pageSize: number;
+  paged: boolean;
+  sort: PaginationSortInformation;
+  unpaged: boolean;
+}
+
+export interface OengusPagination<U> {
+  content: Array<U>;
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  pageable: PaginationPageable;
+  size: number;
+  sort: PaginationSortInformation;
+  totalElements: number;
+  totalPages: number;
+}
+
 /**
  * Arguments recieved by the transform function.
  * U refers to the type returned by the API
