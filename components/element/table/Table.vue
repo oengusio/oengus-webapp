@@ -1,7 +1,9 @@
 <template>
   <div class="element-table" :style="styles">
+    <slot name="pagination" />
     <slot name="header" />
     <slot />
+    <slot name="pagination" />
   </div>
 </template>
 
@@ -45,6 +47,16 @@ export default Vue.extend({
 
   .element-table-header {
     border-block-end: calc(2 * var(--border-width)) solid;
+  }
+}
+
+::v-deep .element-table-paginator {
+  &:first-of-type {
+    margin-block-end: var(--spacing);
+  }
+
+  &:last-of-type {
+    margin-block-start: var(--spacing);
   }
 }
 </style>

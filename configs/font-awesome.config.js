@@ -21,6 +21,7 @@ const solid = [
   'Desktop',
   'Donate',
   'DotCircle',
+  'EllipsisH',
   'Envelope',
   'Home',
   'Language',
