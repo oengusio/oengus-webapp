@@ -10,8 +10,16 @@ export interface Donation {
   answers: Array<string>;
 }
 
+export interface DonationStats {
+  average: number;
+  count: number;
+  max: number;
+  total: number;
+}
+
 export interface DonationState extends OengusState {
   donations: { [id: string]: OengusPagination<Donation> };
+  stats: { [id: string]: DonationStats };
 }
 
 export interface DonationPageParams {

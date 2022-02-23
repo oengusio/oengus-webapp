@@ -3,6 +3,7 @@
 import { Plugin } from '@nuxt/types';
 import { VuexPersistence } from 'vuex-persist';
 
+import { DonationState } from '~/types/api/donation';
 import { IncentiveState } from '~/types/api/incentive';
 import { MarathonState } from '~/types/api/marathon';
 import { PatreonState } from '~/types/api/patreon';
@@ -12,7 +13,7 @@ import { UserState } from '~/types/api/user';
 interface State {
   api: {
     category: { }; // CategoryState;
-    donation: { }; // DonationState;
+    donation: DonationState;
     incentive: IncentiveState;
     marathon: MarathonState;
     patreon: PatreonState;
@@ -46,7 +47,17 @@ const vuexPersistPlugin: Plugin = ({ $localForage, store }) => {
         api: {
           ...store.state.api,
           category: store.state.api.category,
-          donation: store.state.api.donation,
+          donation: {
+            ...store.state.api.donation,
+            donations: {
+              ...state.api.donation.donations,
+              ...store.state.api.donation.donations,
+            },
+            stats: {
+              ...state.api.donation.stats,
+              ...store.state.api.donation.stats,
+            },
+          },
           incentive: {
             ...store.state.api.incentive,
             incentives: {
