@@ -7,7 +7,7 @@
       {{ donation.nickname }}
     </ElementTableCell>
     <ElementTableCell class="amount">
-      <i18n-n v-if="!hideValue" :value="donation.amount" :format="{ key: 'currency', currency: donationCurrency }" />
+      <i18n-n :value="donation.amount" :format="{ key: 'currency', currency: donationCurrency }" />
     </ElementTableCell>
     <ElementTableCell class="comment">
       <ElementMarkdown :markdown="donation.comment" />
