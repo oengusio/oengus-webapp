@@ -18,6 +18,10 @@
       </ElementTableCell>
 
       <MarathonDonationRow v-for="(donation, index) of donations" :key="donation.id" :class="getRowParity(index)" :donation="donation" :donation-currency="donationCurrency" />
+
+      <template #pagination>
+        <ElementTablePaginator :page-data="donationsPage" page-change-path-template="?donations-page={}" />
+      </template>
     </ElementTable>
   </div>
 </template>
@@ -75,12 +79,33 @@ export default Vue.extend({
     },
   },
 
+  watch: {
+    $route(): void {
+      this.updatePage();
+    },
+    page(newPage, oldPage): void {
+      if (newPage !== oldPage) {
+        this.$fetch();
+      }
+    },
+  },
+
+  mounted(): void {
+    this.updatePage();
+  },
+
   methods: {
     getRowParity(index: number): { 'is-even': boolean, 'is-odd': boolean } {
       return {
         'is-even': index % 2 === 0,
         'is-odd': index % 2 === 1,
       };
+    },
+    updatePage(): void {
+      if (typeof this.$route.query['donations-page'] === 'string') {
+        // Convert from 1-indexed to 0-indexed
+        this.page = Number.parseInt(this.$route.query['donations-page']) - 1;
+      }
     },
     ...mapActions({
       getDonations: 'api/donation/get',
@@ -99,11 +124,9 @@ export default Vue.extend({
     500px null (1fr auto 2fr),
   ));
 
-  @media (max-width: 500px) {
-    & ::v-deep .name,
-    & ::v-deep .comment {
-      overflow-x: auto;
-    }
+  & ::v-deep .name,
+  & ::v-deep .comment {
+    overflow-x: auto;
   }
 }
 </style>

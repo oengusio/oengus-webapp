@@ -1,13 +1,14 @@
 <template>
+  <!-- XXX @click.native will stop working in Vue v3+ (Vue Router v4+), but @click should start working -->
   <nav class="element-table-paginator pagination is-centered" role="navigation" aria-label="pagination">
-    <ElementLink class="pagination-previous">
+    <ElementLink class="button pagination-previous" @click.native="emitClick(pageData.number - 1)">
       <FontAwesomeIcon :icon="[ 'fas', 'caret-left' ]" />
     </ElementLink>
     <ul class="pagination-list">
       <template v-for="pageMeta in pagesMeta">
         <li v-if="!pageMeta.spacer" :key="`link-${pageMeta.pageIndex}`">
-          <ElementLink class="pagination-link" :class="isCurrent(pageMeta.pageIndex)">
-              {{ $n(pageMeta.pageIndex + 1) }}
+          <ElementLink class="button pagination-link" :class="isCurrent(pageMeta.pageIndex)" :to="linkTo(pageMeta.pageIndex)" @click.native="emitClick(pageMeta.pageIndex)">
+            {{ $n(pageMeta.pageIndex + 1) }}
           </ElementLink>
         </li>
         <li v-else :key="`ellipsis-${pageMeta.pageIndex}`">
@@ -15,7 +16,7 @@
         </li>
       </template>
     </ul>
-    <ElementLink class="pagination-next">
+    <ElementLink class="button pagination-next" @click.native="emitClick(pageData.number + 1)">
       <FontAwesomeIcon :icon="[ 'fas', 'caret-right' ]" />
     </ElementLink>
   </nav>
@@ -23,6 +24,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Location } from 'vue-router';
 import { OengusPagination } from '~/types/api/oengus-api';
 
 interface PaginatorMeta {
@@ -36,13 +38,19 @@ export default Vue.extend({
       type: Object as () => OengusPagination<any>,
       default: undefined,
     },
+    /** Pass this to have paginator handle pagination via the given URL pattern, e.g. 'page/{}' makes ./page/1 */
+    pageChangePathTemplate: {
+      type: String,
+      default: undefined,
+    },
   },
 
   computed: {
     pagesMeta(): Array<PaginatorMeta> {
-      let pages = new Set([ this.pageData.number - 1, this.pageData.number, this.pageData.number + 1, this.pageData.totalPages - 1 ]);
+      const pages = new Set([ this.pageData.number - 1, this.pageData.number, this.pageData.number + 1, this.pageData.totalPages - 1 ]);
       return [ ...pages.values() ]
-        .filter(a => a > 0)
+        // Exclude 0 because we always include 0 manually later
+        .filter(a => a > 0 && a < this.pageData.totalPages)
         .sort((a, b) => a - b)
         .reduce((pagesMeta, pageIndex) => {
           if (pagesMeta[pagesMeta.length - 1].pageIndex + 1 < pageIndex) {
@@ -59,6 +67,16 @@ export default Vue.extend({
       return {
         'is-current': pageIndex === this.pageData.number,
       };
+    },
+    linkTo(pageNumber: number): undefined|Location {
+      // Computers use 0-indexed, but humans like 1-indexed, so these all use 1-indexed
+      pageNumber++;
+      if (this.pageChangePathTemplate) {
+        return { path: this.pageChangePathTemplate.replaceAll('{}', pageNumber.toString()) };
+      }
+    },
+    emitClick(pageNumber: number) {
+      this.$emit('pageChanged', pageNumber);
     },
   },
 });
