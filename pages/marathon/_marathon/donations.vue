@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="donations-container">
     <h3 class="title is-3">
       {{ $t('marathon.donations.title') }}
     </h3>
 
+    <MarathonDonationStats :marathon-id="marathonId" />
     <MarathonDonationList :marathon-id="marathonId" />
   </div>
 </template>
@@ -26,3 +27,15 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.donations-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+
+  > * {
+    margin: 0;
+  }
+}
+</style>
