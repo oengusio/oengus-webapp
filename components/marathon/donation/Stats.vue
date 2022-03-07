@@ -13,7 +13,7 @@
         {{ $t('marathon.donations.count') }}
       </p>
       <p class="info">
-        <i18n-n :value="stats.count" :format="{ key: 'currency', currency: donationCurrency }" />
+        <i18n-n :value="stats.count" />
       </p>
     </div>
     <div class="info-box">
