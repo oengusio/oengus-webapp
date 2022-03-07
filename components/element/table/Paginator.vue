@@ -1,7 +1,7 @@
 <template>
   <!-- XXX @click.native will stop working in Vue v3+ (Vue Router v4+), but @click should start working -->
   <nav class="element-table-paginator pagination is-centered" role="navigation" aria-label="pagination">
-    <ElementLink class="button pagination-previous" @click.native="emitClick(pageData.number - 1)">
+    <ElementLink v-if="pageData.number > 0" class="button pagination-previous" :to="linkTo(pageData.number - 1)" @click.native="emitClick(pageData.number - 1)">
       <FontAwesomeIcon :icon="[ 'fas', 'caret-left' ]" />
     </ElementLink>
     <ul class="pagination-list">
@@ -16,7 +16,7 @@
         </li>
       </template>
     </ul>
-    <ElementLink class="button pagination-next" @click.native="emitClick(pageData.number + 1)">
+    <ElementLink v-if="pageData.number < pageData.totalPages - 1" class="button pagination-next" :to="linkTo(pageData.number + 1)" @click.native="emitClick(pageData.number + 1)">
       <FontAwesomeIcon :icon="[ 'fas', 'caret-right' ]" />
     </ElementLink>
   </nav>
