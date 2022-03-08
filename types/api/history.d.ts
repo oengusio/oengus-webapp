@@ -1,4 +1,4 @@
-import { HistoryGameCategoryStatus } from './enums/history';
+import { RunStatus } from './enums/run';
 import { Duration } from './marathon';
 
 export interface History {
@@ -28,7 +28,7 @@ export interface HistoryGameCategory {
   name: string;
   opponentDtos: Array<any>|null; // Array<OpponentCategoryDto>|null
   opponents: Array<any>; // Array<Opponent>
-  status: keyof typeof HistoryGameCategoryStatus;
+  status: keyof typeof RunStatus;
   type: string;
   video: string;
 }

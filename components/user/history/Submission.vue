@@ -51,7 +51,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
-import { HistoryGameCategoryStatus } from '~/types/api/enums/history';
+import { RunStatus } from '~/types/api/enums/run';
 import { History, HistoryGame, HistoryGameCategory } from '~/types/api/history';
 import { User, UserState } from '~/types/api/user';
 
@@ -84,12 +84,12 @@ export default Vue.extend({
     },
     getCellColor(element: History|HistoryGame|HistoryGameCategory): { 'is-success': boolean, 'is-info': boolean, 'is-primary': boolean, 'is-warning': boolean } {
       const status = this.getCategories(element)
-        .reduce((currentStatus, category) => Math.min(currentStatus, HistoryGameCategoryStatus[category.status]), Infinity);
+        .reduce((currentStatus, category) => Math.min(currentStatus, RunStatus[category.status]), Infinity);
       return {
-        'is-info': status === HistoryGameCategoryStatus.VALIDATED,
-        'is-primary': status === HistoryGameCategoryStatus.BONUS,
-        'is-success': status === HistoryGameCategoryStatus.BACKUP,
-        'is-warning': status === HistoryGameCategoryStatus.REJECTED,
+        'is-info': status === RunStatus.VALIDATED,
+        'is-primary': status === RunStatus.BONUS,
+        'is-success': status === RunStatus.BACKUP,
+        'is-warning': status === RunStatus.REJECTED,
       };
     },
     getCategories(element: History|HistoryGame|HistoryGameCategory): Array<HistoryGameCategory> {

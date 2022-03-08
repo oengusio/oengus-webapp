@@ -1,16 +1,7 @@
+import { RunType } from './enums/run';
 import { FullMarathon } from './marathon';
 import { OengusState } from './oengus-api';
 import { User } from './user';
-
-export enum RunType {
-  SINGLE = 'SINGLE',
-  RACE = 'RACE',
-  COOP = 'COOP',
-  COOP_RACE = 'COOP_RACE',
-  OTHER = 'OTHER',
-  RELAY = 'RELAY',
-  RELAY_RACE = 'RELAY_RACE',
-}
 
 export interface ScheduleLine {
   categoryId: number;
