@@ -7,7 +7,7 @@ export interface Donation {
   amount: number;
   comment: string;
   donationIncentiveLinks: Array<string>;
-  answers: Array<string>;
+  answers: Array<any>; // Array<Answer>
 }
 
 export interface DonationStats {
