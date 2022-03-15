@@ -13,6 +13,7 @@ COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN npm ci --silent
 COPY ["nuxt.config.js", "./"]
 COPY configs ./configs
+COPY modules ./modules
 COPY static ./static
 COPY --from=builder /oengus-webapp/.nuxt ./.nuxt
 EXPOSE 3000

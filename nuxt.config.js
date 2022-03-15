@@ -68,7 +68,7 @@ export default {
     '@nuxtjs/i18n',
     '@nuxtjs/markdownit',
     '@nuxtjs/robots',
-    'nuxt-ssr-cache',
+    '~/modules/nuxt-ssr-cache',
     // sitemap should always come last
     '@nuxtjs/sitemap',
   ],
