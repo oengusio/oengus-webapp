@@ -33,10 +33,18 @@
             {{ 'marathon.menu.overview' | translate}}
           </p>
           <ul class="menu-list">
+            <!--<li>
+              <app-v2-link route=".">
+                <fa-icon [icon]="faHome" style="margin-right:0.4rem"></fa-icon>
+                <span *ngIf="!minimized">{{ 'marathon.menu.home' | translate}}</span>
+              </app-v2-link>
+            </li>-->
+
             <li><a routerLink="." [routerLinkActive]="'is-active'" [routerLinkActiveOptions]="{exact: true}">
               <fa-icon [icon]="faHome" style="margin-right:0.4rem"></fa-icon>
               <span *ngIf="!minimized">{{ 'marathon.menu.home' | translate}}</span>
             </a></li>
+
             <li><a routerLink="submissions" [routerLinkActive]="'is-active'" [routerLinkActiveOptions]="{exact: true}">
               <fa-icon [icon]="faBook" style="margin-right:0.4rem"></fa-icon>
               <span *ngIf="!minimized">{{ 'marathon.menu.viewSubmissions' | translate}}</span>
@@ -58,9 +66,10 @@
                 <a><b>{{ 'marathon.menu.loginToSubmit' | translate}}</b></a></li>
             </ng-template>
             <li *ngIf="marathonService.marathon.scheduleDone">
-              <a routerLink="schedule" [routerLinkActive]="'is-active'" [routerLinkActiveOptions]="{exact: true}">
+              <app-v2-link route="schedule">
                 <fa-icon [icon]="faCalendar" style="margin-right:0.4rem"></fa-icon>
-                <span *ngIf="!minimized">{{ 'marathon.menu.schedule' | translate}}</span></a>
+                <span *ngIf="!minimized">{{ 'marathon.menu.schedule' | translate}}</span>
+              </app-v2-link>
             </li>
           </ul>
           <ng-template

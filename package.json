@@ -1,6 +1,6 @@
 {
   "name": "webapp",
-  "version": "2021.08.29",
+  "version": "2022.01.24",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -41,9 +41,10 @@
     "core-js": "^2.5.4",
     "flag-icon-css": "^3.3.0",
     "lodash": "^4.17.15",
+    "markdown-it": "^12.3.2",
+    "markdown-it-dompurify": "^1.0.4",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
-    "ngx-md": "^8.0.0",
     "ngx-paypal": "^5.0.0",
     "rxjs": "^6.5.2",
     "tslib": "^1.9.0",

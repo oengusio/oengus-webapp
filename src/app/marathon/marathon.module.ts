@@ -11,7 +11,6 @@ import { DirectivesModule } from '../directives/directives.module';
 import { CanActivateMarathonSettingsGuard } from '../guards/can-activate-marathon-settings-guard.service';
 import { MarathonResolver } from '../resolvers/marathon-resolver';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgxMdModule } from 'ngx-md';
 import { SettingsComponent } from './settings/settings.component';
 import { SubmitComponent } from './submit/submit.component';
 import { SubmissionResolver } from '../resolvers/submission-resolver';
@@ -44,6 +43,9 @@ import {AdsenseComponent} from '../adsense/adsense.component';
 import {SubmissionsResolver} from '../resolvers/submissions-resolver';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
+import {ButtonsModule} from '../buttons/buttons.module';
+import {DeactivateRouteGuard} from '../guards/deactivate-route-guard.service';
+import { OengusMdComponent } from '../oengus-md/oengus-md.component';
 
 const marathonRoutes: Routes = [
   {
@@ -59,7 +61,8 @@ const marathonRoutes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
+        canActivate: [DeactivateRouteGuard]
       },
       {
         path: 'settings',
@@ -99,7 +102,8 @@ const marathonRoutes: Routes = [
         component: ScheduleComponent,
         resolve: {
           schedule: ScheduleResolver
-        }
+        },
+        canActivate: [DeactivateRouteGuard]
       },
       {
         path: 'schedule/manage',
@@ -183,33 +187,34 @@ const marathonRoutes: Routes = [
     DonationsComponent,
     AdsenseComponent,
     SubmissionCategoryComponent,
-    SubmissionGameComponent
+    SubmissionGameComponent,
+    OengusMdComponent,
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(marathonRoutes),
-        FormsModule,
-        OwlDateTimeModule,
-        OwlNativeDateTimeModule,
-        NwbSwitchModule,
-        DirectivesModule,
-        FontAwesomeModule,
-        NgxMdModule.forRoot(),
-        NwbCommonModule,
-        AutocompleteLibModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        OengusCommonModule,
-        DragDropModule,
-        NwbEditInPlaceModule,
-        NgxPayPalModule,
-        NwbPaginatorModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(marathonRoutes),
+    FormsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    NwbSwitchModule,
+    DirectivesModule,
+    FontAwesomeModule,
+    NwbCommonModule,
+    AutocompleteLibModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    OengusCommonModule,
+    DragDropModule,
+    NwbEditInPlaceModule,
+    NgxPayPalModule,
+    NwbPaginatorModule,
+    ButtonsModule
+  ],
   exports: [
     RouterModule
   ],

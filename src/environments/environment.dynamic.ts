@@ -1,8 +1,9 @@
 // TODO: look into performance impact with getters
 
 export const environment = {
-  twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
-  discordClientId: '559625844197163008',
+  twitterClientId: 'WXg5Q1R5a05TX1VMNm5CNlJjYk46MTpjaQ', // oengus test
+  twitchClientId: 'c3539b9q6x4ba7pomwa9fj1cs2culy', // oengus test
+  discordClientId: '931093356006768681', // oengus test
   patreonClientId: 'qXKJ92UNMBtSTV_N0TN47U6l1o2_VXWmqK3u9_Gv3RXIJuiJ0LTpDyzbl5XZuARH',
 
   // returns true for production builds
@@ -21,18 +22,27 @@ export const environment = {
     return window.location.origin;
   },
 
-  get baseSiteNoSub() {
+  get v2Domain() {
     const url = window.location.hostname;
+
+    if (url.startsWith('sandbox')) {
+      return null;
+    }
+
     const splitUrl = url.split('.');
     const parts = splitUrl.length > 2 ? [splitUrl[1], splitUrl[2]] : splitUrl;
 
-    return `${window.location.protocol}//${parts[0]}.${parts[1]}`;
+    return `${window.location.protocol}//${parts[0]}.${parts[1]}/`;
   },
 
   // the api that the front-end talks to
   get api() {
     if (environment.production) {
-      return environment.baseSiteNoSub + '/api';
+      const url = window.location.hostname;
+      const splitUrl = url.split('.');
+      const parts = splitUrl.length > 2 ? [splitUrl[1], splitUrl[2]] : splitUrl;
+
+      return `${window.location.protocol}//${parts[0]}.${parts[1]}/api`;
     }
 
     return 'http://localhost:8080';
@@ -58,4 +68,5 @@ export const environment = {
 
     return 'http://localhost:9000';
   },
+  donationsDisabled: false,
 };

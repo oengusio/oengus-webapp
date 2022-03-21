@@ -60,6 +60,7 @@
                       maxlength="300"
                       [(ngModel)]="incentive.description"
                       [disabled]="incentive.locked"
+                      required
                       name="incentiveDescription{{i}}"
                       [ngClass]="{'is-danger': incentiveDescription.invalid}"
                       #incentiveDescription="ngModel"></textarea>

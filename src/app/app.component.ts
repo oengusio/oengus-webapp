@@ -147,7 +147,12 @@ export class AppComponent implements OnInit {
   }
 
   isBlockingAds(): boolean {
-    return !document.getElementById('asjhdflkjashdlfkajsdfs');
+    return !document.getElementById('mnMzPGBywKre');
+  }
+
+  storeCurrentPage(): boolean {
+    localStorage.setItem('prev_loc', this.router.url);
+    return true;
   }
 
   setupLanguages(): void {
@@ -206,12 +211,6 @@ export class AppComponent implements OnInit {
     } else {
       moment.locale(language.split('_')[0].replace('en', 'en_GB'));
     }
-  }
-
-  twitterAuth() {
-    this.userService.login('twitterAuth').subscribe(response => {
-      window.location.replace(response.token);
-    });
   }
 
   onRouteActivated(component) {

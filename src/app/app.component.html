@@ -20,7 +20,7 @@
     </div>
   </div>
 
-  <div class="privacy-consent has-background-dark is-flex-desktop"
+  <!--<div class="privacy-consent has-background-dark is-flex-desktop"
        style="justify-content: space-between"
        *ngIf="showKasperskyBanner()">
     <p class="navbar-item" style="align-items: center;">
@@ -41,7 +41,7 @@
         </a>
       </p>
     </div>
-  </div>
+  </div>-->
 
   <div class="privacy-consent has-background-white is-flex-desktop"
        style="height: 100px;"
@@ -132,7 +132,8 @@
               <a class="navbar-item is-tooltip-danger" [nwbToolTip]="'navbar.login.disclaimer' | translate"
                  nwbToolTipPosition="left"
                  nwbToolTipIsMultiline="true"
-                 [href]="userService.getDiscordAuthUri()">
+                 [href]="userService.getDiscordAuthUri()"
+                 (click)="storeCurrentPage()">
                 <fa-icon [icon]="faDiscord" style="margin-right: 0.4rem"></fa-icon>
                 {{'navbar.login.discord' | translate}}
               </a>
@@ -140,12 +141,14 @@
                  [nwbToolTip]="'navbar.login.disclaimer' | translate"
                  nwbToolTipPosition="left"
                  nwbToolTipIsMultiline="true"
-                 [href]="userService.getTwitchAuthUrl()">
+                 [href]="userService.getTwitchAuthUrl()"
+                 (click)="storeCurrentPage()">
                 <fa-icon [icon]="faTwitch" style="margin-right: 0.4rem"></fa-icon>
                 {{'navbar.login.twitch' | translate}}
               </a>
               <a class="navbar-item is-tooltip-danger"
-                 (click)="twitterAuth()"
+                 [href]="userService.getTwitterAuthUrl()"
+                 (click)="storeCurrentPage()"
                  nwbToolTipPosition="left"
                  nwbToolTipIsMultiline="true"
                  [nwbToolTip]="'navbar.login.disclaimer' | translate">
@@ -175,6 +178,7 @@
     </div>
   </nav>
 
+  <app-plum></app-plum>
   <div class="content-wrapper">
     <router-outlet (activate)="onRouteActivated($event)"></router-outlet>
   </div>
