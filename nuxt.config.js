@@ -96,11 +96,11 @@ export default {
   // Router configuration: https://nuxtjs.org/docs/directory-structure/nuxt-config#router
   'router': routerConfig(process),
 
-  // HTTP configuration: https://http.nuxtjs.org/
-  'http': httpConfig(process),
-
   // Local Forage configuration: https://github.com/nuxt-community/localforage-module
   'localforage': localForage(process),
+
+  // HTTP configuration: https://http.nuxtjs.org/
+  'http': httpConfig(process),
 
   // Font Awesome configuration: https://github.com/nuxt-community/fontawesome-module
   'fontawesome': fontAwesomeConfig(process),
