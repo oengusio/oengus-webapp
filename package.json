@@ -23,10 +23,11 @@
     "@nuxtjs/markdownit": "^2.0.0",
     "@nuxtjs/robots": "^2.5.0",
     "@nuxtjs/sitemap": "^2.4.0",
+    "cache-manager": "^3.6.0",
+    "cache-manager-memcached-store": "^4.0.0",
     "core-js": "^3.21.0",
     "markdown-it-dompurify": "^1.0.7",
     "nuxt": "^2.15.8",
-    "nuxt-ssr-cache": "^1.5.2",
     "vuex-persist": "^3.1.3"
   },
   "devDependencies": {
@@ -36,6 +37,7 @@
     "@nuxtjs/eslint-config-typescript": "^8.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/stylelint-module": "^4.1.0",
+    "@types/cache-manager": "^3.4.3",
     "babel-eslint": "^10.1.0",
     "bulma": "^0.9.3",
     "bulmaswatch": "^0.8.1",
