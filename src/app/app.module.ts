@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -28,6 +28,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { KasperskyAnnouncementComponent } from './news/kaspersky-announcement/kaspersky-announcement.component';
 import {ButtonsModule} from './buttons/buttons.module';
 import { PlumComponent } from './plum/plum.component';
+import * as Sentry from '@sentry/angular';
 
 const appRoutes: Routes = [
   {path: 'login/:service', component: LoginComponent},
@@ -101,8 +102,17 @@ const appRoutes: Routes = [
         ButtonsModule
     ],
   exports: [RouterModule],
-  providers: [httpInterceptorProviders,
-    HomepageMetadataResolver, PatronsResolver],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: true,
+      }),
+    },
+    httpInterceptorProviders,
+    HomepageMetadataResolver,
+    PatronsResolver,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

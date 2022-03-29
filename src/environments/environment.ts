@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  name: 'local',
   // is this a production build
   production: false,
   // is this a sandbox build

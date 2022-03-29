@@ -1,4 +1,5 @@
 export const environment = {
+  name: 'sandbox',
   production: true,
   sandbox: true,
   baseSite: 'https://sandbox.oengus.io',

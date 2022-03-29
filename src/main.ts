@@ -4,6 +4,18 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
+import * as Sentry from '@sentry/angular';
+
+if (environment.name !== 'local') {
+  Sentry.init({
+    environment: environment.name,
+    dsn: 'https://02b0f4a1e0184c4fb84a278373695fde@o1178674.ingest.sentry.io/6293575',
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  });
+}
 
 marker('alert.submit.DIFFERENT_MARATHON');
 marker('alert.submit.NOT_MULTIPLAYER');

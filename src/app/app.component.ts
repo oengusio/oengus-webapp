@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { faDiscord, faGithub, faPatreon, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faBug, faLanguage } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
+// @ts-ignore
 import isoLang from '../assets/languages.json';
 import moment from 'moment-timezone';
 import { DateTimeAdapter } from '@busacca/ng-pick-datetime';
@@ -36,6 +37,7 @@ import {
 import {LoadingBarService} from '../services/loading-bar.service';
 import {TitleService} from '../services/title.service';
 import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
+import * as Sentry from '@sentry/angular';
 
 @Component({
   selector: 'app-root',
@@ -114,6 +116,18 @@ export class AppComponent implements OnInit {
               color: 'is-warning'
             };
             this.toastr.open(alertConfig);
+          });
+
+          return;
+        }
+
+        // are we allowed to track the user?
+        if (localStorage.getItem('consent') === 'true') {
+          Sentry.setUser({
+            id: user.id.toString(),
+            email: user.mail,
+            username: user.username,
+            connections: user.connections,
           });
         }
       });
