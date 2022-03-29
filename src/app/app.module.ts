@@ -19,7 +19,8 @@ import { UserModule } from './user/user.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { OengusCommonModule } from './oengus-common/oengus-common.module';
 import { AboutComponent } from './about/about.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import { CalendarComponent } from './calendar/calendar.component';
 import { WebpackTranslateLoader } from '../loader/webpack-translate-loader';
 import {PatronsComponent} from './patrons/patrons.component';
@@ -29,6 +30,10 @@ import { KasperskyAnnouncementComponent } from './news/kaspersky-announcement/ka
 import {ButtonsModule} from './buttons/buttons.module';
 import { PlumComponent } from './plum/plum.component';
 import * as Sentry from '@sentry/angular';
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+]);
 
 const appRoutes: Routes = [
   {path: 'login/:service', component: LoginComponent},

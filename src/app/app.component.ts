@@ -122,7 +122,7 @@ export class AppComponent implements OnInit {
         }
 
         // are we allowed to track the user?
-        if (localStorage.getItem('consent') === 'true') {
+        if (user && localStorage.getItem('consent') === 'true') {
           Sentry.setUser({
             id: user.id.toString(),
             email: user.mail,

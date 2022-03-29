@@ -12,8 +12,8 @@ export class DeleteButtonComponent implements OnInit {
 
   public showConfirm = false;
 
-  @Output() public confirmHandler: EventEmitter<any> = new EventEmitter();
-  @Output() public cancelHandler: EventEmitter<any> = new EventEmitter();
+  @Output() public confirmHandler: EventEmitter<void> = new EventEmitter();
+  @Output() public cancelHandler: EventEmitter<void> = new EventEmitter();
   @Input() public baseText: string;
   @Input() public confirmText: string;
   @Input() public cancelText: string;

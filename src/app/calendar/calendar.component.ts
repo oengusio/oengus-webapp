@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { MarathonService } from '../../services/marathon.service';
 import { Router } from '@angular/router';
-// import {FullCalendarComponent} from '@fullcalendar/angular';
+import {CalendarOptions, EventClickArg} from '@fullcalendar/core'; // useful for typechecking
+import {DatesSetArg, FullCalendarComponent} from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-calendar',
@@ -10,20 +11,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
-  // @ViewChild('calendar', {static: true}) calendarComponent: FullCalendarComponent;
+  @ViewChild('calendar', {static: true}) calendarComponent: FullCalendarComponent;
 
-  public calendarPlugins = [dayGridPlugin];
-  public localStorage = localStorage;
   public events = [];
+  public calendarOptions: CalendarOptions = {
+    initialView: 'dayGridMonth',
+    plugins: [dayGridPlugin],
+    locale: localStorage.getItem('language'),
+    events: this.events,
+    eventClick: this.goToEvent.bind(this),
+    datesSet: this.fetchMarathons.bind(this),
+  };
 
   constructor(private marathonService: MarathonService,
               private router: Router) {
   }
 
   ngOnInit() {
+    //
   }
 
-  fetchMarathons(info) {
+  fetchMarathons(info: DatesSetArg) {
+    console.log(info);
     // Cannot set visible range somehow
     /*const dateRange = localStorage.getItem('calendar-range');
 
@@ -53,7 +62,7 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  goToEvent(eventClickInfo) {
+  goToEvent(eventClickInfo: EventClickArg) {
     /*// @ts-ignore
     const { activeStart, activeEnd } = this.calendarComponent.calendar.view;
     const json = JSON.stringify({ activeStart, activeEnd });

@@ -60,16 +60,12 @@ export class DonationService extends BaseService {
           const blob = new Blob([response], {type: 'text/csv'});
           const url = window.URL.createObjectURL(blob);
 
-          if (navigator.msSaveOrOpenBlob) {
-            navigator.msSaveBlob(blob, marathonId + '-donations.csv');
-          } else {
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = marathonId + '-donations.csv';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-          }
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = marathonId + '-donations.csv';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
           window.URL.revokeObjectURL(url);
         },
         error => {

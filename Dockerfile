@@ -6,7 +6,7 @@ RUN npm ci
 COPY . .
 # PROFILE is either production, sandbox or production-dev
 ARG PROFILE
-RUN npm run build -- --prod --c=$PROFILE
+RUN npm run build -- --configuration production --c=$PROFILE
 
 FROM nginx:alpine
 
