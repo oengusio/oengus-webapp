@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { MarathonService } from '../../services/marathon.service';
-import { Router } from '@angular/router';
+import {MarathonService} from '../../services/marathon.service';
+import {Router} from '@angular/router';
 import {CalendarOptions, EventClickArg} from '@fullcalendar/core'; // useful for typechecking
 import {DatesSetArg, FullCalendarComponent} from '@fullcalendar/angular';
 
@@ -21,6 +21,15 @@ export class CalendarComponent implements OnInit {
     events: this.events,
     eventClick: this.goToEvent.bind(this),
     datesSet: this.fetchMarathons.bind(this),
+    now: function () {
+      const prevDate = localStorage.getItem('calendar-prev-day');
+
+      if (prevDate) {
+        return new Date(prevDate);
+      }
+
+      return new Date();
+    },
   };
 
   constructor(private marathonService: MarathonService,
@@ -32,23 +41,6 @@ export class CalendarComponent implements OnInit {
   }
 
   fetchMarathons(info: DatesSetArg) {
-    console.log(info);
-    // Cannot set visible range somehow
-    /*const dateRange = localStorage.getItem('calendar-range');
-
-    if (dateRange) {
-      console.log(dateRange);
-
-      const { activeStart, activeEnd } = JSON.parse(dateRange);
-      localStorage.removeItem('calendar-range');
-
-      // @ts-ignore
-      this.calendarComponent.calendar.setOption('visibleRange', {
-        start: new Date(activeStart),
-        end: new Date(activeEnd)
-      });
-    }*/
-
     this.marathonService.findForMonth(info.view.activeStart, info.view.activeEnd).subscribe(response => {
       this.events = [];
       response.forEach(marathon => {
@@ -59,15 +51,14 @@ export class CalendarComponent implements OnInit {
           end: marathon.endDate
         });
       });
+      this.calendarOptions.events = this.events;
+      this.calendarComponent.getApi().refetchEvents();
+      localStorage.removeItem('calendar-prev-day');
     });
   }
 
   goToEvent(eventClickInfo: EventClickArg) {
-    /*// @ts-ignore
-    const { activeStart, activeEnd } = this.calendarComponent.calendar.view;
-    const json = JSON.stringify({ activeStart, activeEnd });
-
-    localStorage.setItem('calendar-range', json);*/
+    localStorage.setItem('calendar-prev-day', eventClickInfo.event.startStr);
 
     this.router.navigate(['/marathon', eventClickInfo.event.id]);
   }
