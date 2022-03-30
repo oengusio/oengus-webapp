@@ -218,7 +218,7 @@
             <span class="select">
               <select [(ngModel)]="marathon.language" name="language">
                 <option *ngFor="let language of languages | keyvalue"
-                        [value]="language.key">{{language.value.nativeName | titlecase}}</option>
+                        [ngValue]="language.key">{{language.value.nativeName | titlecase}}</option>
               </select>
             </span>
               </div>
@@ -231,7 +231,7 @@
             <span class="select">
               <select [(ngModel)]="marathon.country" name="country">
                 <option *ngFor="let country of countries | keyvalue"
-                        [value]="country.key">{{country.value | titlecase}}</option>
+                        [ngValue]="country.key">{{country.value | titlecase}}</option>
               </select>
             </span>
               </div>

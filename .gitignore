@@ -44,3 +44,4 @@ Thumbs.db
 ./dist/
 
 docker-compose.override.yml
+.angular/
