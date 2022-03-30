@@ -35,8 +35,6 @@ export class V2LinkComponent implements OnInit {
       if (environment.v2Domain) {
         this.storedUrl = this.linkInput.nativeElement.getAttribute('href');
 
-        console.log(this.storedUrl);
-
         DeactivateRouteGuard.deactivatedRoutes.push(this.storedUrl);
       }
     }, 0);
@@ -57,8 +55,6 @@ export class V2LinkComponent implements OnInit {
       window.open(targetUrl, '_blank');
       return false;
     }
-
-    console.log(targetUrl);
 
     setTimeout(() => {
       this.loadingbar.setLoading(true);

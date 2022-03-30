@@ -242,7 +242,7 @@ export class SettingsComponent implements OnInit {
               pledgeAmount: included[0].attributes.will_pay_amount_cents,
             };
 
-            this.userService.updatePatreonStatus(this.user.id, dto).catch(console.log);
+            this.userService.updatePatreonStatus(this.user.id, dto);
           }
         }
 
