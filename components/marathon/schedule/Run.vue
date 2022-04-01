@@ -31,12 +31,7 @@
 
     <template v-if="run.console">
       <span class="is-label">{{ $t('marathon.schedule.table.console') }}</span>
-      <span>
-        {{ run.console }}
-      </span>
-      <sup v-if="run.emulated">
-        {{ $t('global.emu') }}
-      </sup>
+      <ElementConsole :console="run.console" :is-emulated="run.emulated" />
     </template>
 
     <template v-if="run.estimate">

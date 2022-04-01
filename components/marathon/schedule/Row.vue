@@ -29,12 +29,7 @@
     </ElementTableCell>
 
     <ElementTableCell class="console">
-      <span>
-        {{ run.console }}
-      </span>
-      <sup v-if="run.emulated">
-        {{ $t('global.emu') }}
-      </sup>
+      <ElementConsole :console="run.console" :is-emulated="run.emulated" />
     </ElementTableCell>
 
     <ElementTableCell class="estimate">
