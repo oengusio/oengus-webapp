@@ -218,7 +218,7 @@ export class AppComponent implements OnInit {
 
     const date = new Date();
 
-    if (date.getMonth() === 3 && date.getDay() === 1 && date.getHours() >= 14 ) {
+    if (date.getMonth() === 3 && date.getDate() === 1 && date.getHours() >= 14 ) {
       moment.locale('x-pseudo');
     } else if (language === 'zh_Hant_HK') {
       moment.locale('zh_hk');
