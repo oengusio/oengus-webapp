@@ -8,6 +8,8 @@ import { IncentiveState } from '~/types/api/incentive';
 import { MarathonState } from '~/types/api/marathon';
 import { PatreonState } from '~/types/api/patreon';
 import { ScheduleState } from '~/types/api/schedule';
+import { SelectionState } from '~/types/api/selection';
+import { SubmissionState } from '~/types/api/submission';
 import { UserState } from '~/types/api/user';
 
 interface State {
@@ -18,8 +20,8 @@ interface State {
     marathon: MarathonState;
     patreon: PatreonState;
     schedule: ScheduleState;
-    selection: { }; // SelectionState;
-    submission: { }; // SubmissionState;
+    selection: SelectionState;
+    submission: SubmissionState;
     user: UserState;
   };
 }
@@ -92,8 +94,20 @@ const vuexPersistPlugin: Plugin = ({ $localForage, store }) => {
               ...store.state.api.schedule.tickers,
             },
           },
-          selection: store.state.api.selection,
-          submission: store.state.api.submission,
+          selection: {
+            ...store.state.api.selection,
+            selections: {
+              ...store.state.api.selection.selections,
+              ...store.state.api.selection.selections,
+            },
+          },
+          submission: {
+            ...store.state.api.submission,
+            submissions: {
+              ...state.api.submission.submissions,
+              ...store.state.api.submission.submissions,
+            },
+          },
           user: {
             ...store.state.api.user,
             users: {

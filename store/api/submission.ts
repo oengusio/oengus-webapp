@@ -20,5 +20,6 @@ export const actions: ActionTree<SubmissionState, SubmissionState> = {
     path: 'submissions',
     key: 'submissions',
     transform: ({ value: submissions }) => ({ submissions }),
+    cacheDuration: 15 * 60_000,
   }),
 };

@@ -36,7 +36,7 @@ export interface SubmissionCategory {
   name: string;
   opponentDtos: Array<SubmissionOpponentCategoryDto>;
   opponents: Array<SubmissionOpponent>;
-  selection: SubmissionSelection;
+  selection?: SubmissionSelection;
   status: keyof typeof RunStatus;
   type: RunType;
   video: string;
