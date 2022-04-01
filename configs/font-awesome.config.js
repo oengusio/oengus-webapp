@@ -23,6 +23,7 @@ const solid = [
   'DotCircle',
   'EllipsisH',
   'Envelope',
+  'Film',
   'Home',
   'Language',
   'MoneyBill',
