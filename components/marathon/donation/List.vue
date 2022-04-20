@@ -119,7 +119,7 @@ export default Vue.extend({
 @use '~assets/table';
 
 .donations-table {
-  @include table.shrink(4, (
+  @include table.shrink($default-template-columns: 4, $shrinking-rules: (
     600px '.date' 3,
     500px null (1fr auto 2fr),
   ));

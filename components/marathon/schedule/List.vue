@@ -214,7 +214,7 @@ export default Vue.extend({
 @use '~assets/table';
 
 .schedule-container {
-  @include table.shrink(9, (
+  @include table.shrink($default-template-columns: 9, $has-expand-button: true, $shrinking-rules: (
     1150px '.setup' 8,
     1023px '.console' 7,
     900px '.type' 6,
@@ -251,7 +251,7 @@ export default Vue.extend({
 // This allows these rules to work only when in desktop and when the sidebar is expanded
 @media (min-width: 1023px) {
   .marathon-container:not(.collapsed) .schedule-container {
-    @include table.shrink(9, (
+    @include table.shrink($default-template-columns: 9, $has-expand-button: true, $shrinking-rules: (
       1450px '.setup' 8,
       1350px '.console' 7,
       1250px '.type' 6,

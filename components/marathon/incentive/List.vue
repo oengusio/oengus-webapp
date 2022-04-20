@@ -67,6 +67,6 @@ export default Vue.extend({
 @use '~assets/table';
 
 .incentives-table {
-  @include table.shrink(3);
+  @include table.shrink($default-template-columns: 3);
 }
 </style>

@@ -1,8 +1,6 @@
 <template>
   <ElementTableRow>
-    <ElementTableCell :id="internalId" class="expandable">
-      <FontAwesomeIcon :icon="[ 'fas', isExpanded ? 'caret-down' : 'caret-right' ]" />
-    </ElementTableCell>
+    <ElementTableExpandButton :id="internalId" :is-expanded="isExpanded" class="expandable" />
 
     <ElementTableCell :id="'run-' + run.id" class="time">
       <ElementTemporalDateTime :datetime="run.date" format="shortTime" />
@@ -63,9 +61,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-.expandable > svg {
-  width: 10px;
-}
-</style>

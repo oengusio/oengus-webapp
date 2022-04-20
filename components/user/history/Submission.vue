@@ -121,7 +121,7 @@ export default Vue.extend({
 @use '~assets/table';
 
 .submission-table {
-  @include table.shrink(5, (
+  @include table.shrink($default-template-columns: 5, $shrinking-rules: (
     768px '.estimate' 4,
     600px '.status' 3,
   ));

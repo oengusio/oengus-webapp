@@ -166,7 +166,7 @@ export default Vue.extend({
 @use '~assets/table';
 
 .marathon-calendar-table {
-  @include table.shrink(4, (
+  @include table.shrink($default-template-columns: 4, $shrinking-rules: (
     500px '.links' 3,
   ));
 
