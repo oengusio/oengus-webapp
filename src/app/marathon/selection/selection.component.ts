@@ -179,6 +179,12 @@ export class SelectionComponent implements OnInit {
   }
 
   publish() {
+    const conf = confirm('HOLD UP!!\nYou are about to PUBLISH this selection. Are you 200% sure?');
+
+    if (!conf) {
+      return;
+    }
+
     this.loading = true;
     this.selectionService.save(this.marathonService.marathon.id, Object.values(this.selection)).add(() => {
       this.marathonService.publishSelection(this.marathonService.marathon).add(() => {

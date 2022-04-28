@@ -228,6 +228,12 @@ export class ScheduleManagementComponent implements OnInit {
   }
 
   publish() {
+    const conf = confirm('HOLD UP!!\nYou are about to PUBLISH this schedule. Are you 420% sure?');
+
+    if (!conf) {
+      return;
+    }
+
     this.submit();
     this.marathonService.update({...this.marathonService.marathon, scheduleDone: true}, false);
   }
