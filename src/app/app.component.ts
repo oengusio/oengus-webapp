@@ -101,7 +101,7 @@ export class AppComponent implements OnInit {
 
     this.setupLanguages();
 
-    if (!this.userService.user) {
+    if (!this.userService.user && this.userService.token) {
       this.userService.me().add(() => {
         const user = this.userService.user;
 
