@@ -109,7 +109,7 @@ export class SubmitComponent implements OnInit {
         });
         this.submission.answers.forEach(answer => {
           if (answer.question.fieldType === 'CHECKBOX') {
-            answer.answer = Boolean(answer.answer);
+            answer.answer = answer.answer === 'true';
           }
         });
       }
