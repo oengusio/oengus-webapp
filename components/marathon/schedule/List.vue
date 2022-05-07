@@ -52,7 +52,7 @@
             :run="run"
             :is-expanded="expanded.has(run.id)"
             :internal-id="getId(run)"
-            @click.native="toggleExpand(run)"
+            @click.native="toggleExpand(run.id)"
           />
 
           <ElementTableDetail v-if="expanded.has(run.id)" :key="`expanded-${index}`" class="expanded-run" :class="getRowParity(index, run)">
@@ -70,6 +70,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
+import { toggleTableExpand } from '~/assets/table';
 import { Schedule, ScheduleLine, ScheduleState, ScheduleTicker } from '~/types/api/schedule';
 
 export default Vue.extend({
@@ -145,18 +146,8 @@ export default Vue.extend({
   },
 
   methods: {
-    toggleExpand(run?: ScheduleLine|number, openOnly = false): void {
-      if (!run) {
-        return;
-      }
-      if (typeof run !== 'number') {
-        run = run.id;
-      }
-      if (this.expanded.has(run) && !openOnly) {
-        this.expanded.delete(run);
-      } else {
-        this.expanded.add(run);
-      }
+    toggleExpand(run?: number, openOnly = false): void {
+      toggleTableExpand(this.expanded, run, openOnly);
       this.expanded = new Set(this.expanded);
     },
     expandRunHash(): void {
@@ -167,9 +158,9 @@ export default Vue.extend({
           this.toggleExpand(Number.parseInt(runHashResults[1]), true);
         } else if (this.tickers) {
           if (this.runHash === '#current') {
-            this.toggleExpand(this.tickers.current, true);
+            this.toggleExpand(this.tickers.current?.id, true);
           } else if (this.runHash === '#next') {
-            this.toggleExpand(this.tickers.next, true);
+            this.toggleExpand(this.tickers.next?.id, true);
           }
         }
       }
