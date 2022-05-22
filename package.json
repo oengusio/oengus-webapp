@@ -3,7 +3,7 @@
   "version": "2022.03.29",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --hmr true --open true",
     "serve": "npm start",
     "build": "ng build",
     "test": "ng test",
