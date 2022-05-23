@@ -157,7 +157,7 @@
                  [owlDateTimeTrigger]="dtToDate"
                  [owlDateTime]="dtToDate"
                  [(ngModel)]="availability.to"
-                 [min]="!!availability.from ? availability.from : marathonService.marathon.startDate"
+                 [min]="minToAvailability(availability)"
                  [max]="marathonService.marathon.endDate"
                  name="toDate{{i}}"
                  required
@@ -167,6 +167,9 @@
           <p class="help is-danger" *ngIf="toDate.errors.required">
             {{'marathon.submit.availabilities.error.dateRequired' | translate}}</p>
         </div>
+        <p class="help is-danger" *ngIf="toDate.errors?.owlDateTimeMin">
+          {{ 'marathon.submit.availabilities.error.toDateTooLittle' | translate }}
+        </p>
       </td>
       <td style="vertical-align: middle">
         <a (click)="duplicateAvailabilityToNextDay(i)" *ngIf="!!availability.from && !!availability.to"

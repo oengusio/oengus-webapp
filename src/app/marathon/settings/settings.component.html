@@ -798,8 +798,8 @@
       <!-- incentives -->
       <div [hidden]="active !== 'incentives'">
         <h1 class="title">{{'marathon.settings.incentivesTitle' | translate}}</h1>
-        <div class="notification is-warning" *ngIf="env.sandbox === true">{{'marathon.settings.sandbox.warning' | translate}}</div>
-        <div class="notification is-info">{{'marathon.settings.incentives.disabledNotification' | translate}}</div>
+        <div class="notification is-danger" *ngIf="env.sandbox === true">{{'marathon.settings.sandbox.warning' | translate}}</div>
+        <div class="notification is-warning">{{'marathon.settings.incentives.disabledNotification' | translate}}</div>
         <div class="columns is-multiline">
           <div class="column is-half-desktop">
             <div class="field">

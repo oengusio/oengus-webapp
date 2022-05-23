@@ -111,7 +111,7 @@ const appRoutes: Routes = [
     {
       provide: ErrorHandler,
       useValue: Sentry.createErrorHandler({
-        showDialog: true,
+        showDialog: false, // TODO: experiment with this
       }),
     },
     httpInterceptorProviders,

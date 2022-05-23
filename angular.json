@@ -29,7 +29,20 @@
             ],
             "scripts": []
           },
+          "defaultConfiguration": "development",
           "configurations": {
+            "development": {
+              "buildOptimizer": false,
+              "optimization": {
+                "scripts": true,
+                "styles": false,
+                "fonts": false
+              },
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
             "production": {
               "fileReplacements": [
                 {

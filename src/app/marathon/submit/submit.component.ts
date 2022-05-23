@@ -138,6 +138,18 @@ export class SubmitComponent implements OnInit {
     this.submission.games[index].categories.push(new Category());
   }
 
+  minToAvailability(availability: Availability): Date {
+    if (availability.from) {
+      const fromDate = new Date(availability.from);
+
+      fromDate.setMinutes(fromDate.getMinutes() + 1);
+
+      return fromDate;
+    }
+
+    return this.marathonService.marathon.startDate;
+  }
+
   addAvailability() {
     this.submission.availabilities.push(new Availability());
   }
