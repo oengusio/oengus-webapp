@@ -3,7 +3,7 @@ export const environment = {
   production: true,
   sandbox: true,
   baseSite: 'https://sandbox.oengus.io',
-  api: 'https://sandbox.oengus.io/api',
+  api: 'https://sandbox.oengus.io/api/v1',
   twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',
   twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
   discordClientId: '559625844197163008',
@@ -16,7 +16,7 @@ export const environment = {
     return environment.baseSite + '/user/settings/sync/';
   },
   get patronApi() {
-    return environment.api + '/patreon';
+    return environment.api.replace('/api', '') + '/patreon';
   },
   v2Domain: false,
   donationsDisabled: false,

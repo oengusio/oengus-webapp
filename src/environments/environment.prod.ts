@@ -6,7 +6,7 @@ export const environment = {
   get baseSite() {
     return window.location.origin;
   },
-  api: 'https://oengus.io/api',
+  api: 'https://oengus.io/api/v1',
   twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',
   twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
   discordClientId: '559625844197163008',
@@ -19,7 +19,7 @@ export const environment = {
     return environment.baseSite + '/user/settings/sync/';
   },
   get patronApi() {
-    return environment.api + '/patreon';
+    return environment.api.replace('/api', '') + '/patreon';
   },
   v2Domain: 'https://oengus.io/',
   // v2Domain: false,

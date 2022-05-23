@@ -36,17 +36,21 @@ export const environment = {
     return `${window.location.protocol}//${parts[0]}.${parts[1]}/`;
   },
 
-  // the api that the front-end talks to
-  get api() {
+  get apiRw() {
     if (environment.production) {
       const url = window.location.hostname;
       const splitUrl = url.split('.');
       const parts = splitUrl.length > 2 ? [splitUrl[1], splitUrl[2]] : splitUrl;
 
-      return `${window.location.protocol}//${parts[0]}.${parts[1]}/api`;
+      return `${window.location.protocol}//${parts[0]}.${parts[1]}/api/`;
     }
 
-    return 'http://localhost:8080';
+    return 'http://localhost:8080/';
+  },
+
+  // the api that the front-end talks to
+  get api() {
+    return `${environment.apiRw}/v1`;
   },
   // these two get the service name appended to it (eg twitch, twitter, discord)
   get loginRedirect() {
@@ -64,7 +68,7 @@ export const environment = {
   },
   get patronApi() {
     if (environment.production) {
-      return environment.api + '/patreon';
+      return environment.apiRw + '/patreon';
     }
 
     return 'http://localhost:9000';
