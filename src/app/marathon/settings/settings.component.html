@@ -511,7 +511,7 @@
           <label class="label">{{ 'marathon.settings.submissions.label' | translate}}</label>
           <div class="control is-flex">
             <span style="margin-right: 0.5rem">{{'marathon.settings.submissions.closed' | translate}}</span>
-            <nwb-switch [(ngModel)]="marathon.submitsOpen" name="submitsOpen" [disabled]="marathon.selectionDone">
+            <nwb-switch [(ngModel)]="marathon.submitsOpen" name="submitsOpen" (click)="onSubmitsOpenChanged($event)" [disabled]="marathon.selectionDone">
               <span>{{ 'marathon.settings.submissions.open' | translate}}</span>
             </nwb-switch>
           </div>

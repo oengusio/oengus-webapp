@@ -217,6 +217,23 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  onSubmitsOpenChanged(event: any): void {
+    const now = new Date();
+    const closeDate = new Date(this.marathon.submissionsEndDate);
+
+    if (!this.marathon.submitsOpen && (Boolean(this.marathon.submissionsEndDate) && now > closeDate)) {
+      const conf = confirm('Re-opening the submissions will clear the automatic open and close times, do you want to continue?');
+
+      if (conf) {
+        this.marathon.submissionsEndDate = null;
+        this.marathon.submissionsStartDate = null;
+      } else {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }
+  }
+
   get title(): string {
     return 'Settings';
   }
