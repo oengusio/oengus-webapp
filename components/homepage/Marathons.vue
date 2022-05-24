@@ -49,6 +49,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
+import { getRowParity } from '~/assets/table';
 import { FrontPageMarathons, Marathon, MarathonState } from '~/types/api/marathon';
 
 export default Vue.extend({
@@ -93,18 +94,13 @@ export default Vue.extend({
   },
 
   methods: {
-    getRowParity(index: number): { 'is-even': boolean, 'is-odd': boolean } {
-      return {
-        'is-even': index % 2 === 0,
-        'is-odd': index % 2 === 1,
-      };
-    },
     shouldRenderList(key: keyof FrontPageMarathons): boolean {
       return (this.homepageMarathons?.[key]?.length ?? 0) > 0;
     },
     getMarathonDistance(marathon: Marathon, keys: Array<keyof Marathon>): Date|undefined {
       return keys.map(key => marathon[key] as Date).find(date => date);
     },
+    getRowParity,
     ...mapActions({
       getFrontPage: 'api/marathon/frontPage',
     }),

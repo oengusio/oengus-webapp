@@ -24,6 +24,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
+import { getRowParity } from '~/assets/table';
 import { Incentive, IncentiveList, IncentiveState } from '~/types/api/incentive';
 
 export default Vue.extend({
@@ -50,12 +51,7 @@ export default Vue.extend({
   },
 
   methods: {
-    getRowParity(index: number): { 'is-even': boolean, 'is-odd': boolean } {
-      return {
-        'is-even': index % 2 === 0,
-        'is-odd': index % 2 === 1,
-      };
-    },
+    getRowParity,
     ...mapActions({
       getIncentives: 'api/incentive/get',
     }),

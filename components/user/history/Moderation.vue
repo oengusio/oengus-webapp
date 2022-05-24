@@ -17,6 +17,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
+import { getRowParity } from '~/assets/table';
 import { Marathon } from '~/types/api/marathon';
 import { User, UserState } from '~/types/api/user';
 
@@ -49,12 +50,7 @@ export default Vue.extend({
   },
 
   methods: {
-    getRowParity(marathonIndex: number): { 'is-even': boolean, 'is-odd': boolean } {
-      return {
-        'is-even': marathonIndex % 2 === 0,
-        'is-odd': marathonIndex % 2 === 1,
-      };
-    },
+    getRowParity,
     ...mapActions({
       getUser: 'api/user/get',
     }),

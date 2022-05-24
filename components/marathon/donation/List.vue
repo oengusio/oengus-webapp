@@ -29,6 +29,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
+import { getRowParity } from '~/assets/table';
 import { Donation, DonationPageParams, DonationState } from '~/types/api/donation';
 import { FullMarathon, MarathonState } from '~/types/api/marathon';
 import { OengusPagination } from '~/types/api/oengus-api';
@@ -95,18 +96,13 @@ export default Vue.extend({
   },
 
   methods: {
-    getRowParity(index: number): { 'is-even': boolean, 'is-odd': boolean } {
-      return {
-        'is-even': index % 2 === 0,
-        'is-odd': index % 2 === 1,
-      };
-    },
     updatePage(): void {
       if (typeof this.$route.query['donations-page'] === 'string') {
         // Convert from 1-indexed to 0-indexed
         this.page = Number.parseInt(this.$route.query['donations-page']) - 1;
       }
     },
+    getRowParity,
     ...mapActions({
       getDonations: 'api/donation/get',
       getMarathon: 'api/marathon/get',
