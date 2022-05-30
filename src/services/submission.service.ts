@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
-import {BaseService} from './BaseService';
+import { BaseService } from './BaseService';
+import { Answer } from '../model/answer';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,8 @@ export class SubmissionService extends BaseService {
     return this.http.get<Submission[]>(this.url(`${marathonId}/submissions`));
   }
 
-  answers(marathonId: string): Observable<Submission[]> {
-    return this.http.get<Submission[]>(this.url(`${marathonId}/submissions/answers`));
+  answers(marathonId: string): Observable<Answer[]> {
+    return this.http.get<Answer[]>(this.url(`${marathonId}/submissions/answers`));
   }
 
   availabilitiesForUser(marathonId: string, userId: number): Observable<any> {

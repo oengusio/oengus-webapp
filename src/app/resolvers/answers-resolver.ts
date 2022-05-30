@@ -2,16 +2,21 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SubmissionService } from '../../services/submission.service';
-import { Submission } from '../../model/submission';
+import { Answer } from '../../model/answer';
+import { UserService } from '../../services/user.service';
 
 @Injectable()
-export class AnswersResolver implements Resolve<Submission[]> {
+export class AnswersResolver implements Resolve<Answer[]> {
 
-  constructor(private submissionService: SubmissionService) {
+  constructor(private submissionService: SubmissionService, private userService: UserService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-    Observable<Submission[]> | Promise<Submission[]> | Submission[] {
+    Observable<Answer[]> | Promise<Answer[]> | Answer[] {
+    if (!this.userService.token) {
+      return [];
+    }
+
     return this.submissionService.answers(route.parent.paramMap.get('id')).toPromise().catch(() => {
       return [];
     });

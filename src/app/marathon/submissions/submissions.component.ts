@@ -10,7 +10,9 @@ import { Submission } from '../../../model/submission';
 import { GameService } from '../../../services/game.service';
 import { SubmissionService } from '../../../services/submission.service';
 import { CategoryService } from '../../../services/category.service';
-import {User} from '../../../model/user';
+import { User } from '../../../model/user';
+import { Question } from 'src/model/question';
+import { Answer } from '../../../model/answer';
 
 @Component({
   selector: 'app-submissions',
@@ -21,6 +23,8 @@ export class SubmissionsComponent implements OnInit {
 
   public submissions: Submission[];
   public selection: Map<number, Selection>;
+  public questions: Map<number, Question>;
+  public answers: Answer[];
 
   public runnerGameFilter = '';
   public categoryFilter = '';
@@ -40,8 +44,16 @@ export class SubmissionsComponent implements OnInit {
               private categoryService: CategoryService) {
     this.submissions = this.route.snapshot.data.submissions;
     this.selection = this.route.snapshot.data.selection;
+    this.answers = this.route.snapshot.data.answers;
+    this.questions = new Map<number, Question>();
+    this.marathonService.marathon.questions.forEach((question) => {
+      if (question.fieldType === 'FREETEXT') {
+        return;
+      }
+
+      this.questions[question.id] = question;
+    });
     this.submissions.forEach(submission => {
-      submission.answers = submission.answers.filter(answer => answer.question.fieldType !== 'FREETEXT');
       submission.games.forEach(game => {
         game.visible = true;
         game.categories.forEach(category => {
@@ -135,6 +147,14 @@ export class SubmissionsComponent implements OnInit {
         }
       });
     });
+  }
+
+  answersForSubmission(submissionId: number): Answer[] {
+    return this.answers.filter(answer => answer.submissionId === submissionId);
+  }
+
+  findUser(submissionId: number): User {
+    return this.submissions.find((s) => s.id === submissionId).user;
   }
 
   get title(): string {

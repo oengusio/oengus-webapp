@@ -82,14 +82,14 @@
       </thead>
       <tbody>
       <ng-template ngFor let-submission [ngForOf]="submissions">
-        <tr *ngFor="let answer of submission.answers; let i = index">
+        <tr *ngFor="let answer of answersForSubmission(submission.id); let i = index">
           <ng-template [ngIf]="i === 0">
-            <td [attr.rowspan]="submission.answers.length">
-              <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
+            <td [attr.rowspan]="answersForSubmission(submission.id).length">
+              <app-user [user]="findUser(answer.submissionId)" [showSocialLinks]="true"></app-user>
             </td>
           </ng-template>
           <td>
-            {{answer.question.label}}
+            {{questions[answer.questionId].label}}
           </td>
           <td>
             <p class="content">

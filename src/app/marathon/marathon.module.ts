@@ -46,6 +46,7 @@ import { SubmissionGameComponent } from './submissions/submission-game/submissio
 import {ButtonsModule} from '../buttons/buttons.module';
 import {DeactivateRouteGuard} from '../guards/deactivate-route-guard.service';
 import { OengusMdComponent } from '../oengus-md/oengus-md.component';
+import { AnswersResolver } from '../resolvers/answers-resolver';
 
 const marathonRoutes: Routes = [
   {
@@ -81,6 +82,7 @@ const marathonRoutes: Routes = [
         path: 'submissions',
         component: SubmissionsComponent,
         resolve: {
+          answers: AnswersResolver,
           submissions: SubmissionsResolver,
           selection: SelectionResolver,
         }
@@ -232,7 +234,8 @@ const marathonRoutes: Routes = [
     IncentivesResolver,
     AvailabilitiesResolver,
     DonationsResolver,
-    DonationsStatsResolver
+    DonationsStatsResolver,
+    AnswersResolver,
   ]
 })
 export class MarathonModule {
