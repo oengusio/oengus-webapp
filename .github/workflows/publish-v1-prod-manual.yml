@@ -1,4 +1,4 @@
-name: Publish prod (manually)
+name: Publish v1 to prod (manually)
 on: workflow_dispatch
 jobs:
   publish_prod:
