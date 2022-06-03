@@ -3,7 +3,8 @@ import { ActionTree, MutationTree } from 'vuex';
 import { OengusAPI } from '~/plugins/oengus';
 import { PatreonState, Patrons } from '~/types/api/patreon';
 
-const PatreonOengusAPI = new OengusAPI<PatreonState>('patreon');
+// "Go back" to strip the api version from the endpoint
+const PatreonOengusAPI = new OengusAPI<PatreonState>('../patreon');
 
 export const state = (): PatreonState => ({
   patrons: undefined,
