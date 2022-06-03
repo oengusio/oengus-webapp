@@ -1,6 +1,6 @@
-name: Publish prod
+name: Publish v2 to prod
 on:
-  create:
+  push:
     tags:
       - v2_*
 jobs:
