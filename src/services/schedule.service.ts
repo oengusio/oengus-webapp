@@ -25,7 +25,18 @@ export class ScheduleService extends BaseService {
   }
 
   save(marathonId: string, schedule: Schedule) {
-    return this.http.put(this.url(`${marathonId}/schedule`), schedule, {observe: 'response'})
+    const fixedSchedule = Object.assign({}, schedule);
+
+    // @ts-ignore
+    fixedSchedule.lines = fixedSchedule.lines.map((line) => ({
+      ...line,
+      runners: line.runners.map((user) => ({
+        id: user.id,
+        username: user.username,
+      })),
+    }));
+
+    return this.http.put(this.url(`${marathonId}/schedule`), fixedSchedule, {observe: 'response'})
       .subscribe((response: any) => {
         this.translateService.get('alert.schedule.save.success').subscribe((res: string) => {
           this.toast(res);
