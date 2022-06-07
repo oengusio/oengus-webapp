@@ -24,6 +24,9 @@ export class Distance implements LocaleSensitive {
           if (Math.abs(diff) > 319) {
             diff /= 365;
             unit = 'year'; // (ignoring leap years)
+          } else if (Math.abs(diff) > 25) {
+            diff /= 30;
+            unit = 'month'; // Eh, 30 days is close enough
           }
         }
       }
