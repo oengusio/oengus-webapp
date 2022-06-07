@@ -2,7 +2,7 @@
 
 export function httpConfig() {
   return {
-    prefix: '/api/',
+    prefix: '/api/v1/',
     host: 'oengus.dev',
     port: 443,
     https: true,
@@ -15,7 +15,7 @@ export function httpConfig() {
 export function getApiUrl(process) {
   const api = process.env.API ?? 'oengus.dev';
   const protocol = api.match(/^localhost(:\d+)?$/) ? 'http' : 'https';
-  return `${protocol}://${api}/api/`;
+  return `${protocol}://${api}/api/v1/`;
 }
 
 export function httpRuntimeConfig(process) {
