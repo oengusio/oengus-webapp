@@ -7,7 +7,8 @@ import {
   faChevronLeft,
   faChevronRight,
   faEdit,
-  faTimes
+  faTimes,
+  faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 import { DurationService } from '../../../services/duration.service';
 import { ScheduleLine } from '../../../model/schedule-line';
@@ -46,6 +47,7 @@ export class ScheduleManagementComponent implements OnInit {
   public faCalendarTimes = faCalendarTimes;
   public faChevronRight = faChevronRight;
   public faChevronLeft = faChevronLeft;
+  public faExclamation = faExclamationTriangle;
 
   public moment = moment;
 
@@ -57,6 +59,9 @@ export class ScheduleManagementComponent implements OnInit {
   public availabilitiesGroups: any;
   public availabilitiesItems: any;
   public availabilitiesSelected = [];
+
+  public showModal = false
+  public buttonLoading = false;
 
   public durationEditConfig: NwbEditInPlaceConfig = {
     handler: (value) => {
@@ -233,6 +238,18 @@ export class ScheduleManagementComponent implements OnInit {
     if (!conf) {
       return;
     }
+
+    this.showModal = true;
+    this.buttonLoading = true;
+
+    setTimeout(() => {
+      this.buttonLoading = false;
+    }, 5000);
+
+  }
+
+  realPublish(): void {
+    this.showModal = false;
 
     this.submit();
     this.marathonService.update({...this.marathonService.marathon, scheduleDone: true}, false);
