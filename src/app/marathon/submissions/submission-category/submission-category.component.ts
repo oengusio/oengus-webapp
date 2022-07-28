@@ -15,7 +15,7 @@ export class SubmissionCategoryComponent implements OnInit, OnDestroy {
   @Input() public rawStatus: string;
   @Input() public showDelete: boolean;
 
-  @Output() public triggerDelete: EventEmitter<any> = new EventEmitter();
+  @Output() public triggerDelete: EventEmitter<void> = new EventEmitter();
 
   public faFilm = faFilm;
   public faTimes = faTimes;

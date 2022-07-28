@@ -99,10 +99,10 @@
             </div>
           </td>
           <td>
-            {{line.gameName}}
+            <app-oengus-md [data]="line.gameName"></app-oengus-md>
           </td>
           <td>
-            {{line.categoryName}}
+            <app-oengus-md [data]="line.categoryName"></app-oengus-md>
           </td>
           <td>
             {{ 'marathon.schedule.type.' + line.type | translate}}
