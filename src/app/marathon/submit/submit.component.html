@@ -250,7 +250,7 @@
     </ng-container>
     <h3 class="title is-3">{{'marathon.submit.submissions' | translate}}</h3>
 
-    <div class="box">
+    <div class="box is-relative">
       <p class="is-pulled-left">{{'marathon.submit.table.games' | translate}}</p>
       <button type="button" class="button is-small is-primary is-pulled-left" style="margin-left: 5px" (click)="addGame()"
               [disabled]="!marathonService.marathon.unlimitedGames && submission.games.length >=
@@ -261,7 +261,8 @@
 
       <ng-template ngFor let-game [ngForOf]="submission.games" let-i="index">
         <hr class="has-background-grey"/>
-        <button class="delete is-pulled-right"
+        <button class="delete is-absolute"
+                style="right: 10px;"
                 (click)="removeGame(i)"></button>
 
         <div class="columns is-multiline">
@@ -377,12 +378,12 @@
         <hr class="has-background-grey-darker"/>
         <ng-template ngFor let-category [ngForOf]="game.categories" let-j="index">
           <article class="message">
-            <button class="delete is-pulled-right"
-                    style="margin-right: 10px; margin-top: 10px;"
-                    (click)="removeCategory(i, j)"
-                    *ngIf="game.categories.length > 1"></button>
-
             <div class="message-body">
+              <button class="delete is-absolute"
+                      style="right: 25px;"
+                      (click)="removeCategory(i, j)"
+                      *ngIf="game.categories.length > 1"></button>
+
               <div class="columns is-multiline">
                 <div class="column is-6">
                   <div class="field">
@@ -434,19 +435,22 @@
                     <label class="label">{{'marathon.submit.category.video.label' | translate}}</label>
                     <div class="control">
                       <input class="input"
-                             type="text"
+                             type="url"
                              [(ngModel)]="category.video"
                              [ngClass]="{'is-danger': categoryVideo.invalid}"
                              name="video{{i}}-{{j}}"
                              [required]="marathonService.marathon.videoRequired"
                              maxlength="100"
-                             #categoryVideo="ngModel">
+                             #categoryVideo="ngModel" #testVideo>
                       <p class="help is-pulled-right">{{category.video?.length}}/100</p>
                     </div>
                     <div *ngIf="categoryVideo.invalid">
                       <p class="help is-danger" *ngIf="categoryVideo.errors.required">
                         {{'marathon.submit.category.video.error.required' | translate}}</p>
                     </div>
+                    <p class="help is-danger" *ngIf="!testVideo.checkValidity()">
+                      {{'errors.format.url' | translate}}
+                    </p>
                   </div>
                 </div>
 
