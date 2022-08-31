@@ -36,7 +36,6 @@ export class SubmitComponent implements OnInit {
   public localStorage = localStorage;
   public possibleConsoles = Game.consoles;
   public deleteConfirm = false;
-  public JSON = window.JSON;
 
   public code: string;
 
