@@ -251,7 +251,7 @@
     <h3 class="title is-3">{{'marathon.submit.submissions' | translate}}</h3>
 
     <div class="box">
-      <span class="is-pulled-left">{{'marathon.submit.table.games' | translate}}</span>
+      <p class="is-pulled-left">{{'marathon.submit.table.games' | translate}}</p>
       <button type="button" class="button is-small is-primary is-pulled-left" style="margin-left: 5px" (click)="addGame()"
               [disabled]="!marathonService.marathon.unlimitedGames && submission.games.length >=
                     marathonService.marathon.maxGamesPerRunner">
@@ -290,7 +290,7 @@
           <div class="column is-6">
             <label class="label">{{'marathon.submit.game.console.label' | translate}}</label>
             <div class="field has-addons">
-              <div class="select is-expanded">
+              <div class="select is-fullwidth">
                 <select [(ngModel)]="game.console" name="gameConsole{{i}}">
                   <option value="" disabled></option>
                   <option *ngFor="let opt of possibleConsoles" [ngValue]="opt">{{opt}}</option>
@@ -453,7 +453,7 @@
                 <div class="column is-6">
                   <div class="field">
                     <label class="label">{{'marathon.submit.category.type.label' | translate}}</label>
-                    <div class="select">
+                    <div class="select is-fullwidth">
                       <select [(ngModel)]="category.type" [disabled]="!marathonService.marathon.hasMultiplayer"
                               name="type-{{i}}-{{j}}">
                         <option value="SINGLE"
