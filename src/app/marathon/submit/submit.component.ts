@@ -198,6 +198,10 @@ export class SubmitComponent implements OnInit {
       return;
     }
 
+    if (!this.checkValidityUrlInputs()) {
+      return;
+    }
+
     // ignore double clicks
     if (this.loading) {
       return;
@@ -319,5 +323,22 @@ export class SubmitComponent implements OnInit {
 
   get title(): string {
     return 'Submit';
+  }
+
+  clickEmulatorButton(game: Game, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    game.emulated = !game.emulated;
+  }
+
+  checkValidityUrlInputs(): boolean {
+    const inputs: Array<HTMLInputElement> = Array.from(document.querySelectorAll('input[type=url]'));
+    let result = true;
+
+    for (const input of inputs) {
+      result &&= input.reportValidity();
+    }
+
+    return result;
   }
 }
