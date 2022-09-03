@@ -6,6 +6,7 @@ import {Component, AfterViewInit, Input} from '@angular/core';
 })
 export class AdsenseComponent implements AfterViewInit {
   @Input('maxWidth') maxWidth: string;
+  @Input('onHeight') onHeight: string;
 
   constructor() {}
 
