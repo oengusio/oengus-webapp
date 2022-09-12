@@ -119,6 +119,7 @@ const marathonRoutes: Routes = [
         data: {
           statuses: ['VALIDATED', 'BONUS'],
           withCustomData: true,
+          isAdminRoute: true,
         },
         canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
       },

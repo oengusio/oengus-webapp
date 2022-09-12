@@ -224,7 +224,7 @@ export class ScheduleManagementComponent implements OnInit {
     });
     this.scheduleService.save(this.marathonService.marathon.id, this.schedule).add(() => {
       this.loading = false;
-      this.scheduleService.getAllForMarathon(this.marathonService.marathon.id, true).subscribe(response => {
+      this.scheduleService.getAllForMarathon(this.marathonService.marathon.id, true, true).subscribe(response => {
         this.initSchedule(response);
         this.computeSchedule();
         this.marathonService.find(this.marathonService.marathon.id).subscribe(marathon => this.marathonService.marathon = marathon);

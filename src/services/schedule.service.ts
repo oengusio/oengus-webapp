@@ -18,10 +18,11 @@ export class ScheduleService extends BaseService {
     super(toastr, 'marathons');
   }
 
-  getAllForMarathon(marathonId: string, customData: boolean = false): Observable<Schedule> {
+  getAllForMarathon(marathonId: string, customData: boolean = false, adminRoute: boolean = false): Observable<Schedule> {
+    const adminPart = adminRoute ? '/admin' : '';
     const query = customData ? '?withCustomData=true' : '';
 
-    return this.http.get<Schedule>(this.url(`${marathonId}/schedule${query}`));
+    return this.http.get<Schedule>(this.url(`${marathonId}/schedule${adminPart}${query}`));
   }
 
   save(marathonId: string, schedule: Schedule) {
