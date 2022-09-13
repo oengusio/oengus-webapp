@@ -30,6 +30,14 @@ export class SubmissionService extends BaseService {
     return this.http.get<Submission[]>(this.url(`${marathonId}/submissions`));
   }
 
+  searchSubmissions(marathonId: string, query: string): Observable<Submission[]> {
+    return this.http.get<Submission[]>(this.url(`${marathonId}/submissions/search`), {
+      params: {
+        q: query,
+      },
+    });
+  }
+
   answers(marathonId: string): Observable<Answer[]> {
     return this.http.get<Answer[]>(this.url(`${marathonId}/submissions/answers`));
   }

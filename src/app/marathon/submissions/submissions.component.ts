@@ -13,6 +13,8 @@ import { CategoryService } from '../../../services/category.service';
 import { User } from '../../../model/user';
 import { Question } from 'src/model/question';
 import { Answer } from '../../../model/answer';
+import { debounce } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-submissions',
@@ -22,6 +24,7 @@ import { Answer } from '../../../model/answer';
 export class SubmissionsComponent implements OnInit {
 
   public submissions: Submission[];
+  public filteredSubmissions: Submission[] = [];
   public selection: Map<number, Selection>;
   public questions: Map<number, Question>;
   public answers: Answer[];
@@ -36,6 +39,9 @@ export class SubmissionsComponent implements OnInit {
 
   public moment = moment;
 
+  private searchDebounced = debounce(this.search, 500);
+
+  // TODO: rework to work with pagination
   constructor(private route: ActivatedRoute,
               public marathonService: MarathonService,
               public userService: UserService,
@@ -62,6 +68,8 @@ export class SubmissionsComponent implements OnInit {
         });
       });
     });
+
+    this.filteredSubmissions = this.submissions;
   }
 
   ngOnInit() {
@@ -77,15 +85,39 @@ export class SubmissionsComponent implements OnInit {
     this.gameService.exportAllForMarathon(this.marathonService.marathon.id);
   }
 
+  async search() {
+    if (!this.runnerGameFilter) {
+      this.filteredSubmissions = this.submissions;
+      return;
+    }
+
+    const foundSubmissions = await firstValueFrom(
+      this.submissionService.searchSubmissions(this.marathonService.marathon.id, this.runnerGameFilter)
+    );
+
+    foundSubmissions.forEach(submission => {
+      submission.games.forEach(game => {
+        game.visible = true;
+        game.categories.forEach(category => {
+          category.estimateHuman = DurationService.toHuman(category.estimate);
+          category.visible = true;
+        });
+      });
+    });
+
+    this.filteredSubmissions = foundSubmissions;
+  }
+
   filter() {
-    this.submissions.forEach((submission) => {
+    this.searchDebounced();
+    /*this.submissions.forEach((submission) => {
       submission.games.forEach(game => {
         game.categories.forEach(category => {
           category.visible = !this.categoryFilter || this.selection[category.id].status === this.categoryFilter;
         });
         game.visible = this.filterGame(game, submission.user);
       });
-    });
+    });*/
   }
 
   private filterGame(game: Game, user: User) {
