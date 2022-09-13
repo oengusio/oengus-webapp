@@ -74,13 +74,10 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     window.addEventListener('keydown', this.ctrlFHandler);
-
-    // TODO: add ctrl+f handler
   }
 
   ngOnDestroy(): void {
     window.removeEventListener('keydown', this.ctrlFHandler);
-    // TODO: remove ctrl+f handler
   }
 
   ctrlFHandler(event: KeyboardEvent): boolean {
