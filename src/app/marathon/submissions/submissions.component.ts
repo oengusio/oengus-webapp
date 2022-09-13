@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game } from '../../../model/game';
 import { faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +21,7 @@ import { firstValueFrom } from 'rxjs';
   templateUrl: './submissions.component.html',
   styleUrls: ['./submissions.component.scss']
 })
-export class SubmissionsComponent implements OnInit {
+export class SubmissionsComponent implements OnInit, OnDestroy {
 
   public submissions: Submission[];
   public filteredSubmissions: Submission[] = [];
@@ -73,6 +73,25 @@ export class SubmissionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.addEventListener('keydown', this.ctrlFHandler);
+
+    // TODO: add ctrl+f handler
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('keydown', this.ctrlFHandler);
+    // TODO: remove ctrl+f handler
+  }
+
+  ctrlFHandler(event: KeyboardEvent): boolean {
+    event.preventDefault();
+
+    const el = document.getElementById('iLikeToUseNativeJsBecauseIDontUnderstandAngular');
+
+    el.scrollIntoView();
+    el.focus();
+
+    return false;
   }
 
   displaysTabs() {

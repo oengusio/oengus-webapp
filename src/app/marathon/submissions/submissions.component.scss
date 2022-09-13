@@ -3,3 +3,9 @@
 hr {
   border: 1px solid $grey-alt;
 }
+
+.searchInput {
+  &:focus, &:focus-visible {
+    border: 10px solid orange;
+  }
+}
