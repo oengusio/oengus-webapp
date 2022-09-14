@@ -23,7 +23,9 @@ import { firstValueFrom } from 'rxjs';
 })
 export class SubmissionsComponent implements OnInit, OnDestroy {
 
-  public submissions: Submission[];
+  private canLoadMore = true;
+  private lastPageLoaded = 0;
+  public submissions: Submission[] = [];
   public filteredSubmissions: Submission[] = [];
   public selection: Map<number, Selection>;
   public questions: Map<number, Question>;
@@ -48,10 +50,11 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
               public gameService: GameService,
               private submissionService: SubmissionService,
               private categoryService: CategoryService) {
-    this.submissions = this.route.snapshot.data.submissions;
+    // this.submissions = this.route.snapshot.data.submissions;
     this.selection = this.route.snapshot.data.selection;
     this.answers = this.route.snapshot.data.answers;
     this.questions = new Map<number, Question>();
+    // Yucky, should not be done when questions are not loaded
     this.marathonService.marathon.questions.forEach((question) => {
       if (question.fieldType === 'FREETEXT') {
         return;
@@ -73,11 +76,29 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.loadNextSubmissionPage();
     window.addEventListener('keydown', this.ctrlFHandler);
   }
 
   ngOnDestroy(): void {
     window.removeEventListener('keydown', this.ctrlFHandler);
+  }
+
+  async loadNextSubmissionPage(): Promise<void> {
+    if (!this.canLoadMore) {
+      return;
+    }
+
+    const nextPage = await firstValueFrom(this.submissionService.submissions(
+      this.marathonService.marathon.id,
+      ++this.lastPageLoaded
+    ));
+
+    this.canLoadMore = !nextPage.empty && nextPage.last;
+
+    if (!nextPage.empty) {
+      this.submissions.push(...nextPage.content);
+    }
   }
 
   ctrlFHandler(event: KeyboardEvent): boolean {

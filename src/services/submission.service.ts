@@ -6,6 +6,7 @@ import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseService } from './BaseService';
 import { Answer } from '../model/answer';
+import {SubmissionPage} from '../model/submission-page';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,8 @@ export class SubmissionService extends BaseService {
     return this.http.get<any>(this.url(`${marathonId}/submissions/availabilities`));
   }
 
-  submissions(marathonId: string): Observable<Submission[]> {
-    return this.http.get<Submission[]>(this.url(`${marathonId}/submissions`));
+  submissions(marathonId: string, page: number): Observable<SubmissionPage> {
+    return this.http.get<SubmissionPage>(this.url(`${marathonId}/submissions?page=${page}`));
   }
 
   searchSubmissions(marathonId: string, query: string): Observable<Submission[]> {

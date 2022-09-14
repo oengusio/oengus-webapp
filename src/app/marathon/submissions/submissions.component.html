@@ -43,7 +43,10 @@
     </div>
   </div>
 
-  <ng-template ngFor let-submission [ngForOf]="submissions">
+  <!-- TODO: use lazy loading -->
+  <button class="button" type="button" (click)="loadNextSubmissionPage()">Load next page</button>
+
+  <ng-template ngFor let-submission [ngForOf]="filteredSubmissions">
     <div class="box" *ngIf="showSubmission(submission)">
       <h4 class="title is-4">
         <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
