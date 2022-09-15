@@ -19,7 +19,8 @@ import {Submission} from '../../../model/submission';
 })
 export class SelectionComponent implements OnInit {
 
-  public submissions: Submission[];
+  public submissionsLoaded = false;
+  public submissions: Submission[] = [];
   public selection: { [key: string]: Selection };
   public loading = false;
 
@@ -41,9 +42,16 @@ export class SelectionComponent implements OnInit {
               private marathonService: MarathonService) {
     this.availabilitiesGroups = new vis.DataSet([]);
     this.availabilitiesItems = new vis.DataSet([]);
-    this.submissions = this.route.snapshot.data.submissions;
     this.selection = this.route.snapshot.data.selection;
-    this.submissions.forEach(submission => {
+    this.loadSubmissions();
+  }
+
+  async loadSubmissions(): Promise<void> {
+    this.submissionsLoaded = false;
+
+    const submissions = await this.submissionService.loadAllSubmissions(this.marathonService.marathon.id);
+
+    submissions.forEach(submission => {
       submission.games.forEach(game => {
         game.categories.forEach(category => {
           category.estimateHuman = DurationService.toHuman(category.estimate);
@@ -56,6 +64,9 @@ export class SelectionComponent implements OnInit {
         });
       });
     });
+
+    this.submissions = submissions;
+    this.submissionsLoaded = true;
   }
 
   ngOnInit() {

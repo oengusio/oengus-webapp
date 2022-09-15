@@ -40,7 +40,6 @@ import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
 import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
 import {AdsenseComponent} from '../adsense/adsense.component';
-import {SubmissionsResolver} from '../resolvers/submissions-resolver';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
 import {ButtonsModule} from '../buttons/buttons.module';
@@ -90,7 +89,6 @@ const marathonRoutes: Routes = [
         path: 'selection',
         component: SelectionComponent,
         resolve: {
-          submissions: SubmissionsResolver, // TODO: fix
           selection: SelectionResolver
         },
         data: {
@@ -227,7 +225,6 @@ const marathonRoutes: Routes = [
     CanActivateMarathonActiveGuard,
     MarathonResolver,
     SubmissionResolver,
-    SubmissionsResolver,
     ScheduleResolver,
     SelectionResolver,
     IncentivesResolver,

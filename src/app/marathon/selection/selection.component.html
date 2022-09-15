@@ -83,7 +83,7 @@
       <h4 class="subtitle is-4">{{ 'marathon.selection.selection.title' | translate}}</h4>
       <p>{{'marathon.selection.help.BACKUP' | translate}}</p>
       <div class="table-container">
-        <table class="table is-fullwidth is-striped">
+        <table class="table is-fullwidth is-striped" *ngIf="submissionsLoaded; else scheduleLoadingIndicator">
           <thead>
           <tr>
             <th>{{ 'marathon.submissions.table.runner' | translate}}</th>
@@ -170,6 +170,15 @@
           </ng-template>
           </tbody>
         </table>
+
+        <ng-template #scheduleLoadingIndicator>
+          <div class="is-centered">
+            <div class="oengus-spinner">
+              <div class="cube1"></div>
+              <div class="cube2"></div>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
