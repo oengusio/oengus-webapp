@@ -31,7 +31,8 @@ export class SubmissionService extends BaseService {
     return this.http.get<SubmissionPage>(this.url(`${marathonId}/submissions?page=${page}`));
   }
 
-  loadAllSubmissions(marathonId: string): Promise<Submission[]> {
+  // transform parameter allows us to transform smaller batches at once
+  loadAllSubmissions(marathonId: string, transform = (page: Submission[]) => page): Promise<Submission[]> {
     return new Promise<Submission[]>(async (resolve, reject) => {
       let page = 1;
       let hasMore = true;
@@ -46,7 +47,9 @@ export class SubmissionService extends BaseService {
           hasMore = !fetched.empty && !fetched.last;
 
           if (!fetched.empty) {
-            allSubmissions.push(...fetched.content);
+            const transformed = transform(fetched.content);
+
+            allSubmissions.push(...transformed);
           }
 
           page++;

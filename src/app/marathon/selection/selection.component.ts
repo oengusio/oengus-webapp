@@ -6,7 +6,6 @@ import { MarathonService } from '../../../services/marathon.service';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment-timezone';
 import { Selection } from '../../../model/selection';
-import * as _ from 'lodash';
 import { Availability } from '../../../model/availability';
 import * as vis from 'vis-timeline';
 import { SubmissionService } from '../../../services/submission.service';
@@ -48,24 +47,23 @@ export class SelectionComponent implements OnInit {
 
   async loadSubmissions(): Promise<void> {
     this.submissionsLoaded = false;
-
-    const submissions = await this.submissionService.loadAllSubmissions(this.marathonService.marathon.id);
-
-    submissions.forEach(submission => {
-      submission.games.forEach(game => {
-        game.categories.forEach(category => {
-          category.estimateHuman = DurationService.toHuman(category.estimate);
-          if (!Object.keys(this.selection).includes(category.id.toString())) {
-            const selection = new Selection();
-            selection.status = 'TODO';
-            selection.categoryId = category.id;
-            this.selection[category.id] = selection;
-          }
+    this.submissions = await this.submissionService.loadAllSubmissions(this.marathonService.marathon.id, (submissions) => {
+      submissions.forEach(submission => {
+        submission.games.forEach(game => {
+          game.categories.forEach(category => {
+            category.estimateHuman = DurationService.toHuman(category.estimate);
+            if (!Object.keys(this.selection).includes(category.id.toString())) {
+              const selection = new Selection();
+              selection.status = 'TODO';
+              selection.categoryId = category.id;
+              this.selection[category.id] = selection;
+            }
+          });
         });
       });
-    });
 
-    this.submissions = submissions;
+      return submissions;
+    });
     this.submissionsLoaded = true;
   }
 

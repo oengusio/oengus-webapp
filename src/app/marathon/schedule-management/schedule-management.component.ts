@@ -118,14 +118,17 @@ export class ScheduleManagementComponent implements OnInit {
   async loadSubmissions(selection: Map<number, Selection>): Promise<void> {
     this.submissionsLoaded = false;
 
-    const submissions = await this.submissionService.loadAllSubmissions(this.marathonService.marathon.id);
-    const filteredSubmissions = submissions.filter(submission =>
-      submission.games.filter(game => game.categories
-        .filter(category =>
-          Object.keys(selection).includes(category.id.toString()))
-        .length > 0).length > 0
+    const filteredSubmissions = await this.submissionService.loadAllSubmissions(
+      this.marathonService.marathon.id,
+      (page) => page.filter(submission =>
+        submission.games.filter(game => game.categories
+          .filter(category =>
+            Object.keys(selection).includes(category.id.toString()))
+          .length > 0).length > 0
+      )
     );
 
+    // TODO: also put this in the transformation?
     filteredSubmissions.forEach(submission => {
       submission.games.forEach(game => {
         game.categories
