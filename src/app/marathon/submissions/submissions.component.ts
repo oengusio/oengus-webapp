@@ -21,6 +21,7 @@ import { firstValueFrom } from 'rxjs';
   templateUrl: './submissions.component.html',
   styleUrls: ['./submissions.component.scss']
 })
+// TODO: search for status
 export class SubmissionsComponent implements OnInit, OnDestroy {
 
   private canLoadMore = true;
@@ -43,7 +44,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
   private searchDebounced = debounce(this.search, 500);
 
-  // TODO: rework to work with pagination
   constructor(private route: ActivatedRoute,
               public marathonService: MarathonService,
               public userService: UserService,
@@ -54,7 +54,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     this.selection = this.route.snapshot.data.selection;
     this.answers = this.route.snapshot.data.answers;
     this.questions = new Map<number, Question>();
-    // Yucky, should not be done when questions are not loaded
+    // Yucky, should not be done when questions are not needed
     this.marathonService.marathon.questions.forEach((question) => {
       if (question.fieldType === 'FREETEXT') {
         return;
@@ -94,22 +94,36 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
       ++this.lastPageLoaded
     ));
 
-    this.canLoadMore = !nextPage.empty && nextPage.last;
+    this.canLoadMore = !nextPage.empty && !nextPage.last;
 
     if (!nextPage.empty) {
+      nextPage.content.forEach(submission => {
+        submission.games.forEach(game => {
+          game.visible = true;
+          game.categories.forEach(category => {
+            category.estimateHuman = DurationService.toHuman(category.estimate);
+            category.visible = true;
+          });
+        });
+      });
+
       this.submissions.push(...nextPage.content);
     }
   }
 
   ctrlFHandler(event: KeyboardEvent): boolean {
-    event.preventDefault();
+    if (event.ctrlKey && event.key === 'f') {
+      event.preventDefault();
 
-    const el = document.getElementById('iLikeToUseNativeJsBecauseIDontUnderstandAngular');
+      const el = document.getElementById('iLikeToUseNativeJsBecauseIDontUnderstandAngular');
 
-    el.scrollIntoView();
-    el.focus();
+      el.scrollIntoView();
+      el.focus();
 
-    return false;
+      return false;
+    }
+
+    return true;
   }
 
   displaysTabs() {
@@ -132,6 +146,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
       this.submissionService.searchSubmissions(this.marathonService.marathon.id, this.runnerGameFilter)
     );
 
+    // TODO: exclude categories that do not match the search criteria
     foundSubmissions.forEach(submission => {
       submission.games.forEach(game => {
         game.visible = true;
@@ -180,10 +195,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     visible = visible && game.categories.map(c => c.visible).includes(true);
 
     return visible;
-  }
-
-  showSubmission(submission: Submission) {
-    return submission.games.find(g => g.visible);
   }
 
   deleteSubmission(id: number) {

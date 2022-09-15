@@ -60,7 +60,7 @@ export class ScheduleManagementComponent implements OnInit {
   public availabilitiesItems: any;
   public availabilitiesSelected = [];
 
-  public showModal = false
+  public showModal = false;
   public buttonLoading = false;
 
   public durationEditConfig: NwbEditInPlaceConfig = {
@@ -109,7 +109,8 @@ export class ScheduleManagementComponent implements OnInit {
     }
 
     const selection = this.route.snapshot.data.selection;
-    const submissions: Submission[] = this.route.snapshot.data.submissions;
+    // TODO: fix, needs to load all pages
+    const submissions: Submission[] = this.route.snapshot.data.submissions.content;
     const filteredSubmissions = submissions.filter(submission =>
       submission.games.filter(game => game.categories
         .filter(category =>

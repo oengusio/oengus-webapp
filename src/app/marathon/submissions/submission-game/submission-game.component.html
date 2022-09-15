@@ -18,7 +18,6 @@
 
         <ng-template ngFor let-category [ngForOf]="game.categories">
           <app-submission-category
-            *ngIf="category.visible"
             [category]="category"
             [marathon]="marathon"
             [rawStatus]="getRawStatus(category)"

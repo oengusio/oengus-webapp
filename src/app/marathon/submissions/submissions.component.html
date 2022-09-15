@@ -47,7 +47,7 @@
   <button class="button" type="button" (click)="loadNextSubmissionPage()">Load next page</button>
 
   <ng-template ngFor let-submission [ngForOf]="filteredSubmissions">
-    <div class="box" *ngIf="showSubmission(submission)">
+    <div class="box">
       <h4 class="title is-4">
         <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
         <app-delete-button *ngIf="showDelete"
@@ -59,7 +59,6 @@
       </h4>
       <ng-template ngFor let-game [ngForOf]="submission.games">
         <app-submission-game
-          *ngIf="game.visible"
           [game]="game"
           [marathon]="marathonService.marathon"
           [showDelete]="showDelete"
