@@ -47,7 +47,7 @@
   <div class="column is-5">
     <h4 class="subtitle is-4">{{ 'marathon.schedule.management.selectedRuns' | translate}}</h4>
     <div class="table-container">
-      <table class="table is-fullwidth is-striped">
+      <table class="table is-fullwidth is-striped" *ngIf="submissionsLoaded; else scheduleLoadingIndicator">
         <thead>
         <tr>
           <th>{{ 'marathon.submissions.table.runner' | translate}}</th>
@@ -91,6 +91,15 @@
         </tr>
         </tbody>
       </table>
+
+      <ng-template #scheduleLoadingIndicator>
+        <div class="is-centered">
+          <div class="oengus-spinner">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>
   <div class="column is-7">

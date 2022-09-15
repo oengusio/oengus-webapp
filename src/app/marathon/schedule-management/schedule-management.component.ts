@@ -24,7 +24,7 @@ import { UserService } from '../../../services/user.service';
 import { Availability } from '../../../model/availability';
 import * as vis from 'vis-timeline';
 import { SubmissionService } from '../../../services/submission.service';
-import {Submission} from '../../../model/submission';
+import { Selection } from '../../../model/selection';
 
 @Component({
   selector: 'app-schedule-management',
@@ -36,6 +36,7 @@ export class ScheduleManagementComponent implements OnInit {
   public scheduleTodo: ScheduleLine[];
   public schedule: Schedule;
   public loading = false;
+  public submissionsLoaded = false;
 
   public userSearch = {};
   public editMode = {};
@@ -109,8 +110,15 @@ export class ScheduleManagementComponent implements OnInit {
     }
 
     const selection = this.route.snapshot.data.selection;
-    // TODO: fix, needs to load all pages
-    const submissions: Submission[] = this.route.snapshot.data.submissions.content;
+    this.initSchedule(this.route.snapshot.data.schedule);
+    this.scheduleTodo = [];
+    this.loadSubmissions(selection);
+  }
+
+  async loadSubmissions(selection: Map<number, Selection>): Promise<void> {
+    this.submissionsLoaded = false;
+
+    const submissions = await this.submissionService.loadAllSubmissions(this.marathonService.marathon.id);
     const filteredSubmissions = submissions.filter(submission =>
       submission.games.filter(game => game.categories
         .filter(category =>
@@ -118,9 +126,6 @@ export class ScheduleManagementComponent implements OnInit {
         .length > 0).length > 0
     );
 
-
-    this.initSchedule(this.route.snapshot.data.schedule);
-    this.scheduleTodo = [];
     filteredSubmissions.forEach(submission => {
       submission.games.forEach(game => {
         game.categories
@@ -145,6 +150,8 @@ export class ScheduleManagementComponent implements OnInit {
           });
       });
     });
+
+    this.submissionsLoaded = true;
   }
 
   initSchedule(schedule: Schedule) {

@@ -90,7 +90,7 @@ const marathonRoutes: Routes = [
         path: 'selection',
         component: SelectionComponent,
         resolve: {
-          submissions: SubmissionsResolver,
+          submissions: SubmissionsResolver, // TODO: fix
           selection: SelectionResolver
         },
         data: {
@@ -110,7 +110,6 @@ const marathonRoutes: Routes = [
         path: 'schedule/manage',
         component: ScheduleManagementComponent,
         resolve: {
-          submissions: SubmissionsResolver, // TODO: fix
           selection: SelectionResolver,
           schedule: ScheduleResolver,
           availabilities: AvailabilitiesResolver

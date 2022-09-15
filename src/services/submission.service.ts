@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Submission } from '../model/submission';
-import { Observable } from 'rxjs';
+import {firstValueFrom, Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,6 +29,35 @@ export class SubmissionService extends BaseService {
 
   submissions(marathonId: string, page: number): Observable<SubmissionPage> {
     return this.http.get<SubmissionPage>(this.url(`${marathonId}/submissions?page=${page}`));
+  }
+
+  loadAllSubmissions(marathonId: string): Promise<Submission[]> {
+    return new Promise<Submission[]>(async (resolve, reject) => {
+      let page = 1;
+      let hasMore = true;
+      const allSubmissions: Submission[] = [];
+
+      while (hasMore) {
+        try {
+          const fetched = await firstValueFrom(
+            this.http.get<SubmissionPage>(this.url(`${marathonId}/submissions?page=${page}`))
+          );
+
+          hasMore = !fetched.empty && !fetched.last;
+
+          if (!fetched.empty) {
+            allSubmissions.push(...fetched.content);
+          }
+
+          page++;
+        } catch (e) {
+          reject(e);
+          return;
+        }
+      }
+
+      resolve(allSubmissions);
+    });
   }
 
   searchSubmissions(marathonId: string, query: string): Observable<Submission[]> {
