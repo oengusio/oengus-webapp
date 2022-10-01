@@ -40,7 +40,6 @@ import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
 import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
 import {AdsenseComponent} from '../adsense/adsense.component';
-import {SubmissionsResolver} from '../resolvers/submissions-resolver';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
 import {ButtonsModule} from '../buttons/buttons.module';
@@ -83,7 +82,6 @@ const marathonRoutes: Routes = [
         component: SubmissionsComponent,
         resolve: {
           answers: AnswersResolver,
-          submissions: SubmissionsResolver,
           selection: SelectionResolver,
         }
       },
@@ -91,7 +89,6 @@ const marathonRoutes: Routes = [
         path: 'selection',
         component: SelectionComponent,
         resolve: {
-          submissions: SubmissionsResolver,
           selection: SelectionResolver
         },
         data: {
@@ -111,7 +108,6 @@ const marathonRoutes: Routes = [
         path: 'schedule/manage',
         component: ScheduleManagementComponent,
         resolve: {
-          submissions: SubmissionsResolver,
           selection: SelectionResolver,
           schedule: ScheduleResolver,
           availabilities: AvailabilitiesResolver
@@ -119,6 +115,7 @@ const marathonRoutes: Routes = [
         data: {
           statuses: ['VALIDATED', 'BONUS'],
           withCustomData: true,
+          isAdminRoute: true,
         },
         canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
       },
@@ -228,7 +225,6 @@ const marathonRoutes: Routes = [
     CanActivateMarathonActiveGuard,
     MarathonResolver,
     SubmissionResolver,
-    SubmissionsResolver,
     ScheduleResolver,
     SelectionResolver,
     IncentivesResolver,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game } from '../../../model/game';
 import { faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -13,15 +13,21 @@ import { CategoryService } from '../../../services/category.service';
 import { User } from '../../../model/user';
 import { Question } from 'src/model/question';
 import { Answer } from '../../../model/answer';
+import { debounce } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-submissions',
   templateUrl: './submissions.component.html',
   styleUrls: ['./submissions.component.scss']
 })
-export class SubmissionsComponent implements OnInit {
+// TODO: search for status
+export class SubmissionsComponent implements OnInit, OnDestroy {
 
-  public submissions: Submission[];
+  private canLoadMore = true;
+  private lastPageLoaded = 0;
+  public submissions: Submission[] = [];
+  public filteredSubmissions: Submission[] = [];
   public selection: Map<number, Selection>;
   public questions: Map<number, Question>;
   public answers: Answer[];
@@ -36,16 +42,32 @@ export class SubmissionsComponent implements OnInit {
 
   public moment = moment;
 
+  private searchDebounced = debounce(this.search, 500);
+
+  private observer = new IntersectionObserver((entries) => {
+    console.log('VISIBLE');
+    console.log(entries);
+
+    if (entries[0] && entries[0].isIntersecting) {
+      this.loadNextSubmissionPage();
+    }
+  }, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 1.0
+  });
+
   constructor(private route: ActivatedRoute,
               public marathonService: MarathonService,
               public userService: UserService,
               public gameService: GameService,
               private submissionService: SubmissionService,
               private categoryService: CategoryService) {
-    this.submissions = this.route.snapshot.data.submissions;
+    // this.submissions = this.route.snapshot.data.submissions;
     this.selection = this.route.snapshot.data.selection;
     this.answers = this.route.snapshot.data.answers;
     this.questions = new Map<number, Question>();
+    // Yucky, should not be done when questions are not needed
     this.marathonService.marathon.questions.forEach((question) => {
       if (question.fieldType === 'FREETEXT') {
         return;
@@ -62,9 +84,61 @@ export class SubmissionsComponent implements OnInit {
         });
       });
     });
+
+    this.filteredSubmissions = this.submissions;
   }
 
   ngOnInit() {
+    window.addEventListener('keydown', this.ctrlFHandler);
+
+    // set-up lazy loading
+    this.observer.observe(document.getElementById('lazyLoadTrigger'));
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('keydown', this.ctrlFHandler);
+  }
+
+  async loadNextSubmissionPage(): Promise<void> {
+    if (!this.canLoadMore) {
+      return;
+    }
+
+    const nextPage = await firstValueFrom(this.submissionService.submissions(
+      this.marathonService.marathon.id,
+      ++this.lastPageLoaded
+    ));
+
+    this.canLoadMore = !nextPage.empty && !nextPage.last;
+
+    if (!nextPage.empty) {
+      nextPage.content.forEach(submission => {
+        submission.games.forEach(game => {
+          game.visible = true;
+          game.categories.forEach(category => {
+            category.estimateHuman = DurationService.toHuman(category.estimate);
+            category.visible = true;
+          });
+        });
+      });
+
+      this.submissions.push(...nextPage.content);
+    }
+  }
+
+  ctrlFHandler(event: KeyboardEvent): boolean {
+    if (event.ctrlKey && event.key === 'f') {
+      event.preventDefault();
+
+      const el = document.getElementById('iLikeToUseNativeJsBecauseIDontUnderstandAngular');
+
+      el.scrollIntoView();
+      el.focus();
+
+      return false;
+    }
+
+    return true;
   }
 
   displaysTabs() {
@@ -77,15 +151,40 @@ export class SubmissionsComponent implements OnInit {
     this.gameService.exportAllForMarathon(this.marathonService.marathon.id);
   }
 
+  async search() {
+    if (!this.runnerGameFilter) {
+      this.filteredSubmissions = this.submissions;
+      return;
+    }
+
+    const foundSubmissions = await firstValueFrom(
+      this.submissionService.searchSubmissions(this.marathonService.marathon.id, this.runnerGameFilter)
+    );
+
+    // TODO: exclude categories that do not match the search criteria
+    foundSubmissions.forEach(submission => {
+      submission.games.forEach(game => {
+        game.visible = true;
+        game.categories.forEach(category => {
+          category.estimateHuman = DurationService.toHuman(category.estimate);
+          category.visible = true;
+        });
+      });
+    });
+
+    this.filteredSubmissions = foundSubmissions;
+  }
+
   filter() {
-    this.submissions.forEach((submission) => {
+    this.searchDebounced();
+    /*this.submissions.forEach((submission) => {
       submission.games.forEach(game => {
         game.categories.forEach(category => {
           category.visible = !this.categoryFilter || this.selection[category.id].status === this.categoryFilter;
         });
         game.visible = this.filterGame(game, submission.user);
       });
-    });
+    });*/
   }
 
   private filterGame(game: Game, user: User) {
@@ -111,10 +210,6 @@ export class SubmissionsComponent implements OnInit {
     visible = visible && game.categories.map(c => c.visible).includes(true);
 
     return visible;
-  }
-
-  showSubmission(submission: Submission) {
-    return submission.games.find(g => g.visible);
   }
 
   deleteSubmission(id: number) {

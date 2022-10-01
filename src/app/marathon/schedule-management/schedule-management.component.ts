@@ -24,7 +24,7 @@ import { UserService } from '../../../services/user.service';
 import { Availability } from '../../../model/availability';
 import * as vis from 'vis-timeline';
 import { SubmissionService } from '../../../services/submission.service';
-import {Submission} from '../../../model/submission';
+import { Selection } from '../../../model/selection';
 
 @Component({
   selector: 'app-schedule-management',
@@ -36,6 +36,7 @@ export class ScheduleManagementComponent implements OnInit {
   public scheduleTodo: ScheduleLine[];
   public schedule: Schedule;
   public loading = false;
+  public submissionsLoaded = false;
 
   public userSearch = {};
   public editMode = {};
@@ -60,7 +61,7 @@ export class ScheduleManagementComponent implements OnInit {
   public availabilitiesItems: any;
   public availabilitiesSelected = [];
 
-  public showModal = false
+  public showModal = false;
   public buttonLoading = false;
 
   public durationEditConfig: NwbEditInPlaceConfig = {
@@ -109,17 +110,25 @@ export class ScheduleManagementComponent implements OnInit {
     }
 
     const selection = this.route.snapshot.data.selection;
-    const submissions: Submission[] = this.route.snapshot.data.submissions;
-    const filteredSubmissions = submissions.filter(submission =>
-      submission.games.filter(game => game.categories
-        .filter(category =>
-          Object.keys(selection).includes(category.id.toString()))
-        .length > 0).length > 0
-    );
-
-
     this.initSchedule(this.route.snapshot.data.schedule);
     this.scheduleTodo = [];
+    this.loadSubmissions(selection);
+  }
+
+  async loadSubmissions(selection: Map<number, Selection>): Promise<void> {
+    this.submissionsLoaded = false;
+
+    const filteredSubmissions = await this.submissionService.loadAllSubmissions(
+      this.marathonService.marathon.id,
+      (page) => page.filter(submission =>
+        submission.games.filter(game => game.categories
+          .filter(category =>
+            Object.keys(selection).includes(category.id.toString()))
+          .length > 0).length > 0
+      )
+    );
+
+    // TODO: also put this in the transformation?
     filteredSubmissions.forEach(submission => {
       submission.games.forEach(game => {
         game.categories
@@ -144,6 +153,8 @@ export class ScheduleManagementComponent implements OnInit {
           });
       });
     });
+
+    this.submissionsLoaded = true;
   }
 
   initSchedule(schedule: Schedule) {
@@ -224,7 +235,7 @@ export class ScheduleManagementComponent implements OnInit {
     });
     this.scheduleService.save(this.marathonService.marathon.id, this.schedule).add(() => {
       this.loading = false;
-      this.scheduleService.getAllForMarathon(this.marathonService.marathon.id, true).subscribe(response => {
+      this.scheduleService.getAllForMarathon(this.marathonService.marathon.id, true, true).subscribe(response => {
         this.initSchedule(response);
         this.computeSchedule();
         this.marathonService.find(this.marathonService.marathon.id).subscribe(marathon => this.marathonService.marathon = marathon);

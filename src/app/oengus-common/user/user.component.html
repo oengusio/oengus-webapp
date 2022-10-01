@@ -1,11 +1,9 @@
 <div class="is-inline-flex">
   <a *ngIf="showProfileLink"
-     [routerLink]="'/user/profile/' + user.username"
-     [ngStyle]="{'text-decoration': user.roles.includes('ROLE_BANNED') ? 'line-through' : null}">
+     [routerLink]="'/user/profile/' + user.username">
     {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
   </a>
-  <span *ngIf="!showProfileLink"
-        [ngStyle]="{'text-decoration': user.roles.includes('ROLE_BANNED') ? 'line-through' : null}">
+  <span *ngIf="!showProfileLink">
     {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
   </span>
   <ng-template [ngIf]="showSocialLinks && user.enabled">

@@ -6,7 +6,6 @@ import { MarathonService } from '../../../services/marathon.service';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment-timezone';
 import { Selection } from '../../../model/selection';
-import * as _ from 'lodash';
 import { Availability } from '../../../model/availability';
 import * as vis from 'vis-timeline';
 import { SubmissionService } from '../../../services/submission.service';
@@ -19,7 +18,8 @@ import {Submission} from '../../../model/submission';
 })
 export class SelectionComponent implements OnInit {
 
-  public submissions: Submission[];
+  public submissionsLoaded = false;
+  public submissions: Submission[] = [];
   public selection: { [key: string]: Selection };
   public loading = false;
 
@@ -41,21 +41,30 @@ export class SelectionComponent implements OnInit {
               private marathonService: MarathonService) {
     this.availabilitiesGroups = new vis.DataSet([]);
     this.availabilitiesItems = new vis.DataSet([]);
-    this.submissions = this.route.snapshot.data.submissions;
     this.selection = this.route.snapshot.data.selection;
-    this.submissions.forEach(submission => {
-      submission.games.forEach(game => {
-        game.categories.forEach(category => {
-          category.estimateHuman = DurationService.toHuman(category.estimate);
-          if (!Object.keys(this.selection).includes(category.id.toString())) {
-            const selection = new Selection();
-            selection.status = 'TODO';
-            selection.categoryId = category.id;
-            this.selection[category.id] = selection;
-          }
+    this.loadSubmissions();
+  }
+
+  async loadSubmissions(): Promise<void> {
+    this.submissionsLoaded = false;
+    this.submissions = await this.submissionService.loadAllSubmissions(this.marathonService.marathon.id, (submissions) => {
+      submissions.forEach(submission => {
+        submission.games.forEach(game => {
+          game.categories.forEach(category => {
+            category.estimateHuman = DurationService.toHuman(category.estimate);
+            if (!Object.keys(this.selection).includes(category.id.toString())) {
+              const selection = new Selection();
+              selection.status = 'TODO';
+              selection.categoryId = category.id;
+              this.selection[category.id] = selection;
+            }
+          });
         });
       });
+
+      return submissions;
     });
+    this.submissionsLoaded = true;
   }
 
   ngOnInit() {

@@ -14,14 +14,18 @@
   </ul>
 </div>
 
-<div [hidden]="displaysTabs() && active !== 'submissions'" class="container">
+<div class="notification is-info">
+  <p>{{ 'alert.submission.cache' | translate }}</p>
+</div>
+
+<div [hidden]="displaysTabs() && active !== 'submissions'" class="container" id="submissionScrollArea">
 
   <div class="columns">
     <div class="column is-half-desktop">
       <nav class="panel">
         <div class="panel-block">
           <p class="control has-icons-left">
-            <input class="input" type="text" [placeholder]="'marathon.submissions.filter' | translate"
+            <input class="input searchInput" type="text" id="iLikeToUseNativeJsBecauseIDontUnderstandAngular" [placeholder]="'marathon.submissions.filter' | translate"
                    [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()">
             <span class="icon is-left">
               <fa-icon [icon]="faSearch"></fa-icon>
@@ -43,8 +47,8 @@
     </div>
   </div>
 
-  <ng-template ngFor let-submission [ngForOf]="submissions">
-    <div class="box" *ngIf="showSubmission(submission)">
+  <ng-template ngFor let-submission [ngForOf]="filteredSubmissions">
+    <div class="box">
       <h4 class="title is-4">
         <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
         <app-delete-button *ngIf="showDelete"
@@ -56,7 +60,6 @@
       </h4>
       <ng-template ngFor let-game [ngForOf]="submission.games">
         <app-submission-game
-          *ngIf="game.visible"
           [game]="game"
           [marathon]="marathonService.marathon"
           [showDelete]="showDelete"
@@ -68,6 +71,12 @@
       </ng-template>
     </div>
   </ng-template>
+  <div id="lazyLoadTrigger" class="is-centered">
+    <div class="oengus-spinner">
+      <div class="cube1"></div>
+      <div class="cube2"></div>
+    </div>
+  </div>
 </div>
 
 <div [hidden]="!displaysTabs() || active !== 'answers'" class="container">

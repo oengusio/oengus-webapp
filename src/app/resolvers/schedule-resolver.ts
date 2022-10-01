@@ -13,8 +13,9 @@ export class ScheduleResolver implements Resolve<Schedule> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<Schedule> | Promise<Schedule> | Schedule {
     const withCustomData = route.data['withCustomData'] || false;
+    const adminRoute = route.data['isAdminRoute'] || false;
 
-    return this.scheduleService.getAllForMarathon(route.parent.paramMap.get('id'), withCustomData).toPromise().catch(() => {
+    return this.scheduleService.getAllForMarathon(route.parent.paramMap.get('id'), withCustomData, adminRoute).toPromise().catch(() => {
       return new Schedule();
     });
   }
