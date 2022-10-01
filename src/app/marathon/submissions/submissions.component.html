@@ -14,7 +14,11 @@
   </ul>
 </div>
 
-<div [hidden]="displaysTabs() && active !== 'submissions'" class="container">
+<div class="notification is-info">
+  <p>{{ 'alert.submission.cache' | translate }}</p>
+</div>
+
+<div [hidden]="displaysTabs() && active !== 'submissions'" class="container" id="submissionScrollArea">
 
   <div class="columns">
     <div class="column is-half-desktop">
@@ -43,9 +47,6 @@
     </div>
   </div>
 
-  <!-- TODO: use lazy loading -->
-  <button class="button" type="button" (click)="loadNextSubmissionPage()">Load next page</button>
-
   <ng-template ngFor let-submission [ngForOf]="filteredSubmissions">
     <div class="box">
       <h4 class="title is-4">
@@ -70,6 +71,12 @@
       </ng-template>
     </div>
   </ng-template>
+  <div id="lazyLoadTrigger" class="is-centered">
+    <div class="oengus-spinner">
+      <div class="cube1"></div>
+      <div class="cube2"></div>
+    </div>
+  </div>
 </div>
 
 <div [hidden]="!displaysTabs() || active !== 'answers'" class="container">

@@ -44,6 +44,19 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
   private searchDebounced = debounce(this.search, 500);
 
+  private observer = new IntersectionObserver((entries) => {
+    console.log('VISIBLE');
+    console.log(entries);
+
+    if (entries[0] && entries[0].isIntersecting) {
+      this.loadNextSubmissionPage();
+    }
+  }, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 1.0
+  });
+
   constructor(private route: ActivatedRoute,
               public marathonService: MarathonService,
               public userService: UserService,
@@ -76,8 +89,10 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadNextSubmissionPage();
     window.addEventListener('keydown', this.ctrlFHandler);
+
+    // set-up lazy loading
+    this.observer.observe(document.getElementById('lazyLoadTrigger'));
   }
 
   ngOnDestroy(): void {
