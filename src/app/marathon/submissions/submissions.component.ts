@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Game } from '../../../model/game';
 import { faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -23,8 +23,9 @@ import { firstValueFrom } from 'rxjs';
 })
 // TODO: search for status
 export class SubmissionsComponent implements OnInit, OnDestroy {
+  @ViewChild('searchInput', {static: true}) searchInput: ElementRef<HTMLInputElement>;
 
-  private canLoadMore = true;
+  public canLoadMore = true;
   private lastPageLoaded = 0;
   public submissions: Submission[] = [];
   public filteredSubmissions: Submission[] = [];
@@ -45,9 +46,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   private searchDebounced = debounce(this.search, 500);
 
   private observer = new IntersectionObserver((entries) => {
-    console.log('VISIBLE');
-    console.log(entries);
-
     if (entries[0] && entries[0].isIntersecting) {
       this.loadNextSubmissionPage();
     }
@@ -89,14 +87,16 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    window.addEventListener('keydown', this.ctrlFHandler);
+    window.addEventListener('keydown', this.ctrlFHandler.bind(this));
 
     // set-up lazy loading
-    this.observer.observe(document.getElementById('lazyLoadTrigger'));
+    setTimeout(() => {
+      this.observer.observe(document.getElementById('lazyLoadTrigger'));
+    }, 0);
   }
 
   ngOnDestroy(): void {
-    window.removeEventListener('keydown', this.ctrlFHandler);
+    window.removeEventListener('keydown', this.ctrlFHandler.bind(this));
   }
 
   async loadNextSubmissionPage(): Promise<void> {
@@ -130,7 +130,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     if (event.ctrlKey && event.key === 'f') {
       event.preventDefault();
 
-      const el = document.getElementById('iLikeToUseNativeJsBecauseIDontUnderstandAngular');
+      const el = this.searchInput.nativeElement;
 
       el.scrollIntoView();
       el.focus();

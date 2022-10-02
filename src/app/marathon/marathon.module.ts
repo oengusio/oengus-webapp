@@ -46,6 +46,7 @@ import {ButtonsModule} from '../buttons/buttons.module';
 import {DeactivateRouteGuard} from '../guards/deactivate-route-guard.service';
 import { OengusMdComponent } from '../oengus-md/oengus-md.component';
 import { AnswersResolver } from '../resolvers/answers-resolver';
+import {LoadingIndicatorComponent} from '../loading-indicator/loading-indicator.component';
 
 const marathonRoutes: Routes = [
   {
@@ -188,6 +189,7 @@ const marathonRoutes: Routes = [
     SubmissionCategoryComponent,
     SubmissionGameComponent,
     OengusMdComponent,
+    LoadingIndicatorComponent,
   ],
   imports: [
     CommonModule,
@@ -212,7 +214,7 @@ const marathonRoutes: Routes = [
     NwbEditInPlaceModule,
     NgxPayPalModule,
     NwbPaginatorModule,
-    ButtonsModule
+    ButtonsModule,
   ],
   exports: [
     RouterModule
