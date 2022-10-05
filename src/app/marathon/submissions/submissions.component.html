@@ -25,7 +25,7 @@
       <nav class="panel">
         <div class="panel-block">
           <p class="control has-icons-left">
-            <input class="input searchInput" type="text" id="iLikeToUseNativeJsBecauseIDontUnderstandAngular" [placeholder]="'marathon.submissions.filter' | translate"
+            <input class="input searchInput" type="text" #searchInput [placeholder]="'marathon.submissions.filter' | translate"
                    [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()">
             <span class="icon is-left">
               <fa-icon [icon]="faSearch"></fa-icon>
@@ -71,11 +71,8 @@
       </ng-template>
     </div>
   </ng-template>
-  <div id="lazyLoadTrigger" class="is-centered">
-    <div class="oengus-spinner">
-      <div class="cube1"></div>
-      <div class="cube2"></div>
-    </div>
+  <div id="lazyLoadTrigger" class="is-centered" *ngIf="canLoadMore">
+    <app-loading-indicator></app-loading-indicator>
   </div>
 </div>
 
