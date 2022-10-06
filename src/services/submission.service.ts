@@ -63,11 +63,17 @@ export class SubmissionService extends BaseService {
     });
   }
 
-  searchSubmissions(marathonId: string, query: string): Observable<Submission[]> {
+  searchSubmissions(marathonId: string, query: string, status?: string): Observable<Submission[]> {
+    const params: { q: string; status?: string; } = {
+      q: query,
+    };
+
+    if (status) {
+      params.status = status;
+    }
+
     return this.http.get<Submission[]>(this.url(`${marathonId}/submissions/search`), {
-      params: {
-        q: query,
-      },
+      params,
     });
   }
 

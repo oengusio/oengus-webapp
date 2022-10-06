@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Game } from '../../../model/game';
 import { faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import { MarathonService } from '../../../services/marathon.service';
@@ -21,7 +20,6 @@ import { firstValueFrom } from 'rxjs';
   templateUrl: './submissions.component.html',
   styleUrls: ['./submissions.component.scss']
 })
-// TODO: search for status
 export class SubmissionsComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', {static: true}) searchInput: ElementRef<HTMLInputElement>;
 
@@ -152,16 +150,16 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   }
 
   async search() {
-    if (!this.runnerGameFilter) {
+    if (!this.runnerGameFilter && !this.categoryFilter) {
       this.filteredSubmissions = this.submissions;
       return;
     }
 
+    const cat = this.categoryFilter ? this.categoryFilter : null;
     const foundSubmissions = await firstValueFrom(
-      this.submissionService.searchSubmissions(this.marathonService.marathon.id, this.runnerGameFilter)
+      this.submissionService.searchSubmissions(this.marathonService.marathon.id, this.runnerGameFilter, cat)
     );
 
-    // TODO: exclude categories that do not match the search criteria
     foundSubmissions.forEach(submission => {
       submission.games.forEach(game => {
         game.visible = true;
@@ -177,39 +175,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
   filter() {
     this.searchDebounced();
-    /*this.submissions.forEach((submission) => {
-      submission.games.forEach(game => {
-        game.categories.forEach(category => {
-          category.visible = !this.categoryFilter || this.selection[category.id].status === this.categoryFilter;
-        });
-        game.visible = this.filterGame(game, submission.user);
-      });
-    });*/
-  }
-
-  private filterGame(game: Game, user: User) {
-    if (!this.runnerGameFilter && !this.categoryFilter) {
-      return true;
-    }
-
-    const filter = this.runnerGameFilter;
-    let visible = true;
-
-    const gameFound = game.name.toLowerCase().includes(filter.toLowerCase());
-
-    if (gameFound) {
-      visible = visible && game.name.toLowerCase().includes(filter.toLowerCase());
-    } else {
-      if (localStorage.getItem('language') === 'ja' && !!user.usernameJapanese) {
-        visible = visible && user.usernameJapanese.toLowerCase().includes(filter.toLowerCase());
-      } else {
-        visible = visible && user.username.toLowerCase().includes(filter.toLowerCase());
-      }
-    }
-
-    visible = visible && game.categories.map(c => c.visible).includes(true);
-
-    return visible;
   }
 
   deleteSubmission(id: number) {
