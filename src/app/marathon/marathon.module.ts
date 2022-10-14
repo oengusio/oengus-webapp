@@ -93,7 +93,8 @@ const marathonRoutes: Routes = [
           selection: SelectionResolver
         },
         data: {
-          statuses: []
+          statuses: [],
+          isAdminRoute: true,
         },
         canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
       },
