@@ -1,6 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {LoadingBarService} from '../../../services/loading-bar.service';
 import {DeactivateRouteGuard} from '../../guards/deactivate-route-guard.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class V2LinkComponent implements OnInit {
 
   public storedUrl: string = null;
 
-  constructor(private loadingbar: LoadingBarService) {
+  constructor() {
     //
   }
 
@@ -51,16 +50,7 @@ export class V2LinkComponent implements OnInit {
     const urlLanguage = V2LinkComponent.getUrlLanguage();
     const targetUrl = `${environment.v2Domain}${urlLanguage}${href}`;
 
-    if (environment.baseSite.includes('localhost')) {
-      window.open(targetUrl, '_blank');
-      return false;
-    }
-
-    setTimeout(() => {
-      this.loadingbar.setLoading(true);
-    }, 0);
-
-    window.location.assign(targetUrl);
+    window.open(targetUrl, '_blank');
 
     return false;
   }
