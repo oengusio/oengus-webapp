@@ -120,7 +120,13 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
         });
       });
 
-      this.submissions.push(...nextPage.content);
+      const content = nextPage.content.filter(
+        (submission) => submission.games.filter(
+          (game) => game.categories.length > 0
+        ).length > 0
+      );
+
+      this.submissions.push(...content);
     }
   }
 
