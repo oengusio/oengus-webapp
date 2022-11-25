@@ -422,6 +422,7 @@
                                pattern="^(?:\d{1,3}):(?:[012345]\d):(?:[012345]\d)$"
                                appMinDurationValidator="1"
                                #categoryEstimate="ngModel">
+                        <p class="help">{{'marathon.submit.category.estimate.hint' | translate}}</p>
                         <div *ngIf="categoryEstimate.invalid">
                           <p class="help is-danger" *ngIf="categoryEstimate.errors.required">
                             {{'marathon.submit.category.estimate.error.required' | translate}}</p>
