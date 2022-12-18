@@ -152,6 +152,14 @@ export class AppComponent implements OnInit {
     return localStorage.getItem('consent') !== null;
   }
 
+  showAnnouncement(name: string): boolean {
+    return localStorage.getItem(`oengus_announcement_${name}_hidden`) === null;
+  }
+
+  closeAnnouncement(name: string): void {
+    localStorage.setItem(`oengus_announcement_${name}_hidden`, 'true');
+  }
+
   showKasperskyBanner(): boolean {
     return localStorage.getItem('oengus_hide_kaspersky_announcement') === null;
   }
