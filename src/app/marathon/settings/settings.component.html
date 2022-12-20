@@ -360,7 +360,7 @@
                        [(ngModel)]="marathon.youtube"
                        name="youtube"
                        maxlength="100"
-                       pattern="^(https?:\/\/)?(www\.)?youtu((\.be)|(be\..{2,5}))\/((user)|(channel)|(c))\/.+$"
+                       pattern="^(https?:\/\/)?(www\.)?youtu((\.be)|(be\..{2,5}))\/((user)\/|(channel)\/|(c)\/|@).+$"
                        #youtube="ngModel">
                 <p class="help">
                   <span>{{ 'marathon.settings.youtube.help.url' | translate}}</span>

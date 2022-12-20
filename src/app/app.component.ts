@@ -38,6 +38,7 @@ import {LoadingBarService} from '../services/loading-bar.service';
 import {TitleService} from '../services/title.service';
 import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
 import * as Sentry from '@sentry/angular';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -172,7 +173,12 @@ export class AppComponent implements OnInit {
     return !document.getElementById('mnMzPGBywKre');
   }
 
-  storeCurrentPage(): boolean {
+  async storeCurrentPage(twitter: boolean = false): Promise<boolean> {
+    if (twitter) {
+      const words = await firstValueFrom(this.translate.get('announcements.twitterRemoval'));
+      alert(words);
+    }
+
     localStorage.setItem('prev_loc', this.router.url);
     return true;
   }

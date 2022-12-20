@@ -163,7 +163,7 @@
               </a>
               <a class="navbar-item is-tooltip-danger"
                  [href]="userService.getTwitterAuthUrl()"
-                 (click)="storeCurrentPage()"
+                 (click)="storeCurrentPage(true)"
                  nwbToolTipPosition="left"
                  nwbToolTipIsMultiline="true"
                  [nwbToolTip]="'navbar.login.disclaimer' | translate">
