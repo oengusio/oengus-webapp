@@ -87,23 +87,21 @@
       </tr>
       </thead>
       <tbody>
-      <ng-template ngFor let-submission [ngForOf]="submissions">
-        <tr *ngFor="let answer of answersForSubmission(submission.id); let i = index">
-          <ng-template [ngIf]="i === 0">
-            <td [attr.rowspan]="answersForSubmission(submission.id).length">
-              <app-user [user]="findUser(answer.submissionId)" [showSocialLinks]="true"></app-user>
-            </td>
-          </ng-template>
-          <td>
-            {{questions[answer.questionId].label}}
+      <tr *ngFor="let answer of answers; let i = index">
+        <ng-template [ngIf]="i === 0">
+          <td [attr.rowspan]="answers.length">
+            <app-user [username]="answer.username"></app-user>
           </td>
-          <td>
-            <p class="content">
-              <app-oengus-md [data]="answer.answer"></app-oengus-md>
-            </p>
-          </td>
-        </tr>
-      </ng-template>
+        </ng-template>
+        <td>
+          {{questions[answer.questionId].label}}
+        </td>
+        <td>
+          <p class="content">
+            <app-oengus-md [data]="answer.answer"></app-oengus-md>
+          </p>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>

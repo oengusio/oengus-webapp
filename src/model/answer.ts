@@ -7,6 +7,7 @@ export class Answer {
   submissionId: number;
   question: Question;
   answer: any;
+  username: string;
 
   constructor() {
     this.question = new Question('SUBMISSION');

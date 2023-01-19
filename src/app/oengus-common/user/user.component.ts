@@ -12,7 +12,8 @@ import {SocialPlatform} from '../../../model/social-platform';
 })
 export class UserComponent implements OnInit {
 
-  @Input() user: User;
+  @Input() username?: string;
+  @Input() user?: User;
   @Input() showSocialLinks = false;
   @Input() showProfileLink = true;
 

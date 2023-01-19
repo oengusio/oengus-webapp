@@ -1,14 +1,21 @@
-<div class="is-inline-flex">
-  <a *ngIf="showProfileLink"
-     [routerLink]="'/user/profile/' + user.username">
-    {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
-  </a>
-  <span *ngIf="!showProfileLink">
+<ng-template [ngIf]="user" [ngIfElse]="justUserName">
+  <div class="is-inline-flex">
+    <a *ngIf="showProfileLink"
+       [routerLink]="'/user/profile/' + user.username">
+      {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
+    </a>
+    <span *ngIf="!showProfileLink">
     {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
   </span>
-  <ng-template [ngIf]="showSocialLinks && user.enabled">
-    <a [href]="platforms[connection.platform] + connection.username" *ngFor="let connection of profileConnections" target="_blank">
-      <fa-icon [icon]="iconMapping[connection.platform]" style="margin-left: 0.4rem"></fa-icon>
-    </a>
-  </ng-template>
-</div>
+    <ng-template [ngIf]="showSocialLinks && user.enabled">
+      <a [href]="platforms[connection.platform] + connection.username" *ngFor="let connection of profileConnections" target="_blank">
+        <fa-icon [icon]="iconMapping[connection.platform]" style="margin-left: 0.4rem"></fa-icon>
+      </a>
+    </ng-template>
+  </div>
+</ng-template>
+<ng-template #justUserName>
+  <a [routerLink]="'/user/profile/' + username">
+    {{ username }}
+  </a>
+</ng-template>

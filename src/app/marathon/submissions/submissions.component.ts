@@ -9,7 +9,6 @@ import { Submission } from '../../../model/submission';
 import { GameService } from '../../../services/game.service';
 import { SubmissionService } from '../../../services/submission.service';
 import { CategoryService } from '../../../services/category.service';
-import { User } from '../../../model/user';
 import { Question } from 'src/model/question';
 import { Answer } from '../../../model/answer';
 import { debounce } from 'lodash';
@@ -131,7 +130,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   }
 
   ctrlFHandler(event: KeyboardEvent): boolean {
-    if (event.ctrlKey && event.key === 'f') {
+    if (event.ctrlKey && event.key === 'f' && this.active === 'submissions') {
       event.preventDefault();
 
       const el = this.searchInput.nativeElement;
@@ -213,14 +212,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
         }
       });
     });
-  }
-
-  answersForSubmission(submissionId: number): Answer[] {
-    return this.answers.filter(answer => answer.submissionId === submissionId);
-  }
-
-  findUser(submissionId: number): User {
-    return this.submissions.find((s) => s.id === submissionId).user;
   }
 
   get title(): string {
