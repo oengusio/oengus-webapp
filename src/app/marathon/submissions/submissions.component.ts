@@ -72,7 +72,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
         this.answers.set(answer.username, []);
       }
 
-      this.answers[answer.username].push(answer);
+      this.answers.get(answer.username).push(answer);
     }
 
     // Yucky, should not be done when questions are not needed
