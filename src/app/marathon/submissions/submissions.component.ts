@@ -28,7 +28,8 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   public filteredSubmissions: Submission[] = [];
   public selection: Map<number, Selection>;
   public questions: Map<number, Question>;
-  public answers: Answer[];
+  // username -> answers
+  public answers: Map<string, Answer[]>;
 
   public runnerGameFilter = '';
   public categoryFilter = '';
@@ -60,8 +61,20 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
               private categoryService: CategoryService) {
     // this.submissions = this.route.snapshot.data.submissions;
     this.selection = this.route.snapshot.data.selection;
-    this.answers = this.route.snapshot.data.answers;
+    this.answers = new Map<string, Answer[]>();
     this.questions = new Map<number, Question>();
+
+    // map all the answers to the username
+    const answers = this.route.snapshot.data.answers as Answer[];
+
+    for (const answer of answers) {
+      if (!this.answers.has(answer.username)) {
+        this.answers.set(answer.username, []);
+      }
+
+      this.answers[answer.username].push(answer);
+    }
+
     // Yucky, should not be done when questions are not needed
     this.marathonService.marathon.questions.forEach((question) => {
       if (question.fieldType === 'FREETEXT') {

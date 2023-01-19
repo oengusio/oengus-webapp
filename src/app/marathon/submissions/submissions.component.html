@@ -87,21 +87,23 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let answer of answers; let i = index">
-        <ng-template [ngIf]="i === 0">
-          <td [attr.rowspan]="answers.length">
-            <app-user [username]="answer.username"></app-user>
+      <ng-template ngFor let-entry [ngForOf]="answers | keyvalue">
+        <tr *ngFor="let answer of entry.value; let i = index">
+          <ng-template [ngIf]="i === 0">
+            <td [attr.rowspan]="entry.value.length">
+              <app-user [username]="entry.key"></app-user>
+            </td>
+          </ng-template>
+          <td>
+            {{questions[answer.questionId].label}}
           </td>
-        </ng-template>
-        <td>
-          {{questions[answer.questionId].label}}
-        </td>
-        <td>
-          <p class="content">
-            <app-oengus-md [data]="answer.answer"></app-oengus-md>
-          </p>
-        </td>
-      </tr>
+          <td>
+            <p class="content">
+              <app-oengus-md [data]="answer.answer"></app-oengus-md>
+            </p>
+          </td>
+        </tr>
+      </ng-template>
       </tbody>
     </table>
   </div>
