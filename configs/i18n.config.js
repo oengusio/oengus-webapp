@@ -41,7 +41,12 @@ export function i18nConfig() {
     locales,
     defaultLocale: 'en-GB',
     strategy: 'prefix',
-    detectBrowserLanguage: false,
+    detectBrowserLanguage: {
+      alwaysRedirect: false,
+      fallbackLocale: 'en-GB',
+      redirectOn: 'no prefix',
+      useCookie: false,
+    },
     langDir: '~/locales/',
     lazy: true,
     vueI18nLoader: true,
