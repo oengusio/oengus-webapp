@@ -5,12 +5,12 @@ export class HomepageMetadata {
   next: Marathon[];
   open: Marathon[];
   live: Marathon[];
-  moderated: Marathon[];
+  // moderated: Marathon[];
 
   constructor() {
     this.next = [];
     this.open = [];
     this.live = [];
-    this.moderated = [];
+    // this.moderated = [];
   }
 }

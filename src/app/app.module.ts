@@ -30,6 +30,7 @@ import { KasperskyAnnouncementComponent } from './news/kaspersky-announcement/ka
 import {ButtonsModule} from './buttons/buttons.module';
 import { PlumComponent } from './plum/plum.component';
 import * as Sentry from '@sentry/angular';
+import { HomepageModeratedResolver } from './resolvers/homepage-moderated-resolver';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     path: '',
     component: HomepageComponent,
     resolve: {
-      homepageMetadata: HomepageMetadataResolver
+      homepageMetadata: HomepageMetadataResolver,
+      moderatedMarathons: HomepageModeratedResolver,
     }
   },
   {
@@ -116,6 +118,7 @@ const appRoutes: Routes = [
     },
     httpInterceptorProviders,
     HomepageMetadataResolver,
+    HomepageModeratedResolver,
     PatronsResolver,
   ],
   bootstrap: [AppComponent]

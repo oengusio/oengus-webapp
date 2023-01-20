@@ -31,7 +31,7 @@ export class HomepageComponent implements OnInit {
     this.nextMarathons = this.route.snapshot.data.homepageMetadata.next;
     const openMarathons = this.route.snapshot.data.homepageMetadata.open;
     this.liveMarathons = this.route.snapshot.data.homepageMetadata.live;
-    this.moderatedMarathons = this.route.snapshot.data.homepageMetadata.moderated;
+    this.moderatedMarathons = this.route.snapshot.data.moderatedMarathons;
 
     this.openMarathons = openMarathons.map((marathon: Marathon) => ({
       ...marathon,

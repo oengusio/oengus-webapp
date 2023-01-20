@@ -100,6 +100,10 @@ export class MarathonService extends BaseService {
     return this.http.get<HomepageMetadata>(this.url(''));
   }
 
+  findHomepageModerated(): Observable<{ marathons: Marathon[] }> {
+    return this.http.get<{ marathons: Marathon[] }>(this.url('/moderated-by/me'));
+  }
+
   findForMonth(start: Date, end: Date): Observable<Marathon[]> {
     const params = new HttpParams()
       .set('start', start.toISOString())
