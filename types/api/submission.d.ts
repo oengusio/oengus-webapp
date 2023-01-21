@@ -3,6 +3,15 @@ import { FullMarathon } from './marathon';
 import { OengusState } from './oengus-api';
 import { User } from './user';
 
+export interface SubmissionPageResponse {
+  content: Array<Submission>;
+  totalPages: number;
+  currentPage: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+}
+
 export interface Submission {
   id: number;
   answers: Array<any>; // Array<Answer>

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { ActionTree, MutationTree } from 'vuex';
 import { OengusAPI } from '~/plugins/oengus';
-import { Submission, SubmissionList, SubmissionState } from '~/types/api/submission';
+import { SubmissionList, SubmissionPageResponse, SubmissionState } from '~/types/api/submission';
 
 const SubmissionOengusAPI = new OengusAPI<SubmissionState>('marathons');
 
@@ -17,7 +17,7 @@ export const mutations: MutationTree<SubmissionState> = {
 
 // TODO: implement pagination
 export const actions: ActionTree<SubmissionState, SubmissionState> = {
-  get: SubmissionOengusAPI.get<{ content: Array<Submission> }, SubmissionList>({
+  get: SubmissionOengusAPI.get<SubmissionPageResponse, SubmissionList>({
     path: 'submissions',
     key: 'submissions',
     transform: ({ value }) => ({ submissions: value.content }),
