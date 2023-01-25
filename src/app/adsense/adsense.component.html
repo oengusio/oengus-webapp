@@ -1,9 +1,13 @@
 <div style="padding: 1rem 0;">
-  <div class="container" style="background-color: #FF6700;" [ngStyle]="{
+  <div class="container patreon-nudge empty-space" [ngStyle]="{
     'width': maxWidth,
     'max-width': maxWidth,
-    'height': onHeight
+    'min-height': onHeight
   }">
+    <div class="join-patreon">
+      <p>{{ 'global.ads.nag1' | translate }}</p> <br>
+      <p>{{ 'global.ads.nag2' | translate }}</p>
+    </div>
     <!-- Oengus Vertical Responsive -->
     <ins class="adsbygoogle"
          style="display:block"
