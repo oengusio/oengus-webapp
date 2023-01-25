@@ -49,20 +49,21 @@
               <fa-icon [icon]="faBook" style="margin-right:0.4rem"></fa-icon>
               <span *ngIf="!minimized">{{ 'marathon.menu.viewSubmissions' | translate}}</span>
             </a></li>
-            <ng-template [ngIf]="marathonService.marathon.submitsOpen">
+            <ng-template [ngIf]="marathonService.marathon.submitsOpen || marathonService.marathon.canEditSubmissions">
               <li
-                *ngIf="marathonService.marathon.canEditSubmissions && !!userService.user?.id && !marathonService.isArchived() &&
-            !userService.isBanned()">
+                *ngIf="!!userService.user?.id && !marathonService.isArchived() && !userService.isBanned()">
                 <a routerLink="submit" #rla="routerLinkActive" [ngClass]="{'is-emphasized': !rla.isActive}"
                    [routerLinkActive]="'is-active'" [routerLinkActiveOptions]="{exact: true}">
                   <fa-icon [icon]="faPaperPlane" style="margin-right:0.4rem"></fa-icon>
-                  <span
-                    *ngIf="!marathonService.marathon.hasSubmitted && !minimized">{{ 'marathon.menu.submitRuns' | translate}}</span>
-                  <span *ngIf="marathonService.marathon.hasSubmitted && !minimized">{{ 'marathon.menu.editSubmission' | translate}}</span>
+                  <ng-template [ngIf]="!minimized">
+                    <span *ngIf="marathonService.marathon.hasSubmitted; else submitRunsButton">{{ 'marathon.menu.editSubmission' | translate}}</span>
+                    <ng-template #submitRunsButton>
+                      <span>{{ 'marathon.menu.submitRuns' | translate}}</span>
+                    </ng-template>
+                  </ng-template>
                 </a>
               </li>
-              <li *ngIf="marathonService.marathon.canEditSubmissions && !userService.user?.id &&
-          !marathonService.isArchived() && !minimized">
+              <li *ngIf="marathonService.marathon.canEditSubmissions && !userService.user?.id && !marathonService.isArchived() && !minimized">
                 <a><b>{{ 'marathon.menu.loginToSubmit' | translate}}</b></a></li>
             </ng-template>
             <li *ngIf="marathonService.marathon.scheduleDone">
