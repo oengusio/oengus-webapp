@@ -31,6 +31,6 @@ export class CanActivateMarathonSubmitGuard implements CanActivate {
   }
 
   private condition(user: User, marathon: Marathon) {
-    return !!marathon.canEditSubmissions && !!user;
+    return marathon.canEditSubmissions && user !== null;
   }
 }
