@@ -12,7 +12,6 @@ export class ConnectionSettingsComponent implements OnInit {
   @Input() public connection: SocialAccount;
   @Input() public discordId: number;
   @Input() public twitchId: string;
-  @Input() public twitterId: string;
 
   @Output() public deleteSelf = new EventEmitter<void>();
 
@@ -30,9 +29,20 @@ export class ConnectionSettingsComponent implements OnInit {
 
     return Boolean(
       (type === 'DISCORD' && this.discordId) ||
-      (type === 'TWITCH' && this.twitchId) ||
-      (type === 'TWITTER' && this.twitterId)
+      (type === 'TWITCH' && this.twitchId)
     );
+  }
+
+  get profileLink(): string {
+    const type = this.connection.platform;
+
+    if (type === 'MASTODON') {
+      const [username, platform] = this.connection.username.split('@');
+
+      return `https://${platform}/${username}`;
+    }
+
+    return SocialPlatform[type] + this.connection.username;
   }
 
   get parsedPlatforms(): { [key: string]: { url: string, disabled: boolean } } {
@@ -47,8 +57,6 @@ export class ConnectionSettingsComponent implements OnInit {
       if (key === 'DISCORD' && this.discordId) {
         cloned[key].disabled = true;
       } else if (key === 'TWITCH' && this.twitchId) {
-        cloned[key].disabled = true;
-      } else if (key === 'TWITTER' && this.twitterId) {
         cloned[key].disabled = true;
       }
     }

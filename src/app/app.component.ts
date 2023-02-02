@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { faDiscord, faGithub, faPatreon, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faGithub, faMastodon, faPatreon, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faBug, faLanguage } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
 // @ts-ignore
@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
   @ViewChild('navBurger', {static: true}) navBurger: ElementRef;
   @ViewChild('navMenu', {static: true}) navMenu: ElementRef;
 
+  public faMastodon = faMastodon;
   public faTwitter = faTwitter;
   public faDiscord = faDiscord;
   public faTwitch = faTwitch;

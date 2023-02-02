@@ -155,7 +155,6 @@
                                    [connection]="connection"
                                    [discordId]="user.discordId"
                                    [twitchId]="user.twitchId"
-                                   [twitterId]="user.twitterId"
                                    (deleteSelf)="deleteConnection(connection)"
           ></app-connection-settings>
         </div>
@@ -186,21 +185,21 @@
                      (sync)="syncPatreon()"
                      (unsync)="unsyncPatreon()">
     </app-sync-button>
-    <app-sync-button [synced]="!!user.twitterId"
+    <!--<app-sync-button [synced]="!!user.twitterId"
                      [username]="getUsernameByConnectionType('TWITTER')"
                      title="Twitter"
                      (sync)="syncTwitter()"
                      (unsync)="unsyncTwitter()">
-    </app-sync-button>
+    </app-sync-button>-->
     <p class="help is-danger"
-       *ngIf="!user.discordId && !user.twitchId && !user.twitterId">{{'user.settings.accountSync.error.noService' | translate}}</p>
+       *ngIf="!user.discordId && !user.twitchId">{{'user.settings.accountSync.error.noService' | translate}}</p>
     <div class="field">
       <div class="control">
         <button class="button is-link"
                 [ngClass]="{'is-loading': loading}"
                 type="button"
                 (click)="submit()"
-                [disabled]="form.invalid || (!user.discordId && !user.twitchId && !user.twitterId)">{{'action.save' |
+                [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' |
           translate}}
         </button>
       </div>

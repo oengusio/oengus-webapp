@@ -5,7 +5,8 @@ import {
   faDiscord,
   faInstagram,
   faFacebookF,
-  faSnapchatGhost
+  faSnapchatGhost,
+  faMastodon
 } from '@fortawesome/free-brands-svg-icons';
 import { faTrophy, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { SocialAccount } from '../../../../model/social-account';
@@ -22,6 +23,7 @@ export class ConnectionComponent implements OnInit {
 
   public platformMap = {
     'SPEEDRUNCOM': faTrophy,
+    'MASTODON': faMastodon,
     'TWITTER': faTwitter,
     'TWITCH': faTwitch,
     'FACEBOOK': faFacebookF,
@@ -38,6 +40,12 @@ export class ConnectionComponent implements OnInit {
   }
 
   get profileLink(): string {
+    if (this.connection.platform === 'MASTODON') {
+      const [username, platform] = this.connection.username.split('@');
+
+      return `https://${platform}/${username}`;
+    }
+
     const urlPrefix = SocialPlatform[this.connection.platform];
 
     if (!urlPrefix) {

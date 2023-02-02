@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserProfile } from '../../../model/user-profile';
-import { faTwitch, faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faAngleDown, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { Game } from '../../../model/game';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment';
@@ -19,11 +18,6 @@ export class ProfileComponent implements OnInit {
 
   public user: UserProfile;
   public localStorage = localStorage;
-
-  public faTwitch = faTwitch;
-  public faTwitter = faTwitter;
-  public faDiscord = faDiscord;
-  public faTrophy = faTrophy;
   public faAngleDown = faAngleDown;
   public moment = moment;
 

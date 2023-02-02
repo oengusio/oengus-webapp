@@ -3,6 +3,7 @@ export enum SocialPlatform {
   EMAIL = 'mailto:',
   FACEBOOK = 'https://www.facebook.com/',
   INSTAGRAM = 'https://www.instagram.com/',
+  MASTODON = 'link-from-username',
   NICO = 'https://com.nicovideo.jp/community/',
   SNAPCHAT = 'https://www.snapchat.com/add/',
   SPEEDRUNCOM = 'https://speedrun.com/user/',

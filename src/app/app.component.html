@@ -94,6 +94,10 @@
                [nwbToolTip]="'navbar.discord' | translate" nwbToolTipPosition="bottom">
               <fa-icon [icon]="faDiscord"></fa-icon>
             </a>
+            <a class="navbar-item" href="https://speedrun.zone/OengusIO" target="_blank"
+               [nwbToolTip]="'navbar.mastodon' | translate" nwbToolTipPosition="bottom">
+              <fa-icon [icon]="faMastodon"></fa-icon>
+            </a>
             <a class="navbar-item" href="https://twitter.com/OengusIO" target="_blank"
                [nwbToolTip]="'navbar.twitter' | translate" nwbToolTipPosition="bottom">
               <fa-icon [icon]="faTwitter"></fa-icon>
@@ -161,15 +165,15 @@
                 <fa-icon [icon]="faTwitch" style="margin-right: 0.4rem"></fa-icon>
                 {{'navbar.login.twitch' | translate}}
               </a>
-              <a class="navbar-item is-tooltip-danger"
+              <!--<a class="navbar-item is-tooltip-danger"
                  [href]="userService.getTwitterAuthUrl()"
                  (click)="storeCurrentPage(true)"
                  nwbToolTipPosition="left"
                  nwbToolTipIsMultiline="true"
                  [nwbToolTip]="'navbar.login.disclaimer' | translate">
-                <fa-icon [icon]="faTwitter" style="margin-right: 0.4rem"></fa-icon>
-                {{'navbar.login.twitter' | translate}}
-              </a>
+                <fa-icon [icon]="faMastodon" style="margin-right: 0.4rem"></fa-icon>
+                {{'navbar.login.mastodon' | translate}}
+              </a>-->
             </div>
           </div>
         </div>
