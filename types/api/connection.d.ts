@@ -5,6 +5,7 @@ export type ConnectionPlatform =
   'INSTAGRAM' |
   'PHONE' |
   'NICO' |
+  'MASTODON' |
   'SNAPCHAT' |
   'SPEEDRUNCOM' |
   'TWITCH' |

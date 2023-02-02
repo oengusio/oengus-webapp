@@ -17,6 +17,9 @@
           <a href="https://discord.gg/ZZFS8YT" class="navbar-item" target="_blank">
             <FontAwesomeIcon :icon="[ 'fab', 'discord' ]" class="icon" />
           </a>
+          <a href="https://speedrun.zone/@OengusIO" class="navbar-item" target="_blank">
+            <FontAwesomeIcon :icon="[ 'fab', 'mastodon' ]" class="icon" />
+          </a>
           <a href="https://twitter.com/OengusIO" class="navbar-item" target="_blank">
             <FontAwesomeIcon :icon="[ 'fab', 'twitter' ]" class="icon" />
           </a>

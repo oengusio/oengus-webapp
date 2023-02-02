@@ -14,8 +14,10 @@ export function httpConfig() {
 
 export function getApiUrl(process) {
   const api = process.env.API ?? 'oengus.dev';
-  const protocol = api.match(/^localhost(:\d+)?$/) ? 'http' : 'https';
-  return `${protocol}://${api}/api/v1/`;
+  const isLocal = api.match(/^localhost(:\d+)?$/);
+  const protocol = isLocal ? 'http' : 'https';
+  const prefix = isLocal ? '' : '/api';
+  return `${protocol}://${api}${prefix}/v1/`;
 }
 
 export function httpRuntimeConfig(process) {

@@ -40,6 +40,7 @@ const brands = [
   'FacebookF',
   'Github',
   'Instagram',
+  'Mastodon',
   'Patreon',
   'SnapchatGhost',
   'Twitch',

@@ -57,6 +57,15 @@ const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
     icon: [ 'fas', 'tv' ],
     header: 'platform.NICO',
   },
+  MASTODON: {
+    linkBase: (fragment) => {
+      const [ username, domain ] = fragment.split('@');
+
+      return `https://${domain}/${username}`;
+    },
+    icon: [ 'fab', 'mastodon' ],
+    header: 'platform.MASTODON',
+  },
   SNAPCHAT: {
     linkBase: fragment => `https://www.snapchat.com/add/${fragment}`,
     icon: [ 'fab', 'snapchat-ghost' ],

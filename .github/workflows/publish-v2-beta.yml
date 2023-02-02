@@ -1,6 +1,6 @@
-name: Publish prod
+name: Publish v2 to prod
 on:
-  create:
+  push:
     tags:
       - v2_*
 jobs:
@@ -45,4 +45,4 @@ jobs:
       - name: Trigger prod webhook
         uses: zzzze/webhook-trigger@v1.0.0
         with:
-          webhook_url: ${{ secrets.V2_WEBHOOK_PROD_URL }}
+          webhook_url: ${{ secrets.PROD_BETA_WEBHOOK_URL }}
