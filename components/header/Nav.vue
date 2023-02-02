@@ -17,10 +17,10 @@
           <a href="https://discord.gg/ZZFS8YT" class="navbar-item" target="_blank">
             <FontAwesomeIcon :icon="[ 'fab', 'discord' ]" class="icon" />
           </a>
-          <a href="https://speedrun.zone/@OengusIO" class="navbar-item" target="_blank">
+          <a href="https://speedrun.zone/@OengusIO" rel="me" class="navbar-item" target="_blank">
             <FontAwesomeIcon :icon="[ 'fab', 'mastodon' ]" class="icon" />
           </a>
-          <a href="https://twitter.com/OengusIO" class="navbar-item" target="_blank">
+          <a href="https://twitter.com/OengusIO" rel="me" class="navbar-item" target="_blank">
             <FontAwesomeIcon :icon="[ 'fab', 'twitter' ]" class="icon" />
           </a>
           <a href="https://github.com/esamarathon/oengusio" class="navbar-item" target="_blank">
@@ -32,7 +32,7 @@
           <a href="https://hosted.weblate.org/projects/oengusio/site/" class="navbar-item" target="_blank">
             <FontAwesomeIcon :icon="[ 'fas', 'language' ]" class="icon" />
           </a>
-          <a href="https://www.patreon.com/oengusio" class="navbar-item" target="_blank">
+          <a href="https://www.patreon.com/oengusio" rel="me" class="navbar-item" target="_blank">
             <FontAwesomeIcon :icon="[ 'fab', 'patreon' ]" class="icon" />
           </a>
         </div>
