@@ -50,7 +50,7 @@ export const environment = {
 
   // the api that the front-end talks to
   get api() {
-    return `${environment.apiRw}/v1`;
+    return environment.apiRw;
   },
   // these two get the service name appended to it (eg twitch, twitter, discord)
   get loginRedirect() {

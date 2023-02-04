@@ -3,7 +3,7 @@ export const environment = {
   production: true,
   sandbox: true,
   baseSite: 'https://sandbox.oengus.io',
-  api: 'https://sandbox.oengus.io/api/v1',
+  api: 'https://sandbox.oengus.io/api',
   twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',
   twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
   discordClientId: '559625844197163008',

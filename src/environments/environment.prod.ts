@@ -6,7 +6,7 @@ export const environment = {
   get baseSite() {
     return window.location.origin;
   },
-  api: 'https://oengus.io/api/v1',
+  api: 'https://oengus.io/api',
   twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',
   twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
   discordClientId: '559625844197163008',

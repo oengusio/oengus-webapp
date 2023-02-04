@@ -97,7 +97,7 @@ export class MarathonService extends BaseService {
   }
 
   findHomepageMetadata(): Observable<HomepageMetadata> {
-    return this.http.get<HomepageMetadata>(this.url(''));
+    return this.http.get<HomepageMetadata>(this.v2Url('/for-home'));
   }
 
   findHomepageModerated(): Observable<{ marathons: Marathon[] }> {
