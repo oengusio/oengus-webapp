@@ -170,10 +170,6 @@ export class AppComponent implements OnInit {
     localStorage.setItem('oengus_hide_kaspersky_announcement', 'true');
   }
 
-  isBlockingAds(): boolean {
-    return !document.getElementById('mnMzPGBywKre');
-  }
-
   async storeCurrentPage(twitter: boolean = false): Promise<boolean> {
     if (twitter) {
       const words = await firstValueFrom(this.translate.get('announcements.twitterRemoval'));
