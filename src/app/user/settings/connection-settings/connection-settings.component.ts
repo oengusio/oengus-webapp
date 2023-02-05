@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { SocialAccount } from '../../../../model/social-account';
 import { SocialPlatform } from '../../../../model/social-platform';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { parseMastodonUrl } from '../../../../utils/helpers';
 
 @Component({
   selector: 'app-connection-settings',
@@ -37,9 +38,7 @@ export class ConnectionSettingsComponent implements OnInit {
     const type = this.connection.platform;
 
     if (type === 'MASTODON') {
-      const [username, platform] = this.connection.username.split('@');
-
-      return `https://${platform}/${username}`;
+      return parseMastodonUrl(this.connection.username);
     }
 
     return SocialPlatform[type] + this.connection.username;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import moment from 'moment-timezone';
-import { faDiscord, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faTwitch, faTwitter, faYoutube, faMastodon } from '@fortawesome/free-brands-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import isoLang from '../../../assets/languages.json';
 import { MarathonService } from '../../../services/marathon.service';
@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
 
   public faTwitch = faTwitch;
   public faTwitter = faTwitter;
+  public faMastodon = faMastodon;
   public faDiscord = faDiscord;
   public faYoutube = faYoutube;
   public faGlobe = faGlobe;

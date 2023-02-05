@@ -59,6 +59,16 @@
       </p>
     </div>
   </div>
+  <div class="level-item has-text-centered" *ngIf="marathonService.marathon.mastodon">
+    <div>
+      <p class="heading">Mastodon</p>
+      <p class="title">
+        <a [href]="marathonService.mastodonUrl" target="_blank">
+          <fa-icon [icon]="faMastodon"></fa-icon>
+        </a>
+      </p>
+    </div>
+  </div>
   <div class="level-item has-text-centered"
        *ngIf="marathonService.marathon.discord && !marathonService.marathon.discordPrivacy">
     <div>

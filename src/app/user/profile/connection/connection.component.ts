@@ -11,6 +11,7 @@ import {
 import { faTrophy, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { SocialAccount } from '../../../../model/social-account';
 import { SocialPlatform } from '../../../../model/social-platform';
+import { parseMastodonUrl } from '../../../../utils/helpers';
 
 @Component({
   selector: 'app-connection',
@@ -41,9 +42,7 @@ export class ConnectionComponent implements OnInit {
 
   get profileLink(): string {
     if (this.connection.platform === 'MASTODON') {
-      const [username, platform] = this.connection.username.split('@');
-
-      return `https://${platform}/${username}`;
+      return parseMastodonUrl(this.connection.username);
     }
 
     const urlPrefix = SocialPlatform[this.connection.platform];

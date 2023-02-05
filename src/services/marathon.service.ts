@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import moment from 'moment-timezone';
 import { User } from '../model/user';
 import {BaseService} from './BaseService';
+import { parseMastodonUrl } from '../utils/helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,14 @@ export class MarathonService extends BaseService {
 
   get marathon(): Marathon {
     return this._marathon;
+  }
+
+  get mastodonUrl(): string {
+    if (!this.marathon.mastodon) {
+      return '';
+    }
+
+    return parseMastodonUrl(this.marathon.mastodon);
   }
 
   set marathon(value: Marathon) {

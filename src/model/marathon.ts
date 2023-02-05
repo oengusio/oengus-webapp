@@ -1,5 +1,6 @@
 import { User } from './user';
 import { Question } from './question';
+import { parseMastodonUrl } from '../utils/helpers';
 
 export class Marathon {
 
@@ -20,6 +21,7 @@ export class Marathon {
   maxNumberOfScreens: number;
   twitch: string;
   twitter: string;
+  mastodon?: string;
   discord: string;
   youtube: string;
   country: string;
