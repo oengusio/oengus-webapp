@@ -40,6 +40,7 @@ export interface FullMarathon {
   location: string;
   maxCategoriesPerGame: number;
   maxNumberOfScreens: number;
+  mastodon: string;
   moderators: Array<User>;
   name: string;
   onsite: boolean;

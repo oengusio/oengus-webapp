@@ -61,7 +61,7 @@ const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
     linkBase: (fragment) => {
       const [ username, domain ] = fragment.split('@');
 
-      return `https://${domain}/${username}`;
+      return `https://${domain}/@${username}`;
     },
     icon: [ 'fab', 'mastodon' ],
     header: 'platform.MASTODON',

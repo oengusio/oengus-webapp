@@ -33,6 +33,12 @@
         </p>
         <FontAwesomeIcon :icon="[ 'fab', 'twitch' ]" class="icon info" />
       </a>
+      <a v-if="marathon.mastodon" :href="mastodonUrl" target="_blank" class="info-box">
+        <p class="info-label">
+          {{ $t('platform.MASTODON') }}
+        </p>
+        <FontAwesomeIcon :icon="[ 'fab', 'mastodon' ]" class="icon info" />
+      </a>
       <a v-if="marathon.twitter" :href="`https://twitter.com/${marathon.twitter}`" target="_blank" class="info-box">
         <p class="info-label">
           {{ $t('platform.TWITTER') }}
@@ -79,6 +85,15 @@ export default Vue.extend({
   computed: {
     marathon(): FullMarathon|undefined {
       return (this.$store.state.api.marathon as MarathonState).marathons[this.marathonId];
+    },
+    mastodonUrl(): string {
+      if (!this.marathon || !this.marathon.mastodon) {
+        return 'https://speedrun.zone/@OengusIO';
+      }
+
+      const [ username, domain ] = this.marathon.mastodon.split('@');
+
+      return `https://${domain}/@${username}`;
     },
     isLive(): boolean {
       if (!this.marathon) {
