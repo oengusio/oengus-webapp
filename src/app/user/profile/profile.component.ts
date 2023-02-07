@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
   }
 
   get avatarUrl(): string {
-    return `${environment.api}/users/${this.user.username}/avatar`;
+    return `${environment.api}/v2/users/${this.user.username}/avatar`;
   }
 
   updateUser(user): void {

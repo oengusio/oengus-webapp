@@ -276,7 +276,7 @@ export class SubmitComponent implements OnInit {
 
     // why is this not in the marathon service?
     this.http.get<string>(
-      `${environment.api}/marathons/${marathonId}/discord/in-guild/${discordUserId}`
+      `${environment.api}/v1/marathons/${marathonId}/discord/in-guild/${discordUserId}`
     )
       .subscribe(
         () => {
