@@ -1,18 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Marathon } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
-import isoLang from '../../../assets/languages.json';
-import countries from '../../../assets/countries.json';
-import { User } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
 import { cloneDeep } from 'lodash';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment';
-import { environment } from '../../../environments/environment';
-import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Question } from '../../../model/question';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { debounce } from 'lodash';
 
 @Component({
   selector: 'app-settings',
@@ -21,16 +16,9 @@ import { debounce } from 'lodash';
 })
 export class SettingsComponent implements OnInit {
 
-  public donationsDisabled = environment.donationsDisabled;
-
   public marathon: Marathon;
-  public languages = (<any>isoLang);
-  public countries = countries;
-  public env = environment;
   public loading = false;
-  public now: Date;
 
-  public data = [];
   public active = 'general';
 
   public deleteConfirm = false;
@@ -39,27 +27,14 @@ export class SettingsComponent implements OnInit {
 
   public faTimes = faTimes;
   public faPlus = faPlus;
-  public faBars = faBars;
 
   public submissionsQuestions: Question[];
   public donationsQuestions: Question[];
 
-  public loadWebhookCheck: boolean;
-  public isWebhookOnline = true;
-  public isOengusBotWebhook = false;
-  public isMissingMarathon = false;
-  public checkWebhookDebounced;
-
-  public loadingDiscordCheck = false;
-
-  public botInvite = 'https://discord.com/api/oauth2/authorize?client_id=559625844197163008&permissions=68608&scope=bot';
+  public settingsValid = true;
 
   constructor(public marathonService: MarathonService,
               public userService: UserService) {
-    this.now = new Date();
-    this.now.setSeconds(0);
-
-    this.checkWebhookDebounced = debounce(this.checkWebhook, 250);
   }
 
   ngOnInit() {
@@ -67,67 +42,34 @@ export class SettingsComponent implements OnInit {
     this.marathon.defaultSetupTimeHuman = DurationService.toHuman(this.marathon.defaultSetupTime);
     this.submissionsQuestions = this.marathon.questions.filter(q => q.questionType === 'SUBMISSION');
     this.donationsQuestions = this.marathon.questions.filter(q => q.questionType === 'DONATION');
-    this.isOengusBotWebhook = (this.marathon.webhook || '').startsWith('oengus-bot');
   }
 
-  checkWebhook(text: any): void {
-    if (!text) {
-      this.isWebhookOnline = true;
-      this.isOengusBotWebhook = false;
-      this.isMissingMarathon = false;
+  submit(event: SubmitEvent) {
+    const form = event.target as HTMLFormElement;
+
+    if (!form.reportValidity()) {
       return;
     }
 
-    text = text.trim();
-
-    if (text.startsWith('oengus-bot')) {
-      this.isWebhookOnline = true;
-      this.isOengusBotWebhook = true;
-      this.isMissingMarathon = !text.includes('marathon=' + this.marathonService.marathon.id);
-      this.isWebhookOnline = !this.isMissingMarathon;
-
-      return;
-    }
-
-    this.loadWebhookCheck = true;
-    this.isOengusBotWebhook = false;
-    this.marathonService.isWebhookOnline(this.marathonService.marathon.id, text)
-      .subscribe(() => this.isWebhookOnline = true, () => this.isWebhookOnline = false)
-      .add(() => this.loadWebhookCheck = false);
-  }
-
-  onSelectMod(item: User) {
-    if (this.marathon.moderators.findIndex(user => user.id === item.id) < 0
-      && this.marathon.creator.id !== item.id) {
-      this.marathon.moderators.push(item);
-    }
-  }
-
-  onSearchMod(val: string) {
-    if (!val || val.length < 3) {
-      return;
-    }
-    this.userService.search(val).subscribe(response => {
-      this.data = response;
-    });
-  }
-
-  removeModerator(index: number) {
-    this.marathon.moderators.splice(index, 1);
-  }
-
-  submit() {
     this.loading = true;
     this.marathon.defaultSetupTime = moment.duration(this.marathon.defaultSetupTimeHuman).toISOString();
     this.marathon.questions = [];
     this.marathon.questions = this.marathon.questions.concat(this.submissionsQuestions);
     this.marathon.questions = this.marathon.questions.concat(this.donationsQuestions);
     this.marathonService.update(this.marathon).add(() => {
-      this.loading = false;
+      // re-fetch marathon
+      this.marathonService.find(this.marathon.id).subscribe((marathon) => {
+        this.marathonService.marathon = marathon;
+        this.loading = false;
+      });
     });
   }
 
-  addQuestion(questionType: string) {
+  settingsComponentUpdated(isValid: boolean): void {
+    this.settingsValid = isValid;
+  }
+
+  addQuestion({ questionType }: { questionType: string }) {
     const question = new Question(questionType);
     if (questionType === 'SUBMISSION') {
       question.position = this.submissionsQuestions.length;
@@ -140,7 +82,7 @@ export class SettingsComponent implements OnInit {
     this.computeQuestionsPositions();
   }
 
-  questionTypeChange(questionType: string, index: number, fieldType: string) {
+  questionTypeChange({questionType, i: index, fieldType }: { questionType: string, i: number, fieldType: string }) {
     if (questionType === 'SUBMISSION') {
       if (this.submissionsQuestions[index].fieldType === 'FREETEXT') {
         this.submissionsQuestions[index].required = false;
@@ -162,7 +104,7 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  removeQuestion(questionType: string, i: number) {
+  removeQuestion({ questionType, i }: { questionType: string, i: number }) {
     if (questionType === 'SUBMISSION') {
       this.submissionsQuestions.splice(i, 1);
     }
@@ -172,7 +114,7 @@ export class SettingsComponent implements OnInit {
     this.computeQuestionsPositions();
   }
 
-  addOption(questionType: string, i: number) {
+  addOption({ questionType, i }: { questionType: string, i: number }) {
     if (questionType === 'SUBMISSION') {
       this.submissionsQuestions[i].options.push('');
     }
@@ -181,57 +123,15 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  removeOption(questionType: string, i: number, j: number) {
-    if (questionType === 'SUBMISSION') {
-      this.submissionsQuestions[i].options.splice(j, 1);
-    }
+  removeOption({ questionType, i, j }: { questionType: string, i: number, j: number }) {
     if (questionType === 'DONATION') {
       this.donationsQuestions[i].options.splice(j, 1);
     }
   }
 
-  trackByIdx(index: number, obj: any): any {
-    return index;
-  }
-
   drop(event: CdkDragDrop<Question[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     this.computeQuestionsPositions();
-  }
-
-  checkDiscordStatus() {
-    if (!this.marathon.discordRequired) {
-      this.marathon.discordGuildId = null;
-      this.marathon.discordGuildName = null;
-      return;
-    }
-
-    if (this.marathon.discord) {
-      this.loadingDiscordCheck = true;
-      this.marathonService.fetchDiscordInfo(this.marathon)
-        .subscribe(({ id, name }) => {
-          this.marathon.discordGuildId = id;
-          this.marathon.discordGuildName = name;
-        })
-        .add(() => this.loadingDiscordCheck = false);
-    }
-  }
-
-  onSubmitsOpenChanged(event: any): void {
-    const now = new Date();
-    const closeDate = new Date(this.marathon.submissionsEndDate);
-
-    if (!this.marathon.submitsOpen && (Boolean(this.marathon.submissionsEndDate) && now > closeDate)) {
-      const conf = confirm('Re-opening the submissions will clear the automatic open and close times, do you want to continue?');
-
-      if (conf) {
-        this.marathon.submissionsEndDate = null;
-        this.marathon.submissionsStartDate = null;
-      } else {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    }
   }
 
   get title(): string {

@@ -1,0 +1,288 @@
+<h1 class="title">{{ 'marathon.settings.submissionsTitle' | translate}}</h1>
+<div class="field">
+  <label class="label">{{ 'marathon.settings.submissions.label' | translate}}</label>
+  <div class="control is-flex">
+    <span style="margin-right: 0.5rem">{{'marathon.settings.submissions.closed' | translate}}</span>
+    <nwb-switch [(ngModel)]="marathon.submitsOpen" name="submitsOpen" (click)="onSubmitsOpenChanged($event)" [disabled]="marathon.selectionDone">
+      <span>{{ 'marathon.settings.submissions.open' | translate}}</span>
+    </nwb-switch>
+  </div>
+</div>
+<div class="columns">
+  <div class="column">
+    <label class="label">{{ 'marathon.settings.maxGamesPerRunner.label' | translate}}</label>
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input class="input"
+               [disabled]="marathon.selectionDone || marathon.unlimitedGames"
+               [ngClass]="{'is-danger': maxGamesPerRunner.invalid}"
+               type="number"
+               [(ngModel)]="marathon.maxGamesPerRunner"
+               name="maxGamesPerRunner"
+               appMinNumberValidator="1"
+               required
+               step="1"
+               #maxGamesPerRunner="ngModel">
+      </div>
+      <p class="control">
+        <button type="button" class="button">
+          <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="marathon.unlimitedGames" name="unlimitedGames"
+                   style="margin-right: 0.25rem">{{'marathon.settings.unlimited' | translate}}
+          </label>
+        </button>
+      </p>
+    </div>
+    <div *ngIf="maxGamesPerRunner.invalid">
+      <p class="help is-danger"
+         *ngIf="maxGamesPerRunner.errors.minNumber">{{'marathon.settings.maxGamesPerRunner.error.min' |
+        translate}}</p>
+      <p class="help is-danger" *ngIf="maxGamesPerRunner.errors.required">
+        {{ 'marathon.settings.maxGamesPerRunner.error.required' | translate}}
+      </p>
+    </div>
+  </div>
+  <div class="column">
+    <label class="label">{{'marathon.settings.maxCategoriesPerGame.label' | translate}}</label>
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input class="input"
+               [ngClass]="{'is-danger': maxCategoriesPerGame.invalid}"
+               type="number"
+               [disabled]="marathon.selectionDone || marathon.unlimitedCategories"
+               [(ngModel)]="marathon.maxCategoriesPerGame"
+               name="maxCategoriesPerGame"
+               appMinNumberValidator="1"
+               appMaxNumberValidator="10"
+               required
+               step="1"
+               #maxCategoriesPerGame="ngModel">
+      </div>
+      <p class="control">
+        <button type="button" class="button">
+          <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="marathon.unlimitedCategories" name="unlimitedCategories"
+                   style="margin-right: 0.25rem">{{'marathon.settings.unlimited' | translate}}
+          </label>
+        </button>
+      </p>
+    </div>
+    <div *ngIf="maxCategoriesPerGame.invalid">
+      <p class="help is-danger"
+         *ngIf="maxCategoriesPerGame.errors.minNumber">
+        {{'marathon.settings.maxCategoriesPerGame.error.min' | translate}}
+      </p>
+      <p class="help is-danger" *ngIf="maxCategoriesPerGame.errors.maxNumber">
+        {{'marathon.settings.maxCategoriesPerGame.error.max' | translate}}
+      </p>
+      <p class="help is-danger" *ngIf="maxCategoriesPerGame.errors.required">
+        {{'marathon.settings.maxCategoriesPerGame.error.required' | translate}}
+      </p>
+    </div>
+  </div>
+</div>
+<div class="columns">
+  <div class="column">
+    <div class="field">
+      <label class="label">{{'marathon.settings.multiplayer.label' | translate}}</label>
+      <div class="control is-flex">
+        <span style="margin-right: 0.5rem">{{'marathon.settings.multiplayer.forbidden' | translate}}</span>
+        <nwb-switch [(ngModel)]="marathon.hasMultiplayer"
+                    name="hasMultiplayer"
+                    [disabled]="marathon.selectionDone">
+          <span>{{'marathon.settings.multiplayer.allowed' | translate}}</span>
+        </nwb-switch>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <label class="label">{{'marathon.settings.maxNumberOfScreens.label' | translate}}</label>
+    <div class="field">
+      <div class="control">
+        <input class="input"
+               [ngClass]="{'is-danger': maxNumberOfScreens.invalid}"
+               type="number"
+               [disabled]="marathon.selectionDone && !marathon.hasMultiplayer"
+               [(ngModel)]="marathon.maxNumberOfScreens"
+               name="maxNumberOfScreens"
+               appMinNumberValidator="1"
+               required
+               step="1"
+               #maxNumberOfScreens="ngModel">
+      </div>
+    </div>
+    <p class="help">{{'marathon.settings.maxNumberOfScreens.help' | translate}}</p>
+    <div *ngIf="maxNumberOfScreens.invalid">
+      <p class="help is-danger"
+         *ngIf="maxNumberOfScreens.errors.minNumber">{{'marathon.settings.maxNumberOfScreens.error.min' |
+        translate}}
+      </p>
+      <p class="help is-danger" *ngIf="maxNumberOfScreens.errors.required">
+        {{'marathon.settings.maxNumberOfScreens.error.required' | translate}}
+      </p>
+    </div>
+  </div>
+</div>
+<div class="columns is-multiline">
+  <div class="column">
+    <div class="field">
+      <label class="label">{{'marathon.settings.emulatorAuthorized.label' | translate}}</label>
+      <div class="control">
+        <nwb-switch [(ngModel)]="marathon.emulatorAuthorized"
+                    name="emulatorAuthorized"
+                    [disabled]="marathon.selectionDone">
+          <span>{{'marathon.settings.emulatorAuthorized.allowed' | translate}}</span>
+        </nwb-switch>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="field">
+      <label class="label">{{'marathon.settings.videoRequired.label' | translate}}</label>
+      <div class="control">
+        <nwb-switch [(ngModel)]="marathon.videoRequired"
+                    name="videoRequired"
+                    [disabled]="marathon.selectionDone">
+          <span>{{'marathon.settings.videoRequired.allowed' | translate}}</span>
+        </nwb-switch>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Discord requirement -->
+<div class="columns">
+  <div class="column">
+    <fieldset [disabled]="!marathon.discord && !marathon.discordPrivacy">
+      <div class="field">
+        <div class="control" [ngClass]="{'is-loading': loadingDiscordCheck}" style="width: 10px"></div>
+        <label class="label">{{ 'marathon.settings.discordRequirement.label' | translate }}</label>
+        <div class="control">
+          <nwb-switch [(ngModel)]="marathon.discordRequired"
+                      name="discordRequired"
+                      [disabled]="loadingDiscordCheck"
+                      (change)="checkDiscordStatus()">
+            <span>{{ 'marathon.settings.discordRequirement.required' | translate }}</span>
+          </nwb-switch>
+        </div>
+      </div>
+      <div class="help">
+        <p>{{ 'marathon.settings.discordRequirement.help.title' | translate }}</p>
+        <ul class="default">
+          <li>{{ 'marathon.settings.discordRequirement.help.1' | translate }} <a [href]="botInvite" target="_blank">{{ botInvite }}</a></li>
+          <li>{{ 'marathon.settings.discordRequirement.help.2' | translate }}</li>
+          <li>{{ 'marathon.settings.discordRequirement.help.3' | translate }}</li>
+        </ul>
+      </div>
+      <div class="field" *ngIf="marathon.discordGuildId">
+        <p>{{ 'marathon.settings.discordRequirement.found.title' | translate }}</p>
+        <p [innerHTML]="'marathon.settings.discordRequirement.found.name' | translate: { guildName: marathon.discordGuildName }"></p>
+        <p [innerHTML]="'marathon.settings.discordRequirement.found.id' | translate: { guildId: marathon.discordGuildId }"></p>
+      </div>
+    </fieldset>
+  </div>
+</div>
+<!-- custom fields -->
+<h1 class="title">{{ 'marathon.settings.customFields.title' | translate}}</h1>
+<p>{{ 'marathon.settings.customFields.description1' | translate}}</p>
+<p>{{ 'marathon.settings.customFields.description2' | translate}}</p>
+<button type="button" class="button is-info is-pulled-right" style="margin-bottom: 1rem"
+        (click)="addQuestion.emit({questionType: 'SUBMISSION'})">{{ 'marathon.settings.customFields.add' | translate}}
+</button>
+<table class="table is-fullwidth is-striped" *ngIf="submissionsQuestions?.length > 0">
+  <thead>
+  <tr>
+    <th>{{ 'marathon.settings.customFields.label.title' | translate}}</th>
+    <th>{{ 'marathon.settings.customFields.label.type' | translate}}</th>
+    <th>{{ 'marathon.settings.customFields.required.title' | translate}}</th>
+    <th>{{ 'marathon.settings.customFields.action.title' | translate}}</th>
+  </tr>
+  </thead>
+  <tbody cdkDropList
+         [cdkDropListData]="submissionsQuestions"
+         (cdkDropListDropped)="drop.emit($event)">
+  <ng-template ngFor let-question [ngForOf]="submissionsQuestions" let-i="index" [ngForTrackBy]="trackByIdx">
+    <tr cdkDrag>
+      <td [attr.rowspan]="question.fieldType === 'SELECT' ? question.options.length + 1 : 1">
+        <input class="input"
+               type="text"
+               [(ngModel)]="question.label"
+               name="submission-label{{i}}"
+               [ngClass]="{'is-danger': submissionLabel.invalid}"
+               required
+               maxlength="50"
+               #submissionLabel="ngModel">
+        <p class="help is-pulled-right">{{question.label?.length}}/50</p>
+        <div *ngIf="submissionLabel.invalid">
+          <p class="help is-danger" *ngIf="submissionLabel.errors.required">
+            {{'marathon.settings.customFields.label.error.required' | translate}}</p>
+        </div>
+      </td>
+      <td>
+            <span class="select">
+              <select [(ngModel)]="question.fieldType" name="submission-fieldType{{i}}"
+                      (ngModelChange)="questionTypeChange.emit({questionType: 'SUBMISSION', i, fieldType: question.fieldType})">
+                <option value="TEXT">{{ 'marathon.settings.customFields.type.option.text' | translate}}</option>
+                <option value="SELECT">{{ 'marathon.settings.customFields.type.option.select' | translate}}</option>
+                <option value="TEXTAREA">{{ 'marathon.settings.customFields.type.option.textArea' | translate}}</option>
+                <option value="CHECKBOX">{{ 'marathon.settings.customFields.type.option.checkbox' | translate}}</option>
+                <option value="FREETEXT">{{ 'marathon.settings.customFields.type.option.freetext' | translate}}</option>
+              </select>
+            </span>
+      </td>
+      <td>
+        <nwb-switch [(ngModel)]="question.required" name="submission-required{{i}}"
+                    [disabled]="question.fieldType === 'FREETEXT'"></nwb-switch>
+      </td>
+      <td>
+        <fa-icon [icon]="faBars" cdkDragHandle class="is-pulled-right"></fa-icon>
+        <a (click)="addOption.emit({questionType: 'SUBMISSION', i})" style="margin-right: 0.4rem" *ngIf="question.fieldType ===
+                  'SELECT'">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </a>
+        <a (click)="removeQuestion.emit({questionType: 'SUBMISSION', i})">
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </a>
+      </td>
+    </tr>
+    <ng-container *ngIf="question.fieldType === 'SELECT'">
+      <tr *ngFor="let option of question.options; let j = index; trackBy: trackByIdx">
+        <td>
+          <input class="input"
+                 type="text"
+                 [(ngModel)]="question.options[j]"
+                 name="submission-option{{i}}-{{j}}"
+                 [ngClass]="{'is-danger': submissionOptionInput.invalid}"
+                 required
+                 maxlength="50"
+                 #submissionOptionInput="ngModel">
+          <p class="help is-pulled-right">{{option?.length}}/50</p>
+          <div *ngIf="submissionOptionInput.invalid">
+            <p class="help is-danger" *ngIf="submissionOptionInput.errors.required">
+              {{'marathon.settings.customFields.option.error.required' | translate}}</p>
+          </div>
+        </td>
+        <td></td>
+        <td>
+          <a (click)="removeOption.emit({questionType: 'SUBMISSION', i, j })">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </a>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-container *ngIf="question.fieldType === 'FREETEXT'">
+      <tr>
+        <td colspan="3">
+                  <textarea class="textarea"
+                            [readOnly]="disabled"
+                            rows=5
+                            maxlength="1000"
+                            [(ngModel)]="question.description"
+                            name="submission-questionDescription{{i}}"></textarea>
+          <p class="help is-pulled-right">{{question.description?.length}}/1000</p>
+          <p class="help">{{ 'marathon.settings.marathonDescription.help' | translate}}</p>
+        </td>
+      </tr>
+    </ng-container>
+  </ng-template>
+  </tbody>
+</table>

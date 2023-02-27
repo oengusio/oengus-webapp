@@ -1,0 +1,485 @@
+<fieldset [disabled]="disabled">
+  <h1 class="title">{{'marathon.settings.generalTitle' | translate}}</h1>
+  <div class="field">
+    <label class="label">{{ 'marathon.settings.name.label' | translate}}</label>
+    <div class="control">
+      <input class="input"
+             [ngClass]="{'is-danger': name.invalid}"
+             type="text"
+             [(ngModel)]="marathon.name"
+             name="name"
+             maxlength="40"
+             minlength="4"
+             pattern="^[\w\- À-ÿ]{4,40}$"
+             required
+             #name="ngModel">
+      <p class="help is-pulled-right">{{marathon.name?.length}}/40</p>
+      <div class="clearfix"></div>
+    </div>
+    <div *ngIf="name.invalid">
+      <p class="help is-danger"
+         *ngIf="name.errors.required">{{'marathon.settings.name.error.required' | translate}}</p>
+      <p class="help is-danger"
+         *ngIf="name.errors.minlength">{{'marathon.settings.name.error.min' | translate}}</p>
+      <p class="help is-danger"
+         *ngIf="name.errors.maxlength">{{'marathon.settings.name.error.max' | translate}}</p>
+      <p class="help is-danger"
+         *ngIf="name.errors.pattern">{{'marathon.settings.name.error.pattern' | translate}}</p>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <label class="label">{{ 'marathon.settings.shortname.label' | translate}}</label>
+      <div class="field has-addons">
+        <div class="control">
+          <a class="button is-static">
+            {{env.baseSite}}/marathon/
+          </a>
+        </div>
+        <div class="control is-expanded">
+          <input class="input"
+                 disabled
+                 type="text"
+                 [(ngModel)]="marathon.id"
+                 name="id"
+                 maxlength="10"
+                 minlength="4"
+                 required>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.shortname.shorturl' | translate}}</label>
+        <div class="control">
+          <input class="input" type="text" [value]="'https://oengus.fun/' + marathon.id" readonly>
+        </div>
+        <p class="help">{{ 'marathon.new.shortDomain' | translate}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.startDate.label' | translate}}</label>
+        <div class="control">
+          <input class="input"
+                 readonly
+                 autocomplete="disabled"
+                 [disabled]="!updateStartTime"
+                 [ngClass]="{'is-danger': startDate.invalid}"
+                 [owlDateTimeTrigger]="dtStartDate"
+                 [owlDateTime]="dtStartDate"
+                 [(ngModel)]="marathon.startDate"
+                 [min]="now"
+                 name="startDate"
+                 required
+                 #startDate="ngModel">
+          <owl-date-time #dtStartDate></owl-date-time>
+        </div>
+        <div *ngIf="startDate.invalid">
+          <p class="help is-danger"
+             *ngIf="startDate.errors.required">{{'marathon.settings.startDate.error.required' | translate}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.endDate.label' | translate}}</label>
+        <div class="control">
+          <input class="input"
+                 readonly
+                 autocomplete="disabled"
+                 [disabled]="marathonService.marathon.scheduleDone"
+                 [ngClass]="{'is-danger': endDate.invalid}"
+                 [owlDateTimeTrigger]="dtEndDate" [owlDateTime]="dtEndDate"
+                 [min]="marathon.startDate"
+                 [(ngModel)]="marathon.endDate" name="endDate" required #endDate="ngModel">
+          <owl-date-time #dtEndDate></owl-date-time>
+        </div>
+        <div *ngIf="endDate.invalid">
+          <p class="help is-danger"
+             *ngIf="endDate.errors.required">{{'marathon.settings.endDate.error.required' | translate}}</p>
+        </div>
+        <p class="help" *ngIf="marathonService.hasDstChange()">{{ 'marathon.schedule.dstChange' | translate}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.submissionsStartDate.label' | translate}}</label>
+        <div class="control">
+          <input class="input"
+                 readonly
+                 autocomplete="disabled"
+                 [disabled]="marathonService.marathon.scheduleDone"
+                 [ngClass]="{'is-danger': submissionsStartDate.invalid}"
+                 [owlDateTimeTrigger]="dtSubmissionsStartDate"
+                 [owlDateTime]="dtSubmissionsStartDate"
+                 [(ngModel)]="marathon.submissionsStartDate"
+                 [max]="marathon.startDate"
+                 name="submissionsStartDate"
+                 [required]="!!marathon.submissionsEndDate"
+                 #submissionsStartDate="ngModel">
+          <owl-date-time #dtSubmissionsStartDate></owl-date-time>
+        </div>
+        <div *ngIf="submissionsStartDate.invalid">
+          <p class="help is-danger"
+             *ngIf="submissionsStartDate.errors.required">{{'marathon.settings.submissionsStartDate.error.required' | translate}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.submissionsEndDate.label' | translate}}</label>
+        <div class="control">
+          <input class="input"
+                 readonly
+                 autocomplete="disabled"
+                 [disabled]="marathonService.marathon.scheduleDone || !marathon.submissionsStartDate"
+                 [ngClass]="{'is-danger': submissionsEndDate.invalid}"
+                 [owlDateTimeTrigger]="dtSubmissionsEndDate"
+                 [owlDateTime]="dtSubmissionsEndDate"
+                 [max]="marathon.startDate"
+                 [min]="marathon.submissionsStartDate"
+                 [(ngModel)]="marathon.submissionsEndDate"
+                 name="submissionsEndDate"
+                 [required]="!!marathon.submissionsStartDate"
+                 #submissionsEndDate="ngModel">
+          <owl-date-time #dtSubmissionsEndDate></owl-date-time>
+        </div>
+        <div *ngIf="submissionsEndDate.invalid">
+          <p class="help is-danger"
+             *ngIf="submissionsEndDate.errors.required">{{'marathon.settings.submissionsEndDate.error.required' | translate}}</p>
+        </div>
+        <p class="help" *ngIf="marathonService.hasDstChange()">{{ 'marathon.schedule.dstChange' | translate}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-one-quarter">
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.type.label' | translate}}</label>
+        <div class="control is-flex">
+          <span style="margin-right: 0.5rem">{{ 'marathon.settings.type.online' | translate}}</span>
+          <nwb-switch [(ngModel)]="marathon.onsite" name="isOnsite">
+            <span>{{ 'marathon.settings.type.onsite' | translate}}</span>
+          </nwb-switch>
+        </div>
+      </div>
+    </div>
+    <div class="column is-one-quarter">
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.language.label' | translate}}</label>
+        <div class="control">
+            <span class="select">
+              <select [(ngModel)]="marathon.language" name="language">
+                <option *ngFor="let language of languages | keyvalue"
+                        [ngValue]="language.key">{{language.value.nativeName | titlecase}}</option>
+              </select>
+            </span>
+        </div>
+      </div>
+    </div>
+    <div class="column is-one-quarter" *ngIf="marathon.onsite">
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.country.label' | translate}}</label>
+        <div class="control">
+            <span class="select">
+              <select [(ngModel)]="marathon.country" name="country">
+                <option *ngFor="let country of countries | keyvalue"
+                        [ngValue]="country.key">{{country.value | titlecase}}</option>
+              </select>
+            </span>
+        </div>
+      </div>
+    </div>
+    <div class="column is-one-quarter" *ngIf="marathon.onsite">
+      <label class="label">{{ 'marathon.settings.location.label' | translate}}</label>
+      <div class="field">
+        <div class="control">
+          <input class="input"
+                 [ngClass]="{'is-danger': location.invalid}"
+                 type="text"
+                 [(ngModel)]="marathon.location"
+                 name="location"
+                 #location="ngModel">
+          <p class="help is-pulled-right">{{marathon.location?.length}}/150</p>
+        </div>
+      </div>
+      <div *ngIf="location.invalid">
+      </div>
+    </div>
+  </div>
+</fieldset>
+<div class="field">
+  <label class="label">{{ 'marathon.settings.marathonDescription.label' | translate}}</label>
+  <div class="control">
+        <textarea class="textarea"
+                  [readOnly]="disabled"
+                  rows=10
+                  maxlength="5000"
+                  [(ngModel)]="marathon.description"
+                  name="description"></textarea>
+    <p class="help is-pulled-right">{{marathon.description?.length}}/5000</p>
+  </div>
+  <p class="help">{{ 'marathon.settings.marathonDescription.help' | translate}}</p>
+</div>
+<!-- twitch/twitter/discord/youtube -->
+<fieldset [disabled]="disabled">
+  <div class="columns">
+    <div class="column">
+      <label class="label">Twitch</label>
+      <div class="field has-addons">
+        <div class="control">
+          <a class="button is-static">
+            https://twitch.tv/
+          </a>
+        </div>
+        <div class="control">
+          <input class="input"
+                 [ngClass]="{'is-danger': twitch.invalid}"
+                 type="text"
+                 [(ngModel)]="marathon.twitch"
+                 name="twitch"
+                 maxlength="25"
+                 pattern="^(|[a-zA-Z0-9][\w]{2,24})$"
+                 #twitch="ngModel">
+          <p class="help is-pulled-right">{{marathon.twitch?.length}}/25</p>
+        </div>
+      </div>
+      <div *ngIf="twitch.invalid">
+        <p class="help is-danger"
+           *ngIf="twitch.errors.maxlength">{{ 'marathon.settings.twitch.error.max' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="twitch.errors.pattern">{{ 'marathon.settings.twitch.error.pattern' | translate}}</p>
+      </div>
+    </div>
+    <div class="column">
+      <label class="label">Twitter</label>
+      <div class="field has-addons">
+        <div class="control">
+          <a class="button is-static">
+            @
+          </a>
+        </div>
+        <div class="control">
+          <input class="input"
+                 [ngClass]="{'is-danger': twitter.invalid}"
+                 type="text"
+                 [(ngModel)]="marathon.twitter"
+                 name="twitter"
+                 maxlength="15"
+                 pattern="^(\w){0,15}$"
+                 #twitter="ngModel">
+          <p class="help is-pulled-right">{{marathon.twitter?.length}}/15</p>
+        </div>
+      </div>
+      <div *ngIf="twitter.invalid">
+        <p class="help is-danger"
+           *ngIf="twitter.errors.maxlength">{{ 'marathon.settings.twitter.error.max' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="twitter.errors.pattern">{{ 'marathon.settings.twitter.error.pattern' | translate}}</p>
+      </div>
+    </div>
+
+    <div class="column">
+      <label class="label">Mastodon</label>
+      <div class="field">
+        <div class="control">
+          <input class="input"
+                 [ngClass]="{'is-danger': mastodon.invalid}"
+                 placeholder="oengus@speedrun.zone"
+                 type="text"
+                 [(ngModel)]="marathon.mastodon"
+                 name="mastodon"
+                 maxlength="255"
+                 pattern="^[\w\-]{3,32}@[^.]+.\w+$"
+                 #mastodon="ngModel">
+        </div>
+      </div>
+      <div *ngIf="mastodon.invalid">
+        <p class="help is-danger"
+           *ngIf="mastodon.errors.maxlength">{{ 'marathon.settings.mastodon.error.max' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="mastodon.errors.pattern">{{ 'marathon.settings.mastodon.error.pattern' | translate}}</p>
+      </div>
+    </div>
+    <div class="column">
+      <label class="label">Discord</label>
+      <div class="field has-addons">
+        <div class="control">
+          <a class="button is-static">
+            https://discord.gg/
+          </a>
+        </div>
+        <div class="control">
+          <input class="input"
+                 [ngClass]="{'is-danger': discord.invalid}"
+                 type="text"
+                 [(ngModel)]="marathon.discord"
+                 name="discord"
+                 pattern="^(\w)*$"
+                 maxlength="20"
+                 #discord="ngModel">
+          <p class="help is-pulled-right">{{marathon.discord?.length}}/20</p>
+        </div>
+      </div>
+      <div *ngIf="discord.invalid">
+        <p class="help is-danger"
+           *ngIf="discord.errors.pattern">{{ 'marathon.settings.discord.error.pattern' | translate}}</p>
+      </div>
+    </div>
+    <div class="column">
+      <label class="label">Youtube</label>
+      <div class="field">
+        <div class="control">
+          <input class="input"
+                 [ngClass]="{'is-danger': youtube.invalid}"
+                 type="text"
+                 [(ngModel)]="marathon.youtube"
+                 name="youtube"
+                 maxlength="100"
+                 pattern="^(https?:\/\/)?(www\.)?youtu((\.be)|(be\..{2,5}))\/((user)\/|(channel)\/|(c)\/|@).+$"
+                 #youtube="ngModel">
+          <p class="help">
+            <span>{{ 'marathon.settings.youtube.help.url' | translate}}</span>
+            <span class="is-pulled-right">{{marathon.youtube?.length}}/100</span>
+          </p>
+        </div>
+        <div *ngIf="youtube.invalid">
+          <p class="help is-danger"
+             *ngIf="youtube.errors.pattern">{{ 'marathon.settings.youtube.error.pattern' | translate}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- discord privacy/marathon privacy -->
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.discordPrivacy.label' | translate}}</label>
+        <div class="control">
+          <nwb-switch [(ngModel)]="marathon.discordPrivacy" name="discordPrivacy">
+            <span>{{ 'marathon.settings.discordPrivacy.private' | translate}}</span>
+          </nwb-switch>
+        </div>
+      </div>
+      <p class="help">{{ 'marathon.settings.discordPrivacy.help' | translate}}</p>
+    </div>
+    <div class="column">
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.privacy.label' | translate}}</label>
+        <div class="control is-flex">
+          <span style="margin-right: 0.5rem">{{ 'marathon.settings.privacy.public' | translate}}</span>
+          <nwb-switch [(ngModel)]="marathon.isPrivate" name="isPrivate">
+            <span>{{ 'marathon.settings.privacy.private' | translate}}</span>
+          </nwb-switch>
+        </div>
+      </div>
+      <p class="help">{{ 'marathon.settings.privacy.help' | translate}}</p>
+    </div>
+  </div>
+  <div class="columns">
+    <!-- moderators -->
+    <div class="column">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>{{ 'marathon.settings.moderators.label' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let moderator of marathon.moderators; let i = index">
+          <td>{{moderator.username}}
+            <button class="delete is-pulled-right" (click)="removeModerator(i)"
+                    *ngIf="userService.user.id === marathon.creator.id"></button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <ng-autocomplete
+              [data]="userResults"
+              searchKeyword="username"
+              (selected)="onSelectMod($event)"
+              (inputChanged)="onSearchMod($event)"
+              [itemTemplate]="itemTemplate">
+            </ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.username"></a>
+            </ng-template>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- default setup time -->
+    <div class="column">
+      <div class="field">
+        <label class="label">{{'marathon.settings.defaultSetupTime.label' | translate}}</label>
+        <input class="input"
+               type="text"
+               [(ngModel)]="marathon.defaultSetupTimeHuman"
+               name="defaultSetupTime"
+               placeholder="HH:MM:SS"
+               [ngClass]="{'is-danger': defaultSetupTime.invalid}"
+               required
+               pattern="^(?:\d{1,3}):(?:[012345]\d):(?:[012345]\d)$"
+               #defaultSetupTime="ngModel">
+        <div *ngIf="defaultSetupTime.invalid">
+          <p class="help is-danger" *ngIf="defaultSetupTime.errors.required">
+            {{'marathon.settings.defaultSetupTime.error.required' | translate}}</p>
+          <p class="help is-danger" *ngIf="defaultSetupTime.errors.pattern">
+            {{'marathon.settings.defaultSetupTime.error.pattern' | translate}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>
+<fieldset [disabled]="disabled">
+  <!-- webhook -->
+  <div class="columns">
+    <div class="column is-half-desktop">
+      <div class="field">
+        <label for="announceAcceptedSubmissions" class="label">{{ 'marathon.settings.webhook.announceAcceptedSubmissions.title' | translate}}</label>
+        <div class="control">
+          <nwb-switch [(ngModel)]="marathon.announceAcceptedSubmissions" name="announceAcceptedSubmissions" id="announceAcceptedSubmissions">
+            <span *ngIf="marathon.announceAcceptedSubmissions else announceAcceptedSubmissionsDisabled">{{ 'global.enabled' | translate}}</span>
+            <ng-template #announceAcceptedSubmissionsDisabled>
+              <span>{{ 'global.disabled' | translate}}</span>
+            </ng-template>
+          </nwb-switch>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">{{ 'marathon.settings.webhook.label' | translate}}</label>
+        <div class="control" [ngClass]="{'is-loading': loadWebhookCheck}">
+          <input class="input"
+                 [ngClass]="{'is-danger': webhook.invalid || !isWebhookOnline}"
+                 type="text"
+                 [(ngModel)]="marathon.webhook"
+                 name="webhook"
+                 maxlength="200"
+                 #webhook="ngModel"
+                 (ngModelChange)="checkWebhookDebounced($event)">
+          <p class="help is-pulled-right">{{marathon.webhook?.length}}/200</p>
+          <p class="help">{{ 'marathon.settings.webhook.help' | translate}}</p>
+        </div>
+        <div *ngIf="webhook.invalid">
+          <p class="help is-danger"
+             *ngIf="webhook.errors.maxlength">{{'marathon.settings.webhook.error.max' | translate}}</p>
+        </div>
+        <div *ngIf="isMissingMarathon">
+          <p class="help is-danger">{{'marathon.settings.webhook.error.marathonParameter' | translate}}</p>
+        </div>
+        <div *ngIf="isOengusBotWebhook">
+          <p class="help is-success">{{'marathon.settings.webhook.botNotice' | translate}}</p>
+        </div>
+        <div *ngIf="!isWebhookOnline">
+          <p class="help is-danger">{{'marathon.settings.webhook.error.offline' | translate}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>

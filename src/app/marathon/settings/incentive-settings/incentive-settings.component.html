@@ -1,0 +1,220 @@
+<h1 class="title">{{'marathon.settings.incentivesTitle' | translate}}</h1>
+<div class="notification is-danger" *ngIf="env.sandbox">{{'marathon.settings.sandbox.warning' | translate}}</div>
+<div class="notification is-warning">{{'marathon.settings.incentives.disabledNotification' | translate}}</div>
+<div class="columns is-multiline">
+  <div class="column is-half-desktop">
+    <div class="field">
+      <label class="label">{{ 'marathon.settings.donations.label' | translate}}</label>
+      <div class="control">
+        <nwb-switch [(ngModel)]="marathon.hasDonations" name="hasDonations" [disabled]="donationsDisabled">
+          <span>{{ 'marathon.settings.donations.hasDonations' | translate}}</span>
+        </nwb-switch>
+      </div>
+    </div>
+  </div>
+  <div class="column is-half-desktop">
+    <div class="field">
+      <label class="label">{{ 'marathon.settings.donationsOpen.label' | translate}}</label>
+      <div class="control">
+        <nwb-switch [(ngModel)]="marathon.donationsOpen" name="donationsOpen" [disabled]="donationsDisabled">
+          <span>{{ 'marathon.settings.donations.donationsOpen' | translate}}</span>
+        </nwb-switch>
+      </div>
+    </div>
+  </div>
+  <div class="column is-half-desktop">
+    <div class="field">
+      <label class="label">{{ 'marathon.settings.supportedCharity.label' | translate}}</label>
+      <div class="control">
+        <input class="input"
+               [ngClass]="{'is-danger': supportedCharity.invalid}"
+               type="text"
+               [(ngModel)]="marathon.supportedCharity"
+               name="supportedCharity"
+               [required]="marathon.hasDonations"
+               [disabled]="!marathon.hasDonations || donationsDisabled"
+               maxlength="100"
+               #supportedCharity="ngModel">
+        <p class="help is-pulled-right">{{marathon.supportedCharity?.length}}/100</p>
+      </div>
+      <div *ngIf="supportedCharity.invalid">
+        <p class="help is-danger"
+           *ngIf="supportedCharity.errors.required">{{'marathon.settings.supportedCharity.error.required' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="supportedCharity.errors.maxlength">{{'marathon.settings.supportedCharity.error.max' | translate}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="column is-half-desktop">
+    <div class="field">
+      <label class="label">{{ 'marathon.settings.payee.label' | translate}}</label>
+      <div class="control">
+        <input class="input"
+               [ngClass]="{'is-danger': payee.invalid}"
+               type="email"
+               email
+               [(ngModel)]="marathon.payee"
+               name="payee"
+               [required]="marathon.hasDonations"
+               [disabled]="!marathon.hasDonations || donationsDisabled"
+               maxlength="100"
+               #payee="ngModel">
+        <p class="help is-pulled-right">{{marathon.payee?.length}}/100</p>
+        <p class="help">{{ 'marathon.settings.payee.help' | translate}}</p>
+      </div>
+      <div *ngIf="payee.invalid">
+        <p class="help is-danger"
+           *ngIf="payee.errors.required">{{'marathon.settings.payee.error.required' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="payee.errors.maxlength">{{'marathon.settings.payee.error.max' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="payee.errors.maxlength">{{'marathon.settings.payee.error.email' | translate}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="column is-half-desktop">
+    <div class="field">
+      <label class="label">{{ 'marathon.settings.currencyIso.label' | translate}}</label>
+      <div class="control">
+        <input class="input"
+               [ngClass]="{'is-danger': currencyIso.invalid}"
+               type="text"
+               [(ngModel)]="marathon.donationCurrency"
+               name="currencyIso"
+               [required]="marathon.hasDonations || marathon.hasIncentives"
+               [disabled]="(!marathon.hasDonations && !marathon.hasIncentives) || donationsDisabled"
+               maxlength="3"
+               #currencyIso="ngModel">
+        <p class="help is-pulled-right">{{marathon.donationCurrency?.length}}/3</p>
+        <p class="help">{{ 'marathon.settings.currencyIso.help' | translate}}</p>
+      </div>
+      <div *ngIf="currencyIso.invalid">
+        <p class="help is-danger"
+           *ngIf="currencyIso.errors.required">{{'marathon.settings.currencyIso.error.required' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="currencyIso.errors.maxlength">{{'marathon.settings.currencyIso.error.max' | translate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- has incentives -->
+<div class="columns">
+  <div class="column">
+    <div class="field">
+      <label class="label">{{ 'marathon.settings.incentives.label' | translate}}</label>
+      <div class="control">
+        <nwb-switch [(ngModel)]="marathon.hasIncentives" name="hasIncentives" [disabled]="donationsDisabled">
+          <span>{{ 'marathon.settings.incentives.hasIncentives' | translate}}</span>
+        </nwb-switch>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- custom fields -->
+<fieldset [disabled]="!marathon.hasDonations || donationsDisabled">
+  <h1 class="title">{{ 'marathon.settings.customFields.title' | translate}}</h1>
+  <p>{{ 'marathon.settings.customFields.description1' | translate}}</p>
+  <p>{{ 'marathon.settings.customFields.description2' | translate}}</p>
+  <button type="button" class="button is-info is-pulled-right" style="margin-bottom: 1rem"
+          (click)="addQuestion.emit({ questionType: 'DONATION' })">{{ 'marathon.settings.customFields.add' | translate}}
+  </button>
+  <table class="table is-fullwidth is-striped" *ngIf="donationsQuestions?.length > 0">
+    <thead>
+    <tr>
+      <th>{{ 'marathon.settings.customFields.label.title' | translate}}</th>
+      <th>{{ 'marathon.settings.customFields.label.type' | translate}}</th>
+      <th>{{ 'marathon.settings.customFields.required.title' | translate}}</th>
+      <th>{{ 'marathon.settings.customFields.action.title' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody cdkDropList
+           [cdkDropListData]="donationsQuestions"
+           (cdkDropListDropped)="drop.emit($event)">
+    <ng-template ngFor let-question [ngForOf]="donationsQuestions" let-i="index" [ngForTrackBy]="trackByIdx">
+      <tr cdkDrag>
+        <td [attr.rowspan]="question.fieldType === 'SELECT' ? question.options.length + 1 : 1">
+          <input class="input"
+                 type="text"
+                 [(ngModel)]="question.label"
+                 name="donation-label{{i}}"
+                 [ngClass]="{'is-danger': donationLabel.invalid}"
+                 required
+                 maxlength="50"
+                 #donationLabel="ngModel">
+          <p class="help is-pulled-right">{{question.label?.length}}/50</p>
+          <div *ngIf="donationLabel.invalid">
+            <p class="help is-danger" *ngIf="donationLabel.errors.required">
+              {{'marathon.settings.customFields.label.error.required' | translate}}</p>
+          </div>
+        </td>
+        <td>
+                    <span class="select">
+                      <select [(ngModel)]="question.fieldType" name="donation-fieldType{{i}}"
+                              (ngModelChange)="questionTypeChange.emit({questionType: 'DONATION', i, fieldType: question.fieldType})">
+                        <option value="TEXT">{{ 'marathon.settings.customFields.type.option.text' | translate}}</option>
+                        <option value="SELECT">{{ 'marathon.settings.customFields.type.option.select' | translate}}</option>
+                        <option value="TEXTAREA">{{ 'marathon.settings.customFields.type.option.textArea' | translate}}</option>
+                        <option value="CHECKBOX">{{ 'marathon.settings.customFields.type.option.checkbox' | translate}}</option>
+                        <option value="FREETEXT">{{ 'marathon.settings.customFields.type.option.freetext' | translate}}</option>
+                      </select>
+                    </span>
+        </td>
+        <td>
+          <nwb-switch [(ngModel)]="question.required" name="donation-required{{i}}"
+                      [disabled]="question.fieldType === 'FREETEXT'"></nwb-switch>
+        </td>
+        <td>
+          <fa-icon [icon]="faBars" cdkDragHandle class="is-pulled-right"></fa-icon>
+          <a (click)="addOption.emit({questionType: 'DONATION', i})"
+             style="margin-right: 0.4rem"
+             *ngIf="question.fieldType === 'SELECT'">
+            <fa-icon [icon]="faPlus"></fa-icon>
+          </a>
+          <a (click)="removeQuestion.emit({questionType: 'DONATION', i})">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </a>
+        </td>
+      </tr>
+      <ng-container *ngIf="question.fieldType === 'SELECT'">
+        <tr *ngFor="let option of question.options; let j = index; trackBy: trackByIdx">
+          <td>
+            <input class="input"
+                   type="text"
+                   [(ngModel)]="question.options[j]"
+                   name="donation-option{{i}}-{{j}}"
+                   [ngClass]="{'is-danger': donationOptionInput.invalid}"
+                   required
+                   maxlength="50"
+                   #donationOptionInput="ngModel">
+            <p class="help is-pulled-right">{{option?.length}}/50</p>
+            <div *ngIf="donationOptionInput.invalid">
+              <p class="help is-danger" *ngIf="donationOptionInput.errors.required">
+                {{'marathon.settings.customFields.option.error.required' | translate}}</p>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            <a (click)="removeOption.emit({questionType: 'DONATION', i, j })">
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </a>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="question.fieldType === 'FREETEXT'">
+        <tr>
+          <td colspan="3">
+                  <textarea class="textarea"
+                            [readOnly]="disabled"
+                            rows=5
+                            maxlength="1000"
+                            [(ngModel)]="question.description"
+                            name="donation-questionDescription{{i}}"></textarea>
+            <p class="help is-pulled-right">{{question.description?.length}}/1000</p>
+            <p class="help">{{ 'marathon.settings.marathonDescription.help' | translate}}</p>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-template>
+    </tbody>
+  </table>
+</fieldset>

@@ -47,6 +47,10 @@ import {DeactivateRouteGuard} from '../guards/deactivate-route-guard.service';
 import { OengusMdComponent } from '../oengus-md/oengus-md.component';
 import { AnswersResolver } from '../resolvers/answers-resolver';
 import {LoadingIndicatorComponent} from '../loading-indicator/loading-indicator.component';
+import { GeneralSettingsComponent } from './settings/general-settings/general-settings.component';
+import { SubmissionSettingsComponent } from './settings/submission-settings/submission-settings.component';
+import { DiscordSettingsComponent } from './settings/discord-settings/discord-settings.component';
+import { IncentiveSettingsComponent } from './settings/incentive-settings/incentive-settings.component';
 
 const marathonRoutes: Routes = [
   {
@@ -191,6 +195,10 @@ const marathonRoutes: Routes = [
     SubmissionGameComponent,
     OengusMdComponent,
     LoadingIndicatorComponent,
+    GeneralSettingsComponent,
+    SubmissionSettingsComponent,
+    DiscordSettingsComponent,
+    IncentiveSettingsComponent,
   ],
   imports: [
     CommonModule,
