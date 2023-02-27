@@ -31,13 +31,25 @@ import {ButtonsModule} from './buttons/buttons.module';
 import { PlumComponent } from './plum/plum.component';
 import * as Sentry from '@sentry/angular';
 import { HomepageModeratedResolver } from './resolvers/homepage-moderated-resolver';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
 ]);
 
 const appRoutes: Routes = [
-  {path: 'login/:service', component: LoginComponent},
+  {
+    path: 'register',
+    component: SignUpComponent,
+  },
+  {
+    path: 'login',
+    component: SignUpComponent,
+  },
+  {
+    path: 'login/:service',
+    component: LoginComponent,
+  },
   {
     path: '',
     component: HomepageComponent,
@@ -82,6 +94,7 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     KasperskyAnnouncementComponent,
     PlumComponent,
+    SignUpComponent,
   ],
     imports: [
         BrowserModule,

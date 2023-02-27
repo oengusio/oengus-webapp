@@ -12,6 +12,12 @@ import {LoadingBarService} from '../../services/loading-bar.service';
 })
 export class LoginComponent implements OnInit {
 
+  /*public loginData: {
+    username: string;
+    password: string;
+    mfaCode: string;
+  };*/
+
   constructor(private userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
