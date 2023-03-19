@@ -50,7 +50,7 @@ export default Vue.extend({
 
   data() {
     return {
-      userProfileURL: OengusAPI.getRoute({ basePath: 'users', id: this.userId, path: 'avatar', fullURL: true }),
+      userProfileURL: OengusAPI.getRoute({ basePath: 'users', id: this.userId, path: 'avatar', fullURL: true }).replace('v1', 'v2'),
     };
   },
 
