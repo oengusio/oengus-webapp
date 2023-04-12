@@ -89,6 +89,7 @@ export default Vue.extend({
     return {
       expanded: new Set<number>(),
       interval: undefined as NodeJS.Timeout|undefined,
+      timeout: undefined as NodeJS.Timeout|undefined,
     };
   },
 
@@ -133,15 +134,27 @@ export default Vue.extend({
   },
 
   mounted(): void {
-    this.interval = setInterval(() => {
+    const MINUTE = 60_000;
+
+    this.timeout = setTimeout(() => {
       this.getScheduleTicker(this.marathonId);
-    }, 60_000);
+
+      this.interval = setInterval(() => {
+        this.getScheduleTicker(this.marathonId);
+      }, MINUTE);
+    // Offset timer to next real full minute
+    }, MINUTE - (new Date().getTime() % MINUTE));
+
     this.expandRunHash();
   },
 
   destroyed(): void {
     if (this.interval) {
       clearInterval(this.interval);
+    }
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
     }
   },
 
