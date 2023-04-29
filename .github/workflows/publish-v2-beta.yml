@@ -43,6 +43,6 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
       - name: Trigger prod webhook
-        uses: zzzze/webhook-trigger@v1.0.0
-        with:
+        uses: distributhor/workflow-webhook@v3
+        env:
           webhook_url: ${{ secrets.PROD_BETA_WEBHOOK_URL }}
