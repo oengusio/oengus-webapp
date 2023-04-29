@@ -49,5 +49,5 @@ jobs:
 
       - name: Trigger dev webhook
         uses: distributhor/workflow-webhook@v3
-        with:
+        env:
           webhook_url: ${{ secrets.DEV_WEBHOOK_URL }}
