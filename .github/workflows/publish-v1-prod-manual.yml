@@ -43,7 +43,7 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
       - name: Trigger prod webhook
-        uses: zzzze/webhook-trigger@v1.0.0
+        uses: zzzze/webhook-trigger@master
         with:
           webhook_url: ${{ secrets.PROD_WEBHOOK_URL }}
 
@@ -89,6 +89,6 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
       - name: Trigger sandbox webhook
-        uses: zzzze/webhook-trigger@v1.0.0
+        uses: zzzze/webhook-trigger@master
         with:
           webhook_url: ${{ secrets.SANDBOX_WEBHOOK_URL }}
