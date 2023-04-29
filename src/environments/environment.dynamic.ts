@@ -23,7 +23,10 @@ export const environment = {
     return window.location.origin;
   },
 
-  get v2Domain() {
+  // No v2 on dev pls
+  v2Domain: null,
+
+  /*get v2Domain() {
     const url = window.location.hostname;
 
     if (url.startsWith('sandbox')) {
@@ -34,7 +37,7 @@ export const environment = {
     const parts = splitUrl.length > 2 ? [splitUrl[1], splitUrl[2]] : splitUrl;
 
     return `${window.location.protocol}//${parts[0]}.${parts[1]}/`;
-  },
+  },*/
 
   get apiRw() {
     if (environment.production) {
