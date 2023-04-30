@@ -34,6 +34,7 @@ import { HomepageModeratedResolver } from './resolvers/homepage-moderated-resolv
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { WelcomeComponent } from './homepage/welcome/welcome.component';
 import { SponsorsComponent } from './homepage/sponsors/sponsors.component';
+import { MarathonsComponent } from './homepage/marathons/marathons.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -99,6 +100,7 @@ const appRoutes: Routes = [
     SignUpComponent,
     WelcomeComponent,
     SponsorsComponent,
+    MarathonsComponent,
   ],
     imports: [
         BrowserModule,
