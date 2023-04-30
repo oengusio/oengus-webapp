@@ -32,6 +32,7 @@ import { PlumComponent } from './plum/plum.component';
 import * as Sentry from '@sentry/angular';
 import { HomepageModeratedResolver } from './resolvers/homepage-moderated-resolver';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { WelcomeComponent } from './homepage/welcome/welcome.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -95,6 +96,7 @@ const appRoutes: Routes = [
     KasperskyAnnouncementComponent,
     PlumComponent,
     SignUpComponent,
+    WelcomeComponent,
   ],
     imports: [
         BrowserModule,

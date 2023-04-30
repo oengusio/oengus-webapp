@@ -1,0 +1,26 @@
+ul {
+  list-style: disc;
+  padding-inline-start: 20px;
+}
+
+.is-fold-trigger {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .is-fold-trigger {
+    display: flex;
+
+    .is-open-fold & {
+      display: none;
+    }
+  }
+
+  .below-the-fold {
+    display: none;
+
+    .is-open-fold & {
+      display: inherit;
+    }
+  }
+}

@@ -18,6 +18,13 @@ $code: #ffc8e2;
 @import '~@fullcalendar/common/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 
+* {
+  // Controls how far stuff is apart from each other.
+  // Matches the Bulma box padding so that we can have consistent spacing
+  // We're using CSS variables over SASS variables so it can be changed on the fly as needed
+  --spacing: 20px;
+}
+
 .tags-input.is-filter input{
   color: $text !important;
 }

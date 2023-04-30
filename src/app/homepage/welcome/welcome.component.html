@@ -1,0 +1,37 @@
+<div class="box"  [class]="{ 'is-open-fold' : isFoldOpen }">
+  <h1 class="title">
+    {{ 'homepage.welcomeTitle' | translate }}
+  </h1>
+  <p [innerHTML]="'homepage.welcomeText.par1' | translate"></p>
+  <p>
+    {{ 'homepage.welcomeText.par3' | translate }}
+  </p>
+  <div class="is-centered">
+    <!-- TODO -->
+    <!--<WidgetSignInPicker />-->
+  </div>
+  <p [innerHTML]="'homepage.welcomeText.par4.prod' | translate"></p>
+
+  <br>
+
+  <h3 class="title is-3 below-the-fold">
+    {{ 'homepage.plannedFeatures.title' | translate }}
+  </h3>
+  <ul class="below-the-fold">
+    <li *ngFor="let feature of plannedFeatures">
+        <span>
+          {{ 'homepage.plannedFeatures.' + feature.key | translate }}
+        </span>
+      <fa-icon [icon]="faCheck" *ngIf="feature.complete" size="sm"></fa-icon>
+    </li>
+  </ul>
+
+  <div class="is-centered is-fold-trigger">
+    <button class="button" (click)="openFold()">
+        <span>
+          {{ 'homepage.plannedFeatures.title' | translate }}
+        </span>
+      <fa-icon [icon]="faAngleDown"></fa-icon>
+    </button>
+  </div>
+</div>

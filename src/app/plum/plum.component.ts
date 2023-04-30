@@ -23,9 +23,9 @@ export class PlumComponent implements OnInit {
 
       if (val) {
         // wait a single tick before running the video
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           this.runVideo();
-        }, 0);
+        });
       }
     });
     this.plumSubject.next(false);
