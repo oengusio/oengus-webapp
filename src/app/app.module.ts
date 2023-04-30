@@ -33,6 +33,7 @@ import * as Sentry from '@sentry/angular';
 import { HomepageModeratedResolver } from './resolvers/homepage-moderated-resolver';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { WelcomeComponent } from './homepage/welcome/welcome.component';
+import { SponsorsComponent } from './homepage/sponsors/sponsors.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -97,6 +98,7 @@ const appRoutes: Routes = [
     PlumComponent,
     SignUpComponent,
     WelcomeComponent,
+    SponsorsComponent,
   ],
     imports: [
         BrowserModule,
