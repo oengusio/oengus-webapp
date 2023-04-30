@@ -6,6 +6,7 @@ import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../services/user.service';
 import { environment } from '../../environments/environment';
 import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
+import { HomepageMetadata } from '../../model/homepage-metadata';
 
 @Component({
   selector: 'app-homepage',
@@ -13,6 +14,8 @@ import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
+
+  homepageMarathons: HomepageMetadata;
 
   public nextMarathons: Marathon[];
   public openMarathons: MarathonWithExtraData[];
@@ -28,6 +31,7 @@ export class HomepageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               public userService: UserService) {
+    this.homepageMarathons = this.route.snapshot.data.homepageMetadata;
     this.nextMarathons = this.route.snapshot.data.homepageMetadata.next;
     const openMarathons = this.route.snapshot.data.homepageMetadata.open;
     this.liveMarathons = this.route.snapshot.data.homepageMetadata.live;

@@ -8,5 +8,17 @@
       </span>
   </h3>
 
-  <p>TODO: figure out how to do "slots" in angular</p>
+  <app-element-table class="marathons-list-container">
+    <ng-template ngFor let-marathonList [ngForOf]="marathonsLists">
+      <ng-template [ngIf]="true">
+        <h4 class="title" [class]="marathonList.headerClass">
+          {{ marathonList.label | translate }}
+        </h4>
+        <div class="spacer"></div>
+        <ng-template ngFor let-marathon let-i="index" [ngForOf]="homepageMarathons[marathonList.key]">
+          <p>{{ marathon.name }}</p>
+        </ng-template>
+      </ng-template>
+    </ng-template>
+  </app-element-table>
 </div>

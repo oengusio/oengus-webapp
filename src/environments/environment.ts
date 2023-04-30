@@ -11,9 +11,9 @@ export const environment = {
   // this is the base of the website where the users will land
   baseSite: 'http://localhost:4200',
   // the api that the front-end talks to
-  api: 'http://localhost:8080',
+  // api: 'http://localhost:8080',
   // api: 'https://oengus.dev/api',
-  // api: 'https://oengus.io/api',
+  api: 'https://oengus.io/api',
   // Optional, in case of a custom hosted patreon api, will use api by default
   patronApi: 'http://localhost:9000',
   twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',

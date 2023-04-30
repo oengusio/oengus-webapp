@@ -35,6 +35,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { WelcomeComponent } from './homepage/welcome/welcome.component';
 import { SponsorsComponent } from './homepage/sponsors/sponsors.component';
 import { MarathonsComponent } from './homepage/marathons/marathons.component';
+import { ElementTableComponent } from './elements/element-table/element-table.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -101,6 +102,7 @@ const appRoutes: Routes = [
     WelcomeComponent,
     SponsorsComponent,
     MarathonsComponent,
+    ElementTableComponent,
   ],
     imports: [
         BrowserModule,
