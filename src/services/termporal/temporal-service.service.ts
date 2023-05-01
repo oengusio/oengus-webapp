@@ -14,6 +14,6 @@ export class TemporalServiceService implements LocaleSensitive {
   }
 
   changeLocale(locale: string): void {
-    //
+    this.distance.changeLocale(locale);
   }
 }

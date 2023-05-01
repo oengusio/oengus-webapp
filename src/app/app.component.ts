@@ -39,6 +39,7 @@ import {TitleService} from '../services/title.service';
 import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
 import * as Sentry from '@sentry/angular';
 import { firstValueFrom } from 'rxjs';
+import { TemporalServiceService } from '../services/termporal/temporal-service.service';
 
 @Component({
   selector: 'app-root',
@@ -93,7 +94,8 @@ export class AppComponent implements OnInit {
               private router: Router,
               private location: Location,
               private titleService: TitleService,
-              private loader: LoadingBarService) {
+              private loader: LoadingBarService,
+              private temporal: TemporalServiceService) {
     this.loader.stateObserver.subscribe((loading) => {
       this.loading = loading;
     });
@@ -202,6 +204,7 @@ export class AppComponent implements OnInit {
     this.language = language;
     localStorage.setItem('language', language);
     this.translate.use(language);
+    this.temporal.changeLocale(language);
 
     this.setMomentTimezone(language);
 
