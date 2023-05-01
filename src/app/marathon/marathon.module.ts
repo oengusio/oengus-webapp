@@ -226,7 +226,8 @@ const marathonRoutes: Routes = [
     ButtonsModule,
   ],
   exports: [
-    RouterModule
+    RouterModule,
+    LoadingIndicatorComponent,
   ],
   providers: [
     CanActivateMarathonSettingsGuard,

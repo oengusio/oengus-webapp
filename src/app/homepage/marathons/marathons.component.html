@@ -8,17 +8,36 @@
       </span>
   </h3>
 
-  <app-element-table class="marathons-list-container">
-    <ng-template ngFor let-marathonList [ngForOf]="marathonsLists">
-      <ng-template [ngIf]="true">
-        <h4 class="title" [class]="marathonList.headerClass">
-          {{ marathonList.label | translate }}
+  <app-element-table class="marathons-list-container" [isDivided]="false">
+    <ng-template ngFor let-marathonsList [ngForOf]="marathonsLists">
+      <ng-template [ngIf]="shouldRenderList(marathonsList.key)">
+        <h4 class="title" [class]="marathonsList.headerClass">
+          {{ marathonsList.label | translate }}
         </h4>
         <div class="spacer"></div>
-        <ng-template ngFor let-marathon let-i="index" [ngForOf]="homepageMarathons[marathonList.key]">
-          <p>{{ marathon.name }}</p>
+        <ng-template ngFor let-marathon let-index="index" [ngForOf]="homepageMarathons[marathonsList.key]">
+          <app-element-table-cell class="marathon-name" [class]="getRowParity(index)">
+            <a routerLink="/marathon/id">{{ marathon.name }}</a>
+          </app-element-table-cell>
+          <app-element-table-cell class="location" [class]="getRowParity(index)">
+            <app-marathon-location [marathon]="marathon"></app-marathon-location>
+          </app-element-table-cell>
+          <app-element-table-cell class="language" [class]="getRowParity(index)">
+            {{ marathon.language.toLocaleUpperCase() }}
+          </app-element-table-cell>
+          <app-element-table-cell class="time" [class]="getRowParity(index)">
+            <!-- TODO: use time element -->
+            <div [innerHTML]="marathonsList.timeTranslationKey | translate: {
+              duration: temporal.distance.format(getMarathonDistance(marathon, marathonsList.timeTranslationValue))
+            }"></div>
+          </app-element-table-cell>
         </ng-template>
+        <div class="spacer"></div>
       </ng-template>
     </ng-template>
   </app-element-table>
+
+  <!--TODO <div class="is-centered">
+    <app-loading-indicator></app-loading-indicator>
+  </div>-->
 </div>

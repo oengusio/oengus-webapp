@@ -1,0 +1,67 @@
+@use './variables' as *;
+@use '../types';
+
+@mixin cell-like($default-color: $neutral-color) {
+  position: relative;
+  padding: calc(var(--spacing) / 2);
+  background-color: $default-color;
+}
+
+@mixin cell-varients($selector-before: '', $selector-after: '') {
+  @each $name, $bg-color, $color in $colors {
+    #{$selector-before}&.is-#{$name}#{$selector-after} {
+      background-color: $bg-color;
+
+      @if $color {
+        color: $color;
+
+        ::ng-deep .title {
+          color: $color;
+        }
+      }
+    }
+  }
+}
+
+@mixin -shrink-template-columns($template-columns: null, $has-expand-button: false) {
+  @if $template-columns {
+    @if types.is-integer($template-columns) {
+      @if $has-expand-button {
+        grid-template-columns: min-content repeat($template-columns - 1, auto);
+      } @else {
+        grid-template-columns: repeat($template-columns, auto);
+      }
+    } @else {
+      grid-template-columns: $template-columns;
+    }
+  }
+}
+
+/**
+ * Performs table shrinking, useful for fancy semi-responsive behavior
+ * $default-template-columns defines the default (full-size) template,
+ *     you can send either a full definition or just a number (it will use auto with a number)
+ *     If you don't pass this, we won't define any grid-template-columns, allowing user overrides
+ * $has-expand-button says if this table has as its first column a set of ElementTableExpandButtons
+ *     pass true if so and the first column will never grow large unless you override it manually
+ * $shrinking-rules defines how you want the table to react to smaller screens
+ *     this should be a list in the following format:
+ *     breakpoint selector template-columns
+ *     e.g.: 1150px '.setup' 8
+ *     The template-columns portion accepts both formats $default-template-columns does
+ */
+@mixin shrink($default-template-columns: null, $has-expand-button: false, $shrinking-rules: [ ]) {
+  @include -shrink-template-columns($template-columns: $default-template-columns, $has-expand-button: $has-expand-button);
+
+  @each $breakpoint, $selector, $template-columns in $shrinking-rules {
+    @media (max-width: $breakpoint) {
+      @include -shrink-template-columns($template-columns: $template-columns, $has-expand-button: $has-expand-button);
+
+      @if $selector {
+        ::ng-deep #{$selector} {
+          display: none;
+        }
+      }
+    }
+  }
+}

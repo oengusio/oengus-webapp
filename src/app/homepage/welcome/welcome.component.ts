@@ -17,7 +17,7 @@ export class WelcomeComponent implements OnInit {
     { key: '4', complete: false },
     { key: '5', complete: true },
     { key: '6', complete: false },
-    { key: '7', complete: true },
+    { key: '7', complete: false },
     { key: 'volunteerManager', complete: false },
   ];
 

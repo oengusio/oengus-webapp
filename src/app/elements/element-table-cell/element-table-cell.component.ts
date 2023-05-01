@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-element-table-cell',
@@ -6,10 +6,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./element-table-cell.component.scss']
 })
 export class ElementTableCellComponent implements OnInit {
+  @Input() isHeader: boolean;
+  @Input() columnStart = 'auto';
+  @Input() columnEnd = 'auto';
+  @Input() rowStart = 'auto';
+  @Input() rowEnd = 'auto';
+
+  classes = {
+    'element-table-header': false,
+  };
+
+  styles = {
+    '--column-start': this.columnStart,
+    '--column-end': this.columnEnd,
+    '--row-start': this.rowStart,
+    '--row-end': this.rowEnd,
+  };
 
   constructor() { }
 
   ngOnInit(): void {
+    this.classes = {
+      'element-table-header': this.isHeader,
+    };
   }
 
 }

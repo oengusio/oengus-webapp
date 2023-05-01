@@ -1,0 +1,4 @@
+<span *ngIf="marathon.onsite && marathon.country else desktopIcon" [class]="'flag-icon flag-icon-' + marathon.country.toLowerCase()"></span>
+<ng-template #desktopIcon>
+  <fa-icon [icon]="faDesktop"></fa-icon>
+</ng-template>

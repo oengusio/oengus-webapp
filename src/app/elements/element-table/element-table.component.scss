@@ -6,16 +6,16 @@
   width: 100%;
   max-width: 100%;
 
-  .element-table-cell {
+  ::ng-deep .element-table-cell {
     border-block-end: var(--border-width) solid;
   }
 
-  .element-table-header {
+  ::ng-deep .element-table-header {
     border-block-end: calc(2 * var(--border-width)) solid;
   }
 }
 
-::v-deep .element-table-paginator {
+::ng-deep .element-table-paginator {
   &:first-of-type {
     margin-block-end: var(--spacing);
   }
