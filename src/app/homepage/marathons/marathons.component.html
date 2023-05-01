@@ -8,7 +8,7 @@
       </span>
   </h3>
 
-  <app-element-table class="marathons-list-container" [isDivided]="false">
+  <app-element-table class="marathons-list-container">
     <ng-template ngFor let-marathonsList [ngForOf]="marathonsLists">
       <ng-template [ngIf]="shouldRenderList(marathonsList.key)">
         <h4 class="title" [class]="marathonsList.headerClass">
@@ -17,7 +17,7 @@
         <div class="spacer"></div>
         <ng-template ngFor let-marathon let-index="index" [ngForOf]="homepageMarathons[marathonsList.key]">
           <app-element-table-cell class="marathon-name" [class]="getRowParity(index)">
-            <a routerLink="/marathon/id">{{ marathon.name }}</a>
+            <a routerLink="/marathon/{{ marathon.id }}">{{ marathon.name }}</a>
           </app-element-table-cell>
           <app-element-table-cell class="location" [class]="getRowParity(index)">
             <app-marathon-location [marathon]="marathon"></app-marathon-location>

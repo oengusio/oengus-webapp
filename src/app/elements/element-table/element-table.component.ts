@@ -1,20 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-element-table',
   templateUrl: './element-table.component.html',
-  styleUrls: ['./element-table.component.scss']
+  styleUrls: ['./element-table.component.scss'],
 })
-export class ElementTableComponent implements OnInit {
+export class ElementTableComponent implements OnChanges {
   @Input() isDivided: boolean;
-  tableStyle = '';
+  // the good way 😄
+  // @HostBinding('style.--border-width') tableStyle = '';
 
-  constructor() { }
-
-  ngOnInit(): void {
-    if (this.isDivided) {
-      this.tableStyle = '--border-width: 1px;';
-    }
+  constructor(private elem: ElementRef) {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.isDivided.currentValue !== changes.isDivided.previousValue) {
+      // The good way did not work for me 🙃
+      (this.elem.nativeElement.style as CSSStyleDeclaration)
+        .setProperty(
+          '--border-width',
+          this.isDivided ? '1px' : '0'
+        );
+    }
+  }
 }

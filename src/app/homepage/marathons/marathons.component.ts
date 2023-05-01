@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HomepageMetadata } from '../../../model/homepage-metadata';
 import { getRowParity } from '../../../assets/table';
 import { Marathon } from '../../../model/marathon';
@@ -9,7 +9,7 @@ import { TemporalServiceService } from '../../../services/termporal/temporal-ser
   templateUrl: './marathons.component.html',
   styleUrls: ['./marathons.component.scss'],
 })
-export class MarathonsComponent implements OnInit {
+export class MarathonsComponent {
 
   @Input() homepageMarathons: HomepageMetadata;
 
@@ -47,9 +47,6 @@ export class MarathonsComponent implements OnInit {
   getRowParity = getRowParity;
 
   constructor(public temporal: TemporalServiceService) {
-  }
-
-  ngOnInit(): void {
   }
 
   shouldRenderList(key: keyof HomepageMetadata): boolean {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
 import { faDesktop } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,16 +7,13 @@ import { faDesktop } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './marathon-location.component.html',
   styleUrls: ['./marathon-location.component.scss']
 })
-export class MarathonLocationComponent implements OnInit {
+export class MarathonLocationComponent {
 
   @Input() marathon: Marathon;
 
-
   public faDesktop = faDesktop;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  get hasCountry(): boolean {
+    return this.marathon.onsite && !!this.marathon.country;
   }
-
 }

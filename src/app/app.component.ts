@@ -226,10 +226,6 @@ export class AppComponent implements OnInit {
   }
 
   setMomentTimezone(language: string): void {
-    // Clear experiment
-    const experimentName = 'oengus_experiment_2021-05-11_automatic-date-format';
-    localStorage.removeItem(experimentName);
-
     const date = new Date();
 
     if (date.getMonth() === 3 && date.getDate() === 1 && date.getHours() >= 14 ) {

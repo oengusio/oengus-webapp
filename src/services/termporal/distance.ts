@@ -7,7 +7,7 @@ export class Distance implements LocaleSensitive {
     this.relativeTimeFormat = new Intl.RelativeTimeFormat(this.locale);
   }
 
-  public format(datetime: Date|string|number): string {
+  public format(datetime: Date | string | number): string {
     const date = new Date(datetime).getTime();
     // seconds
     let diff = (date - Date.now()) / 1000;

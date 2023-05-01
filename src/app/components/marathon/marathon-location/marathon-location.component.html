@@ -1,4 +1,3 @@
-<span *ngIf="marathon.onsite && marathon.country else desktopIcon" [class]="'flag-icon flag-icon-' + marathon.country.toLowerCase()"></span>
-<ng-template #desktopIcon>
-  <fa-icon [icon]="faDesktop"></fa-icon>
-</ng-template>
+<!-- Computed property is only computed once! -->
+<span *ngIf="hasCountry" [class]="'flag-icon flag-icon-' + marathon.country.toLowerCase()"></span>
+<fa-icon *ngIf="!hasCountry" [icon]="faDesktop"></fa-icon>

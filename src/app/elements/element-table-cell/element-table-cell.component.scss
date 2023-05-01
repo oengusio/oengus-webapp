@@ -1,6 +1,6 @@
 @use '../../../assets/table';
 
-.element-table-cell {
+:host {
   --column-start: auto;
   --column-end: auto;
   --row-start: auto;
