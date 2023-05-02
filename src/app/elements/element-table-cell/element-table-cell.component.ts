@@ -25,7 +25,7 @@ export class ElementTableCellComponent implements OnChanges {
   constructor(private elem: ElementRef) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.isHeader.currentValue !== changes.isHeader.previousValue) {
+    if (changes.isHeader && changes.isHeader.currentValue !== changes.isHeader.previousValue) {
       // The good way did not work for me 🙃
       const clsList = (this.elem.nativeElement.classList as DOMTokenList);
 

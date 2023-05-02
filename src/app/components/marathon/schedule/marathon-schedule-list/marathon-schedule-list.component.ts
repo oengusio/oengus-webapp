@@ -22,6 +22,10 @@ export class MarathonScheduleListComponent implements OnInit {
       return true;
     }
 
+    if (!this.runs[index]) {
+      return false;
+    }
+
     // Otherwise, only show when the day transitioned
     const currentRun = new Date(this.runs[index].date);
     // We have an implicit index test for the index=0 case, so this is always safe

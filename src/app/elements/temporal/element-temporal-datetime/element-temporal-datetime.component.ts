@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
 
 @Component({
   selector: 'app-element-temporal-datetime',
@@ -9,7 +10,7 @@ export class ElementTemporalDatetimeComponent implements OnInit {
   @Input() dateTime: string = new Date().toString();
   @Input() format = 'mediumDateTime';
 
-  constructor() { }
+  constructor(public temporal: TemporalServiceService) { }
 
   ngOnInit(): void {
   }
