@@ -13,3 +13,9 @@
   <app-marathon-schedule-current [ticker]="currentRun"></app-marathon-schedule-current>
   <app-marathon-schedule-current [isNext]="true" [ticker]="nextRun"></app-marathon-schedule-current>
 </div>
+
+<p class="block">
+  {{ 'marathon.schedule.timezone' | translate }}
+</p>
+
+<app-marathon-schedule-list [runs]="schedule.lines"></app-marathon-schedule-list>

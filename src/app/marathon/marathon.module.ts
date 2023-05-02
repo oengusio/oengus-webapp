@@ -58,6 +58,8 @@ import { ElementModule } from '../elements/elements.module';
 import {
   MarathonScheduleCurrentComponent
 } from '../components/marathon/schedule/marathon-schedule-current/marathon-schedule-current.component';
+import { UserLinkComponent } from '../components/user/user-link/user-link.component';
+import { MarathonScheduleListComponent } from '../components/marathon/schedule/marathon-schedule-list/marathon-schedule-list.component';
 
 const marathonRoutes: Routes = [
   {
@@ -208,6 +210,9 @@ const marathonRoutes: Routes = [
     IncentiveSettingsComponent,
     MarathonScheduleExportComponent,
     MarathonScheduleCurrentComponent,
+    /* TODO: component module */
+    UserLinkComponent,
+    MarathonScheduleListComponent,
   ],
   imports: [
     CommonModule,

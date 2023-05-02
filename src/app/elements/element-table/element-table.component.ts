@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-element-table',

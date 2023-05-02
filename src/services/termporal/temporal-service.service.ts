@@ -7,6 +7,7 @@ import { timeZone as timeZoneImport } from './time-zone';
   providedIn: 'root'
 })
 export class TemporalServiceService implements LocaleSensitive {
+  private _locale: string;
 
   get distance() {
     return distanceImport;
@@ -16,7 +17,12 @@ export class TemporalServiceService implements LocaleSensitive {
     return timeZoneImport;
   }
 
+  get locale(): string {
+    return this._locale;
+  }
+
   changeLocale(locale: string): void {
+    this._locale = locale;
     this.distance.changeLocale(locale);
   }
 }

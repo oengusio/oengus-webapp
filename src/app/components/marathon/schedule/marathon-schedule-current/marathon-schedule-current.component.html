@@ -5,7 +5,7 @@
     </a>
   </div>
   <div class="message-body">
-    <div class="run-info-container">
+    <p class="run-info-container">
       <span *ngIf="ticker.setupBlock" class="info">
         {{ (ticker.setupBlockText || 'marathon.schedule.setupBlock' | translate) }}
       </span>
@@ -18,6 +18,10 @@
       <span *ngIf="ticker.console" class="info">
         {{ ticker.console }}
       </span>
-    </div>
+    </p>
+    <p class="runner-info">
+      <app-user-link *ngFor="let runner of ticker.runners" [user]="runner" class="runner"></app-user-link>
+    </p>
+    <!-- TODO: loading indicator -->
   </div>
 </div>
