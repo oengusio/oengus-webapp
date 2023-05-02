@@ -5,6 +5,7 @@ export class Formatting implements LocaleSensitive {
   private formatters = {
     'mediumDateTime': { dateStyle: 'medium', timeStyle: 'medium', },
     'longDate': { dateStyle: 'long', },
+    'shortTime': { timeStyle: 'short', },
   };
 
   constructor(private locale = 'en-GB') {

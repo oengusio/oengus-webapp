@@ -17,6 +17,9 @@
   <app-element-table-cell [isHeader]="true" class="type">
     {{ 'marathon.schedule.table.type' | translate }}
   </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="console">
+    {{ 'marathon.schedule.table.console' | translate }}
+  </app-element-table-cell>
   <app-element-table-cell [isHeader]="true" class="estimate">
     {{ 'marathon.schedule.table.estimate' | translate }}
   </app-element-table-cell>
@@ -24,10 +27,16 @@
     {{ 'marathon.schedule.table.setup' | translate }}
   </app-element-table-cell>
 
-  <ng-template [ngIf]="runs?.length" ngFor let-run let-index="index" [ngForOf]="runs">
+  <ng-template [ngIf]="runs" ngFor let-run let-index="index" [ngForOf]="runs">
     <!-- TODO: ads -->
     <app-element-table-cell *ngIf="shouldShowDay(index)" class="day is-info" columnStart="1" columnEnd="-1">
       <app-element-temporal-datetime [dateTime]="run.date" format="longDate"></app-element-temporal-datetime>
     </app-element-table-cell>
+
+    <app-marathon-schedule-row
+      class="run"
+      [class]="getRowParity(index, run)"
+      [internalId]="getId(run)"
+      [run]="run"></app-marathon-schedule-row>
   </ng-template>
 </div>

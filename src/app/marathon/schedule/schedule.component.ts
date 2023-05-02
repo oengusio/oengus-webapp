@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Schedule } from '../../../model/schedule';
-import { DurationService } from '../../../services/duration.service';
 import moment from 'moment-timezone';
 import { MarathonService } from '../../../services/marathon.service';
 import { ScheduleService } from '../../../services/schedule.service';
@@ -13,13 +12,12 @@ import { Subscription, timer } from 'rxjs';
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss']
 })
-export class ScheduleComponent implements OnInit, OnDestroy {
+export class ScheduleComponent implements OnDestroy {
 
   public schedule: Schedule;
   public moment = moment;
 
   public timezone = moment.tz.guess();
-  public exportActive = false;
 
   public currentIndex: number;
   private scheduleRefresher: Subscription;
@@ -36,25 +34,18 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     } else {
       this.schedule = new Schedule();
     }
-    this.schedule.lines.forEach(line => {
-      line.setupTimeHuman = DurationService.toHuman(line.setupTime);
-      line.estimateHuman = DurationService.toHuman(line.estimate);
-    });
-    this.getCurrentRun();
+    this.setCurrentRunId();
     const now = new Date();
     const initialDelay = 60 * 1000 - (now.getSeconds() * 1000 + now.getMilliseconds());
-    this.scheduleRefresher = timer(initialDelay, 60000).subscribe(() => this.getCurrentRun());
+    this.scheduleRefresher = timer(initialDelay, 60000).subscribe(() => this.setCurrentRunId());
   }
 
-  getCurrentRun() {
+  setCurrentRunId() {
     this.schedule.lines.forEach((line, index) => {
       if (this.isCurrentRun(line)) {
         this.currentIndex = index;
       }
     });
-  }
-
-  ngOnInit() {
   }
 
   get currentRun() {
@@ -79,12 +70,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       moment.tz(line.date, this.timezone)
         .add(moment.duration(line.estimate))
         .add(moment.duration(line.setupTime)).isAfter(now);
-  }
-
-  isLive() {
-    const now = moment();
-    return moment.tz(this.marathonService.marathon.startDate, this.timezone).isBefore(now)
-      && moment.tz(this.marathonService.marathon.endDate, this.timezone).isAfter(now);
   }
 
   ngOnDestroy(): void {

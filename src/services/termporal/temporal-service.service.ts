@@ -3,6 +3,7 @@ import { LocaleSensitive } from './i18n';
 import { distance as distanceImport } from './distance';
 import { timeZone as timeZoneImport } from './time-zone';
 import { formatting as formattingImport } from './formatting';
+import { durationExport } from './duration';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class TemporalServiceService implements LocaleSensitive {
 
   get format() {
     return formattingImport;
+  }
+
+  get duration() {
+    return durationExport;
   }
 
   changeLocale(locale: string): void {

@@ -18,4 +18,8 @@
   {{ 'marathon.schedule.timezone' | translate }}
 </p>
 
-<app-marathon-schedule-list [runs]="schedule.lines"></app-marathon-schedule-list>
+<app-marathon-schedule-list
+  [runs]="schedule.lines"
+  [currentRun]="currentRun"
+  [nextRun]="nextRun"
+></app-marathon-schedule-list>

@@ -9,6 +9,8 @@ import { ScheduleLine } from '../../../../../model/schedule-line';
 export class MarathonScheduleListComponent implements OnInit {
 
   @Input() runs: ScheduleLine[];
+  @Input() currentRun: ScheduleLine;
+  @Input() nextRun: ScheduleLine;
   @Input() runHash: string;
 
   constructor() { }
@@ -34,6 +36,25 @@ export class MarathonScheduleListComponent implements OnInit {
     return currentRun.getDate() !== previousRun.getDate() ||
       currentRun.getMonth() !== previousRun.getMonth() ||
       currentRun.getFullYear() !== previousRun.getFullYear();
+  }
+
+  getRowParity(index: number, run: ScheduleLine): { 'is-primary': boolean, 'is-even': boolean, 'is-odd': boolean } {
+    return {
+      'is-even': index % 2 === 0,
+      'is-odd': index % 2 === 1,
+      'is-primary': run.id === this.currentRun?.id,
+    };
+  }
+
+  getId(run: ScheduleLine): string|undefined {
+    switch (run.id) {
+      case this.currentRun?.id:
+        return 'current';
+      case this.nextRun?.id:
+        return 'next';
+      default:
+        return undefined;
+    }
   }
 
 }
