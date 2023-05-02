@@ -27,7 +27,7 @@
     {{ 'marathon.schedule.table.setup' | translate }}
   </app-element-table-cell>
 
-  <ng-template [ngIf]="runs" ngFor let-run let-index="index" [ngForOf]="runs">
+  <ng-template ngFor let-run let-index="index" [ngForOf]="runs">
     <!-- TODO: ads -->
     <app-element-table-cell *ngIf="shouldShowDay(index)" class="day is-info" columnStart="1" columnEnd="-1">
       <app-element-temporal-datetime [dateTime]="run.date" format="longDate"></app-element-temporal-datetime>
