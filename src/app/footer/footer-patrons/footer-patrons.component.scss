@@ -1,0 +1,16 @@
+@use 'sass:math' as math;
+$logo-height: 40px;
+
+.patreon-brand-container {
+  display: flex;
+  height: $logo-height;
+  // The size of the "O" or the loop in the "P" logo is 2/3rds the height
+  margin-block: math.div(4, 3) * $logo-height;
+  gap: math.div(2, 3) * $logo-height;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    height: $logo-height;
+  }
+}

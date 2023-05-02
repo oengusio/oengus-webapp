@@ -38,6 +38,9 @@ import { MarathonsComponent } from './homepage/marathons/marathons.component';
 import { ElementTableComponent } from './elements/element-table/element-table.component';
 import { ElementTableCellComponent } from './elements/element-table-cell/element-table-cell.component';
 import { MarathonLocationComponent } from './components/marathon/marathon-location/marathon-location.component';
+import { FooterBarComponent } from './footer/footer-bar/footer-bar.component';
+import { FooterPatronsComponent } from './footer/footer-patrons/footer-patrons.component';
+import { PatronListComponent } from './components/patron-list/patron-list.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -107,6 +110,9 @@ const appRoutes: Routes = [
     ElementTableComponent,
     ElementTableCellComponent,
     MarathonLocationComponent,
+    FooterBarComponent,
+    FooterPatronsComponent,
+    PatronListComponent,
   ],
     imports: [
         BrowserModule,

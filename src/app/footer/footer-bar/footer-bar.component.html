@@ -1,0 +1,15 @@
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      {{ 'footer.text' | translate:  { timezone: temporal.timeZone.timeZone } }}
+    </p>
+    <app-footer-patrons></app-footer-patrons>
+    <br>
+    <p>
+      &copy; <span onclick="here_comes()">{{ thisYear }}</span>
+      <a href="https://esamarathon.com/">
+        European Speedrunner Assembly AB
+      </a>
+    </p>
+  </div>
+</footer>

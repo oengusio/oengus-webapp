@@ -179,15 +179,5 @@
     <router-outlet (activate)="onRouteActivated($event)"></router-outlet>
   </main>
 
-  <footer class="footer" style="flex-grow: 0; flex-shrink: 0">
-    <div class="content has-text-centered">
-      <p [innerHTML]="'footer.text' | translate:{'timezone': getTimezone()}">
-      </p>
-      <p [innerHTML]="'footer.donate' | translate:{'donationLink': 'https://www.patreon.com/oengusio'}">
-      </p>
-      <p>
-        &copy; <span onclick="here_comes()">{{ getYear() }}</span><a href="https://esamarathon.com/?ref=oengus" target="_blank"> European Speedrunner Assembly AB</a>
-      </p>
-    </div>
-  </footer>
+  <app-footer-bar></app-footer-bar>
 </div>

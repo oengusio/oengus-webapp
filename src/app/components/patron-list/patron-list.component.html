@@ -1,0 +1,15 @@
+<div *ngIf="patrons" class="field is-grouped is-grouped-multiline">
+  <ng-template [ngIf]="patrons.length" [ngIfElse]="noPatrons">
+    <div *ngFor="let patron of patrons" class="tags has-addons">
+      <div class="avatar tag is-primary">
+        <img [src]="patron.image_url">
+      </div>
+      <a [href]="'https://www.patreon.com/user?u=' + patron.id" target="_blank" class="tag is-primary is-large">
+        {{ patron.full_name }}
+      </a>
+    </div>
+  </ng-template>
+  <ng-template #noPatrons>
+    <span [innerHTML]="'patrons.noPatrons' | translate"></span>
+  </ng-template>
+</div>

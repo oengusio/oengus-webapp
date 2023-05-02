@@ -217,14 +217,6 @@ export class AppComponent implements OnInit {
     this.navMenu.nativeElement.classList.toggle('is-active');
   }
 
-  getTimezone(): string {
-    return moment.tz.guess();
-  }
-
-  getYear(): number {
-    return new Date().getFullYear();
-  }
-
   setMomentTimezone(language: string): void {
     const date = new Date();
 
