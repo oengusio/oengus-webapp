@@ -22,10 +22,16 @@ export class ScheduleComponent implements OnDestroy {
   public currentIndex: number;
   private scheduleRefresher: Subscription;
 
+  runHash = '';
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               public marathonService: MarathonService,
               private scheduleService: ScheduleService) {
+    route.fragment.subscribe((fragment) => {
+      this.runHash = `#${fragment}`;
+    });
+
     if (!this.marathonService.marathon.scheduleDone) {
       this.router.navigate(['../'], {relativeTo: this.route});
     }
@@ -34,6 +40,8 @@ export class ScheduleComponent implements OnDestroy {
     } else {
       this.schedule = new Schedule();
     }
+
+    console.log(this.schedule);
     this.setCurrentRunId();
     const now = new Date();
     const initialDelay = 60 * 1000 - (now.getSeconds() * 1000 + now.getMilliseconds());

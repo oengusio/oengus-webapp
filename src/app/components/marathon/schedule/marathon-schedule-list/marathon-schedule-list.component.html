@@ -36,7 +36,13 @@
     <app-marathon-schedule-row
       class="run"
       [class]="getRowParity(index, run)"
+      [expanded]="expanded.has(run.id)"
       [internalId]="getId(run)"
+      (click)="toggleExpand(run.id)"
       [run]="run"></app-marathon-schedule-row>
+
+    <app-element-table-detail *ngIf="expanded.has(run.id)" class="expanded-run" [class]="getRowParity(index, run)">
+      <app-run-details [run]="run"></app-run-details>
+    </app-element-table-detail>
   </ng-template>
 </div>

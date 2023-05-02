@@ -9,6 +9,12 @@ import { ElementTemporalDatetimeComponent } from './temporal/element-temporal-da
 import { ElementTableRowComponent } from './element-table-row/element-table-row.component';
 import { ElementTemporalDurationComponent } from './temporal/element-temporal-duration/element-temporal-duration.component';
 import { ElementTableExpandButtonComponent } from './element-table-expand-button/element-table-expand-button.component';
+import { ElementTableDetailComponent } from './element-table-detail/element-table-detail.component';
+import { ElementTemporalDistanceComponent } from './temporal/element-temporal-distance/element-temporal-distance.component';
+import { ElementConsoleComponent } from './element-console/element-console.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from '../../services/http-loader-factory';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,6 +25,9 @@ import { ElementTableExpandButtonComponent } from './element-table-expand-button
     ElementTableRowComponent,
     ElementTemporalDurationComponent,
     ElementTableExpandButtonComponent,
+    ElementTableDetailComponent,
+    ElementTemporalDistanceComponent,
+    ElementConsoleComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -28,11 +37,21 @@ import { ElementTableExpandButtonComponent } from './element-table-expand-button
     ElementTableRowComponent,
     ElementTemporalDurationComponent,
     ElementTableExpandButtonComponent,
+    ElementTableDetailComponent,
+    ElementTemporalDistanceComponent,
+    ElementConsoleComponent,
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
-    NwbCommonModule
+    NwbCommonModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ]
 })
 export class ElementModule {

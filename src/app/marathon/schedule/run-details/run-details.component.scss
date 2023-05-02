@@ -1,0 +1,29 @@
+:host {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-auto-rows: auto;
+  gap: calc(var(--spacing) / 2);
+
+  > .header {
+    grid-column: 1 / -1;
+    text-align: center;
+
+    > .title {
+      margin-block-end: calc(var(--spacing) / 2);
+    }
+  }
+
+  > .is-label {
+    font-weight: bold;
+    justify-self: end;
+    white-space: nowrap;
+
+    &::after {
+      content: ':';
+    }
+  }
+
+  > *:not(.is-label) {
+    overflow-x: auto;
+  }
+}

@@ -25,7 +25,7 @@
   </app-element-table-cell>
 
   <app-element-table-cell class="console">
-    {{ run.console }} {{ run.emulated }}
+    <app-element-console [console]="run.console" [emulated]="run.emulated" ></app-element-console>
   </app-element-table-cell>
 
   <app-element-table-cell class="estimate">
