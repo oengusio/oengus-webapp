@@ -1,0 +1,25 @@
+<!-- Trigger -->
+<a *ngIf="isNavbar; else notNavbar" class="navbar-link" (click)="toggleActive()">
+  <ng-content select="[trigger-pls-just-work]"></ng-content>
+</a>
+<ng-template #notNavbar>
+  <div class="dropdown-trigger">
+    <button class="button is-primary" (click)="toggleActive()">
+      <div>
+        <ng-content select="[trigger]"></ng-content>
+      </div>
+      <fa-icon [icon]="faAngleDown"></fa-icon>
+    </button>
+  </div>
+</ng-template>
+<!-- Options -->
+<div *ngIf="isNavbar; else notNavOptions" class="navbar-dropdown" [class]="{ 'is-right': isRight }">
+  <ng-content select="[options-pls-just-work]"></ng-content>
+</div>
+<ng-template #notNavOptions>
+  <div class="dropdown-menu">
+    <div class="dropdown-content">
+      <ng-content select="[options]"></ng-content>
+    </div>
+  </div>
+</ng-template>

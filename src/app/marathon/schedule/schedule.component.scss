@@ -1,1 +1,12 @@
+.current-runs-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  gap: var(--spacing);
 
+  > * {
+    min-width: min(400px, 100%);
+    flex-grow: 1;
+  }
+}

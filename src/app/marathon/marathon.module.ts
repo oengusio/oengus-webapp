@@ -51,6 +51,13 @@ import { GeneralSettingsComponent } from './settings/general-settings/general-se
 import { SubmissionSettingsComponent } from './settings/submission-settings/submission-settings.component';
 import { DiscordSettingsComponent } from './settings/discord-settings/discord-settings.component';
 import { IncentiveSettingsComponent } from './settings/incentive-settings/incentive-settings.component';
+import {
+  MarathonScheduleExportComponent
+} from '../components/marathon/schedule/marathon-schedule-export/marathon-schedule-export.component';
+import { ElementModule } from '../elements/elements.module';
+import {
+  MarathonScheduleCurrentComponent
+} from '../components/marathon/schedule/marathon-schedule-current/marathon-schedule-current.component';
 
 const marathonRoutes: Routes = [
   {
@@ -199,6 +206,8 @@ const marathonRoutes: Routes = [
     SubmissionSettingsComponent,
     DiscordSettingsComponent,
     IncentiveSettingsComponent,
+    MarathonScheduleExportComponent,
+    MarathonScheduleCurrentComponent,
   ],
   imports: [
     CommonModule,
@@ -224,6 +233,7 @@ const marathonRoutes: Routes = [
     NgxPayPalModule,
     NwbPaginatorModule,
     ButtonsModule,
+    ElementModule,
   ],
   exports: [
     RouterModule,

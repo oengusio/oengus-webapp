@@ -3,10 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Schedule } from '../../../model/schedule';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment-timezone';
-// import 'moment-timezone/builds/moment-timezone-with-data-10-year-range';
 import { MarathonService } from '../../../services/marathon.service';
 import { ScheduleService } from '../../../services/schedule.service';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { ScheduleLine } from '../../../model/schedule-line';
 import { Subscription, timer } from 'rxjs';
 
@@ -21,8 +19,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   public moment = moment;
 
   public timezone = moment.tz.guess();
-
-  public faAngleDown = faAngleDown;
   public exportActive = false;
 
   public currentIndex: number;
@@ -59,6 +55,18 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+  }
+
+  get currentRun() {
+    return this.schedule.lines[this.currentIndex];
+  }
+
+  get nextRun() {
+    if (this.currentIndex + 1 >= this.schedule.lines.length) {
+      return null;
+    }
+
+    return this.schedule.lines[this.currentIndex + 1];
   }
 
   export(format: string) {

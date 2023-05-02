@@ -49,6 +49,7 @@ export class ScheduleService extends BaseService {
     });
   }
 
+  // TODO: just return link and open in new tab
   exportAllForMarathon(marathonId: string, format: string) {
     const exportUrl = this.url(`${marathonId}/schedule/export?format=${format}&zoneId=${
       moment.tz.guess()}&locale=${localStorage.getItem('language')}`);
