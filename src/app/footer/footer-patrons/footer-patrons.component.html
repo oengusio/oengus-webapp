@@ -4,7 +4,9 @@
     <img src="/assets/patreon/Digital-Patreon-Wordmark_White.png" alt="Patreon Wordmark">
   </a>
 </div>
-<p>{{ 'footer.patron.enjoyOengus' | translate }}</p>
+<p [innerHTML]="'footer.donate' | translate:{'donationLink': 'https://www.patreon.com/oengusio'}">
+</p>
+<!--<p>{{ 'footer.patron.enjoyOengus' | translate: { patronLink: 'PLS LET ME USE ELEMENTS' } }}</p>-->
 <!--<i18n path="footer.patron.enjoyOengus" tag="p">-->
 <!--  <template #patronLink>-->
 <!--    <a href="https://www.patreon.com/oengusio" target="_blank">-->
