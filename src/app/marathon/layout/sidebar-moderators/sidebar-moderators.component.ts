@@ -1,5 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
+import { User } from '../../../../model/user';
 
 @Component({
   selector: 'app-sidebar-moderators',
@@ -10,9 +11,11 @@ export class SidebarModeratorsComponent implements OnInit {
   @Input() marathon: Marathon;
   @HostBinding('class.collapsed') @Input() collapsed = false;
 
-  constructor() { }
+  moderators: User[] = [];
 
   ngOnInit(): void {
+    this.moderators.push(this.marathon.creator);
+    this.moderators.push(...this.marathon.moderators);
   }
 
 }

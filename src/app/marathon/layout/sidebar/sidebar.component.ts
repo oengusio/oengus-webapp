@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
 
 @Component({
@@ -10,6 +10,7 @@ export class SidebarComponent implements OnInit {
   @Input() isAdmin: boolean;
   @Input() collapsed = false;
   @Input() marathon: Marathon;
+  @Output() toggleSidebar = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -20,9 +21,5 @@ export class SidebarComponent implements OnInit {
     return {
       'is-active': !this.collapsed,
     };
-  }
-
-  toggleSidebar(): void {
-    //
   }
 }

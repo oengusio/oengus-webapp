@@ -37,6 +37,10 @@ export class MarathonComponent implements OnInit {
     return this.marathonService.isAdmin(this.userService.user);
   }
 
+  toggleSidebar(newCollapsed: boolean) {
+    this.collapsed = newCollapsed;
+  }
+
   marathonRouteActivate(component) {
     // hack for reloading the ad :)
     this.showAdsense = false;

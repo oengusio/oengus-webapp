@@ -4,7 +4,7 @@
       {{ marathonName }}
     </h3>
 
-    <button *ngIf="collapsed" class="button navbar-burger" [class]="buttonClass" (click)="toggleSidebar()">
+    <button *ngIf="collapsed" class="button navbar-burger" [class]="buttonClass" (click)="toggleSidebar.emit(!collapsed)">
       <span></span>
       <span></span>
       <span></span>
@@ -12,8 +12,8 @@
   </div>
 
   <div *ngIf="collapsed" class="menu-sections">
-    <app-sidebar-overview [collapsed]="true"></app-sidebar-overview>
-    <app-sidebar-tracker [collapsed]="true"></app-sidebar-tracker>
-    <app-sidebar-admin> [collapsed]="true"</app-sidebar-admin>
+    <app-sidebar-overview [marathon]="marathon" [collapsed]="true"></app-sidebar-overview>
+    <app-sidebar-tracker [marathon]="marathon" [collapsed]="true"></app-sidebar-tracker>
+    <app-sidebar-admin [marathon]="marathon" [collapsed]="true"></app-sidebar-admin>
   </div>
 </div>

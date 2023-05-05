@@ -1,5 +1,12 @@
-<app-marathon-header class="marathon-header" [collapsed]="collapsed"></app-marathon-header>
-<app-sidebar class="marathon-sidebar" *ngIf="!collapsed" [isAdmin]="isAdmin()" [marathon]="marathonService.marathon"></app-sidebar>
+<app-marathon-header class="marathon-header"
+                     [marathon]="marathonService.marathon"
+                     [collapsed]="collapsed"
+                     (toggleSidebar)="toggleSidebar($event)"></app-marathon-header>
+<app-sidebar class="marathon-sidebar"
+             *ngIf="!collapsed"
+             [isAdmin]="isAdmin()"
+             [marathon]="marathonService.marathon"
+             (toggleSidebar)="toggleSidebar($event)"></app-sidebar>
 <app-element-advertisement [showAdvertisement]="!collapsed"
                            [isVertical]="true"
                            dataWidth="169px"
