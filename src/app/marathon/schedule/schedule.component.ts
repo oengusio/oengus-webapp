@@ -19,7 +19,7 @@ export class ScheduleComponent implements OnDestroy {
 
   public timezone = moment.tz.guess();
 
-  public currentIndex: number;
+  public currentIndex: number | undefined;
   private scheduleRefresher: Subscription;
 
   runHash = '';
@@ -56,10 +56,18 @@ export class ScheduleComponent implements OnDestroy {
   }
 
   get currentRun() {
+    if (!this.schedule.lines.length) {
+      return null;
+    }
+
     return this.schedule.lines[this.currentIndex];
   }
 
   get nextRun() {
+    if (this.currentIndex === undefined) {
+      return this.schedule.lines[0];
+    }
+
     if (this.currentIndex + 1 >= this.schedule.lines.length) {
       return null;
     }

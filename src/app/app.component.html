@@ -104,8 +104,8 @@
           <button class="button is-primary" routerLink="/marathon/new">{{'navbar.createMarathon' | translate}}
           </button>
         </div>
-        <a class="navbar-item" routerLink="/about">{{'navbar.about' | translate}}</a>
-        <a class="navbar-item" routerLink="/patrons">{{'navbar.patrons' | translate}}</a>
+        <a class="navbar-item" routerLink="/about" routerLinkActive="is-active">{{'navbar.about' | translate}}</a>
+<!--        <a class="navbar-item" routerLink="/patrons">{{'navbar.patrons' | translate}}</a>-->
         <div class="navbar-item mob has-dropdown {{ languageBarActive ? 'is-active' : '' }}">
           <a class="navbar-link"
              (click)="languageBarActive = !languageBarActive">
