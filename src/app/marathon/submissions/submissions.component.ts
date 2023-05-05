@@ -99,8 +99,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     // @ts-ignore
     window.addEventListener('keydown', this.handlerBound);
 
-    console.log('INIT');
-
     this.filteredSubmissions$ = this.searchTerm.pipe(
       debounceTime(300),
 

@@ -28,7 +28,6 @@
   </app-element-table-cell>
 
   <ng-template ngFor let-run let-index="index" [ngForOf]="runs">
-    <!-- TODO: ads -->
     <app-element-advertisement
       *ngIf="index !== 0 && shouldShowDay(index)"
       class="is-advertisement"

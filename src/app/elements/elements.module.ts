@@ -18,6 +18,7 @@ import { HttpClient } from '@angular/common/http';
 import { ElementAdvertisementComponent } from './element-advertisement/element-advertisement.component';
 import { AdsenseModule } from 'ng2-adsense';
 import { MarathonLocationComponent } from './marathon-location/marathon-location.component';
+import { ElementTwitchPlayerComponent } from './element-twitch-player/element-twitch-player.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MarathonLocationComponent } from './marathon-location/marathon-location
     ElementConsoleComponent,
     ElementAdvertisementComponent,
     MarathonLocationComponent,
+    ElementTwitchPlayerComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -47,6 +49,7 @@ import { MarathonLocationComponent } from './marathon-location/marathon-location
     ElementConsoleComponent,
     ElementAdvertisementComponent,
     MarathonLocationComponent,
+    ElementTwitchPlayerComponent,
   ],
   imports: [
     CommonModule,

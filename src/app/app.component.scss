@@ -4,6 +4,11 @@
   flex-shrink: 0;
 }
 
+.logo {
+  height: 100%;
+  width: 6em; /* TODO: 5em after header update */
+}
+
 .content-wrapper {
   flex: 1;
   padding: 1em;

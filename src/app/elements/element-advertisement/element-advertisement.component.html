@@ -1,7 +1,7 @@
 <div class="container patreon-nudge empty-space" *ngIf="showAdvertisement || true" [ngStyle]="{
   'width': dataWidth,
   'max-width': dataWidth,
-  'min-height' : 'auto'
+  'height' : 'auto'
 }">
   <div class="join-patreon">
     <p>{{ 'global.ads.nag1' | translate }}</p> <br>
@@ -9,7 +9,7 @@
   </div>
   <ng-adsense adSlot="5905320802"
               adFormat="auto"
-              [fullWidthResponsive]="false"
+              [fullWidthResponsive]="true"
               class="advertisement"
               [class.is-shown]="isShown"
               [class.is-horizontal]="isClassHorizontal"

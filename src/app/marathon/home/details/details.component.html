@@ -58,6 +58,8 @@
   </a>
 </div>
 
-<div *ngIf="isLive">
-  TODO: twitch player
-</div>
+<app-element-twitch-player
+  *ngIf="marathon.twitch && isLive"
+  [channel]="marathon.twitch"
+  class="marathon-live-player"></app-element-twitch-player>
+

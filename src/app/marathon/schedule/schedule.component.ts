@@ -41,7 +41,6 @@ export class ScheduleComponent implements OnDestroy {
       this.schedule = new Schedule();
     }
 
-    console.log(this.schedule);
     this.setCurrentRunId();
     const now = new Date();
     const initialDelay = 60 * 1000 - (now.getSeconds() * 1000 + now.getMilliseconds());
