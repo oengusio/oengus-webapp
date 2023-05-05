@@ -1,0 +1,29 @@
+<div class="box user-profile-container">
+  <div>
+    <img [src]="avatarUrl" alt="Profile image">
+  </div>
+
+  <div class="user-address">
+    <h3 class="title is-3 username">
+      <app-user-link [user]="fakeUserModel"></app-user-link>
+    </h3>
+    <span *ngIf="user.pronouns.length" class="tags">
+      <span *ngFor="let pronoun of user.pronouns" class="tag is-info">
+        {{ pronoun }}
+      </span>
+    </span>
+  </div>
+
+  <div *ngIf="user.country" class="user-location">
+    <span class="flag-icon" [class]="'flag-icon-' + user.country.toLowerCase()"></span>
+    <span>
+      {{ 'country.' + user.country | translate }}
+    </span>
+  </div>
+
+  <div *ngIf="user.languagesSpoken.length">
+    <span>{{ 'user.profile.speak' | translate }}</span>
+    <span *ngFor="let language of user.languagesSpoken" class="language-spoken">
+      {{ 'language.' + language | translate }}</span>
+  </div>
+</div>

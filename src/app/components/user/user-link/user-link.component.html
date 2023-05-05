@@ -1,4 +1,0 @@
-<a *ngIf="isLink; else justName" [routerLink]="'/user/profile/' + userId">{{ displayName }}</a>
-<ng-template #justName>
-  <span>{{ displayName }}</span>
-</ng-template>

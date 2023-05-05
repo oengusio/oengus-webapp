@@ -38,26 +38,22 @@ import { DonationsComponent } from './donations/donations.component';
 import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
 import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
-import {AdsenseComponent} from '../adsense/adsense.component';
+import { AdsenseComponent } from '../adsense/adsense.component';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
-import {ButtonsModule} from '../buttons/buttons.module';
-import {DeactivateRouteGuard} from '../guards/deactivate-route-guard.service';
+import { ButtonsModule } from '../buttons/buttons.module';
+import { DeactivateRouteGuard } from '../guards/deactivate-route-guard.service';
 import { OengusMdComponent } from '../oengus-md/oengus-md.component';
 import { AnswersResolver } from '../resolvers/answers-resolver';
-import {LoadingIndicatorComponent} from '../loading-indicator/loading-indicator.component';
+import { LoadingIndicatorComponent } from '../loading-indicator/loading-indicator.component';
 import { GeneralSettingsComponent } from './settings/general-settings/general-settings.component';
 import { SubmissionSettingsComponent } from './settings/submission-settings/submission-settings.component';
 import { DiscordSettingsComponent } from './settings/discord-settings/discord-settings.component';
 import { IncentiveSettingsComponent } from './settings/incentive-settings/incentive-settings.component';
-import {
-  MarathonScheduleExportComponent
-} from './schedule/marathon-schedule-export/marathon-schedule-export.component';
+import { MarathonScheduleExportComponent } from './schedule/marathon-schedule-export/marathon-schedule-export.component';
 import { ElementModule } from '../elements/elements.module';
-import {
-  MarathonScheduleCurrentComponent
-} from './schedule/marathon-schedule-current/marathon-schedule-current.component';
-import { UserLinkComponent } from '../components/user/user-link/user-link.component';
+import { MarathonScheduleCurrentComponent } from './schedule/marathon-schedule-current/marathon-schedule-current.component';
+import { UserLinkComponent } from '../elements/user-link/user-link.component';
 import { MarathonScheduleListComponent } from './schedule/marathon-schedule-list/marathon-schedule-list.component';
 import { MarathonScheduleRowComponent } from './schedule/marathon-schedule-row/marathon-schedule-row.component';
 import { RunDetailsComponent } from './schedule/run-details/run-details.component';
@@ -219,8 +215,6 @@ const marathonRoutes: Routes = [
     IncentiveSettingsComponent,
     MarathonScheduleExportComponent,
     MarathonScheduleCurrentComponent,
-    /* TODO: component module */
-    UserLinkComponent,
     MarathonScheduleListComponent,
     MarathonScheduleRowComponent,
     RunDetailsComponent,
@@ -261,6 +255,7 @@ const marathonRoutes: Routes = [
   exports: [
     RouterModule,
     LoadingIndicatorComponent,
+    UserLinkComponent,
   ],
   providers: [
     CanActivateMarathonSettingsGuard,

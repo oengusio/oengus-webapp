@@ -19,6 +19,7 @@ import { ElementAdvertisementComponent } from './element-advertisement/element-a
 import { AdsenseModule } from 'ng2-adsense';
 import { MarathonLocationComponent } from './marathon-location/marathon-location.component';
 import { ElementTwitchPlayerComponent } from './element-twitch-player/element-twitch-player.component';
+import { UserLinkComponent } from './user-link/user-link.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ElementTwitchPlayerComponent } from './element-twitch-player/element-tw
     ElementAdvertisementComponent,
     MarathonLocationComponent,
     ElementTwitchPlayerComponent,
+    UserLinkComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -50,6 +52,7 @@ import { ElementTwitchPlayerComponent } from './element-twitch-player/element-tw
     ElementAdvertisementComponent,
     MarathonLocationComponent,
     ElementTwitchPlayerComponent,
+    UserLinkComponent,
   ],
   imports: [
     CommonModule,

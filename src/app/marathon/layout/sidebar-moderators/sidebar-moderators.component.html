@@ -4,7 +4,7 @@
 
 <ul class="menu-list">
   <li *ngFor="let moderator of moderators">
-    <a [routerLink]="'/user/profile/' + moderator.username" class="menu-item-link">
+    <a [routerLink]="'/user/' + moderator.username" class="menu-item-link">
       <app-user-link [user]="moderator"></app-user-link>
     </a>
   </li>

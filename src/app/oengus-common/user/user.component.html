@@ -1,7 +1,7 @@
 <ng-template [ngIf]="user" [ngIfElse]="justUserName">
   <div class="is-inline-flex">
     <a *ngIf="showProfileLink"
-       [routerLink]="'/user/profile/' + user.username">
+       [routerLink]="'/user/' + user.username">
       {{localStorage.getItem('language') === 'ja' && !!user.usernameJapanese ? user.usernameJapanese : user.username}}
     </a>
     <span *ngIf="!showProfileLink">
@@ -15,7 +15,7 @@
   </div>
 </ng-template>
 <ng-template #justUserName>
-  <a [routerLink]="'/user/profile/' + username">
+  <a [routerLink]="'/user/' + username">
     {{ username }}
   </a>
 </ng-template>

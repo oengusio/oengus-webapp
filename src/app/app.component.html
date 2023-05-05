@@ -159,7 +159,7 @@
             <app-user [user]="userService.user" [showProfileLink]="false"></app-user>
           </a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" [routerLink]="'/user/profile/' + userService.user.username">
+            <a class="navbar-item" [routerLink]="'/user/' + userService.user.username">
               {{'navbar.profile' | translate}}
             </a>
             <a class="navbar-item" routerLink="/user/settings">

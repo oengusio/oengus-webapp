@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from '../../../../model/user';
-import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
+import { User } from '../../../model/user';
+import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
 
 @Component({
   selector: 'app-user-link',

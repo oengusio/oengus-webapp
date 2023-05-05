@@ -16,6 +16,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConnectionComponent } from './profile/connection/connection.component';
 import { ConnectionSettingsComponent } from './settings/connection-settings/connection-settings.component';
 import { SyncButtonComponent } from './settings/sync-button/sync-button.component';
+import { UserProfileComponent } from './profile/user-profile/user-profile.component';
+import { ElementModule } from '../elements/elements.module';
+import { UserSocialComponent } from './profile/user-social/user-social.component';
 
 const userRoutes: Routes = [
   {
@@ -28,12 +31,12 @@ const userRoutes: Routes = [
       user: UserResolver
     }
   },
+  {path: 'user/new', component: NewUserComponent},
   {
-    path: 'user/profile/:name', component: ProfileComponent, resolve: {
+    path: 'user/:name', component: ProfileComponent, resolve: {
       user: UserProfileResolver
     }
   },
-  {path: 'user/new', component: NewUserComponent}
 ];
 
 @NgModule({
@@ -44,7 +47,9 @@ const userRoutes: Routes = [
     ProfileComponent,
     ConnectionComponent,
     ConnectionSettingsComponent,
-    SyncButtonComponent
+    SyncButtonComponent,
+    UserProfileComponent,
+    UserSocialComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +63,8 @@ const userRoutes: Routes = [
         deps: [HttpClient]
       }
     }),
-    FontAwesomeModule
+    FontAwesomeModule,
+    ElementModule,
   ],
   providers: [UserResolver, UserProfileResolver]
 })
