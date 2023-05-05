@@ -1,4 +1,7 @@
+@import 'bulmaswatch/solar/variables';
+
 :host {
+  padding: 1rem 0;
   display: flex;
   align-items: center;
 
@@ -8,6 +11,21 @@
 
   &.is-vertical {
     flex-direction: row;
+  }
+
+  .patreon-nudge, .empty-space {
+    padding: 10px;
+    border: $border 2px solid;
+    border-radius: 10px;
+    position: relative;
+
+    .join-patreon {
+      position: absolute;
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }
 
@@ -24,6 +42,8 @@ ng-adsense .adsbygoogle {
   width: 100%;
   min-width: 300px;
   max-width: 728px;
+
+  background: white;
 
   &.is-horizontal {
     margin-block: var(--spacing);

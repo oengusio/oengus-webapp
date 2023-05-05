@@ -1,0 +1,19 @@
+<div class="box marathon-header-container">
+  <div class="main-header">
+    <h3 class="title is-3">
+      {{ marathonName }}
+    </h3>
+
+    <button *ngIf="collapsed" class="button navbar-burger" [class]="buttonClass" (click)="toggleSidebar()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div *ngIf="collapsed" class="menu-sections">
+    <app-sidebar-overview [collapsed]="true"></app-sidebar-overview>
+    <app-sidebar-tracker [collapsed]="true"></app-sidebar-tracker>
+    <app-sidebar-admin> [collapsed]="true"</app-sidebar-admin>
+  </div>
+</div>

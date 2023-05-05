@@ -61,6 +61,12 @@ import { UserLinkComponent } from '../components/user/user-link/user-link.compon
 import { MarathonScheduleListComponent } from './schedule/marathon-schedule-list/marathon-schedule-list.component';
 import { MarathonScheduleRowComponent } from './schedule/marathon-schedule-row/marathon-schedule-row.component';
 import { RunDetailsComponent } from './schedule/run-details/run-details.component';
+import { MarathonHeaderComponent } from './layout/marathon-header/marathon-header.component';
+import { SidebarOverviewComponent } from './layout/sidebar-overview/sidebar-overview.component';
+import { SidebarTrackerComponent } from './layout/sidebar-tracker/sidebar-tracker.component';
+import { SidebarAdminComponent } from './layout/sidebar-admin/sidebar-admin.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { SidebarModeratorsComponent } from './layout/sidebar-moderators/sidebar-moderators.component';
 
 const marathonRoutes: Routes = [
   {
@@ -216,6 +222,12 @@ const marathonRoutes: Routes = [
     MarathonScheduleListComponent,
     MarathonScheduleRowComponent,
     RunDetailsComponent,
+    MarathonHeaderComponent,
+    SidebarOverviewComponent,
+    SidebarTrackerComponent,
+    SidebarAdminComponent,
+    SidebarComponent,
+    SidebarModeratorsComponent,
   ],
   imports: [
     CommonModule,

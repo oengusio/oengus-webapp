@@ -51,13 +51,4 @@ export class ElementAdvertisementComponent implements OnInit {
       spacer: this.showSpacer,
     };
   }
-
-  get advertisementType() {
-    return {
-      'is-shown': this.showAdvertisement,
-      'is-horizontal': this.isHorizontal && !this.isVertical,
-      'is-vertical': !this.isHorizontal && this.isVertical,
-    };
-  }
-
 }

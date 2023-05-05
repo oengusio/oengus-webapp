@@ -1,2 +1,15 @@
-<ng-adsense *ngIf="showAdvertisement" adSlot="5905320802" adFormat="" class="advertisement"></ng-adsense>
+<div class="container patreon-nudge empty-space" *ngIf="showAdvertisement || true">
+  <div class="join-patreon">
+    <p>{{ 'global.ads.nag1' | translate }}</p> <br>
+    <p>{{ 'global.ads.nag2' | translate }}</p>
+  </div>
+  <ng-adsense adSlot="5905320802"
+              adFormat="auto"
+              [fullWidthResponsive]="false"
+              class="advertisement"
+              [class.is-shown]="isShown"
+              [class.is-horizontal]="isClassHorizontal"
+              [class.is-vertical]="isClassVertical"
+  ></ng-adsense>
+</div>
 <div [class]="spacerClass"></div>

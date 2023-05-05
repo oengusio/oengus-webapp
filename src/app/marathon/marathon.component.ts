@@ -44,7 +44,7 @@ export class MarathonComponent implements OnInit {
   public faBars = faBars;
   public faTimes = faTimes;
 
-  public minimized = false;
+  public collapsed = false;
   public mobileOpen = true;
   // hack :)
   public showAdsense = true;
@@ -60,6 +60,8 @@ export class MarathonComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Show the sidebar by default on desktop-class devices
+    this.collapsed = (globalThis.innerWidth ?? 1024) < 1024;
   }
 
   isAdmin() {
