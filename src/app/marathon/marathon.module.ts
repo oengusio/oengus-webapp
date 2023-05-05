@@ -67,6 +67,8 @@ import { SidebarTrackerComponent } from './layout/sidebar-tracker/sidebar-tracke
 import { SidebarAdminComponent } from './layout/sidebar-admin/sidebar-admin.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { SidebarModeratorsComponent } from './layout/sidebar-moderators/sidebar-moderators.component';
+import { DetailsComponent } from './home/details/details.component';
+import { DescriptionComponent } from './home/description/description.component';
 
 const marathonRoutes: Routes = [
   {
@@ -228,6 +230,8 @@ const marathonRoutes: Routes = [
     SidebarAdminComponent,
     SidebarComponent,
     SidebarModeratorsComponent,
+    DetailsComponent,
+    DescriptionComponent,
   ],
   imports: [
     CommonModule,

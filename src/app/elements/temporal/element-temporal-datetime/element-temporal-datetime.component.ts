@@ -7,7 +7,7 @@ import { TemporalServiceService } from '../../../../services/termporal/temporal-
   styleUrls: ['./element-temporal-datetime.component.scss']
 })
 export class ElementTemporalDatetimeComponent implements OnInit {
-  @Input() dateTime: string = new Date().toString();
+  @Input() dateTime: string | Date = new Date().toString();
   @Input() format = 'mediumDateTime';
 
   constructor(public temporal: TemporalServiceService) { }

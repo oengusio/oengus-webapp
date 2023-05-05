@@ -1,0 +1,6 @@
+:host  {
+  // Width of the screen minus the global "content padding"
+  max-width: calc(100vw - 2em);
+  // Allow users to view the whole thing anyways, but discourage it
+  overflow-x: auto;
+}

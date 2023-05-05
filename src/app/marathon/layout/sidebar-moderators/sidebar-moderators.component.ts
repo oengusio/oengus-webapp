@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Marathon } from '../../../../model/marathon';
 
 @Component({
   selector: 'app-sidebar-moderators',
@@ -6,7 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./sidebar-moderators.component.scss']
 })
 export class SidebarModeratorsComponent implements OnInit {
-  @Input() collapsed = false;
+  @Input() marathon: Marathon;
+  @HostBinding('class.collapsed') @Input() collapsed = false;
 
   constructor() { }
 

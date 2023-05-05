@@ -1,0 +1,47 @@
+.menu-item-link {
+  display: flex;
+  justify-content: flex-start;
+  justify-content: start;
+  align-items: center;
+}
+
+.menu-item-icon {
+  min-width: 1.5em;
+  margin-inline-end: 0.25em;
+}
+
+@keyframes submit-live-blink {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.25;
+  }
+}
+
+.submit-live-icon {
+  color: #7fff00;
+  animation: 2s 4 alternate submit-live-blink;
+
+  @media (prefers-reduced-motion) {
+    animation-name: none;
+  }
+}
+
+:host.collapsed {
+  .menu-label,
+  .menu-item-label {
+    display: none;
+  }
+
+  .menu-item-icon {
+    margin-inline-end: 0;
+  }
+
+  .menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}

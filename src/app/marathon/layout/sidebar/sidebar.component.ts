@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Marathon } from '../../../../model/marathon';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,7 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  @Input() isAdmin: boolean;
   @Input() collapsed = false;
+  @Input() marathon: Marathon;
 
   constructor() { }
 

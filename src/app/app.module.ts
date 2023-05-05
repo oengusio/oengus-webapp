@@ -35,7 +35,6 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { WelcomeComponent } from './homepage/welcome/welcome.component';
 import { SponsorsComponent } from './homepage/sponsors/sponsors.component';
 import { MarathonsComponent } from './homepage/marathons/marathons.component';
-import { MarathonLocationComponent } from './components/marathon/marathon-location/marathon-location.component';
 import { FooterBarComponent } from './footer/footer-bar/footer-bar.component';
 import { FooterPatronsComponent } from './footer/footer-patrons/footer-patrons.component';
 import { PatronListComponent } from './components/patron-list/patron-list.component';
@@ -106,7 +105,6 @@ const appRoutes: Routes = [
     WelcomeComponent,
     SponsorsComponent,
     MarathonsComponent,
-    MarathonLocationComponent,
     FooterBarComponent,
     FooterPatronsComponent,
     PatronListComponent,

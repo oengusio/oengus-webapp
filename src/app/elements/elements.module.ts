@@ -17,6 +17,7 @@ import { HttpLoaderFactory } from '../../services/http-loader-factory';
 import { HttpClient } from '@angular/common/http';
 import { ElementAdvertisementComponent } from './element-advertisement/element-advertisement.component';
 import { AdsenseModule } from 'ng2-adsense';
+import { MarathonLocationComponent } from './marathon-location/marathon-location.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AdsenseModule } from 'ng2-adsense';
     ElementTemporalDistanceComponent,
     ElementConsoleComponent,
     ElementAdvertisementComponent,
+    MarathonLocationComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -44,6 +46,7 @@ import { AdsenseModule } from 'ng2-adsense';
     ElementTemporalDistanceComponent,
     ElementConsoleComponent,
     ElementAdvertisementComponent,
+    MarathonLocationComponent,
   ],
   imports: [
     CommonModule,

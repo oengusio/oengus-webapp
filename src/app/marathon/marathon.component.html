@@ -1,2 +1,7 @@
 <app-marathon-header class="marathon-header" [collapsed]="collapsed"></app-marathon-header>
-<app-sidebar class="marathon-sidebar" *ngIf="!collapsed"></app-sidebar>
+<app-sidebar class="marathon-sidebar" *ngIf="!collapsed" [isAdmin]="isAdmin()" [marathon]="marathonService.marathon"></app-sidebar>
+<app-element-advertisement [showAdvertisement]="!collapsed"
+                           [isVertical]="true"
+                           dataWidth="169px"
+                           class="is-advertisement"></app-element-advertisement>
+<router-outlet (activate)="marathonRouteActivate($event)" class="marathon-view"></router-outlet>

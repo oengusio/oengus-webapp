@@ -36,7 +36,9 @@
   min-width: min(300px, 100%);
 }
 
-.marathon-view {
+// I hate this, WHY CAN'T router-outlet APPLY THE CLASS
+.marathon-view + ::ng-deep * {
+  display: block;
   grid-area: view;
   width: 100%;
 }

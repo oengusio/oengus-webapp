@@ -35,6 +35,8 @@ export class ElementAdvertisementComponent implements OnInit {
    */
   @Input() shouldReload = false;
 
+  @Input() dataWidth = '80%';
+
   // Binding classes to the host
   @HostBinding('class.is-shown') get isShown() { return this.showAdvertisement; }
   @HostBinding('class.is-horizontal') get isClassHorizontal() { return this.isHorizontal && !this.isVertical; }

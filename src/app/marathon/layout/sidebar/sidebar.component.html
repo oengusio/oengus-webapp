@@ -7,10 +7,17 @@
   </button>
 
   <div class="menu-sections">
-    <app-sidebar-overview [collapsed]="collapsed" class="menu-section"></app-sidebar-overview>
-    <app-sidebar-tracker [collapsed]="collapsed" class="menu-section"></app-sidebar-tracker>
-    <app-sidebar-admin [collapsed]="collapsed" class="menu-section"></app-sidebar-admin>
+    <app-sidebar-overview [collapsed]="collapsed"
+                          [marathon]="marathon"
+                          class="menu-section"></app-sidebar-overview>
+    <app-sidebar-tracker *ngIf="marathon.hasDonations || marathon.hasIncentives"
+                         [collapsed]="collapsed" [marathon]="marathon"
+                         class="menu-section"></app-sidebar-tracker>
+    <app-sidebar-admin *ngIf="isAdmin"
+                       [collapsed]="collapsed"
+                       [marathon]="marathon"
+                       class="menu-section"></app-sidebar-admin>
     <hr *ngIf="!collapsed">
-    <app-sidebar-moderators [collapsed]="collapsed" class="menu-section"></app-sidebar-moderators>
+    <app-sidebar-moderators [collapsed]="collapsed" [marathon]="marathon" class="menu-section"></app-sidebar-moderators>
   </div>
 </nav>
