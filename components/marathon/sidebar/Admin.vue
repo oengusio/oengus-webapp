@@ -3,8 +3,8 @@
     <p class="menu-label">
       {{ $t('marathon.menu.admin') }}
     </p>
-    <ul class="menu-list" :title="$t('marathon.menu.settings')">
-      <li>
+    <ul class="menu-list">
+      <li :title="$t('marathon.menu.settings')">
         <ElementLink :to="`/marathon/${marathonId}/settings`" class="menu-item-link">
           <FontAwesomeIcon class="menu-item-icon" :icon="[ 'fas', 'cogs' ]" />
           <span class="menu-item-label">
