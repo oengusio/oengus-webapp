@@ -25,8 +25,10 @@
       <nav class="panel">
         <div class="panel-block">
           <p class="control has-icons-left">
-            <input class="input searchInput" type="text" #searchInput [placeholder]="'marathon.submissions.filter' | translate"
-                   [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()">
+            <input class="input searchInput" type="text" #searchInput
+                   [(ngModel)]="gameFilter"
+                   [placeholder]="'marathon.submissions.filter' | translate"
+                   (input)="search(searchInput.value)">
             <span class="icon is-left">
               <fa-icon [icon]="faSearch"></fa-icon>
             </span>
@@ -34,7 +36,7 @@
         </div>
         <div class="panel-block" *ngIf="marathonService.marathon.selectionDone">
           <div class="select is-fullwidth">
-            <select [(ngModel)]="categoryFilter" (ngModelChange)="filter()">
+            <select [(ngModel)]="statusFilter" (ngModelChange)="search(searchInput.value)">
               <option value="">{{ 'marathon.selection.status.ALL' | translate}}</option>
               <option value="REJECTED">{{ 'marathon.selection.status.REJECTED' | translate}}</option>
               <option value="BONUS">{{ 'marathon.selection.status.BONUS' | translate}}</option>
@@ -46,8 +48,11 @@
       </nav>
     </div>
   </div>
+  <div class="is-centered" *ngIf="loading">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
 
-  <ng-template ngFor let-submission [ngForOf]="filteredSubmissions">
+  <ng-template ngFor let-submission [ngForOf]="filteredSubmissions$ | async">
     <div class="box">
       <h4 class="title is-4">
         <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
@@ -71,7 +76,7 @@
       </ng-template>
     </div>
   </ng-template>
-  <div id="lazyLoadTrigger" class="is-centered" *ngIf="canLoadMore">
+  <div id="lazyLoadTrigger" class="is-centered" *ngIf="canLoadMore" [hidden]="gameFilter || statusFilter">
     <app-loading-indicator></app-loading-indicator>
   </div>
 </div>

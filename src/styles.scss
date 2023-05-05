@@ -39,7 +39,7 @@ hr {
   border-block-start: 2px solid;
 }
 
-.is-centered {
+.is-centered:not([hidden]) {
   display: flex;
   justify-content: center;
 }

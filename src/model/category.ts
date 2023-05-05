@@ -5,6 +5,9 @@ export class Category {
   id: number;
   name: string;
   estimate: string;
+  /**
+   * @deprecated use the component
+   */
   estimateHuman: string;
   description: string;
   video: string;

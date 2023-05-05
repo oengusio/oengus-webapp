@@ -43,7 +43,7 @@ export class SubmissionGameComponent implements OnInit, OnDestroy {
     }
 
     let status = 'REJECTED';
-    this.game.categories.filter(c => c.visible).forEach(category => {
+    this.game.categories.forEach(category => {
       if (this.selection[category.id]) {
         switch (this.selection[category.id].status) {
           case 'VALIDATED':
