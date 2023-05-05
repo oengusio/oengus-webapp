@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TemporalServiceService } from '../../../../../services/termporal/temporal-service.service';
-import { ScheduleLine } from '../../../../../model/schedule-line';
+import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
+import { ScheduleLine } from '../../../../model/schedule-line';
 
 @Component({
   selector: 'app-marathon-schedule-current',

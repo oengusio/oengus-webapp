@@ -1,0 +1,61 @@
+:host {
+  display: flex;
+  align-items: center;
+
+  &.is-horizontal {
+    flex-direction: column;
+  }
+
+  &.is-vertical {
+    flex-direction: row;
+  }
+}
+
+.spacer {
+  height: calc(5 * var(--spacing) / 2);
+  width: calc(5 * var(--spacing) / 2);
+}
+
+ng-adsense .adsbygoogle {
+  // Dynamic logic lets AdSense pick from more advertisement options
+  height: 100%;
+  min-height: 50px;
+  max-height: 100px;
+  width: 100%;
+  min-width: 300px;
+  max-width: 728px;
+
+  &.is-horizontal {
+    margin-block: var(--spacing);
+    min-height: 50px;
+    max-height: 100px;
+    min-width: 300px;
+    max-width: 728px;
+  }
+
+  &.is-vertical {
+    margin-inline: var(--spacing);
+    min-height: 200px;
+    max-height: 1050px;
+    min-width: 100px;
+    max-width: 300px;
+  }
+
+  &.is-shown + .spacer {
+    display: none;
+  }
+
+  @media (max-width: 1023px) {
+    & {
+      max-width: 320px;
+    }
+  }
+
+  &[data-ad-status="unfilled"] {
+    display: none !important;
+
+    + .spacer {
+      display: block;
+    }
+  }
+}

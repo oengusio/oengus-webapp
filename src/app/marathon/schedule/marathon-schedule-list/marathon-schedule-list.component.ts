@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ScheduleLine } from '../../../../../model/schedule-line';
-import { toggleTableExpand } from '../../../../../assets/table';
+import { ScheduleLine } from '../../../../model/schedule-line';
+import { toggleTableExpand } from '../../../../assets/table';
 
 @Component({
   selector: 'app-marathon-schedule-list',
@@ -81,5 +81,21 @@ export class MarathonScheduleListComponent implements OnChanges {
   toggleExpand(runId: number, openOnly = false): void {
     toggleTableExpand(this.expanded, runId, openOnly);
     this.expanded = new Set(this.expanded);
+  }
+
+  get advertisementIndices(): Array<number> {
+    const advertisementIndices: Array<number> = [ ];
+    const minimumGap = 16;
+    let index = minimumGap;
+    const runsLength = this.runs?.length ?? 0;
+    while (index < runsLength) {
+      if (this.shouldShowDay(index)) {
+        advertisementIndices.push(index);
+        index += minimumGap;
+        continue;
+      }
+      index++;
+    }
+    return advertisementIndices;
   }
 }

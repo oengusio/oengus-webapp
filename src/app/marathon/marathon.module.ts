@@ -34,7 +34,6 @@ import { IncentiveComponent } from './incentive/incentive.component';
 import { CanActivateMarathonIncentivesGuard } from '../guards/can-activate-marathon-incentives-guard.service';
 import { DonateComponent } from './donate/donate.component';
 import { CanActivateMarathonDonationsGuard } from '../guards/can-activate-marathon-donations-guard.service';
-import { NgxPayPalModule } from 'ngx-paypal';
 import { DonationsComponent } from './donations/donations.component';
 import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
@@ -53,14 +52,14 @@ import { DiscordSettingsComponent } from './settings/discord-settings/discord-se
 import { IncentiveSettingsComponent } from './settings/incentive-settings/incentive-settings.component';
 import {
   MarathonScheduleExportComponent
-} from '../components/marathon/schedule/marathon-schedule-export/marathon-schedule-export.component';
+} from './schedule/marathon-schedule-export/marathon-schedule-export.component';
 import { ElementModule } from '../elements/elements.module';
 import {
   MarathonScheduleCurrentComponent
-} from '../components/marathon/schedule/marathon-schedule-current/marathon-schedule-current.component';
+} from './schedule/marathon-schedule-current/marathon-schedule-current.component';
 import { UserLinkComponent } from '../components/user/user-link/user-link.component';
-import { MarathonScheduleListComponent } from '../components/marathon/schedule/marathon-schedule-list/marathon-schedule-list.component';
-import { MarathonScheduleRowComponent } from '../components/marathon/schedule/marathon-schedule-row/marathon-schedule-row.component';
+import { MarathonScheduleListComponent } from './schedule/marathon-schedule-list/marathon-schedule-list.component';
+import { MarathonScheduleRowComponent } from './schedule/marathon-schedule-row/marathon-schedule-row.component';
 import { RunDetailsComponent } from './schedule/run-details/run-details.component';
 
 const marathonRoutes: Routes = [
@@ -239,7 +238,6 @@ const marathonRoutes: Routes = [
     OengusCommonModule,
     DragDropModule,
     NwbEditInPlaceModule,
-    NgxPayPalModule,
     NwbPaginatorModule,
     ButtonsModule,
     ElementModule,

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ScheduleLine } from '../../../../../model/schedule-line';
+import { ScheduleLine } from '../../../../model/schedule-line';
 
 @Component({
   selector: 'app-marathon-schedule-row',

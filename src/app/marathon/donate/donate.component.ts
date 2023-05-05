@@ -3,7 +3,6 @@ import { Donation } from '../../../model/donation';
 import { DonationService } from '../../../services/donation.service';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
-import { IPayPalConfig } from 'ngx-paypal';
 import { environment } from '../../../environments/environment';
 import { DonationExtraData } from '../../../model/donation-extra-data';
 import { Incentive } from '../../../model/incentive';
@@ -24,7 +23,7 @@ export class DonateComponent implements OnInit {
 
   public links: Link[];
 
-  public paypalConfig: IPayPalConfig;
+  public paypalConfig: any/*IPayPalConfig*/;
   public loading = false;
   public faTimes = faTimes;
 

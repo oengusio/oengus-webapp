@@ -15,6 +15,8 @@ import { ElementConsoleComponent } from './element-console/element-console.compo
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../../services/http-loader-factory';
 import { HttpClient } from '@angular/common/http';
+import { ElementAdvertisementComponent } from './element-advertisement/element-advertisement.component';
+import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { HttpClient } from '@angular/common/http';
     ElementTableDetailComponent,
     ElementTemporalDistanceComponent,
     ElementConsoleComponent,
+    ElementAdvertisementComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -40,6 +43,7 @@ import { HttpClient } from '@angular/common/http';
     ElementTableDetailComponent,
     ElementTemporalDistanceComponent,
     ElementConsoleComponent,
+    ElementAdvertisementComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +55,10 @@ import { HttpClient } from '@angular/common/http';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
+    }),
+    AdsenseModule.forRoot({
+      adClient: 'ca-pub-1125692619955117',
+      adSlot: '5905320802',
     }),
   ]
 })
