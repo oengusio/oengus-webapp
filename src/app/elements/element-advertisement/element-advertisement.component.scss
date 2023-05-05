@@ -1,6 +1,7 @@
 @import 'bulmaswatch/solar/variables';
 
 :host {
+  min-width: 100%;
   padding: 1rem 0;
   display: flex;
   align-items: center;
