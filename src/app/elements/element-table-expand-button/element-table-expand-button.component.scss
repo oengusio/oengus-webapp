@@ -1,4 +1,16 @@
-.element-table-expand-button > svg {
+@use '../../../assets/table';
+
+.element-table-expand-button > fa-icon::ng-deep > svg {
   width: 10px;
   max-width: 10px;
 }
+
+// TODO: super duper hacky, refactor pls
+:host {
+  @include table.cell-varients($selector-after: '::ng-deep > app-element-table-cell::ng-deep');
+
+  // XXX display: contents should be a hack and an implementation detail and is subject to change
+  // This is a substitute for properly using subgrid (CSS Grid Level 2)
+  display: contents;
+}
+
