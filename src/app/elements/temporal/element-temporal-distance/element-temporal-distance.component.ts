@@ -7,7 +7,7 @@ import { TemporalServiceService } from '../../../../services/termporal/temporal-
   styleUrls: ['./element-temporal-distance.component.scss']
 })
 export class ElementTemporalDistanceComponent {
-  @Input() dateTime: string;
+  @Input() dateTime: string | Date;
 
   constructor(public temporal: TemporalServiceService) {
     //

@@ -1,4 +1,4 @@
-<a *ngIf="connectionMeta.link; else noLink" [href]="connectionMeta.link" class="social-link-container">
+<a *ngIf="connectionMeta.link; else noLink" [href]="connectionMeta.link" target="_blank" class="social-link-container">
   <p>{{ (connectionMeta.header | translate) || connection.platform }}</p>
   <fa-icon [icon]="connectionMeta.icon" size="2x"></fa-icon>
   <p>{{ connection.username }}</p>

@@ -1,0 +1,44 @@
+<app-element-table [isDivided]="true" class="submission-table">
+  <app-element-table-cell [isHeader]="true" class="marathon">
+    {{ 'marathon.submissions.table.marathon' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="game">
+    {{ 'marathon.submissions.table.game' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="category">
+    {{ 'marathon.submissions.table.category' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="estimate">
+    {{ 'marathon.submissions.table.estimate' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="status">
+    {{ 'marathon.submissions.table.status' | translate }}
+  </app-element-table-cell>
+
+  <ng-template ngFor let-marathon [ngForOf]="submissions">
+    <app-element-table-cell *ngIf="getCategories(marathon).length" class="marathon"  [class]="getCellColor(marathon)" [rowEnd]="getSpan(marathon)">
+      <a [routerLink]="'/marathon/' + marathon.marathonId">{{ marathon.marathonName }}</a>
+      (<app-element-temporal-distance [dateTime]="marathon.marathonStartDate"></app-element-temporal-distance>)
+    </app-element-table-cell>
+
+    <ng-template ngFor let-game [ngForOf]="marathon.games">
+      <app-element-table-cell *ngIf="getCategories(game).length" class="game" [class]="getCellColor(game)" [rowEnd]="getSpan(game)">
+        {{ game.name }}
+      </app-element-table-cell>
+
+      <ng-template ngFor let-category [ngForOf]="game.categories">
+        <app-element-table-cell class="category" [class]="getCellColor(category)">
+          {{ category.name }}
+        </app-element-table-cell>
+
+        <app-element-table-cell class="estimate" [class]="getCellColor(category)">
+          <app-element-temporal-duration [duration]="category.estimate"></app-element-temporal-duration>
+        </app-element-table-cell>
+
+        <app-element-table-cell class="status" [class]="getCellColor(category)">
+          {{ 'marathon.selection.status.' + category.status | translate }}
+        </app-element-table-cell>
+      </ng-template>
+    </ng-template>
+  </ng-template>
+</app-element-table>

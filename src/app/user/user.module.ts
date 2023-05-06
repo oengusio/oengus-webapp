@@ -20,6 +20,9 @@ import { UserProfileComponent } from './profile/user-profile/user-profile.compon
 import { ElementModule } from '../elements/elements.module';
 import { UserSocialComponent } from './profile/user-social/user-social.component';
 import { BoxComponent } from './profile/user-social/box/box.component';
+import { ProfileHistoryComponent } from './profile/profile-history/profile-history.component';
+import { SubmissionComponent } from './profile/profile-history/submission/submission.component';
+import { ModeratedComponent } from './profile/profile-history/moderated/moderated.component';
 
 const userRoutes: Routes = [
   {
@@ -51,7 +54,10 @@ const userRoutes: Routes = [
     SyncButtonComponent,
     UserProfileComponent,
     UserSocialComponent,
-    BoxComponent
+    BoxComponent,
+    ProfileHistoryComponent,
+    SubmissionComponent,
+    ModeratedComponent
   ],
   imports: [
     CommonModule,

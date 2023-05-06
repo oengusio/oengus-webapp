@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
 
   updateUser(user): void {
     this.user = user;
-    this.user.history.forEach(marathon => {
+    /*this.user.history.forEach(marathon => {
       marathon.games.forEach(game => {
         game.categories.forEach(category => {
           category.visible = true;
@@ -83,7 +83,7 @@ export class ProfileComponent implements OnInit {
       });
       marathon.visible = true;
       marathon.status = this.getTopStatus(marathon.games);
-    });
+    });*/
   }
 
   getTopStatus(array: any[]): string {
@@ -116,7 +116,7 @@ export class ProfileComponent implements OnInit {
   }
 
   public filter(): void {
-    const statuses = this.statusFilter.filter(entry => entry.selected).map(entry => entry.title);
+    /*const statuses = this.statusFilter.filter(entry => entry.selected).map(entry => entry.title);
     this.user.history.forEach(marathon => {
       marathon.games.forEach(game => {
         game.categories.forEach(category => {
@@ -125,7 +125,7 @@ export class ProfileComponent implements OnInit {
         game.visible = !!game.categories.find(category => category.visible);
       });
       marathon.visible = !!marathon.games.find(game => game.visible) && this.filterTemporality(marathon);
-    });
+    });*/
   }
 
   private filterTemporality(marathon: UserProfileHistory): boolean {
@@ -145,9 +145,9 @@ export class ProfileComponent implements OnInit {
     return game.categories.filter(c => c.visible).length;
   }
 
-  public visibleGames(marathon: UserProfileHistory) {
+  /*public visibleGames(marathon: UserProfileHistory) {
     return marathon.games.map(this.visibleCategories).reduce((previousValue, currentValue) => previousValue + currentValue);
-  }
+  }*/
 
   public isAdmin(): boolean {
     if (!this.userService.isLoggedIn()) {
