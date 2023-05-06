@@ -1,0 +1,13 @@
+<a *ngIf="connectionMeta.link; else noLink" [href]="connectionMeta.link" class="social-link-container">
+  <p>{{ (connectionMeta.header | translate) || connection.platform }}</p>
+  <fa-icon [icon]="connectionMeta.icon" size="2x"></fa-icon>
+  <p>{{ connection.username }}</p>
+</a>
+
+<ng-template #noLink>
+  <div class="social-link-container">
+    <p>{{ (connectionMeta.header | translate) || connection.platform }}</p>
+    <fa-icon [icon]="connectionMeta.icon" size="2x"></fa-icon>
+    <p>{{ connection.username }}</p>
+  </div>
+</ng-template>

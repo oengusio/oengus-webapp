@@ -19,6 +19,7 @@ import { SyncButtonComponent } from './settings/sync-button/sync-button.componen
 import { UserProfileComponent } from './profile/user-profile/user-profile.component';
 import { ElementModule } from '../elements/elements.module';
 import { UserSocialComponent } from './profile/user-social/user-social.component';
+import { BoxComponent } from './profile/user-social/box/box.component';
 
 const userRoutes: Routes = [
   {
@@ -49,7 +50,8 @@ const userRoutes: Routes = [
     ConnectionSettingsComponent,
     SyncButtonComponent,
     UserProfileComponent,
-    UserSocialComponent
+    UserSocialComponent,
+    BoxComponent
   ],
   imports: [
     CommonModule,
