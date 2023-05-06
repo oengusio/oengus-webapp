@@ -3,7 +3,7 @@ import { LocaleSensitive } from './i18n';
 export class Formatting implements LocaleSensitive {
   private dateTimeFormat: Intl.DateTimeFormat;
   private formatters = {
-    'mediumDateTime': { dateStyle: 'medium', timeStyle: 'medium', },
+    'mediumDateTime': { dateStyle: 'medium', timeStyle: 'short', },
     'longDate': { dateStyle: 'long', },
     'shortTime': { timeStyle: 'short', },
   };

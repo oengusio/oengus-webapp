@@ -204,7 +204,7 @@ export class AppComponent implements OnInit {
     this.language = language;
     localStorage.setItem('language', language);
     this.translate.use(language);
-    this.temporal.changeLocale(language);
+    this.temporal.changeLocale(language === 'en' ? 'en-GB' : language);
 
     this.setMomentTimezone(language);
 
