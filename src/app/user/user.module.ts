@@ -23,6 +23,7 @@ import { BoxComponent } from './profile/user-social/box/box.component';
 import { ProfileHistoryComponent } from './profile/profile-history/profile-history.component';
 import { SubmissionComponent } from './profile/profile-history/submission/submission.component';
 import { ModeratedComponent } from './profile/profile-history/moderated/moderated.component';
+import { AdminControlsComponent } from './profile/admin-controls/admin-controls.component';
 
 const userRoutes: Routes = [
   {
@@ -57,7 +58,8 @@ const userRoutes: Routes = [
     BoxComponent,
     ProfileHistoryComponent,
     SubmissionComponent,
-    ModeratedComponent
+    ModeratedComponent,
+    AdminControlsComponent
   ],
   imports: [
     CommonModule,
