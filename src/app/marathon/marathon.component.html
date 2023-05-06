@@ -4,10 +4,11 @@
                      (toggleSidebar)="toggleSidebar($event)"></app-marathon-header>
 <app-sidebar class="marathon-sidebar"
              *ngIf="!collapsed"
-             [isAdmin]="isAdmin()"
+             [isAdmin]="isAdmin"
              [marathon]="marathonService.marathon"
              (toggleSidebar)="toggleSidebar($event)"></app-sidebar>
-<app-element-advertisement [showAdvertisement]="!collapsed"
+<app-element-advertisement *ngIf="!collapsed"
+                           [showAdvertisement]="true"
                            [isVertical]="true"
                            dataWidth="169px"
                            class="is-advertisement"></app-element-advertisement>

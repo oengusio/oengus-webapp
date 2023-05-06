@@ -33,7 +33,7 @@ export class MarathonComponent implements OnInit {
     this.collapsed = (globalThis.innerWidth ?? 1024) < 1024;
   }
 
-  isAdmin() {
+  get isAdmin() {
     return this.marathonService.isAdmin(this.userService.user);
   }
 
