@@ -13,6 +13,8 @@
   grid-column-end: var(--column-end);
   grid-row-start: var(--row-start);
   grid-row-end: var(--row-end);
+
+  display: grid;
 }
 
 .element-table-header {

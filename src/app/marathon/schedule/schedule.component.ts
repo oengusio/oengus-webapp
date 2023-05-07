@@ -75,10 +75,6 @@ export class ScheduleComponent implements OnDestroy {
     return this.schedule.lines[this.currentIndex + 1];
   }
 
-  export(format: string) {
-    this.scheduleService.exportAllForMarathon(this.marathonService.marathon.id, format);
-  }
-
   isCurrentRun(line: ScheduleLine) {
     const now = moment.now();
     return moment.tz(line.date, this.timezone).isBefore(now) &&

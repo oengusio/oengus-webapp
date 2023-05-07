@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ScheduleService } from '../../../../services/schedule.service';
+import { MarathonService } from '../../../../services/marathon.service';
 
 @Component({
   selector: 'app-marathon-schedule-export',
   templateUrl: './marathon-schedule-export.component.html',
   styleUrls: ['./marathon-schedule-export.component.scss']
 })
-export class MarathonScheduleExportComponent implements OnInit {
+export class MarathonScheduleExportComponent {
 
   formats = [ 'ics', 'csv', 'json' ];
 
-  constructor(private scheduleService: ScheduleService) { }
+  constructor(private scheduleService: ScheduleService, private marathonService: MarathonService) { }
 
-  ngOnInit(): void {
+  getExportUrl(format: string) {
+    return this.scheduleService.getExportUrl(this.marathonService.marathon.id, format);
   }
 
 }

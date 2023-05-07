@@ -1,4 +1,14 @@
-@import "~bulmaswatch/solar/variables";
+@import "bulmaswatch/solar/variables";
+
+/*:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+
+  > * {
+    margin: 0;
+  }
+}*/
 
 hr {
   border: 1px solid $grey-alt;
@@ -6,6 +16,6 @@ hr {
 
 .searchInput {
   &:focus, &:focus-visible {
-    border: 10px solid orange;
+    border: 5px solid orange;
   }
 }

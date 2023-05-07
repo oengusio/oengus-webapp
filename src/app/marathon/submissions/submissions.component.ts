@@ -46,7 +46,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
   private searchTerm = new Subject<SearchItem>();
 
-  private handlerBound: Function;
+  private handlerBound = this.ctrlFHandler.bind(this);
   private observer = new IntersectionObserver(async (entries) => {
     if (entries[0] && entries[0].isIntersecting) {
       if (!this.gameFilter && !this.statusFilter) {
@@ -95,8 +95,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.canLoadMore = true;
     this.lastPageLoaded = 0;
-    this.handlerBound = this.ctrlFHandler.bind(this);
-    // @ts-ignore
     window.addEventListener('keydown', this.handlerBound);
 
     this.filteredSubmissions$ = this.searchTerm.pipe(
@@ -132,7 +130,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
   // TODO: handler does not get removed
   ngOnDestroy(): void {
-    // @ts-ignore
     window.removeEventListener('keydown', this.handlerBound);
   }
 
@@ -166,6 +163,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   }
 
   ctrlFHandler(event: KeyboardEvent): boolean {
+    console.log('handling ctrl+f');
     if (event.ctrlKey && event.key === 'f' && this.active === 'submissions') {
       event.preventDefault();
 
@@ -180,7 +178,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  displaysTabs() {
+  get displaysTabs() {
     return this.marathonService.isAdmin(this.userService.user) &&
       !!this.marathonService.marathon.questions &&
       this.marathonService.marathon.questions.length > 0;

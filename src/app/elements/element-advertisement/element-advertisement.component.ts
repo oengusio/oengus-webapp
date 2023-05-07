@@ -1,11 +1,11 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'app-element-advertisement',
   templateUrl: './element-advertisement.component.html',
   styleUrls: ['./element-advertisement.component.scss'],
 })
-export class ElementAdvertisementComponent implements OnInit {
+export class ElementAdvertisementComponent {
 
   /**
    * Sometimes you need to insert elements that won't have advertisements
@@ -36,18 +36,12 @@ export class ElementAdvertisementComponent implements OnInit {
   @Input() shouldReload = false;
 
   @Input() dataWidth = '80%';
-  @Input() dataHeight = 'auto';
+  @HostBinding('style.height') @Input() dataHeight = 'auto';
 
   // Binding classes to the host
   @HostBinding('class.is-shown') get isShown() { return this.showAdvertisement; }
   @HostBinding('class.is-horizontal') get isClassHorizontal() { return this.isHorizontal && !this.isVertical; }
   @HostBinding('class.is-vertical') get isClassVertical() { return !this.isHorizontal && this.isVertical; }
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   get spacerClass() {
     return {

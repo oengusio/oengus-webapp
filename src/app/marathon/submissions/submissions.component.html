@@ -1,9 +1,15 @@
-<h1 class="title">{{ 'marathon.submissions.title' | translate}}
+<div class="notification is-info mb-4">
+  <p>{{ 'alert.submission.cache' | translate }}</p>
+</div>
+
+<h3 class="title is-3 mb-4">
+  {{ 'marathon.submissions.title' | translate }}
   <button class="button is-pulled-right is-info" (click)="exportToCsv()"
           *ngIf="marathonService.isAdmin(userService.user)">{{ 'marathon.submissions.export' | translate}}
   </button>
-</h1>
-<div class="tabs is-centered" *ngIf="displaysTabs()">
+</h3>
+
+<div class="tabs is-centered" *ngIf="displaysTabs">
   <ul>
     <li [ngClass]="{'is-active':active==='submissions'}">
       <a (click)="active = 'submissions'">{{'marathon.submissions.tabs.submissions' | translate}}</a>
@@ -14,11 +20,7 @@
   </ul>
 </div>
 
-<div class="notification is-info">
-  <p>{{ 'alert.submission.cache' | translate }}</p>
-</div>
-
-<div [hidden]="displaysTabs() && active !== 'submissions'" class="container" id="submissionScrollArea">
+<div [hidden]="displaysTabs && active !== 'submissions'" class="container" id="submissionScrollArea">
 
   <div class="columns">
     <div class="column is-half-desktop">
@@ -81,7 +83,7 @@
   </div>
 </div>
 
-<div [hidden]="!displaysTabs() || active !== 'answers'" class="container">
+<div [hidden]="!displaysTabs || active !== 'answers'" class="container">
   <div class="table-container">
     <table class="table is-fullwidth is-striped">
       <thead>
