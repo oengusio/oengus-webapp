@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {NwbCommonModule} from '@wizishop/ng-wizi-bulma';
+import { NwbCommonModule } from '@wizishop/ng-wizi-bulma';
 import { ElementTableComponent } from './element-table/element-table.component';
 import { ElementTableCellComponent } from './element-table-cell/element-table-cell.component';
 import { ElementDropdownComponent } from './element-dropdown/element-dropdown.component';
@@ -20,6 +20,8 @@ import { AdsenseModule } from 'ng2-adsense';
 import { MarathonLocationComponent } from './marathon-location/marathon-location.component';
 import { ElementTwitchPlayerComponent } from './element-twitch-player/element-twitch-player.component';
 import { UserLinkComponent } from './user-link/user-link.component';
+import { ElementTemporalRangeComponent } from './temporal/element-temporal-range/element-temporal-range.component';
+import { ElementRangeComponent } from './element-range/element-range.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { UserLinkComponent } from './user-link/user-link.component';
     MarathonLocationComponent,
     ElementTwitchPlayerComponent,
     UserLinkComponent,
+    ElementTemporalRangeComponent,
+    ElementRangeComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -53,6 +57,8 @@ import { UserLinkComponent } from './user-link/user-link.component';
     MarathonLocationComponent,
     ElementTwitchPlayerComponent,
     UserLinkComponent,
+    ElementTemporalRangeComponent,
+    ElementRangeComponent,
   ],
   imports: [
     CommonModule,

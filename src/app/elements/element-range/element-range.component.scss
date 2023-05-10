@@ -1,0 +1,41 @@
+@use 'bulmaswatch/solar/variables' as solar;
+@use 'bulma/sass/utilities/initial-variables' as bulma;
+
+:host {
+  --start-range: 0%;
+  --end-range: 100%;
+
+  position: relative;
+  border: none;
+  border-radius: bulma.$radius-rounded;
+  display: block;
+  height: 1rem;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+  background-color: bulma.$grey-lightest;
+
+  > .selected-range {
+    position: absolute;
+    border: none;
+    border-radius: solar.$radius;
+    display: block;
+    height: 100%;
+    left: var(--start-range);
+    right: var(--end-range);
+    background-color: solar.$primary;
+  }
+
+  $colors:
+    'primary' solar.$primary,
+    'info' solar.$info,
+    'success' solar.$green,
+    'warning' solar.$warning,
+    'danger' solar.$red;
+
+  @each $name, $color in $colors {
+    &.is-#{$name} > .selected-range {
+      background-color: $color;
+    }
+  }
+}

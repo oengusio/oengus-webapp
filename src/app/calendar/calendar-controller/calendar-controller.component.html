@@ -1,0 +1,15 @@
+<h4 class="title is-4">
+  <app-element-temporal-datetime [dateTime]="datetime" format="longMonth"></app-element-temporal-datetime>
+</h4>
+
+<div class="controls-container">
+  <a [routerLink]="'/calendar/' + previousCalendar.year + '/' + previousCalendar.month" class="button">
+    <fa-icon [icon]="iconLeft"></fa-icon>
+  </a>
+  <a routerLink="/calendar" class="button">
+    {{ 'calendar.now' | translate }}
+  </a>
+  <a [routerLink]="'/calendar/' + nextCalendar.year + '/' + nextCalendar.month" class="button">
+    <fa-icon [icon]="iconRight"></fa-icon>
+  </a>
+</div>

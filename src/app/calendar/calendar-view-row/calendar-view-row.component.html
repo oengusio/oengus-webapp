@@ -1,0 +1,28 @@
+<app-element-table-row>
+  <app-element-table-cell class="duration">
+    <!-- TODO: find a solution to using <i18n/> in vue -->
+    <!-- It would be really nice if we could use components here -->
+    {{ durationText | translate: {
+    'start-time': marathon.startDate,
+    'end-time': marathon.endDate,
+    'time-range': 'OH GOD PLEASE SAVE ME FROM THIS HELL'
+  } }}
+  </app-element-table-cell>
+  <app-element-table-cell class="range">
+    <app-element-range class="range-bar"
+                       [class]="rangeColor"
+                       min="0"
+                       max="24"
+                       [start]="start"
+                       [end]="end"
+    ></app-element-range>
+  </app-element-table-cell>
+  <app-element-table-cell class="name">
+    <a [routerLink]="'/marathon/' + marathon.id">
+      {{ marathon.name }}
+    </a>
+  </app-element-table-cell>
+  <app-element-table-cell class="links">
+    <app-marathon-sidebar-overview [marathon]="marathon" [collapsed]="true" [isBigHome]="true"></app-marathon-sidebar-overview>
+  </app-element-table-cell>
+</app-element-table-row>

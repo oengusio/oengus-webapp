@@ -7,9 +7,9 @@
   </button>
 
   <div class="menu-sections">
-    <app-sidebar-overview [collapsed]="collapsed"
+    <app-marathon-sidebar-overview [collapsed]="collapsed"
                           [marathon]="marathon"
-                          class="menu-section"></app-sidebar-overview>
+                          class="menu-section"></app-marathon-sidebar-overview>
     <app-sidebar-tracker *ngIf="marathon.hasDonations || marathon.hasIncentives"
                          [collapsed]="collapsed" [marathon]="marathon"
                          class="menu-section"></app-sidebar-tracker>

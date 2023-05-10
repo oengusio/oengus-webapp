@@ -58,13 +58,13 @@ import { MarathonScheduleListComponent } from './schedule/marathon-schedule-list
 import { MarathonScheduleRowComponent } from './schedule/marathon-schedule-row/marathon-schedule-row.component';
 import { RunDetailsComponent } from './schedule/run-details/run-details.component';
 import { MarathonHeaderComponent } from './layout/marathon-header/marathon-header.component';
-import { SidebarOverviewComponent } from './layout/sidebar-overview/sidebar-overview.component';
 import { SidebarTrackerComponent } from './layout/sidebar-tracker/sidebar-tracker.component';
 import { SidebarAdminComponent } from './layout/sidebar-admin/sidebar-admin.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { SidebarModeratorsComponent } from './layout/sidebar-moderators/sidebar-moderators.component';
 import { DetailsComponent } from './home/details/details.component';
 import { DescriptionComponent } from './home/description/description.component';
+import { ComponentsModule } from '../components/components.module';
 
 const marathonRoutes: Routes = [
   {
@@ -219,7 +219,6 @@ const marathonRoutes: Routes = [
     MarathonScheduleRowComponent,
     RunDetailsComponent,
     MarathonHeaderComponent,
-    SidebarOverviewComponent,
     SidebarTrackerComponent,
     SidebarAdminComponent,
     SidebarComponent,
@@ -251,6 +250,7 @@ const marathonRoutes: Routes = [
     NwbPaginatorModule,
     ButtonsModule,
     ElementModule,
+    ComponentsModule,
   ],
   exports: [
     RouterModule,

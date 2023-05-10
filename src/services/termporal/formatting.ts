@@ -1,19 +1,15 @@
 import { LocaleSensitive } from './i18n';
+import { dateTimeFormats } from './config';
 
 export class Formatting implements LocaleSensitive {
   private dateTimeFormat: Intl.DateTimeFormat;
-  private formatters = {
-    'mediumDateTime': { dateStyle: 'medium', timeStyle: 'short', },
-    'longDate': { dateStyle: 'long', },
-    'shortTime': { timeStyle: 'short', },
-  };
 
   constructor(private locale = 'en-GB') {
     this.dateTimeFormat = new Intl.DateTimeFormat(this.locale);
   }
 
   format(date: Date, format: string): string {
-    const options = this.formatters[format];
+    const options = dateTimeFormats[format];
     // @ts-ignore
     const dateTimeFormat = new Intl.DateTimeFormat(this.locale, options);
 

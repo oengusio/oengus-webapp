@@ -1,26 +1,21 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { Marathon } from '../../../../model/marathon';
-import { faBook, faHome, faHomeLg, faCalendar, faPaperPlane, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { Component, HostBinding, Input } from '@angular/core';
+import { Marathon } from '../../../model/marathon';
+import { faBook, faCalendar, faCircle, faHome, faHomeLg, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-sidebar-overview',
+  selector: 'app-marathon-sidebar-overview',
   templateUrl: './sidebar-overview.component.html',
   styleUrls: ['./sidebar-overview.component.scss']
 })
-export class SidebarOverviewComponent implements OnInit {
+export class SidebarOverviewComponent {
   @Input() marathon: Marathon;
+  @Input() isBigHome = false;
   @HostBinding('class.collapsed') @Input() collapsed = false;
 
-  isBigHome = true;
   iconCircle = faCircle;
   iconPaperPlane = faPaperPlane;
   iconCalendar = faCalendar;
   iconBook = faBook;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   get iconHome() {
     return this.isBigHome ? faHomeLg : faHome;

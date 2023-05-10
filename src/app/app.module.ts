@@ -19,8 +19,6 @@ import { UserModule } from './user/user.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { OengusCommonModule } from './oengus-common/oengus-common.module';
 import { AboutComponent } from './about/about.component';
-import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
-import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import { CalendarComponent } from './calendar/calendar.component';
 import { WebpackTranslateLoader } from '../loader/webpack-translate-loader';
 import { PatronsComponent } from './patrons/patrons.component';
@@ -37,12 +35,12 @@ import { SponsorsComponent } from './homepage/sponsors/sponsors.component';
 import { MarathonsComponent } from './homepage/marathons/marathons.component';
 import { FooterBarComponent } from './footer/footer-bar/footer-bar.component';
 import { FooterPatronsComponent } from './footer/footer-patrons/footer-patrons.component';
-import { PatronListComponent } from './components/patron-list/patron-list.component';
 import { ElementModule } from './elements/elements.module';
-
-FullCalendarModule.registerPlugins([ // register FullCalendar plugins
-  dayGridPlugin,
-]);
+import { MarathonCalendarContainerComponent } from './calendar/marathon-calendar-container/marathon-calendar-container.component';
+import { CalendarControllerComponent } from './calendar/calendar-controller/calendar-controller.component';
+import { CalendarViewComponent } from './calendar/calendar-view/calendar-view.component';
+import { CalendarViewRowComponent } from './calendar/calendar-view-row/calendar-view-row.component';
+import { ComponentsModule } from './components/components.module';
 
 const appRoutes: Routes = [
   {
@@ -63,22 +61,26 @@ const appRoutes: Routes = [
     resolve: {
       homepageMetadata: HomepageMetadataResolver,
       moderatedMarathons: HomepageModeratedResolver,
-    }
+    },
   },
   {
     path: 'calendar',
-    component: CalendarComponent
+    component: CalendarComponent,
+  },
+  {
+    path: 'calendar/:year/:month',
+    component: CalendarComponent,
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
   },
   {
     path: 'patrons',
     component: PatronsComponent,
     resolve: {
-      patrons: PatronsResolver
-    }
+      patrons: PatronsResolver,
+    },
   },
   /*{
     path: 'news/kaspersky-partnership',
@@ -86,8 +88,8 @@ const appRoutes: Routes = [
   },*/
   {
     path: '**',
-    component: PageNotFoundComponent
-  }
+    component: PageNotFoundComponent,
+  },
 ];
 
 @NgModule({
@@ -107,34 +109,37 @@ const appRoutes: Routes = [
     MarathonsComponent,
     FooterBarComponent,
     FooterPatronsComponent,
-    PatronListComponent,
+    MarathonCalendarContainerComponent,
+    CalendarControllerComponent,
+    CalendarViewComponent,
+    CalendarViewRowComponent,
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        RouterModule.forRoot(appRoutes),
-        HttpClientModule,
-        FormsModule,
-        OwlDateTimeModule,
-        OwlNativeDateTimeModule,
-        NwbSwitchModule,
-        NwbAlertModule,
-        MarathonModule,
-        UserModule,
-        DirectivesModule,
-        FontAwesomeModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: WebpackTranslateLoader
-            }
-        }),
-        OengusCommonModule,
-        NwbCommonModule,
-        FullCalendarModule,
-        ButtonsModule,
-        ElementModule,
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useClass: WebpackTranslateLoader,
+      },
+    }),
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    FormsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    NwbSwitchModule,
+    NwbAlertModule,
+    MarathonModule,
+    UserModule,
+    DirectivesModule,
+    FontAwesomeModule,
+    OengusCommonModule,
+    NwbCommonModule,
+    ButtonsModule,
+    ElementModule,
+    ComponentsModule,
+  ],
   exports: [RouterModule],
   providers: [
     {
@@ -148,7 +153,7 @@ const appRoutes: Routes = [
     HomepageModeratedResolver,
     PatronsResolver,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

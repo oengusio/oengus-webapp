@@ -119,7 +119,7 @@ export class MarathonService extends BaseService {
       .set('end', end.toISOString())
       .set('zoneId', moment.tz.guess());
 
-    return this.http.get<Marathon[]>(this.url(`forDates`), { params });
+    return this.http.get<Marathon[]>(this.url('forDates'), { params });
   }
 
   isArchived(marathon: Marathon = this._marathon): boolean {
