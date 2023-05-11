@@ -16,9 +16,7 @@ import { SubmitComponent } from './submit/submit.component';
 import { SubmissionResolver } from '../resolvers/submission-resolver';
 import { SubmissionsComponent } from './submissions/submissions.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpLoaderFactory } from '../../services/http-loader-factory';
+import { TranslateModule } from '@ngx-translate/core';
 import { SelectionComponent } from './selection/selection.component';
 import { SelectionResolver } from '../resolvers/selection-resolver';
 import { CanActivateMarathonSubmitGuard } from '../guards/can-activate-marathon-submit-guard.service';
@@ -237,13 +235,7 @@ const marathonRoutes: Routes = [
     FontAwesomeModule,
     NwbCommonModule,
     AutocompleteLibModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    TranslateModule,
     OengusCommonModule,
     DragDropModule,
     NwbEditInPlaceModule,

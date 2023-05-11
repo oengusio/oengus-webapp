@@ -12,9 +12,7 @@ import { ElementTableExpandButtonComponent } from './element-table-expand-button
 import { ElementTableDetailComponent } from './element-table-detail/element-table-detail.component';
 import { ElementTemporalDistanceComponent } from './temporal/element-temporal-distance/element-temporal-distance.component';
 import { ElementConsoleComponent } from './element-console/element-console.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpLoaderFactory } from '../../services/http-loader-factory';
-import { HttpClient } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 import { ElementAdvertisementComponent } from './element-advertisement/element-advertisement.component';
 import { AdsenseModule } from 'ng2-adsense';
 import { MarathonLocationComponent } from './marathon-location/marathon-location.component';
@@ -22,6 +20,7 @@ import { ElementTwitchPlayerComponent } from './element-twitch-player/element-tw
 import { UserLinkComponent } from './user-link/user-link.component';
 import { ElementTemporalRangeComponent } from './temporal/element-temporal-range/element-temporal-range.component';
 import { ElementRangeComponent } from './element-range/element-range.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -62,15 +61,10 @@ import { ElementRangeComponent } from './element-range/element-range.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FontAwesomeModule,
     NwbCommonModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    TranslateModule,
     AdsenseModule.forRoot({
       adClient: 'ca-pub-1125692619955117',
       adSlot: '5905320802',

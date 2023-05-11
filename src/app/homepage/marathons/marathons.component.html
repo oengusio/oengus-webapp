@@ -26,10 +26,8 @@
             {{ marathon.language.toLocaleUpperCase() }}
           </app-element-table-cell>
           <app-element-table-cell class="time" [class]="getRowParity(index)">
-            <!-- TODO: figure out how to use the time element as arg -->
-            <div [innerHTML]="marathonsList.timeTranslationKey | translate: {
-              duration: temporal.distance.format(getMarathonDistance(marathon, marathonsList.timeTranslationValue))
-            }"></div>
+            <!-- TODO: (element ref) figure out how to use the time element as arg -->
+            <div [innerHTML]="marathonsList.timeTranslationKey | translate"></div>
           </app-element-table-cell>
         </ng-template>
         <div class="spacer"></div>

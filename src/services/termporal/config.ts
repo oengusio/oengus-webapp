@@ -5,3 +5,5 @@ export const dateTimeFormats = {
   shortTime: { timeStyle: 'short' },
   mediumDateTime: { dateStyle: 'medium', timeStyle: 'short' },
 };
+
+export type dateTimeFormatKey = keyof typeof dateTimeFormats;

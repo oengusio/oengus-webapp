@@ -6,9 +6,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { FormsModule } from '@angular/forms';
 import { DirectivesModule } from '../directives/directives.module';
 import { UserResolver } from '../resolvers/user-resolver';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpLoaderFactory } from '../../services/http-loader-factory';
+import { TranslateModule } from '@ngx-translate/core';
 import { UsernameJapaneseExistsValidatorDirective } from '../directives/username-japanese-exists-validator.directive';
 import { ProfileComponent } from './profile/profile.component';
 import { UserProfileResolver } from '../resolvers/user-profile-resolver';
@@ -66,13 +64,7 @@ const userRoutes: Routes = [
     RouterModule.forChild(userRoutes),
     FormsModule,
     DirectivesModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    TranslateModule,
     FontAwesomeModule,
     ElementModule,
   ],

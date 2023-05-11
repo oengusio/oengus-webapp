@@ -1,5 +1,5 @@
 import { LocaleSensitive } from './i18n';
-import { dateTimeFormats } from './config';
+import { dateTimeFormatKey, dateTimeFormats } from './config';
 
 export class Range implements LocaleSensitive {
   private formatters: { [key: string]: Intl.DateTimeFormat } = { };
@@ -7,7 +7,7 @@ export class Range implements LocaleSensitive {
   /* eslint-disable-next-line no-useless-constructor */ /* ESLint doesn't understand this constructor ISN'T useless in TypeScript */
   constructor(private locale = 'en-GB') { }
 
-  public format(start: Date|string|number, end: Date|string|number, format: keyof typeof dateTimeFormats): string {
+  public format(start: Date|string|number, end: Date|string|number, format: dateTimeFormatKey): string {
     const startDate = new Date(start);
     const endDate = new Date(end);
     const key = `${this.locale}__${format}`;

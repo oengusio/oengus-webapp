@@ -17,8 +17,10 @@
 
   <ng-template ngFor let-marathon [ngForOf]="submissions">
     <app-element-table-cell *ngIf="getCategories(marathon).length" class="marathon"  [class]="getCellColor(marathon)" [rowEnd]="getSpan(marathon)">
-      <a [routerLink]="'/marathon/' + marathon.marathonId">{{ marathon.marathonName }}</a>
+      <span>
+        <a [routerLink]="'/marathon/' + marathon.marathonId">{{ marathon.marathonName }}</a>
       (<app-element-temporal-distance [dateTime]="marathon.marathonStartDate"></app-element-temporal-distance>)
+      </span>
     </app-element-table-cell>
 
     <ng-template ngFor let-game [ngForOf]="marathon.games">

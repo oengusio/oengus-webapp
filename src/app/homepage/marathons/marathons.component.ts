@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { HomepageMetadata } from '../../../model/homepage-metadata';
 import { getRowParity } from '../../../assets/table';
 import { Marathon } from '../../../model/marathon';
-import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
 
 @Component({
   selector: 'app-homepage-marathons',
@@ -45,9 +44,6 @@ export class MarathonsComponent {
   ];
 
   getRowParity = getRowParity;
-
-  constructor(public temporal: TemporalServiceService) {
-  }
 
   shouldRenderList(key: keyof HomepageMetadata): boolean {
     return (this.homepageMarathons?.[key]?.length ?? 0) > 0;
