@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
 import { MarathonComponent } from './marathon.component';
 import { HomeComponent } from './home/home.component';
 import { NewMarathonComponent } from './new-marathon/new-marathon.component';
@@ -40,10 +39,8 @@ import { AdsenseComponent } from '../adsense/adsense.component';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
 import { ButtonsModule } from '../buttons/buttons.module';
-import { DeactivateRouteGuard } from '../guards/deactivate-route-guard.service';
 import { OengusMdComponent } from '../oengus-md/oengus-md.component';
 import { AnswersResolver } from '../resolvers/answers-resolver';
-import { LoadingIndicatorComponent } from '../loading-indicator/loading-indicator.component';
 import { GeneralSettingsComponent } from './settings/general-settings/general-settings.component';
 import { SubmissionSettingsComponent } from './settings/submission-settings/submission-settings.component';
 import { DiscordSettingsComponent } from './settings/discord-settings/discord-settings.component';
@@ -51,7 +48,6 @@ import { IncentiveSettingsComponent } from './settings/incentive-settings/incent
 import { MarathonScheduleExportComponent } from './schedule/marathon-schedule-export/marathon-schedule-export.component';
 import { ElementModule } from '../elements/elements.module';
 import { MarathonScheduleCurrentComponent } from './schedule/marathon-schedule-current/marathon-schedule-current.component';
-import { UserLinkComponent } from '../elements/user-link/user-link.component';
 import { MarathonScheduleListComponent } from './schedule/marathon-schedule-list/marathon-schedule-list.component';
 import { MarathonScheduleRowComponent } from './schedule/marathon-schedule-row/marathon-schedule-row.component';
 import { RunDetailsComponent } from './schedule/run-details/run-details.component';
@@ -63,6 +59,8 @@ import { SidebarModeratorsComponent } from './layout/sidebar-moderators/sidebar-
 import { DetailsComponent } from './home/details/details.component';
 import { DescriptionComponent } from './home/description/description.component';
 import { ComponentsModule } from '../components/components.module';
+import { RouterModule, Routes } from '@angular/router';
+import { DeactivateRouteGuard } from '../guards/deactivate-route-guard.service';
 
 const marathonRoutes: Routes = [
   {
@@ -206,7 +204,6 @@ const marathonRoutes: Routes = [
     SubmissionCategoryComponent,
     SubmissionGameComponent,
     OengusMdComponent,
-    LoadingIndicatorComponent,
     GeneralSettingsComponent,
     SubmissionSettingsComponent,
     DiscordSettingsComponent,
@@ -245,9 +242,7 @@ const marathonRoutes: Routes = [
     ComponentsModule,
   ],
   exports: [
-    RouterModule,
-    LoadingIndicatorComponent,
-    UserLinkComponent,
+    //
   ],
   providers: [
     CanActivateMarathonSettingsGuard,

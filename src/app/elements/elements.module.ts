@@ -21,6 +21,7 @@ import { UserLinkComponent } from './user-link/user-link.component';
 import { ElementTemporalRangeComponent } from './temporal/element-temporal-range/element-temporal-range.component';
 import { ElementRangeComponent } from './element-range/element-range.component';
 import { RouterModule } from '@angular/router';
+import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { RouterModule } from '@angular/router';
     UserLinkComponent,
     ElementTemporalRangeComponent,
     ElementRangeComponent,
+    LoadingIndicatorComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -61,7 +63,6 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule,
     FontAwesomeModule,
     NwbCommonModule,
     TranslateModule,
@@ -69,6 +70,7 @@ import { RouterModule } from '@angular/router';
       adClient: 'ca-pub-1125692619955117',
       adSlot: '5905320802',
     }),
+    RouterModule,
   ]
 })
 export class ElementModule {

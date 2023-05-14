@@ -68,7 +68,10 @@ const userRoutes: Routes = [
     FontAwesomeModule,
     ElementModule,
   ],
-  providers: [UserResolver, UserProfileResolver]
+  providers: [UserResolver, UserProfileResolver],
+  exports: [
+    // RouterModule,
+  ],
 })
 export class UserModule {
 }

@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from '../interceptors';
@@ -41,6 +40,7 @@ import { CalendarControllerComponent } from './calendar/calendar-controller/cale
 import { CalendarViewComponent } from './calendar/calendar-view/calendar-view.component';
 import { CalendarViewRowComponent } from './calendar/calendar-view-row/calendar-view-row.component';
 import { ComponentsModule } from './components/components.module';
+import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
   {
@@ -140,7 +140,9 @@ const appRoutes: Routes = [
     ElementModule,
     ComponentsModule,
   ],
-  exports: [RouterModule],
+  exports: [
+    //
+  ],
   providers: [
     {
       provide: ErrorHandler,
@@ -153,7 +155,9 @@ const appRoutes: Routes = [
     HomepageModeratedResolver,
     PatronsResolver,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [
+    AppComponent,
+  ],
 })
 export class AppModule {
 }
