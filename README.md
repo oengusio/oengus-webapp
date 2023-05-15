@@ -19,6 +19,10 @@ Note that the back-end lives on this repository [https://github.com/esamarathon/
 ```shell script
 npm install
 ```
+#### Grab Translation files
+```
+git submodule update --init --recursive
+```
 #### Run
 ```shell script
 npm start
