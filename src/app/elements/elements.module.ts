@@ -60,6 +60,7 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
     UserLinkComponent,
     ElementTemporalRangeComponent,
     ElementRangeComponent,
+    LoadingIndicatorComponent,
   ],
   imports: [
     CommonModule,

@@ -6,6 +6,8 @@ import { MinNumberValidatorDirective } from './min-number-validator.directive';
 import { MinDurationValidatorDirective } from './min-duration-validator.directive';
 import { MaxNumberValidatorDirective } from './max-number-validator.directive';
 import { TotalValidatorDirective } from './total-validator.directive';
+import { TranslatedContentDirective } from './translated-content.directive';
+import { TranslatedElementDirective } from './translated-element.directive';
 
 @NgModule({
   declarations: [
@@ -14,19 +16,23 @@ import { TotalValidatorDirective } from './total-validator.directive';
     MinNumberValidatorDirective,
     MaxNumberValidatorDirective,
     MinDurationValidatorDirective,
-    TotalValidatorDirective
+    TotalValidatorDirective,
+    TranslatedContentDirective,
+    TranslatedElementDirective,
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
-    exports: [
-        UsernameExistsValidatorDirective,
-        MarathonExistsValidatorDirective,
-        MinNumberValidatorDirective,
-        MaxNumberValidatorDirective,
-        TotalValidatorDirective,
-        MinDurationValidatorDirective
-    ]
+  exports: [
+    UsernameExistsValidatorDirective,
+    MarathonExistsValidatorDirective,
+    MinNumberValidatorDirective,
+    MaxNumberValidatorDirective,
+    TotalValidatorDirective,
+    MinDurationValidatorDirective,
+    TranslatedContentDirective,
+    TranslatedElementDirective,
+  ],
 })
 export class DirectivesModule {
 }

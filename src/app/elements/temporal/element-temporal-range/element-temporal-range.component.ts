@@ -8,8 +8,8 @@ import { dateTimeFormatKey } from '../../../../services/termporal/config';
   styleUrls: ['./element-temporal-range.component.scss']
 })
 export class ElementTemporalRangeComponent implements OnInit {
-  @Input() start: string;
-  @Input() end: string;
+  @Input() start: string | Date;
+  @Input() end: string | Date;
   @Input() format: dateTimeFormatKey = 'mediumDateTime';
 
   constructor(public temporal: TemporalServiceService) { }
