@@ -41,6 +41,9 @@ import { CalendarViewComponent } from './calendar/calendar-view/calendar-view.co
 import { CalendarViewRowComponent } from './calendar/calendar-view-row/calendar-view-row.component';
 import { ComponentsModule } from './components/components.module';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutInfoComponent } from './about/about-info/about-info.component';
+import { AboutContactComponent } from './about/about-contact/about-contact.component';
+import { AboutPrivacyComponent } from './about/about-privacy/about-privacy.component';
 
 const appRoutes: Routes = [
   {
@@ -113,6 +116,9 @@ const appRoutes: Routes = [
     CalendarControllerComponent,
     CalendarViewComponent,
     CalendarViewRowComponent,
+    AboutInfoComponent,
+    AboutContactComponent,
+    AboutPrivacyComponent,
   ],
   imports: [
     BrowserModule,
