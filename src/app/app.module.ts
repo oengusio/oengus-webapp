@@ -44,6 +44,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AboutInfoComponent } from './about/about-info/about-info.component';
 import { AboutContactComponent } from './about/about-contact/about-contact.component';
 import { AboutPrivacyComponent } from './about/about-privacy/about-privacy.component';
+import { WidgetSigninPickerComponent } from './compoments/widget-signin-picker/widget-signin-picker.component';
 
 const appRoutes: Routes = [
   {
@@ -119,6 +120,7 @@ const appRoutes: Routes = [
     AboutInfoComponent,
     AboutContactComponent,
     AboutPrivacyComponent,
+    WidgetSigninPickerComponent,
   ],
   imports: [
     BrowserModule,

@@ -84,14 +84,17 @@ export class TranslatedContentDirective implements OnInit, OnDestroy, AfterConte
 
   private render(translationData: TranslationData): void {
     if (!translationData.rawTranslation || translationData.rawTranslation === this.translationKey) {
-      throw new Error(`No resource matching the key '${this.translationKey}'`);
+      // Render the translation key if it's missing
+      const translationKeyText = document.createTextNode(this.translationKey);
+      this.renderer.appendChild(this.viewRef.element.nativeElement, translationKeyText);
+      return;
     }
 
     /*while (this.viewRef.element.nativeElement.firstChild) {
       this.renderer.removeChild(this.viewRef.element.nativeElement, this.viewRef.element.nativeElement.firstChild);
     }*/
 
-    let whileCount = 0;
+    /*let whileCount = 0;
 
     while (this.viewRef.element.nativeElement.firstChild) {
 
@@ -104,11 +107,12 @@ export class TranslatedContentDirective implements OnInit, OnDestroy, AfterConte
         console.log('Breaking after 30 iterations.');
         break;
       }
-    }
+    }*/
 
     let lastTokenEnd = 0;
 
     while (lastTokenEnd < translationData.rawTranslation.length) {
+      console.log(` lastTokenEnd = ${lastTokenEnd}, translationData.rawTranslation.length = ${translationData.rawTranslation.length}`);
       const tokenStartDemarc = translationData.rawTranslation.indexOf(TOKEN_START_DEMARC, lastTokenEnd);
 
       if (tokenStartDemarc < 0) {
@@ -141,6 +145,8 @@ export class TranslatedContentDirective implements OnInit, OnDestroy, AfterConte
       }
 
       lastTokenEnd = tokenEndDemarc;
+
+      console.log(` lastTokenEnd = ${lastTokenEnd}, translationData.rawTranslation.length = ${translationData.rawTranslation.length}`);
     }
 
     const trailingText = translationData.rawTranslation.substring(lastTokenEnd);

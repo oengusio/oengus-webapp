@@ -14,7 +14,7 @@ export class ElementDropdownComponent implements OnInit {
   @HostBinding('class.navbar-item.has-dropdown') get navbar() { return this.isNavbar; }
   @HostBinding('class.dropdown') get notNavbar() { return !this.isNavbar; }
 
-  @Input() type = 'DROPDOWN'; // DROPDOWN | NAVBAR
+  @Input() type: 'DROPDOWN' | 'NAVBAR' = 'DROPDOWN';
   @Input() isRight = false;
 
   isActive = false;
