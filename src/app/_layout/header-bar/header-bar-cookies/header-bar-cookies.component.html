@@ -1,0 +1,17 @@
+<div *ngIf="showConsentPrompt">
+  <div>
+    {{ 'navbar.privacyConsent' | translate}}
+  </div>
+
+  <div class="buttons are-small">
+    <button class="button is-primary" (click)="setCookies(true)">
+      {{ 'action.accept' | translate }}
+    </button>
+    <button class="button is-warning" (click)="setCookies(false)">
+      {{ 'action.decline' | translate }}
+    </button>
+    <a routerLink="/about" class="button is-info">
+      {{ 'navbar.about' | translate }}
+    </a>
+  </div>
+</div>
