@@ -1,0 +1,10 @@
+<app-element-dropdown type="NAVBAR" [isRight]="true">
+  <p trigger>
+    {{ currentLocale.nativeName }}
+  </p>
+  <div options>
+    <a *ngFor="let locale of usableLocales" class="navbar-item" href="#" (click)="changeLanguage(locale)">
+      {{ languages[locale].nativeName }}
+    </a>
+  </div>
+</app-element-dropdown>

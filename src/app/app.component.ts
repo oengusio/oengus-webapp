@@ -1,45 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { faDiscord, faGithub, faMastodon, faPatreon, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faBug, faLanguage } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
-// @ts-ignore
-import isoLang from '../assets/languages.json';
-import moment from 'moment-timezone';
 import { DateTimeAdapter } from '@busacca/ng-pick-datetime';
 import { environment } from '../environments/environment';
-import localeEn from '@angular/common/locales/en';
-import localeFr from '@angular/common/locales/fr';
-import localeDe from '@angular/common/locales/de';
-import localeNl from '@angular/common/locales/nl';
-import localeJa from '@angular/common/locales/ja';
-import localeCy from '@angular/common/locales/cy';
-import localeEs from '@angular/common/locales/es';
-import localePt from '@angular/common/locales/pt';
-import localeEl from '@angular/common/locales/el';
-import localeIt from '@angular/common/locales/it';
-import localeZhHk from '@angular/common/locales/zh-Hant-HK';
-import localeTr from '@angular/common/locales/tr';
-import localeKo from '@angular/common/locales/ko';
-import localeDa from '@angular/common/locales/da';
-import localeFi from '@angular/common/locales/fi';
-import localeCa from '@angular/common/locales/ca';
-import localeRu from '@angular/common/locales/ru';
-import { registerLocaleData, Location } from '@angular/common';
-import {
-  Router,
-  Event as RouterEvent,
-  NavigationStart,
-  NavigationEnd,
-  NavigationCancel,
-  NavigationError
-} from '@angular/router';
-import {LoadingBarService} from '../services/loading-bar.service';
-import {TitleService} from '../services/title.service';
-import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
+import { Location } from '@angular/common';
+import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { LoadingBarService } from '../services/loading-bar.service';
+import { TitleService } from '../services/title.service';
+import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import * as Sentry from '@sentry/angular';
 import { firstValueFrom } from 'rxjs';
 import { TemporalServiceService } from '../services/termporal/temporal-service.service';
+import { LocaleService } from '../services/locale.service';
 
 @Component({
   selector: 'app-root',
@@ -49,43 +21,12 @@ import { TemporalServiceService } from '../services/termporal/temporal-service.s
 export class AppComponent implements OnInit {
   title = !environment.sandbox ? 'Oengus' : 'Oengus [Sandbox]';
 
-  @ViewChild('navBurger', {static: true}) navBurger: ElementRef;
-  @ViewChild('navMenu', {static: true}) navMenu: ElementRef;
+  // @ViewChild('navBurger', {static: true}) navBurger: ElementRef;
+  // @ViewChild('navMenu', {static: true}) navMenu: ElementRef;
 
-  public faMastodon = faMastodon;
-  public faTwitter = faTwitter;
-  public faDiscord = faDiscord;
-  public faTwitch = faTwitch;
-  public faBug = faBug;
-  public faGithub = faGithub;
-  public faPatreon = faPatreon;
-  public faLanguage = faLanguage;
-  public languages = (<any>isoLang);
   public language = localStorage.getItem('language') ? localStorage.getItem('language') : navigator.language.split('-')[0];
   public environment = environment;
   public loading = true;
-  public languageBarActive = false;
-
-  // removed languages have none to no translations
-  public availableLocales = {
-    'ca': localeCa,
-    'cy': localeCy,
-    'en': localeEn,
-    'da': localeDa,
-    'de': localeDe,
-    'el': localeEl,
-    'es': localeEs,
-    'fi': localeFi,
-    'fr': localeFr,
-    'it': localeIt,
-    'ja': localeJa,
-    'ko': localeKo,
-    'nl': localeNl,
-    'pt_BR': localePt,
-    'ru': localeRu,
-    'tr': localeTr,
-    'zh_Hant_HK': localeZhHk,
-  };
 
   constructor(public userService: UserService,
               private translate: TranslateService,
@@ -95,15 +36,14 @@ export class AppComponent implements OnInit {
               private location: Location,
               private titleService: TitleService,
               private loader: LoadingBarService,
-              private temporal: TemporalServiceService) {
+              private temporal: TemporalServiceService,
+              private localeService: LocaleService) {
     this.loader.stateObserver.subscribe((loading) => {
       this.loading = loading;
     });
     this.router.events.subscribe((event: RouterEvent) => {
       this.navigationInterceptor(event);
     });
-
-    this.setupLanguages();
 
     if (!this.userService.user && this.userService.token) {
       this.userService.me().add(() => {
@@ -139,7 +79,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //
+    this.localeService.initialize();
   }
 
   acceptPrivacyConsent(): void {
@@ -182,53 +122,6 @@ export class AppComponent implements OnInit {
     return true;
   }
 
-  setupLanguages(): void {
-    for (const lang of this.availableLocaleNames) {
-      registerLocaleData(this.availableLocales[lang], lang);
-    }
-
-    this.translate.setDefaultLang('en');
-
-    if (this.language in this.availableLocales) {
-      this.useLanguage(this.language);
-    } else {
-      this.useLanguage('en');
-    }
-  }
-
-  get availableLocaleNames(): string [] {
-    return Object.keys(this.availableLocales);
-  }
-
-  useLanguage(language: string): void {
-    this.language = language;
-    localStorage.setItem('language', language);
-    this.translate.use(language);
-    this.temporal.changeLocale(language === 'en' ? 'en-GB' : language);
-
-    this.setMomentTimezone(language);
-
-    this.dateTimeAdapter.setLocale(language.split('_')[0]);
-    this.languageBarActive = false;
-  }
-
-  toggleNavbar(): void {
-    this.navBurger.nativeElement.classList.toggle('is-active');
-    this.navMenu.nativeElement.classList.toggle('is-active');
-  }
-
-  setMomentTimezone(language: string): void {
-    const date = new Date();
-
-    if (date.getMonth() === 3 && date.getDate() === 1 && date.getHours() >= 14 ) {
-      moment.locale('x-pseudo');
-    } else if (language === 'zh_Hant_HK') {
-      moment.locale('zh_hk');
-    } else {
-      moment.locale(language.split('_')[0].replace('en', 'en_GB'));
-    }
-  }
-
   onRouteActivated(component) {
     if (Object.getPrototypeOf(component).hasOwnProperty('title')) {
       this.titleService.setTitle(component.title);
@@ -241,8 +134,8 @@ export class AppComponent implements OnInit {
   navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       // close the navbar
-      this.navBurger.nativeElement.classList.remove('is-active');
-      this.navMenu.nativeElement.classList.remove('is-active');
+      // this.navBurger.nativeElement.classList.remove('is-active');
+      // this.navMenu.nativeElement.classList.remove('is-active');
 
       this.loader.setLoading(true);
     } else if (event instanceof NavigationEnd) {

@@ -36,6 +36,7 @@ export class ElementAdvertisementComponent {
   @Input() shouldReload = false;
 
   @Input() dataWidth = '80%';
+  @Input() dataMinHeight: string | null = null;
   @HostBinding('style.height') @Input() dataHeight = 'auto';
 
   // Binding classes to the host

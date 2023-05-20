@@ -47,6 +47,7 @@ import { AboutPrivacyComponent } from './about/about-privacy/about-privacy.compo
 import { HeaderBarComponent } from './_layout/header-bar/header-bar.component';
 import { HeaderBarCookiesComponent } from './_layout/header-bar/header-bar-cookies/header-bar-cookies.component';
 import { HeaderBarNavComponent } from './_layout/header-bar/header-bar-nav/header-bar-nav.component';
+import { HeaderLanguagePickerComponent } from './_layout/header-bar/header-language-picker/header-language-picker.component';
 
 const appRoutes: Routes = [
   {
@@ -125,6 +126,7 @@ const appRoutes: Routes = [
     HeaderBarComponent,
     HeaderBarCookiesComponent,
     HeaderBarNavComponent,
+    HeaderLanguagePickerComponent,
   ],
   imports: [
     BrowserModule,

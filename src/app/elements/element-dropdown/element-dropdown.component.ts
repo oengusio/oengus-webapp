@@ -10,8 +10,10 @@ export class ElementDropdownComponent implements OnInit {
   faAngleDown = faAngleDown;
 
   @HostBinding('class.is-active') get active() { return this.isActive; }
+  @HostBinding('class.dropdown') get dropdown() { return !this.isNavbar; }
+  @HostBinding('class.navbar-item') get navbar() { return this.isNavbar; }
+  @HostBinding('class.has-dropdown') get navbarExtraClass() { return this.isNavbar; }
   @HostBinding('class.is-right') get right() { return this.isRight; }
-  @HostBinding('class.navbar-item.has-dropdown') get navbar() { return this.isNavbar; }
   @HostBinding('class.dropdown') get notNavbar() { return !this.isNavbar; }
 
   @Input() type: 'DROPDOWN' | 'NAVBAR' = 'DROPDOWN';

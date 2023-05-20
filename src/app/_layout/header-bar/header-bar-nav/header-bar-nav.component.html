@@ -44,9 +44,7 @@
       <a routerLink="/about" class="navbar-item">
         {{ 'navbar.about' | translate }}
       </a>
-      <a href="" class="navbar-item">
-        TODO: language
-      </a>
+      <app-header-language-picker></app-header-language-picker>
       <app-widget-signin-picker type="NAVBAR" [isRight]="true"></app-widget-signin-picker>
     </div>
   </div>
