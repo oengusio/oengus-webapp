@@ -1,6 +1,6 @@
 <!-- Trigger -->
 <a *ngIf="isNavbar; else notNavbar" class="navbar-link" (click)="toggleActive()">
-  <ng-content select="[trigger-pls-just-work]"></ng-content>
+  <ng-content select="[trigger]"></ng-content>
 </a>
 <ng-template #notNavbar>
   <div class="dropdown-trigger">
@@ -14,7 +14,7 @@
 </ng-template>
 <!-- Options -->
 <div *ngIf="isNavbar; else notNavOptions" class="navbar-dropdown" [class]="{ 'is-right': isRight }">
-  <ng-content select="[options-pls-just-work]"></ng-content>
+  <ng-content select="[options]"></ng-content>
 </div>
 <ng-template #notNavOptions>
   <div class="dropdown-menu">

@@ -5,9 +5,20 @@
   <title>Oengus</title>
 
   <script>
-    // disable google analytics if consent is not given
-    window['ga-disable-G-26CN947SSZ'] = navigator.doNotTrack === '1' ||
+    // TODO: ugly hack
+    window.getGtagIds = () => ([
+      'G-26CN947SSZ',
+      'UA-153189507-4',
+      'GTM-KK8K7V8',
+    ]);
+
+    const disableGtag = navigator?.doNotTrack === '1' ||
       (localStorage.getItem('consent') || 'false') === 'false';
+
+    getGtagIds().forEach((id) => {
+      // disable google analytics if consent is not given
+      window[`ga-disable-${id}`] = disableGtag;
+    });
   </script>
 
   <!-- OGP metatags -->
@@ -40,9 +51,9 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-26CN947SSZ', { 'anonymize_ip': true });
-    gtag('config', 'UA-153189507-4', { 'anonymize_ip': true });
-    gtag('config', 'GTM-KK8K7V8', { 'anonymize_ip': true });
+    getGtagIds().forEach((id) => {
+      gtag('config', id, { 'anonymize_ip': true });
+    });
   </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>

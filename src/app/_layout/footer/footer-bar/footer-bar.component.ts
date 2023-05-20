@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
+import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
 
 @Component({
   selector: 'app-footer-bar',

@@ -6,15 +6,22 @@ import { SidebarOverviewComponent } from './marathon-sidebar-overview/sidebar-ov
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NwbCommonModule } from '@wizishop/ng-wizi-bulma';
 import { RouterModule } from '@angular/router';
+import { OengusMdComponent } from './oengus-md/oengus-md.component';
+import { WidgetSigninPickerComponent } from './widget-signin-picker/widget-signin-picker.component';
+import { ElementModule } from '../elements/elements.module';
 
 @NgModule({
   declarations: [
     PatronListComponent,
     SidebarOverviewComponent,
+    OengusMdComponent,
+    WidgetSigninPickerComponent,
   ],
   exports: [
+    OengusMdComponent,
     PatronListComponent,
     SidebarOverviewComponent,
+    WidgetSigninPickerComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +29,7 @@ import { RouterModule } from '@angular/router';
     NwbCommonModule,
     FontAwesomeModule,
     TranslateModule,
+    ElementModule,
   ]
 })
 export class ComponentsModule { }

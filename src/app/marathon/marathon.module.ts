@@ -39,7 +39,6 @@ import { AdsenseComponent } from '../adsense/adsense.component';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
 import { ButtonsModule } from '../buttons/buttons.module';
-import { OengusMdComponent } from '../oengus-md/oengus-md.component';
 import { AnswersResolver } from '../resolvers/answers-resolver';
 import { GeneralSettingsComponent } from './settings/general-settings/general-settings.component';
 import { SubmissionSettingsComponent } from './settings/submission-settings/submission-settings.component';
@@ -203,7 +202,6 @@ const marathonRoutes: Routes = [
     AdsenseComponent,
     SubmissionCategoryComponent,
     SubmissionGameComponent,
-    OengusMdComponent,
     GeneralSettingsComponent,
     SubmissionSettingsComponent,
     DiscordSettingsComponent,

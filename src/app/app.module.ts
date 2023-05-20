@@ -32,8 +32,8 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { WelcomeComponent } from './homepage/welcome/welcome.component';
 import { SponsorsComponent } from './homepage/sponsors/sponsors.component';
 import { MarathonsComponent } from './homepage/marathons/marathons.component';
-import { FooterBarComponent } from './footer/footer-bar/footer-bar.component';
-import { FooterPatronsComponent } from './footer/footer-patrons/footer-patrons.component';
+import { FooterBarComponent } from './_layout/footer/footer-bar/footer-bar.component';
+import { FooterPatronsComponent } from './_layout/footer/footer-patrons/footer-patrons.component';
 import { ElementModule } from './elements/elements.module';
 import { MarathonCalendarContainerComponent } from './calendar/marathon-calendar-container/marathon-calendar-container.component';
 import { CalendarControllerComponent } from './calendar/calendar-controller/calendar-controller.component';
@@ -44,7 +44,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AboutInfoComponent } from './about/about-info/about-info.component';
 import { AboutContactComponent } from './about/about-contact/about-contact.component';
 import { AboutPrivacyComponent } from './about/about-privacy/about-privacy.component';
-import { WidgetSigninPickerComponent } from './compoments/widget-signin-picker/widget-signin-picker.component';
+import { HeaderBarComponent } from './_layout/header-bar/header-bar.component';
+import { HeaderBarCookiesComponent } from './_layout/header-bar/header-bar-cookies/header-bar-cookies.component';
+import { HeaderBarNavComponent } from './_layout/header-bar/header-bar-nav/header-bar-nav.component';
 
 const appRoutes: Routes = [
   {
@@ -120,7 +122,9 @@ const appRoutes: Routes = [
     AboutInfoComponent,
     AboutContactComponent,
     AboutPrivacyComponent,
-    WidgetSigninPickerComponent,
+    HeaderBarComponent,
+    HeaderBarCookiesComponent,
+    HeaderBarNavComponent,
   ],
   imports: [
     BrowserModule,

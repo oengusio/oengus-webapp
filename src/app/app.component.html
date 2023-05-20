@@ -1,6 +1,6 @@
 <div *ngIf="loading" class="loading-bar"></div>
-<div class="wrapper">
-  <div class="privacy-consent has-background-dark is-flex-desktop"
+<div class="default-layout-wrapper">
+  <!--<div class="privacy-consent has-background-dark is-flex-desktop"
        style="justify-content: space-between"
        *ngIf="!consentWasGiven()">
     <p class="navbar-item">
@@ -18,7 +18,7 @@
         </a>
       </p>
     </div>
-  </div>
+  </div>-->
 
   <!--<div class="privacy-consent has-background-dark is-flex-desktop"
        style="justify-content: space-between"
@@ -43,7 +43,7 @@
     </div>
   </div>-->
 
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <!--<nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" routerLink="/">
         <img src="/assets/Oengus-Wide-Off-White.svg" class="logo">
@@ -105,7 +105,7 @@
           </button>
         </div>
         <a class="navbar-item" routerLink="/about" routerLinkActive="is-active">{{'navbar.about' | translate}}</a>
-<!--        <a class="navbar-item" routerLink="/patrons">{{'navbar.patrons' | translate}}</a>-->
+&lt;!&ndash;        <a class="navbar-item" routerLink="/patrons">{{'navbar.patrons' | translate}}</a>&ndash;&gt;
         <div class="navbar-item mob has-dropdown {{ languageBarActive ? 'is-active' : '' }}">
           <a class="navbar-link"
              (click)="languageBarActive = !languageBarActive">
@@ -142,7 +142,7 @@
                 <fa-icon [icon]="faTwitch" style="margin-right: 0.4rem"></fa-icon>
                 {{'navbar.login.twitch' | translate}}
               </a>
-              <!--<a class="navbar-item is-tooltip-danger"
+              &lt;!&ndash;<a class="navbar-item is-tooltip-danger"
                  [href]="userService.getTwitterAuthUrl()"
                  (click)="storeCurrentPage(true)"
                  nwbToolTipPosition="left"
@@ -150,7 +150,7 @@
                  [nwbToolTip]="'navbar.login.disclaimer' | translate">
                 <fa-icon [icon]="faMastodon" style="margin-right: 0.4rem"></fa-icon>
                 {{'navbar.login.mastodon' | translate}}
-              </a>-->
+              </a>&ndash;&gt;
             </div>
           </div>
         </div>
@@ -172,12 +172,14 @@
         </div>
       </div>
     </div>
-  </nav>
+  </nav>-->
+
+  <app-header-bar class="default-layout-header"></app-header-bar>
 
   <app-plum></app-plum>
-  <main class="content-wrapper">
+  <main class="default-layout-main">
     <router-outlet (activate)="onRouteActivated($event)"></router-outlet>
   </main>
 
-  <app-footer-bar></app-footer-bar>
+  <app-footer-bar class="default-layout-footer"></app-footer-bar>
 </div>

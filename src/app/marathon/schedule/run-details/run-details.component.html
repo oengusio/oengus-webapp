@@ -16,7 +16,9 @@
 
 <ng-template [ngIf]="run.categoryName">
   <span class="is-label">{{ 'marathon.schedule.table.category' | translate }}</span>
-  <span>{{ run.categoryName }}</span>
+  <span>
+    <app-oengus-md [data]="run.categoryName" ></app-oengus-md>
+  </span>
 </ng-template>
 
 <ng-template [ngIf]="run.type">
