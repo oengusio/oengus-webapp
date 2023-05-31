@@ -60,6 +60,7 @@ import { DescriptionComponent } from './home/description/description.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
 import { DeactivateRouteGuard } from '../guards/deactivate-route-guard.service';
+import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 
 const marathonRoutes: Routes = [
   {
@@ -221,7 +222,9 @@ const marathonRoutes: Routes = [
   ],
   imports: [
     CommonModule,
+    TranslateModule,
     RouterModule.forChild(marathonRoutes),
+    LocalizeRouterModule.forChild(marathonRoutes),
     FormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
@@ -230,7 +233,6 @@ const marathonRoutes: Routes = [
     FontAwesomeModule,
     NwbCommonModule,
     AutocompleteLibModule,
-    TranslateModule,
     OengusCommonModule,
     DragDropModule,
     NwbEditInPlaceModule,

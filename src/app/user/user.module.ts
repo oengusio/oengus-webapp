@@ -22,6 +22,7 @@ import { ProfileHistoryComponent } from './profile/profile-history/profile-histo
 import { SubmissionComponent } from './profile/profile-history/submission/submission.component';
 import { ModeratedComponent } from './profile/profile-history/moderated/moderated.component';
 import { AdminControlsComponent } from './profile/admin-controls/admin-controls.component';
+import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 
 const userRoutes: Routes = [
   {
@@ -61,10 +62,11 @@ const userRoutes: Routes = [
   ],
   imports: [
     CommonModule,
+    TranslateModule,
     RouterModule.forChild(userRoutes),
+    LocalizeRouterModule.forChild(userRoutes),
     FormsModule,
     DirectivesModule,
-    TranslateModule,
     FontAwesomeModule,
     ElementModule,
   ],

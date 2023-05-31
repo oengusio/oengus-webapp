@@ -10,7 +10,7 @@
     <button class="button is-warning" (click)="setCookies(false)">
       {{ 'action.decline' | translate }}
     </button>
-    <a routerLink="/about" class="button is-info">
+    <a [routerLink]="'/about' | localize" class="button is-info">
       {{ 'navbar.about' | translate }}
     </a>
   </div>

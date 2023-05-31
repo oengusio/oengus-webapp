@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { OengusMdComponent } from './oengus-md/oengus-md.component';
 import { WidgetSigninPickerComponent } from './widget-signin-picker/widget-signin-picker.component';
 import { ElementModule } from '../elements/elements.module';
+import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ElementModule } from '../elements/elements.module';
     NwbCommonModule,
     FontAwesomeModule,
     TranslateModule,
+    LocalizeRouterModule,
     ElementModule,
   ]
 })

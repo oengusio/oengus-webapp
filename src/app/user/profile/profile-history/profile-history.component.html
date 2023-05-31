@@ -1,12 +1,12 @@
 <div class="tabs is-boxed">
   <ul>
     <li [class]="isActiveClass(submissionTab)">
-      <a routerLink="." [queryParams]="queryFor(submissionTab)">
+      <a [routerLink]="'.' | localize" [queryParams]="queryFor(submissionTab)">
         {{ 'user.profile.submissions' | translate}}
       </a>
     </li>
     <li [class]="isActiveClass(moderationTab)">
-      <a routerLink="." [queryParams]="queryFor(moderationTab)">
+      <a [routerLink]="'.' | localize" [queryParams]="queryFor(moderationTab)">
         {{ 'user.profile.moderator' | translate}}
       </a>
     </li>

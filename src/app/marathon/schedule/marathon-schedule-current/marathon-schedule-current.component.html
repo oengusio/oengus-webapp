@@ -1,6 +1,6 @@
 <div class="message" [class]="messageClass">
   <div class="message-header">
-    <a routerLink="." [fragment]="linkedRun">
+    <a [routerLink]="'.' | localize" [fragment]="linkedRun">
       {{ messageHeaderTitle | translate: messageHeaderArgs }}
     </a>
   </div>

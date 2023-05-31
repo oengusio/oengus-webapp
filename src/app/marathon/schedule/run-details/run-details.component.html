@@ -42,6 +42,6 @@
 </ng-template>
 
 <span class="is-label">{{ 'marathon.schedule.table.link' | translate }}</span>
-<a routerLink="." [fragment]="'run-' + run.id">
+<a [routerLink]="'.' | localize" [fragment]="'run-' + run.id">
   {{ '#run-' + run.id }}
 </a>

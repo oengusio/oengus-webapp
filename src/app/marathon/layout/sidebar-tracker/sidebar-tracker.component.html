@@ -4,7 +4,7 @@
 
 <ul class="menu-list">
   <li *ngIf="acceptingDonations" [title]="'marathon.menu.donate' | translate">
-    <a [routerLink]="'/marathon/' + marathonId + '/donate'" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+    <a [routerLink]="'/marathon/' + marathonId + '/donate' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon [icon]="iconDonate" class="menu-item-icon"></fa-icon>
       <span class="menu-item-label">
           {{ 'marathon.menu.donate' | translate }}
@@ -12,7 +12,7 @@
     </a>
   </li>
   <li *ngIf="marathon.hasDonations" [title]="'marathon.menu.donations' | translate">
-    <a [routerLink]="'/marathon/' + marathonId + '/donations'" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+    <a [routerLink]="'/marathon/' + marathonId + '/donations' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon [icon]="iconMoney" class="menu-item-icon"></fa-icon>
       <span class="menu-item-label">
           {{ 'marathon.menu.donations' | translate }}
@@ -20,7 +20,7 @@
     </a>
   </li>
   <li *ngIf="marathon.hasIncentives" [title]="'marathon.menu.incentives' | translate">
-    <a [routerLink]="'/marathon/' + marathonId + '/incentives'" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+    <a [routerLink]="'/marathon/' + marathonId + '/incentives' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon [icon]="iconIncentives" class="menu-item-icon"></fa-icon>
       <span class="menu-item-label">
           {{ 'marathon.menu.incentives' | translate }}

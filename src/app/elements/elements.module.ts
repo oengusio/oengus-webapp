@@ -22,6 +22,7 @@ import { ElementTemporalRangeComponent } from './temporal/element-temporal-range
 import { ElementRangeComponent } from './element-range/element-range.component';
 import { RouterModule } from '@angular/router';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
+import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
       adSlot: '5905320802',
     }),
     RouterModule,
+    LocalizeRouterModule,
   ]
 })
 export class ElementModule {

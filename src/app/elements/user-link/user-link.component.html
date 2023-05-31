@@ -1,4 +1,4 @@
-<a *ngIf="isLink; else justName" [routerLink]="'/user/' + userId">{{ displayName }}</a>
+<a *ngIf="isLink; else justName" [routerLink]="'/user/' + userId | localize">{{ displayName }}</a>
 <ng-template #justName>
   <span>{{ displayName }}</span>
 </ng-template>

@@ -3,13 +3,13 @@
 </h4>
 
 <div class="controls-container">
-  <a [routerLink]="'/calendar/' + previousCalendar.year + '/' + previousCalendar.month" class="button">
+  <a [routerLink]="'/calendar/' + previousCalendar.year + '/' + previousCalendar.month | localize" class="button">
     <fa-icon [icon]="iconLeft"></fa-icon>
   </a>
-  <a routerLink="/calendar" class="button">
+  <a [routerLink]="'/calendar' | localize" class="button">
     {{ 'calendar.now' | translate }}
   </a>
-  <a [routerLink]="'/calendar/' + nextCalendar.year + '/' + nextCalendar.month" class="button">
+  <a [routerLink]="'/calendar/' + nextCalendar.year + '/' + nextCalendar.month | localize" class="button">
     <fa-icon [icon]="iconRight"></fa-icon>
   </a>
 </div>

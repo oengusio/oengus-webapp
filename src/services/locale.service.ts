@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TemporalServiceService } from './termporal/temporal-service.service';
 import { DateTimeAdapter } from '@busacca/ng-pick-datetime';
 import { registerLocaleData } from '@angular/common';
+import localeEnGb from '@angular/common/locales/en-GB';
 import localeEn from '@angular/common/locales/en';
 import localeFr from '@angular/common/locales/fr';
 import localeDe from '@angular/common/locales/de';
@@ -22,6 +23,7 @@ import localeFi from '@angular/common/locales/fi';
 import localeCa from '@angular/common/locales/ca';
 import localeRu from '@angular/common/locales/ru';
 import isoLang from '../assets/languages.json';
+import { LocalizeRouterService } from '@gilsdav/ngx-translate-router';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,7 @@ export class LocaleService {
   public availableLocales = {
     'ca': localeCa,
     'cy': localeCy,
+    'en-GB': localeEnGb,
     'en': localeEn,
     'da': localeDa,
     'de': localeDe,
@@ -51,6 +54,7 @@ export class LocaleService {
   };
 
   constructor(private translate: TranslateService,
+              private translateRouter: LocalizeRouterService,
               private dateTimeAdapter: DateTimeAdapter<any>,
               private temporal: TemporalServiceService) {
   }
@@ -68,12 +72,19 @@ export class LocaleService {
       registerLocaleData(this.availableLocales[lang], lang);
     }
 
-    this.translate.setDefaultLang('en');
+    const langFromUrl = this.translateRouter.parser.currentLang;
+
+    if (langFromUrl) {
+      this.language = langFromUrl;
+    }
+
+    this.translate.setDefaultLang('en-GB');
 
     if (this.language in this.availableLocales) {
+      console.log('Setting language to ' + this.language);
       this.useLanguage(this.language);
     } else {
-      this.useLanguage('en');
+      this.useLanguage('en-GB');
     }
   }
 
@@ -81,7 +92,8 @@ export class LocaleService {
     this.language = language;
     localStorage.setItem('language', language);
     this.translate.use(language);
-    this.temporal.changeLocale(language === 'en' ? 'en-GB' : language);
+    this.translateRouter.changeLanguage(language);
+    this.temporal.changeLocale(language);
 
     this.setMomentTimezone(language);
 

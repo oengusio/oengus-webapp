@@ -1,6 +1,6 @@
 <nav class="navbar">
   <div class="navbar-brand">
-    <a routerLink="/" class="navbar-item">
+    <a [routerLink]="'/' | localize" class="navbar-item">
       <img src="/assets/Oengus-Wide-Off-White.svg" class="logo" alt="Oengus logo"/>
     </a>
 
@@ -41,7 +41,7 @@
 
 
     <div class="navbar-end">
-      <a routerLink="/about" class="navbar-item">
+      <a [routerLink]="'/about' | localize" class="navbar-item">
         {{ 'navbar.about' | translate }}
       </a>
       <app-header-language-picker class="navbar-item" ></app-header-language-picker>
