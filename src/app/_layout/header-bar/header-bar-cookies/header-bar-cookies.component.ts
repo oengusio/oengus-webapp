@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header-bar-cookies',
@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   },
 })
 export class HeaderBarCookiesComponent implements OnInit {
-
+  @Output() visibilityUpdated = new EventEmitter<boolean>();
   showConsentPrompt = true;
 
   constructor() { }
@@ -21,6 +21,11 @@ export class HeaderBarCookiesComponent implements OnInit {
     showConsentPrompt &&= navigator?.doNotTrack !== '1';
     showConsentPrompt &&= localStorage.getItem('consent') === null;
     this.showConsentPrompt = showConsentPrompt;
+
+    // Emit the event a bit later to make sure angular does not get mad.
+    requestAnimationFrame(() => {
+      this.visibilityUpdated.emit(showConsentPrompt);
+    });
   }
 
   setCookies(consent: boolean): void {
@@ -30,6 +35,7 @@ export class HeaderBarCookiesComponent implements OnInit {
     localStorage.setItem('consent', consent.toString());
 
     this.showConsentPrompt = false;
+    this.visibilityUpdated.emit(false);
   }
 
 }

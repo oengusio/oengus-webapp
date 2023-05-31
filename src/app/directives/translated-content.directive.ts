@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, merge, Observable, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TranslatedElementDirective } from './translated-element.directive';
 
 interface TranslationData {
@@ -49,12 +49,8 @@ export class TranslatedContentDirective implements OnInit, OnDestroy, AfterConte
   }
 
   public ngOnInit(): void {
-    this.rawTranslation = merge(
-      this.translateService.get(this.translationKey),
-      this.translateService.onLangChange.asObservable().pipe(switchMap(() => this.translateService.get(this.translationKey))),
-    );
+    this.rawTranslation = this.translateService.get(this.translationKey);
   }
-
 
   public ngAfterContentInit(): void {
     // QueryList.changes doesn't re-emit after its initial value, which we have by now
@@ -90,29 +86,9 @@ export class TranslatedContentDirective implements OnInit, OnDestroy, AfterConte
       return;
     }
 
-    /*while (this.viewRef.element.nativeElement.firstChild) {
-      this.renderer.removeChild(this.viewRef.element.nativeElement, this.viewRef.element.nativeElement.firstChild);
-    }*/
-
-    /*let whileCount = 0;
-
-    while (this.viewRef.element.nativeElement.firstChild) {
-
-      whileCount++;
-      this.renderer.removeChild(this.viewRef.element.nativeElement, this.viewRef.element.nativeElement.firstChild, false);
-
-      // Don't keep looking forever
-      // TODO: figure out why it's looping forever
-      if (whileCount > 30) {
-        console.log('Breaking after 30 iterations.');
-        break;
-      }
-    }*/
-
     let lastTokenEnd = 0;
 
     while (lastTokenEnd < translationData.rawTranslation.length) {
-      console.log(` lastTokenEnd = ${lastTokenEnd}, translationData.rawTranslation.length = ${translationData.rawTranslation.length}`);
       const tokenStartDemarc = translationData.rawTranslation.indexOf(TOKEN_START_DEMARC, lastTokenEnd);
 
       if (tokenStartDemarc < 0) {
@@ -145,8 +121,6 @@ export class TranslatedContentDirective implements OnInit, OnDestroy, AfterConte
       }
 
       lastTokenEnd = tokenEndDemarc;
-
-      console.log(` lastTokenEnd = ${lastTokenEnd}, translationData.rawTranslation.length = ${translationData.rawTranslation.length}`);
     }
 
     const trailingText = translationData.rawTranslation.substring(lastTokenEnd);

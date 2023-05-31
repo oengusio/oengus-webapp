@@ -1,12 +1,19 @@
+<ng-template #dropdownTrigger>
+  <ng-content select="[trigger]"></ng-content>
+</ng-template>
+<ng-template #dropdownOptions>
+  <ng-content select="[options]"></ng-content>
+</ng-template>
+
 <!-- Trigger -->
 <a *ngIf="isNavbar; else notNavbar" class="navbar-link" (click)="toggleActive()">
-  <ng-content select="[trigger]"></ng-content>
+  <ng-container *ngTemplateOutlet="dropdownTrigger"></ng-container>
 </a>
 <ng-template #notNavbar>
   <div class="dropdown-trigger">
     <button class="button is-primary" (click)="toggleActive()">
       <div>
-        <ng-content select="[trigger]"></ng-content>
+        <ng-container *ngTemplateOutlet="dropdownTrigger"></ng-container>
       </div>
       <fa-icon [icon]="faAngleDown"></fa-icon>
     </button>
@@ -14,12 +21,12 @@
 </ng-template>
 <!-- Options -->
 <div *ngIf="isNavbar; else notNavOptions" class="navbar-dropdown" [class]="{ 'is-right': isRight }">
-  <ng-content select="[options]"></ng-content>
+  <ng-container *ngTemplateOutlet="dropdownOptions"></ng-container>
 </div>
 <ng-template #notNavOptions>
   <div class="dropdown-menu">
     <div class="dropdown-content">
-      <ng-content select="[options]"></ng-content>
+      <ng-container *ngTemplateOutlet="dropdownOptions"></ng-container>
     </div>
   </div>
 </ng-template>

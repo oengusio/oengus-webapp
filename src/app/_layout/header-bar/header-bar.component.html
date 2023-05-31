@@ -1,4 +1,4 @@
 <header>
-  <app-header-bar-cookies></app-header-bar-cookies>
+  <app-header-bar-cookies *ngIf="showCookieBar" (visibilityUpdated)="showCookieBar = $event"></app-header-bar-cookies>
   <app-header-bar-nav></app-header-bar-nav>
 </header>

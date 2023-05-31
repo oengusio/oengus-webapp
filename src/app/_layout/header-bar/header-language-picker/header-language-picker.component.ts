@@ -22,8 +22,9 @@ export class HeaderLanguagePickerComponent {
     return this.languages[this.localeService.language];
   }
 
-  changeLanguage(locale: string): void {
+  changeLanguage(locale: string): boolean {
     this.localeService.useLanguage(locale);
+    return false;
   }
 
 }
