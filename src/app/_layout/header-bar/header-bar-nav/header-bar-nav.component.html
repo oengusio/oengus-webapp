@@ -41,6 +41,11 @@
 
 
     <div class="navbar-end">
+      <div class="navbar-item" *ngIf="userService.user && !userService.isBanned()">
+        <button class="button is-primary" [routerLink]="'/marathon/new' | localize">
+          {{'navbar.createMarathon' | translate}}
+        </button>
+      </div>
       <a [routerLink]="'/about' | localize" class="navbar-item">
         {{ 'navbar.about' | translate }}
       </a>

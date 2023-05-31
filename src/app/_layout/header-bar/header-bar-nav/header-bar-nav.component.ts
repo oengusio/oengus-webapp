@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { faDiscord, faGithub, faMastodon, faPatreon, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faBug, faLanguage } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-header-bar-nav',
   templateUrl: './header-bar-nav.component.html',
   styleUrls: ['./header-bar-nav.component.scss']
 })
-export class HeaderBarNavComponent implements OnInit {
+export class HeaderBarNavComponent {
 
   isNavbarActive = false;
 
@@ -19,10 +20,7 @@ export class HeaderBarNavComponent implements OnInit {
   iconLanguage = faLanguage;
   iconPatreon = faPatreon;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor(public userService: UserService) { }
 
   get isActiveClass() {
     return {
