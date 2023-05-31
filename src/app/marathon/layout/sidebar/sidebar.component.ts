@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
 
 @Component({
@@ -6,16 +6,11 @@ import { Marathon } from '../../../../model/marathon';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   @Input() isAdmin: boolean;
   @Input() collapsed = false;
   @Input() marathon: Marathon;
   @Output() toggleSidebar = new EventEmitter<boolean>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   get isActiveClass() {
     return {

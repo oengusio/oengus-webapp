@@ -39,8 +39,6 @@ export class ElementTwitchPlayerComponent implements OnInit {
   @Input() collection: string | null = null;
   @Input() autoplay = false;
 
-  constructor() { }
-
   ngOnInit(): void {
     if (!this.channel && !this.video) {
       return;

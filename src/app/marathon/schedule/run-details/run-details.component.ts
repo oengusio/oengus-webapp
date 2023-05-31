@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ScheduleLine } from '../../../../model/schedule-line';
 
 @Component({
@@ -6,14 +6,6 @@ import { ScheduleLine } from '../../../../model/schedule-line';
   templateUrl: './run-details.component.html',
   styleUrls: ['./run-details.component.scss'],
 })
-export class RunDetailsComponent implements OnInit {
+export class RunDetailsComponent {
   @Input() run: ScheduleLine;
-
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
 }

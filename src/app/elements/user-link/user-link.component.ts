@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { User } from '../../../model/user';
 import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
 
@@ -7,15 +7,12 @@ import { TemporalServiceService } from '../../../services/termporal/temporal-ser
   templateUrl: './user-link.component.html',
   styleUrls: ['./user-link.component.scss']
 })
-export class UserLinkComponent implements OnInit {
+export class UserLinkComponent {
   @Input() user: User;
   @Input() username = '';
   @Input() isLink = false;
 
   constructor(private temporal: TemporalServiceService) { }
-
-  ngOnInit(): void {
-  }
 
   get userId(): string {
     return this.user?.username ?? this.user.toString();

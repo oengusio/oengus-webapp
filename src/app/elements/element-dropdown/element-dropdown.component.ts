@@ -27,8 +27,6 @@ export class ElementDropdownComponent implements OnInit {
 
   clickOutsideStatic = undefined as (() => void) | undefined;
 
-  constructor() { }
-
   ngOnInit(): void {
     this.clickOutsideStatic = this.clickOutside.bind(this);
   }

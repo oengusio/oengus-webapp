@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Marathon } from 'src/model/marathon';
 import { MarathonService } from '../../../../services/marathon.service';
 
@@ -7,15 +7,12 @@ import { MarathonService } from '../../../../services/marathon.service';
   templateUrl: './marathon-header.component.html',
   styleUrls: ['./marathon-header.component.scss']
 })
-export class MarathonHeaderComponent implements OnInit {
+export class MarathonHeaderComponent {
   @Input() collapsed: boolean;
   @Input() marathon: Marathon;
   @Output() toggleSidebar = new EventEmitter<boolean>();
 
   constructor(public marathonService: MarathonService) { }
-
-  ngOnInit(): void {
-  }
 
   get marathonName(): string {
     if (this.marathonService.marathon) {

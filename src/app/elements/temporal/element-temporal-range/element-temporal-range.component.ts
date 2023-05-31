@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
 import { dateTimeFormatKey } from '../../../../services/termporal/config';
 
@@ -7,14 +7,10 @@ import { dateTimeFormatKey } from '../../../../services/termporal/config';
   templateUrl: './element-temporal-range.component.html',
   styleUrls: ['./element-temporal-range.component.scss']
 })
-export class ElementTemporalRangeComponent implements OnInit {
+export class ElementTemporalRangeComponent {
   @Input() start: string | Date;
   @Input() end: string | Date;
   @Input() format: dateTimeFormatKey = 'mediumDateTime';
 
   constructor(public temporal: TemporalServiceService) { }
-
-  ngOnInit(): void {
-  }
-
 }

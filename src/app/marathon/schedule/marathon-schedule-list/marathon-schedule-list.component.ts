@@ -15,8 +15,6 @@ export class MarathonScheduleListComponent implements OnChanges {
 
   expanded = new Set<number>();
 
-  constructor() { }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.runHash && changes.runHash.currentValue !== changes.runHash.previousValue) {
       this.expandRunHash();

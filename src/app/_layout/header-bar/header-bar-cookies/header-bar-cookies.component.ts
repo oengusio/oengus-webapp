@@ -12,8 +12,6 @@ export class HeaderBarCookiesComponent implements OnInit {
   @Output() visibilityUpdated = new EventEmitter<boolean>();
   showConsentPrompt = true;
 
-  constructor() { }
-
   // disable google analytics if consent is not given
   ngOnInit(): void {
     let showConsentPrompt = true;

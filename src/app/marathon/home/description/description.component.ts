@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Marathon } from 'src/model/marathon';
 
 @Component({
@@ -6,12 +6,6 @@ import { Marathon } from 'src/model/marathon';
   templateUrl: './description.component.html',
   styleUrls: ['./description.component.scss']
 })
-export class DescriptionComponent implements OnInit {
+export class DescriptionComponent {
   @Input() marathon: Marathon;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

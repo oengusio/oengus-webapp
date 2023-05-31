@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
 import { faBullseye, faDonate, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,18 +7,13 @@ import { faBullseye, faDonate, faMoneyBill } from '@fortawesome/free-solid-svg-i
   templateUrl: './sidebar-tracker.component.html',
   styleUrls: ['./sidebar-tracker.component.scss']
 })
-export class SidebarTrackerComponent implements OnInit {
+export class SidebarTrackerComponent {
   @Input() marathon: Marathon;
   @HostBinding('class.collapsed') @Input() collapsed = false;
 
   iconDonate = faDonate;
   iconMoney = faMoneyBill;
   iconIncentives = faBullseye;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   get marathonId() {
     return this.marathon.id;

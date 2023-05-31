@@ -1,11 +1,11 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'app-element-range',
   templateUrl: './element-range.component.html',
   styleUrls: ['./element-range.component.scss']
 })
-export class ElementRangeComponent implements OnInit {
+export class ElementRangeComponent {
   @Input() start = 0;
   @Input() end = 0;
   @HostBinding('attr.aria-valuemin') @Input() min = 0;
@@ -13,11 +13,6 @@ export class ElementRangeComponent implements OnInit {
 
   @HostBinding('attr.aria-valuetext') get valText() {
     return `${this.start} - ${this.end}`;
-  }
-
-  constructor() { }
-
-  ngOnInit(): void {
   }
 
   @HostBinding('style')

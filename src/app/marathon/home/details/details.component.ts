@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
-import { faDiscord, faTwitch, faTwitter, faYoutube, faMastodon } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faMastodon, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faComputer } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -8,7 +8,7 @@ import { faComputer } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent {
   @Input() marathon: Marathon;
 
 
@@ -18,11 +18,6 @@ export class DetailsComponent implements OnInit {
   public faDiscord = faDiscord;
   public faYoutube = faYoutube;
   public faComputer = faComputer;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   get isLive(): boolean {
     if (!this.marathon) {

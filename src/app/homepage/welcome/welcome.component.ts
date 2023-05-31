@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { faCheck, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { Component } from '@angular/core';
+import { faAngleDown, faCheck } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-homepage-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent implements OnInit {
-
+export class WelcomeComponent {
   faCheck = faCheck;
   faAngleDown = faAngleDown;
   isFoldOpen = false;
@@ -20,11 +20,6 @@ export class WelcomeComponent implements OnInit {
     { key: '7', complete: false },
     { key: 'volunteerManager', complete: false },
   ];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   openFold(): void {
     this.isFoldOpen = true;

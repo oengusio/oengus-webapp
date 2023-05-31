@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ScheduleLine } from '../../../../model/schedule-line';
 
 @Component({
@@ -6,14 +6,8 @@ import { ScheduleLine } from '../../../../model/schedule-line';
   templateUrl: './marathon-schedule-row.component.html',
   styleUrls: ['./marathon-schedule-row.component.scss'],
 })
-export class MarathonScheduleRowComponent implements OnInit {
+export class MarathonScheduleRowComponent {
   @Input() run: ScheduleLine;
   @Input() expanded = false;
   @Input() internalId: string;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

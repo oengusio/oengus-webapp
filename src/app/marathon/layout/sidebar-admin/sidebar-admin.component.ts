@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
 import { faCalendarCheck, faCheckSquare, faCogs, faDotCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,7 +7,7 @@ import { faCalendarCheck, faCheckSquare, faCogs, faDotCircle } from '@fortawesom
   templateUrl: './sidebar-admin.component.html',
   styleUrls: ['./sidebar-admin.component.scss']
 })
-export class SidebarAdminComponent implements OnInit {
+export class SidebarAdminComponent {
   @Input() marathon: Marathon;
   @HostBinding('class.collapsed') @Input() collapsed = false;
 
@@ -15,11 +15,6 @@ export class SidebarAdminComponent implements OnInit {
   iconSelectRuns = faCheckSquare;
   iconManageSchedule = faCalendarCheck;
   iconManageIncentive = faDotCircle;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   get marathonId() {
     return this.marathon.id;
