@@ -50,6 +50,7 @@ import { HeaderBarNavComponent } from './_layout/header-bar/header-bar-nav/heade
 import { HeaderLanguagePickerComponent } from './_layout/header-bar/header-language-picker/header-language-picker.component';
 import { LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings, ManualParserLoader } from '@gilsdav/ngx-translate-router';
 import { Location } from '@angular/common';
+import { availableLocaleNames } from '../services/locale.service';
 
 const appRoutes: Routes = [
   {
@@ -146,8 +147,7 @@ const appRoutes: Routes = [
       parser: {
         provide: LocalizeParser,
         useFactory: (translate, location, settings) =>
-          // TODO: make a config for this
-          new ManualParserLoader(translate, location, settings, ['ca', 'cy', 'en-GB', 'en', 'da', 'de', 'el', 'es', 'fi', 'fr', 'it', 'ja', 'ko', 'nl', 'pt_BR', 'ru', 'tr', 'zh_Hant_HK'], 'YOUR_PREFIX'),
+          new ManualParserLoader(translate, location, settings, availableLocaleNames, 'YOUR_PREFIX'),
         deps: [TranslateService, Location, LocalizeRouterSettings]
       }
       // initialNavigation: true,

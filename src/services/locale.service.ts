@@ -25,33 +25,35 @@ import localeRu from '@angular/common/locales/ru';
 import isoLang from '../assets/languages.json';
 import { LocalizeRouterService } from '@gilsdav/ngx-translate-router';
 
+// removed languages have none to no translations
+export const availableLocales = {
+  'ca': localeCa,
+  'cy': localeCy,
+  'en-GB': localeEnGb,
+  'en': localeEn,
+  'da': localeDa,
+  'de': localeDe,
+  'el': localeEl,
+  'es': localeEs,
+  'fi': localeFi,
+  'fr': localeFr,
+  'it': localeIt,
+  'ja': localeJa,
+  'ko': localeKo,
+  'nl': localeNl,
+  'pt_BR': localePt,
+  'ru': localeRu,
+  'tr': localeTr,
+  'zh_Hant_HK': localeZhHk,
+};
+
+export const availableLocaleNames = Object.keys(availableLocales);
+
 @Injectable({
   providedIn: 'root'
 })
 export class LocaleService {
   public language = localStorage.getItem('language') ? localStorage.getItem('language') : navigator.language.split('-')[0];
-
-  // removed languages have none to no translations
-  public availableLocales = {
-    'ca': localeCa,
-    'cy': localeCy,
-    'en-GB': localeEnGb,
-    'en': localeEn,
-    'da': localeDa,
-    'de': localeDe,
-    'el': localeEl,
-    'es': localeEs,
-    'fi': localeFi,
-    'fr': localeFr,
-    'it': localeIt,
-    'ja': localeJa,
-    'ko': localeKo,
-    'nl': localeNl,
-    'pt_BR': localePt,
-    'ru': localeRu,
-    'tr': localeTr,
-    'zh_Hant_HK': localeZhHk,
-  };
 
   constructor(private translate: TranslateService,
               private translateRouter: LocalizeRouterService,
@@ -63,13 +65,13 @@ export class LocaleService {
     return isoLang;
   }
 
-  get availableLocaleNames(): string [] {
-    return Object.keys(this.availableLocales);
+  get availableLocaleNames() {
+    return availableLocaleNames;
   }
 
   initialize(): void {
-    for (const lang of this.availableLocaleNames) {
-      registerLocaleData(this.availableLocales[lang], lang);
+    for (const lang of availableLocaleNames) {
+      registerLocaleData(availableLocales[lang], lang);
     }
 
     const langFromUrl = this.translateRouter.parser.currentLang;
@@ -80,7 +82,7 @@ export class LocaleService {
 
     this.translate.setDefaultLang('en-GB');
 
-    if (this.language in this.availableLocales) {
+    if (this.language in availableLocales) {
       console.log('Setting language to ' + this.language);
       this.useLanguage(this.language);
     } else {
