@@ -8,6 +8,7 @@ import { MarathonService } from '../../../../services/marathon.service';
   styleUrls: ['./marathon-header.component.scss']
 })
 export class MarathonHeaderComponent {
+  @Input() isAdmin: boolean;
   @Input() collapsed: boolean;
   @Input() marathon: Marathon;
   @Output() toggleSidebar = new EventEmitter<boolean>();

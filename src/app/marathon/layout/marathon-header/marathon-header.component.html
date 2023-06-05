@@ -13,8 +13,9 @@
 
   <div *ngIf="collapsed" class="menu-sections">
     <app-marathon-sidebar-overview [marathon]="marathon" [collapsed]="true"></app-marathon-sidebar-overview>
-    <app-sidebar-tracker [marathon]="marathon" [collapsed]="true"></app-sidebar-tracker>
-    <app-sidebar-admin [marathon]="marathon" [collapsed]="true"></app-sidebar-admin>
+    <app-sidebar-tracker *ngIf="marathon.hasDonations || marathon.hasIncentives"
+                         [marathon]="marathon" [collapsed]="true"></app-sidebar-tracker>
+    <app-sidebar-admin *ngIf="isAdmin" [marathon]="marathon" [collapsed]="true"></app-sidebar-admin>
   </div>
 </div>
 
