@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-element-table-cell',
@@ -22,6 +23,12 @@ export class ElementTableCellComponent implements OnChanges {
     };
   }
 
+  @Input() isExpandButton = false;
+  @Input() expanded: boolean;
+  get icon() {
+    return this.expanded ? faCaretDown : faCaretRight;
+  }
+
   constructor(private elem: ElementRef) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -33,6 +40,15 @@ export class ElementTableCellComponent implements OnChanges {
         clsList.add('element-table-header');
       } else {
         clsList.remove('element-table-header');
+      }
+    }
+    if (changes.isExpandButton && changes.isExpandButton.currentValue !== changes.isExpandButton.previousValue) {
+      const clsList = (this.elem.nativeElement.classList as DOMTokenList);
+
+      if (this.isExpandButton) {
+        clsList.add('element-table-expand-button');
+      } else {
+        clsList.remove('element-table-expand-button');
       }
     }
   }

@@ -14,9 +14,19 @@
   grid-row-start: var(--row-start);
   grid-row-end: var(--row-end);
 
-  display: grid;
-}
+  &.element-table-header {
+    font-weight: bold;
+  }
 
-.element-table-header {
-  font-weight: bold;
+  &.element-table-expand-button {
+    grid-column-start: auto;
+    grid-column-end: auto;
+    grid-row-start: auto;
+    grid-row-end: auto;
+
+    > fa-icon ::ng-deep > svg {
+      width: 10px;
+      max-width: 10px;
+    }
+  }
 }

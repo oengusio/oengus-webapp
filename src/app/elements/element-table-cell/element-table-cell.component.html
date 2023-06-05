@@ -1,3 +1,2 @@
-<!--<div class="element-table-cell" [class]="classes" [style]="styles">-->
-  <ng-content></ng-content>
-<!--</div>-->
+<ng-content *ngIf="!isExpandButton"></ng-content>
+<fa-icon *ngIf="isExpandButton" [icon]="icon"></fa-icon>

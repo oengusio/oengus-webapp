@@ -1,5 +1,5 @@
 <app-element-table-row>
-  <app-element-table-expand-button [id]="internalId" [expanded]="expanded" class="expandable"></app-element-table-expand-button>
+  <app-element-table-cell [isExpandButton]="true" [id]="internalId" [expanded]="expanded" class="expandable"></app-element-table-cell>
   <app-element-table-cell [id]="'run-' + run.id" class="time">
     <app-element-temporal-datetime [dateTime]="run.date" format="shortTime"></app-element-temporal-datetime>
   </app-element-table-cell>
