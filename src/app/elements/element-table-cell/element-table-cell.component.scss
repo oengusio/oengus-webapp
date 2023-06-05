@@ -1,0 +1,32 @@
+@use '../../../assets/table';
+
+:host {
+  --column-start: auto;
+  --column-end: auto;
+  --row-start: auto;
+  --row-end: auto;
+
+  @include table.cell-like();
+  @include table.cell-varients();
+
+  grid-column-start: var(--column-start);
+  grid-column-end: var(--column-end);
+  grid-row-start: var(--row-start);
+  grid-row-end: var(--row-end);
+
+  &.element-table-header {
+    font-weight: bold;
+  }
+
+  &.element-table-expand-button {
+    grid-column-start: auto;
+    grid-column-end: auto;
+    grid-row-start: auto;
+    grid-row-end: auto;
+
+    > fa-icon ::ng-deep > svg {
+      width: 10px;
+      max-width: 10px;
+    }
+  }
+}

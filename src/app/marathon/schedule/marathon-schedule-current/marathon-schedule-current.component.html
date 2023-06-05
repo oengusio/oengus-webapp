@@ -1,0 +1,27 @@
+<div class="message" [class]="messageClass">
+  <div class="message-header">
+    <a [routerLink]="'.' | localize" [fragment]="linkedRun">
+      {{ messageHeaderTitle | translate: messageHeaderArgs }}
+    </a>
+  </div>
+  <div class="message-body">
+    <p class="run-info-container">
+      <span *ngIf="ticker.setupBlock" class="info">
+        {{ (ticker.setupBlockText || 'marathon.schedule.setupBlock' | translate) }}
+      </span>
+      <span *ngIf="ticker.gameName" class="info">
+        {{ ticker.gameName }}
+      </span>
+      <span *ngIf="ticker.categoryName" class="info">
+        {{ ticker.categoryName }}
+      </span>
+      <span *ngIf="ticker.console" class="info">
+        {{ ticker.console }}
+      </span>
+    </p>
+    <p class="runner-info">
+      <app-user-link *ngFor="let runner of ticker.runners" [user]="runner" class="runner"></app-user-link>
+    </p>
+    <!-- TODO: loading indicator -->
+  </div>
+</div>

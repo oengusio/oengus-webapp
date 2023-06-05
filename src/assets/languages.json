@@ -160,6 +160,10 @@
     "nativeName": "Nederlands"
   },
   "en": {
+    "name": "English (US)",
+    "nativeName": "English (US)"
+  },
+  "en-GB": {
     "name": "English",
     "nativeName": "English"
   },

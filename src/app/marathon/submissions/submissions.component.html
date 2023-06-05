@@ -1,9 +1,15 @@
-<h1 class="title">{{ 'marathon.submissions.title' | translate}}
+<div class="notification is-info mb-4">
+  <p>{{ 'alert.submission.cache' | translate }}</p>
+</div>
+
+<h3 class="title is-3 mb-4">
+  {{ 'marathon.submissions.title' | translate }}
   <button class="button is-pulled-right is-info" (click)="exportToCsv()"
           *ngIf="marathonService.isAdmin(userService.user)">{{ 'marathon.submissions.export' | translate}}
   </button>
-</h1>
-<div class="tabs is-centered" *ngIf="displaysTabs()">
+</h3>
+
+<div class="tabs is-centered" *ngIf="displaysTabs">
   <ul>
     <li [ngClass]="{'is-active':active==='submissions'}">
       <a (click)="active = 'submissions'">{{'marathon.submissions.tabs.submissions' | translate}}</a>
@@ -14,19 +20,17 @@
   </ul>
 </div>
 
-<div class="notification is-info">
-  <p>{{ 'alert.submission.cache' | translate }}</p>
-</div>
-
-<div [hidden]="displaysTabs() && active !== 'submissions'" class="container" id="submissionScrollArea">
+<div [hidden]="displaysTabs && active !== 'submissions'" class="container" id="submissionScrollArea">
 
   <div class="columns">
     <div class="column is-half-desktop">
       <nav class="panel">
         <div class="panel-block">
           <p class="control has-icons-left">
-            <input class="input searchInput" type="text" #searchInput [placeholder]="'marathon.submissions.filter' | translate"
-                   [(ngModel)]="runnerGameFilter" (ngModelChange)="filter()">
+            <input class="input searchInput" type="text" #searchInput
+                   [(ngModel)]="gameFilter"
+                   [placeholder]="'marathon.submissions.filter' | translate"
+                   (input)="search(searchInput.value)">
             <span class="icon is-left">
               <fa-icon [icon]="faSearch"></fa-icon>
             </span>
@@ -34,7 +38,7 @@
         </div>
         <div class="panel-block" *ngIf="marathonService.marathon.selectionDone">
           <div class="select is-fullwidth">
-            <select [(ngModel)]="categoryFilter" (ngModelChange)="filter()">
+            <select [(ngModel)]="statusFilter" (ngModelChange)="search(searchInput.value)">
               <option value="">{{ 'marathon.selection.status.ALL' | translate}}</option>
               <option value="REJECTED">{{ 'marathon.selection.status.REJECTED' | translate}}</option>
               <option value="BONUS">{{ 'marathon.selection.status.BONUS' | translate}}</option>
@@ -46,8 +50,11 @@
       </nav>
     </div>
   </div>
+  <div class="is-centered" *ngIf="loading">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
 
-  <ng-template ngFor let-submission [ngForOf]="filteredSubmissions">
+  <ng-template ngFor let-submission [ngForOf]="filteredSubmissions$ | async">
     <div class="box">
       <h4 class="title is-4">
         <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
@@ -71,12 +78,12 @@
       </ng-template>
     </div>
   </ng-template>
-  <div id="lazyLoadTrigger" class="is-centered" *ngIf="canLoadMore">
+  <div id="lazyLoadTrigger" class="is-centered" *ngIf="canLoadMore" [hidden]="gameFilter || statusFilter">
     <app-loading-indicator></app-loading-indicator>
   </div>
 </div>
 
-<div [hidden]="!displaysTabs() || active !== 'answers'" class="container">
+<div [hidden]="!displaysTabs || active !== 'answers'" class="container">
   <div class="table-container">
     <table class="table is-fullwidth is-striped">
       <thead>

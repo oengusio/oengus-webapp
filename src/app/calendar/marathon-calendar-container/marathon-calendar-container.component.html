@@ -1,0 +1,10 @@
+<app-calendar-controller [year]="year" [month]="month"></app-calendar-controller>
+
+<div *ngIf="loading; else loaded" class="is-centered">
+  <app-loading-indicator></app-loading-indicator>
+</div>
+
+
+<ng-template #loaded>
+  <app-calendar-view [year]="year" [month]="month" [marathons]="marathons"></app-calendar-view>
+</ng-template>

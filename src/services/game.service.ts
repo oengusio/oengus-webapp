@@ -16,6 +16,7 @@ export class GameService extends BaseService {
     super(toastr, 'marathons');
   }
 
+  // Cannot just return url, needs auth
   exportAllForMarathon(marathonId: string) {
     const exportUrl = this.url(`${marathonId}/submissions/export?locale=${
       localStorage.getItem('language')}&zoneId=${moment.tz.guess()}`);

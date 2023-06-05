@@ -1,0 +1,5 @@
+:host {
+  > :not(:last-child) {
+    margin-block-end: var(--spacing);
+  }
+}

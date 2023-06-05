@@ -49,26 +49,8 @@ export class ScheduleService extends BaseService {
     });
   }
 
-  exportAllForMarathon(marathonId: string, format: string) {
-    const exportUrl = this.url(`${marathonId}/schedule/export?format=${format}&zoneId=${
+  getExportUrl(marathonId: string, format: string): string {
+    return this.url(`${marathonId}/schedule/export?format=${format}&zoneId=${
       moment.tz.guess()}&locale=${localStorage.getItem('language')}`);
-    this.http.get(exportUrl, {responseType: 'text'})
-      .subscribe(response => {
-          const blob = new Blob([response], {type: 'text/csv'});
-          const url = window.URL.createObjectURL(blob);
-
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = marathonId + '-schedule.' + format;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        },
-        error => {
-          this.translateService.get('alert.schedule.export.error').subscribe((res: string) => {
-            this.toast(res, 3000, 'warning');
-          });
-        });
   }
 }

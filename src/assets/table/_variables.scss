@@ -1,0 +1,28 @@
+@use 'bulmaswatch/solar/variables' as solar;
+@use 'bulma/sass/utilities/functions' as bulma;
+
+// Colors are designed to take advantage of playing off the background. Theme neutral
+$neutral-color: rgba(255, 255, 255, 0.1) !default;
+$light-color: rgba(255, 255, 255, 0.05) !default;
+$dark-color: rgba(0, 0, 0, 0.1) !default;
+
+$primary-color: solar.$primary !default;
+$info-color: solar.$info !default;
+$success-color: solar.$green !default;
+$warning-color: solar.$warning !default;
+$danger-color: solar.$red !default;
+
+/* stylelint-disable function-name-case */
+// I can't help what Bulma named their function...
+$colors:
+  'neutral' $neutral-color null,
+  'light' $light-color null,
+  'dark' $dark-color null,
+  'even' $dark-color null,
+  'odd' $light-color null,
+  'primary' $primary-color bulma.findColorInvert($primary-color),
+  'info' $info-color bulma.findColorInvert($info-color),
+  'success' $success-color bulma.findColorInvert($success-color),
+  'warning' $warning-color bulma.findColorInvert($warning-color),
+  'danger' $danger-color bulma.findColorInvert($danger-color);
+/* stylelint-enable function-name-case */

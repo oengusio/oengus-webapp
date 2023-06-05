@@ -1,4 +1,4 @@
-@import '~bulmaswatch/solar/variables';
+@import 'bulmaswatch/solar/variables';
 
 .minimized {
   margin-right: 1rem;
@@ -14,4 +14,74 @@
   color: #fff;
 }
 
+:host {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    'sidebar       header'
+    'sidebar       view'
+    'advertisement view';
+  gap: var(--spacing);
+}
+
+.marathon-header {
+  grid-area: header;
+}
+
+.marathon-sidebar {
+  grid-area: sidebar;
+  align-self: start;
+  min-width: min(300px, 100%);
+}
+
+// I hate this, WHY CAN'T router-outlet APPLY THE CLASS
+.marathon-view + ::ng-deep * {
+  display: block;
+  grid-area: view;
+  width: 100%;
+}
+
+.is-advertisement {
+  grid-area: advertisement;
+  place-self: start;
+}
+
+@media (max-width: 1023px) {
+  :host {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      'header'
+      'sidebar'
+      'view';
+  }
+
+  .marathon-sidebar {
+    width: 100%;
+  }
+
+  .is-advertisement {
+    display: none !important;
+  }
+}
+
+.collapsed {
+  &:host {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'header'
+      'view';
+  }
+
+  .marathon-sidebar {
+    display: none !important;
+  }
+
+  .is-advertisement {
+    display: none !important;
+  }
+}
 

@@ -1,0 +1,42 @@
+<div class="homepage-marathons-container">
+  <h3 class="title is-3">
+      <span>
+        {{ 'calendar.title' | translate }}
+      </span>
+    <span>
+        (<a [routerLink]="'/calendar' | localize">{{ 'homepage.marathons.calendar' | translate }}</a>)
+      </span>
+  </h3>
+
+  <app-element-table class="marathons-list-container">
+    <ng-template ngFor let-marathonsList [ngForOf]="marathonsLists">
+      <ng-template [ngIf]="shouldRenderList(marathonsList.key)">
+        <h4 class="title" [class]="marathonsList.headerClass">
+          {{ marathonsList.label | translate }}
+        </h4>
+        <div class="spacer"></div>
+        <ng-template ngFor let-marathon let-index="index" [ngForOf]="homepageMarathons[marathonsList.key]">
+          <app-element-table-cell class="marathon-name" [class]="getRowParity(index)">
+            <a [routerLink]="'/marathon/' + marathon.id | localize">{{ marathon.name }}</a>
+          </app-element-table-cell>
+          <app-element-table-cell class="location" [class]="getRowParity(index)">
+            <app-marathon-location [marathon]="marathon"></app-marathon-location>
+          </app-element-table-cell>
+          <app-element-table-cell class="language" [class]="getRowParity(index)">
+            {{ marathon.language.toLocaleUpperCase() }}
+          </app-element-table-cell>
+          <app-element-table-cell class="time" [class]="getRowParity(index)">
+            <div [appTranslatedContent]="marathonsList.timeTranslationKey">
+              <app-element-temporal-distance *appTranslatedElement="'duration'" [dateTime]="getMarathonDistance(marathon, marathonsList.timeTranslationValue)"></app-element-temporal-distance>
+            </div>
+          </app-element-table-cell>
+        </ng-template>
+        <div class="spacer"></div>
+      </ng-template>
+    </ng-template>
+  </app-element-table>
+
+  <!--TODO <div class="is-centered">
+    <app-loading-indicator></app-loading-indicator>
+  </div>-->
+</div>

@@ -1,0 +1,47 @@
+<div class="header">
+  <h4 class="title is-4">
+    {{ run.setupBlock ? (run.setupBlockText || 'marathon.schedule.setupBlock' | translate) : run.gameName }}
+  </h4>
+
+  <app-user-link *ngFor="let runner of run.runners" [user]="runner" [isLink]="true"></app-user-link>
+</div>
+
+<ng-template [ngIf]="run.date">
+  <span class="is-label">{{ 'marathon.schedule.table.time' | translate }}</span>
+  <span>
+    <app-element-temporal-datetime [dateTime]="run.date" format="mediumDateTime"></app-element-temporal-datetime>
+    (<app-element-temporal-distance [dateTime]="run.date"></app-element-temporal-distance>)
+  </span>
+</ng-template>
+
+<ng-template [ngIf]="run.categoryName">
+  <span class="is-label">{{ 'marathon.schedule.table.category' | translate }}</span>
+  <span>
+    <app-oengus-md [data]="run.categoryName" ></app-oengus-md>
+  </span>
+</ng-template>
+
+<ng-template [ngIf]="run.type">
+  <span class="is-label">{{ 'marathon.schedule.table.type' | translate }}</span>
+  <span>{{ 'marathon.schedule.type.' + run.type | translate }}</span>
+</ng-template>
+
+<ng-template [ngIf]="run.console">
+  <span class="is-label">{{ 'marathon.schedule.table.console' | translate }}</span>
+  <app-element-console [console]="run.console" [emulated]="run.emulated"></app-element-console>
+</ng-template>
+
+<ng-template [ngIf]="run.estimate">
+  <span class="is-label">{{ 'marathon.schedule.table.estimate' | translate }}</span>
+  <app-element-temporal-duration [duration]="run.estimate"></app-element-temporal-duration>
+</ng-template>
+
+<ng-template [ngIf]="run.setupTime">
+  <span class="is-label">{{ 'marathon.schedule.table.setup' | translate }}</span>
+  <app-element-temporal-duration [duration]="run.setupTime"></app-element-temporal-duration>
+</ng-template>
+
+<span class="is-label">{{ 'marathon.schedule.table.link' | translate }}</span>
+<a [routerLink]="'.' | localize" [fragment]="'run-' + run.id">
+  {{ '#run-' + run.id }}
+</a>

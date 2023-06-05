@@ -1,0 +1,10 @@
+:host {
+  margin-bottom: 0 !important;
+
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5em;
+  }
+}

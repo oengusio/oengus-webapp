@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
 import { MarathonComponent } from './marathon.component';
 import { HomeComponent } from './home/home.component';
 import { NewMarathonComponent } from './new-marathon/new-marathon.component';
@@ -16,9 +15,7 @@ import { SubmitComponent } from './submit/submit.component';
 import { SubmissionResolver } from '../resolvers/submission-resolver';
 import { SubmissionsComponent } from './submissions/submissions.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpLoaderFactory } from '../../services/http-loader-factory';
+import { TranslateModule } from '@ngx-translate/core';
 import { SelectionComponent } from './selection/selection.component';
 import { SelectionResolver } from '../resolvers/selection-resolver';
 import { CanActivateMarathonSubmitGuard } from '../guards/can-activate-marathon-submit-guard.service';
@@ -34,23 +31,36 @@ import { IncentiveComponent } from './incentive/incentive.component';
 import { CanActivateMarathonIncentivesGuard } from '../guards/can-activate-marathon-incentives-guard.service';
 import { DonateComponent } from './donate/donate.component';
 import { CanActivateMarathonDonationsGuard } from '../guards/can-activate-marathon-donations-guard.service';
-import { NgxPayPalModule } from 'ngx-paypal';
 import { DonationsComponent } from './donations/donations.component';
 import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
 import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
-import {AdsenseComponent} from '../adsense/adsense.component';
+import { AdsenseComponent } from '../adsense/adsense.component';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
-import {ButtonsModule} from '../buttons/buttons.module';
-import {DeactivateRouteGuard} from '../guards/deactivate-route-guard.service';
-import { OengusMdComponent } from '../oengus-md/oengus-md.component';
+import { ButtonsModule } from '../buttons/buttons.module';
 import { AnswersResolver } from '../resolvers/answers-resolver';
-import {LoadingIndicatorComponent} from '../loading-indicator/loading-indicator.component';
 import { GeneralSettingsComponent } from './settings/general-settings/general-settings.component';
 import { SubmissionSettingsComponent } from './settings/submission-settings/submission-settings.component';
 import { DiscordSettingsComponent } from './settings/discord-settings/discord-settings.component';
 import { IncentiveSettingsComponent } from './settings/incentive-settings/incentive-settings.component';
+import { MarathonScheduleExportComponent } from './schedule/marathon-schedule-export/marathon-schedule-export.component';
+import { ElementModule } from '../elements/elements.module';
+import { MarathonScheduleCurrentComponent } from './schedule/marathon-schedule-current/marathon-schedule-current.component';
+import { MarathonScheduleListComponent } from './schedule/marathon-schedule-list/marathon-schedule-list.component';
+import { MarathonScheduleRowComponent } from './schedule/marathon-schedule-row/marathon-schedule-row.component';
+import { RunDetailsComponent } from './schedule/run-details/run-details.component';
+import { MarathonHeaderComponent } from './layout/marathon-header/marathon-header.component';
+import { SidebarTrackerComponent } from './layout/sidebar-tracker/sidebar-tracker.component';
+import { SidebarAdminComponent } from './layout/sidebar-admin/sidebar-admin.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { SidebarModeratorsComponent } from './layout/sidebar-moderators/sidebar-moderators.component';
+import { DetailsComponent } from './home/details/details.component';
+import { DescriptionComponent } from './home/description/description.component';
+import { ComponentsModule } from '../components/components.module';
+import { RouterModule, Routes } from '@angular/router';
+import { DeactivateRouteGuard } from '../guards/deactivate-route-guard.service';
+import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 
 const marathonRoutes: Routes = [
   {
@@ -193,16 +203,28 @@ const marathonRoutes: Routes = [
     AdsenseComponent,
     SubmissionCategoryComponent,
     SubmissionGameComponent,
-    OengusMdComponent,
-    LoadingIndicatorComponent,
     GeneralSettingsComponent,
     SubmissionSettingsComponent,
     DiscordSettingsComponent,
     IncentiveSettingsComponent,
+    MarathonScheduleExportComponent,
+    MarathonScheduleCurrentComponent,
+    MarathonScheduleListComponent,
+    MarathonScheduleRowComponent,
+    RunDetailsComponent,
+    MarathonHeaderComponent,
+    SidebarTrackerComponent,
+    SidebarAdminComponent,
+    SidebarComponent,
+    SidebarModeratorsComponent,
+    DetailsComponent,
+    DescriptionComponent,
   ],
   imports: [
     CommonModule,
+    TranslateModule,
     RouterModule.forChild(marathonRoutes),
+    LocalizeRouterModule.forChild(marathonRoutes),
     FormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
@@ -211,22 +233,16 @@ const marathonRoutes: Routes = [
     FontAwesomeModule,
     NwbCommonModule,
     AutocompleteLibModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
     OengusCommonModule,
     DragDropModule,
     NwbEditInPlaceModule,
-    NgxPayPalModule,
     NwbPaginatorModule,
     ButtonsModule,
+    ElementModule,
+    ComponentsModule,
   ],
   exports: [
-    RouterModule
+    //
   ],
   providers: [
     CanActivateMarathonSettingsGuard,

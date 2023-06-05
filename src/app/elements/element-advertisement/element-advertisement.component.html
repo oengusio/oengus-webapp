@@ -1,0 +1,21 @@
+<div class="container patreon-nudge empty-space" *ngIf="showAdvertisement" [ngStyle]="{
+  'width': dataWidth,
+  'max-width': dataWidth,
+  'min-height': dataMinHeight,
+  'height' : dataHeight,
+  'max-height' : dataHeight
+}">
+  <div class="join-patreon">
+    <p>{{ 'global.ads.nag1' | translate }}</p> <br>
+    <p>{{ 'global.ads.nag2' | translate }}</p>
+  </div>
+  <ng-adsense adSlot="5905320802"
+              adFormat="auto"
+              class="advertisement"
+              [fullWidthResponsive]="false"
+              [class.is-shown]="isShown"
+              [class.is-horizontal]="isClassHorizontal"
+              [class.is-vertical]="isClassVertical"
+  ></ng-adsense>
+</div>
+<div [class]="spacerClass"></div>

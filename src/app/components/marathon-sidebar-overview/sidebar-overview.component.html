@@ -1,0 +1,39 @@
+<p class="menu-label">
+  {{ 'marathon.menu.overview' | translate }}
+</p>
+
+<ul class="menu-list">
+  <li [title]="'marathon.menu.home' | translate">
+    <a [routerLink]="'/marathon/' + marathonId | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+      <fa-icon class="menu-item-icon" [icon]="iconHome"></fa-icon>
+      <span class="menu-item-label">
+          {{ 'marathon.menu.home' | translate }}
+      </span>
+    </a>
+  </li>
+  <li *ngIf="marathon.scheduleDone" [title]="'marathon.menu.schedule' | translate">
+    <a [routerLink]="'/marathon/' + marathonId + '/schedule' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+      <fa-icon class="menu-item-icon" [icon]="iconCalendar"></fa-icon>
+      <span class="menu-item-label">
+          {{ 'marathon.menu.schedule' | translate }}
+      </span>
+    </a>
+  </li>
+  <li [title]="'marathon.menu.viewSubmissions' | translate">
+    <a [routerLink]="'/marathon/' + marathonId + '/submissions' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+      <fa-icon class="menu-item-icon" [icon]="iconBook"></fa-icon>
+      <span class="menu-item-label">
+          {{ 'marathon.menu.viewSubmissions' | translate }}
+      </span>
+    </a>
+  </li>
+  <li *ngIf="marathon.submitsOpen" [title]="'marathon.menu.submitRuns' | translate">
+    <a [routerLink]="'/marathon/' + marathonId + '/submit' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+      <fa-icon class="menu-item-icon" [icon]="iconPaperPlane"></fa-icon>
+      <span class="menu-item-label">
+        <fa-icon class="menu-item-icon submit-live-icon" [icon]="iconCircle"></fa-icon>
+          {{ 'marathon.menu.submitRuns' | translate }}
+      </span>
+    </a>
+  </li>
+</ul>

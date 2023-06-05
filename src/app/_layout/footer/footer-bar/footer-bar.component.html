@@ -1,0 +1,17 @@
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      {{ 'footer.text' | translate:  { timezone: temporal.timeZone.timeZone } }}
+    </p>
+    <app-footer-patrons></app-footer-patrons>
+    <br>
+    <p>
+      &copy; <span onclick="here_comes()">{{ thisYear }}</span>
+      <a href="https://esamarathon.com/" target="_blank">
+        European Speedrunner Assembly AB
+      </a>
+      <!-- Using normal link here so it works properly -->
+<!--      - <a href="/about#privacy-section">{{ 'aboutPage.privacy.title' | translate }}</a>-->
+    </p>
+  </div>
+</footer>

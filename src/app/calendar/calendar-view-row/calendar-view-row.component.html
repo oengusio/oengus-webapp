@@ -1,0 +1,26 @@
+<app-element-table-row>
+  <app-element-table-cell class="duration">
+    <span [appTranslatedContent]="durationText">
+      <app-element-temporal-datetime *appTranslatedElement="'start-time'" [dateTime]="marathon.startDate" format="shortTime"></app-element-temporal-datetime>
+      <app-element-temporal-datetime *appTranslatedElement="'end-time'" [dateTime]="marathon.endDate" format="shortTime"></app-element-temporal-datetime>
+      <app-element-temporal-range *appTranslatedElement="'time-range'" [start]="marathon.startDate" [end]="marathon.endDate" format="shortTime"></app-element-temporal-range>
+    </span>
+  </app-element-table-cell>
+  <app-element-table-cell class="range">
+    <app-element-range class="range-bar"
+                       [class]="rangeColor"
+                       min="0"
+                       max="24"
+                       [start]="start"
+                       [end]="end"
+    ></app-element-range>
+  </app-element-table-cell>
+  <app-element-table-cell class="name">
+    <a [routerLink]="'/marathon/' + marathon.id | localize">
+      {{ marathon.name }}
+    </a>
+  </app-element-table-cell>
+  <app-element-table-cell class="links">
+    <app-marathon-sidebar-overview [marathon]="marathon" [collapsed]="true" [isBigHome]="true"></app-marathon-sidebar-overview>
+  </app-element-table-cell>
+</app-element-table-row>

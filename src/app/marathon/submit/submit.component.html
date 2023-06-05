@@ -14,7 +14,7 @@
       <p>{{'marathon.submit.requirements.discord.par2' | translate}}</p>
       <p *ngIf="!userHasDiscord">
         {{ 'marathon.submit.requirements.discord.syncNotice.0' | translate }}
-        <a routerLink="/user/settings">{{
+        <a [routerLink]="'/user/settings' | localize">{{
           'marathon.submit.requirements.discord.syncNotice.1' | translate
           }}</a>{{ 'marathon.submit.requirements.discord.syncNotice.2' | translate }}
         <!-- ^ ugly hack for punctuation stuff -->

@@ -1,0 +1,56 @@
+<div class="schedule-container">
+  <app-element-advertisement class="is-advertisement" dataMinHeight="100px" [showAdvertisement]="true" [isHorizontal]="true"></app-element-advertisement>
+  <!-- Header -->
+  <app-element-table-cell [isHeader]="true" class="expandable"></app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="time">
+    {{ 'marathon.schedule.table.time' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="runners">
+    {{ 'marathon.schedule.table.runner' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="game">
+    {{ 'marathon.schedule.table.game' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="category">
+    {{ 'marathon.schedule.table.category' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="type">
+    {{ 'marathon.schedule.table.type' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="console">
+    {{ 'marathon.schedule.table.console' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="estimate">
+    {{ 'marathon.schedule.table.estimate' | translate }}
+  </app-element-table-cell>
+  <app-element-table-cell [isHeader]="true" class="setup">
+    {{ 'marathon.schedule.table.setup' | translate }}
+  </app-element-table-cell>
+
+  <ng-template ngFor let-run let-index="index" [ngForOf]="runs">
+    <app-element-advertisement
+      *ngIf="index !== 0 && shouldShowDay(index)"
+      dataMinHeight="100px"
+      class="is-advertisement"
+      [showAdvertisement]="advertisementIndices.includes(index)"
+      [showSpacer]="true"
+      [isHorizontal]="true"
+    ></app-element-advertisement>
+
+    <app-element-table-cell *ngIf="shouldShowDay(index)" class="day is-info" columnStart="1" columnEnd="-1">
+      <app-element-temporal-datetime [dateTime]="run.date" format="longDate"></app-element-temporal-datetime>
+    </app-element-table-cell>
+
+    <app-marathon-schedule-row
+      class="run"
+      [class]="getRowParity(index, run)"
+      [expanded]="expanded.has(run.id)"
+      [internalId]="getId(run)"
+      (click)="toggleExpand(run.id)"
+      [run]="run"></app-marathon-schedule-row>
+
+    <app-element-table-detail *ngIf="expanded.has(run.id)" class="expanded-run" [class]="getRowParity(index, run)">
+      <app-run-details [run]="run"></app-run-details>
+    </app-element-table-detail>
+  </ng-template>
+</div>

@@ -1,0 +1,20 @@
+@use 'sass:color' as color;
+
+@import 'bulmaswatch/solar/variables';
+
+// Improve text contrast for accessibility
+$-lightness-change: 36%;
+$text: color.scale($text, $lightness: $-lightness-change);
+$title-color: color.scale($title-color, $lightness: $-lightness-change);
+$code: #ffc8e2;
+
+@import 'bulma';
+@import 'bulmaswatch/solar/overrides';
+@import '@duncte123/bulma-tagsinput/src/sass/index';
+
+@import 'bulma-extensions/dist/css/bulma-extensions.min.css';
+@import 'bulma-extensions/bulma-tooltip/src/sass/index';
+@import 'node_modules/@wizishop/ng-wizi-bulma/ng-wizi-bulma';
+@import "@busacca/ng-pick-datetime/assets/style/picker.min.css";
+@import "flag-icon-css/css/flag-icon.min.css";
+@import "vis-timeline/dist/vis-timeline-graph2d.min.css";

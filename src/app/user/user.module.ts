@@ -6,9 +6,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { FormsModule } from '@angular/forms';
 import { DirectivesModule } from '../directives/directives.module';
 import { UserResolver } from '../resolvers/user-resolver';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpLoaderFactory } from '../../services/http-loader-factory';
+import { TranslateModule } from '@ngx-translate/core';
 import { UsernameJapaneseExistsValidatorDirective } from '../directives/username-japanese-exists-validator.directive';
 import { ProfileComponent } from './profile/profile.component';
 import { UserProfileResolver } from '../resolvers/user-profile-resolver';
@@ -16,6 +14,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConnectionComponent } from './profile/connection/connection.component';
 import { ConnectionSettingsComponent } from './settings/connection-settings/connection-settings.component';
 import { SyncButtonComponent } from './settings/sync-button/sync-button.component';
+import { UserProfileComponent } from './profile/user-profile/user-profile.component';
+import { ElementModule } from '../elements/elements.module';
+import { UserSocialComponent } from './profile/user-social/user-social.component';
+import { BoxComponent } from './profile/user-social/box/box.component';
+import { ProfileHistoryComponent } from './profile/profile-history/profile-history.component';
+import { SubmissionComponent } from './profile/profile-history/submission/submission.component';
+import { ModeratedComponent } from './profile/profile-history/moderated/moderated.component';
+import { AdminControlsComponent } from './profile/admin-controls/admin-controls.component';
+import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 
 const userRoutes: Routes = [
   {
@@ -28,12 +35,12 @@ const userRoutes: Routes = [
       user: UserResolver
     }
   },
+  {path: 'user/new', component: NewUserComponent},
   {
-    path: 'user/profile/:name', component: ProfileComponent, resolve: {
+    path: 'user/:name', component: ProfileComponent, resolve: {
       user: UserProfileResolver
     }
   },
-  {path: 'user/new', component: NewUserComponent}
 ];
 
 @NgModule({
@@ -44,23 +51,29 @@ const userRoutes: Routes = [
     ProfileComponent,
     ConnectionComponent,
     ConnectionSettingsComponent,
-    SyncButtonComponent
+    SyncButtonComponent,
+    UserProfileComponent,
+    UserSocialComponent,
+    BoxComponent,
+    ProfileHistoryComponent,
+    SubmissionComponent,
+    ModeratedComponent,
+    AdminControlsComponent
   ],
   imports: [
     CommonModule,
+    TranslateModule,
     RouterModule.forChild(userRoutes),
+    LocalizeRouterModule.forChild(userRoutes),
     FormsModule,
     DirectivesModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    FontAwesomeModule
+    FontAwesomeModule,
+    ElementModule,
   ],
-  providers: [UserResolver, UserProfileResolver]
+  providers: [UserResolver, UserProfileResolver],
+  exports: [
+    // RouterModule,
+  ],
 })
 export class UserModule {
 }

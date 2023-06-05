@@ -1,0 +1,58 @@
+@use '../../../../assets/table';
+
+.schedule-container {
+  @include table.shrink($default-template-columns: 9, $has-expand-button: true, $shrinking-rules: (
+    1150px '.setup' 8,
+    1023px '.console' 7,
+    900px '.type' 6,
+    768px '.estimate' 5,
+    600px '.category' 4,
+  ));
+
+  // Temporary relocation of ElementTable styling
+  display: grid;
+  grid-auto-rows: auto;
+  width: 100%;
+  max-width: 100%;
+  // End temporary styles
+  overflow-x: auto;
+
+  > .run {
+    cursor: pointer;
+  }
+
+  > .day {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  > .is-advertisement {
+    // Span from start to finish
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+}
+
+// This solution is less than ideal.
+// I'd prefer to avoid leaking information from parents, this isn't portable
+// This allows these rules to work only when in desktop and when the sidebar is expanded
+@media (min-width: 1023px) {
+  .marathon-container:not(.collapsed) .schedule-container {
+    @include table.shrink($default-template-columns: 9, $has-expand-button: true, $shrinking-rules: (
+      1450px '.setup' 8,
+      1350px '.console' 7,
+      1250px '.type' 6,
+      1100px '.estimate' 5,
+    ));
+  }
+}
+
+@media (max-width: 500px) {
+  // At really small sizes, long names can become problematic
+  // this allows them to take scrollbars instead. We don't do this at every
+  // size, since doing this forces scrolls when they aren't needed
+  ::ng-deep .runners,
+  ::ng-deep .game {
+    overflow-x: auto;
+  }
+}

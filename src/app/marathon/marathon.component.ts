@@ -2,24 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { MarathonService } from '../../services/marathon.service';
-import {
-  faBook,
-  faBullseye,
-  faCalendarAlt,
-  faCalendarCheck,
-  faCaretSquareLeft,
-  faCaretSquareRight,
-  faCheckSquare,
-  faCogs,
-  faDonate,
-  faDotCircle,
-  faHome,
-  faMoneyBill,
-  faPaperPlane,
-  faBars,
-  faTimes
-} from '@fortawesome/free-solid-svg-icons';
-import {TitleService} from '../../services/title.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { TitleService } from '../../services/title.service';
 
 @Component({
   selector: 'app-marathon',
@@ -28,24 +12,9 @@ import {TitleService} from '../../services/title.service';
 })
 export class MarathonComponent implements OnInit {
 
-  public faHome = faHome;
-  public faBook = faBook;
-  public faPaperPlane = faPaperPlane;
-  public faCalendar = faCalendarAlt;
-  public faDonate = faDonate;
-  public faMoneyBill = faMoneyBill;
-  public faBullseye = faBullseye;
-  public faCogs = faCogs;
-  public faCheckSquare = faCheckSquare;
-  public faCalendarCheck = faCalendarCheck;
-  public faDotCircle = faDotCircle;
-  public faCaretLeft = faCaretSquareLeft;
-  public faCaretRight = faCaretSquareRight;
-  public faBars = faBars;
   public faTimes = faTimes;
 
-  public minimized = false;
-  public mobileOpen = true;
+  public collapsed = false;
   // hack :)
   public showAdsense = true;
 
@@ -60,10 +29,16 @@ export class MarathonComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Show the sidebar by default on desktop-class devices
+    this.collapsed = (globalThis.innerWidth ?? 1024) < 1024;
   }
 
-  isAdmin() {
+  get isAdmin() {
     return this.marathonService.isAdmin(this.userService.user);
+  }
+
+  toggleSidebar(newCollapsed: boolean) {
+    this.collapsed = newCollapsed;
   }
 
   marathonRouteActivate(component) {

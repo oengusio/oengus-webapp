@@ -1,12 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Schedule } from '../../../model/schedule';
-import { DurationService } from '../../../services/duration.service';
 import moment from 'moment-timezone';
-// import 'moment-timezone/builds/moment-timezone-with-data-10-year-range';
 import { MarathonService } from '../../../services/marathon.service';
 import { ScheduleService } from '../../../services/schedule.service';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { ScheduleLine } from '../../../model/schedule-line';
 import { Subscription, timer } from 'rxjs';
 
@@ -15,23 +12,26 @@ import { Subscription, timer } from 'rxjs';
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss']
 })
-export class ScheduleComponent implements OnInit, OnDestroy {
+export class ScheduleComponent implements OnDestroy {
 
   public schedule: Schedule;
   public moment = moment;
 
   public timezone = moment.tz.guess();
 
-  public faAngleDown = faAngleDown;
-  public exportActive = false;
-
-  public currentIndex: number;
+  public currentIndex: number | undefined;
   private scheduleRefresher: Subscription;
+
+  runHash = '';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               public marathonService: MarathonService,
               private scheduleService: ScheduleService) {
+    route.fragment.subscribe((fragment) => {
+      this.runHash = `#${fragment}`;
+    });
+
     if (!this.marathonService.marathon.scheduleDone) {
       this.router.navigate(['../'], {relativeTo: this.route});
     }
@@ -40,17 +40,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     } else {
       this.schedule = new Schedule();
     }
-    this.schedule.lines.forEach(line => {
-      line.setupTimeHuman = DurationService.toHuman(line.setupTime);
-      line.estimateHuman = DurationService.toHuman(line.estimate);
-    });
-    this.getCurrentRun();
+
+    this.setCurrentRunId();
     const now = new Date();
     const initialDelay = 60 * 1000 - (now.getSeconds() * 1000 + now.getMilliseconds());
-    this.scheduleRefresher = timer(initialDelay, 60000).subscribe(() => this.getCurrentRun());
+    this.scheduleRefresher = timer(initialDelay, 60000).subscribe(() => this.setCurrentRunId());
   }
 
-  getCurrentRun() {
+  setCurrentRunId() {
     this.schedule.lines.forEach((line, index) => {
       if (this.isCurrentRun(line)) {
         this.currentIndex = index;
@@ -58,11 +55,24 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
+  get currentRun() {
+    if (!this.schedule.lines.length) {
+      return null;
+    }
+
+    return this.schedule.lines[this.currentIndex];
   }
 
-  export(format: string) {
-    this.scheduleService.exportAllForMarathon(this.marathonService.marathon.id, format);
+  get nextRun() {
+    if (this.currentIndex === undefined) {
+      return this.schedule.lines[0];
+    }
+
+    if (this.currentIndex + 1 >= this.schedule.lines.length) {
+      return null;
+    }
+
+    return this.schedule.lines[this.currentIndex + 1];
   }
 
   isCurrentRun(line: ScheduleLine) {
@@ -71,12 +81,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       moment.tz(line.date, this.timezone)
         .add(moment.duration(line.estimate))
         .add(moment.duration(line.setupTime)).isAfter(now);
-  }
-
-  isLive() {
-    const now = moment();
-    return moment.tz(this.marathonService.marathon.startDate, this.timezone).isBefore(now)
-      && moment.tz(this.marathonService.marathon.endDate, this.timezone).isAfter(now);
   }
 
   ngOnDestroy(): void {

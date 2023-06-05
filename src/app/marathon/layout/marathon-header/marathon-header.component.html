@@ -1,0 +1,26 @@
+<div class="box marathon-header-container">
+  <div class="main-header">
+    <h3 class="title is-3">
+      {{ marathonName }}
+    </h3>
+
+    <button *ngIf="collapsed" class="button navbar-burger" [class]="buttonClass" (click)="toggleSidebar.emit(!collapsed)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div *ngIf="collapsed" class="menu-sections">
+    <app-marathon-sidebar-overview [marathon]="marathon" [collapsed]="true"></app-marathon-sidebar-overview>
+    <app-sidebar-tracker *ngIf="marathon.hasDonations || marathon.hasIncentives"
+                         [marathon]="marathon" [collapsed]="true"></app-sidebar-tracker>
+    <app-sidebar-admin *ngIf="isAdmin" [marathon]="marathon" [collapsed]="true"></app-sidebar-admin>
+  </div>
+</div>
+
+<app-element-advertisement *ngIf="collapsed"
+                           [showAdvertisement]="true"
+                           [isVertical]="false"
+                           [isHorizontal]="true"
+                           class="is-advertisement"></app-element-advertisement>

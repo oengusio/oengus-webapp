@@ -1,0 +1,25 @@
+@use 'bulmaswatch/solar/variables' as solar;
+
+:host {
+  padding-block: var(--spacing);
+}
+
+.tabs {
+  margin: 0;
+
+  li a {
+    background-color: solar.$grey-dark;
+  }
+
+  li.is-active a {
+    color: solar.$yellow-invert;
+    background-color: solar.$yellow;
+  }
+}
+
+.history-view-container {
+  border-color: solar.$grey-dark;
+  border-style: solid;
+  border-width: 0 2px 2px;
+  padding: var(--spacing);
+}

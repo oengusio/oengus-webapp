@@ -1,0 +1,19 @@
+<div class="tabs is-boxed">
+  <ul>
+    <li [class]="isActiveClass(submissionTab)">
+      <a [routerLink]="'.' | localize" [queryParams]="queryFor(submissionTab)">
+        {{ 'user.profile.submissions' | translate}}
+      </a>
+    </li>
+    <li [class]="isActiveClass(moderationTab)">
+      <a [routerLink]="'.' | localize" [queryParams]="queryFor(moderationTab)">
+        {{ 'user.profile.moderator' | translate}}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="history-view-container">
+  <app-user-profile-submission-history *ngIf="isActive(submissionTab)" [user]="user"></app-user-profile-submission-history>
+  <app-user-profile-moderated-history *ngIf="isActive(moderationTab)" [user]="user"></app-user-profile-moderated-history>
+</div>

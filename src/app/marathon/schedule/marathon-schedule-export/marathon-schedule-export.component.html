@@ -1,0 +1,8 @@
+<app-element-dropdown [isRight]="true">
+  <p trigger>
+    {{ 'marathon.schedule.export.title' | translate }}
+  </p>
+  <a options *ngFor="let format of formats" [href]="getExportUrl(format)" target="_blank" class="dropdown-item">
+    {{ 'marathon.schedule.export.' + format | translate }}
+  </a>
+</app-element-dropdown>

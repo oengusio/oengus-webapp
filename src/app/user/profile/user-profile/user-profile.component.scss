@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-address {
+  display: flex;
+  gap: var(--spacing);
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-block-end: var(--spacing);
+  }
+
+  > .username {
+    margin: 0;
+  }
+}
+
+.user-location {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) / 2);
+}
+
+.language-spoken:not(:last-of-type) {
+  margin-inline-end: 0.25em;
+
+  &::after {
+    content: ',';
+  }
+}

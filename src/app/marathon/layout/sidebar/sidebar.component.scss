@@ -1,0 +1,22 @@
+// Force this element to always display, Bulma wants to hide it by default
+@media (min-width: 1024px) {
+  .navbar-burger {
+    display: block;
+  }
+}
+
+// This mimicks the Bulma styling, but with our components
+.menu:not(.collapsed) .menu-section:not(:first-child) {
+  margin-block-start: 1em;
+}
+
+.collapsed {
+  .menu-sections {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.box {
+  margin: 0;
+}

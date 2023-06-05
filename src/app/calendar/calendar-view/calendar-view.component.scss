@@ -1,0 +1,22 @@
+@use '../../../assets/table';
+
+.marathon-calendar-table {
+  @include table.shrink($default-template-columns: 4, $shrinking-rules: (
+    500px '.links' 3,
+  ));
+
+  > .day,
+  > .day-range {
+    text-align: center;
+  }
+
+  // Only display the "no marathons" text if there are no marathons for the whole month
+  // Because of compensations dealing with timezones, it's not as simple as "array length"
+  > .no-marathons {
+    display: none;
+
+    &:nth-child(2):last-child {
+      display: inherit;
+    }
+  }
+}
