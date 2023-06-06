@@ -13,26 +13,33 @@
 
   <div class="navbar-menu" [class]="isActiveClass">
     <div class="navbar-start">
-      <div class="navbar-item is-grouped">
-        <a href="https://discord.gg/ZZFS8YT" class="navbar-item" target="_blank">
+      <div class="navbar-item field is-grouped">
+        <a href="https://discord.gg/ZZFS8YT" class="navbar-item" target="_blank"
+           [nwbToolTip]="'navbar.discord' | translate" nwbToolTipPosition="bottom">
           <fa-icon [icon]="iconDiscord"></fa-icon>
         </a>
-        <a href="https://speedrun.zone/@OengusIO" rel="me" class="navbar-item" target="_blank">
+        <a href="https://speedrun.zone/@OengusIO" rel="me" class="navbar-item" target="_blank"
+           [nwbToolTip]="'navbar.mastodon' | translate" nwbToolTipPosition="bottom">
           <fa-icon [icon]="iconMastodon"></fa-icon>
         </a>
-        <a href="https://twitter.com/OengusIO" rel="me" class="navbar-item" target="_blank">
+        <a href="https://twitter.com/OengusIO" rel="me" class="navbar-item" target="_blank"
+           [nwbToolTip]="'navbar.twitter' | translate" nwbToolTipPosition="bottom">
           <fa-icon [icon]="iconTwitter"></fa-icon>
         </a>
-        <a href="https://github.com/esamarathon/oengusio" class="navbar-item" target="_blank">
+        <a href="https://github.com/esamarathon/oengusio" class="navbar-item" target="_blank"
+           [nwbToolTip]="'navbar.sourceCode' | translate" nwbToolTipPosition="bottom">
           <fa-icon [icon]="iconGithub"></fa-icon>
         </a>
-        <a href="https://github.com/esamarathon/oengusio/issues" class="navbar-item" target="_blank">
+        <a href="https://github.com/esamarathon/oengusio/issues" class="navbar-item" target="_blank"
+           [nwbToolTip]="'navbar.bugtracker' | translate" nwbToolTipPosition="bottom">
           <fa-icon [icon]="iconBug"></fa-icon>
         </a>
-        <a href="https://hosted.weblate.org/projects/oengusio/site/" class="navbar-item" target="_blank">
+        <a href="https://hosted.weblate.org/projects/oengusio/site/" class="navbar-item" target="_blank"
+           [nwbToolTip]="'navbar.translate' | translate" nwbToolTipPosition="bottom">
           <fa-icon [icon]="iconLanguage"></fa-icon>
         </a>
-        <a href="https://www.patreon.com/oengusio" rel="me" class="navbar-item" target="_blank">
+        <a href="https://www.patreon.com/oengusio" rel="me" class="navbar-item" target="_blank"
+           [nwbToolTip]="'navbar.donate' | translate" nwbToolTipPosition="bottom">
           <fa-icon [icon]="iconPatreon"></fa-icon>
         </a>
       </div>

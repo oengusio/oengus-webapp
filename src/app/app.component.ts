@@ -9,7 +9,6 @@ import { LoadingBarService } from '../services/loading-bar.service';
 import { TitleService } from '../services/title.service';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import * as Sentry from '@sentry/angular';
-import { firstValueFrom } from 'rxjs';
 import { TemporalServiceService } from '../services/termporal/temporal-service.service';
 import { LocaleService } from '../services/locale.service';
 
@@ -80,46 +79,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.localeService.initialize();
-  }
-
-  acceptPrivacyConsent(): void {
-    window['ga-disable-G-26CN947SSZ'] = false;
-    localStorage.setItem('consent', 'true');
-  }
-
-  declinePrivacyConsent(): void {
-    window['ga-disable-G-26CN947SSZ'] = true;
-    localStorage.setItem('consent', 'false');
-  }
-
-  consentWasGiven(): boolean {
-    return localStorage.getItem('consent') !== null;
-  }
-
-  showAnnouncement(name: string): boolean {
-    return localStorage.getItem(`oengus_announcement_${name}_hidden`) === null;
-  }
-
-  closeAnnouncement(name: string): void {
-    localStorage.setItem(`oengus_announcement_${name}_hidden`, 'true');
-  }
-
-  showKasperskyBanner(): boolean {
-    return localStorage.getItem('oengus_hide_kaspersky_announcement') === null;
-  }
-
-  closeKasperskyBanner(): void {
-    localStorage.setItem('oengus_hide_kaspersky_announcement', 'true');
-  }
-
-  async storeCurrentPage(twitter: boolean = false): Promise<boolean> {
-    if (twitter) {
-      const words = await firstValueFrom(this.translate.get('announcements.twitterRemoval'));
-      alert(words);
-    }
-
-    localStorage.setItem('prev_loc', this.router.url);
-    return true;
   }
 
   onRouteActivated(component) {

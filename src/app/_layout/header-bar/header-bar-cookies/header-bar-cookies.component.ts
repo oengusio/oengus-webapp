@@ -12,6 +12,12 @@ export class HeaderBarCookiesComponent implements OnInit {
   @Output() visibilityUpdated = new EventEmitter<boolean>();
   showConsentPrompt = true;
 
+  private gtagIds = [
+    'G-26CN947SSZ',
+    'UA-153189507-4',
+    'GTM-KK8K7V8',
+  ];
+
   // disable google analytics if consent is not given
   ngOnInit(): void {
     let showConsentPrompt = true;
@@ -28,7 +34,7 @@ export class HeaderBarCookiesComponent implements OnInit {
 
   setCookies(consent: boolean): void {
     // We invert for these, because these are DISABLE flags. Consent: yes; disable: no
-    window['getGTagIds']().forEach((id) => { window[`ga-disable-${id}`] = !consent; });
+    this.gtagIds.forEach((id) => { window[`ga-disable-${id}`] = !consent; });
 
     localStorage.setItem('consent', consent.toString());
 

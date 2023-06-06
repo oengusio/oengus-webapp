@@ -192,3 +192,19 @@ div.loading-bar {
   }
 }
 
+/* Special case for mobile navbar items that need to hide */
+.navbar-item.mob {
+  &.has-dropdown {
+    .navbar-dropdown {
+      display: none;
+    }
+  }
+
+  &.is-active {
+    .navbar-dropdown {
+      display: block;
+    }
+  }
+}
+
+
