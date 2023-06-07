@@ -56,8 +56,11 @@
       <a [routerLink]="'/about' | localize" class="navbar-item">
         {{ 'navbar.about' | translate }}
       </a>
-      <app-header-language-picker class="navbar-item" ></app-header-language-picker>
-      <app-widget-signin-picker type="NAVBAR" [isRight]="true"></app-widget-signin-picker>
+      <app-header-language-picker class="navbar-item"></app-header-language-picker>
+      <app-header-bar-user *ngIf="userService.user; else loggedOut" class="navbar-item"></app-header-bar-user>
+      <ng-template #loggedOut>
+        <app-widget-signin-picker type="NAVBAR" [isRight]="true"></app-widget-signin-picker>
+      </ng-template>
     </div>
   </div>
 </nav>

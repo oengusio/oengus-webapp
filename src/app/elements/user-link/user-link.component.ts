@@ -15,7 +15,7 @@ export class UserLinkComponent {
   constructor(private temporal: TemporalServiceService) { }
 
   get userId(): string {
-    return this.user?.username ?? this.user.toString();
+    return this.user?.username ?? this.username;
   }
 
   get displayName(): string {
@@ -23,6 +23,7 @@ export class UserLinkComponent {
     if (this.user?.usernameJapanese && this.temporal.locale.startsWith('ja')) {
       return this.user.usernameJapanese;
     }
+
     return this.userId;
   }
 

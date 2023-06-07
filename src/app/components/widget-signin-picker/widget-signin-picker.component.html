@@ -1,7 +1,7 @@
 <app-element-dropdown [type]="type" [isRight]="isRight" class="sign-in-picker">
-  <p trigger>
+  <span trigger>
     {{ 'navbar.login.title' | translate }}
-  </p>
+  </span>
   <div options>
     <a [href]="userService.getDiscordAuthUri()" (click)="storeCurrentPage()" [class]="dropdownItemClass">
       <fa-icon [icon]="iconDiscord"></fa-icon>

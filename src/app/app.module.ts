@@ -51,6 +51,7 @@ import { HeaderLanguagePickerComponent } from './_layout/header-bar/header-langu
 import { LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings, ManualParserLoader } from '@gilsdav/ngx-translate-router';
 import { Location } from '@angular/common';
 import { availableLocaleNames } from '../services/locale.service';
+import { HeaderBarUserComponent } from './_layout/header-bar/header-bar-user/header-bar-user.component';
 
 const appRoutes: Routes = [
   {
@@ -131,6 +132,7 @@ const appRoutes: Routes = [
     HeaderBarCookiesComponent,
     HeaderBarNavComponent,
     HeaderLanguagePickerComponent,
+    HeaderBarUserComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,9 @@ import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { SocialAccount } from '../../../model/social-account';
 import {SocialPlatform} from '../../../model/social-platform';
 
+/**
+ * @deprecated Please switch to app-user-link instead.
+ */
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
