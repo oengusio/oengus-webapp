@@ -23,7 +23,7 @@
             <app-marathon-location [marathon]="marathon"></app-marathon-location>
           </app-element-table-cell>
           <app-element-table-cell class="language" [class]="getRowParity(index)">
-            {{ marathon.language.toLocaleUpperCase() }}
+            {{ 'language.' + marathon.language | translate }}
           </app-element-table-cell>
           <app-element-table-cell class="time" [class]="getRowParity(index)">
             <div [appTranslatedContent]="marathonsList.timeTranslationKey">
