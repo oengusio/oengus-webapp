@@ -28,3 +28,17 @@
     height: calc(3 * var(--spacing) / 2);
   }
 }
+
+@media (max-width: 1023px) {
+  .marathons-list-container {
+    //grid-template-rows: 20fr;
+
+    > .marathon-name {
+      grid-column: 1 / -1;
+    }
+
+    > .location {
+      grid-column: 1 / span 2;
+    }
+  }
+}
