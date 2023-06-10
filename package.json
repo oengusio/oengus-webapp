@@ -44,6 +44,8 @@
     "lodash": "^4.17.15",
     "markdown-it": "^12.3.2",
     "markdown-it-dompurify": "^1.0.4",
+    "markdown-it-emoji": "^2.0.2",
+    "markdown-it-multimd-table": "^4.2.2",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "ng2-adsense": "^10.1.0",

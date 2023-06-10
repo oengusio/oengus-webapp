@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import MarkdownIt from 'markdown-it';
 import dompurify from 'markdown-it-dompurify';
+import tablePlugin from 'markdown-it-multimd-table';
+import emojiPlugin from 'markdown-it-emoji';
 
 @Component({
   selector: 'app-oengus-md',
@@ -14,7 +16,10 @@ export class OengusMdComponent implements OnInit {
     xhtmlOut: true,
     breaks: true,
     linkify: true,
-  }).use(dompurify());
+  })
+    .use(dompurify())
+    .use(tablePlugin)
+    .use(emojiPlugin);
 
   constructor() { }
 
