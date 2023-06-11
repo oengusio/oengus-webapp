@@ -145,7 +145,10 @@ const appRoutes: Routes = [
     }),
     RouterModule.forRoot(appRoutes),
     LocalizeRouterModule.forRoot(appRoutes, {
-      alwaysSetPrefix: true,
+      alwaysSetPrefix: false,
+      initialNavigation: false,
+      cacheName: 'language',
+      defaultLangFunction: (languages: string[], cachedLang?: string, browserLang?: string) => cachedLang || browserLang || 'en-GB',
       parser: {
         provide: LocalizeParser,
         useFactory: (translate, location, settings) =>
