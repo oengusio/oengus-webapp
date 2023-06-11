@@ -19,7 +19,7 @@ export const environment = {
     return environment.baseSite + '/user/settings/sync/';
   },
   get patronApi() {
-    return environment.api.replace('/api', '') + '/patreon';
+    return environment.api + '/patreon';
   },
   v2Domain: 'https://oengus.io/',
   // v2Domain: false,
