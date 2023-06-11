@@ -1,3 +1,7 @@
-article {
+:host {
+  display: contents;
+}
+
+.pad-top {
   padding-top: var(--spacing);
 }

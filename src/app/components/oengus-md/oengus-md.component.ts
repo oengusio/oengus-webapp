@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import MarkdownIt from 'markdown-it';
 import dompurify from 'markdown-it-dompurify';
 import tablePlugin from 'markdown-it-multimd-table';
@@ -9,8 +9,10 @@ import emojiPlugin from 'markdown-it-emoji';
   templateUrl: './oengus-md.component.html',
   styleUrls: ['./oengus-md.component.scss']
 })
-export class OengusMdComponent implements OnInit {
+export class OengusMdComponent {
   @Input() public data: string;
+  @Input() padTop = false;
+
   private md = new MarkdownIt('default', {
     html: false,
     xhtmlOut: true,
@@ -20,11 +22,6 @@ export class OengusMdComponent implements OnInit {
     .use(dompurify())
     .use(tablePlugin)
     .use(emojiPlugin);
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
   get markdownText(): string {
     if (!this.data) {
