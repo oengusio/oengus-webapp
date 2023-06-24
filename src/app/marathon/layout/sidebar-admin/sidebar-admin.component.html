@@ -26,7 +26,7 @@
       </span>
     </a>
   </li>
-  <li [title]="'marathon.menu.manageIncentives' | translate">
+  <li *ngIf="marathon.hasDonations && marathon.hasIncentives" [title]="'marathon.menu.manageIncentives' | translate">
     <a [routerLink]="'/marathon/' + marathonId + '/incentives/manage' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon [icon]="iconManageIncentive" class="menu-item-icon"></fa-icon>
       <span class="menu-item-label">

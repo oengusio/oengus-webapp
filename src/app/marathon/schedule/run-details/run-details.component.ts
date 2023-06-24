@@ -8,4 +8,8 @@ import { ScheduleLine } from '../../../../model/schedule-line';
 })
 export class RunDetailsComponent {
   @Input() run: ScheduleLine;
+
+  get titleText(): string | null {
+    return this.run.setupBlock ? (this.run.setupBlockText || null) : this.run.gameName;
+  }
 }

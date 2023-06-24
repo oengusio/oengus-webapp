@@ -10,7 +10,7 @@
 }
 
 .run-info-container > .info:not(:last-of-type)::after {
-  content: '-';
+  content: ' - ';
 }
 
 .runner-info {

@@ -70,7 +70,7 @@
                  *ngIf="availabilitiesSelected.includes(user.username)">
                 <fa-icon [icon]="faCalendarTimes"></fa-icon>
               </a>
-              <app-user [user]="user" [showSocialLinks]="true"></app-user>
+              <app-user-link [user]="user" ></app-user-link>
               <br/>
             </div>
           </td>
@@ -100,7 +100,8 @@
     </div>
   </div>
   <div class="column is-7">
-    <h4 class="subtitle is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
+    <h4 class="subtitle mb-0 is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
+    <small class="mb-2">{{ 'marathon.schedule.management.markdown' | translate}}</small>
 
     <div class="table-container">
       <table class="table is-fullwidth is-striped">
@@ -146,7 +147,7 @@
                        *ngIf="availabilitiesSelected.includes(user.username)">
                       <fa-icon [icon]="faCalendarTimes"></fa-icon>
                     </a>
-                    <app-user [user]="user" [showSocialLinks]="true"></app-user>
+                    <app-user-link [user]="user"></app-user-link>
                   </div>
                   <div style="width: 10rem" *ngIf="editMode[line.categoryId]">
                     <ng-autocomplete

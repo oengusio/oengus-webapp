@@ -10,6 +10,7 @@ import { OengusMdComponent } from './oengus-md/oengus-md.component';
 import { WidgetSigninPickerComponent } from './widget-signin-picker/widget-signin-picker.component';
 import { ElementModule } from '../elements/elements.module';
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
+import { SimpleMdComponent } from './simple-md/simple-md.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +18,14 @@ import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
     SidebarOverviewComponent,
     OengusMdComponent,
     WidgetSigninPickerComponent,
+    SimpleMdComponent,
   ],
   exports: [
     OengusMdComponent,
     PatronListComponent,
     SidebarOverviewComponent,
     WidgetSigninPickerComponent,
+    SimpleMdComponent,
   ],
   imports: [
     CommonModule,

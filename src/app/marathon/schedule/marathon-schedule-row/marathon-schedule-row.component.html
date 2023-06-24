@@ -12,12 +12,12 @@
       <app-user-link *ngFor="let runner of run.runners" [user]="runner"></app-user-link>
     </app-element-table-cell>
     <app-element-table-cell class="game">
-      <app-oengus-md [data]="run.gameName" ></app-oengus-md>
+      <app-simple-md [data]="run.gameName" ></app-simple-md>
     </app-element-table-cell>
   </ng-template>
 
   <app-element-table-cell class="category">
-    <app-oengus-md [data]="run.categoryName" ></app-oengus-md>
+    <app-simple-md [data]="run.categoryName" ></app-simple-md>
   </app-element-table-cell>
 
   <app-element-table-cell class="type">

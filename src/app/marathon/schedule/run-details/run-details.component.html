@@ -1,7 +1,12 @@
 <div class="header">
-  <h4 class="title is-4">
-    {{ run.setupBlock ? (run.setupBlockText || 'marathon.schedule.setupBlock' | translate) : run.gameName }}
+  <h4 class="title is-4" *ngIf="titleText; else defaultSetupBlock">
+    <app-simple-md [data]="titleText"></app-simple-md>
   </h4>
+  <ng-template #defaultSetupBlock>
+    <h4 class="title is-4">
+      {{ 'marathon.schedule.setupBlock' | translate }}
+    </h4>
+  </ng-template>
 
   <app-user-link *ngFor="let runner of run.runners" [user]="runner" [isLink]="true"></app-user-link>
 </div>
@@ -17,7 +22,7 @@
 <ng-template [ngIf]="run.categoryName">
   <span class="is-label">{{ 'marathon.schedule.table.category' | translate }}</span>
   <span>
-    <app-oengus-md [data]="run.categoryName" ></app-oengus-md>
+    <app-simple-md [data]="run.categoryName" ></app-simple-md>
   </span>
 </ng-template>
 

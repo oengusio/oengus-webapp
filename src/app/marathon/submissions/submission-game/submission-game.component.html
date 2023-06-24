@@ -13,7 +13,7 @@
         </p>
         <span *ngIf="userIsAdmin" class="subtitle is-6">{{ 'marathon.submissions.table.ratio' | translate }}: {{ game.ratio }}</span>
         <p class="subtitle is-6 has-text-light">
-          <app-oengus-md [data]="game.description"></app-oengus-md>
+          <app-simple-md [data]="game.description"></app-simple-md>
         </p>
 
         <ng-template ngFor let-category [ngForOf]="game.categories">
