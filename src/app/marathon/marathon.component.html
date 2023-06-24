@@ -9,7 +9,7 @@
              [marathon]="marathonService.marathon"
              (toggleSidebar)="toggleSidebar($event)"></app-sidebar>
 <app-element-advertisement *ngIf="!collapsed"
-                           [showAdvertisement]="true"
+                           [showAdvertisement]="showAdsense"
                            [isVertical]="true"
                            dataWidth="169px"
                            dataMinHeight="350px"
