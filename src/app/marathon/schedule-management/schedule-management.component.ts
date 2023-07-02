@@ -292,7 +292,7 @@ export class ScheduleManagementComponent implements OnInit {
     }
   }
 
-  editInProgress() {
+  get editInProgress() {
     return Object.values(this.editMode).some(Boolean);
   }
 

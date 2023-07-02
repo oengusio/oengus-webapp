@@ -103,7 +103,7 @@
     <h4 class="subtitle mb-0 is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
     <small class="mb-2">{{ 'marathon.schedule.management.markdown' | translate}}</small>
 
-    <div class="table-container">
+    <div class="table-container" [class]="{'table-container-editing-username': editInProgress}">
       <table class="table is-fullwidth is-striped">
         <thead>
         <tr>
@@ -160,7 +160,7 @@
                   </div>
                 </div>
                 <a (click)="editMode[line.categoryId] = !editMode[line.categoryId]"
-                   *ngIf="!editInProgress() || editMode[line.categoryId]">
+                   *ngIf="!editInProgress || editMode[line.categoryId]">
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </a>
               </div>
