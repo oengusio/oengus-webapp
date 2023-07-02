@@ -12,19 +12,12 @@ export class UserLinkComponent {
   @Input() username = '';
   @Input() isLink = false;
 
-  constructor(private temporal: TemporalServiceService) { }
-
   get userId(): string {
     return this.user?.username ?? this.username;
   }
 
   get displayName(): string {
-    // TODO: hack
-    if (this.user?.usernameJapanese && this.temporal.locale.startsWith('ja')) {
-      return this.user.usernameJapanese;
-    }
-
-    return this.userId;
+    return this?.user?.displayName ?? this.username;
   }
 
 }
