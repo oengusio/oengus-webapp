@@ -68,7 +68,7 @@ a {
   color: inherit;
   text-decoration: underline;
 
-  &:hover {
+  &:hover:not(.no-hover) {
     color: theme.$link-hover !important;
 
     &.menu-item-link:not(.is-active) {

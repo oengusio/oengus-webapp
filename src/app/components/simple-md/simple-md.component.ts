@@ -11,7 +11,7 @@ export class SimpleMdComponent {
   @Input() public data: string;
 
   private md = new MarkdownIt('zero', {
-    linkify: true,
+    linkify: false,
   })
     // Only enable [links](https://oengus.io), *bold* and _italic_
     .enable(['link', 'emphasis'])

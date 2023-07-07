@@ -103,7 +103,7 @@
     <h4 class="subtitle mb-0 is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
     <small class="mb-2">{{ 'marathon.schedule.management.markdown' | translate}}</small>
 
-    <div class="table-container">
+    <div class="table-container" [class]="{'table-container-editing-username': editInProgress}">
       <table class="table is-fullwidth is-striped">
         <thead>
         <tr>
@@ -135,7 +135,7 @@
               <div class="is-flex" style="justify-content: space-between">
                 <div class="is-flex" style="flex-direction: column">
                   <div *ngFor="let user of line.runners; let j = index" class="is-flex">
-                    <a *ngIf="editMode[line.categoryId] && (line.runners.length > 1 || line.customRun)"
+                    <a *ngIf="editMode[line.position] && (line.runners.length > 1 || line.customRun)"
                        style="margin-right: 0.3rem" (click)="removeUser(j, line)">
                       <fa-icon [icon]="faTimes"></fa-icon>
                     </a>
@@ -149,18 +149,19 @@
                     </a>
                     <app-user-link [user]="user"></app-user-link>
                   </div>
-                  <div style="width: 10rem" *ngIf="editMode[line.categoryId]">
+                  <div style="width: 10rem" *ngIf="editMode[line.position]">
+                    <!-- TODO: how to trigger the not found display -->
                     <ng-autocomplete
-                      [data]="userSearch[line.categoryId]"
+                      [data]="userSearch[line.position]"
                       searchKeyword="username"
                       (selected)="onSelectUser($event, line)"
-                      (inputChanged)="onSearchUser($event, line.categoryId)"
+                      (inputChanged)="onSearchUser($event, line.position)"
                       [itemTemplate]="itemTemplate">
                     </ng-autocomplete>
                   </div>
                 </div>
-                <a (click)="editMode[line.categoryId] = !editMode[line.categoryId]"
-                   *ngIf="!editInProgress() || editMode[line.categoryId]">
+                <a (click)="toggleEditMode(line.position)"
+                   *ngIf="!editInProgress || editMode[line.position]">
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </a>
               </div>
@@ -241,7 +242,7 @@
               </label>
               <textarea id="'custom-data-index'+i" class="textarea"
                         [(ngModel)]="line.customData"
-                        placeholder='{"layout": "19:9", "other-data": "here"}'></textarea>
+                        placeholder='{"layout": "19:9", "other-data": "here"} or whatever else you want'></textarea>
             </td>
           </tr>
         </ng-template>
@@ -276,5 +277,6 @@
 </div>
 
 <ng-template #itemTemplate let-item>
-  <a [innerHTML]="item.username"></a>
+  <!-- TODO: this potentially allows for HTML injection -->
+  <a class="no-hover" [innerHTML]="item.displayName + ' (' + item.username + ')'"></a>
 </ng-template>

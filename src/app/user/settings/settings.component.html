@@ -36,6 +36,41 @@
   <form ngForm="userForm"
         #form="ngForm">
     <h4 class="title is-4">{{'user.settings.general' | translate}}</h4>
+
+
+    <div class="field">
+      <div class="control">
+        <button class="button is-link"
+                [ngClass]="{'is-loading': loading}"
+                type="button"
+                (click)="submit()"
+                [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' |
+          translate}}
+        </button>
+      </div>
+    </div>
+
+    <!-- Display name -->
+    <div class="field">
+      <label class="label">{{'user.settings.displayName.label' | translate}}</label>
+      <div class="control">
+        <input class="input"
+               [ngClass]="{'is-danger': displayName.invalid}"
+               type="text"
+               [(ngModel)]="user.displayName"
+               name="displayName"
+               #displayName="ngModel"
+               minlength="3"
+               maxlength="32">
+      </div>
+      <p class="help">{{'user.settings.displayName.help' | translate}}</p>
+      <div *ngIf="displayName.invalid">
+        <p class="help is-danger"
+           *ngIf="displayName.errors.maxlength">{{'user.settings.displayName.error.max' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="displayName.errors.minlength">{{'user.settings.displayName.error.min' | translate}}</p>
+      </div>
+    </div>
     <!-- username -->
     <div class="field">
       <label class="label">{{'user.settings.username.label' | translate}}</label>
@@ -48,7 +83,7 @@
                #username="ngModel"
                minlength="3"
                maxlength="32"
-               pattern="^[\w\-]{3,32}$"
+               pattern="^[a-z_\-0-9]{3,32}$"
                appUsernameExistsValidator
                required>
       </div>
@@ -63,29 +98,6 @@
            *ngIf="username.errors.required">{{'user.settings.username.error.required' | translate}}</p>
         <p class="help is-danger"
            *ngIf="username.errors.pattern">{{'user.settings.username.error.pattern' | translate}}</p>
-      </div>
-    </div>
-    <!-- username Japanese -->
-    <div class="field">
-      <label class="label">{{'user.settings.usernameJapanese.label' | translate}}</label>
-      <div class="control">
-        <input class="input"
-               [ngClass]="{'is-danger': usernameJapanese.invalid}"
-               type="text"
-               [(ngModel)]="user.usernameJapanese"
-               name="usernameJapanese"
-               #usernameJapanese="ngModel"
-               appUsernameJapaneseExistsValidator
-               maxlength="32">
-      </div>
-      <p class="help">{{'user.settings.usernameJapanese.help' | translate}}</p>
-      <div *ngIf="usernameJapanese.invalid">
-        <p class="help is-danger"
-           *ngIf="usernameJapanese.errors.maxlength">{{'user.settings.usernameJapanese.error.max' | translate}}</p>
-        <p class="help is-danger"
-           *ngIf="usernameJapanese.errors.pattern">{{'user.settings.usernameJapanese.error.pattern' | translate}}</p>
-        <p class="help is-danger"
-           *ngIf="usernameJapanese.errors.exists">{{'user.settings.usernameJapanese.error.exists' | translate}}</p>
       </div>
     </div>
     <!-- email -->

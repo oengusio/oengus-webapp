@@ -90,7 +90,7 @@ export class GeneralSettingsComponent implements OnInit {
     if (!val || val.length < 3) {
       return;
     }
-    this.userService.search(val).subscribe(response => {
+    this.userService.searchV1(val).subscribe(response => {
       this.userResults = response;
     });
   }

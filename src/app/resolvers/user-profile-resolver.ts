@@ -11,6 +11,6 @@ export class UserProfileResolver implements Resolve<UserProfile> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<UserProfile> | Promise<UserProfile> | UserProfile {
-    return this.userService.getProfile(route.paramMap.get('name'));
+    return this.userService.getProfile(route.paramMap.get('name').toLowerCase());
   }
 }

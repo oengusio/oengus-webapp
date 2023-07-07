@@ -209,8 +209,7 @@ export class SelectionComponent implements OnInit {
         this.availabilitiesSelected.push(key);
         this.availabilitiesGroups.add({
           id: key,
-          content: localStorage.getItem('language') === 'ja' ?
-            availabilityArray[0].usernameJapanese : availabilityArray[0].username
+          content: availabilityArray[0].username
         });
         availabilityArray.forEach((availability, index) => {
           this.availabilitiesItems.add({

@@ -17,6 +17,9 @@ export class ScheduleLine {
   useSetupBlockText: boolean;
   customRun: boolean;
   position: number;
+  /**
+   * @deprecated
+   */
   categoryId: number;
   runners: User[];
   date: Date;

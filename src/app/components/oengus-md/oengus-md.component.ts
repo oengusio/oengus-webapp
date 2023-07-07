@@ -14,7 +14,7 @@ export class OengusMdComponent {
   @Input() padTop = false;
 
   private md = new MarkdownIt('default', {
-    html: false,
+    html: true,
     xhtmlOut: true,
     breaks: true,
     linkify: true,

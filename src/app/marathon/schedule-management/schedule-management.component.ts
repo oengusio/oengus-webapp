@@ -109,6 +109,7 @@ export class ScheduleManagementComponent implements OnInit {
       });
     }
 
+    // TODO: lazy load selection.
     const selection = this.route.snapshot.data.selection;
     this.initSchedule(this.route.snapshot.data.schedule);
     this.scheduleTodo = [];
@@ -133,6 +134,7 @@ export class ScheduleManagementComponent implements OnInit {
       submission.games.forEach(game => {
         game.categories
           .filter(category => Object.keys(selection).includes(category.id.toString()))
+          // TODO: find a better way of doing this, category ID works but I hate to store it.
           .filter(category => !this.schedule.lines.map(line => line.categoryId).includes(category.id))
           .forEach(category => {
             const scheduleLine = new ScheduleLine();
@@ -273,16 +275,29 @@ export class ScheduleManagementComponent implements OnInit {
         line.type = 'RACE';
       }
       this.getAvailabilitiesForRunner(item.id);
+
+
+      delete this.userSearch[line.position];
     }
   }
 
-  onSearchUser(val: string, categoryId: number) {
+  onSearchUser(val: string, position: number) {
     if (!val || val.length < 3) {
       return;
     }
-    this.userService.search(val).subscribe(response => {
-      this.userSearch[categoryId] = response;
+    this.userService.searchV1(val).subscribe(response => {
+      this.userSearch[position] = response;
     });
+  }
+
+  toggleEditMode(position: number): void {
+    const oldMode = this.editMode[position];
+
+    if (oldMode) {
+      delete this.userSearch[position];
+    }
+
+    this.editMode[position] = !oldMode;
   }
 
   removeUser(index: number, line: ScheduleLine) {
@@ -292,7 +307,7 @@ export class ScheduleManagementComponent implements OnInit {
     }
   }
 
-  editInProgress() {
+  get editInProgress() {
     return Object.values(this.editMode).some(Boolean);
   }
 
@@ -352,10 +367,15 @@ export class ScheduleManagementComponent implements OnInit {
     this.submissionService.availabilitiesForUser(this.marathonService.marathon.id, userId).subscribe(response => {
       for (const [key, value] of Object.entries(response)) {
         const availabilityArray = <Availability[]>value;
+
+        // in case of adding a runner that did not submit.
+        if (!availabilityArray.length) {
+          continue;
+        }
+
         this.availabilitiesGroups.add({
           id: key,
-          content: localStorage.getItem('language') === 'ja' ?
-            availabilityArray[0].usernameJapanese : availabilityArray[0].username
+          content: availabilityArray[0].username
         });
         availabilityArray.forEach((availability, index) => {
           this.availabilitiesItems.add({
