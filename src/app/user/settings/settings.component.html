@@ -36,6 +36,20 @@
   <form ngForm="userForm"
         #form="ngForm">
     <h4 class="title is-4">{{'user.settings.general' | translate}}</h4>
+
+
+    <div class="field">
+      <div class="control">
+        <button class="button is-link"
+                [ngClass]="{'is-loading': loading}"
+                type="button"
+                (click)="submit()"
+                [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' |
+          translate}}
+        </button>
+      </div>
+    </div>
+
     <!-- Display name -->
     <div class="field">
       <label class="label">{{'user.settings.displayName.label' | translate}}</label>

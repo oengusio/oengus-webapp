@@ -4,16 +4,16 @@ import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../model/user';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
-import {Observable, Subscription} from 'rxjs';
+import { firstValueFrom, Observable, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
-import {PatreonStatusDto, RelationShip} from '../model/annoying-patreon-shit';
+import { PatreonStatusDto, RelationShip } from '../model/annoying-patreon-shit';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService extends BaseService {
 
@@ -81,11 +81,11 @@ export class UserService extends BaseService {
   login(service: string, code?: string): Observable<any> {
     return this.http.post(this.url('login'), {
       service: service,
-      code: code
+      code: code,
     });
   }
 
-  async sync(service: string, code?: string): Promise<any|RelationShip> {
+  async sync(service: string, code?: string): Promise<any | RelationShip> {
     if (service === 'patreon') {
       const response = await this.http.get<RelationShip>(`${environment.patronApi}/sync?code=${code}`).toPromise() as any;
 
@@ -95,18 +95,18 @@ export class UserService extends BaseService {
       };
 
       // Check if account is already synced
-      await this.http.post(this.url('sync'), {
+      await firstValueFrom(this.http.post(this.url('sync'), {
         service: 'patreon',
-        code: patreon.id
-      }).toPromise();
+        code: patreon.id,
+      }));
 
       return patreon;
     }
 
-    return this.http.post(this.url('sync'), {
+    return firstValueFrom(this.http.post(this.url('sync'), {
       service: service,
-      code: code
-    }).toPromise();
+      code: code,
+    }));
   }
 
   async updatePatreonStatus(userId: number, data: PatreonStatusDto): Promise<void> {
@@ -128,36 +128,43 @@ export class UserService extends BaseService {
   }
 
   me(): Subscription {
-    return this.getMe().subscribe((response: User) => {
-      this._user = response;
-      if (!this._user.mail) {
-        this.router.navigate(['user/new']);
-      }
-    }, error => {
-      this._user = null;
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+    return this.getMe().subscribe({
+      next: (response: User) => {
+        this._user = response;
+        if (!this._user.mail) {
+          this.router.navigate(['user/new']);
+        }
+      },
+      error: (error: Error) => {
+        console.log(error);
+        this._user = null;
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+      },
     });
   }
 
   update(user: User) {
-    return this.http.patch(this.url(`${user.id}`), user).subscribe(() => {
-      if (!user.enabled) {
-        this.translateService.get('alert.user.deactivate.success').subscribe((res: string) => {
+    return this.http.patch(this.url(`${user.id}`), user).subscribe({
+      next: () => {
+        if (!user.enabled) {
+          this.translateService.get('alert.user.deactivate.success').subscribe((res: string) => {
+            this.toast(res);
+          });
+          this.logout();
+          return;
+        }
+        this._user = {...this._user, ...user};
+        localStorage.setItem('user', JSON.stringify(this._user));
+        this.translateService.get('alert.user.update.success').subscribe((res: string) => {
           this.toast(res);
         });
-        this.logout();
-        return;
-      }
-      this._user = {...this._user, ...user};
-      localStorage.setItem('user', JSON.stringify(this._user));
-      this.translateService.get('alert.user.update.success').subscribe((res: string) => {
-        this.toast(res);
-      });
-    }, () => {
-      this.translateService.get('alert.user.update.error').subscribe((res: string) => {
-        this.toast(res, 3000, 'warning');
-      });
+      },
+      error: () => {
+        this.translateService.get('alert.user.update.error').subscribe((res: string) => {
+          this.toast(res, 3000, 'warning');
+        });
+      },
     });
   }
 
@@ -169,9 +176,14 @@ export class UserService extends BaseService {
     return this.http.get<ValidationErrors>(this.url(`${name}/exists`));
   }
 
-  search(name: string): Observable<User[]> {
+  searchV1(name: string): Observable<User[]> {
     return this.http.get<User[]>(this.url(`${name}/search`));
   }
+
+  // TODO: does not exist yet
+  /*search(name: string): Observable<User[]> {
+    return this.http.get<User[]>(this.url(`search?q=${name}`, 'v2'));
+  }*/
 
   ban(id: number): Observable<void> {
     return this.http.post<void>(this.url(`${id}/ban`), null);

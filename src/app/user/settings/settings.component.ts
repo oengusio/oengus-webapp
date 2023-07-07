@@ -1,15 +1,16 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {User} from '../../../model/user';
-import {UserService} from '../../../services/user.service';
-import {faSyncAlt, faPlus} from '@fortawesome/free-solid-svg-icons';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
-import {TranslateService} from '@ngx-translate/core';
-import {SocialAccount} from '../../../model/social-account';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { User } from '../../../model/user';
+import { UserService } from '../../../services/user.service';
+import { faSyncAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { TranslateService } from '@ngx-translate/core';
+import { SocialAccount } from '../../../model/social-account';
 import BulmaTagsInput from '@duncte123/bulma-tagsinput';
-import {MiscService} from '../../../services/misc.service';
-import {SocialPlatform} from '../../../model/social-platform';
-import {PatreonStatusDto, RelationShip} from '../../../model/annoying-patreon-shit';
+import { MiscService } from '../../../services/misc.service';
+import { SocialPlatform } from '../../../model/social-platform';
+import { PatreonStatusDto, RelationShip } from '../../../model/annoying-patreon-shit';
+import DOMPurify from 'dompurify';
 
 interface LangType {
   value: string;
@@ -19,7 +20,7 @@ interface LangType {
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
   @ViewChild('pronouns', {static: true}) pronounsInput: ElementRef<HTMLInputElement>;
@@ -52,7 +53,7 @@ export class SettingsComponent implements OnInit {
     'WS', 'SM', 'ST', 'SA', 'SN', 'RS', 'SC', 'SL', 'SG', 'SX', 'SK', 'SI', 'SB', 'SO', 'ZA', 'GS',
     'SS', 'ES', 'LK', 'SD', 'SR', 'SJ', 'SE', 'CH', 'SY', 'TW', 'TJ', 'TZ', 'TH', 'TL', 'TG', 'TK',
     'TO', 'TT', 'TN', 'TR', 'TM', 'TC', 'TV', 'UG', 'UA', 'AE', 'GB', 'US', 'UM', 'UY', 'UZ', 'VU',
-    'VE', 'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW'
+    'VE', 'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW',
   ];
 
   constructor(private userService: UserService,
@@ -176,6 +177,8 @@ export class SettingsComponent implements OnInit {
     this.loading = true;
     this.user.pronouns = this.pronounsTagsInput.items.join(',') || null;
     this.user.languagesSpoken = this.languagesTagsInput.value;
+    // Display name is free text basically, here we strip all HTML and only keep text or default to username.
+    this.user.displayName = DOMPurify.sanitize(this.user.displayName, {  ALLOWED_TAGS: [ '#text' ] }) || this.user.username;
     return new Promise((resolve) => {
       this.userService.update(this.user).add(() => {
         this.loading = false;
@@ -222,7 +225,7 @@ export class SettingsComponent implements OnInit {
     try {
       const response = await this.userService.sync(
         params['service'],
-        queryParams['code']
+        queryParams['code'],
       );
 
       if (typeof this.user[`${params['service'].toLowerCase()}Id`] !== 'undefined') {
@@ -278,7 +281,7 @@ export class SettingsComponent implements OnInit {
       message: message,
       duration: 3000,
       position: 'is-right',
-      color: 'is-success'
+      color: 'is-success',
     };
     this.toastr.open(alertConfig);
   }
@@ -288,7 +291,7 @@ export class SettingsComponent implements OnInit {
       message: message,
       duration: 3000,
       position: 'is-right',
-      color: 'is-warning'
+      color: 'is-warning',
     };
     this.toastr.open(alertConfig);
   }
@@ -316,7 +319,7 @@ export class SettingsComponent implements OnInit {
     });
 
     this.pronounsTagsInput.add(
-      (this.user.pronouns || '').split(',')
+      (this.user.pronouns || '').split(','),
     );
   }
 
