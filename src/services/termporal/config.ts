@@ -1,5 +1,10 @@
-export const dateTimeFormats = {
+interface FormatList {
+  [key: string]: Intl.DateTimeFormatOptions;
+}
+
+export const dateTimeFormats: FormatList = {
   longDate: { dateStyle: 'long' },
+  longDateWithWeekday: { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' },
   shortDate: { dateStyle: 'short' },
   longMonth: { year: 'numeric', month: 'long' },
   shortTime: { timeStyle: 'short' },

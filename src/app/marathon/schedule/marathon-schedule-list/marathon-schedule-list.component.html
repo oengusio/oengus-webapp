@@ -38,7 +38,7 @@
     ></app-element-advertisement>
 
     <app-element-table-cell *ngIf="shouldShowDay(index)" class="day is-info" columnStart="1" columnEnd="-1">
-      <app-element-temporal-datetime [dateTime]="run.date" format="longDate"></app-element-temporal-datetime>
+      <app-element-temporal-datetime [dateTime]="run.date" format="longDateWithWeekday"></app-element-temporal-datetime>
     </app-element-table-cell>
 
     <app-marathon-schedule-row
