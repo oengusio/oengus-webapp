@@ -27,13 +27,14 @@ export class WidgetSigninPickerComponent {
     return /^navbar$/i.test(this.type) ? 'navbar-item' : 'dropdown-item';
   }
 
-  async storeCurrentPage(twitter: boolean = false): Promise<boolean> {
-    if (twitter) {
+  storeCurrentPage(twitter: boolean = false): boolean {
+    /*if (twitter) {
       const words = await firstValueFrom(this.translate.get('announcements.twitterRemoval'));
       alert(words);
-    }
+    }*/
 
-    localStorage.setItem('prev_loc', this.router.url);
+    // We store pathname because "403" can be inserted if a user is not logged in
+    localStorage.setItem('prev_loc', window.location.pathname);
     return true;
   }
 

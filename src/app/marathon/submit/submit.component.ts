@@ -1,22 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import {SubmissionService} from '../../../services/submission.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Submission} from '../../../model/submission';
-import {MarathonService} from '../../../services/marathon.service';
-import {faCheck, faClone, faPlus, faTimes} from '@fortawesome/free-solid-svg-icons';
-import {Game} from '../../../model/game';
-import {Category} from '../../../model/category';
+import { Component, OnInit } from '@angular/core';
+import { SubmissionService } from '../../../services/submission.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Submission } from '../../../model/submission';
+import { MarathonService } from '../../../services/marathon.service';
+import { faCheck, faClone, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Game } from '../../../model/game';
+import { Category } from '../../../model/category';
 import moment from 'moment-timezone';
-import {Availability} from '../../../model/availability';
-import {Answer} from '../../../model/answer';
-import {environment} from '../../../environments/environment';
-import {faTwitter} from '@fortawesome/free-brands-svg-icons';
-import {CategoryService} from '../../../services/category.service';
-import {NwbAlertConfig, NwbAlertService} from '@wizishop/ng-wizi-bulma';
-import {TranslateService} from '@ngx-translate/core';
-import {UserService} from '../../../services/user.service';
-import {HttpClient} from '@angular/common/http';
-import {Location} from '@angular/common';
+import { Availability } from '../../../model/availability';
+import { Answer } from '../../../model/answer';
+import { environment } from '../../../environments/environment';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { CategoryService } from '../../../services/category.service';
+import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { TranslateService } from '@ngx-translate/core';
+import { UserService } from '../../../services/user.service';
+import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-submit',
@@ -247,7 +247,7 @@ export class SubmitComponent implements OnInit {
           message: res,
           duration: 3000,
           position: 'is-right',
-          color: 'is-warning'
+          color: 'is-warning',
         };
         this.toastr.open(alertConfig);
       });
@@ -276,7 +276,7 @@ export class SubmitComponent implements OnInit {
 
     // why is this not in the marathon service?
     this.http.get<string>(
-      `${environment.api}/v1/marathons/${marathonId}/discord/in-guild/${discordUserId}`
+      `${environment.api}/v1/marathons/${marathonId}/discord/in-guild/${discordUserId}`,
     )
       .subscribe(
         () => {
@@ -287,7 +287,7 @@ export class SubmitComponent implements OnInit {
               message: res,
               duration: 3000,
               position: 'is-right',
-              color: 'is-success'
+              color: 'is-success',
             };
             this.toastr.open(alertConfig);
           });
@@ -300,7 +300,7 @@ export class SubmitComponent implements OnInit {
           } else if (error.status === 403) { // bot not in guild
             this.discordErrors.botNotInGuild = true;
           }
-        }
+        },
       )
       .add(() => this.isDiscordCheckLoading = false);
   }

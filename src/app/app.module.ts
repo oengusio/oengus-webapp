@@ -52,6 +52,7 @@ import { LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings, ManualPar
 import { Location } from '@angular/common';
 import { availableLocaleNames } from '../services/locale.service';
 import { HeaderBarUserComponent } from './_layout/header-bar/header-bar-user/header-bar-user.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 const appRoutes: Routes = [
   {
@@ -99,6 +100,10 @@ const appRoutes: Routes = [
     component: KasperskyAnnouncementComponent,
   },*/
   {
+    path: '403',
+    component: UnauthorizedComponent,
+  },
+  {
     path: '**',
     component: PageNotFoundComponent,
   },
@@ -133,6 +138,7 @@ const appRoutes: Routes = [
     HeaderBarNavComponent,
     HeaderLanguagePickerComponent,
     HeaderBarUserComponent,
+    UnauthorizedComponent,
   ],
   imports: [
     BrowserModule,
