@@ -1,5 +1,7 @@
 import { User } from './user';
 
+export type ScheduleRunner = { user: User } | { runnerName: string };
+
 export class ScheduleLine {
 
   id: number;
@@ -21,7 +23,7 @@ export class ScheduleLine {
    * @deprecated
    */
   categoryId: number;
-  runners: User[];
+  runners: ScheduleRunner[];
   date: Date;
   type: string;
   customData: string;

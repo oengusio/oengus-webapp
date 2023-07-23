@@ -31,10 +31,20 @@ export class ScheduleService extends BaseService {
     // @ts-ignore
     fixedSchedule.lines = fixedSchedule.lines.map((line) => ({
       ...line,
-      runners: line.runners.map((user) => ({
-        id: user.id,
-        username: user.username,
-      })),
+      runners: line.runners.map((runner) => {
+        if ('runnerName' in runner) {
+          return {
+            runnerName: runner.runnerName,
+          };
+        }
+
+        return {
+          user: {
+            id: runner.user.id,
+            username: runner.user.username,
+          },
+        };
+      }),
     }));
 
     return this.http.put(this.url(`${marathonId}/schedule`), fixedSchedule, {observe: 'response'})

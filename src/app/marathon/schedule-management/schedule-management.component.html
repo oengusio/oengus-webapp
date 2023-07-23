@@ -61,16 +61,16 @@
         <tbody>
         <tr *ngFor="let line of scheduleTodo; let i = index">
           <td>
-            <div *ngFor="let user of line.runners" class="is-flex">
-              <a (click)="selectAvailabilities(user.username)" style="margin-right: 0.4rem"
-                 *ngIf="!availabilitiesSelected.includes(user.username)">
+            <div *ngFor="let runner of line.runners" class="is-flex">
+              <a (click)="selectAvailabilities(getRunnerUsername(runner))" style="margin-right: 0.4rem"
+                 *ngIf="!availabilitiesSelected.includes(getRunnerUsername(runner))">
                 <fa-icon [icon]="faCalendarWeek"></fa-icon>
               </a>
-              <a (click)="unselectAvailabilities(user.username)" style="margin-right: 0.4rem"
-                 *ngIf="availabilitiesSelected.includes(user.username)">
+              <a (click)="unselectAvailabilities(getRunnerUsername(runner))" style="margin-right: 0.4rem"
+                 *ngIf="availabilitiesSelected.includes(getRunnerUsername(runner))">
                 <fa-icon [icon]="faCalendarTimes"></fa-icon>
               </a>
-              <app-user-link [user]="user" ></app-user-link>
+              <app-user-link [username]="getRunnerUsername(runner)" ></app-user-link>
               <br/>
             </div>
           </td>
@@ -134,20 +134,20 @@
             <td>
               <div class="is-flex" style="justify-content: space-between">
                 <div class="is-flex" style="flex-direction: column">
-                  <div *ngFor="let user of line.runners; let j = index" class="is-flex">
+                  <div *ngFor="let runner of line.runners; let j = index" class="is-flex">
                     <a *ngIf="editMode[line.position] && (line.runners.length > 1 || line.customRun)"
                        style="margin-right: 0.3rem" (click)="removeUser(j, line)">
                       <fa-icon [icon]="faTimes"></fa-icon>
                     </a>
-                    <a (click)="selectAvailabilities(user.username)" style="margin-right: 0.4rem"
-                       *ngIf="!availabilitiesSelected.includes(user.username)">
+                    <a (click)="selectAvailabilities(getRunnerUsername(runner))" style="margin-right: 0.4rem"
+                       *ngIf="!availabilitiesSelected.includes(getRunnerUsername(runner))">
                       <fa-icon [icon]="faCalendarWeek"></fa-icon>
                     </a>
-                    <a (click)="unselectAvailabilities(user.username)" style="margin-right: 0.4rem"
-                       *ngIf="availabilitiesSelected.includes(user.username)">
+                    <a (click)="unselectAvailabilities(getRunnerUsername(runner))" style="margin-right: 0.4rem"
+                       *ngIf="availabilitiesSelected.includes(getRunnerUsername(runner))">
                       <fa-icon [icon]="faCalendarTimes"></fa-icon>
                     </a>
-                    <app-user-link [user]="user"></app-user-link>
+                    <app-user-link [username]="getRunnerUsername(runner)"></app-user-link>
                   </div>
                   <div style="width: 10rem" *ngIf="editMode[line.position]">
                     <!-- TODO: how to trigger the not found display -->
@@ -278,5 +278,8 @@
 
 <ng-template #itemTemplate let-item>
   <!-- TODO: this potentially allows for HTML injection -->
-  <a class="no-hover" [innerHTML]="item.displayName + ' (' + item.username + ')'"></a>
+  <a class="no-hover" *ngIf="item.isCustom; else oengusUser;" [innerHTML]="item.username + ' (custom)'"></a>
+  <ng-template #oengusUser>
+    <a class="no-hover" [innerHTML]="item.displayName + ' (' + item.username + ')'"></a>
+  </ng-template>
 </ng-template>

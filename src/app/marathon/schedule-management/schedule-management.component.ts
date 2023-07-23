@@ -11,7 +11,7 @@ import {
   faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 import { DurationService } from '../../../services/duration.service';
-import { ScheduleLine } from '../../../model/schedule-line';
+import { ScheduleLine, ScheduleRunner } from '../../../model/schedule-line';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MarathonService } from '../../../services/marathon.service';
 import moment from 'moment-timezone';
@@ -25,6 +25,7 @@ import { Availability } from '../../../model/availability';
 import * as vis from 'vis-timeline';
 import { SubmissionService } from '../../../services/submission.service';
 import { Selection } from '../../../model/selection';
+import DOMPurify from 'dompurify';
 
 @Component({
   selector: 'app-schedule-management',
@@ -145,8 +146,8 @@ export class ScheduleManagementComponent implements OnInit {
             scheduleLine.estimateHuman = DurationService.toHuman(category.estimate);
             scheduleLine.gameName = game.name;
             scheduleLine.ratio = game.ratio;
-            scheduleLine.runners = [submission.user];
-            category.opponentDtos.forEach(opponent => scheduleLine.runners.push(opponent.user));
+            scheduleLine.runners = [{ user: submission.user }];
+            category.opponentDtos.forEach(opponent => scheduleLine.runners.push({ user: opponent.user }));
             scheduleLine.setupTime = this.marathonService.marathon.defaultSetupTime;
             scheduleLine.setupTimeHuman = DurationService.toHuman(this.marathonService.marathon.defaultSetupTime);
             scheduleLine.setupBlock = false;
@@ -170,6 +171,9 @@ export class ScheduleManagementComponent implements OnInit {
       line.setupTimeHuman = DurationService.toHuman(line.setupTime);
       line.estimateHuman = DurationService.toHuman(line.estimate);
       line.customData = line.customDataDTO;
+      // Sorry TS lords
+      // @ts-ignore
+      line.runners = line.runners.map(runner => runner.id > 0 ? { user: runner } : { runnerName: runner.username });
     });
   }
 
@@ -268,25 +272,39 @@ export class ScheduleManagementComponent implements OnInit {
     this.marathonService.update({...this.marathonService.marathon, scheduleDone: true}, false);
   }
 
-  onSelectUser(item: User, line: ScheduleLine) {
-    if (line.runners.findIndex(user => user.id === item.id) < 0) {
-      line.runners.push(item);
-      if (line.runners.length === 2) {
-        line.type = 'RACE';
-      }
+  onSelectUser(item: User | { username: string; isCustom: true }, line: ScheduleLine) {
+    if ('isCustom' in item) {
+      line.runners.push({ runnerName: item.username });
+    } else if (line.runners.findIndex(runner => 'user' in runner && runner.user.id === item.id) < 0) {
+      line.runners.push({ user: item });
       this.getAvailabilitiesForRunner(item.id);
-
-
-      delete this.userSearch[line.position];
     }
+
+    if (line.runners.length > 1) {
+      line.type = 'RACE';
+    }
+
+    delete this.userSearch[line.position];
   }
 
   onSearchUser(val: string, position: number) {
     if (!val || val.length < 3) {
       return;
     }
+
     this.userService.searchV1(val).subscribe(response => {
-      this.userSearch[position] = response;
+      const combinedItems: (User | { username: string; isCustom: true })[] = response;
+
+      combinedItems.push({
+        username: val,
+        isCustom: true
+      });
+
+      combinedItems.forEach((item) => {
+        item.username = DOMPurify.sanitize(item.username);
+      });
+
+      this.userSearch[position] = combinedItems;
     });
   }
 
@@ -342,6 +360,14 @@ export class ScheduleManagementComponent implements OnInit {
     this.computeSchedule();
   }
 
+  getRunnerUsername(runner: ScheduleRunner): string {
+    if ('user' in runner) {
+      return runner.user.displayName;
+    }
+
+    return runner.runnerName;
+  }
+
   selectAvailabilities(username: string) {
     this.availabilitiesSelected.push(username);
     this.availabilitiesSelectedItems = [...new Set([...this.availabilitiesSelectedItems,
@@ -391,14 +417,22 @@ export class ScheduleManagementComponent implements OnInit {
   }
 
   matchesAvailabilities(line: ScheduleLine) {
-    return line.runners.every(user => this.route.snapshot.data.availabilities[user.username] &&
-      this.route.snapshot.data.availabilities[user.username].some(availability => {
-        const startDateAvail = moment.tz(availability.from, this.timezone);
-        const endDateAvail = moment.tz(availability.to, this.timezone);
-        const startDateRun = moment.tz(line.date, this.timezone);
-        const endDateRun = moment.tz(line.date, this.timezone).add(moment.duration(line.estimate));
-        return startDateAvail.isSameOrBefore(startDateRun) && endDateAvail.isSameOrAfter(endDateRun);
-      }));
+    return line.runners.every(runner => {
+      if (!('user' in runner)) {
+        return true;
+      }
+
+      const availabilities = this.route.snapshot.data.availabilities;
+
+      return availabilities[runner.user.username] &&
+        availabilities[runner.user.username].some(availability => {
+          const startDateAvail = moment.tz(availability.from, this.timezone);
+          const endDateAvail = moment.tz(availability.to, this.timezone);
+          const startDateRun = moment.tz(line.date, this.timezone);
+          const endDateRun = moment.tz(line.date, this.timezone).add(moment.duration(line.estimate));
+          return startDateAvail.isSameOrBefore(startDateRun) && endDateAvail.isSameOrAfter(endDateRun);
+        });
+    });
   }
 
   get title(): string {
