@@ -100,6 +100,15 @@
            *ngIf="username.errors.pattern">{{'user.settings.username.error.pattern' | translate}}</p>
       </div>
     </div>
+
+    <div class="field">
+      <label class="label" for="pfp">{{ 'user.settings.profilePicture.label' | translate }}</label>
+      <div class="control">
+        <a href="https://gravatar.com/" target="_blank" class="button is-info" id="pfp">{{ 'user.settings.profilePicture.button' | translate }}</a>
+      </div>
+      <p class="help" [innerHTML]="'user.settings.email.help' | translate"></p>
+    </div>
+
     <!-- email -->
     <div class="field">
       <label class="label">{{'user.settings.email.label' | translate}}</label>
