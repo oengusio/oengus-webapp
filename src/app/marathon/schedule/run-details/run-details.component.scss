@@ -27,3 +27,15 @@
     overflow-x: auto;
   }
 }
+
+app-user-link {
+  display: inline-block;
+
+  &:not(:last-of-type) {
+    margin-inline-end: 0.25em;
+
+    &::after {
+      content: ',';
+    }
+  }
+}

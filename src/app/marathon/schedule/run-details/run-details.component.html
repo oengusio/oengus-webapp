@@ -8,7 +8,7 @@
     </h4>
   </ng-template>
 
-  <app-user-link *ngFor="let runner of run.runners" [user]="runner" [isLink]="true"></app-user-link>
+  <app-user-link *ngFor="let runner of run.runners" [user]="runner" [isLink]="runner.id > 0"></app-user-link>
 </div>
 
 <ng-template [ngIf]="run.date">
