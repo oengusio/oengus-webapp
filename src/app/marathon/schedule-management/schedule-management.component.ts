@@ -19,7 +19,7 @@ import { ScheduleService } from '../../../services/schedule.service';
 import { Schedule } from '../../../model/schedule';
 import { NwbEditInPlaceConfig, ReturnedData } from '@wizishop/ng-wizi-bulma';
 import { Observable } from 'rxjs';
-import { User } from '../../../model/user';
+import { MAX_NAME_LENGTH, User } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
 import { Availability } from '../../../model/availability';
 import * as vis from 'vis-timeline';
@@ -296,7 +296,7 @@ export class ScheduleManagementComponent implements OnInit {
       const combinedItems: (User | { username: string; isCustom: true })[] = response;
 
       combinedItems.push({
-        username: val,
+        username: val.length > MAX_NAME_LENGTH ? val.substring(0, MAX_NAME_LENGTH) : val,
         isCustom: true
       });
 

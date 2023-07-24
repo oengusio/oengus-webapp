@@ -154,6 +154,7 @@
                     <ng-autocomplete
                       [data]="userSearch[line.position]"
                       searchKeyword="username"
+                      minQueryLength="3"
                       (selected)="onSelectUser($event, line)"
                       (inputChanged)="onSearchUser($event, line.position)"
                       [itemTemplate]="itemTemplate">

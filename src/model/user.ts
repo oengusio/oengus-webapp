@@ -1,5 +1,7 @@
 import { SocialAccount } from './social-account';
 
+export const MAX_NAME_LENGTH = 32;
+
 export class User {
 
   id: number;

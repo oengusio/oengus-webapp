@@ -58,6 +58,7 @@ export class Game {
     'MS-DOS',
     'MSX',
     'MSX2',
+    'N/A', // You're welcome Tricrow
     'N-Gage',
     'N64',
     'NES',
@@ -88,7 +89,7 @@ export class Game {
     'PlayStation Classic',
     'PlayStation N',
     'PlayStation Now',
-    'PlayStation P',
+    'PlayStation Portable',
     'PlayStation TV',
     'PlayStation Vita',
     'Roku',
