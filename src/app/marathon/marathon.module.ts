@@ -36,6 +36,8 @@ import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
 import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
 import { AdsenseComponent } from '../adsense/adsense.component';
+import { OengusShirtTallComponent } from '../adsense/oengus/oengus-shirt-tall/oengus-shirt-tall.component';
+import { OengusShirtWideComponent } from '../adsense/oengus/oengus-shirt-wide/oengus-shirt-wide.component';
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
 import { ButtonsModule } from '../buttons/buttons.module';
@@ -201,6 +203,8 @@ const marathonRoutes: Routes = [
     DonateComponent,
     DonationsComponent,
     AdsenseComponent,
+    OengusShirtTallComponent,
+    OengusShirtWideComponent,
     SubmissionCategoryComponent,
     SubmissionGameComponent,
     GeneralSettingsComponent,
