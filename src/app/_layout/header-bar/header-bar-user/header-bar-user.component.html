@@ -1,6 +1,6 @@
 <app-element-dropdown *ngIf="user" [type]="'NAVBAR'" [isRight]="true">
   <span trigger>
-    <app-user-link [username]="user.displayName"></app-user-link>
+    <app-user-link [username]="user.displayName || '[missingno]'"></app-user-link>
   </span>
   <div options>
     <a class="navbar-item" [routerLink]="'/user/' + user.username | localize">

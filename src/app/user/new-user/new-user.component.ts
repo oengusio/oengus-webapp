@@ -22,6 +22,7 @@ export class NewUserComponent implements OnInit {
 
   submit() {
     this.loading = true;
+    this.user.displayName = this.user.username;
     this.userService.update(this.user).add(() => {
       this.loading = false;
       this.router.navigate(['/']);

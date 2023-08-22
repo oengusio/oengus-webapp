@@ -53,6 +53,7 @@ import { Location } from '@angular/common';
 import { availableLocaleNames } from '../services/locale.service';
 import { HeaderBarUserComponent } from './_layout/header-bar/header-bar-user/header-bar-user.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { HeaderBarDisplayNameComponent } from './_layout/header-bar/header-bar-display-name/header-bar-display-name.component';
 
 const appRoutes: Routes = [
   {
@@ -139,6 +140,7 @@ const appRoutes: Routes = [
     HeaderLanguagePickerComponent,
     HeaderBarUserComponent,
     UnauthorizedComponent,
+    HeaderBarDisplayNameComponent,
   ],
   imports: [
     BrowserModule,
