@@ -183,7 +183,11 @@ export class ScheduleManagementComponent implements OnInit {
       this.availabilitiesGroups,
       {
         min: moment.tz(this.marathonService.marathon.startDate, this.timezone).subtract(1, 'hours'),
-        max: moment.tz(this.marathonService.marathon.endDate, this.timezone).add(1, 'hours')
+        max: moment.tz(this.marathonService.marathon.endDate, this.timezone).add(1, 'hours'),
+        orientation: {
+          axis: 'both',
+          item: 'bottom'
+        }
       });
     this.timebar = this.timeline.addCustomTime(this.marathonService.marathon.startDate);
     this.computeSchedule();
