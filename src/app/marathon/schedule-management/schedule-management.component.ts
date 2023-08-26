@@ -7,8 +7,8 @@ import {
   faChevronLeft,
   faChevronRight,
   faEdit,
+  faExclamationTriangle,
   faTimes,
-  faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 import { DurationService } from '../../../services/duration.service';
 import { ScheduleLine, ScheduleRunner } from '../../../model/schedule-line';
@@ -26,6 +26,7 @@ import * as vis from 'vis-timeline';
 import { SubmissionService } from '../../../services/submission.service';
 import { Selection } from '../../../model/selection';
 import DOMPurify from 'dompurify';
+import { DataSet } from 'vis-data';
 
 @Component({
   selector: 'app-schedule-management',
@@ -55,11 +56,11 @@ export class ScheduleManagementComponent implements OnInit {
 
   public timezone = moment.tz.guess();
 
-  private timeline: any;
-  private timebar: string;
+  private timeline: vis.Timeline;
+  private timebar: vis.IdType;
   private availabilitiesSelectedItems = [];
-  public availabilitiesGroups: any;
-  public availabilitiesItems: any;
+  public availabilitiesGroups: vis.DataSetDataGroup;
+  public availabilitiesItems: vis.DataSetDataItem;
   public availabilitiesSelected = [];
 
   public showModal = false;
@@ -90,16 +91,15 @@ export class ScheduleManagementComponent implements OnInit {
               private scheduleService: ScheduleService,
               private submissionService: SubmissionService,
               private userService: UserService) {
-    this.availabilitiesGroups = new vis.DataSet([]);
-    this.availabilitiesItems = new vis.DataSet([]);
+    this.availabilitiesGroups = new DataSet([]);
+    this.availabilitiesItems = new DataSet([]);
     const availabilities = this.route.snapshot.data.availabilities;
     for (const [key, value] of Object.entries(availabilities)) {
       this.availabilitiesGroups.add({
         id: key,
         content: key
       });
-      const availabilityArray = <Availability[]>value;
-      availabilityArray.forEach((availability, index) => {
+      (<Availability[]>value).forEach((availability, index) => {
         this.availabilitiesItems.add({
           id: key + index,
           group: key,
@@ -177,13 +177,16 @@ export class ScheduleManagementComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    // Somehow this delay solves the availabilities not showing.
+    await new Promise((resolve) => window.requestAnimationFrame(resolve));
+
     this.timeline = new vis.Timeline(document.getElementById('timeline'),
       this.availabilitiesItems,
       this.availabilitiesGroups,
       {
-        min: moment.tz(this.marathonService.marathon.startDate, this.timezone).subtract(1, 'hours'),
-        max: moment.tz(this.marathonService.marathon.endDate, this.timezone).add(1, 'hours'),
+        min: moment.tz(this.marathonService.marathon.startDate, this.timezone).subtract(1, 'hours').toDate(),
+        max: moment.tz(this.marathonService.marathon.endDate, this.timezone).add(1, 'hours').toDate(),
         orientation: {
           axis: 'both',
           item: 'bottom'

@@ -8,6 +8,7 @@ import moment from 'moment-timezone';
 import { Selection } from '../../../model/selection';
 import { Availability } from '../../../model/availability';
 import * as vis from 'vis-timeline';
+import { DataSet } from 'vis-data';
 import { SubmissionService } from '../../../services/submission.service';
 import {Submission} from '../../../model/submission';
 
@@ -28,8 +29,8 @@ export class SelectionComponent implements OnInit {
   public faCalendarTimes = faCalendarTimes;
 
   @ViewChild('timeline', {static: false}) timeline: ElementRef;
-  public availabilitiesGroups: any;
-  public availabilitiesItems: any;
+  public availabilitiesGroups: vis.DataSetDataGroup;
+  public availabilitiesItems: vis.DataSetDataItem;
 
   public availabilitiesSelected = [];
 
@@ -39,8 +40,8 @@ export class SelectionComponent implements OnInit {
               private selectionService: SelectionService,
               private submissionService: SubmissionService,
               private marathonService: MarathonService) {
-    this.availabilitiesGroups = new vis.DataSet([]);
-    this.availabilitiesItems = new vis.DataSet([]);
+    this.availabilitiesGroups = new DataSet([]);
+    this.availabilitiesItems = new DataSet([]);
     this.selection = this.route.snapshot.data.selection;
     this.loadSubmissions();
   }
@@ -67,13 +68,16 @@ export class SelectionComponent implements OnInit {
     this.submissionsLoaded = true;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    // Somehow this delay solves the availabilities not showing.
+    await new Promise((resolve) => window.requestAnimationFrame(resolve));
+
     const timeline = new vis.Timeline(document.getElementById('timeline'),
       this.availabilitiesItems,
       this.availabilitiesGroups,
       {
-        min: moment.tz(this.marathonService.marathon.startDate, this.timezone).subtract(1, 'hours'),
-        max: moment.tz(this.marathonService.marathon.endDate, this.timezone).add(1, 'hours')
+        min: moment.tz(this.marathonService.marathon.startDate, this.timezone).subtract(1, 'hours').toDate(),
+        max: moment.tz(this.marathonService.marathon.endDate, this.timezone).add(1, 'hours').toDate()
       });
   }
 
