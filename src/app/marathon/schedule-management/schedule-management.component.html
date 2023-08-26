@@ -34,6 +34,10 @@
 <div class="columns is-multiline">
   <div class="column is-full">
     <div id="timeline"></div>
+    <!-- custom data toggle -->
+    <nwb-switch [(ngModel)]="hideCompleteUsers">
+      <span>Hide users in timeline when they have no more runs in "selected runs"</span>
+    </nwb-switch>
   </div>
   <div class="column is-full">
     <button type="button"

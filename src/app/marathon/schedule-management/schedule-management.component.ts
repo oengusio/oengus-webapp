@@ -62,6 +62,7 @@ export class ScheduleManagementComponent implements OnInit {
   public availabilitiesGroups: vis.DataSetDataGroup;
   public availabilitiesItems: vis.DataSetDataItem;
   public availabilitiesSelected = [];
+  private allAvailabilities: { [key: string]: Availability[] } = {};
 
   public showModal = false;
   public buttonLoading = false;
@@ -85,27 +86,45 @@ export class ScheduleManagementComponent implements OnInit {
   };
 
   public showCustomDataInput = false;
+  private _hideCompleteUsers = true;
+
+  get hideCompleteUsers() { return this._hideCompleteUsers; }
+  set hideCompleteUsers(val: boolean) {
+    localStorage.setItem('hideCompleteUsers', val ? 'true' : 'false');
+    this._hideCompleteUsers = val;
+  }
 
   constructor(private route: ActivatedRoute,
               public marathonService: MarathonService,
               private scheduleService: ScheduleService,
               private submissionService: SubmissionService,
               private userService: UserService) {
+    const localItem = localStorage.getItem('hideCompleteUsers');
+
+    if (localItem === null) {
+      this.hideCompleteUsers = true;
+    }
+
+    this._hideCompleteUsers = localStorage.getItem('hideCompleteUsers') === 'true';
+
     this.availabilitiesGroups = new DataSet([]);
     this.availabilitiesItems = new DataSet([]);
-    const availabilities = this.route.snapshot.data.availabilities;
-    for (const [key, value] of Object.entries(availabilities)) {
+    this.allAvailabilities = this.route.snapshot.data.availabilities;
+
+    for (const [username, availabilities] of Object.entries<Availability[]>(this.allAvailabilities)) {
+      const contentName = availabilities.length ? availabilities[0].username : username;
+
       this.availabilitiesGroups.add({
-        id: key,
-        content: key
+        id: username,
+        content: contentName
       });
-      (<Availability[]>value).forEach((availability, index) => {
+      availabilities.forEach((availability, index) => {
         this.availabilitiesItems.add({
-          id: key + index,
-          group: key,
+          id: username + index,
+          group: username,
           start: availability.from,
           end: availability.to,
-          content: ''
+          content: '',
         });
       });
     }
@@ -156,6 +175,11 @@ export class ScheduleManagementComponent implements OnInit {
           });
       });
     });
+
+    // TODO: hide submissions in todo
+    if (this.hideCompleteUsers) {
+      this.hideAllUsersNotInTodo();
+    }
 
     this.submissionsLoaded = true;
   }
@@ -356,15 +380,94 @@ export class ScheduleManagementComponent implements OnInit {
   }
 
   moveToSchedule(index: number) {
-    this.schedule.lines.push(this.scheduleTodo[index]);
+    const run = this.scheduleTodo[index];
+
+    this.schedule.lines.push(run);
     this.scheduleTodo.splice(index, 1);
     this.computeSchedule();
+
+    const usernames = run.runners
+      .map((runner) => 'user' in runner ? runner.user.username : null)
+      .filter((runner) => runner);
+
+    this.removeFromTimelineWhenNoMoreRunsTodo(usernames);
   }
 
   moveToTodo(index: number) {
-    this.scheduleTodo.push(this.schedule.lines[index]);
+    const run = this.schedule.lines[index];
+
+    this.scheduleTodo.push(run);
     this.schedule.lines.splice(index, 1);
     this.computeSchedule();
+
+    const usernames = run.runners
+      .map((runner) => 'user' in runner ? runner.user.username : null)
+      .filter((runner) => runner);
+
+    this.addToTimelineWhenRunsInTodo(usernames);
+  }
+
+  private hideAllUsersNotInTodo() {
+    this.schedule.lines.forEach((run) => {
+      const usernames = run.runners
+        .map((runner) => 'user' in runner ? runner.user.username : null)
+        .filter((runner) => runner);
+
+      this.removeFromTimelineWhenNoMoreRunsTodo(usernames);
+    });
+  }
+
+  private removeFromTimelineWhenNoMoreRunsTodo(usernames: string[]) {
+    if (!this.hideCompleteUsers) {
+      return;
+    }
+
+    // We can just remove the group, that will hide the user from the timeline.
+    const usernamesInTodo = this.getUsernamesInTodo();
+    const filteredUsernames = usernames.filter((username) => !usernamesInTodo.includes(username));
+
+    if (filteredUsernames.length) {
+      this.availabilitiesGroups.remove(filteredUsernames);
+    }
+  }
+
+  private addToTimelineWhenRunsInTodo(usernames: string[]) {
+    // We're not checking if the feature is on here.
+    // The user might enable it mid schedule config, and we should always add the user to the groups.
+
+    // We can just remove the group, that will hide the user from the timeline.
+    const usernamesInTodo = this.getUsernamesInTodo();
+    const filteredUsernames = usernames
+      .filter((username) => usernamesInTodo.includes(username))
+      .filter((username) => !this.availabilitiesGroups.get(username));
+
+    if (filteredUsernames.length) {
+      this.availabilitiesGroups.add(
+        filteredUsernames.map((username) => {
+          const av = this.allAvailabilities[username];
+
+          const contentUsername = av.length ? av[0].username : username;
+
+          return {
+            id: username,
+            content: contentUsername,
+          };
+        })
+      );
+    }
+  }
+
+  private getUsernamesInTodo(): string[] {
+    return [
+      ...new Set(
+        this.scheduleTodo.map(
+          (run) => run.runners
+            .map((runner) => 'user' in runner ? runner.user.username : null)
+            .filter((runner) => runner)
+        )
+          .flat()
+      )
+    ];
   }
 
   getRunnerUsername(runner: ScheduleRunner): string {
