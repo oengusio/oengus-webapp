@@ -552,7 +552,7 @@
       <tr *ngFor="let opponent of submission.opponentDtos; let i = index">
         <td>
           <div *ngFor="let user of opponent.users" class="is-flex">
-            <app-user [user]="user" [showSocialLinks]="true"></app-user>
+            <app-user-link [user]="user" [isLink]="true" target="_blank"></app-user-link>
           </div>
         </td>
         <td>{{opponent.gameName}}</td>

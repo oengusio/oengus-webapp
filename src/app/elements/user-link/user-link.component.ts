@@ -10,6 +10,7 @@ import { TemporalServiceService } from '../../../services/termporal/temporal-ser
 export class UserLinkComponent {
   @Input() user: User;
   @Input() username = '';
+  @Input() target = '_self';
   @Input() isLink = false;
 
   get userId(): string {
