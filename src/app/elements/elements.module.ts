@@ -14,7 +14,6 @@ import { ElementTemporalDistanceComponent } from './temporal/element-temporal-di
 import { ElementConsoleComponent } from './element-console/element-console.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ElementAdvertisementComponent } from './element-advertisement/element-advertisement.component';
-import { AdsenseModule } from 'ng2-adsense';
 import { MarathonLocationComponent } from './marathon-location/marathon-location.component';
 import { ElementTwitchPlayerComponent } from './element-twitch-player/element-twitch-player.component';
 import { UserLinkComponent } from './user-link/user-link.component';
@@ -68,10 +67,6 @@ import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
     FontAwesomeModule,
     NwbCommonModule,
     TranslateModule,
-    AdsenseModule.forRoot({
-      adClient: 'ca-pub-1125692619955117',
-      adSlot: '5905320802',
-    }),
     RouterModule,
     LocalizeRouterModule,
   ]
