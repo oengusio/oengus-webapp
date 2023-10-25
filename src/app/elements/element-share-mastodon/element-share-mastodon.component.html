@@ -1,0 +1,9 @@
+<a type="button"
+   class="button"
+   target="_blank"
+   (click)="mastodonButtonClick()"
+   style="background-color: #563ACC; border-color:transparent; color:#fff; margin-right: 1rem"
+   [href]="'https://' + shareUrl + '/share?text=' + text + '%0AVia @OengusIO@speedrun.zone'">
+  <fa-icon [icon]="faMastodon" style="margin-right: 0.4rem"></fa-icon>
+  {{ 'action.shareMastodon' | translate }}
+</a>

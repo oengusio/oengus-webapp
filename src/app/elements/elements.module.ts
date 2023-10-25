@@ -22,6 +22,7 @@ import { ElementRangeComponent } from './element-range/element-range.component';
 import { RouterModule } from '@angular/router';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
+import { ElementShareMastodonComponent } from './element-share-mastodon/element-share-mastodon.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
     ElementTemporalRangeComponent,
     ElementRangeComponent,
     LoadingIndicatorComponent,
+    ElementShareMastodonComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -61,6 +63,7 @@ import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
     ElementTemporalRangeComponent,
     ElementRangeComponent,
     LoadingIndicatorComponent,
+    ElementShareMastodonComponent,
   ],
   imports: [
     CommonModule,
