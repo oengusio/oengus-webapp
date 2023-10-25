@@ -12,6 +12,6 @@ export class AdsenseComponent implements AfterViewInit {
   constructor() {}
 
   ngAfterViewInit() {
-    (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+    // (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
   }
 }

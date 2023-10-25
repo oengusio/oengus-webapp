@@ -71,7 +71,7 @@
       <p class="title"
          *ngIf="marathonService.marathon.unlimitedCategories; else limitedCategories">{{'marathon.settings.unlimited' | translate}}</p>
       <ng-template #limitedCategories>
-        <p class="title">{{marathonService.marathon.maxCategoriesPerGame}}</p>
+        <p class="title">{{maxCategoriesPerGame}}</p>
       </ng-template>
     </div>
   </div>
@@ -369,9 +369,9 @@
           <button type="button"
                   class="button is-small is-primary"
                   style="margin-left: 5px"
+                  *ngIf="maxCategoriesPerGame > 1"
                   (click)="addCategory(i)"
-                  [disabled]="!marathonService.marathon.unlimitedCategories && game.categories.length >=
-                      marathonService.marathon.maxCategoriesPerGame">
+                  [disabled]="!marathonService.marathon.unlimitedCategories && game.categories.length >= maxCategoriesPerGame">
             <fa-icon [icon]="faPlus"></fa-icon>
           </button>
         </p>

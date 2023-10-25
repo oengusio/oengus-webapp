@@ -127,6 +127,10 @@ export class SubmitComponent implements OnInit {
     this.location.back();
   }
 
+  get maxCategoriesPerGame(): number {
+    return this.marathonService.marathon.maxCategoriesPerGame;
+  }
+
   addGame() {
     const game = new Game();
     game.console = '';
