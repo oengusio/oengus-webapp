@@ -71,7 +71,7 @@
       <p class="title"
          *ngIf="marathonService.marathon.unlimitedCategories; else limitedCategories">{{'marathon.settings.unlimited' | translate}}</p>
       <ng-template #limitedCategories>
-        <p class="title">{{marathonService.marathon.maxCategoriesPerGame}}</p>
+        <p class="title">{{maxCategoriesPerGame}}</p>
       </ng-template>
     </div>
   </div>
@@ -116,6 +116,8 @@
       <fa-icon [icon]="faTwitter" style="margin-right: 0.4rem"></fa-icon>
       {{'action.sendTweet' | translate}}
     </a>
+    <app-element-share-mastodon class="is-pulled-right" text="{{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
+     'marathon': marathonService.marathon.name} }}%0Ahttps://oengus.fun/{{marathonService.marathon.id}}"></app-element-share-mastodon>
   </h3>
   <p *ngIf="marathonService.hasDstChange()">{{ 'marathon.schedule.dstChange' | translate}}</p>
   <button type="button"
@@ -369,9 +371,9 @@
           <button type="button"
                   class="button is-small is-primary"
                   style="margin-left: 5px"
+                  *ngIf="maxCategoriesPerGame > 1"
                   (click)="addCategory(i)"
-                  [disabled]="!marathonService.marathon.unlimitedCategories && game.categories.length >=
-                      marathonService.marathon.maxCategoriesPerGame">
+                  [disabled]="!marathonService.marathon.unlimitedCategories && game.categories.length >= maxCategoriesPerGame">
             <fa-icon [icon]="faPlus"></fa-icon>
           </button>
         </p>
@@ -599,6 +601,8 @@
       <fa-icon [icon]="faTwitter" style="margin-right: 0.4rem"></fa-icon>
       {{'action.sendTweet' | translate}}
     </a>
+    <app-element-share-mastodon class="is-pulled-right" text="{{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
+     'marathon': marathonService.marathon.name} }}%0Ahttps://oengus.fun/{{marathonService.marathon.id}}"></app-element-share-mastodon>
   </div>
   <div *ngIf="!!submission.id && !marathonService.marathon.scheduleDone" class="is-clearfix">
     <hr>
