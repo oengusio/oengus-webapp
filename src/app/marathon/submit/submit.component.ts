@@ -17,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
+import gameConsoles from '../../../assets/consoles.json';
 
 @Component({
   selector: 'app-submit',
@@ -34,7 +35,7 @@ export class SubmitComponent implements OnInit {
   public timezone = moment.tz.guess();
   public loading = false;
   public localStorage = localStorage;
-  public possibleConsoles = Game.consoles;
+  public possibleConsoles: string[] = gameConsoles;
   public deleteConfirm = false;
 
   public code: string;
