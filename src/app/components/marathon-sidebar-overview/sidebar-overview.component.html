@@ -27,7 +27,7 @@
       </span>
     </a>
   </li>
-  <li *ngIf="marathon.submitsOpen" [title]="'marathon.menu.submitRuns' | translate">
+  <li *ngIf="marathon.submitsOpen || marathon.canEditSubmissions" [title]="'marathon.menu.submitRuns' | translate">
     <a [routerLink]="'/marathon/' + marathonId + '/submit' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon class="menu-item-icon" [icon]="iconPaperPlane"></fa-icon>
       <span class="menu-item-label">
