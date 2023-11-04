@@ -107,11 +107,13 @@ export class ScheduleManagementComponent implements OnInit {
 
     this._hideCompleteUsers = localStorage.getItem('hideCompleteUsers') === 'true';
 
-    this.availabilitiesGroups = new DataSet([]);
-    this.availabilitiesItems = new DataSet([]);
-    this.allAvailabilities = this.route.snapshot.data.availabilities;
+    this.availabilitiesGroups = new DataSet([], { queue: { delay: 1000 } });
+    this.availabilitiesItems = new DataSet([], { queue: { delay: 1000 } });
+    this.allAvailabilities = this.route.snapshot.data.availabilities as { [key: string]: Availability[] };
+    const entries = Object.entries<Availability[]>(this.allAvailabilities)
+      .sort((a, b) => a[0].localeCompare(b[0]));
 
-    for (const [username, availabilities] of Object.entries<Availability[]>(this.allAvailabilities)) {
+    for (const [username, availabilities] of entries) {
       const contentName = availabilities.length ? availabilities[0].username : username;
 
       this.availabilitiesGroups.add({
@@ -128,6 +130,11 @@ export class ScheduleManagementComponent implements OnInit {
         });
       });
     }
+
+    this.availabilitiesGroups.flush();
+    this.availabilitiesItems.flush();
+
+    // this.availabilitiesGroups.sort()
 
     // TODO: lazy load selection.
     const selection = this.route.snapshot.data.selection;
@@ -429,6 +436,8 @@ export class ScheduleManagementComponent implements OnInit {
     if (filteredUsernames.length) {
       this.availabilitiesGroups.remove(filteredUsernames);
     }
+
+    this.availabilitiesGroups.flush();
   }
 
   private addToTimelineWhenRunsInTodo(usernames: string[]) {
@@ -455,6 +464,14 @@ export class ScheduleManagementComponent implements OnInit {
         })
       );
     }
+
+    this.availabilitiesGroups.flush();
+
+    const sortedData = this.availabilitiesGroups.get({ order: 'id' });
+
+    this.availabilitiesGroups.clear();
+    this.availabilitiesGroups.add(sortedData);
+    this.availabilitiesGroups.flush();
   }
 
   private getUsernamesInTodo(): string[] {
@@ -472,7 +489,9 @@ export class ScheduleManagementComponent implements OnInit {
 
   getRunnerUsername(runner: ScheduleRunner): string {
     if ('user' in runner) {
-      return runner.user.displayName;
+      const user = runner.user;
+
+      return `${user.displayName} (${user.username})`;
     }
 
     return runner.runnerName;
