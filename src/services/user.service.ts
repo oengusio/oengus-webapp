@@ -49,7 +49,7 @@ export class UserService extends BaseService {
   getDiscordAuthUri(sync = false) {
     const redirectUri = sync ? this.getSyncRedirectUri() : this.getRedirectUri();
 
-    return 'https://discordapp.com/api/oauth2/authorize?client_id=' +
+    return 'https://discord.com/oauth2/authorize?client_id=' +
       this.getDiscordClientId() + '&redirect_uri=' +
       redirectUri + 'discord&response_type=code&scope=identify&prompt=none';
   }

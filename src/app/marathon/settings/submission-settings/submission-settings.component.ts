@@ -27,7 +27,7 @@ export class SubmissionSettingsComponent implements OnInit {
   public faTimes = faTimes;
   public faPlus = faPlus;
   public faBars = faBars;
-  public botInvite = 'https://discord.com/api/oauth2/authorize?client_id=559625844197163008&permissions=68608&scope=bot';
+  public botInvite = 'https://discord.com/oauth2/authorize?client_id=559625844197163008&permissions=68608&scope=bot';
 
   public loadingDiscordCheck = false;
 
