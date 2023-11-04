@@ -116,7 +116,9 @@
       <fa-icon [icon]="faTwitter" style="margin-right: 0.4rem"></fa-icon>
       {{'action.sendTweet' | translate}}
     </a>
-    <app-element-share-mastodon class="is-pulled-right" text="{{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
+    <app-element-share-mastodon class="is-pulled-right"
+                                *ngIf="!!submission.id && !marathonService.marathon.isPrivate"
+                                text="{{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
      'marathon': marathonService.marathon.name} }}%0Ahttps://oengus.fun/{{marathonService.marathon.id}}"></app-element-share-mastodon>
   </h3>
   <p *ngIf="marathonService.hasDstChange()">{{ 'marathon.schedule.dstChange' | translate}}</p>
@@ -601,7 +603,9 @@
       <fa-icon [icon]="faTwitter" style="margin-right: 0.4rem"></fa-icon>
       {{'action.sendTweet' | translate}}
     </a>
-    <app-element-share-mastodon class="is-pulled-right" text="{{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
+    <app-element-share-mastodon class="is-pulled-right"
+                                *ngIf="!!submission.id && !marathonService.marathon.isPrivate"
+                                text="{{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
      'marathon': marathonService.marathon.name} }}%0Ahttps://oengus.fun/{{marathonService.marathon.id}}"></app-element-share-mastodon>
   </div>
   <div *ngIf="!!submission.id && !marathonService.marathon.scheduleDone" class="is-clearfix">
