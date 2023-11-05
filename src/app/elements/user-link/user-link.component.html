@@ -1,3 +1,5 @@
+<img *ngIf="showAvatar" [src]="avatarUrl" alt="Profile image" />
+
 <a *ngIf="isLink; else justName" [routerLink]="'/user/' + userId | localize" [target]="target">{{ displayName }}</a>
 <ng-template #justName>
   <span>{{ displayName }}</span>

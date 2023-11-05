@@ -57,7 +57,7 @@
   <ng-template ngFor let-submission [ngForOf]="filteredSubmissions$ | async">
     <div class="box">
       <h4 class="title is-4">
-        <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
+        <app-user-link [user]="submission.user" [isLink]="true" [showAvatar]="true"></app-user-link>
         <app-delete-button *ngIf="showDelete"
                            [baseText]="'marathon.submissions.submission.delete' | translate"
                            [confirmText]="'action.confirm' | translate"
@@ -98,7 +98,7 @@
         <tr *ngFor="let answer of entry.value; let i = index">
           <ng-template [ngIf]="i === 0">
             <td [attr.rowspan]="entry.value.length">
-              <app-user [username]="entry.key"></app-user>
+              <app-user-link [username]="entry.key" [isLink]="true" [showAvatar]="true"></app-user-link>
             </td>
           </ng-template>
           <td>
