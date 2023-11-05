@@ -151,7 +151,7 @@
                        *ngIf="availabilitiesSelected.includes(getRunnerRawUsername(runner))">
                       <fa-icon [icon]="faCalendarTimes"></fa-icon>
                     </a>
-                    <app-user-link [username]="getRunnerUsername(runner)"></app-user-link>
+                    <app-user-link [ngClass]="{ 'has-text-warning': !isAvailable(runner, line) }" [username]="getRunnerUsername(runner)"></app-user-link>
                   </div>
                   <div style="width: 10rem" *ngIf="editMode[line.position]">
                     <!-- TODO: how to trigger the not found display -->

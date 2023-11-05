@@ -555,21 +555,25 @@ export class ScheduleManagementComponent implements OnInit {
 
   matchesAvailabilities(line: ScheduleLine) {
     return line.runners.every(runner => {
-      if (!('user' in runner)) {
-        return true;
-      }
-
-      const availabilities = this.route.snapshot.data.availabilities;
-
-      return availabilities[runner.user.username] &&
-        availabilities[runner.user.username].some(availability => {
-          const startDateAvail = moment.tz(availability.from, this.timezone);
-          const endDateAvail = moment.tz(availability.to, this.timezone);
-          const startDateRun = moment.tz(line.date, this.timezone);
-          const endDateRun = moment.tz(line.date, this.timezone).add(moment.duration(line.estimate));
-          return startDateAvail.isSameOrBefore(startDateRun) && endDateAvail.isSameOrAfter(endDateRun);
-        });
+      return this.isAvailable(runner, line);
     });
+  }
+
+  isAvailable(runner: ScheduleRunner, line: ScheduleLine) {
+    if (!('user' in runner)) {
+      return true;
+    }
+
+    const availabilities = this.route.snapshot.data.availabilities;
+
+    return availabilities[runner.user.username] &&
+      availabilities[runner.user.username].some(availability => {
+        const startDateAvail = moment.tz(availability.from, this.timezone);
+        const endDateAvail = moment.tz(availability.to, this.timezone);
+        const startDateRun = moment.tz(line.date, this.timezone);
+        const endDateRun = moment.tz(line.date, this.timezone).add(moment.duration(line.estimate));
+        return startDateAvail.isSameOrBefore(startDateRun) && endDateAvail.isSameOrAfter(endDateRun);
+      });
   }
 
   get title(): string {
