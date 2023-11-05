@@ -66,12 +66,12 @@
         <tr *ngFor="let line of scheduleTodo; let i = index">
           <td>
             <div *ngFor="let runner of line.runners" class="is-flex">
-              <a (click)="selectAvailabilities(getRunnerUsername(runner))" style="margin-right: 0.4rem"
-                 *ngIf="!availabilitiesSelected.includes(getRunnerUsername(runner))">
+              <a (click)="selectAvailabilities(getRunnerRawUsername(runner))" style="margin-right: 0.4rem"
+                 *ngIf="!availabilitiesSelected.includes(getRunnerRawUsername(runner))">
                 <fa-icon [icon]="faCalendarWeek"></fa-icon>
               </a>
-              <a (click)="unselectAvailabilities(getRunnerUsername(runner))" style="margin-right: 0.4rem"
-                 *ngIf="availabilitiesSelected.includes(getRunnerUsername(runner))">
+              <a (click)="unselectAvailabilities(getRunnerRawUsername(runner))" style="margin-right: 0.4rem"
+                 *ngIf="availabilitiesSelected.includes(getRunnerRawUsername(runner))">
                 <fa-icon [icon]="faCalendarTimes"></fa-icon>
               </a>
               <app-user-link [username]="getRunnerUsername(runner)" ></app-user-link>
@@ -143,12 +143,12 @@
                        style="margin-right: 0.3rem" (click)="removeUser(j, line)">
                       <fa-icon [icon]="faTimes"></fa-icon>
                     </a>
-                    <a (click)="selectAvailabilities(getRunnerUsername(runner))" style="margin-right: 0.4rem"
-                       *ngIf="!availabilitiesSelected.includes(getRunnerUsername(runner))">
+                    <a (click)="selectAvailabilities(getRunnerRawUsername(runner))" style="margin-right: 0.4rem"
+                       *ngIf="!availabilitiesSelected.includes(getRunnerRawUsername(runner))">
                       <fa-icon [icon]="faCalendarWeek"></fa-icon>
                     </a>
-                    <a (click)="unselectAvailabilities(getRunnerUsername(runner))" style="margin-right: 0.4rem"
-                       *ngIf="availabilitiesSelected.includes(getRunnerUsername(runner))">
+                    <a (click)="unselectAvailabilities(getRunnerRawUsername(runner))" style="margin-right: 0.4rem"
+                       *ngIf="availabilitiesSelected.includes(getRunnerRawUsername(runner))">
                       <fa-icon [icon]="faCalendarTimes"></fa-icon>
                     </a>
                     <app-user-link [username]="getRunnerUsername(runner)"></app-user-link>

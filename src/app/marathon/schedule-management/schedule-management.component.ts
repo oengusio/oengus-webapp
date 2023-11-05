@@ -497,6 +497,14 @@ export class ScheduleManagementComponent implements OnInit {
     return runner.runnerName;
   }
 
+  getRunnerRawUsername(runner: ScheduleRunner): string {
+    if ('user' in runner) {
+      return runner.user.username;
+    }
+
+    return runner.runnerName;
+  }
+
   selectAvailabilities(username: string) {
     this.availabilitiesSelected.push(username);
     this.availabilitiesSelectedItems = [...new Set([...this.availabilitiesSelectedItems,
