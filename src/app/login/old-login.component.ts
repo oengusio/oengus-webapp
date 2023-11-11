@@ -3,20 +3,14 @@ import { UserService } from '../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
-import {LoadingBarService} from '../../services/loading-bar.service';
+import { LoadingBarService } from '../../services/loading-bar.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './old-login.component.html',
+  styleUrls: ['./old-login.component.css']
 })
-export class LoginComponent implements OnInit {
-
-  /*public loginData: {
-    username: string;
-    password: string;
-    mfaCode: string;
-  };*/
+export class OldLoginComponent implements OnInit {
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -71,7 +65,7 @@ export class LoginComponent implements OnInit {
             default:
               this.translateService.get('alert.user.login.error').subscribe((res: string) => {
                 const alertConfig: NwbAlertConfig = {
-                  message: res,
+                  message: res + '\n' + error.error.code,
                   duration: 3000,
                   position: 'is-right',
                   color: 'is-warning'

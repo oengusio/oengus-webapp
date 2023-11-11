@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { OldLoginComponent } from './login/old-login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from '../interceptors';
 import { FormsModule } from '@angular/forms';
@@ -54,6 +54,7 @@ import { availableLocaleNames } from '../services/locale.service';
 import { HeaderBarUserComponent } from './_layout/header-bar/header-bar-user/header-bar-user.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { HeaderBarDisplayNameComponent } from './_layout/header-bar/header-bar-display-name/header-bar-display-name.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const appRoutes: Routes = [
   {
@@ -62,11 +63,11 @@ const appRoutes: Routes = [
   },
   {
     path: 'login',
-    component: SignUpComponent,
+    component: LoginComponent,
   },
   {
     path: 'login/:service',
-    component: LoginComponent,
+    component: OldLoginComponent,
     data: { skipRouteLocalization: true },
   },
   {
@@ -113,7 +114,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    OldLoginComponent,
     HomepageComponent,
     AboutComponent,
     PatronsComponent,
@@ -122,6 +123,7 @@ const appRoutes: Routes = [
     KasperskyAnnouncementComponent,
     PlumComponent,
     SignUpComponent,
+    LoginComponent,
     WelcomeComponent,
     SponsorsComponent,
     MarathonsComponent,

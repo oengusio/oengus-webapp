@@ -6,6 +6,7 @@
 $-lightness-change: 36%;
 $text: color.scale($text, $lightness: $-lightness-change);
 $title-color: color.scale($title-color, $lightness: $-lightness-change);
+$subtitle-color: $title-color;
 $code: #ffc8e2;
 
 @import 'bulma';

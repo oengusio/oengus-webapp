@@ -1,1 +1,67 @@
-<p>login works!</p>
+<section class="section container">
+  <h1 class="title">Log-in to your Oengus account</h1>
+
+  <div class="columns">
+    <div class="column is-three-fifths is-offset-one-fifth">
+      <form action="">
+
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control has-icons-left">
+            <input class="input" type="text" placeholder="OengusIO" name="username" [disabled]="loading" [(ngModel)]="loginData.username">
+            <span class="icon is-small is-left">
+              <fa-icon [icon]="iconUser"></fa-icon>
+            </span>
+          </div>
+        </div>
+
+
+        <label class="label">Password</label>
+        <div class="field has-addons">
+          <div class="control has-icons-left is-expanded">
+            <input class="input" type="password" name="password" placeholder="********" [disabled]="loading" *ngIf="passwordHidden; else plainTextPw" [(ngModel)]="loginData.password">
+            <ng-template #plainTextPw>
+              <input class="input" type="text" name="password" placeholder="password" [disabled]="loading" [(ngModel)]="loginData.password">
+            </ng-template>
+            <span class="icon is-small is-left">
+              <fa-icon [icon]="iconPadlock"></fa-icon>
+            </span>
+          </div>
+
+          <div class="control">
+            <button class="button" [disabled]="loading" (click)="passwordHidden = !passwordHidden">
+              <span class="icon cursor-pointer">
+                <fa-icon [icon]="iconEye" *ngIf="passwordHidden; else eyeSlash"></fa-icon>
+                <ng-template #eyeSlash>
+                  <fa-icon [icon]="iconEyeSlash"></fa-icon>
+                </ng-template>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="control">
+          <button type="submit" style="margin-right: 1rem"
+                  [ngClass]="{'is-loading': loading}"
+                  (click)="performLogin()"
+                  class="button is-primary">{{'action.login' | translate}}</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <hr/>
+  <h2 class="subtitle">
+    Log-in with a provider
+  </h2>
+
+  <div class="columns">
+    <div class="column is-one-fifth is-offset-3">
+      <button class="button">Discord</button>
+    </div>
+    <div class="column is-one-fifth">
+      <button class="button">Twitch</button>
+    </div>
+  </div>
+</section>
