@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { faDiscord } from '@fortawesome/free-brands-svg-icons';
+import { faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
+import { UserService } from '../../../services/user.service';
+import { LoginDetails, LoginResponse, LoginResponseStatus } from '../../../model/auth';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,31 +12,57 @@ import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 })
 export class LoginComponent implements OnInit {
 
-  loginData: {
-    username: string;
-    password: string;
-    mfaCode: string;
-  } = {
+  loginData: LoginDetails = {
     username: '',
     password: '',
-    mfaCode: ''
+    twoFactorCode: ''
   };
 
+  loginError: LoginResponseStatus | null = LoginResponseStatus.USERNAME_PASSWORD_INCORRECT;
   loading = false;
   passwordHidden = true;
+  mfaNeeded: boolean = !!localStorage.getItem('alwaysShowMfa');
 
   iconUser = faUser;
   iconPadlock = faLock;
   iconEye = faEye;
   iconEyeSlash = faEyeSlash;
+  iconDiscord = faDiscord;
+  iconTwitch = faTwitch;
 
-
-  constructor() { }
+  constructor(
+    public userService: UserService,
+    private authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
   }
 
   performLogin(): void {
     this.loading = true;
+    this.passwordHidden = true;
+
+    this.authService.performLogin(this.loginData).subscribe({
+      next(response) {
+        console.log(response);
+
+        switch (response.status) {
+          case LoginResponseStatus.LOGIN_SUCCESS:
+            return;
+          case LoginResponseStatus.MFA_INVALID:
+            return;
+          case LoginResponseStatus.MFA_REQUIRED:
+            this.loading = false;
+            this.mfaNeeded = true;
+            return;
+          case LoginResponseStatus.USERNAME_PASSWORD_INCORRECT:
+            return;
+        }
+      },
+
+      error({ error }: { error: LoginResponse }) {
+        this.loginError = error.status;
+      }
+    });
   }
 }

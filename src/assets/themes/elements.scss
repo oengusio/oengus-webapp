@@ -1,0 +1,20 @@
+@use 'sass:color' as color;
+
+.button.is-twitch {
+  color: white;
+  border-color: white;
+  background-color: $twitchPurple;
+
+  &:hover {
+    background-color: color.scale($twitchPurple, $saturation: -40%);
+  }
+}
+.button.is-discord {
+  color: white;
+  border-color: white;
+  background-color: $discordBlurple;
+
+  &:hover {
+    background-color: color.scale($discordBlurple, $saturation: -40%);
+  }
+}

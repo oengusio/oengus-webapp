@@ -202,7 +202,7 @@ export class UserService extends BaseService {
   }
 
   getProfile(name: string): Observable<UserProfile> {
-    return this.http.get<UserProfile>(this.url(`${name}`));
+    return this.http.get<UserProfile>(this.url(name));
   }
 
   isBanned(): boolean {

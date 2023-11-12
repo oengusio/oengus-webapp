@@ -9,9 +9,14 @@ $title-color: color.scale($title-color, $lightness: $-lightness-change);
 $subtitle-color: $title-color;
 $code: #ffc8e2;
 
+$discordBlurple: #5865F2;
+$twitchPurple: #9146FF;
+$googleWhite: #000000;
+
 @import 'bulma';
 @import 'bulmaswatch/solar/overrides';
 @import '@duncte123/bulma-tagsinput/src/sass/index';
+@import './elements';
 
 @import 'bulma-extensions/dist/css/bulma-extensions.min.css';
 @import 'bulma-extensions/bulma-tooltip/src/sass/index';
