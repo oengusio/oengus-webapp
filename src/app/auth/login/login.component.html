@@ -1,10 +1,14 @@
 <section class="section container">
   <h1 class="title">{{ 'login.title' | translate }}</h1>
 
-  <div class="notification" *ngIf="loginError == 'USERNAME_PASSWORD_INCORRECT'">
+  <div class="notification is-danger" *ngIf="loginError == 'USERNAME_PASSWORD_INCORRECT'">
     <button class="delete" (click)="loginError = null"></button>
-    Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur.
+    The entered username and password are incorrect.
+  </div>
+
+  <div class="notification is-danger" *ngIf="loginError == 'MFA_INVALID'">
+    <button class="delete" (click)="loginError = null"></button>
+    2FA code is not valid.
   </div>
 
   <div class="columns">
@@ -71,13 +75,13 @@
   </h2>
 
   <div class="buttons is-centered are-large">
-    <a [href]="userService.getDiscordAuthUri()" class="button is-discord">
+    <a [href]="authService.getDiscordAuthUri()" class="button is-discord">
       <span class="icon">
          <fa-icon [icon]="iconDiscord"></fa-icon>
       </span>
       <span>{{ 'login.provider.discord' | translate }}</span>
     </a>
-    <a [href]="userService.getTwitchAuthUrl()" class="button is-twitch">
+    <a [href]="authService.getTwitchAuthUrl()" class="button is-twitch">
       <span class="icon">
          <fa-icon [icon]="iconTwitch"></fa-icon>
       </span>

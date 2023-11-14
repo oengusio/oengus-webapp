@@ -31,4 +31,10 @@ export class HeaderBarNavComponent {
   toggleNavbarActive(): void {
     this.isNavbarActive = !this.isNavbarActive;
   }
+
+  storeCurrentLocation(): boolean {
+    // We store pathname because "403" can be inserted if a user is not logged in
+    localStorage.setItem('prev_loc', window.location.pathname);
+    return true;
+  }
 }

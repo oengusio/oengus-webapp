@@ -11,6 +11,7 @@ import { MiscService } from '../../../services/misc.service';
 import { SocialPlatform } from '../../../model/social-platform';
 import { PatreonStatusDto, RelationShip } from '../../../model/annoying-patreon-shit';
 import DOMPurify from 'dompurify';
+import { AuthService } from '../../../services/auth.service';
 
 interface LangType {
   value: string;
@@ -57,6 +58,7 @@ export class SettingsComponent implements OnInit {
   ];
 
   constructor(private userService: UserService,
+              private authService: AuthService,
               private miscService: MiscService,
               private route: ActivatedRoute,
               private router: Router,
@@ -129,25 +131,25 @@ export class SettingsComponent implements OnInit {
   syncDiscord(): void {
     delete this.user.discordId;
 
-    window.location.assign(this.userService.getDiscordAuthUri(true));
+    window.location.assign(this.authService.getDiscordAuthUri(true));
   }
 
   syncTwitch(): void {
     delete this.user.twitchId;
 
-    window.location.assign(this.userService.getTwitchAuthUrl(true));
+    window.location.assign(this.authService.getTwitchAuthUrl(true));
   }
 
   syncPatreon(): void {
     delete this.user.patreonId;
 
-    window.location.assign(this.userService.patreonSyncUrl);
+    window.location.assign(this.authService.patreonSyncUrl);
   }
 
   syncTwitter(): void {
     delete this.user.twitterId;
 
-    window.location.assign(this.userService.getTwitterAuthUrl(true));
+    window.location.assign(this.authService.getTwitterAuthUrl(true));
   }
 
   unsyncDiscord(): void {

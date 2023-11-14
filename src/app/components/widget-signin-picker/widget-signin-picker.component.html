@@ -3,13 +3,13 @@
     {{ 'navbar.login.title' | translate }}
   </span>
   <div options>
-    <a [href]="userService.getDiscordAuthUri()" (click)="storeCurrentPage()" [class]="dropdownItemClass">
+    <a [href]="authService.getDiscordAuthUri()" (click)="storeCurrentPage()" [class]="dropdownItemClass">
       <fa-icon [icon]="iconDiscord"></fa-icon>
       <span>
         {{ 'navbar.login.discord' | translate }}
       </span>
     </a>
-    <a [href]="userService.getTwitchAuthUrl()" (click)="storeCurrentPage()" [class]="dropdownItemClass">
+    <a [href]="authService.getTwitchAuthUrl()" (click)="storeCurrentPage()" [class]="dropdownItemClass">
       <fa-icon [icon]="iconTwitch"></fa-icon>
       <span>
         {{ 'navbar.login.twitch' | translate }}

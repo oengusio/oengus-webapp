@@ -59,7 +59,7 @@
       <app-header-language-picker class="navbar-item pr-0"></app-header-language-picker>
       <app-header-bar-user *ngIf="userService.user; else loggedOut" class="navbar-item pl-0"></app-header-bar-user>
       <ng-template #loggedOut>
-        <a [routerLink]="'/login' | localize" class="navbar-item">
+        <a [routerLink]="'/login' | localize" (click)="storeCurrentLocation()" class="navbar-item">
           {{ 'navbar.login.title' | translate }}
         </a>
         <a [routerLink]="'/register' | localize" class="navbar-item">

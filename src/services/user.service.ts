@@ -26,58 +26,9 @@ export class UserService extends BaseService {
     super(toastr, 'users');
   }
 
-  getRedirectUri() {
-    return encodeURIComponent(environment.loginRedirect);
-  }
-
-  getSyncRedirectUri() {
-    return encodeURIComponent(environment.syncRedirect);
-  }
-
-  getTwitchClientId() {
-    return environment.twitchClientId;
-  }
-
-  getTwitterClientId() {
-    return environment.twitterClientId;
-  }
-
-  getDiscordClientId() {
-    return environment.discordClientId;
-  }
-
-  getDiscordAuthUri(sync = false) {
-    const redirectUri = sync ? this.getSyncRedirectUri() : this.getRedirectUri();
-
-    return 'https://discord.com/oauth2/authorize?client_id=' +
-      this.getDiscordClientId() + '&redirect_uri=' +
-      redirectUri + 'discord&response_type=code&scope=identify&prompt=none';
-  }
-
-  getTwitchAuthUrl(sync = false) {
-    const redirectUri = sync ? this.getSyncRedirectUri() : this.getRedirectUri();
-
-    return 'https://id.twitch.tv/oauth2/authorize?client_id=' +
-      this.getTwitchClientId() + '&redirect_uri=' +
-      redirectUri + 'twitch&response_type=code&scope=openid';
-  }
-
-  getTwitterAuthUrl(sync = false) {
-    const redirectUri = sync ? this.getSyncRedirectUri() : this.getRedirectUri();
-
-    return 'https://twitter.com/i/oauth2/authorize?client_id=' +
-      this.getTwitterClientId() + '&redirect_uri=' +
-      redirectUri + 'twitter' +
-      '&response_type=code&scope=users.read%20tweet.read' +
-      '&code_challenge=speedrun&code_challenge_method=plain&state=unused';
-  }
-
-  get patreonSyncUrl(): string {
-    return `https://www.patreon.com/oauth2/authorize?response_type=code&client_id=${
-      environment.patreonClientId
-    }&scope=identity&redirect_uri=${this.getSyncRedirectUri()}patreon`;
-  }
-
+  /**
+   * @deprecated Use auth service instead
+   */
   login(service: string, code?: string): Observable<any> {
     return this.http.post(this.url('login'), {
       service: service,
@@ -110,9 +61,13 @@ export class UserService extends BaseService {
   }
 
   async updatePatreonStatus(userId: number, data: PatreonStatusDto): Promise<void> {
-    return this.http.put<void>(this.url(`/${userId}/patreon-status`), data).toPromise();
+    return firstValueFrom(this.http.put<void>(this.url(`/${userId}/patreon-status`), data));
   }
 
+  /**
+   * @deprecated Use auth service instead
+   */
+  // TODO: we need to unset the user but we also don't want this logic here.
   logout(redirectHome: boolean = true) {
     this._user = null;
     localStorage.removeItem('token');
