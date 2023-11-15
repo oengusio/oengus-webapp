@@ -75,4 +75,32 @@ export class AuthService extends BaseService {
 
     return this.http.post<LoginResponse>(this.url('login', 'v2'), details);
   }
+
+  set token(value: string) {
+    localStorage.setItem('token', value);
+  }
+
+  get token(): string {
+    return localStorage.getItem('token');
+  }
+
+  get tokenExpirationDate(): Date {
+    const [_, body] = this.token.split('.');
+    const { exp }: { exp: number } = JSON.parse(atob(body));
+
+    if (!exp) {
+      return new Date(0);
+    }
+
+    return new Date(exp * 1000); // exp is in seconds
+  }
+
+  // TODO: get distance between days, refresh token if it's only 1 day from expiry
+
+  /**
+   * @return true if the current date is greater than the exp date of the token.
+   */
+  isTokenExpired(): boolean {
+    return new Date() > this.tokenExpirationDate;
+  }
 }
