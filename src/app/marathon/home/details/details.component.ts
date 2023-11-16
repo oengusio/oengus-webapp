@@ -32,7 +32,7 @@ export class DetailsComponent {
 
   get mastodonUrl(): string {
     if (!this.marathon || !this.marathon.mastodon) {
-      return 'https://speedrun.zone/@OengusIO';
+      return 'https://mas.to/@OengusIO';
     }
 
     const [ username, domain ] = this.marathon.mastodon.split('@');
