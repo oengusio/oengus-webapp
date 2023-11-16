@@ -96,6 +96,16 @@ export class AuthService extends BaseService {
   }
 
   // TODO: get distance between days, refresh token if it's only 1 day from expiry
+  get shouldRenewToken(): boolean {
+    // The number of milliseconds in one day
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+
+    // Calculate the difference in milliseconds
+    const differenceMs = Math.abs(this.tokenExpirationDate.getTime() - Date.now());
+
+    // Convert back to days and return true if we are within 1 day of expiry
+    return Math.round(differenceMs / ONE_DAY) <= 1;
+  }
 
   /**
    * @return true if the current date is greater than the exp date of the token.

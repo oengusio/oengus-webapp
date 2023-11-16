@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
 import { UserService } from '../../../services/user.service';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   loginData: LoginDetails = {
     username: '',
@@ -36,9 +36,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     public authService: AuthService,
   ) { }
-
-  ngOnInit(): void {
-  }
 
   performLogin(): void {
     this.loading = true;
