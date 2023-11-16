@@ -12,7 +12,8 @@
       <br />
       <input class="input"
              type="number"
-             pattern="[0-9]{6}"
+             inputmode="numeric"
+             pattern="[0-9]*"
              (keydown.enter)="saveMfa()"
              [(ngModel)]="mfaCode"
              name="mfaCode" style="margin-bottom: 1rem">

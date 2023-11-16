@@ -53,7 +53,13 @@
           <div class="field" *ngIf="mfaNeeded">
             <label class="label">{{ 'login.2fa.label' | translate }}</label>
             <div class="control">
-              <input class="input" type="text" placeholder="000000" name="2fa" [(ngModel)]="loginData.twoFactorCode" />
+              <input class="input"
+                     type="text"
+                     placeholder="000000"
+                     inputmode="numeric"
+                     pattern="[0-9]*"
+                     name="2fa"
+                     [(ngModel)]="loginData.twoFactorCode" />
             </div>
           </div>
 
