@@ -110,20 +110,20 @@
     </div>
 
     <div class="field">
-      <label for="enable-2fa" class="label">Two factor authentication</label>
+      <label for="enable-2fa" class="label">{{ 'user.settings.mfa.label' | translate }}</label>
       <div class="control">
         <button type="button"
                 *ngIf="user.mfaEnabled; else noMfa"
                 class="button is-warning"
                 [disabled]="mfaLoading"
                 [class]="{  'is-loading': mfaLoading }"
-                id="enable-2fa" >Disable two factor authentication</button>
+                id="enable-2fa" >{{ 'user.settings.mfa.disableButton' | translate }}</button>
         <ng-template #noMfa>
           <button type="button"
                   class="button is-success"
                   [disabled]="mfaLoading"
                   [class]="{  'is-loading': mfaLoading }"
-                  id="enable-2fa" (click)="initMfa()">Enable two factor authentication</button>
+                  id="enable-2fa" (click)="initMfa()">{{ 'user.settings.mfa.enableButton' | translate }}</button>
         </ng-template>
       </div>
     </div>
