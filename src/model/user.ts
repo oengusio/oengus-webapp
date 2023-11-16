@@ -11,6 +11,7 @@ export class User {
   // stored as comma seperated list in db
   pronouns: string;
   languagesSpoken: string;
+  mfaEnabled: boolean;
   country: string;
   roles: string[];
   connections: SocialAccount[];

@@ -12,6 +12,7 @@ import { SocialPlatform } from '../../../model/social-platform';
 import { PatreonStatusDto, RelationShip } from '../../../model/annoying-patreon-shit';
 import DOMPurify from 'dompurify';
 import { AuthService } from '../../../services/auth.service';
+import { InitMFADto } from '../../../model/auth';
 
 interface LangType {
   value: string;
@@ -32,6 +33,8 @@ export class SettingsComponent implements OnInit {
 
   public user: User;
   public loading = false;
+  mfaLoading = false;
+  mfaSettings: InitMFADto | null = null;
 
   public deactivateConfirm = false;
   public deleteConfirm = false;
@@ -219,6 +222,24 @@ export class SettingsComponent implements OnInit {
 
   get title(): string {
     return 'Settings';
+  }
+
+  initMfa(): void {
+    this.mfaLoading = true;
+
+    this.authService.initMfaSettings().subscribe({
+      next: (data: InitMFADto) => {
+        this.mfaSettings = data;
+      },
+    });
+  }
+
+  handleMfaResult(result: boolean): void {
+    // true == mfa stored
+    // false == mfa failed
+    this.user.mfaEnabled = result;
+    this.mfaSettings = null;
+    this.mfaLoading = false;
   }
 
   private async syncService(params, queryParams): Promise<void> {

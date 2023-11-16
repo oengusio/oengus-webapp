@@ -22,6 +22,7 @@ import { SubmissionComponent } from './profile/profile-history/submission/submis
 import { ModeratedComponent } from './profile/profile-history/moderated/moderated.component';
 import { AdminControlsComponent } from './profile/admin-controls/admin-controls.component';
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
+import { MfaModalComponent } from './settings/mfa-modal/mfa-modal.component';
 
 const userRoutes: Routes = [
   {
@@ -56,7 +57,8 @@ const userRoutes: Routes = [
     ProfileHistoryComponent,
     SubmissionComponent,
     ModeratedComponent,
-    AdminControlsComponent
+    AdminControlsComponent,
+    MfaModalComponent
   ],
   imports: [
     CommonModule,

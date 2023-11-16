@@ -4,7 +4,7 @@ import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BaseService } from './BaseService';
-import { LoginDetails, LoginResponse } from '../model/auth';
+import { InitMFADto, LoginDetails, LoginResponse } from '../model/auth';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -74,6 +74,14 @@ export class AuthService extends BaseService {
     details.twoFactorCode = details.twoFactorCode || null;
 
     return this.http.post<LoginResponse>(this.url('login', 'v2'), details);
+  }
+
+  initMfaSettings(): Observable<InitMFADto> {
+    return this.http.put<InitMFADto>(this.url('mfa/init', 'v2'), null);
+  }
+
+  storeMfa(code: string): Observable<{ status: boolean }> {
+    return this.http.post<{ status: boolean }>(`${this.url('mfa', 'v2')}?code=${code}`, null);
   }
 
   set token(value: string) {

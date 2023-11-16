@@ -29,6 +29,7 @@
     </footer>
   </div>
 </div>
+<app-mfa-modal *ngIf="mfaSettings?.secretKey" [mfaSettings]="mfaSettings" (mfaResult)="handleMfaResult($event)"></app-mfa-modal>
 
 <div class="container">
   <h1 class="title">{{'user.settings.title' | translate}}</h1>
@@ -44,8 +45,7 @@
                 [ngClass]="{'is-loading': loading}"
                 type="button"
                 (click)="submit()"
-                [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' |
-          translate}}
+                [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' | translate}}
         </button>
       </div>
     </div>
@@ -107,6 +107,33 @@
         <a href="https://gravatar.com/" target="_blank" class="button is-info" id="pfp">{{ 'user.settings.profilePicture.button' | translate }}</a>
       </div>
       <p class="help" [innerHTML]="'user.settings.email.help' | translate"></p>
+    </div>
+
+    <div class="field">
+      <label for="enable-2fa" class="label">Two factor authentication</label>
+      <div class="control">
+        <button type="button"
+                *ngIf="user.mfaEnabled; else noMfa"
+                class="button is-warning"
+                [disabled]="mfaLoading"
+                [class]="{  'is-loading': mfaLoading }"
+                id="enable-2fa" >Disable two factor authentication</button>
+        <ng-template #noMfa>
+          <button type="button"
+                  class="button is-success"
+                  [disabled]="mfaLoading"
+                  [class]="{  'is-loading': mfaLoading }"
+                  id="enable-2fa" (click)="initMfa()">Enable two factor authentication</button>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="change-password" class="label">Change password</label>
+      <div class="control">
+        <button type="button" class="button is-warning" id="change-password">Reset password</button>
+      </div>
+      <p class="help">Clicking this button will send you an email to reset your password, if you did not have a password set previously this will set it.</p>
     </div>
 
     <!-- email -->

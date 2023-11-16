@@ -15,3 +15,8 @@ export enum LoginResponseStatus {
   LOGIN_SUCCESS = 'LOGIN_SUCCESS',
   USERNAME_PASSWORD_INCORRECT = 'USERNAME_PASSWORD_INCORRECT',
 }
+
+export interface InitMFADto {
+  qrCode: string;
+  secretKey: string;
+}
