@@ -39,9 +39,10 @@
             </div>
 
             <div class="control">
-              <button class="button" (click)="passwordHidden = !passwordHidden">
+              <button class="button" (click)="passwordHidden = !passwordHidden"
+                      [title]="(passwordHidden ? 'login.password.show' : 'login.password.hide') | translate">
               <span class="icon cursor-pointer">
-                <fa-icon [title]="'login.password.show' | translate" [icon]="iconEye" *ngIf="passwordHidden; else eyeSlash"></fa-icon>
+                <fa-icon [icon]="iconEye" *ngIf="passwordHidden; else eyeSlash"></fa-icon>
                 <ng-template #eyeSlash>
                   <fa-icon [icon]="iconEyeSlash"></fa-icon>
                 </ng-template>
