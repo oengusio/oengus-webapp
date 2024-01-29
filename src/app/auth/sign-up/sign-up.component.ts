@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SignupDto } from '../../../model/dto/signup-dto';
+import { faEye, faEyeSlash, faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,8 +10,16 @@ import { SignupDto } from '../../../model/dto/signup-dto';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
+  iconUser = faUser;
+  iconEmail = faEnvelope;
+  iconPadlock = faLock;
+  iconEye = faEye;
+  iconEyeSlash = faEyeSlash;
+  iconDiscord = faDiscord;
+  iconTwitch = faTwitch;
 
   loading = false;
+  passwordHidden = true;
   data: SignupDto = {
     connections: [],
     country: '',
@@ -34,8 +44,11 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  submit() {
+    this.loading = true;
+  }
+
   get title(): string {
     return 'Sign Up';
   }
-
 }

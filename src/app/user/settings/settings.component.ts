@@ -25,7 +25,6 @@ interface LangType {
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  @ViewChild('pronouns', {static: true}) pronounsInput: ElementRef<HTMLInputElement>;
   @ViewChild('languages', {static: true}) languageInput: ElementRef<HTMLInputElement>;
 
   public faSyncAlt = faSyncAlt;
@@ -35,11 +34,11 @@ export class SettingsComponent implements OnInit {
   public loading = false;
   mfaLoading = false;
   mfaSettings: InitMFADto | null = null;
+  tmpPronouns: string[] = [];
 
   public deactivateConfirm = false;
   public deleteConfirm = false;
   public deleteUsername: string;
-  private pronounsTagsInput: BulmaTagsInput;
   private languagesTagsInput: BulmaTagsInput;
   public countries = [
     'AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ',
@@ -79,7 +78,6 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initPronounsInput();
     this.initLanguagesInput();
   }
 
@@ -180,7 +178,7 @@ export class SettingsComponent implements OnInit {
 
   submit(): Promise<void> {
     this.loading = true;
-    this.user.pronouns = this.pronounsTagsInput.items.join(',') || null;
+    this.user.pronouns = this.tmpPronouns.join(',') || null;
     this.user.languagesSpoken = this.languagesTagsInput.value;
     // Display name is free text basically, here we strip all HTML and only keep text or default to username.
     this.user.displayName = DOMPurify.sanitize(this.user.displayName, {  ALLOWED_TAGS: [ '#text' ] }) || this.user.username;
@@ -317,33 +315,6 @@ export class SettingsComponent implements OnInit {
       color: 'is-warning',
     };
     this.toastr.open(alertConfig);
-  }
-
-  private async initPronounsInput(): Promise<void> {
-    const tagsInput = this.pronounsInput.nativeElement;
-
-    const placeholder = await this.translateService.get('user.settings.pronouns.hint').toPromise();
-    const noResults = await this.translateService.get('user.settings.pronouns.no_results').toPromise();
-
-    this.pronounsTagsInput = new BulmaTagsInput(tagsInput, {
-      noResultsLabel: noResults,
-      selectable: false,
-      freeInput: false,
-      placeholder,
-      caseSensitive: false,
-      trim: true,
-      source: (value) => new Promise((resolve) => {
-        if (!value) {
-          return resolve([]);
-        }
-
-        this.miscService.searchPronouns(value).subscribe(resolve, () => resolve([]));
-      }),
-    });
-
-    this.pronounsTagsInput.add(
-      (this.user.pronouns || '').split(','),
-    );
   }
 
   private async collectLanguages(langauges: string[]): Promise<LangType[]> {

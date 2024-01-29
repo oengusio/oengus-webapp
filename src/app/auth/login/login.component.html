@@ -20,7 +20,7 @@
             <label class="label">{{ 'user.settings.username.label' | translate }}</label>
             <div class="control has-icons-left">
               <input class="input" type="text" placeholder="OengusIO" name="username" [(ngModel)]="loginData.username">
-              <span class="icon is-small is-left">
+            <span class="icon is-small is-left">
               <fa-icon [icon]="iconUser"></fa-icon>
             </span>
             </div>
@@ -38,6 +38,7 @@
             </span>
             </div>
 
+            <!-- TODO: make component -->
             <div class="control">
               <button class="button" (click)="passwordHidden = !passwordHidden"
                       [title]="(passwordHidden ? 'login.password.show' : 'login.password.hide') | translate">

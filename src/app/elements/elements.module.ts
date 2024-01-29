@@ -23,6 +23,8 @@ import { RouterModule } from '@angular/router';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 import { ElementShareMastodonComponent } from './element-share-mastodon/element-share-mastodon.component';
+import { ElementPronounsComponent } from './element-pronouns/element-pronouns.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { ElementShareMastodonComponent } from './element-share-mastodon/element-
     ElementRangeComponent,
     LoadingIndicatorComponent,
     ElementShareMastodonComponent,
+    ElementPronounsComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -64,6 +67,7 @@ import { ElementShareMastodonComponent } from './element-share-mastodon/element-
     ElementRangeComponent,
     LoadingIndicatorComponent,
     ElementShareMastodonComponent,
+    ElementPronounsComponent,
   ],
   imports: [
     CommonModule,
@@ -72,7 +76,9 @@ import { ElementShareMastodonComponent } from './element-share-mastodon/element-
     TranslateModule,
     RouterModule,
     LocalizeRouterModule,
-  ]
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class ElementModule {
 }

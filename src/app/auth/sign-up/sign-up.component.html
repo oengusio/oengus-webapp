@@ -2,5 +2,133 @@
   <h1 class="title">{{'user.settings.new.beforeWeStart' | translate}}</h1>
   <h2 class="subtitle">{{'user.settings.new.description' | translate}}</h2>
 
-  //
+  {{ data | json }}
+
+  <form ngForm="newUserForm" (ngSubmit)="submit()" #form="ngForm">
+    <!-- Display name -->
+    <div class="field">
+      <label for="displayName" class="label">{{'user.settings.displayName.label' | translate}}</label>
+      <div class="control has-icons-left">
+        <input class="input"
+               [ngClass]="{'is-danger': displayName.invalid}"
+               type="text"
+               [(ngModel)]="data.displayName"
+               name="displayName"
+               id="displayName"
+               #displayName="ngModel"
+               minlength="1"
+               maxlength="32"
+               required
+        />
+
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconUser"></fa-icon>
+        </span>
+      </div>
+      <p class="help">{{'user.settings.displayName.help' | translate}}</p>
+      <div *ngIf="displayName.invalid">
+        <p class="help is-danger"
+           *ngIf="displayName.errors.maxlength">{{'user.settings.displayName.error.max' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="displayName.errors.minlength">{{'user.settings.displayName.error.min' | translate}}</p>
+      </div>
+    </div>
+
+    <!-- Username -->
+    <div class="field">
+      <label for="username" class="label">{{'user.settings.username.label' | translate}}</label>
+      <div class="control has-icons-left">
+        <input
+          type="text"
+          [ngClass]="{'is-danger': username.invalid}"
+          id="username"
+          name="username"
+          class="input"
+          [(ngModel)]="data.username"
+          #username="ngModel"
+          minlength="3"
+          maxlength="32"
+          pattern="^[\w\-]{3,32}$"
+          appUsernameExistsValidator
+          required
+        />
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconUser"></fa-icon>
+        </span>
+      </div>
+      <div *ngIf="username.invalid">
+        <p class="help is-danger"
+           *ngIf="username.errors.minlength">{{'user.settings.username.error.min' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="username.errors.maxlength">{{'user.settings.username.error.max' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="username.errors.exists">{{'user.settings.username.error.exists' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="username.errors.required">{{'user.settings.username.error.required' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="username.errors.pattern">{{'user.settings.username.error.pattern' | translate}}</p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="pfp">{{ 'user.settings.profilePicture.label' | translate }}</label>
+      <div class="control">
+        <a href="https://gravatar.com/" target="_blank" class="button is-info" id="pfp">{{ 'user.settings.profilePicture.button' | translate }}</a>
+      </div>
+      <p class="help" [innerHTML]="'user.settings.email.help' | translate"></p>
+    </div>
+
+    <!-- Email -->
+    <div class="field">
+      <label for="email" class="label">{{'user.settings.email.label' | translate}}</label>
+      <div class="control has-icons-left">
+        <input class="input"
+               [ngClass]="{'is-danger': mail.invalid}"
+               type="email" [(ngModel)]="data.email"
+               id="email"
+               name="mail"
+               #mail="ngModel"
+               email
+               required
+        />
+        <p class="help" [innerHTML]="'user.settings.email.help' | translate"></p>
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconEmail"></fa-icon>
+        </span>
+      </div>
+      <div *ngIf="mail.invalid">
+        <p class="help is-danger" *ngIf="mail.errors.email">{{'user.settings.email.error.email' | translate}}</p>
+        <p class="help is-danger" *ngIf="mail.errors.required">{{'user.settings.email.error.required' | translate}}</p>
+      </div>
+    </div>
+
+    <!-- password -->
+    <label class="label">{{ 'user.settings.password.label' | translate }}</label>
+    <div class="field has-addons">
+      <div class="control has-icons-left is-expanded">
+        <input class="input" type="password" name="password" placeholder="********" *ngIf="passwordHidden; else plainTextPw" [(ngModel)]="data.password">
+        <ng-template #plainTextPw>
+          <input class="input" type="text" name="password" placeholder="password" [(ngModel)]="data.password">
+        </ng-template>
+        <span class="icon is-small is-left">
+              <fa-icon [icon]="iconPadlock"></fa-icon>
+            </span>
+      </div>
+
+      <!-- TODO: make component -->
+      <div class="control">
+        <button class="button" (click)="passwordHidden = !passwordHidden"
+                [title]="(passwordHidden ? 'login.password.show' : 'login.password.hide') | translate">
+              <span class="icon cursor-pointer">
+                <fa-icon [icon]="iconEye" *ngIf="passwordHidden; else eyeSlash"></fa-icon>
+                <ng-template #eyeSlash>
+                  <fa-icon [icon]="iconEyeSlash"></fa-icon>
+                </ng-template>
+              </span>
+        </button>
+      </div>
+    </div>
+
+    <app-element-pronouns [(pronouns)]="data.pronouns"></app-element-pronouns>
+  </form>
 </div>
