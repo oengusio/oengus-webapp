@@ -27,6 +27,8 @@ import { ElementPronounsComponent } from './element-pronouns/element-pronouns.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ElementLanguagesComponent } from './element-languages/element-languages.component';
 import { ElementCountryComponent } from './element-country/element-country.component';
+import { ElementConnectionsComponent } from './element-connections/element-connections.component';
+import { ConnectionSettingsComponent } from './element-connections/connection-settings/connection-settings.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { ElementCountryComponent } from './element-country/element-country.compo
     ElementPronounsComponent,
     ElementLanguagesComponent,
     ElementCountryComponent,
+    ElementConnectionsComponent,
+    ConnectionSettingsComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -74,6 +78,7 @@ import { ElementCountryComponent } from './element-country/element-country.compo
     ElementPronounsComponent,
     ElementLanguagesComponent,
     ElementCountryComponent,
+    ElementConnectionsComponent,
   ],
   imports: [
     CommonModule,

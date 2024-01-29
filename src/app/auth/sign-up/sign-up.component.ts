@@ -1,34 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SignupDto } from '../../../model/dto/signup-dto';
-import { faEye, faEyeSlash, faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent {
   iconUser = faUser;
   iconEmail = faEnvelope;
   iconPadlock = faLock;
   iconEye = faEye;
   iconEyeSlash = faEyeSlash;
-  iconDiscord = faDiscord;
-  iconTwitch = faTwitch;
 
   loading = false;
   passwordHidden = true;
   data: SignupDto = {
-    connections: [],
-    country: null,
     displayName: '',
-    email: '',
-    languagesSpoken: [],
-    password: '',
-    pronouns: [],
     username: '',
+    email: '',
+    password: '',
+    country: null,
+    pronouns: [],
+    languagesSpoken: [],
+    connections: [],
   };
 
   constructor(
@@ -41,11 +38,9 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
   submit() {
     this.loading = true;
+    this.data.connections = this.data.connections.filter(it => it.platform && it.username);
   }
 
   get title(): string {

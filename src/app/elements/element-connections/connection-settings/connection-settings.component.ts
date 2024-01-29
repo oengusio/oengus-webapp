@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SocialAccount } from '../../../../model/social-account';
 import { SocialPlatform } from '../../../../model/social-platform';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -7,11 +7,11 @@ import { parseMastodonUrl } from '../../../../utils/helpers';
 @Component({
   selector: 'app-connection-settings',
   templateUrl: './connection-settings.component.html',
-  styleUrls: ['./connection-settings.component.scss']
+  styleUrls: ['./connection-settings.component.scss'],
 })
 export class ConnectionSettingsComponent implements OnInit {
   @Input() public connection: SocialAccount;
-  @Input() public discordId: number;
+  @Input() public discordId: string;
   @Input() public twitchId: string;
 
   @Output() public deleteSelf = new EventEmitter<void>();
@@ -19,7 +19,8 @@ export class ConnectionSettingsComponent implements OnInit {
   public faTrash = faTrash;
   public platforms = SocialPlatform;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     //
@@ -30,7 +31,7 @@ export class ConnectionSettingsComponent implements OnInit {
 
     return Boolean(
       (type === 'DISCORD' && this.discordId) ||
-      (type === 'TWITCH' && this.twitchId)
+      (type === 'TWITCH' && this.twitchId),
     );
   }
 
@@ -50,7 +51,7 @@ export class ConnectionSettingsComponent implements OnInit {
     for (const key of Object.keys(SocialPlatform)) {
       cloned[key] = {
         disabled: false,
-        url: cloned[key]
+        url: cloned[key],
       };
 
       if (key === 'DISCORD' && this.discordId) {

@@ -158,29 +158,13 @@
     <!-- languages -->
     <app-element-languages [(languages)]="tmpLanguages"></app-element-languages>
 
-    <article class="message">
-      <div class="message-header">
-        <p>
-          {{ 'user.settings.connections.title' | translate }} <br/>
-          <small>{{ 'user.settings.connections.subtitle' | translate }}</small>
-        </p>
-      </div>
-      <div class="message-body">
-        <p class="pb-2">{{ 'user.settings.connections.visibility' | translate }}</p>
-        <div class="row">
-          <app-connection-settings *ngFor="let connection of user.connections"
-                                   class="column is-full"
-                                   [connection]="connection"
-                                   [discordId]="user.discordId"
-                                   [twitchId]="user.twitchId"
-                                   (deleteSelf)="deleteConnection(connection)"
-          ></app-connection-settings>
-        </div>
-        <button type="button" (click)="addNewConnection()" class="button is-success is-outlined is-fullwidth">
-          <fa-icon [icon]="faPlus"></fa-icon>
-        </button>
-      </div>
-    </article>
+    <!-- connections -->
+    <app-element-connections
+      [(connections)]="user.connections"
+      [discordId]="user.discordId"
+      [twitchId]="user.twitchId"
+    ></app-element-connections>
+
     <hr/>
     <h4 class="title is-4">{{'user.settings.accountSync.title' | translate}}</h4>
     <p>{{'user.settings.accountSync.description' | translate}}</p>

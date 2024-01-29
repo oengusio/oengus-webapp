@@ -11,7 +11,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserProfileResolver } from '../resolvers/user-profile-resolver';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConnectionComponent } from './profile/connection/connection.component';
-import { ConnectionSettingsComponent } from './settings/connection-settings/connection-settings.component';
 import { SyncButtonComponent } from './settings/sync-button/sync-button.component';
 import { UserProfileComponent } from './profile/user-profile/user-profile.component';
 import { ElementModule } from '../elements/elements.module';
@@ -49,7 +48,6 @@ const userRoutes: Routes = [
     SettingsComponent,
     ProfileComponent,
     ConnectionComponent,
-    ConnectionSettingsComponent,
     SyncButtonComponent,
     UserProfileComponent,
     UserSocialComponent,

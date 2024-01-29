@@ -16,7 +16,7 @@ export class User {
   roles: string[];
   connections: SocialAccount[];
   enabled: boolean;
-  discordId: number;
+  discordId: string;
   twitterId: string;
   twitchId: string;
   patreonId: string;
