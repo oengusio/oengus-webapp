@@ -26,6 +26,7 @@ import { ElementShareMastodonComponent } from './element-share-mastodon/element-
 import { ElementPronounsComponent } from './element-pronouns/element-pronouns.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ElementLanguagesComponent } from './element-languages/element-languages.component';
+import { ElementCountryComponent } from './element-country/element-country.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ElementLanguagesComponent } from './element-languages/element-languages
     ElementShareMastodonComponent,
     ElementPronounsComponent,
     ElementLanguagesComponent,
+    ElementCountryComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -71,6 +73,7 @@ import { ElementLanguagesComponent } from './element-languages/element-languages
     ElementShareMastodonComponent,
     ElementPronounsComponent,
     ElementLanguagesComponent,
+    ElementCountryComponent,
   ],
   imports: [
     CommonModule,

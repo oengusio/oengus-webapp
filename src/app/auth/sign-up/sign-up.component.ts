@@ -22,7 +22,7 @@ export class SignUpComponent implements OnInit {
   passwordHidden = true;
   data: SignupDto = {
     connections: [],
-    country: '',
+    country: null,
     displayName: '',
     email: '',
     languagesSpoken: [],
