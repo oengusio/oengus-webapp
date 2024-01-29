@@ -55,6 +55,7 @@ import { HeaderBarUserComponent } from './_layout/header-bar/header-bar-user/hea
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { HeaderBarDisplayNameComponent } from './_layout/header-bar/header-bar-display-name/header-bar-display-name.component';
 import { LoginComponent } from './auth/login/login.component';
+import { HeaderBarVerifyEmailComponent } from './_layout/header-bar/header-bar-verify-email/header-bar-verify-email.component';
 
 const appRoutes: Routes = [
   {
@@ -143,6 +144,7 @@ const appRoutes: Routes = [
     HeaderBarUserComponent,
     UnauthorizedComponent,
     HeaderBarDisplayNameComponent,
+    HeaderBarVerifyEmailComponent,
   ],
   imports: [
     BrowserModule,

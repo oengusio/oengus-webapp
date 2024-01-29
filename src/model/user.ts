@@ -12,6 +12,7 @@ export class User {
   pronouns: string;
   languagesSpoken: string;
   mfaEnabled: boolean;
+  emailVerified: boolean;
   country: string;
   roles: string[];
   connections: SocialAccount[];

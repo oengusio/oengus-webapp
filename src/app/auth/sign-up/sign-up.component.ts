@@ -51,10 +51,12 @@ export class SignUpComponent {
       const result = await this.authService.performRegister(this.data);
 
       if (result.status === 'SIGNUP_SUCCESS') {
-        //
+        this.showNextStep = true;
       }
     } catch (e: any) {
       console.log(e);
+      this.showNextStep = false;
+      // TODO: show any errors
     } finally {
       this.loading = false;
     }
