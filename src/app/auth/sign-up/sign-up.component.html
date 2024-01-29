@@ -1,10 +1,16 @@
-<div class="container">
+<div class="container" *ngIf="showNextStep">
+  <h1 class="title">{{ 'register.thank_you' | translate }}</h1>
+  <h2 class="subtitle">{{ 'register.email_sent' | translate }}</h2>
+  <p appTranslatedContent="register.login_hint">
+    <a [routerLink]="'/login'  | localize" *appTranslatedElement="'login-link'">{{ 'action.login' | translate }}</a>
+  </p>
+</div>
+
+<div class="container" *ngIf="!showNextStep">
   <h1 class="title">{{'user.settings.new.beforeWeStart' | translate}}</h1>
   <h2 class="subtitle">{{'user.settings.new.description' | translate}}</h2>
 
-  {{ data | json }}
-
-  <form ngForm="newUserForm" (ngSubmit)="submit()" #form="ngForm">
+  <form *ngIf="!showNextStep" ngForm="newUserForm" (ngSubmit)="submit()" #form="ngForm">
     <!-- Display name -->
     <div class="field">
       <label for="displayName" class="label">{{'user.settings.displayName.label' | translate}}</label>

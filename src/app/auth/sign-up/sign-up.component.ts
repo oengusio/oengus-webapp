@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SignupDto } from '../../../model/dto/signup-dto';
 import { faEnvelope, faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,6 +15,8 @@ export class SignUpComponent {
   iconPadlock = faLock;
   iconEye = faEye;
   iconEyeSlash = faEyeSlash;
+
+  showNextStep = false;
 
   loading = false;
   passwordHidden = true;
@@ -30,6 +33,7 @@ export class SignUpComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private authService: AuthService,
   ) {
     this.route.queryParams.subscribe(params => {
       this.data.username = (params['username'] || '').toLowerCase();
@@ -38,9 +42,22 @@ export class SignUpComponent {
     });
   }
 
-  submit() {
+  async submit() {
     this.loading = true;
+    this.data.displayName = this.data.displayName || this.data.username;
     this.data.connections = this.data.connections.filter(it => it.platform && it.username);
+
+    try {
+      const result = await this.authService.performRegister(this.data);
+
+      if (result.status === 'SIGNUP_SUCCESS') {
+        //
+      }
+    } catch (e: any) {
+      console.log(e);
+    } finally {
+      this.loading = false;
+    }
   }
 
   get title(): string {

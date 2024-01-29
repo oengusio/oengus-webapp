@@ -10,3 +10,7 @@ export interface SignupDto {
   password: string;
   connections: SocialAccount[];
 }
+
+export interface SignupResponseDto {
+  status: 'SIGNUP_SUCCESS' | 'USERNAME_TAKEN';
+}
