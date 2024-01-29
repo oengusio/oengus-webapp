@@ -14,11 +14,11 @@ export class MiscService extends BaseService {
     super(toastr);
   }
 
-  searchPronouns(pronouns): Observable<string[]> {
+  searchPronouns(pronouns: string): Observable<string[]> {
     return this.http.get<string[]>(this.url(`/pronouns?search=${pronouns}`));
   }
 
-  searchLanguage(search): Observable<Language[]> {
+  searchLanguage(search: string): Observable<Language[]> {
     return this.http.get<Language[]>(this.url(`/languages?search=${search}&locale=${localStorage.getItem('language')}`));
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
 import { faSyncAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { SocialAccount } from '../../../model/social-account';
-import BulmaTagsInput from '@duncte123/bulma-tagsinput';
 import { MiscService } from '../../../services/misc.service';
 import { SocialPlatform } from '../../../model/social-platform';
 import { PatreonStatusDto, RelationShip } from '../../../model/annoying-patreon-shit';
@@ -25,8 +24,6 @@ interface LangType {
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  @ViewChild('languages', {static: true}) languageInput: ElementRef<HTMLInputElement>;
-
   public faSyncAlt = faSyncAlt;
   public faPlus = faPlus;
 
@@ -35,11 +32,11 @@ export class SettingsComponent implements OnInit {
   mfaLoading = false;
   mfaSettings: InitMFADto | null = null;
   tmpPronouns: string[] = [];
+  tmpLanguages: string[] = [];
 
   public deactivateConfirm = false;
   public deleteConfirm = false;
   public deleteUsername: string;
-  private languagesTagsInput: BulmaTagsInput;
   public countries = [
     'AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ',
     'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BQ', 'BA', 'BW', 'BV', 'BR',
@@ -78,7 +75,7 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initLanguagesInput();
+    //
   }
 
   addNewConnection(): void {
@@ -179,7 +176,7 @@ export class SettingsComponent implements OnInit {
   submit(): Promise<void> {
     this.loading = true;
     this.user.pronouns = this.tmpPronouns.join(',') || null;
-    this.user.languagesSpoken = this.languagesTagsInput.value;
+    this.user.languagesSpoken = this.tmpLanguages.join(',');
     // Display name is free text basically, here we strip all HTML and only keep text or default to username.
     this.user.displayName = DOMPurify.sanitize(this.user.displayName, {  ALLOWED_TAGS: [ '#text' ] }) || this.user.username;
     return new Promise((resolve) => {
@@ -315,53 +312,5 @@ export class SettingsComponent implements OnInit {
       color: 'is-warning',
     };
     this.toastr.open(alertConfig);
-  }
-
-  private async collectLanguages(langauges: string[]): Promise<LangType[]> {
-    const promises = [] as Promise<LangType>[];
-
-    langauges.forEach((lang) => {
-      promises.push(new Promise((resolve) => {
-        this.translateService.get('language.' + lang).subscribe((name) => {
-          resolve({
-            value: lang,
-            text: name,
-          });
-        });
-      }));
-    });
-
-    return await Promise.all(promises);
-  }
-
-  private async initLanguagesInput(): Promise<void> {
-    const tagsInput = this.languageInput.nativeElement;
-
-    const placeholder = await this.translateService.get('user.settings.language.placeholder').toPromise();
-    const noResults = await this.translateService.get('user.settings.language.no_results').toPromise();
-
-    this.languagesTagsInput = window['tagsInput'] = new BulmaTagsInput(tagsInput, {
-      noResultsLabel: noResults,
-      selectable: false,
-      freeInput: false,
-      itemValue: 'value',
-      itemText: 'text',
-      placeholder: placeholder,
-      caseSensitive: false,
-      trim: true,
-      source: (value) => new Promise((resolve) => {
-        if (!value) {
-          return resolve([]);
-        }
-
-        this.miscService.searchLanguage(value).subscribe(resolve, () => resolve([]));
-      }),
-    });
-
-    const items = (this.user.languagesSpoken || '').split(',');
-
-    this.collectLanguages(items).then((langs: LangType[]) => {
-      this.languagesTagsInput.add(langs);
-    });
   }
 }

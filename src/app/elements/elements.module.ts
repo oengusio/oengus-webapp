@@ -25,6 +25,7 @@ import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 import { ElementShareMastodonComponent } from './element-share-mastodon/element-share-mastodon.component';
 import { ElementPronounsComponent } from './element-pronouns/element-pronouns.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ElementLanguagesComponent } from './element-languages/element-languages.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoadingIndicatorComponent,
     ElementShareMastodonComponent,
     ElementPronounsComponent,
+    ElementLanguagesComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -68,6 +70,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoadingIndicatorComponent,
     ElementShareMastodonComponent,
     ElementPronounsComponent,
+    ElementLanguagesComponent,
   ],
   imports: [
     CommonModule,

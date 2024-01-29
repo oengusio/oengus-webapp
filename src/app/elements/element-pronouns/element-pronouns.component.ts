@@ -7,7 +7,10 @@ import { MiscService } from '../../../services/misc.service';
 @Component({
   selector: 'app-element-pronouns',
   templateUrl: './element-pronouns.component.html',
-  styleUrls: ['./element-pronouns.component.scss']
+  styleUrls: ['./element-pronouns.component.scss'],
+  host: {
+    'class': 'field',
+  },
 })
 export class ElementPronounsComponent implements OnInit {
   @Input() pronouns: string[];
