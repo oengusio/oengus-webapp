@@ -74,21 +74,25 @@ export class AuthService extends BaseService {
   performLogin(details: LoginDetails): Observable<LoginResponse> {
     details.twoFactorCode = details.twoFactorCode || null;
 
-    return this.http.post<LoginResponse>(this.url('login', 'v2'), details);
+    return this.http.post<LoginResponse>(this.v2Url('login'), details);
   }
 
   performRegister(details: SignupDto): Promise<SignupResponseDto> {
     return firstValueFrom(
-      this.http.post<SignupResponseDto>(this.url('signup', 'v2'), details)
+      this.http.post<SignupResponseDto>(this.v2Url('signup'), details)
     );
   }
 
+  requestNewVerificationEmail() {
+    return this.http.post<{ status: boolean }>(this.v2Url('verify-email'), null);
+  }
+
   initMfaSettings(): Observable<InitMFADto> {
-    return this.http.put<InitMFADto>(this.url('mfa/init', 'v2'), null);
+    return this.http.put<InitMFADto>(this.v2Url('mfa/init'), null);
   }
 
   storeMfa(code: string): Observable<{ status: boolean }> {
-    return this.http.post<{ status: boolean }>(`${this.url('mfa', 'v2')}?code=${code}`, null);
+    return this.http.post<{ status: boolean }>(`${this.v2Url('mfa')}?code=${code}`, null);
   }
 
   set token(value: string) {

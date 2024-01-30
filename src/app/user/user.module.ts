@@ -56,7 +56,7 @@ const userRoutes: Routes = [
     SubmissionComponent,
     ModeratedComponent,
     AdminControlsComponent,
-    MfaModalComponent
+    MfaModalComponent,
   ],
   imports: [
     CommonModule,
