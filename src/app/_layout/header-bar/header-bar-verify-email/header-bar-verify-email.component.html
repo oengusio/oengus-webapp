@@ -1,11 +1,11 @@
 <div *ngIf="show" class="verify-host">
   <div>
-    Hey! It seems that you have not verified your email address yet. Users without a verified email might get deleted in the future.
+    {{ 'navbar.email-verification.message' | translate }}
   </div>
 
   <div class="buttons">
     <button type="button" class="button is-info" [disabled]="!canPressButton" (click)="requestNewEmail()">
-      Request new verification email
+      {{ 'navbar.email-verification.request-btn' | translate }}
     </button>
   </div>
 </div>
