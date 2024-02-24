@@ -57,6 +57,7 @@ import { HeaderBarDisplayNameComponent } from './_layout/header-bar/header-bar-d
 import { LoginComponent } from './auth/login/login.component';
 import { HeaderBarVerifyEmailComponent } from './_layout/header-bar/header-bar-verify-email/header-bar-verify-email.component';
 import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 const appRoutes: Routes = [
   {
@@ -70,6 +71,10 @@ const appRoutes: Routes = [
   {
     path: 'password-reset/:token',
     component: PasswordResetComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
   },
   {
     path: 'login/:service',
@@ -151,6 +156,7 @@ const appRoutes: Routes = [
     HeaderBarDisplayNameComponent,
     HeaderBarVerifyEmailComponent,
     PasswordResetComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

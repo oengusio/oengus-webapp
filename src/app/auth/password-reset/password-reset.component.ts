@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { firstValueFrom } from 'rxjs';
+import { passwordResetErrorToMessage } from '../../../utils/authHelpers';
 
 @Component({
   selector: 'app-password-reset',
@@ -39,7 +40,6 @@ export class PasswordResetComponent implements OnInit {
     }
 
     this.loading = true;
-    this.notificationClass = 'is-danger';
 
     try {
       const { status } = await firstValueFrom(this.authService.resetPassword(this.resetToken, this.newPassword));
@@ -48,13 +48,12 @@ export class PasswordResetComponent implements OnInit {
         this.notificationClass = 'is-success';
         this.errorTranslationKey = 'auth.passwordReset.success';
         this.newPassword = '';
+      } else {
+        this.errorTranslationKey = 'You should never see this message. If you do, let me know what you did.';
       }
     } catch (e: any) {
-      if ((e.error || {}).errors) {
-        this.errorTranslationKey = e.error.errors.flatMap(error => error.defaultMessage.split(',')).join('\n');
-      } else if (e.error.status) {
-        this.errorTranslationKey = `auth.passwordReset.error.${e.error.status.toUpperCase()}`;
-      }
+      this.notificationClass = 'is-danger';
+      this.errorTranslationKey = passwordResetErrorToMessage(e);
     } finally {
       this.loading = false;
     }

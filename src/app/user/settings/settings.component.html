@@ -129,13 +129,13 @@
     </div>
 
     <div class="field">
-      <label for="change-password" class="label">Change password</label>
+      <label for="change-password" class="label">{{ 'user.settings.password.changeLabel' | translate }}</label>
       <div class="control">
         <button type="button"
                 (click)="requestNewPassword()"
                 class="button is-warning"
                 [disabled]="pwResetButtonDisabled"
-                id="change-password">Reset password</button>
+                id="change-password">{{ 'auth.passwordReset.request' | translate }}</button>
       </div>
       <p class="help">Clicking this button will send you an email to reset your password, if you did not have a password set previously this will set it.</p>
     </div>
