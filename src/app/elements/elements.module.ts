@@ -29,6 +29,7 @@ import { ElementLanguagesComponent } from './element-languages/element-languages
 import { ElementCountryComponent } from './element-country/element-country.component';
 import { ElementConnectionsComponent } from './element-connections/element-connections.component';
 import { ConnectionSettingsComponent } from './element-connections/connection-settings/connection-settings.component';
+import { ElementPasswordInputComponent } from './element-password-input/element-password-input.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ConnectionSettingsComponent } from './element-connections/connection-se
     ElementCountryComponent,
     ElementConnectionsComponent,
     ConnectionSettingsComponent,
+    ElementPasswordInputComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -79,6 +81,7 @@ import { ConnectionSettingsComponent } from './element-connections/connection-se
     ElementLanguagesComponent,
     ElementCountryComponent,
     ElementConnectionsComponent,
+    ElementPasswordInputComponent,
   ],
   imports: [
     CommonModule,

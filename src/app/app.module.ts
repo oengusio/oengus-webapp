@@ -56,6 +56,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { HeaderBarDisplayNameComponent } from './_layout/header-bar/header-bar-display-name/header-bar-display-name.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HeaderBarVerifyEmailComponent } from './_layout/header-bar/header-bar-verify-email/header-bar-verify-email.component';
+import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
 
 const appRoutes: Routes = [
   {
@@ -65,6 +66,10 @@ const appRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'password-reset/:token',
+    component: PasswordResetComponent,
   },
   {
     path: 'login/:service',
@@ -145,6 +150,7 @@ const appRoutes: Routes = [
     UnauthorizedComponent,
     HeaderBarDisplayNameComponent,
     HeaderBarVerifyEmailComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,

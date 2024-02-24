@@ -26,7 +26,9 @@
             </div>
           </div>
 
-          <label class="label">{{ 'user.settings.password.label' | translate }}</label>
+          <app-element-password-input [(password)]="loginData.password"></app-element-password-input>
+
+          <!--<label class="label">{{ 'user.settings.password.label' | translate }}</label>
           <div class="field has-addons">
             <div class="control has-icons-left is-expanded">
               <input class="input" type="password" name="password" placeholder="********" *ngIf="passwordHidden; else plainTextPw" [(ngModel)]="loginData.password">
@@ -38,7 +40,7 @@
             </span>
             </div>
 
-            <!-- TODO: make component -->
+            &lt;!&ndash; TODO: make component &ndash;&gt;
             <div class="control">
               <button class="button" (click)="passwordHidden = !passwordHidden"
                       [title]="(passwordHidden ? 'login.password.show' : 'login.password.hide') | translate">
@@ -50,7 +52,7 @@
               </span>
               </button>
             </div>
-          </div>
+          </div>-->
 
           <div class="field" *ngIf="mfaNeeded">
             <label class="label">{{ 'login.2fa.label' | translate }}</label>
