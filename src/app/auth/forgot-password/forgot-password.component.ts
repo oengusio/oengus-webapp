@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { passwordResetErrorToMessage } from '../../../utils/authHelpers';
 import { firstValueFrom } from 'rxjs';
@@ -9,7 +9,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent {
   iconUser = faEnvelope;
 
   errorTranslationKey: string | null = null;
@@ -21,9 +21,6 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private authService: AuthService,
   ) { }
-
-  ngOnInit(): void {
-  }
 
   async requestNewPassword(form: HTMLFormElement) {
     if (!form.reportValidity()) {
@@ -50,5 +47,9 @@ export class ForgotPasswordComponent implements OnInit {
     } finally {
       this.loading = false;
     }
+  }
+
+  get title(): string {
+    return 'Forgot your password';
   }
 }

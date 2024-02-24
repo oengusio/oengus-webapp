@@ -57,7 +57,8 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //
+    this.tmpPronouns = (this.user.pronouns || '').split(',');
+    this.tmpLanguages = (this.user.languagesSpoken || '').split(',');
   }
 
   addNewConnection(): void {

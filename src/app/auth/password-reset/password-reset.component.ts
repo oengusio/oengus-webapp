@@ -59,4 +59,7 @@ export class PasswordResetComponent implements OnInit {
     }
   }
 
+  get title(): string {
+    return 'Reset Password';
+  }
 }
