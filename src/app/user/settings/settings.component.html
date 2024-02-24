@@ -131,7 +131,11 @@
     <div class="field">
       <label for="change-password" class="label">Change password</label>
       <div class="control">
-        <button type="button" class="button is-warning" id="change-password">Reset password</button>
+        <button type="button"
+                (click)="requestNewPassword()"
+                class="button is-warning"
+                [disabled]="pwResetButtonDisabled"
+                id="change-password">Reset password</button>
       </div>
       <p class="help">Clicking this button will send you an email to reset your password, if you did not have a password set previously this will set it.</p>
     </div>

@@ -91,6 +91,13 @@ export class AuthService extends BaseService {
     return this.http.post<{ status: string }>(this.v2Url('password-reset/request'), { email });
   }
 
+  resetPassword(token: String, newPassword: String) {
+    return this.http.post<{ status: string }>(this.v2Url('password-reset'), {
+      token,
+      password: newPassword,
+    });
+  }
+
   initMfaSettings(): Observable<InitMFADto> {
     return this.http.put<InitMFADto>(this.v2Url('mfa/init'), null);
   }

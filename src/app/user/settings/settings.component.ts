@@ -11,6 +11,7 @@ import { PatreonStatusDto, RelationShip } from '../../../model/annoying-patreon-
 import DOMPurify from 'dompurify';
 import { AuthService } from '../../../services/auth.service';
 import { InitMFADto } from '../../../model/auth';
+import { firstValueFrom } from 'rxjs';
 
 interface LangType {
   value: string;
@@ -36,6 +37,7 @@ export class SettingsComponent implements OnInit {
   public deactivateConfirm = false;
   public deleteConfirm = false;
   public deleteUsername: string;
+  pwResetButtonDisabled = false;
 
   constructor(private userService: UserService,
               private authService: AuthService,
@@ -207,6 +209,36 @@ export class SettingsComponent implements OnInit {
         this.mfaSettings = data;
       },
     });
+  }
+
+  async requestNewPassword(): Promise<void> {
+    if (!this.user.emailVerified) {
+      this.translateService.get('auth.emailVerificationRequired').subscribe((res: string) => {
+        alert(res);
+      });
+
+      return;
+    }
+
+    this.loading = true;
+
+    try {
+      const { status } = await firstValueFrom(this.authService.requestPasswordReset(this.user.mail));
+
+      if (status === 'PASSWORD_RESET_SENT') {
+        this.pwResetButtonDisabled = true;
+        this.translateService.get('auth.passwordReset.requested').subscribe((res: string) => {
+          this.showSuccessToast(res);
+        });
+      }
+
+      console.log(status);
+    } catch (e: any) {
+      console.log(e.error);
+      alert(`Something went wrong: ${JSON.stringify(e.error)}`);
+    } finally {
+      this.loading = false;
+    }
   }
 
   handleMfaResult(result: boolean): void {
