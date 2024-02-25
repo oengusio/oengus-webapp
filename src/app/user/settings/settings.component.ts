@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
 import { faPlus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { SocialAccount } from '../../../model/social-account';
@@ -250,7 +250,7 @@ export class SettingsComponent implements OnInit {
     this.mfaLoading = false;
   }
 
-  private async syncService(params, queryParams): Promise<void> {
+  private async syncService(params: Params, queryParams: Params): Promise<void> {
     this.loading = true;
 
     try {
