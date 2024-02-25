@@ -11,7 +11,8 @@ export type ConnectionPlatform =
   'SNAPCHAT' |
   'SPEEDRUNCOM' |
   'TWITCH' |
-  'TWITTER';
+  'TWITTER' |
+  'YOUTUBE';
 
 export class SocialAccount {
   id?: number;
@@ -21,6 +22,7 @@ export class SocialAccount {
 
 export interface ConnectionMeta {
   linkBase?: (fragment: string) => string;
+  usernameFormatter?: (username: string) => string;
   icon: IconDefinition;
   header?: string;
   link?: string;

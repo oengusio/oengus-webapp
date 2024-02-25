@@ -9,4 +9,5 @@ export enum SocialPlatform {
   SPEEDRUNCOM = 'https://speedrun.com/user/',
   TWITCH = 'https://www.twitch.tv/',
   TWITTER = 'https://www.twitter.com/',
+  YOUTUBE = 'https://www.youtube.com/@',
 }
