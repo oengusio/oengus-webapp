@@ -9,7 +9,7 @@ import { parseMastodonUrl } from '../../../../utils/helpers';
   templateUrl: './connection-settings.component.html',
   styleUrls: ['./connection-settings.component.scss'],
 })
-export class ConnectionSettingsComponent implements OnInit {
+export class ConnectionSettingsComponent {
   @Input() public connection: SocialAccount;
   @Input() public discordId: string;
   @Input() public twitchId: string;
@@ -18,13 +18,6 @@ export class ConnectionSettingsComponent implements OnInit {
 
   public faTrash = faTrash;
   public platforms = SocialPlatform;
-
-  constructor() {
-  }
-
-  ngOnInit() {
-    //
-  }
 
   get disabled(): boolean {
     const type = this.connection.platform;
