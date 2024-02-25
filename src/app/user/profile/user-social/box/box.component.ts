@@ -1,6 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ConnectionMeta, ConnectionMetas, SocialAccount } from '../../../../../model/social-account';
-import { faDiscord, faFacebookF, faInstagram, faMastodon, faSnapchatGhost, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import {
+  faDiscord,
+  faFacebookF,
+  faInstagram,
+  faMastodon,
+  faSnapchatGhost,
+  faTwitch,
+  faTwitter,
+  faYoutube,
+} from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faPhone, faStar, faTrophy, faTv } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -8,7 +17,7 @@ import { faEnvelope, faPhone, faStar, faTrophy, faTv } from '@fortawesome/free-s
   templateUrl: './box.component.html',
   styleUrls: ['./box.component.scss']
 })
-export class BoxComponent implements OnInit {
+export class BoxComponent {
   @Input() connection: SocialAccount;
 
   connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
@@ -70,15 +79,22 @@ export class BoxComponent implements OnInit {
       icon: faTwitter,
       header: 'platform.TWITTER',
     },
+    YOUTUBE: {
+      linkBase: fragment => `https://www.youtube.com/@${fragment}`,
+      usernameFormatter: username => `@${username}`,
+      icon: faYoutube,
+      header: 'platform.YOUTUBE',
+    },
 
     _DEFAULT: {
       icon: faStar,
     },
   };
 
-  constructor() { }
+  get usernameFormatted(): string {
+    const connectionMeta = this.connectionMetas[this.connection?.platform] ?? this.connectionMetas._DEFAULT;
 
-  ngOnInit(): void {
+    return connectionMeta?.usernameFormatter?.(this.connection.username) ?? this.connection.username;
   }
 
   get connectionMeta(): ConnectionMeta {
