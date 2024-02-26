@@ -1,0 +1,19 @@
+{
+  "name": "@oengusio/types",
+  "version": "1.0.0",
+  "description": "Javascript API typings for the oengus API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esamarathon/oengus-webapp.git"
+  },
+  "author": "duncte123",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/esamarathon/oengus-webapp/issues"
+  },
+  "homepage": "https://github.com/esamarathon/oengus-webapp#readme"
+}
