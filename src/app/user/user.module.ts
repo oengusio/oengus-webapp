@@ -11,7 +11,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserProfileResolver } from '../resolvers/user-profile-resolver';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConnectionComponent } from './profile/connection/connection.component';
-import { ConnectionSettingsComponent } from './settings/connection-settings/connection-settings.component';
 import { SyncButtonComponent } from './settings/sync-button/sync-button.component';
 import { UserProfileComponent } from './profile/user-profile/user-profile.component';
 import { ElementModule } from '../elements/elements.module';
@@ -22,6 +21,7 @@ import { SubmissionComponent } from './profile/profile-history/submission/submis
 import { ModeratedComponent } from './profile/profile-history/moderated/moderated.component';
 import { AdminControlsComponent } from './profile/admin-controls/admin-controls.component';
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
+import { MfaModalComponent } from './settings/mfa-modal/mfa-modal.component';
 
 const userRoutes: Routes = [
   {
@@ -48,7 +48,6 @@ const userRoutes: Routes = [
     SettingsComponent,
     ProfileComponent,
     ConnectionComponent,
-    ConnectionSettingsComponent,
     SyncButtonComponent,
     UserProfileComponent,
     UserSocialComponent,
@@ -56,7 +55,8 @@ const userRoutes: Routes = [
     ProfileHistoryComponent,
     SubmissionComponent,
     ModeratedComponent,
-    AdminControlsComponent
+    AdminControlsComponent,
+    MfaModalComponent,
   ],
   imports: [
     CommonModule,

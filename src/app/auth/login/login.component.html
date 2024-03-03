@@ -1,1 +1,80 @@
-<p>login works!</p>
+<section class="section container">
+  <h1 class="title">{{ 'login.title' | translate }}</h1>
+
+  <div class="notification is-danger" *ngIf="loginError == 'USERNAME_PASSWORD_INCORRECT'">
+    <button class="delete" (click)="loginError = null"></button>
+    The entered username and password are incorrect.
+  </div>
+
+  <div class="notification is-danger" *ngIf="loginError == 'MFA_INVALID'">
+    <button class="delete" (click)="loginError = null"></button>
+    2FA code is not valid.
+  </div>
+
+  <div class="columns">
+    <div class="column is-three-fifths is-offset-one-fifth">
+      <form action="">
+
+        <fieldset [disabled]="loading">
+          <div class="field">
+            <label class="label">{{ 'user.settings.username.label' | translate }}</label>
+            <div class="control has-icons-left">
+              <input class="input" type="text" placeholder="OengusIO" name="username" [(ngModel)]="loginData.username">
+            <span class="icon is-small is-left">
+              <fa-icon [icon]="iconUser"></fa-icon>
+            </span>
+            </div>
+          </div>
+
+          <app-element-password-input [(password)]="loginData.password"></app-element-password-input>
+
+          <div class="field" *ngIf="mfaNeeded">
+            <label class="label">{{ 'login.2fa.label' | translate }}</label>
+            <div class="control">
+              <input class="input"
+                     type="text"
+                     placeholder="000000"
+                     inputmode="numeric"
+                     pattern="[0-9]*"
+                     name="2fa"
+                     [(ngModel)]="loginData.twoFactorCode" />
+            </div>
+          </div>
+
+          <div class="control">
+            <button type="submit" style="margin-right: 1rem"
+                    [ngClass]="{'is-loading': loading}"
+                    (click)="performLogin()"
+                    class="button is-primary">{{'login.button' | translate}}</button>
+
+            <a [routerLink]="'/forgot-password' | localize">{{ 'login.forgotPass' | translate }}</a>
+          </div>
+        </fieldset>
+
+      </form>
+    </div>
+  </div>
+
+  <hr/>
+  <h2 class="subtitle">
+    {{ 'login.provider.title' | translate }}
+  </h2>
+
+  <div class="buttons is-centered are-large">
+    <a [href]="authService.getDiscordAuthUri()" class="button is-discord">
+      <span class="icon">
+         <fa-icon [icon]="iconDiscord"></fa-icon>
+      </span>
+      <span>{{ 'login.provider.discord' | translate }}</span>
+    </a>
+    <a [href]="authService.getTwitchAuthUrl()" class="button is-twitch">
+      <span class="icon">
+         <fa-icon [icon]="iconTwitch"></fa-icon>
+      </span>
+      <span>{{ 'login.provider.twitch' | translate }}</span>
+    </a>
+    <!--<button class="button is-static">
+      {{ 'login.provider.google' | translate }}
+    </button>-->
+  </div>
+</section>

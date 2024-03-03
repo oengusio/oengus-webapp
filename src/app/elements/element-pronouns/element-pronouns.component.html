@@ -1,0 +1,12 @@
+<label for="pronouns" class="label">{{'user.settings.pronouns.title' | translate}}</label>
+<div class="control">
+  <input id="pronouns"
+         class="input"
+         type="text"
+         name="pronouns"
+         [value]="pronouns"
+         #pronounEl
+         ngModel
+  />
+  <p class="help" [innerHTML]="'user.settings.pronouns.help' | translate"></p>
+</div>

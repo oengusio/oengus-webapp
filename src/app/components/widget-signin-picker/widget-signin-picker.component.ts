@@ -1,10 +1,7 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
-import { UserService } from 'src/services/user.service';
-import { firstValueFrom } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-widget-signin-picker',
@@ -21,18 +18,13 @@ export class WidgetSigninPickerComponent {
   iconTwitch = faTwitch;
   iconLoginNew = faRightToBracket;
 
-  constructor(public userService: UserService, private translate: TranslateService, private router: Router) { }
+  constructor(public authService: AuthService) { }
 
   get dropdownItemClass(): string {
     return /^navbar$/i.test(this.type) ? 'navbar-item' : 'dropdown-item';
   }
 
-  storeCurrentPage(twitter: boolean = false): boolean {
-    /*if (twitter) {
-      const words = await firstValueFrom(this.translate.get('announcements.twitterRemoval'));
-      alert(words);
-    }*/
-
+  storeCurrentPage(): boolean {
     // We store pathname because "403" can be inserted if a user is not logged in
     localStorage.setItem('prev_loc', window.location.pathname);
     return true;

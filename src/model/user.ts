@@ -11,11 +11,13 @@ export class User {
   // stored as comma seperated list in db
   pronouns: string;
   languagesSpoken: string;
+  mfaEnabled: boolean;
+  emailVerified: boolean;
   country: string;
   roles: string[];
   connections: SocialAccount[];
   enabled: boolean;
-  discordId: number;
+  discordId: string;
   twitterId: string;
   twitchId: string;
   patreonId: string;

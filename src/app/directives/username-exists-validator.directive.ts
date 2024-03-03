@@ -18,7 +18,11 @@ export class UsernameExistsValidatorDirective implements AsyncValidator {
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     return this.userService.exists(control.value).pipe(map(errors => {
-      if (errors.exists && this.userService.user && control.value !== this.userService.user.username) {
+      if (errors.exists) {
+        if (this.userService.user && control.value === this.userService.user.username) {
+          return null;
+        }
+
         return {
           exists: true
         };

@@ -23,6 +23,13 @@ import { RouterModule } from '@angular/router';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 import { ElementShareMastodonComponent } from './element-share-mastodon/element-share-mastodon.component';
+import { ElementPronounsComponent } from './element-pronouns/element-pronouns.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ElementLanguagesComponent } from './element-languages/element-languages.component';
+import { ElementCountryComponent } from './element-country/element-country.component';
+import { ElementConnectionsComponent } from './element-connections/element-connections.component';
+import { ConnectionSettingsComponent } from './element-connections/connection-settings/connection-settings.component';
+import { ElementPasswordInputComponent } from './element-password-input/element-password-input.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +51,12 @@ import { ElementShareMastodonComponent } from './element-share-mastodon/element-
     ElementRangeComponent,
     LoadingIndicatorComponent,
     ElementShareMastodonComponent,
+    ElementPronounsComponent,
+    ElementLanguagesComponent,
+    ElementCountryComponent,
+    ElementConnectionsComponent,
+    ConnectionSettingsComponent,
+    ElementPasswordInputComponent,
   ],
   exports: [
     ElementTableComponent,
@@ -64,6 +77,11 @@ import { ElementShareMastodonComponent } from './element-share-mastodon/element-
     ElementRangeComponent,
     LoadingIndicatorComponent,
     ElementShareMastodonComponent,
+    ElementPronounsComponent,
+    ElementLanguagesComponent,
+    ElementCountryComponent,
+    ElementConnectionsComponent,
+    ElementPasswordInputComponent,
   ],
   imports: [
     CommonModule,
@@ -72,7 +90,9 @@ import { ElementShareMastodonComponent } from './element-share-mastodon/element-
     TranslateModule,
     RouterModule,
     LocalizeRouterModule,
-  ]
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class ElementModule {
 }

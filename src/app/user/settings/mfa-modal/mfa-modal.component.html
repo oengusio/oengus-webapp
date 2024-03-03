@@ -1,0 +1,35 @@
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">{{ 'user.settings.mfa.modal.tagline' | translate }}</p>
+    </header>
+    <section class="modal-card-body">
+      <h5 class="title">{{ 'user.settings.mfa.modal.title' | translate }}</h5>
+      <p>{{ 'user.settings.mfa.modal.imageTop' | translate }}</p>
+      <img [src]="mfaSettings.qrCode" alt="QR code for an authenticator app"/>
+      <p>{{ 'user.settings.mfa.modal.manualCode' | translate: { 'code': mfaSettings.secretKey } }}</p>
+      <br />
+      <input class="input"
+             type="number"
+             inputmode="numeric"
+             pattern="[0-9]*"
+             (keydown.enter)="saveMfa()"
+             [(ngModel)]="mfaCode"
+             name="mfaCode" style="margin-bottom: 1rem">
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-warning"
+              (click)="mfaResult.emit(false)"
+              [ngClass]="{ 'is-loading': loading }">
+        {{ 'action.cancel' | translate }}
+      </button>
+      <button class="button is-success"
+              [disabled]="!mfaCode"
+              (click)="saveMfa()"
+              [ngClass]="{ 'is-loading': loading }">
+        {{ 'action.save' | translate }}
+      </button>
+    </footer>
+  </div>
+</div>
