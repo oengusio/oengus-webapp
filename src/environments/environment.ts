@@ -18,7 +18,7 @@ export const environment = {
   // patronApi: 'http://localhost:9000',
   patronApi: 'https://oengus.io/api/patreon',
   twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',
-  twitchClientId: 'lsaqyn1omrou7dq2l12m0l865xyjsh',
+  twitchClientId: 'c3539b9q6x4ba7pomwa9fj1cs2culy',
   // these two get the service name appended to it (eg twitch, twitter, discord)
   loginRedirect: 'http://localhost:4200/login/',
   syncRedirect: 'http://localhost:4200/user/settings/sync/',
