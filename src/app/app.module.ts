@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { OldLoginComponent } from './login/old-login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from '../interceptors';
 import { FormsModule } from '@angular/forms';
@@ -58,6 +57,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { HeaderBarVerifyEmailComponent } from './_layout/header-bar/header-bar-verify-email/header-bar-verify-email.component';
 import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { LoginOauthComponent } from './auth/login-oauth/login-oauth.component';
 
 const appRoutes: Routes = [
   {
@@ -78,7 +78,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'login/:service',
-    component: OldLoginComponent,
+    component: LoginOauthComponent,
     data: { skipRouteLocalization: true },
   },
   {
@@ -125,7 +125,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    OldLoginComponent,
+    LoginOauthComponent,
     HomepageComponent,
     AboutComponent,
     PatronsComponent,
@@ -157,6 +157,7 @@ const appRoutes: Routes = [
     HeaderBarVerifyEmailComponent,
     PasswordResetComponent,
     ForgotPasswordComponent,
+    LoginOauthComponent,
   ],
   imports: [
     BrowserModule,

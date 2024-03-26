@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { Router } from '@angular/router';
 import { firstValueFrom, Observable } from 'rxjs';
 import { BaseService } from './BaseService';
-import { InitMFADto, LoginDetails, LoginResponse } from '../model/auth';
+import { InitMFADto, LoginDetails, LoginResponse, OauthLoginDetails } from '../model/auth';
 import { environment } from '../environments/environment';
 import { SignupDto, SignupResponseDto } from '../model/dto/signup-dto';
 
@@ -69,6 +69,10 @@ export class AuthService extends BaseService {
     return `https://www.patreon.com/oauth2/authorize?response_type=code&client_id=${
       environment.patreonClientId
     }&scope=identity&redirect_uri=${this.getSyncRedirectUri()}patreon`;
+  }
+
+  performOauthLogin(details: OauthLoginDetails): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(this.v2Url('login/service'), details);
   }
 
   performLogin(details: LoginDetails): Observable<LoginResponse> {
