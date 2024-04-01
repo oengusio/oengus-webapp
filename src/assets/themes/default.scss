@@ -1,21 +1,29 @@
 @use 'sass:color' as color;
 
-@import 'bulmaswatch/solar/variables';
+//@import 'bulmaswatch/solar/variables';
 
 // Improve text contrast for accessibility
-$-lightness-change: 36%;
-$text: color.scale($text, $lightness: $-lightness-change);
-$title-color: color.scale($title-color, $lightness: $-lightness-change);
-$subtitle-color: $title-color;
-$code: #ffc8e2;
+//$-lightness-change: 36%;
+//$text: color.scale($text, $lightness: $-lightness-change);
+//$title-color: color.scale($title-color, $lightness: $-lightness-change);
+//$subtitle-color: $title-color;
+//$code: #ffc8e2;
 
 $discordBlurple: #5865F2;
 $twitchPurple: #9146FF;
 $googleWhite: #000000;
+$-lightness-change: 36%;
 
-@import 'bulma';
-@import 'bulmaswatch/solar/overrides';
-@import '@duncte123/bulma-tagsinput/src/sass/index';
+//@forward "bulma/sass";
+
+@use 'bulma/sass' with (
+  $text: color.scale($text, $lightness: $-lightness-change),
+  $title-color: color.scale($title-color, $lightness: $-lightness-change),
+  $subtitle-color: $title-color,
+  $code: #ffc8e2,
+);
+//@import 'bulmaswatch/solar/overrides';
+//@import '@duncte123/bulma-tagsinput/src/sass/index';
 @import './elements';
 
 @import 'bulma-extensions/dist/css/bulma-extensions.min.css';

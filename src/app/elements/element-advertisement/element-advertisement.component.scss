@@ -1,4 +1,6 @@
-@import 'bulmaswatch/solar/variables';
+//@import 'bulmaswatch/solar/variables';
+
+@use 'bulma/sass/utilities/derived-variables' as bulma;
 
 :host {
   width: 100%;
@@ -16,7 +18,7 @@
 
   .patreon-nudge, .empty-space {
     padding: 10px;
-    border: $border 2px solid;
+    border: bulma.$border 2px solid;
     border-radius: 10px;
     position: relative;
 

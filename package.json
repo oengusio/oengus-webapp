@@ -36,7 +36,7 @@
     "@sentry/angular": "^7.52.0",
     "@wizishop/ng-wizi-bulma": "^13.0.0",
     "angular-ng-autocomplete": "2.0.8",
-    "bulma": "^0.9.3",
+    "bulma": "^1.0.0",
     "bulma-extensions": "^6.2.7",
     "bulmaswatch": "^0.8.1",
     "core-js": "^2.5.4",

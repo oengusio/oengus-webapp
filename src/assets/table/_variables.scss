@@ -20,9 +20,9 @@ $colors:
   'dark' $dark-color null,
   'even' $dark-color null,
   'odd' $light-color null,
-  'primary' $primary-color bulma.findColorInvert($primary-color),
-  'info' $info-color bulma.findColorInvert($info-color),
-  'success' $success-color bulma.findColorInvert($success-color),
-  'warning' $warning-color bulma.findColorInvert($warning-color),
-  'danger' $danger-color bulma.findColorInvert($danger-color);
+  'primary' $primary-color bulma.bulmaFindColorInvert($primary-color),
+  'info' $info-color bulma.bulmaFindColorInvert($info-color),
+  'success' $success-color bulma.bulmaFindColorInvert($success-color),
+  'warning' $warning-color bulma.bulmaFindColorInvert($warning-color),
+  'danger' $danger-color bulma.bulmaFindColorInvert($danger-color);
 /* stylelint-enable function-name-case */

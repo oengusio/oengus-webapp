@@ -1,5 +1,5 @@
-@use 'bulmaswatch/solar/variables' as solar;
-@use 'bulma/sass/utilities/initial-variables' as bulma;
+// @use 'bulmaswatch/solar/variables' as solar;
+@use 'bulma/sass/utilities' as bulma;
 
 :host {
   --start-range: 0%;
@@ -18,20 +18,20 @@
   > .selected-range {
     position: absolute;
     border: none;
-    border-radius: solar.$radius;
+    border-radius: bulma.$radius;
     display: block;
     height: 100%;
     left: var(--start-range);
     right: var(--end-range);
-    background-color: solar.$primary;
+    background-color: bulma.$primary;
   }
 
   $colors:
-    'primary' solar.$primary,
-    'info' solar.$info,
-    'success' solar.$green,
-    'warning' solar.$warning,
-    'danger' solar.$red;
+    'primary' bulma.$primary,
+    'info' bulma.$info,
+    'success' bulma.$green,
+    'warning' bulma.$warning,
+    'danger' bulma.$red;
 
   @each $name, $color in $colors {
     &.is-#{$name} > .selected-range {
