@@ -41,6 +41,9 @@ export class LoginComponent {
     this.loading = true;
     this.passwordHidden = true;
 
+    // Force the username to be lowercase :)
+    this.loginData.username = this.loginData.username.toLowerCase();
+
     this.authService.performLogin(this.loginData).subscribe({
       next: (response) => {
         this.loading = false;
