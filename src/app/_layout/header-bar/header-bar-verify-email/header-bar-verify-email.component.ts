@@ -10,6 +10,7 @@ import { AuthService } from '../../../../services/auth.service';
 export class HeaderBarVerifyEmailComponent {
 
   canPressButton = true;
+  loading = false;
 
   constructor(
     private authService: AuthService,
@@ -18,15 +19,18 @@ export class HeaderBarVerifyEmailComponent {
 
   requestNewEmail() {
     this.canPressButton = false;
+    this.loading = true;
     this.authService.requestNewVerificationEmail().subscribe({
       next({ status }) {
         console.log(status);
         alert('Email sent!');
+        this.loading = false;
       },
 
       error(err: any) {
         console.log(err);
         alert('Something went wrong! Please try again later.  ');
+        this.loading = false;
       }
     });
   }

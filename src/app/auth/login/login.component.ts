@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { LoginDetails, LoginResponse, LoginResponseStatus } from '../../../model/auth';
@@ -25,9 +25,6 @@ export class LoginComponent {
   mfaNeeded: boolean = !!localStorage.getItem('alwaysShowMfa');
 
   iconUser = faUser;
-  iconPadlock = faLock;
-  iconEye = faEye;
-  iconEyeSlash = faEyeSlash;
   iconDiscord = faDiscord;
   iconTwitch = faTwitch;
 

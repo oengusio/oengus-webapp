@@ -4,7 +4,12 @@
   </div>
 
   <div class="buttons">
-    <button type="button" class="button is-info" [disabled]="!canPressButton" (click)="requestNewEmail()">
+    <button type="button"
+            class="button is-info"
+            [ngClass]="{'is-loading': loading}"
+            [disabled]="!canPressButton"
+            (click)="requestNewEmail()"
+    >
       {{ 'navbar.email-verification.request-btn' | translate }}
     </button>
   </div>
