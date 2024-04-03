@@ -31,6 +31,8 @@ export class SignUpComponent {
     connections: [],
   };
 
+  errors: { [key: string]: string } = {};
+
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
@@ -44,6 +46,7 @@ export class SignUpComponent {
 
   async submit() {
     this.loading = true;
+    this.errors = {};
     this.data.displayName = this.data.displayName || this.data.username;
     this.data.connections = this.data.connections.filter(it => it.platform && it.username);
 
@@ -54,9 +57,14 @@ export class SignUpComponent {
         this.showNextStep = true;
       }
     } catch (e: any) {
+      const errors: { field: string; defaultMessage: string }[] = e.error.errors || {};
+
+      errors.forEach(({ field, defaultMessage }) => {
+        this.errors[field] = defaultMessage;
+      });
+
       console.log(e);
       this.showNextStep = false;
-      // TODO: show any errors
     } finally {
       this.loading = false;
     }

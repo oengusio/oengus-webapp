@@ -17,7 +17,7 @@
       <label for="displayName" class="label">{{'user.settings.displayName.label' | translate}}</label>
       <div class="control has-icons-left">
         <input class="input"
-               [ngClass]="{'is-danger': displayName.invalid}"
+               [ngClass]="{'is-danger': displayName.invalid || errors.displayName}"
                type="text"
                [(ngModel)]="data.displayName"
                name="displayName"
@@ -32,6 +32,8 @@
           <fa-icon [icon]="iconUser"></fa-icon>
         </span>
       </div>
+      <p class="help is-danger"
+         *ngIf="errors.displayName">{{ errors.displayName }}</p>
       <div *ngIf="displayName.invalid">
         <p class="help is-danger"
            *ngIf="displayName.errors.maxlength">{{'user.settings.displayName.error.max' | translate}}</p>
@@ -49,7 +51,7 @@
       <div class="control has-icons-left">
         <input
           type="text"
-          [ngClass]="{'is-danger': username.invalid}"
+          [ngClass]="{'is-danger': username.invalid || errors.username}"
           id="username"
           name="username"
           class="input"
@@ -65,6 +67,8 @@
           <fa-icon [icon]="iconUser"></fa-icon>
         </span>
       </div>
+      <p class="help is-danger"
+         *ngIf="errors.username">{{ errors.username }}</p>
       <div *ngIf="username.invalid">
         <p class="help is-danger"
            *ngIf="username.errors.minlength">{{'user.settings.username.error.min' | translate}}</p>
@@ -92,7 +96,7 @@
       <label for="email" class="label">{{'user.settings.email.label' | translate}}</label>
       <div class="control has-icons-left">
         <input class="input"
-               [ngClass]="{'is-danger': mail.invalid}"
+               [ngClass]="{'is-danger': mail.invalid || errors.email}"
                type="email" [(ngModel)]="data.email"
                id="email"
                name="mail"
@@ -105,6 +109,8 @@
           <fa-icon [icon]="iconEmail"></fa-icon>
         </span>
       </div>
+      <p class="help is-danger"
+         *ngIf="errors.email">{{ errors.email }}</p>
       <div *ngIf="mail.invalid">
         <p class="help is-danger" *ngIf="mail.errors.email">{{'user.settings.email.error.email' | translate}}</p>
         <p class="help is-danger" *ngIf="mail.errors.required">{{'user.settings.email.error.required' | translate}}</p>
@@ -117,7 +123,7 @@
     <div class="field has-addons">
       <div class="control has-icons-left is-expanded">
         <input class="input"
-               [ngClass]="{'is-danger': pwField.invalid}"
+               [ngClass]="{'is-danger': pwField.invalid || errors.password}"
                [type]="passwordHidden ? 'password' : 'text'"
                name="password"
                required
@@ -142,6 +148,11 @@
         </button>
     </div>
   </div>
+
+    <div class="field"
+         *ngIf="errors.password">
+      <p class="help is-danger">{{ errors.password }}</p>
+    </div>
 
   <div *ngIf="pwField.invalid" class="field">
     <p class="help is-danger"

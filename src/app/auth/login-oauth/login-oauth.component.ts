@@ -83,6 +83,7 @@ export class LoginOauthComponent implements OnInit {
   }
 
   unknownAccountToast() {
+    // TODO: somehow get the default username from the response.
     this.router.navigate(['/register']);
 
     // TODO: translation
