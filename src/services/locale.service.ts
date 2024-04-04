@@ -13,6 +13,7 @@ import localeJa from '@angular/common/locales/ja';
 import localeCy from '@angular/common/locales/cy';
 import localeEs from '@angular/common/locales/es';
 import localePt from '@angular/common/locales/pt';
+import localePtBr from '@angular/common/locales/br';
 import localeEl from '@angular/common/locales/el';
 import localeIt from '@angular/common/locales/it';
 import localeZhHk from '@angular/common/locales/zh-Hant-HK';
@@ -41,7 +42,8 @@ export const availableLocales = {
   'ja': localeJa,
   'ko': localeKo,
   'nl': localeNl,
-  'pt_BR': localePt,
+  'pt-PT': localePt,
+  'pt_BR': localePtBr,
   'ru': localeRu,
   'tr': localeTr,
   'zh_Hant_HK': localeZhHk,
