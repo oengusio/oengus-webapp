@@ -64,6 +64,8 @@ export class SignUpComponent {
         this.errors[field] = defaultMessage;
       });
 
+      window.scrollTo(0, 0);
+
       console.log(e);
       this.showNextStep = false;
     } finally {
