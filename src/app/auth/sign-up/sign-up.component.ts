@@ -47,6 +47,7 @@ export class SignUpComponent {
   async submit() {
     this.loading = true;
     this.errors = {};
+    this.data.username = this.data.username.toLowerCase();
     this.data.displayName = this.data.displayName || this.data.username;
     this.data.connections = this.data.connections.filter(it => it.platform && it.username);
 
