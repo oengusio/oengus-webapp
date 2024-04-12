@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SignupDto } from '../../../model/dto/signup-dto';
 import { faEnvelope, faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../services/auth.service';
+import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 
 @Component({
   selector: 'app-sign-up',
@@ -36,6 +37,7 @@ export class SignUpComponent {
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
+    private toastr: NwbAlertService,
   ) {
     this.route.queryParams.subscribe(params => {
       this.data.username = (params['username'] || '').toLowerCase();
@@ -58,7 +60,14 @@ export class SignUpComponent {
         this.showNextStep = true;
       }
     } catch (e: any) {
-      const errors: { field: string; defaultMessage: string }[] = e.error.errors || {};
+      this.toastr.open({
+        message: 'Something went wrong, please check for validation errors. If the issue persists, please contact support in discord.',
+        duration: 5000,
+        position: 'is-right',
+        color: 'is-error'
+      });
+
+      const errors: { field: string; defaultMessage: string }[] = e.error.errors ?? [];
 
       errors.forEach(({ field, defaultMessage }) => {
         this.errors[field] = defaultMessage;
