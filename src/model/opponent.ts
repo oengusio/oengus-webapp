@@ -13,6 +13,7 @@ export class Opponent {
   availabilities: Availability[];
 
   constructor() {
+    this.id = -1;
     this.users = [];
     this.availabilities = [];
   }

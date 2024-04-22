@@ -173,7 +173,7 @@ export class ScheduleManagementComponent implements OnInit {
             scheduleLine.gameName = game.name;
             scheduleLine.ratio = game.ratio;
             scheduleLine.runners = [{ user: submission.user }];
-            category.opponentDtos.forEach(opponent => scheduleLine.runners.push({ user: opponent.user }));
+            category.opponents.forEach(opponent => scheduleLine.runners.push({ user: opponent.user }));
             scheduleLine.setupTime = this.marathonService.marathon.defaultSetupTime;
             scheduleLine.setupTimeHuman = DurationService.toHuman(this.marathonService.marathon.defaultSetupTime);
             scheduleLine.setupBlock = false;

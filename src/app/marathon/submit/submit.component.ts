@@ -115,8 +115,8 @@ export class SubmitComponent implements OnInit {
         });
       }
     }
-    if (!this.submission.opponentDtos || this.submission.opponentDtos.length === 0) {
-      this.submission.opponentDtos = [];
+    if (!this.submission.opponents || this.submission.opponents.length === 0) {
+      this.submission.opponents = [];
     }
   }
 
@@ -137,6 +137,20 @@ export class SubmitComponent implements OnInit {
     game.id = -1;
     game.console = '';
     game.categories.push(new Category());
+
+    // TODO: remove, for testing only
+
+    // game.name = 'Portal';
+    // game.console = 'PC';
+    // game.ratio = '1:1';
+    // game.emulated = true;
+    // game.description = 'Cool game pls accept';
+    //
+    // game.categories[0].name = 'Any%';
+    // game.categories[0].estimate = 'PT115M';
+    // game.categories[0].estimateHuman = '00:15:00';
+    // game.categories[0].description = 'Very cool';
+    // game.categories[0].video = 'https://www.youtube.com/watch?v=dQw4w9WgXc';
 
     this.submission.games.push(game);
   }
@@ -247,7 +261,7 @@ export class SubmitComponent implements OnInit {
 
   getMultiplayerSubmission() {
     this.categoryService.getFromCode(this.marathonService.marathon.id, this.code).subscribe(response => {
-      this.submission.opponentDtos.push(response);
+      this.submission.opponents.push(response);
     }, error => {
       this.translateService.get('alert.submit.' + error.error).subscribe((res: string) => {
         const alertConfig: NwbAlertConfig = {
@@ -262,7 +276,7 @@ export class SubmitComponent implements OnInit {
   }
 
   removeMultiplayer(index: number) {
-    this.submission.opponentDtos.splice(index, 1);
+    this.submission.opponents.splice(index, 1);
   }
 
   deleteSubmission(marathonId: string, submissionId: number) {

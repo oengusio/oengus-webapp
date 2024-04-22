@@ -15,11 +15,11 @@ export class Category {
   type: string;
   code: string;
   status: string;
-  opponentDtos: Opponent[];
+  opponents: Opponent[];
 
   constructor() {
     this.id = -1;
-    this.opponentDtos = [];
+    this.opponents = [];
     this.type = 'SINGLE';
   }
 }

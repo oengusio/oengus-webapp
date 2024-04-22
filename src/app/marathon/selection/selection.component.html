@@ -132,8 +132,8 @@
                 </td>
                 <td>
                   {{ 'marathon.schedule.type.' + category.type | translate}}
-                  <p *ngIf="category.type !== 'SINGLE' && category.opponentDtos && category.opponentDtos.length > 0">{{'marathon.submit.category.opponent.with' | translate}}
-                    <span *ngFor="let opponent of category.opponentDtos">
+                  <p *ngIf="category.type !== 'SINGLE' && category.opponents && category.opponents.length > 0">{{'marathon.submit.category.opponent.with' | translate}}
+                    <span *ngFor="let opponent of category.opponents">
                       <div class="is-flex">
                         <a (click)="getAvailabilitiesForRunner(opponent.user.id)" style="margin-right: 0.4rem"
                            *ngIf="!availabilitiesSelected.includes(opponent.user.username)">

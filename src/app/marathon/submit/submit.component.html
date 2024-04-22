@@ -103,7 +103,7 @@
     <span class="is-size-6" [innerHTML]="'footer.text' | translate:{'timezone': timezone}"></span>
     <button type="submit" class="button is-primary is-pulled-right" [ngClass]="{'is-loading': loading}"
             [disabled]="form.invalid || submission.availabilities.length === 0 || submission.games.length === 0 &&
-            submission.opponentDtos.length === 0">{{'action.submit' |
+            submission.opponents.length === 0">{{'action.submit' |
       translate}}
     </button>
     <a type="button"
@@ -469,7 +469,7 @@
                           <select [(ngModel)]="category.type" [disabled]="!marathonService.marathon.hasMultiplayer"
                                   name="type-{{i}}-{{j}}">
                             <option value="SINGLE"
-                                    [disabled]="category.opponentDtos && category.opponentDtos.length > 0">
+                                    [disabled]="category.opponents && category.opponents.length > 0">
                               {{'marathon.schedule.type.SINGLE' | translate}}
                             </option>
                             <option value="RACE">{{ 'marathon.schedule.type.RACE' | translate}}</option>
@@ -484,12 +484,12 @@
                             {{'marathon.submit.category.code.help.noCode' | translate}}
                           </p>
                           <p class="help"
-                             *ngIf="category.opponentDtos && category.opponentDtos.length > 0">{{'marathon.submit.category.opponent.with' |
+                             *ngIf="category.opponents && category.opponents.length > 0">{{'marathon.submit.category.opponent.with' |
                             translate}}
-                            <span *ngFor="let opponent of category.opponentDtos; let i = index">
-                        <span *ngIf="i > 0">, </span>
-                          <app-user [user]="opponent.user" [showSocialLinks]="true"></app-user>
-                        </span>
+                            <span *ngFor="let opponent of category.opponents; let i = index">
+                              <span *ngIf="i > 0">, </span>
+                                <app-user [user]="opponent.user" [showSocialLinks]="true"></app-user>
+                            </span>
                           </p>
                           <p class="help" *ngIf="category.code">
                             {{'marathon.submit.category.code.help.withCode' | translate}} <b>{{category.code}}</b></p>
@@ -542,7 +542,7 @@
                 [disabled]="!code">{{'action.join' | translate}}</button>
       </div>
     </div>
-    <table class="table is-striped" *ngIf="submission.opponentDtos && submission.opponentDtos.length">
+    <table class="table is-striped" *ngIf="submission.opponents && submission.opponents.length">
       <thead>
       <tr>
         <th>{{'marathon.submit.table.runners' | translate}}</th>
@@ -553,7 +553,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let opponent of submission.opponentDtos; let i = index">
+      <tr *ngFor="let opponent of submission.opponents; let i = index">
         <td>
           <div *ngFor="let user of opponent.users" class="is-flex">
             <app-user-link [user]="user" [isLink]="true" target="_blank"></app-user-link>
@@ -590,7 +590,7 @@
   <div class="is-clearfix">
     <button type="submit" class="button is-primary is-pulled-right" [ngClass]="{'is-loading': loading}"
             [disabled]="form.invalid || submission.availabilities.length === 0  || submission.games.length === 0 &&
-            submission.opponentDtos.length === 0">{{'action.submit' |
+            submission.opponents.length === 0">{{'action.submit' |
       translate}}
     </button>
     <a type="button"

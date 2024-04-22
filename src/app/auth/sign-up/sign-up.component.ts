@@ -64,7 +64,7 @@ export class SignUpComponent {
         message: 'Something went wrong, please check for validation errors. If the issue persists, please contact support in discord.',
         duration: 5000,
         position: 'is-right',
-        color: 'is-error'
+        color: 'is-danger'
       });
 
       const errors: { field: string; defaultMessage: string }[] = e.error.errors ?? [];

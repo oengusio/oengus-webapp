@@ -11,12 +11,13 @@ export class Submission {
   games: Game[];
   availabilities: Availability[];
   answers: Answer[];
-  opponentDtos: Opponent[];
+  opponents: Opponent[];
 
   constructor() {
+    this.id = -1;
     this.games = [];
     this.availabilities = [];
     this.answers = [];
-    this.opponentDtos = [];
+    this.opponents = [];
   }
 }

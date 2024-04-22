@@ -19,10 +19,10 @@
     ></app-delete-button>
   </div>
   <div class="message-body">
-    <ng-template [ngIf]="category.type !== 'SINGLE' && category.opponentDtos && category.opponentDtos.length > 0">
+    <ng-template [ngIf]="category.type !== 'SINGLE' && category.opponents && category.opponents.length > 0">
       <p>
         {{'marathon.submit.category.opponent.with' | translate}}
-        <span *ngFor="let opponent of category.opponentDtos; let i = index">
+        <span *ngFor="let opponent of category.opponents; let i = index">
           <span *ngIf="i > 0">, </span>
           <app-user-link [user]="opponent.user" [isLink]="true" [showAvatar]="true"></app-user-link>
           <a [href]="opponent.video" target="_blank" aria-label="Video" *ngIf="opponent.video">
