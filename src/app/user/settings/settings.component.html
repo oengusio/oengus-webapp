@@ -144,7 +144,7 @@
     <div class="field">
       <label class="label">{{'user.settings.email.label' | translate}}</label>
       <div class="control">
-        <input class="input" [ngClass]="{'is-danger': mail.invalid}" type="email" [(ngModel)]="user.mail" name="mail"
+        <input class="input" [ngClass]="{'is-danger': mail.invalid}" type="email" [(ngModel)]="user.email" name="mail"
                #mail="ngModel" email required>
       </div>
       <p class="help" [innerHTML]="'user.settings.email.help' | translate"></p>

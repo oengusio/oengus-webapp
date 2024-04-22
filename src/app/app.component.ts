@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
         const user = this.userService.user;
 
         // Is this user activated?
-        if (user && user.mail && !user.enabled) {
+        if (user && user.email && !user.enabled) {
           this.userService.logout(false);
           this.translate.get('alert.user.login.disabledAccount').subscribe((res: string) => {
             const alertConfig: NwbAlertConfig = {
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
         if (user && localStorage.getItem('consent') === 'true') {
           Sentry.setUser({
             id: user.id.toString(),
-            email: user.mail,
+            email: user.email,
             username: user.username,
             connections: user.connections,
           });

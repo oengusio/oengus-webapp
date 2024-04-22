@@ -49,7 +49,7 @@ export class LoginComponent {
           case LoginResponseStatus.LOGIN_SUCCESS:
             this.userService.token = response.token;
             this.userService.me().add(() => {
-              if (this.userService.user.mail) {
+              if (this.userService.user.email) {
                 const item = localStorage.getItem('prev_loc') || '/';
                 localStorage.removeItem('prev_loc');
 

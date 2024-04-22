@@ -36,8 +36,8 @@
     <div class="field">
       <label class="label">{{'user.settings.email.label' | translate}}</label>
       <div class="control">
-        <input class="input" [ngClass]="{'is-danger': mail.invalid}" type="email" [(ngModel)]="user.mail" name="mail"
-		       #mail="ngModel" email required>
+        <input class="input" [ngClass]="{'is-danger': mail.invalid}" type="email" [(ngModel)]="user.email" name="mail"
+               #mail="ngModel" email required>
       </div>
       <div *ngIf="mail.invalid">
         <p class="help is-danger" *ngIf="mail.errors.email">{{'user.settings.email.error.email' | translate}}</p>

@@ -18,6 +18,7 @@ export class Category {
   opponentDtos: Opponent[];
 
   constructor() {
+    this.id = -1;
     this.opponentDtos = [];
     this.type = 'SINGLE';
   }

@@ -7,7 +7,7 @@ export class User {
   id: number;
   username: string;
   displayName: string;
-  mail: string;
+  email: string;
   // stored as comma seperated list in db
   pronouns: string;
   languagesSpoken: string;

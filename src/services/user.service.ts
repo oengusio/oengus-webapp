@@ -86,7 +86,7 @@ export class UserService extends BaseService {
     return this.getMe().subscribe({
       next: (response: User) => {
         this._user = response;
-        if (!this._user.mail) {
+        if (!this._user.email) {
           this.router.navigate(['user/new']);
         }
       },

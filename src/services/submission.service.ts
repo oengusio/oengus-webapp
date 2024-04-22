@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Submission } from '../model/submission';
-import {firstValueFrom, Observable} from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseService } from './BaseService';
 import { Answer } from '../model/answer';
-import {SubmissionPage} from '../model/submission-page';
+import { SubmissionPage } from '../model/submission-page';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,16 @@ export class SubmissionService extends BaseService {
     super(toastr, 'marathons');
   }
 
-  mine(marathonId: string): Observable<Submission> {
-    return this.http.get<Submission>(this.url(`${marathonId}/submissions/me`));
+  async mine(marathonId: string): Promise<Submission> {
+    try {
+      return await firstValueFrom(this.http.get<Submission>(this.url(`${marathonId}/submissions/me`)));
+    } catch (e: any) {
+      if (e.status === 404) {
+        return null;
+      }
+
+      throw e;
+    }
   }
 
   availabilities(marathonId: string): Observable<any> {

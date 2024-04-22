@@ -57,8 +57,12 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tmpPronouns = (this.user.pronouns || '').split(',');
-    this.tmpLanguages = (this.user.languagesSpoken || '').split(',');
+    this.tmpPronouns = this.stringOrList(this.user.pronouns || '');
+    this.tmpLanguages = this.stringOrList(this.user.languagesSpoken || '');
+  }
+
+  private stringOrList(value: string | string[]): string[] {
+    return Array.isArray(value) ? value : (value || '').split(',');
   }
 
   addNewConnection(): void {
@@ -224,7 +228,7 @@ export class SettingsComponent implements OnInit {
     this.loading = true;
 
     try {
-      const { status } = await firstValueFrom(this.authService.requestPasswordReset(this.user.mail));
+      const { status } = await firstValueFrom(this.authService.requestPasswordReset(this.user.email));
 
       if (status === 'PASSWORD_RESET_SENT') {
         this.pwResetButtonDisabled = true;

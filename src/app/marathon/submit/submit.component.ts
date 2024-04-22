@@ -134,8 +134,10 @@ export class SubmitComponent implements OnInit {
 
   addGame() {
     const game = new Game();
+    game.id = -1;
     game.console = '';
     game.categories.push(new Category());
+
     this.submission.games.push(game);
   }
 
@@ -234,7 +236,7 @@ export class SubmitComponent implements OnInit {
   }
 
   refresh() {
-    this.submissionService.mine(this.marathonService.marathon.id).subscribe(response => {
+    this.submissionService.mine(this.marathonService.marathon.id).then(response => {
       this.initSubmission(response);
     });
   }
