@@ -24,6 +24,8 @@ export class ProfileHistoryComponent implements OnInit {
     moderation: false,
   };
 
+  loading = true;
+
   currentQuery: Params = {};
 
   constructor(
@@ -42,16 +44,20 @@ export class ProfileHistoryComponent implements OnInit {
   private fetchNewData(): void {
     if (this.activeTab === this.submissionTab) {
       if (!this.fetched.submission) {
+        this.loading = true;
         this.userService.getSubmissionHistory(this.user.id).subscribe((history) => {
           this.submissionHistory = history.data;
           this.fetched.submission = true;
+          this.loading = false;
         });
       }
     } else if (this.activeTab === this.moderationTab) {
       if (!this.fetched.moderation) {
+        this.loading = true;
         this.userService.getModerationHistory(this.user.id).subscribe((history) => {
           this.moderationHistory = history.data;
           this.fetched.moderation = true;
+          this.loading = false;
         });
       }
     }
