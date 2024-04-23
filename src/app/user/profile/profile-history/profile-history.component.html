@@ -14,6 +14,6 @@
 </div>
 
 <div class="history-view-container">
-  <app-user-profile-submission-history *ngIf="isActive(submissionTab)" [user]="user"></app-user-profile-submission-history>
-  <app-user-profile-moderated-history *ngIf="isActive(moderationTab)" [user]="user"></app-user-profile-moderated-history>
+  <app-user-profile-submission-history *ngIf="isActive(submissionTab)" [submissions]="submissionHistory"></app-user-profile-submission-history>
+  <app-user-profile-moderated-history *ngIf="isActive(moderationTab)" [history]="moderationHistory"></app-user-profile-moderated-history>
 </div>

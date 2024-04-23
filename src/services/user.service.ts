@@ -10,6 +10,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
 import { PatreonStatusDto, RelationShip } from '../model/annoying-patreon-shit';
+import { HistoryMarathon, UserProfileHistory } from '../model/user-profile-history';
+import { DataListDto } from '../model/dto/base-dtos';
 
 
 @Injectable({
@@ -24,16 +26,6 @@ export class UserService extends BaseService {
               toastr: NwbAlertService,
               private translateService: TranslateService) {
     super(toastr, 'users');
-  }
-
-  /**
-   * @deprecated Use auth service instead
-   */
-  login(service: string, code?: string): Observable<any> {
-    return this.http.post(this.url('login'), {
-      service: service,
-      code: code,
-    });
   }
 
   async sync(service: string, code?: string): Promise<any | RelationShip> {
@@ -157,7 +149,15 @@ export class UserService extends BaseService {
   }
 
   getProfile(name: string): Observable<UserProfile> {
-    return this.http.get<UserProfile>(this.url(name));
+    return this.http.get<UserProfile>(this.v2Url(name));
+  }
+
+  getSubmissionHistory(id: number): Observable<DataListDto<UserProfileHistory>> {
+    return this.http.get<DataListDto<UserProfileHistory>>(this.v2Url(`${id}/submission-history`));
+  }
+
+  getModerationHistory(id: number): Observable<DataListDto<HistoryMarathon>> {
+    return this.http.get<DataListDto<HistoryMarathon>>(this.v2Url(`${id}/moderation-history`));
   }
 
   isBanned(): boolean {

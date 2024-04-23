@@ -1,24 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UserProfile } from '../../../../../model/user-profile';
+import { Component, Input } from '@angular/core';
 import { getRowParity } from '../../../../../assets/table';
+import { HistoryMarathon } from '../../../../../model/user-profile-history';
 
 @Component({
   selector: 'app-user-profile-moderated-history',
   templateUrl: './moderated.component.html',
   styleUrls: ['./moderated.component.scss']
 })
-export class ModeratedComponent implements OnInit {
-  @Input() user: UserProfile;
+export class ModeratedComponent {
+  @Input() history: HistoryMarathon[];
 
   getRowParity = getRowParity;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
   get moderatedMarathons() {
-    return [ ...this.user.moderatedMarathons ].reverse();
+    return [ ...this.history ].reverse();
   }
 
 }

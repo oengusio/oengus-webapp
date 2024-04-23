@@ -1,18 +1,16 @@
-import { Game } from './game';
-import { Opponent } from './opponent';
 import { RunStatus } from './category';
 
-export class UserProfileHistory {
-
+export class HistoryMarathon {
   marathonId: string;
   marathonName: string;
   marathonStartDate: Date;
+}
+
+export class UserProfileHistory extends HistoryMarathon {
   visible: boolean;
   games: HistoryGame[];
-  opponentDtos: Opponent[];
-  status: string;
-
 }
+
 export interface HistoryGame {
   categories: Array<HistoryGameCategory>;
   console: string;

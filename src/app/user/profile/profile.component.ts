@@ -9,7 +9,7 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-  public user: UserProfile;
+  public user: UserProfile | null = null;
 
   public statusFilter = [
     {
@@ -51,7 +51,7 @@ export class ProfileComponent {
     });
   }
 
-  updateUser(user): void {
+  updateUser(user: UserProfile): void {
     this.user = user;
   }
 

@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UserProfile } from '../../../../../model/user-profile';
+import { Component, Input } from '@angular/core';
 import { HistoryGame, HistoryGameCategory, UserProfileHistory } from '../../../../../model/user-profile-history';
 import { RunStatus } from '../../../../../model/category';
 
@@ -8,17 +7,10 @@ import { RunStatus } from '../../../../../model/category';
   templateUrl: './submission.component.html',
   styleUrls: ['./submission.component.scss']
 })
-export class SubmissionComponent implements OnInit {
-  @Input() user: UserProfile;
+export class SubmissionComponent {
+  @Input() submissions: UserProfileHistory[];
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  get submissions(): UserProfileHistory[] {
-    return this.user.history;
-  }
 
   getSpan(element: UserProfileHistory|HistoryGame|HistoryGameCategory): string {
     return `span ${this.getCategories(element).length}`;
@@ -27,6 +19,7 @@ export class SubmissionComponent implements OnInit {
   getCellColor(element: UserProfileHistory|HistoryGame|HistoryGameCategory) {
     const status = this.getCategories(element)
       .reduce((currentStatus, category) => Math.min(currentStatus, RunStatus[category.status]), Infinity);
+
     return {
       'is-info': status === RunStatus.VALIDATED,
       'is-primary': status === RunStatus.BONUS,
