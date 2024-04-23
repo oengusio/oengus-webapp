@@ -61,7 +61,6 @@ import { DetailsComponent } from './home/details/details.component';
 import { DescriptionComponent } from './home/description/description.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
-import { DeactivateRouteGuard } from '../guards/deactivate-route-guard.service';
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 
 const marathonRoutes: Routes = [
@@ -79,7 +78,6 @@ const marathonRoutes: Routes = [
       {
         path: '',
         component: HomeComponent,
-        canActivate: [DeactivateRouteGuard]
       },
       {
         path: 'settings',
@@ -120,7 +118,6 @@ const marathonRoutes: Routes = [
         resolve: {
           schedule: ScheduleResolver
         },
-        canActivate: [DeactivateRouteGuard]
       },
       {
         path: 'schedule/manage',
