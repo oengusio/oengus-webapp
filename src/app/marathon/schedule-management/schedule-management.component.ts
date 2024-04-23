@@ -201,7 +201,6 @@ export class ScheduleManagementComponent implements OnInit {
       line.useSetupBlockText = !!line.setupBlockText;
       line.setupTimeHuman = DurationService.toHuman(line.setupTime);
       line.estimateHuman = DurationService.toHuman(line.estimate);
-      line.customData = line.customDataDTO;
       // Sorry TS lords
       // @ts-ignore
       line.runners = line.runners.map(runner => runner.id > 0 ? { user: runner } : { runnerName: runner.username });
