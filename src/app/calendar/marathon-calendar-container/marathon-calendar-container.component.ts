@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Marathon } from '../../../model/marathon';
 import { ActivatedRoute } from '@angular/router';
 import { MarathonService } from '../../../services/marathon.service';
+import { parseInt } from 'lodash';
 
 @Component({
   selector: 'app-marathon-calendar-container',
@@ -18,14 +19,19 @@ export class MarathonCalendarContainerComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private marathonService: MarathonService) {
+  }
+
+  ngOnInit(): void {
     this.route.params.subscribe(({ year, month }) => {
       const cur = new Date();
       this.year = parseInt(year ?? cur.getFullYear(), 10);
       this.month = parseInt(month ?? cur.getMonth() + 1, 10);
+
+      this.fetchCalendar();
     });
   }
 
-  ngOnInit(): void {
+  fetchCalendar(): void {
     this.marathonService.findForMonth(this.calendarParams.start, this.calendarParams.end).subscribe(marathons => {
       this.marathons = marathons;
       this.loading = false;

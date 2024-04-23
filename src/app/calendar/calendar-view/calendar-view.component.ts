@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Marathon } from 'src/model/marathon';
 
 interface CalendarType {
@@ -12,7 +12,7 @@ interface CalendarType {
   templateUrl: './calendar-view.component.html',
   styleUrls: ['./calendar-view.component.scss']
 })
-export class CalendarViewComponent implements OnInit {
+export class CalendarViewComponent implements OnInit, OnChanges {
   @Input() year: number;
   @Input() month: number;
   @Input() marathons: Marathon[] = [];
@@ -22,7 +22,13 @@ export class CalendarViewComponent implements OnInit {
   realDaylyCallendars: CalendarType[];
 
   ngOnInit(): void {
-    this.realDaylyCallendars = this.dailyCalendars;
+    this.realDaylyCallendars = this.generateDailyCalendars(this.marathons);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.marathons) {
+      this.realDaylyCallendars = this.generateDailyCalendars(changes.marathons.currentValue);
+    }
   }
 
   isToday(firstDay: string|Date, lastDay?: string|Date): { 'is-primary': boolean, 'is-info': boolean } {
@@ -49,19 +55,19 @@ export class CalendarViewComponent implements OnInit {
     };
   }
 
-  getMarathons(day: number): Array<Marathon>|undefined {
+  getMarathons(day: number, marathonList: Marathon[]): Array<Marathon>|undefined {
     const dayStart = new Date(this.year, this.month - 1, day);
     const dayEnd = new Date(this.year, this.month - 1, day + 1);
-    return this.marathons.filter(marathon => new Date(marathon.endDate) > dayStart && new Date(marathon.startDate) < dayEnd);
+    return marathonList.filter(marathon => new Date(marathon.endDate) > dayStart && new Date(marathon.startDate) < dayEnd);
   }
 
-  get dailyCalendars(): CalendarType[] {
+  private generateDailyCalendars(marathonList: Marathon[]): CalendarType[] {
     const dailyCalendars: CalendarType[] = [];
     let startNoMarathonRun: Date|undefined;
     const days = new Date(this.year, this.month, 0).getDate();
 
     for (let day = 1; day <= days; day++) {
-      const marathons = this.getMarathons(day);
+      const marathons = this.getMarathons(day, marathonList);
 
       if (marathons?.length) {
         if (startNoMarathonRun) {
