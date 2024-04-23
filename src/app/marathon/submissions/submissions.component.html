@@ -102,7 +102,7 @@
             </td>
           </ng-template>
           <td>
-            {{questions[answer.questionId].label}}
+            {{ questions.get(answer.questionId)?.label ?? 'MissingNo' }}
           </td>
           <td>
             <p class="content">

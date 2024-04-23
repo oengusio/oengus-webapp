@@ -33,9 +33,9 @@
         <li [ngClass]="{'is-active':active==='submissions'}">
           <a (click)="active = 'submissions'">{{'marathon.settings.tabs.submissions' | translate}}</a>
         </li>
-        <li [ngClass]="{'is-active':active==='incentives'}">
+        <!--<li [ngClass]="{'is-active':active==='incentives'}">
           <a (click)="active = 'incentives'">{{'marathon.settings.tabs.incentives' | translate}}</a>
-        </li>
+        </li>-->
         <li [ngClass]="{'is-active':active==='dangerZone'}" *ngIf="!marathonService.isArchived() ||
         marathonService.isAdmin(userService.user)">
           <a (click)="active = 'dangerZone'">{{'marathon.settings.tabs.dangerZone' | translate}}</a>

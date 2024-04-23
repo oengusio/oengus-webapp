@@ -18,6 +18,7 @@ import { UserService } from '../../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
 import gameConsoles from '../../../assets/consoles.json';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-submit',
@@ -98,6 +99,7 @@ export class SubmitComponent implements OnInit {
                 found = true;
               }
             });
+
             if (!found) {
               const answer = new Answer();
               answer.question = question;
@@ -234,7 +236,8 @@ export class SubmitComponent implements OnInit {
         category.estimate = moment.duration(category.estimateHuman).toISOString();
       });
     });
-    if (!this.submission.id) {
+
+    if (this.submission.id < 1) {
       this.submissionService.create(this.marathonService.marathon.id, this.submission).add(() => {
         this.refresh();
         this.loading = false;
@@ -283,7 +286,7 @@ export class SubmitComponent implements OnInit {
     this.submissionService.delete(marathonId, submissionId, () => this.router.navigate(['/marathon', this.marathonService.marathon.id]));
   }
 
-  checkUserInDiscord() {
+  async checkUserInDiscord() {
     if (!this.userHasDiscord) {
       return;
     }
@@ -295,35 +298,34 @@ export class SubmitComponent implements OnInit {
     const marathonId = this.marathonService.marathon.id;
     const discordUserId = this.userService.user.discordId;
 
-    // why is this not in the marathon service?
-    this.http.get<string>(
-      `${environment.api}/v1/marathons/${marathonId}/discord/in-guild/${discordUserId}`,
-    )
-      .subscribe(
-        () => {
-          this.showDiscordRequirement = false;
+    // TODO: why is this not in the marathon service?
+    try {
+      const resp = await firstValueFrom(this.http.get<string>(
+        `${environment.api}/v1/marathons/${marathonId}/discord/in-guild/${discordUserId}`,
+      ));
 
-          this.translateService.get('alert.submit.DISCORD_VERIFIED').subscribe((res: string) => {
-            const alertConfig: NwbAlertConfig = {
-              message: res,
-              duration: 3000,
-              position: 'is-right',
-              color: 'is-success',
-            };
-            this.toastr.open(alertConfig);
-          });
-        },
-        error => {
-          console.log(error);
+      this.showDiscordRequirement = false;
 
-          if (error.status === 404) { // user not in guild
-            this.discordErrors.userNotInGuild = true;
-          } else if (error.status === 403) { // bot not in guild
-            this.discordErrors.botNotInGuild = true;
-          }
-        },
-      )
-      .add(() => this.isDiscordCheckLoading = false);
+      this.translateService.get('alert.submit.DISCORD_VERIFIED').subscribe((res: string) => {
+        const alertConfig: NwbAlertConfig = {
+          message: res,
+          duration: 3000,
+          position: 'is-right',
+          color: 'is-success',
+        };
+        this.toastr.open(alertConfig);
+      });
+    } catch (error: any) {
+      console.log(error);
+
+      if (error.status === 404) { // user not in guild
+        this.discordErrors.userNotInGuild = true;
+      } else if (error.status === 403) { // bot not in guild
+        this.discordErrors.botNotInGuild = true;
+      }
+    } finally {
+      this.isDiscordCheckLoading = false;
+    }
   }
 
   get discordRequired(): boolean {

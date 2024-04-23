@@ -70,6 +70,16 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     this.answers = new Map<string, Answer[]>();
     this.questions = new Map<number, Question>();
 
+    // Order of operations, questions go before answers.
+    this.marathonService.marathon.questions.forEach((question) => {
+      if (question.fieldType === 'FREETEXT') {
+        return;
+      }
+
+      this.questions.set(question.id, question);
+    });
+
+    // TODO: lazy load answers!
     // map all the answers to the username
     const answers = this.route.snapshot.data.answers as Answer[];
 
@@ -80,15 +90,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
       this.answers.get(answer.username).push(answer);
     }
-
-    // Yucky, should not be done when questions are not needed
-    this.marathonService.marathon.questions.forEach((question) => {
-      if (question.fieldType === 'FREETEXT') {
-        return;
-      }
-
-      this.questions[question.id] = question;
-    });
   }
 
   ngOnInit() {

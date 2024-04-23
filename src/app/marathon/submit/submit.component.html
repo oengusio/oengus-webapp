@@ -94,10 +94,13 @@
     </div>
   </div>
 </nav>
+
 <hr/>
+
 <div class="notification is-info" *ngIf="!marathonService.marathon.submitsOpen">
   {{'marathon.submit.submitsClosed' | translate}}
 </div>
+
 <form ngForm="submitForm" (ngSubmit)="submit()" #form="ngForm">
   <h3 class="title is-3">{{'marathon.submit.availabilities.label' | translate}} <br/>
     <span class="is-size-6" [innerHTML]="'footer.text' | translate:{'timezone': timezone}"></span>
@@ -109,7 +112,7 @@
     <a type="button"
        class="button is-pulled-right"
        style="background-color: #00aced; border-color:transparent; color:#fff; margin-right: 1rem"
-       *ngIf="!!submission.id && !marathonService.marathon.isPrivate"
+       *ngIf="submission.id > 0 && !marathonService.marathon.isPrivate"
        target="_blank"
        href="https://twitter.com/intent/tweet?text={{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
      'marathon': marathonService.marathon.name} }}&via=OengusIO&lang={{localStorage.getItem('language')}}&url=https://oengus.fun/{{marathonService.marathon.id}}">
@@ -117,7 +120,7 @@
       {{'action.sendTweet' | translate}}
     </a>
     <app-element-share-mastodon class="is-pulled-right"
-                                *ngIf="!!submission.id && !marathonService.marathon.isPrivate"
+                                *ngIf="submission.id > 0 && !marathonService.marathon.isPrivate"
                                 text="{{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
      'marathon': marathonService.marathon.name} }}%0Ahttps://oengus.fun/{{marathonService.marathon.id}}"></app-element-share-mastodon>
   </h3>
@@ -596,7 +599,7 @@
     <a type="button"
        class="button is-pulled-right"
        style="background-color: #00aced; border-color:transparent; color:#fff; margin-right: 1rem"
-       *ngIf="!!submission.id && !marathonService.marathon.isPrivate"
+       *ngIf="submission.id > 0 && !marathonService.marathon.isPrivate"
        target="_blank"
        href="https://twitter.com/intent/tweet?text={{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
      'marathon': marathonService.marathon.name} }}&via=OengusIO&lang={{localStorage.getItem('language')}}&url=https://oengus.fun/{{marathonService.marathon.id}}">
@@ -604,11 +607,11 @@
       {{'action.sendTweet' | translate}}
     </a>
     <app-element-share-mastodon class="is-pulled-right"
-                                *ngIf="!!submission.id && !marathonService.marathon.isPrivate"
+                                *ngIf="submission.id > 0 && !marathonService.marathon.isPrivate"
                                 text="{{'marathon.submit.tweet.submit' | translate:{'games':getGames(),
      'marathon': marathonService.marathon.name} }}%0Ahttps://oengus.fun/{{marathonService.marathon.id}}"></app-element-share-mastodon>
   </div>
-  <div *ngIf="!!submission.id && !marathonService.marathon.scheduleDone" class="is-clearfix">
+  <div *ngIf="submission.id > 0 && !marathonService.marathon.scheduleDone" class="is-clearfix">
     <hr>
     <h1 class="title">{{ 'marathon.submit.dangerZone' | translate}}</h1>
     <div class="field">
