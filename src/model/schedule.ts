@@ -19,9 +19,7 @@ export interface ScheduleCreateRequest {
   slug: string;
 }
 
-export interface ScheduleInfo {
+export interface ScheduleInfo extends ScheduleCreateRequest {
   id: number;
   marathonId: string;
-  name: string;
-  slug: string;
 }

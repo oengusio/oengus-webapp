@@ -5,7 +5,7 @@
 <!-- TODO: add a back button -->
 
 <div>
-  <form #infoForm="ngForm">
+  <form (ngSubmit)="submit()" #infoForm="ngForm">
     <div class="field">
       <label for="sched_name" class="label">
         {{ 'marathon.schedule.management.settings.name.label' | translate }}

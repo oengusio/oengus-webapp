@@ -41,6 +41,10 @@ export class ScheduleService extends BaseService {
     return this.http.post<ScheduleInfo>(this.v2Url(`${marathonId}/schedules`), data);
   }
 
+  updateSchedule(marathonId: string, scheduleId: number, data: ScheduleCreateRequest): Observable<ScheduleInfo> {
+    return this.http.patch<ScheduleInfo>(this.v2Url(`${marathonId}/schedules/${scheduleId}`), data);
+  }
+
   /////////////////
   // V1 stuff below
 
