@@ -1,5 +1,5 @@
 <h1 class="title">
-  Create a new schedule
+  {{ 'marathon.schedule.management.settings.createTitle' | translate }}
 </h1>
 
 <!-- TODO: add a back button?? -->
@@ -7,7 +7,7 @@
 <form (ngSubmit)="submit()" #form="ngForm">
   <div class="field">
     <label for="sched_name" class="label">
-      Schedule name
+      {{ 'marathon.schedule.management.settings.name.label' | translate }}
     </label>
     <div class="control">
       <input class="input"
@@ -28,21 +28,23 @@
 
     <div *ngIf="name.invalid">
       <p class="help is-danger" *ngIf="name.errors.required">
-        A schedule name is required
+        {{ 'marathon.schedule.management.settings.name.error.required' | translate }}
       </p>
       <p class="help is-danger" *ngIf="name.errors.minlength">
-        Schedule name is too long
+        {{ 'marathon.schedule.management.settings.name.error.min' | translate }}
       </p>
       <p class="help is-danger" *ngIf="name.errors.maxlength">
-        Schedule name is too short
+        {{ 'marathon.schedule.management.settings.name.error.max' | translate }}
       </p>
       <p class="help is-danger" *ngIf="name.errors.pattern">
-        Schedule name does not contain valid patterns
+        {{ 'marathon.schedule.management.settings.name.error.pattern' | translate }}
       </p>
     </div>
   </div>
 
-  <label class="label">Slug</label>
+  <label class="label">
+    {{ 'marathon.schedule.management.settings.slug.label' | translate }}
+  </label>
   <div class="field">
     <div class="field has-addons is-marginless">
       <div class="control">
@@ -51,7 +53,6 @@
         </a>
       </div>
       <div class="control is-expanded">
-        <!-- TODO: validate that the slug is uniqe for the event -->
         <input class="input"
                [ngClass]="{'is-danger': slug.invalid}"
                type="text"
@@ -69,19 +70,19 @@
     <p class="help is-pulled-right">{{data.slug?.length}}/10</p>
     <div *ngIf="slug.invalid">
       <p class="help is-danger" *ngIf="slug.errors.required">
-        A slug is required
+        {{ 'marathon.schedule.management.settings.slug.error.required' | translate }}
       </p>
       <p class="help is-danger" *ngIf="slug.errors.minlength">
-        A slug must be at least 1 character
+        {{ 'marathon.schedule.management.settings.slug.error.min' | translate }}
       </p>
       <p class="help is-danger" *ngIf="slug.errors.maxlength">
-        How do you need more than 255 characters?!
+        {{ 'marathon.schedule.management.settings.slug.error.max' | translate }}
       </p>
       <p class="help is-danger" *ngIf="slug.errors.exists">
-        You have already used this slug within this marathon
+        {{ 'marathon.schedule.management.settings.slug.error.exists' | translate }}
       </p>
       <p class="help is-danger" *ngIf="slug.errors.pattern">
-        The slug is not valid
+        {{ 'marathon.schedule.management.settings.slug.error.pattern' | translate }}
       </p>
     </div>
   </div>
@@ -104,7 +105,7 @@
               [ngClass]="{'is-loading': loading}"
               type="submit"
               [disabled]="form.invalid">
-        {{'action.submit' | translate}}
+        {{'action.create' | translate}}
       </button>
     </div>
   </div>

@@ -23,6 +23,14 @@ export class ScheduleService extends BaseService {
     return this.http.get<DataListDto<ScheduleInfo>>(this.v2Url(`${marathonId}/schedules`));
   }
 
+  getInfoById(marathonId: string, scheduleId: number): Observable<ScheduleInfo> {
+    return this.http.get<ScheduleInfo>(this.v2Url(`${marathonId}/schedules/${scheduleId}`));
+  }
+
+  deleteById(marathonId: string, scheduleId: number): Observable<void> {
+    return this.http.delete<void>(this.v2Url(`${marathonId}/schedules/${scheduleId}`));
+  }
+
   isSlugInUse(marathonId: string, slug: string): Observable<BooleanStatusDto> {
     return this.http.get<BooleanStatusDto>(this.v2Url(
       `${marathonId}/schedules/slug-exists?slug=${slug}`

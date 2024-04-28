@@ -2,8 +2,9 @@ import { Marathon } from './marathon';
 import { ScheduleLine } from './schedule-line';
 
 export class Schedule {
-
   id: number;
+  name: string;
+  slug: string;
   marathon?: Marathon;
   lines: ScheduleLine[];
 

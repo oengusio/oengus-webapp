@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ScheduleCreateRequest } from '../../../../model/schedule';
 import { firstValueFrom } from 'rxjs';
 import { ScheduleService } from '../../../../services/schedule.service';
@@ -24,6 +24,7 @@ export class CreateComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private scheduleService: ScheduleService,
   ) {
     this.marathonId = this.route.snapshot.parent.paramMap.get('id');
@@ -40,7 +41,10 @@ export class CreateComponent {
         )
       );
 
-      // TODO: redirect to schedule settings
+      // TODO: toast with success message
+      this.router.navigate([
+        'marathon', this.marathonId, 'schedule-management', createdSchedule.id
+      ]);
     } catch (e: any) {
       console.log(e);
     } finally {

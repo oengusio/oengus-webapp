@@ -1,6 +1,8 @@
 <div>
-  <p>
-    Manage existing or <a [routerLink]="'../new' | localize" class="button is-success">+ Create new schedule</a>
+  <p appTranslatedContent="marathon.schedule.management.overview.title">
+    <a [routerLink]="'../new' | localize"
+       *appTranslatedElement="'create-new'"
+       class="button is-success">{{ 'marathon.schedule.management.overview.create-new' | translate }}</a>
   </p>
 </div>
 
@@ -10,15 +12,15 @@
   [ngIf]="schedules.length"
   [ngIfElse]="noSchedules"
 >
-  <h2 class="title">Your schedules:</h2>
+  <h2 class="title">{{ 'marathon.schedule.management.overview.scheduleHeader' | translate }}</h2>
   <ul *ngFor="let schedule of schedules">
     <li>
       {{ schedule.name }} -
-      <a class="button is-info">Edit</a>
-      <button type="button" class="button is-danger">Delete</button>
+      <a class="button is-info" [routerLink]="'../' + schedule.id | localize" >{{ 'action.edit' | translate }}</a>
+      <button (click)="deleteSchedule(schedule)" type="button" class="button is-danger">{{ 'action.delete' | translate }}</button>
     </li>
   </ul>
 </ng-template>
 <ng-template #noSchedules>
-  <p>No schedules found</p>
+  <p>{{ 'marathon.schedule.management.overview.nothingFound' | translate }}</p>
 </ng-template>

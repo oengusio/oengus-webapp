@@ -65,6 +65,8 @@ import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 import { OverviewComponent as ScheduleManagementOverViewComponent } from './schedule-management/overview/overview.component';
 import { ScheduleOverviewResolver } from '../resolvers/schedule-overview-resolver';
 import { CreateComponent as ScheduleManagementCreateComponent } from './schedule-management/create/create.component';
+import { EditComponent as ScheduleManagementEditComponent } from './schedule-management/edit/edit.component';
+import { ScheduleByIdResolver } from '../resolvers/schedule-by-id-resolver';
 
 const marathonRoutes: Routes = [
   {
@@ -141,6 +143,17 @@ const marathonRoutes: Routes = [
         },
         data: {
           //
+        },
+        canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
+      },
+      {
+        path: 'schedule-management/:scheduleId',
+        component: ScheduleManagementEditComponent,
+        resolve: {
+          scheduleInfo: ScheduleByIdResolver,
+        },
+        data: {
+          withCustomData: true,
         },
         canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
       },
@@ -247,6 +260,7 @@ const marathonRoutes: Routes = [
     DescriptionComponent,
     ScheduleManagementOverViewComponent,
     ScheduleManagementCreateComponent,
+    ScheduleManagementEditComponent,
   ],
   imports: [
     CommonModule,
@@ -281,6 +295,7 @@ const marathonRoutes: Routes = [
     MarathonResolver,
     SubmissionResolver,
     ScheduleResolver,
+    ScheduleByIdResolver,
     SelectionResolver,
     IncentivesResolver,
     AvailabilitiesResolver,

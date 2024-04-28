@@ -19,11 +19,19 @@
     </a>
   </li>
   <li [title]="'marathon.menu.manageSchedule' | translate">
-<!--    <a [routerLink]="'/marathon/' + marathonId + '/schedule-management/overview' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">-->
     <a [routerLink]="'/marathon/' + marathonId + '/schedule/manage' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon [icon]="iconManageSchedule" class="menu-item-icon"></fa-icon>
       <span class="menu-item-label">
         {{ 'marathon.menu.manageSchedule' | translate }}
+      </span>
+    </a>
+  </li>
+
+  <li [title]="'marathon.menu.manageSchedule' | translate">
+      <a [routerLink]="'/marathon/' + marathonId + '/schedule-management/overview' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+      <fa-icon [icon]="iconManageSchedule" class="menu-item-icon"></fa-icon>
+      <span class="menu-item-label">
+        (NEW!) {{ 'marathon.menu.manageSchedules' | translate }}
       </span>
     </a>
   </li>
