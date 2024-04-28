@@ -1,3 +1,7 @@
-export class DataListDto<T> {
-  public data: T[];
+export interface DataListDto<T> {
+  data: T[];
+}
+
+export interface BooleanStatusDto {
+  status: boolean;
 }

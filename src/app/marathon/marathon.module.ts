@@ -62,6 +62,9 @@ import { DescriptionComponent } from './home/description/description.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
+import { OverviewComponent as ScheduleManagementOverViewComponent } from './schedule-management/overview/overview.component';
+import { ScheduleOverviewResolver } from '../resolvers/schedule-overview-resolver';
+import { CreateComponent as ScheduleManagementCreateComponent } from './schedule-management/create/create.component';
 
 const marathonRoutes: Routes = [
   {
@@ -118,6 +121,28 @@ const marathonRoutes: Routes = [
         resolve: {
           schedule: ScheduleResolver
         },
+      },
+      {
+        path: 'schedule-management/overview',
+        component: ScheduleManagementOverViewComponent,
+        resolve: {
+          schedules: ScheduleOverviewResolver,
+        },
+        data: {
+          //
+        },
+        canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
+      },
+      {
+        path: 'schedule-management/new',
+        component: ScheduleManagementCreateComponent,
+        resolve: {
+          //
+        },
+        data: {
+          //
+        },
+        canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
       },
       {
         path: 'schedule/manage',
@@ -220,6 +245,8 @@ const marathonRoutes: Routes = [
     SidebarModeratorsComponent,
     DetailsComponent,
     DescriptionComponent,
+    ScheduleManagementOverViewComponent,
+    ScheduleManagementCreateComponent,
   ],
   imports: [
     CommonModule,
@@ -257,6 +284,7 @@ const marathonRoutes: Routes = [
     SelectionResolver,
     IncentivesResolver,
     AvailabilitiesResolver,
+    ScheduleOverviewResolver,
     DonationsResolver,
     DonationsStatsResolver,
     AnswersResolver,

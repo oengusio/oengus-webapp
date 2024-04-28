@@ -8,6 +8,8 @@ export const environment = {
   production: false,
   // is this a sandbox build
   sandbox: false,
+  // shortUrl: 'https://oengus.fun',
+  shortUrl: 'https://short.oengus.dev',
   // this is the base of the website where the users will land
   baseSite: 'http://localhost:4200',
   // the api that the front-end talks to

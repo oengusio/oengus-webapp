@@ -52,7 +52,7 @@
       <div class="field">
         <label class="label">{{ 'marathon.settings.shortname.shorturl' | translate}}</label>
         <div class="control">
-          <input class="input" type="text" [value]="'https://oengus.fun/' + marathon.id" readonly>
+          <input class="input" type="text" [value]="env.shortUrl + '/' + marathon.id" readonly>
         </div>
         <p class="help">{{ 'marathon.new.shortDomain' | translate}}</p>
       </div>

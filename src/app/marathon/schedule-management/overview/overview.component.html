@@ -1,0 +1,24 @@
+<div>
+  <p>
+    Manage existing or <a [routerLink]="'../new' | localize" class="button is-success">+ Create new schedule</a>
+  </p>
+</div>
+
+<hr>
+
+<ng-template
+  [ngIf]="schedules.length"
+  [ngIfElse]="noSchedules"
+>
+  <h2 class="title">Your schedules:</h2>
+  <ul *ngFor="let schedule of schedules">
+    <li>
+      {{ schedule.name }} -
+      <a class="button is-info">Edit</a>
+      <button type="button" class="button is-danger">Delete</button>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #noSchedules>
+  <p>No schedules found</p>
+</ng-template>

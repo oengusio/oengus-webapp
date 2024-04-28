@@ -1,0 +1,112 @@
+<h1 class="title">
+  Create a new schedule
+</h1>
+
+<!-- TODO: add a back button?? -->
+
+<form (ngSubmit)="submit()" #form="ngForm">
+  <div class="field">
+    <label for="sched_name" class="label">
+      Schedule name
+    </label>
+    <div class="control">
+      <input class="input"
+             [ngClass]="{'is-danger': name.invalid}"
+             [(ngModel)]="data.name"
+             type="text"
+             name="name"
+             id="sched_name"
+             placeholder="My Schedule"
+             maxlength="50"
+             minlength="1"
+             pattern="^[a-zA-Z0-9_\- ]{1,50}$"
+             required
+             #name="ngModel"
+      />
+      <p class="help is-pulled-right">{{data.name?.length}}/50</p>
+    </div>
+
+    <div *ngIf="name.invalid">
+      <p class="help is-danger" *ngIf="name.errors.required">
+        A schedule name is required
+      </p>
+      <p class="help is-danger" *ngIf="name.errors.minlength">
+        Schedule name is too long
+      </p>
+      <p class="help is-danger" *ngIf="name.errors.maxlength">
+        Schedule name is too short
+      </p>
+      <p class="help is-danger" *ngIf="name.errors.pattern">
+        Schedule name does not contain valid patterns
+      </p>
+    </div>
+  </div>
+
+  <label class="label">Slug</label>
+  <div class="field">
+    <div class="field has-addons is-marginless">
+      <div class="control">
+        <a class="button is-static">
+          {{env.baseSite}}/marathon/{{ marathonId }}/schedule/
+        </a>
+      </div>
+      <div class="control is-expanded">
+        <!-- TODO: validate that the slug is uniqe for the event -->
+        <input class="input"
+               [ngClass]="{'is-danger': slug.invalid}"
+               type="text"
+               [(ngModel)]="data.slug"
+               name="id"
+               maxlength="255"
+               minlength="1"
+               pattern="^[\w\-]{1,255}$"
+               required
+               #slug="ngModel"
+               appScheduleSlugExistsValidator
+        />
+      </div>
+    </div>
+    <p class="help is-pulled-right">{{data.slug?.length}}/10</p>
+    <div *ngIf="slug.invalid">
+      <p class="help is-danger" *ngIf="slug.errors.required">
+        A slug is required
+      </p>
+      <p class="help is-danger" *ngIf="slug.errors.minlength">
+        A slug must be at least 1 character
+      </p>
+      <p class="help is-danger" *ngIf="slug.errors.maxlength">
+        How do you need more than 255 characters?!
+      </p>
+      <p class="help is-danger" *ngIf="slug.errors.exists">
+        You have already used this slug within this marathon
+      </p>
+      <p class="help is-danger" *ngIf="slug.errors.pattern">
+        The slug is not valid
+      </p>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <input
+        class="input"
+        type="text"
+        [value]="env.shortUrl + '/' + marathonId + '/' + data.slug"
+        readonly
+      />
+    </div>
+    <p class="help">{{ 'marathon.new.shortDomain' | translate}}</p>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <button class="button is-link"
+              [ngClass]="{'is-loading': loading}"
+              type="submit"
+              [disabled]="form.invalid">
+        {{'action.submit' | translate}}
+      </button>
+    </div>
+  </div>
+
+</form>

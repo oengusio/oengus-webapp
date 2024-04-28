@@ -2,6 +2,7 @@ export const environment = {
   name: 'production',
   production: true,
   sandbox: false,
+  shortUrl: 'https://oengus.fun',
   // baseSite: 'https://oengus.io',
   get baseSite() {
     return window.location.origin;

@@ -8,6 +8,7 @@ import { MaxNumberValidatorDirective } from './max-number-validator.directive';
 import { TotalValidatorDirective } from './total-validator.directive';
 import { TranslatedContentDirective } from './translated-content.directive';
 import { TranslatedElementDirective } from './translated-element.directive';
+import { ScheduleSlugExistsValidatorDirective } from './schedule-slug-exists-validator.directive';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { TranslatedElementDirective } from './translated-element.directive';
     TotalValidatorDirective,
     TranslatedContentDirective,
     TranslatedElementDirective,
+    ScheduleSlugExistsValidatorDirective,
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { TranslatedElementDirective } from './translated-element.directive';
     MinDurationValidatorDirective,
     TranslatedContentDirective,
     TranslatedElementDirective,
+    ScheduleSlugExistsValidatorDirective,
   ],
 })
 export class DirectivesModule {

@@ -8,6 +8,19 @@ export class Schedule {
   lines: ScheduleLine[];
 
   constructor() {
+    this.id = -1;
     this.lines = [];
   }
+}
+
+export interface ScheduleCreateRequest {
+  name: string;
+  slug: string;
+}
+
+export interface ScheduleInfo {
+  id: number;
+  marathonId: string;
+  name: string;
+  slug: string;
 }
