@@ -7,6 +7,7 @@ import { Schedule, ScheduleCreateRequest, ScheduleInfo } from '../model/schedule
 import moment from 'moment-timezone';
 import {BaseService} from './BaseService';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
+import { V2ScheduleLine } from '../model/schedule-line';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,19 @@ export class ScheduleService extends BaseService {
 
   updateSchedule(marathonId: string, scheduleId: number, data: ScheduleCreateRequest): Observable<ScheduleInfo> {
     return this.http.patch<ScheduleInfo>(this.v2Url(`${marathonId}/schedules/${scheduleId}`), data);
+  }
+
+  getLines(marathonId: string, scheduleId: number): Observable<DataListDto<V2ScheduleLine>> {
+    return this.http.get<DataListDto<V2ScheduleLine>>(this.v2Url(`${marathonId}/schedules/${scheduleId}/lines`));
+  }
+
+  updateLines(marathonId: string, scheduleId: number, lines: V2ScheduleLine): Observable<DataListDto<V2ScheduleLine>> {
+    return this.http.put<DataListDto<V2ScheduleLine>>(
+      this.v2Url(`${marathonId}/schedules/${scheduleId}/lines`),
+      {
+        data: lines,
+      }
+    );
   }
 
   /////////////////

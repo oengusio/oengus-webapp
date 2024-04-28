@@ -118,5 +118,16 @@
 <hr>
 
 <div>
-  <p>Schedule lines section</p>
+  <p>If this schedule has lines they should be editable here, but I am too scared to turn this into a good UI.</p>
+  <p>The submissions should also be loaded in just like the old ui</p>
+  <p>But for now, here is a OL</p>
+
+  <ol>
+    <li *ngFor="let line of lines">
+      {{ line.id }} -
+      {{ line.game ?? line.setupBlockText ?? 'Setup block' }} -
+      {{ line.category ?? 'No category' }} -
+      {{ line.setupBlock }}
+    </li>
+  </ol>
 </div>
