@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UserService } from '../../../../services/user.service';
 import { UserProfile } from '../../../../model/user-profile';
 
@@ -9,42 +9,11 @@ import { UserProfile } from '../../../../model/user-profile';
 })
 export class AdminControlsComponent {
   @Input() user: UserProfile;
-
-  banLoading = false;
+  @Output() openDialog = new EventEmitter<void>();
 
   constructor(public userService: UserService) { }
 
-  public banUser(): void {
-    this.banLoading = true;
-
-    this.userService.ban(this.user.id).subscribe({
-      next: () => {
-        this.user.banned = true;
-      }, complete: () => {
-        this.banLoading = false;
-      }
-    });
+  public openAdminDialog(): void {
+    this.openDialog.emit();
   }
-
-  public unbanUser(): void {
-    this.banLoading = true;
-
-    this.userService.unban(this.user.id).subscribe({
-      next: () => {
-        this.user.banned = false;
-      }, complete: () => {
-        this.banLoading = false;
-      }
-    });
-  }
-
-  public setActivated(activated: boolean): void {
-    this.banLoading = true;
-
-    this.userService.setEnabled(this.user.id, activated).subscribe(() => {
-      this.user.enabled = activated;
-      this.banLoading = false;
-    });
-  }
-
 }

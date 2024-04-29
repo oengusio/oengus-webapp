@@ -1,0 +1,66 @@
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Admin management</p>
+      <button class="delete" aria-label="close" (click)="close.emit()"></button>
+    </header>
+    <section class="modal-card-body">
+
+      <div class="buttons">
+        <button class="button is-danger"
+                (click)="unbanUser()"
+                [disabled]="banLoading"
+                [ngClass]="{'is-loading': banLoading}"
+                *ngIf="user.banned else banUserTemplate">{{ 'user.profile.unban' | translate }}</button>
+        <ng-template #banUserTemplate>
+          <button class="button is-warning"
+                  [ngClass]="{'is-loading': banLoading}"
+                  [disabled]="banLoading"
+                  (click)="banUser()">{{ 'user.profile.ban' | translate }}</button>
+        </ng-template>
+        <button class="button is-warning"
+                (click)="setActivated(false)"
+                [ngClass]="{'is-loading': banLoading}"
+                [disabled]="banLoading"
+                *ngIf="user.enabled else deactivateUserTemplate">{{ 'user.profile.deactivate' | translate }}</button>
+        <ng-template #deactivateUserTemplate>
+          <button class="button is-warning"
+                  [ngClass]="{'is-loading': banLoading}"
+                  [disabled]="banLoading"
+                  (click)="setActivated(true)">{{ 'user.profile.activate' | translate }}</button>
+        </ng-template>
+      </div>
+
+      <div class="field">
+        <label class="label">Edit user roles</label>
+        <label class="checkbox">
+          <input type="checkbox" (change)="toggleRole('USER')" [checked]="isRole('USER')" />
+          Role user
+        </label>
+        <br />
+        <label class="checkbox">
+          <input type="checkbox" (change)="toggleRole('ADMIN')" [checked]="isRole('ADMIN')" />
+          Role admin
+        </label>
+        <br />
+        <label class="checkbox">
+          <input type="checkbox" (change)="toggleRole('BANNED')" [checked]="isRole('BANNED')" />
+          Role banned
+        </label>
+        <br />
+        <label class="checkbox">
+          <input type="checkbox"  (change)="toggleRole('SPONSOR')" [checked]="isRole('SPONSOR')" />
+          Role sponsor
+        </label>
+      </div>
+
+      <div class="control">
+        <button (click)="saveRoles()" type="button" class="button is-primary">Save roles</button>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      footer
+    </footer>
+  </div>
+</div>

@@ -10,6 +10,7 @@ import { UserService } from '../../../services/user.service';
 })
 export class ProfileComponent {
   public user: UserProfile | null = null;
+  public dialogOpen = false;
 
   public statusFilter = [
     {

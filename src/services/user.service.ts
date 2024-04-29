@@ -11,7 +11,8 @@ import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
 import { PatreonStatusDto, RelationShip } from '../model/annoying-patreon-shit';
 import { HistoryMarathon, UserProfileHistory } from '../model/user-profile-history';
-import { DataListDto } from '../model/dto/base-dtos';
+import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -54,6 +55,18 @@ export class UserService extends BaseService {
 
   async updatePatreonStatus(userId: number, data: PatreonStatusDto): Promise<void> {
     return firstValueFrom(this.http.put<void>(this.url(`/${userId}/patreon-status`), data));
+  }
+
+  fetchRoles(userId: number): Observable<string[]> {
+    return this.http.get<DataListDto<string>>(this.v2Url(`/${userId}/roles`))
+      .pipe(map(x => x.data));
+  }
+
+  updateRoles(userId: number, roles: string[]): Observable<BooleanStatusDto> {
+    return this.http.put<BooleanStatusDto>(
+      this.v2Url(`/${userId}/roles`),
+      { data: roles }
+    );
   }
 
   /**
