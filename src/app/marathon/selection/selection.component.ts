@@ -11,6 +11,7 @@ import * as vis from 'vis-timeline';
 import { DataSet } from 'vis-data';
 import { SubmissionService } from '../../../services/submission.service';
 import {Submission} from '../../../model/submission';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-selection',
@@ -68,6 +69,15 @@ export class SelectionComponent implements OnInit {
     this.submissionsLoaded = true;
   }
 
+  async loadSelection(): Promise<void> {
+    // @ts-ignore SHUT UP
+    this.selection = await firstValueFrom(this.selectionService.getAllForMarathonAdmin(
+      this.route.snapshot.parent.paramMap.get('id'),
+      this.route.snapshot.data['statuses'])
+    )
+      .catch(() => new Map());
+  }
+
   async ngOnInit() {
     // Somehow this delay solves the availabilities not showing.
     await new Promise((resolve) => window.requestAnimationFrame(resolve));
@@ -99,7 +109,10 @@ export class SelectionComponent implements OnInit {
   submit() {
     this.loading = true;
     this.selectionService.save(this.marathonService.marathon.id, Object.values(this.selection)).add(() => {
-      this.loading = false;
+      // Reload the selections so we have their ids to update.
+      this.loadSelection().then(() => {
+        this.loading = false;
+      });
     });
   }
 
