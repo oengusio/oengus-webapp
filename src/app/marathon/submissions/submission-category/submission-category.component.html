@@ -9,7 +9,7 @@
       </a>
     </p>
     <p class="is-pulled-right" *ngIf="marathon.selectionDone">
-      {{'marathon.selection.status.' + rawStatus | translate}}
+      {{'marathon.selection.status.' + safeStatus | translate}}
     </p>
     <app-delete-button *ngIf="showDelete"
                        [baseText]="'marathon.submissions.category.delete' | translate"

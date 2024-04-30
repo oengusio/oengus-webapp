@@ -34,7 +34,7 @@ export class SubmissionGameComponent implements OnInit, OnDestroy {
       return '';
     }
 
-    return this.selection[category.id].status;
+    return this.selection[category.id]?.status ?? 'TODO';
   }
 
   get gameStatus(): string {

@@ -30,8 +30,12 @@ export class SubmissionCategoryComponent implements OnInit, OnDestroy {
 
   constructor() { }
 
+  get safeStatus(): string {
+    return this.rawStatus || 'TODO';
+  }
+
   ngOnInit() {
-    this.status = this.statusMap[this.rawStatus] || '';
+    this.status = this.statusMap[this.safeStatus] || '';
   }
 
   ngOnDestroy(): void {
