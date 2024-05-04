@@ -32,8 +32,4 @@ export class SidebarOverviewComponent {
   get loggedIn(): boolean {
     return !!this.userService.user;
   }
-
-  get banned(): boolean {
-    return this.userService.isBanned();
-  }
 }

@@ -67,6 +67,7 @@ import { ScheduleOverviewResolver } from '../resolvers/schedule-overview-resolve
 import { CreateComponent as ScheduleManagementCreateComponent } from './schedule-management/create/create.component';
 import { EditComponent as ScheduleManagementEditComponent } from './schedule-management/edit/edit.component';
 import { ScheduleByIdResolver } from '../resolvers/schedule-by-id-resolver';
+import { HomeSubmitButtonComponent } from './home/home-submit-button/home-submit-button.component';
 
 const marathonRoutes: Routes = [
   {
@@ -261,6 +262,7 @@ const marathonRoutes: Routes = [
     ScheduleManagementOverViewComponent,
     ScheduleManagementCreateComponent,
     ScheduleManagementEditComponent,
+    HomeSubmitButtonComponent,
   ],
   imports: [
     CommonModule,

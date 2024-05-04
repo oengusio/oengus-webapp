@@ -1,0 +1,11 @@
+<div class="content has-text-centered pt-4" *ngIf="marathon.submitsOpen && !archived">
+  <a routerLink="./submit" class="button is-large is-primary" *ngIf="loggedIn; else notLoggedIn">
+    {{ (marathon.hasSubmitted ? 'marathon.menu.editSubmission' : 'marathon.menu.submitRuns') | translate }}
+  </a>
+
+  <ng-template #notLoggedIn>
+    <a routerLink="." class="button is-large is-static">
+      <b>{{ 'marathon.menu.loginToSubmit' | translate}}</b>
+    </a>
+  </ng-template>
+</div>
