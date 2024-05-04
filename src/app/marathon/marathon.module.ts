@@ -68,6 +68,7 @@ import { CreateComponent as ScheduleManagementCreateComponent } from './schedule
 import { EditComponent as ScheduleManagementEditComponent } from './schedule-management/edit/edit.component';
 import { ScheduleByIdResolver } from '../resolvers/schedule-by-id-resolver';
 import { HomeSubmitButtonComponent } from './home/home-submit-button/home-submit-button.component';
+import { WarningModalComponent } from './schedule-management/warning-modal/warning-modal.component';
 
 const marathonRoutes: Routes = [
   {
@@ -263,6 +264,7 @@ const marathonRoutes: Routes = [
     ScheduleManagementCreateComponent,
     ScheduleManagementEditComponent,
     HomeSubmitButtonComponent,
+    WarningModalComponent,
   ],
   imports: [
     CommonModule,

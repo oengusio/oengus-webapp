@@ -18,6 +18,7 @@ export class EditComponent implements OnInit {
   lines: Array<V2ScheduleLine> = [];
 
   loading = false;
+  warningModalActive = false;
 
   env = environment;
 
@@ -49,5 +50,18 @@ export class EditComponent implements OnInit {
     } finally {
       this.loading = false;
     }
+  }
+
+  handlePublishCallback(didConfirm: boolean): void {
+    this.warningModalActive = false;
+
+    if (didConfirm) {
+      this.publish();
+    }
+  }
+
+  async publish(): Promise<void> {
+    this.loading = true;
+    // TODO: actual publish route in backend.
   }
 }

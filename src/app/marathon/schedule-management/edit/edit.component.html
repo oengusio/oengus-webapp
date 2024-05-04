@@ -1,3 +1,7 @@
+<app-publish-warning-modal
+  *ngIf="warningModalActive"
+  (publishConfirm)="handlePublishCallback($event)"></app-publish-warning-modal>
+
 <h1 class="title">
   {{ 'marathon.schedule.management.settings.editTitle' | translate: { scheduleName: scheduleInfo.name } }}
 </h1>
@@ -100,7 +104,12 @@
       <p class="help">{{ 'marathon.new.shortDomain' | translate}}</p>
     </div>
 
+
     <div class="field">
+      <p class="help">{{'marathon.schedule.management.help.save' | translate}}</p>
+    </div>
+
+    <div class="field is-grouped">
       <div class="control">
         <button class="button is-link"
                 [ngClass]="{'is-loading': loading}"
@@ -109,8 +118,26 @@
           {{'action.save' | translate}}
         </button>
       </div>
-    </div>
 
+      <div class="control">
+        <!-- TODO: do the confirm dialog as well? -->
+        <button *ngIf="!scheduleInfo.published"
+                type="button"
+                class="button is-success"
+                [ngClass]="{'is-loading': loading}"
+                (click)="warningModalActive = true">
+          {{'marathon.schedule.management.action.publish' | translate}}
+        </button>
+
+        <button *ngIf="scheduleInfo.published"
+                type="button"
+                class="button is-success"
+                [ngClass]="{'is-loading': loading}"
+                disabled>
+          {{'marathon.schedule.management.action.alreadyPublished' | translate}}
+        </button>
+      </div>
+    </div>
   </form>
 
 </div>

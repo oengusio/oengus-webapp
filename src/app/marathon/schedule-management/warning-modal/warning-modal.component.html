@@ -1,0 +1,27 @@
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        <fa-icon [icon]="faExclamation"></fa-icon> {{ 'marathon.schedule.management.cacheWarning.header' | translate }}
+      </p>
+    </header>
+    <section class="modal-card-body">
+      <h5 class="title">{{ 'marathon.schedule.management.cacheWarning.title' | translate }}</h5>
+      <p>{{ 'marathon.schedule.management.cacheWarning.line1' | translate }}</p>
+      <p>{{ 'marathon.schedule.management.cacheWarning.line2' | translate }}</p>
+      <p>{{ 'marathon.schedule.management.cacheWarning.line3' | translate }}</p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success"
+              (click)="publishConfirm.emit(true)"
+              [disabled]="buttonLoading"
+              [ngClass]="{ 'is-loading': buttonLoading }">
+        {{'marathon.schedule.management.action.publish' | translate}}
+      </button>
+      <button class="button is-warning" (click)="publishConfirm.emit(false)">
+        {{'action.cancel' | translate}}
+      </button>
+    </footer>
+  </div>
+</div>
