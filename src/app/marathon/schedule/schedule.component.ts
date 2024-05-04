@@ -1,10 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Schedule } from '../../../model/schedule';
+import { V2Schedule } from '../../../model/schedule';
 import moment from 'moment-timezone';
 import { MarathonService } from '../../../services/marathon.service';
-import { ScheduleService } from '../../../services/schedule.service';
-import { ScheduleLine } from '../../../model/schedule-line';
+import { V2ScheduleLine } from '../../../model/schedule-line';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -14,7 +13,7 @@ import { Subscription, timer } from 'rxjs';
 })
 export class ScheduleComponent implements OnDestroy {
 
-  public schedule: Schedule;
+  public schedule: V2Schedule;
   public moment = moment;
 
   public timezone = moment.tz.guess();
@@ -26,25 +25,26 @@ export class ScheduleComponent implements OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              public marathonService: MarathonService,
-              private scheduleService: ScheduleService) {
+              public marathonService: MarathonService) {
     route.fragment.subscribe((fragment) => {
       this.runHash = `#${fragment}`;
     });
 
-    if (!this.marathonService.marathon.scheduleDone) {
-      this.router.navigate(['../'], {relativeTo: this.route});
-    }
-    if (this.route.snapshot.data.schedule) {
-      this.schedule = this.route.snapshot.data.schedule;
-    } else {
-      this.schedule = new Schedule();
-    }
+    route.data.subscribe((routeData) => {
+      if (!this.marathonService.marathon.scheduleDone) {
+        this.router.navigate(['../'], {relativeTo: this.route});
+      }
+      if (routeData.schedule) {
+        this.schedule = routeData.schedule;
 
-    this.setCurrentRunId();
-    const now = new Date();
-    const initialDelay = 60 * 1000 - (now.getSeconds() * 1000 + now.getMilliseconds());
-    this.scheduleRefresher = timer(initialDelay, 60000).subscribe(() => this.setCurrentRunId());
+        this.setCurrentRunId();
+        const now = new Date();
+        const initialDelay = 60 * 1000 - (now.getSeconds() * 1000 + now.getMilliseconds());
+        this.scheduleRefresher = timer(initialDelay, 60000).subscribe(() => this.setCurrentRunId());
+      } else {
+        this.router.navigate(['/404'], { skipLocationChange: true});
+      }
+    });
   }
 
   setCurrentRunId() {
@@ -75,7 +75,7 @@ export class ScheduleComponent implements OnDestroy {
     return this.schedule.lines[this.currentIndex + 1];
   }
 
-  isCurrentRun(line: ScheduleLine) {
+  isCurrentRun(line: V2ScheduleLine) {
     const now = moment.now();
     return moment.tz(line.date, this.timezone).isBefore(now) &&
       moment.tz(line.date, this.timezone)
@@ -88,6 +88,7 @@ export class ScheduleComponent implements OnDestroy {
   }
 
   get title(): string {
+    // TODO: this title system needs to be reworked to allow for more dynamic titles
     return 'Schedule';
   }
 }

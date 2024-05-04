@@ -8,7 +8,7 @@
     </h4>
   </ng-template>
 
-  <app-user-link *ngFor="let runner of run.runners" [user]="runner" [isLink]="runner.id > 0"></app-user-link>
+  <app-user-link *ngFor="let runner of run.runners" [user]="runner" [isLink]="runner?.profile?.id > 0"></app-user-link>
 </div>
 
 <ng-template [ngIf]="run.date">
@@ -19,10 +19,10 @@
   </span>
 </ng-template>
 
-<ng-template [ngIf]="run.categoryName">
+<ng-template [ngIf]="run.category">
   <span class="is-label">{{ 'marathon.schedule.table.category' | translate }}</span>
   <span>
-    <app-simple-md [data]="run.categoryName" ></app-simple-md>
+    <app-simple-md [data]="run.category" ></app-simple-md>
   </span>
 </ng-template>
 

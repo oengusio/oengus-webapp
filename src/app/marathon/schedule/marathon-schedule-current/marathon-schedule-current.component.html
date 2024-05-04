@@ -9,11 +9,11 @@
       <span *ngIf="ticker.setupBlock" class="info">
         {{ (ticker.setupBlockText || 'marathon.schedule.setupBlock' | translate) }}
       </span>
-      <span *ngIf="ticker.gameName" class="info">
-        {{ ticker.gameName }}
+      <span *ngIf="ticker.game" class="info">
+        {{ ticker.game }}
       </span>
-      <span *ngIf="ticker.categoryName" class="info">
-        {{ ticker.categoryName }}
+      <span *ngIf="ticker.category" class="info">
+        {{ ticker.category }}
       </span>
       <span *ngIf="ticker.console" class="info">
         {{ ticker.console }}

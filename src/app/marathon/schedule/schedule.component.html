@@ -1,10 +1,11 @@
 <div class="level">
   <div class="level-left">
     <div class="title is-3 level-item">
-      {{ 'marathon.schedule.title' | translate }}
+      {{ 'marathon.schedule.title' | translate }}: {{ schedule.name }}
     </div>
   </div>
   <div class="level-right">
+    <!-- TODO: these exports are wrong -->
     <app-marathon-schedule-export></app-marathon-schedule-export>
   </div>
 </div>

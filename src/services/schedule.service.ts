@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
-import { Schedule, ScheduleCreateRequest, ScheduleInfo } from '../model/schedule';
+import { Schedule, ScheduleCreateRequest, ScheduleInfo, V2Schedule } from '../model/schedule';
 import moment from 'moment-timezone';
 import {BaseService} from './BaseService';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
@@ -38,6 +38,13 @@ export class ScheduleService extends BaseService {
   isSlugInUse(marathonId: string, slug: string): Observable<BooleanStatusDto> {
     return this.http.get<BooleanStatusDto>(this.v2Url(
       `${marathonId}/schedules/slug-exists?slug=${slug}`
+    ));
+  }
+
+  getBySlug(marathonId: string, slug: string): Observable<V2Schedule> {
+    // TODO: make slug a query param instead?
+    return this.http.get<V2Schedule>(this.v2Url(
+      `${marathonId}/schedules/for-slug/${slug}`
     ));
   }
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ScheduleLine } from '../../../../model/schedule-line';
+import { V2ScheduleLine } from '../../../../model/schedule-line';
 import { toggleTableExpand } from '../../../../assets/table';
 
 @Component({
@@ -8,9 +8,9 @@ import { toggleTableExpand } from '../../../../assets/table';
   styleUrls: ['./marathon-schedule-list.component.scss']
 })
 export class MarathonScheduleListComponent implements OnChanges {
-  @Input() runs: ScheduleLine[];
-  @Input() currentRun: ScheduleLine;
-  @Input() nextRun: ScheduleLine;
+  @Input() runs: V2ScheduleLine[];
+  @Input() currentRun: V2ScheduleLine;
+  @Input() nextRun: V2ScheduleLine;
   @Input() runHash: string;
 
   expanded = new Set<number>();
@@ -41,7 +41,7 @@ export class MarathonScheduleListComponent implements OnChanges {
       currentRun.getFullYear() !== previousRun.getFullYear();
   }
 
-  getRowParity(index: number, run: ScheduleLine): { 'is-primary': boolean, 'is-even': boolean, 'is-odd': boolean } {
+  getRowParity(index: number, run: V2ScheduleLine): { 'is-primary': boolean, 'is-even': boolean, 'is-odd': boolean } {
     return {
       'is-even': index % 2 === 0,
       'is-odd': index % 2 === 1,
@@ -49,7 +49,7 @@ export class MarathonScheduleListComponent implements OnChanges {
     };
   }
 
-  getId(run: ScheduleLine): string|undefined {
+  getId(run: V2ScheduleLine): string|undefined {
     switch (run.id) {
       case this.currentRun?.id:
         return 'current';

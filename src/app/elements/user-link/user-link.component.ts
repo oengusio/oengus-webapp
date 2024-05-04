@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { User } from '../../../model/user';
-import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
 import { environment } from '../../../environments/environment';
+import { LineRunner } from '../../../model/schedule-line';
 
 @Component({
   selector: 'app-user-link',
@@ -9,14 +9,15 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./user-link.component.scss']
 })
 export class UserLinkComponent {
-  @Input() user: User;
+  @Input() user: User | LineRunner;
   @Input() username = '';
   @Input() target = '_self';
   @Input() isLink = false;
   @Input() showAvatar = false;
 
   get userId(): string {
-    return this.user?.username ?? this.username;
+    // @ts-expect-error I need to fix the type checks here.
+    return this?.user?.username ?? this?.user?.profile?.username ?? this.username;
   }
 
   get avatarUrl(): string {
@@ -24,7 +25,8 @@ export class UserLinkComponent {
   }
 
   get displayName(): string {
-    return this?.user?.displayName ?? this.username;
+    // @ts-expect-error I need to fix the type checks here.
+    return this?.user?.displayName ?? this?.user?.runnerName ?? this.username;
   }
 
 }

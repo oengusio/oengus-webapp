@@ -69,6 +69,7 @@ import { EditComponent as ScheduleManagementEditComponent } from './schedule-man
 import { ScheduleByIdResolver } from '../resolvers/schedule-by-id-resolver';
 import { HomeSubmitButtonComponent } from './home/home-submit-button/home-submit-button.component';
 import { WarningModalComponent } from './schedule-management/warning-modal/warning-modal.component';
+import { ScheduleBySlugResolver } from '../resolvers/schedule-by-slug-resolver';
 
 const marathonRoutes: Routes = [
   {
@@ -127,6 +128,28 @@ const marathonRoutes: Routes = [
         },
       },
       {
+        path: 'schedule/manage',
+        component: ScheduleManagementComponent,
+        resolve: {
+          selection: SelectionResolver,
+          schedule: ScheduleResolver,
+          availabilities: AvailabilitiesResolver
+        },
+        data: {
+          statuses: ['VALIDATED', 'BONUS'],
+          withCustomData: true,
+          isAdminRoute: true,
+        },
+        canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
+      },
+      {
+        path: 'schedule/:slug',
+        component: ScheduleComponent,
+        resolve: {
+          schedule: ScheduleBySlugResolver,
+        },
+      },
+      {
         path: 'schedule-management/overview',
         component: ScheduleManagementOverViewComponent,
         resolve: {
@@ -156,21 +179,6 @@ const marathonRoutes: Routes = [
         },
         data: {
           withCustomData: true,
-        },
-        canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
-      },
-      {
-        path: 'schedule/manage',
-        component: ScheduleManagementComponent,
-        resolve: {
-          selection: SelectionResolver,
-          schedule: ScheduleResolver,
-          availabilities: AvailabilitiesResolver
-        },
-        data: {
-          statuses: ['VALIDATED', 'BONUS'],
-          withCustomData: true,
-          isAdminRoute: true,
         },
         canActivate: [CanActivateMarathonSettingsGuard, CanActivateMarathonActiveGuard]
       },
@@ -299,6 +307,7 @@ const marathonRoutes: Routes = [
     MarathonResolver,
     SubmissionResolver,
     ScheduleResolver,
+    ScheduleBySlugResolver,
     ScheduleByIdResolver,
     SelectionResolver,
     IncentivesResolver,

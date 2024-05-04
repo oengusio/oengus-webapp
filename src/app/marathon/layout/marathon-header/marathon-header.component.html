@@ -1,7 +1,7 @@
 <div class="box marathon-header-container">
   <div class="main-header">
     <h3 class="title is-3">
-      {{ marathonName }}
+      {{ marathonName }} <!-- TODO: find a way to put the schedule name here -->
     </h3>
 
     <button *ngIf="collapsed" class="button navbar-burger" [class]="buttonClass" (click)="toggleSidebar.emit(!collapsed)">

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ScheduleLine } from '../../../../model/schedule-line';
+import { V2ScheduleLine } from '../../../../model/schedule-line';
 
 @Component({
   selector: 'app-marathon-schedule-row',
@@ -7,7 +7,7 @@ import { ScheduleLine } from '../../../../model/schedule-line';
   styleUrls: ['./marathon-schedule-row.component.scss'],
 })
 export class MarathonScheduleRowComponent {
-  @Input() run: ScheduleLine;
+  @Input() run: V2ScheduleLine;
   @Input() expanded = false;
   @Input() internalId: string;
 }

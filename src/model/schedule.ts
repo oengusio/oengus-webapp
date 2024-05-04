@@ -1,5 +1,5 @@
 import { Marathon } from './marathon';
-import { ScheduleLine } from './schedule-line';
+import { ScheduleLine, V2ScheduleLine } from './schedule-line';
 
 export class Schedule {
   id: number;
@@ -23,4 +23,8 @@ export interface ScheduleInfo extends ScheduleCreateRequest {
   id: number;
   marathonId: string;
   published: boolean;
+}
+
+export interface V2Schedule extends ScheduleInfo {
+  lines: V2ScheduleLine[];
 }

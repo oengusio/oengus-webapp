@@ -47,7 +47,7 @@ export type RunType = 'SINGLE' | 'RACE' | 'COOP' | 'COOP_RACE' | 'RELAY' | 'RELA
 // Only one property can be sent (not-null) at a time.
 export interface LineRunner {
   runnerName?: string;
-  profile?: { id: number; username: string; };
+  profile?: { id: number; username: string; displayName: string; };
 }
 
 // TODO: should I still store the categoryId? It does help with the UI so it might be worth it.
