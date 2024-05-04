@@ -22,4 +22,5 @@ export interface ScheduleCreateRequest {
 export interface ScheduleInfo extends ScheduleCreateRequest {
   id: number;
   marathonId: string;
+  published: boolean;
 }

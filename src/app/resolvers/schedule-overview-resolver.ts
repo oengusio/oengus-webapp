@@ -3,7 +3,6 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { ScheduleService } from '../../services/schedule.service';
 import { ScheduleInfo } from '../../model/schedule';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ScheduleOverviewResolver implements Resolve<Array<ScheduleInfo>> {
@@ -15,8 +14,6 @@ export class ScheduleOverviewResolver implements Resolve<Array<ScheduleInfo>> {
     Observable<Array<ScheduleInfo>> | Promise<Array<ScheduleInfo>> | Array<ScheduleInfo> {
     const marathonId = route.parent.paramMap.get('id');
 
-    return this.scheduleService.getAllOverview(marathonId).pipe(
-      map((res) => res.data)
-    );
+    return this.scheduleService.getAllOverview(marathonId);
   }
 }

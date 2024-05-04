@@ -8,6 +8,7 @@ import moment from 'moment-timezone';
 import {BaseService} from './BaseService';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
 import { V2ScheduleLine } from '../model/schedule-line';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,10 @@ export class ScheduleService extends BaseService {
     super(toastr, 'marathons');
   }
 
-  getAllOverview(marathonId: string): Observable<DataListDto<ScheduleInfo>> {
-    return this.http.get<DataListDto<ScheduleInfo>>(this.v2Url(`${marathonId}/schedules`));
+  getAllOverview(marathonId: string): Observable<Array<ScheduleInfo>> {
+    return this.http.get<DataListDto<ScheduleInfo>>(this.v2Url(`${marathonId}/schedules`)).pipe(
+      map((res) => res.data)
+    );
   }
 
   getInfoById(marathonId: string, scheduleId: number): Observable<ScheduleInfo> {

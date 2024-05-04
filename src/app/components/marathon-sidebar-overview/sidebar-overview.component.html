@@ -11,7 +11,9 @@
       </span>
     </a>
   </li>
-  <li *ngIf="marathon.scheduleDone" [title]="'marathon.menu.schedule' | translate">
+
+  <li *ngIf="marathon.scheduleDone && schedules.length == 1" [title]="'marathon.menu.schedule' | translate">
+    <!-- 1 schedule: normal link -->
     <a [routerLink]="'/marathon/' + marathonId + '/schedule' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon class="menu-item-icon" [icon]="iconCalendar"></fa-icon>
       <span class="menu-item-label">
@@ -19,6 +21,7 @@
       </span>
     </a>
   </li>
+
   <li [title]="'marathon.menu.viewSubmissions' | translate">
     <a [routerLink]="'/marathon/' + marathonId + '/submissions' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon class="menu-item-icon" [icon]="iconBook"></fa-icon>
@@ -52,3 +55,21 @@
     </ng-template>
   </ng-template>
 </ul>
+
+<!-- > 1 schedule: Multiple schedule links, maybe do another label? -->
+<div *ngIf="marathon.scheduleDone && schedules.length > 1">
+  <p class="menu-label">
+    {{ 'marathon.menu.schedules' | translate }}
+  </p>
+
+  <ul class="menu-list">
+    <li *ngFor="let schedule of schedules" [title]="'marathon.menu.schedule' | translate">
+      <a [routerLink]="'/marathon/' + marathonId + '/schedule/' + schedule.slug | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+        <fa-icon class="menu-item-icon" [icon]="iconCalendar"></fa-icon>
+        <span class="menu-item-label">
+            {{ schedule.name }}
+          </span>
+      </a>
+    </li>
+  </ul>
+</div>
