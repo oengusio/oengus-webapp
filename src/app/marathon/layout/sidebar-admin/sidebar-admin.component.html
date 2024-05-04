@@ -31,7 +31,7 @@
       <a [routerLink]="'/marathon/' + marathonId + '/schedule-management/overview' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon [icon]="iconManageSchedule" class="menu-item-icon"></fa-icon>
       <span class="menu-item-label">
-        (NEW!) {{ 'marathon.menu.manageSchedules' | translate }}
+        <span class="tag is-primary is-light">new!</span> {{ 'marathon.menu.manageSchedules' | translate }}
       </span>
     </a>
   </li>
