@@ -62,6 +62,13 @@ export class ScheduleService extends BaseService {
     );
   }
 
+  publish(marathonId: string, scheduleId: number): Observable<BooleanStatusDto> {
+    return this.http.post<BooleanStatusDto>(
+      this.v2Url(`${marathonId}/schedules/${scheduleId}/publish`),
+      null
+    );
+  }
+
   /////////////////
   // V1 stuff below
 

@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { ScheduleService } from '../../../../services/schedule.service';
 import { firstValueFrom } from 'rxjs';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
+import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 
 @Component({
   selector: 'app-edit',
@@ -25,6 +26,7 @@ export class EditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private scheduleService: ScheduleService,
+    private toastr: NwbAlertService,
   ) {
     this.marathonId = this.route.snapshot.parent.paramMap.get('id');
     this.scheduleInfo = this.route.snapshot.data.scheduleInfo;
@@ -62,6 +64,24 @@ export class EditComponent implements OnInit {
 
   async publish(): Promise<void> {
     this.loading = true;
-    // TODO: actual publish route in backend.
+
+    this.scheduleService.publish(this.marathonId, this.scheduleInfo.id).subscribe({
+      next () {
+        // Reload the window to see the new changes!
+        window.location.reload();
+      },
+
+      error (err: any) {
+        const alertConfig: NwbAlertConfig = {
+          message: `Something went wrong: ${err.message}`,
+          duration: 5000,
+          position: 'is-right',
+          color: 'is-warning'
+        };
+        this.toastr.open(alertConfig);
+
+        console.log(err);
+      },
+    });
   }
 }
