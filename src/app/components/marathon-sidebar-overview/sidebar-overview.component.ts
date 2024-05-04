@@ -1,6 +1,7 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { Marathon } from '../../../model/marathon';
 import { faBook, faCalendar, faCircle, faHome, faHomeLg, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-marathon-sidebar-overview',
@@ -11,6 +12,9 @@ export class SidebarOverviewComponent {
   @Input() marathon: Marathon;
   @Input() isBigHome = false;
   @HostBinding('class.collapsed') @Input() collapsed = false;
+
+  constructor(private userService: UserService) {
+  }
 
   iconCircle = faCircle;
   iconPaperPlane = faPaperPlane;
@@ -25,4 +29,11 @@ export class SidebarOverviewComponent {
     return this.marathon.id;
   }
 
+  get loggedIn(): boolean {
+    return !!this.userService.user;
+  }
+
+  get banned(): boolean {
+    return this.userService.isBanned();
+  }
 }

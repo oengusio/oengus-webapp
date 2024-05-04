@@ -27,13 +27,28 @@
       </span>
     </a>
   </li>
-  <li *ngIf="marathon.submitsOpen || marathon.canEditSubmissions" [title]="'marathon.menu.submitRuns' | translate">
-    <a [routerLink]="'/marathon/' + marathonId + '/submit' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-      <fa-icon class="menu-item-icon" [icon]="iconPaperPlane"></fa-icon>
-      <span class="menu-item-label">
+
+  <ng-template [ngIf]="marathon.submitsOpen || marathon.canEditSubmissions">
+    <li *ngIf="loggedIn; else notLoggedIn"
+        [title]="'marathon.menu.submitRuns' | translate"
+    >
+      <a [routerLink]="'/marathon/' + marathonId + '/submit' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+        <fa-icon class="menu-item-icon" [icon]="iconPaperPlane"></fa-icon>
+        <span class="menu-item-label">
         <fa-icon class="menu-item-icon submit-live-icon" [icon]="iconCircle"></fa-icon>
-          {{ 'marathon.menu.submitRuns' | translate }}
+          {{ (marathon.hasSubmitted ? 'marathon.menu.editSubmission' : 'marathon.menu.submitRuns') | translate }}
       </span>
-    </a>
-  </li>
+      </a>
+    </li>
+
+    <ng-template #notLoggedIn>
+      <li [title]="'marathon.menu.loginToSubmit' | translate">
+        <a class="menu-item-link">
+          <span class="menu-item-label">
+            {{ 'marathon.menu.loginToSubmit' | translate }}
+          </span>
+        </a>
+      </li>
+    </ng-template>
+  </ng-template>
 </ul>
