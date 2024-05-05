@@ -76,6 +76,15 @@ export class ScheduleService extends BaseService {
     );
   }
 
+  getExportUrl(marathonId: string, scheduleId: number, format: string): string {
+    return this.v2Url(`${marathonId}/schedules/${scheduleId}/export?format=${format}&zoneId=${
+      moment.tz.guess()}&locale=${localStorage.getItem('language')}`);
+  }
+
+  fetchExport(marathonId: string, scheduleId: number, format: string): Observable<Blob> {
+    return this.http.get(this.getExportUrl(marathonId, scheduleId, format), {responseType: 'blob'});
+  }
+
   /////////////////
   // V1 stuff below
 
@@ -121,10 +130,5 @@ export class ScheduleService extends BaseService {
         this.toast(res, 3000, 'warning');
       });
     });
-  }
-
-  getExportUrl(marathonId: string, format: string): string {
-    return this.url(`${marathonId}/schedule/export?format=${format}&zoneId=${
-      moment.tz.guess()}&locale=${localStorage.getItem('language')}`);
   }
 }

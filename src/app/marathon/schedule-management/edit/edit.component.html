@@ -2,11 +2,19 @@
   *ngIf="warningModalActive"
   (publishConfirm)="handlePublishCallback($event)"></app-publish-warning-modal>
 
-<h1 class="title">
-  {{ 'marathon.schedule.management.settings.editTitle' | translate: { scheduleName: scheduleInfo.name } }}
-</h1>
+<div class="level">
+  <div class="level-left">
+    <h1 class="title">
+      {{ 'marathon.schedule.management.settings.editTitle' | translate: { scheduleName: scheduleInfo.name } }}
+    </h1>
+    <!-- TODO: add a back button? -->
+  </div>
 
-<!-- TODO: add a back button AND an export button -->
+  <div class="level-right">
+    <app-marathon-schedule-export [disabled]="lines.length < 1 && scheduleInfo.published"
+                                  [scheduleId]="scheduleInfo.id"></app-marathon-schedule-export>
+  </div>
+</div>
 
 <div>
   <form (ngSubmit)="submit()" #infoForm="ngForm">

@@ -19,6 +19,10 @@ export class MarathonScheduleListComponent implements OnChanges {
     if (changes.runHash && changes.runHash.currentValue !== changes.runHash.previousValue) {
       this.expandRunHash();
     }
+
+    if (changes.runs) {
+      this.expanded.clear();
+    }
   }
 
   shouldShowDay(index: number): boolean {

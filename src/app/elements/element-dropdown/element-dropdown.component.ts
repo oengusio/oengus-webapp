@@ -19,6 +19,7 @@ export class ElementDropdownComponent implements OnInit {
   @Input() type: 'DROPDOWN' | 'NAVBAR' = 'DROPDOWN';
   @Input() isRight = false;
   @HostBinding('class.mob') @Input() isMob = false;
+  @Input() disabled = false;
 
   isActive = false;
 

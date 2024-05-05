@@ -6,12 +6,12 @@
 </ng-template>
 
 <!-- Trigger -->
-<a *ngIf="isNavbar; else notNavbar" class="navbar-link" (click)="toggleActive()">
+<a *ngIf="isNavbar; else notNavbar" class="navbar-link" (click)="toggleActive()" [ngClass]="{ 'is-disabled': disabled }">
   <ng-container *ngTemplateOutlet="dropdownTrigger"></ng-container>
 </a>
 <ng-template #notNavbar>
   <div class="dropdown-trigger">
-    <button class="button is-primary" (click)="toggleActive()">
+    <button class="button is-primary" (click)="toggleActive()" [disabled]="disabled">
       <div>
         <ng-container *ngTemplateOutlet="dropdownTrigger"></ng-container>
       </div>
