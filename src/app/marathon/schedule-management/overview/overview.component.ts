@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { ScheduleService } from '../../../../services/schedule.service';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { MarathonService } from '../../../../services/marathon.service';
+import { UserSupporterStatus } from '../../../../model/user';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-overview',
@@ -12,13 +15,22 @@ import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 export class OverviewComponent implements OnInit {
 
   schedules: ScheduleInfo[] = [];
+  private supporterStatus: UserSupporterStatus;
 
   constructor(
     private route: ActivatedRoute,
     private scheduleService: ScheduleService,
+    private marathonService: MarathonService,
+    private userService: UserService,
     private toastr: NwbAlertService,
   ) {
     this.schedules = this.route.snapshot.data.schedules;
+
+    const creatorId = this.marathonService.marathon.creator.id;
+
+    this.userService.getSupporterStatus(creatorId).subscribe(status => {
+      this.supporterStatus = status;
+    });
   }
 
   ngOnInit(): void {
@@ -45,5 +57,9 @@ export class OverviewComponent implements OnInit {
         }
       });
     }
+  }
+
+  get isSponsor(): boolean {
+    return this.supporterStatus?.anySupporter ?? false;
   }
 }

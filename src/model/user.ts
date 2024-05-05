@@ -22,3 +22,9 @@ export class User {
   twitchId: string;
   patreonId: string;
 }
+
+export interface UserSupporterStatus {
+  sponsor: boolean;
+  patreon: boolean;
+  anySupporter: boolean;
+}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
-import { User } from '../model/user';
+import { User, UserSupporterStatus } from '../model/user';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { firstValueFrom, Observable, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
@@ -171,6 +171,10 @@ export class UserService extends BaseService {
 
   getModerationHistory(id: number): Observable<DataListDto<HistoryMarathon>> {
     return this.http.get<DataListDto<HistoryMarathon>>(this.v2Url(`${id}/moderation-history`));
+  }
+
+  getSupporterStatus(id: number): Observable<UserSupporterStatus> {
+    return this.http.get<UserSupporterStatus>(this.v2Url(`${id}/supporter-status`));
   }
 
   isBanned(): boolean {

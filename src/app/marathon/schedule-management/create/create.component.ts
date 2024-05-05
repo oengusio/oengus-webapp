@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ScheduleCreateRequest } from '../../../../model/schedule';
 import { firstValueFrom } from 'rxjs';
 import { ScheduleService } from '../../../../services/schedule.service';
+import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 
 @Component({
   selector: 'app-create',
@@ -26,6 +27,7 @@ export class CreateComponent {
     private route: ActivatedRoute,
     private router: Router,
     private scheduleService: ScheduleService,
+    private toastr: NwbAlertService,
   ) {
     this.marathonId = this.route.snapshot.parent.paramMap.get('id');
   }
@@ -41,12 +43,38 @@ export class CreateComponent {
         )
       );
 
-      // TODO: toast with success message
+      const alertConfig: NwbAlertConfig = {
+        message: 'Schedule created!',
+        duration: 5000,
+        position: 'is-right',
+        color: 'is-success'
+      };
+      this.toastr.open(alertConfig);
+
       this.router.navigate([
         'marathon', this.marathonId, 'schedule-management', createdSchedule.id
       ]);
     } catch (e: any) {
       console.log(e);
+
+      if (e.status === 401) {
+        const alertConfig: NwbAlertConfig = {
+          message: 'You don\'t have permission to create a new schedule. ' +
+            'Marathons owned by patreon supporters can make up to 4 schedules, any other marathons can only have a single schedule.',
+          duration: 10 * 1000,
+          position: 'is-right',
+          color: 'is-warning'
+        };
+        this.toastr.open(alertConfig);
+      } else {
+        const alertConfig: NwbAlertConfig = {
+          message: `Something went wrong: ${e.message}`,
+          duration: 5000,
+          position: 'is-right',
+          color: 'is-warning'
+        };
+        this.toastr.open(alertConfig);
+      }
     } finally {
       this.loading = false;
     }
