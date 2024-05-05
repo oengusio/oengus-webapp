@@ -1,0 +1,9 @@
+.schedule-list {
+  display: flex;
+
+  li {
+    display: flex;
+    gap: calc(var(--spacing) / 2);
+    align-items: baseline;
+  }
+}

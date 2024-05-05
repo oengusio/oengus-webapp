@@ -13,11 +13,14 @@
   [ngIfElse]="noSchedules"
 >
   <h2 class="title">{{ 'marathon.schedule.management.overview.scheduleHeader' | translate }}</h2>
-  <ul *ngFor="let schedule of schedules">
-    <li>
-      {{ schedule.name }} -
-      <a class="button is-info" [routerLink]="'../' + schedule.id | localize" >{{ 'action.edit' | translate }}</a>
-      <button (click)="deleteSchedule(schedule)" type="button" class="button is-danger">{{ 'action.delete' | translate }}</button>
+  <ul *ngFor="let schedule of schedules" class="schedule-list">
+    <li class="mb-2">
+      <p>{{ schedule.name }}:</p>
+
+      <div class="buttons">
+        <a class="button is-info" [routerLink]="'../' + schedule.id | localize" >{{ 'action.edit' | translate }}</a>
+        <button (click)="deleteSchedule(schedule)" type="button" class="button is-danger">{{ 'action.delete' | translate }}</button>
+      </div>
     </li>
   </ul>
 </ng-template>
