@@ -70,6 +70,7 @@ import { ScheduleByIdResolver } from '../resolvers/schedule-by-id-resolver';
 import { HomeSubmitButtonComponent } from './home/home-submit-button/home-submit-button.component';
 import { WarningModalComponent } from './schedule-management/warning-modal/warning-modal.component';
 import { ScheduleBySlugResolver } from '../resolvers/schedule-by-slug-resolver';
+import { ScheduleV1ModelResolver } from '../resolvers/schedule-v1-model-resolver';
 
 const marathonRoutes: Routes = [
   {
@@ -132,7 +133,7 @@ const marathonRoutes: Routes = [
         component: ScheduleManagementComponent,
         resolve: {
           selection: SelectionResolver,
-          schedule: ScheduleResolver,
+          schedule: ScheduleV1ModelResolver,
           availabilities: AvailabilitiesResolver
         },
         data: {
@@ -198,7 +199,7 @@ const marathonRoutes: Routes = [
         path: 'incentives/manage',
         component: IncentiveManagementComponent,
         resolve: {
-          schedule: ScheduleResolver,
+          schedule: ScheduleV1ModelResolver,
           incentives: IncentivesResolver
         },
         data: {
@@ -307,6 +308,7 @@ const marathonRoutes: Routes = [
     MarathonResolver,
     SubmissionResolver,
     ScheduleResolver,
+    ScheduleV1ModelResolver,
     ScheduleBySlugResolver,
     ScheduleByIdResolver,
     SelectionResolver,
