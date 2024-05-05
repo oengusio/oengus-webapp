@@ -60,7 +60,7 @@ export class ScheduleService extends BaseService {
     return this.http.get<DataListDto<V2ScheduleLine>>(this.v2Url(`${marathonId}/schedules/${scheduleId}/lines`));
   }
 
-  updateLines(marathonId: string, scheduleId: number, lines: V2ScheduleLine): Observable<DataListDto<V2ScheduleLine>> {
+  updateLines(marathonId: string, scheduleId: number, lines: Array<V2ScheduleLine>): Observable<DataListDto<V2ScheduleLine>> {
     return this.http.put<DataListDto<V2ScheduleLine>>(
       this.v2Url(`${marathonId}/schedules/${scheduleId}/lines`),
       {

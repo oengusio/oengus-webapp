@@ -71,7 +71,8 @@ export class EditComponent implements OnInit {
         window.location.reload();
       },
 
-      error (err: any) {
+      error: (err: any) => {
+        console.log(err);
         const alertConfig: NwbAlertConfig = {
           message: `Something went wrong: ${err.message}`,
           duration: 5000,
@@ -79,8 +80,6 @@ export class EditComponent implements OnInit {
           color: 'is-warning'
         };
         this.toastr.open(alertConfig);
-
-        console.log(err);
       },
     });
   }

@@ -25,9 +25,6 @@ export class ScheduleLine {
   useSetupBlockText: boolean;
   customRun: boolean;
   position: number;
-  /**
-   * @deprecated
-   */
   categoryId: number;
   runners: ScheduleRunner[];
   date: Date;
@@ -50,7 +47,6 @@ export interface LineRunner {
   profile?: { id: number; username: string; displayName: string; };
 }
 
-// TODO: should I still store the categoryId? It does help with the UI so it might be worth it.
 export interface V2ScheduleLine {
   id: number;
   game: string;
@@ -68,4 +64,6 @@ export interface V2ScheduleLine {
   setupBlockText: string;
   customData: string;
   date: Date;
+  // This is only used in the UI to hide categories that have moved to the schedule.
+  categoryId: number;
 }

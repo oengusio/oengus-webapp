@@ -67,7 +67,8 @@ export class ScheduleResolver implements Resolve<V2Schedule> {
       setupBlock: line.setupBlock,
       setupBlockText: line.setupBlockText,
       customData: line.customData,
-      date: line.date
+      date: line.date,
+      categoryId: line.categoryId,
     };
   }
 }
