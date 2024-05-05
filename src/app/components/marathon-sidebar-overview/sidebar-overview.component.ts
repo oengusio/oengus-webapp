@@ -1,6 +1,7 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { Marathon } from '../../../model/marathon';
 import { faBook, faCalendar, faCircle, faHome, faHomeLg, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar as faCalendarRegular } from '@fortawesome/free-regular-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { ScheduleService } from '../../../services/schedule.service';
 import { ScheduleInfo } from '../../../model/schedule';
@@ -18,6 +19,7 @@ export class SidebarOverviewComponent implements OnInit {
   iconCircle = faCircle;
   iconPaperPlane = faPaperPlane;
   iconCalendar = faCalendar;
+  iconCalendarRegular = faCalendarRegular;
   iconBook = faBook;
 
   schedules: Array<ScheduleInfo> = [];

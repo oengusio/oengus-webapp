@@ -11,7 +11,7 @@ Note that the back-end lives on this repository [https://github.com/esamarathon/
 ### Requirements
 
 - NodeJS 10+
-- Nodejs 12 is the maximum supported version on windows: https://nodejs.org/dist/latest-v12.x/
+- Bulma 9: https://versions.bulma.io/0.9.4/
 
 ### Instructions
 

@@ -1,13 +1,50 @@
 .menu-item-link {
   display: flex;
   justify-content: flex-start;
-  justify-content: start;
   align-items: center;
 }
 
 .menu-item-icon {
   min-width: 1.5em;
   margin-inline-end: 0.25em;
+}
+
+.menu-item-has-children {
+  cursor: default;
+}
+
+.menu-item-children {
+  margin-top: 0;
+  margin-bottom: 0;
+
+  li {
+    // Needed to allow the proper placement of the before and after
+    position: relative;
+
+    a {
+      margin-left: calc(var(--spacing) / 2);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-block-start: calc(var(--spacing) - 3px);
+      inset-inline-start: calc(var(--spacing) - 10);
+      width: calc(var(--spacing) / 2);
+      height: 2px;
+      background-color: #838383;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset-block-start: -3px;
+      inset-inline-start: calc(var(--spacing) - 10);
+      height: var(--spacing);
+      width: 2px;
+      background-color: #838383;
+    }
+  }
 }
 
 @keyframes submit-live-blink {
@@ -31,8 +68,29 @@
 
 :host.collapsed {
   .menu-label,
-  .menu-item-label {
+  .menu-item-label,
+  .menu-item-has-children {
     display: none;
+  }
+
+  .menu-item-children {
+    margin: 0;
+    display: flex;
+
+    a {
+      margin-left: 0;
+    }
+
+    li {
+      &::before {
+        display: none;
+      }
+
+      &::after {
+        display: none;
+      }
+
+    }
   }
 
   .menu-item-icon {
