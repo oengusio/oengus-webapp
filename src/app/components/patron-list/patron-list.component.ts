@@ -5,7 +5,7 @@ import { PatreonService } from '../../../services/patreon.service';
 @Component({
   selector: 'app-patron-list',
   templateUrl: './patron-list.component.html',
-  styleUrls: ['./patron-list.component.scss']
+  styleUrls: ['./patron-list.component.scss'],
 })
 export class PatronListComponent implements OnInit {
 
@@ -14,8 +14,14 @@ export class PatronListComponent implements OnInit {
   constructor(private patreonService: PatreonService) { }
 
   ngOnInit(): void {
-    this.patreonService.fetchPatrons().subscribe((response) => {
-      this.patrons = response.patrons;
+    this.patreonService.fetchPatrons().subscribe({
+      next: (response) => {
+        this.patrons = response.patrons;
+      },
+      error: (ignored) => {
+        // Just ignore any errors
+        this.patrons = [];
+      }
     });
   }
 
