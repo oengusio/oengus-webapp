@@ -50,6 +50,17 @@ export class TranslatedContentDirective implements OnInit, OnDestroy, AfterConte
 
   public ngOnInit(): void {
     this.rawTranslation = this.translateService.get(this.translationKey);
+    // this somehow fucks shit up, I don't understand what is happening
+    // Elements are duplicated, I need to overwrite the html in the renderer.
+    // this can be replaced by this.translateService.stream for the same fucked up result
+    /*this.rawTranslation = merge(
+      this.translateService.get(this.translationKey),
+      this.translateService.onLangChange
+        .asObservable()
+        .pipe(switchMap(
+          () => this.translateService.get(this.translationKey)
+        ))
+    );*/
   }
 
   public ngAfterContentInit(): void {
@@ -74,17 +85,28 @@ export class TranslatedContentDirective implements OnInit, OnDestroy, AfterConte
 
   private testRender(translationData: TranslationData) {
     requestAnimationFrame(() => {
-      this.render(translationData);
+      try {
+        this.render(translationData);
+      } catch (e) {
+        console.error(e);
+      }
     });
   }
 
   private render(translationData: TranslationData): void {
     if (!translationData.rawTranslation || translationData.rawTranslation === this.translationKey) {
+      // throw new Error(`No resource matching the key '${this.translationKey}'`);
       // Render the translation key if it's missing
       const translationKeyText = document.createTextNode(this.translationKey);
       this.renderer.appendChild(this.viewRef.element.nativeElement, translationKeyText);
+      this.changeDetectorRef.detectChanges();
       return;
     }
+
+    // Is this needed?
+    this.viewRef.element.nativeElement.childNodes.forEach(node => {
+      this.renderer.removeChild(this.viewRef.element.nativeElement, node);
+    });
 
     let lastTokenEnd = 0;
 
@@ -106,6 +128,7 @@ export class TranslatedContentDirective implements OnInit, OnDestroy, AfterConte
 
       const precedingText = translationData.rawTranslation.substring(lastTokenEnd, tokenStartDemarc);
       const precedingTextElement = this.renderer.createText(precedingText);
+
       this.renderer.appendChild(this.viewRef.element.nativeElement, precedingTextElement);
 
       const elementKey = translationData.rawTranslation.substring(tokenStart, tokenEnd);
