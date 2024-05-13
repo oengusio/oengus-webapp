@@ -27,10 +27,10 @@ export class HeaderBarVerifyEmailComponent {
         this.loading = false;
       },
 
-      error(err: any) {
+      error: (err: any) => {
         console.log(err);
-        alert('Something went wrong! Please try again later.  ');
         this.loading = false;
+        alert(`Something went wrong: ${err.error.message}`);
       }
     });
   }
