@@ -23,7 +23,7 @@ export class ElementConnectionsComponent implements OnInit {
 
   addNewConnection(): void {
     this.connections.push({
-      platform: '',
+      platform: 'SPEEDRUNCOM',
       username: '',
     });
     this.connectionsChange.emit(this.connections);

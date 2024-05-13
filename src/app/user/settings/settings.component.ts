@@ -164,6 +164,7 @@ export class SettingsComponent implements OnInit {
     this.loading = true;
     this.user.pronouns = this.tmpPronouns.join(',') || null;
     this.user.languagesSpoken = this.tmpLanguages.join(',');
+    this.user.connections = this.user.connections.filter((c) => !!c.platform && !!c.username);
     // Display name is free text basically, here we strip all HTML and only keep text or default to username.
     this.user.displayName = DOMPurify.sanitize(this.user.displayName, {  ALLOWED_TAGS: [ '#text' ] }) || this.user.username;
     return new Promise((resolve) => {
