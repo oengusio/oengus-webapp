@@ -6,8 +6,6 @@ import { MinNumberValidatorDirective } from './min-number-validator.directive';
 import { MinDurationValidatorDirective } from './min-duration-validator.directive';
 import { MaxNumberValidatorDirective } from './max-number-validator.directive';
 import { TotalValidatorDirective } from './total-validator.directive';
-import { TranslatedContentDirective } from './translated-content.directive';
-import { TranslatedElementDirective } from './translated-element.directive';
 import { ScheduleSlugExistsValidatorDirective } from './schedule-slug-exists-validator.directive';
 
 @NgModule({
@@ -18,8 +16,6 @@ import { ScheduleSlugExistsValidatorDirective } from './schedule-slug-exists-val
     MaxNumberValidatorDirective,
     MinDurationValidatorDirective,
     TotalValidatorDirective,
-    TranslatedContentDirective,
-    TranslatedElementDirective,
     ScheduleSlugExistsValidatorDirective,
   ],
   imports: [
@@ -32,8 +28,6 @@ import { ScheduleSlugExistsValidatorDirective } from './schedule-slug-exists-val
     MaxNumberValidatorDirective,
     TotalValidatorDirective,
     MinDurationValidatorDirective,
-    TranslatedContentDirective,
-    TranslatedElementDirective,
     ScheduleSlugExistsValidatorDirective,
   ],
 })

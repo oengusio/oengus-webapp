@@ -1,16 +1,16 @@
 <h1 class="title">{{ 'marathon.schedule.management.title' | translate}}</h1>
 
 <div>
-  <p appTranslatedContent="marathon.schedule.management.overview.title">
+  <p>
+    {{ 'marathon.schedule.management.overview.title' | translate: { 'create-new': '' } }}
     <ng-template [ngIf]="(isSponsor && schedules.length < 4) || schedules.length === 0" [ngIfElse]="disabledButton">
       <a [routerLink]="'../new' | localize"
-         *appTranslatedElement="'create-new'"
          class="button is-success">
         {{ 'marathon.schedule.management.overview.create-new' | translate }}
       </a>
     </ng-template>
     <ng-template #disabledButton>
-      <button type="button" class="button is-success" disabled *appTranslatedElement="'create-new'">
+      <button type="button" class="button is-success" disabled>
         {{ 'marathon.schedule.management.overview.create-new' | translate }}
       </button>
     </ng-template>

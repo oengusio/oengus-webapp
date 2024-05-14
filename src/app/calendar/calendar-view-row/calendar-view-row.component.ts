@@ -49,6 +49,20 @@ export class CalendarViewRowComponent {
     };
   }
 
+  get durationKey(): string {
+    switch (this.durationText) {
+      case 'calendar.endsAt':
+        return 'end-time';
+      case 'calendar.startsAt':
+        return 'start-time';
+      case 'calendar.between':
+        return 'time-range';
+      case 'calendar.allDay':
+      default:
+        return '';
+    }
+  }
+
   get durationText(): string {
     let durationText: string;
     if (this.start === 0) {

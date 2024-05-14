@@ -26,9 +26,9 @@
             {{ 'language.' + marathon.language | translate }}
           </app-element-table-cell>
           <app-element-table-cell class="time" [class]="getRowParity(index)" *ngFor="let item of getTranslationData(marathon, marathonsList.timeTranslationValue) | keyvalue">
-            <div [appTranslatedContent]="marathonsList.timeTranslationKey[item.key]">
-              <app-element-temporal-distance *appTranslatedElement="'duration'" [dateTime]="item.value"></app-element-temporal-distance>
-            </div>
+            <app-element-i18n [key]="marathonsList.timeTranslationKey[item.key]" elementKey="duration">
+              <app-element-temporal-distance [dateTime]="item.value"></app-element-temporal-distance>
+            </app-element-i18n>
           </app-element-table-cell>
         </ng-template>
         <div class="spacer"></div>

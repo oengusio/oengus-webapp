@@ -5,11 +5,14 @@
   </a>
 </div>
 
-<p appTranslatedContent="footer.patron.enjoyOengus">
-  <a href="https://www.patreon.com/oengusio" *appTranslatedElement="'patronLink'" target="_blank">
-    {{ 'footer.patron.patronLink' | translate }}
-  </a>
+<p>
+  <app-element-i18n key="footer.patron.enjoyOengus" elementKey="patronLink">
+    <a href="https://www.patreon.com/oengusio" target="_blank">
+      {{ 'footer.patron.patronLink' | translate }}
+    </a>
+  </app-element-i18n>
 </p>
+
 <p>
   {{ 'footer.patron.list' | translate }}
 </p>

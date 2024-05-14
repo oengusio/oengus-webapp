@@ -1,8 +1,10 @@
 <div class="container" *ngIf="showNextStep">
   <h1 class="title">{{ 'register.thank_you' | translate }}</h1>
   <h2 class="subtitle">{{ 'register.email_sent' | translate }}</h2>
-  <p appTranslatedContent="register.login_hint">
-    <a [routerLink]="'/login'  | localize" *appTranslatedElement="'login-link'">{{ 'action.login' | translate }}</a>
+  <p>
+    <app-element-i18n key="register.login_hint" elementKey="login-link">
+      <a [routerLink]="'/login'  | localize">{{ 'action.login' | translate }}</a>
+    </app-element-i18n>
   </p>
 </div>
 

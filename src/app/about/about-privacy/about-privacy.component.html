@@ -2,10 +2,10 @@
   <h3 class="title is-3">
     {{ 'aboutPage.privacy.title' | translate }}
   </h3>
-  <p appTranslatedContent="aboutPage.privacy.par1">
-    <a href="https://oengus.io" *appTranslatedElement="'oengus-link'">
-      https://oengus.io
-    </a>
+  <p>
+    <app-element-i18n key="aboutPage.privacy.par1" elementKey="oengus-link">
+      <a href="https://oengus.io">https://oengus.io</a>
+    </app-element-i18n>
   </p>
   <p>{{ 'aboutPage.privacy.par2'| translate }}</p>
   <p>{{ 'aboutPage.privacy.par3' | translate }}</p>
