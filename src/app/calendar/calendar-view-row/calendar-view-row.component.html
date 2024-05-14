@@ -1,16 +1,11 @@
 <app-element-table-row>
   <app-element-table-cell class="duration">
     <span>
-      <app-element-i18n *ngIf="durationKey == 'start-time'" [key]="durationText" elementKey="start-time">
-        <app-element-temporal-datetime [dateTime]="marathon.startDate" format="shortTime"></app-element-temporal-datetime>
+      <app-element-i18n [key]="durationText" [elementKey]="durationKey">
+        <app-element-temporal-datetime data-key="start-time" [dateTime]="marathon.startDate" format="shortTime"></app-element-temporal-datetime>
+        <app-element-temporal-datetime data-key="end-time" [dateTime]="marathon.endDate" format="shortTime"></app-element-temporal-datetime>
+        <app-element-temporal-range data-key="time-range" [start]="marathon.startDate" [end]="marathon.endDate" format="shortTime"></app-element-temporal-range>
       </app-element-i18n>
-      <app-element-i18n *ngIf="durationKey == 'end-time'" [key]="durationText" elementKey="end-time">
-        <app-element-temporal-datetime [dateTime]="marathon.endDate" format="shortTime"></app-element-temporal-datetime>
-      </app-element-i18n>
-      <app-element-i18n *ngIf="durationKey == 'time-range'" [key]="durationText" elementKey="time-range">
-        <app-element-temporal-range [start]="marathon.startDate" [end]="marathon.endDate" format="shortTime"></app-element-temporal-range>
-      </app-element-i18n>
-      <span *ngIf="!durationKey">{{ durationText | translate }}</span>
     </span>
   </app-element-table-cell>
   <app-element-table-cell class="range">
