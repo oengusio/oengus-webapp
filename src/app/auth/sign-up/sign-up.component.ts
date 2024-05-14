@@ -4,6 +4,7 @@ import { SignupDto } from '../../../model/dto/signup-dto';
 import { faEnvelope, faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../services/auth.service';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sign-up',
@@ -38,6 +39,7 @@ export class SignUpComponent {
     private route: ActivatedRoute,
     private authService: AuthService,
     private toastr: NwbAlertService,
+    private translateService: TranslateService,
   ) {
     this.route.queryParams.subscribe(params => {
       this.data.username = (params['username'] || '').toLowerCase();
@@ -60,12 +62,7 @@ export class SignUpComponent {
         this.showNextStep = true;
       }
     } catch (e: any) {
-      this.toastr.open({
-        message: 'Something went wrong, please check for validation errors. If the issue persists, please contact support in discord.',
-        duration: 5000,
-        position: 'is-right',
-        color: 'is-danger'
-      });
+      this.triggerValidationToaster();
 
       const errors: { field: string; defaultMessage: string }[] = e.error.errors ?? [];
 
@@ -80,6 +77,19 @@ export class SignUpComponent {
     } finally {
       this.loading = false;
     }
+  }
+
+  private triggerValidationToaster() {
+    this.translateService.get('alert.generic.validationError').subscribe({
+      next: (message: string) => {
+        this.toastr.open({
+          message,
+          duration: 5000,
+          position: 'is-right',
+          color: 'is-danger'
+        });
+      },
+    });
   }
 
   get title(): string {
