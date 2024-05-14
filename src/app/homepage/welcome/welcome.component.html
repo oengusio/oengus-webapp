@@ -3,13 +3,21 @@
     {{ 'homepage.welcomeTitle' | translate }}
   </h1>
   <p [innerHTML]="'homepage.welcomeText.par1' | translate"></p>
-  <p>
-    {{ 'homepage.welcomeText.par3' | translate }}
-  </p>
-  <div class="is-centered">
-    <app-widget-signin-picker></app-widget-signin-picker>
-  </div>
-  <p [innerHTML]="'homepage.welcomeText.par4.prod' | translate"></p>
+
+  <ng-template [ngIf]="!userService.user">
+    <p>
+      {{ 'homepage.welcomeText.par3' | translate }}
+    </p>
+    <div class="is-centered">
+      <app-widget-signin-picker></app-widget-signin-picker>
+    </div>
+  </ng-template>
+
+  <p *ngIf="sandbox; else prodMsg" [innerHTML]="'homepage.welcomeText.par4.sandbox' | translate"></p>
+
+  <ng-template #prodMsg>
+    <p [innerHTML]="'homepage.welcomeText.par4.prod' | translate"></p>
+  </ng-template>
 
   <br>
 

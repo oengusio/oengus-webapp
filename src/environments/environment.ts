@@ -7,7 +7,7 @@ export const environment = {
   // is this a production build
   production: false,
   // is this a sandbox build
-  sandbox: false,
+  sandbox: true,
   // shortUrl: 'https://oengus.fun',
   shortUrl: 'https://short.oengus.dev',
   // this is the base of the website where the users will land
