@@ -65,7 +65,7 @@ export class LoginOauthComponent implements OnInit {
           this.disabledAccountToast();
           return;
         case LoginResponseStatus.OAUTH_ACCOUNT_NOT_FOUND:
-          this.unknownAccountToast();
+          this.unknownAccountToast(error.token);
           return;
         default:
           this.router.navigate(['/']);
@@ -82,9 +82,12 @@ export class LoginOauthComponent implements OnInit {
     }
   }
 
-  unknownAccountToast() {
-    // TODO: somehow get the default username from the response.
-    this.router.navigate(['/register']);
+  unknownAccountToast(username: string | null) {
+    this.router.navigate(['/register'], {
+      queryParams: {
+        username,
+      }
+    });
 
     this.translateService.get('alert.user.login.noAccountFound').subscribe((res: string) => {
       const alertConfig: NwbAlertConfig = {
