@@ -86,14 +86,15 @@ export class LoginOauthComponent implements OnInit {
     // TODO: somehow get the default username from the response.
     this.router.navigate(['/register']);
 
-    // TODO: translation
-    const alertConfig: NwbAlertConfig = {
-      message: 'Account not found, please register for a new account or sync with an existing account.',
-      duration: 8000,
-      position: 'is-right',
-      color: 'is-warning'
-    };
-    this.toastr.open(alertConfig);
+    this.translateService.get('alert.user.login.noAccountFound').subscribe((res: string) => {
+      const alertConfig: NwbAlertConfig = {
+        message: res,
+        duration: 8000,
+        position: 'is-right',
+        color: 'is-warning'
+      };
+      this.toastr.open(alertConfig);
+    });
   }
 
   disabledAccountToast() {
@@ -101,7 +102,7 @@ export class LoginOauthComponent implements OnInit {
     this.translateService.get('alert.user.login.disabledAccount').subscribe((res: string) => {
       const alertConfig: NwbAlertConfig = {
         message: res,
-        duration: 5000,
+        duration: 8000,
         position: 'is-right',
         color: 'is-warning'
       };
