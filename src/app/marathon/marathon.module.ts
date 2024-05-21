@@ -71,6 +71,8 @@ import { HomeSubmitButtonComponent } from './home/home-submit-button/home-submit
 import { WarningModalComponent } from './schedule-management/warning-modal/warning-modal.component';
 import { ScheduleBySlugResolver } from '../resolvers/schedule-by-slug-resolver';
 import { ScheduleV1ModelResolver } from '../resolvers/schedule-v1-model-resolver';
+import { SubmissionsTableComponent } from './schedule-management/edit/submissions-table/submissions-table.component';
+import { ScheduleTableComponent } from './schedule-management/edit/schedule-table/schedule-table.component';
 
 const marathonRoutes: Routes = [
   {
@@ -274,6 +276,8 @@ const marathonRoutes: Routes = [
     ScheduleManagementEditComponent,
     HomeSubmitButtonComponent,
     WarningModalComponent,
+    SubmissionsTableComponent,
+    ScheduleTableComponent,
   ],
   imports: [
     CommonModule,

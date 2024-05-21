@@ -1,0 +1,29 @@
+<app-element-table>
+  <app-element-table-row header>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.runner' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.game' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.category' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.console' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.estimate' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.actions' | translate}}</app-element-table-cell>
+  </app-element-table-row>
+
+  <ng-template ngFor [ngForOf]="todoLines" let-line let-i="index">
+    <app-element-table-row [class]="getRowParity(i)">
+      <app-element-table-cell>
+        <span *ngFor="let runner of line.runners">
+          {{ runner.runnerName ?? runner.profile.displayName }}
+        </span>
+      </app-element-table-cell>
+      <app-element-table-cell>{{ line.game }}</app-element-table-cell>
+      <app-element-table-cell>{{ line.category }}</app-element-table-cell>
+      <app-element-table-cell>{{ line.console }}</app-element-table-cell>
+      <app-element-table-cell>{{ line.estimate }}</app-element-table-cell>
+      <app-element-table-cell>
+        <a (click)="moveToSchedule.emit(i)">
+          <fa-icon [icon]="iconChevronRight"></fa-icon>
+        </a>
+      </app-element-table-cell>
+    </app-element-table-row>
+  </ng-template>
+</app-element-table>

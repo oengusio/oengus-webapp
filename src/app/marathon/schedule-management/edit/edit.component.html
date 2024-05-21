@@ -17,6 +17,7 @@
 </div>
 
 <div>
+  <!-- TODO: split this out to a component -->
   <form (ngSubmit)="submit()" #infoForm="ngForm">
     <div class="field">
       <label for="sched_name" class="label">
@@ -152,17 +153,28 @@
 
 <hr>
 
-<div>
-  <p>If this schedule has lines they should be editable here, but I am too scared to turn this into a good UI.</p>
-  <p>The submissions should also be loaded in just like the old ui</p>
-  <p>But for now, here is a OL</p>
+<!-- TODO: -->
+<!--  - Availability timeline -->
+<!--  - Help information -->
 
-  <ol>
-    <li *ngFor="let line of lines">
-      {{ line.id }} -
-      {{ line.game ?? line.setupBlockText ?? 'Setup block' }} -
-      {{ line.category ?? 'No category' }} -
-      {{ line.setupBlock }}
-    </li>
-  </ol>
+<div class="columns is-desktop">
+  <div class="column is-6">
+    <h4 class="subtitle is-4">{{ 'marathon.schedule.management.selectedRuns' | translate}}</h4>
+
+    <app-submissions-table *ngIf="submissionsLoaded; else scheduleLoadingIndicator"
+                           (moveToSchedule)="moveToSchedule($event)"
+                           [todoLines]="todoLines"></app-submissions-table>
+
+    <ng-template #scheduleLoadingIndicator>
+      <div class="is-centered">
+        <app-loading-indicator></app-loading-indicator>
+      </div>
+    </ng-template>
+  </div>
+  <div class="column is-6">
+    <h4 class="subtitle mb-0 is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
+    <small class="mb-2">{{ 'marathon.schedule.management.markdown' | translate}}</small>
+
+    <app-schedule-table [lines]="lines"></app-schedule-table>
+  </div>
 </div>
