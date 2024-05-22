@@ -73,6 +73,8 @@ import { ScheduleBySlugResolver } from '../resolvers/schedule-by-slug-resolver';
 import { ScheduleV1ModelResolver } from '../resolvers/schedule-v1-model-resolver';
 import { SubmissionsTableComponent } from './schedule-management/edit/submissions-table/submissions-table.component';
 import { ScheduleTableComponent } from './schedule-management/edit/schedule-table/schedule-table.component';
+import { SetupBlockEditorComponent } from './schedule-management/edit/schedule-table/setup-block-editor/setup-block-editor.component';
+import { NormalRunEditorComponent } from './schedule-management/edit/schedule-table/normal-run-editor/normal-run-editor.component';
 
 const marathonRoutes: Routes = [
   {
@@ -278,6 +280,8 @@ const marathonRoutes: Routes = [
     WarningModalComponent,
     SubmissionsTableComponent,
     ScheduleTableComponent,
+    SetupBlockEditorComponent,
+    NormalRunEditorComponent,
   ],
   imports: [
     CommonModule,

@@ -1,13 +1,16 @@
 <app-element-table>
   <app-element-table-row header>
-    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.runner' | translate}}</app-element-table-cell>
-    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.game' | translate}}</app-element-table-cell>
-    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.category' | translate}}</app-element-table-cell>
-    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.console' | translate}}</app-element-table-cell>
-    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.estimate' | translate}}</app-element-table-cell>
-    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.actions' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.schedule.table.time' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.schedule.table.runner' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.schedule.table.game' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.schedule.table.category' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.schedule.table.type' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.schedule.table.console' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.schedule.table.estimate' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.schedule.table.actions' | translate}}</app-element-table-cell>
   </app-element-table-row>
 
+  <!-- TODO: drag and drop the schedule lines -->
   <ng-template ngFor [ngForOf]="lines" let-line let-i="index">
     <app-element-table-row [class]="getRowParity(i)">
       <app-element-table-cell [isExpandButton]="true"
@@ -15,13 +18,15 @@
                               class="expandable"
                               (click)="toggleExpand(line.id)"
       ></app-element-table-cell>
+      <!-- TODO: format time to HH:mm -->
+      <app-element-table-cell>{{ line.date }}</app-element-table-cell>
 
       <ng-template [ngIf]="line.setupBlock" [ngIfElse]="notASetupBlock">
         <app-element-table-cell>
-          <strong>{{'marathon.schedule.setupBlock' | translate}}</strong>
+          <strong>{{'marathon.schedule.setupBlock' | translate}} (do we need this text?)</strong>
         </app-element-table-cell>
         <app-element-table-cell>
-          {{ line.setupBlockText ?? 'Default Setup Block text' }}
+          <app-simple-md [data]="line.setupBlockText || 'marathon.schedule.setupBlock' | translate"></app-simple-md>
         </app-element-table-cell>
         <app-element-table-cell>
           {{ line.setupTime }}
@@ -35,13 +40,16 @@
         </span>
         </app-element-table-cell>
         <app-element-table-cell>
-          <app-simple-md [data]="line.game" ></app-simple-md>
+          <app-simple-md [data]="line.game"></app-simple-md>
         </app-element-table-cell>
         <app-element-table-cell>
-          <app-simple-md [data]="line.category" ></app-simple-md>
+          <app-simple-md [data]="line.category"></app-simple-md>
         </app-element-table-cell>
-        <app-element-table-cell>{{ line.console }}</app-element-table-cell>
-        <app-element-table-cell>{{ line.estimate }}</app-element-table-cell>
+        <app-element-table-cell>{{ 'marathon.schedule.type.' + line.type | translate }}</app-element-table-cell>
+        <app-element-table-cell>{{ line.console }}<sup *ngIf="line.emulated">{{ 'global.emu' | translate}}</sup></app-element-table-cell>
+        <app-element-table-cell>
+          <app-element-temporal-duration [duration]="line.estimate"></app-element-temporal-duration>
+        </app-element-table-cell>
       </ng-template>
 
 
@@ -60,33 +68,11 @@
     </app-element-table-row>
 
     <app-element-table-detail *ngIf="expanded.has(line.id)" [class]="getRowParity(i)">
-      <!-- TODO: turn this into a component -->
-      <!-- TODO: Insert translations -->
+      <!-- TODO: disable drag and drop when edit is open -->
       <!-- TODO: add styling -->
-      <!-- TODO: different controls (separate component) for setup block settings -->
-      <div>
-        <label for="game-{{i}}">{{ 'marathon.schedule.table.game' | translate}}:</label>
-        <input type="text" name="game-{{i}}" id="game-{{i}}" [(ngModel)]="line.game"/>
-      </div>
 
-      <div>
-        <label for="type-{{i}}">{{ 'marathon.schedule.table.type' | translate}}:</label>
-        <span
-          *ngIf="line.runners.length === 1 && !line.customRun">{{'marathon.schedule.type.SINGLE' | translate}}</span>
-        <div class="select" *ngIf="line.runners.length > 1 || line.customRun">
-          <select [(ngModel)]="line.type" id="type-{{i}}" name="type-{{i}}">
-            <option value="SINGLE"
-                    *ngIf="line.customRun">{{ 'marathon.schedule.type.SINGLE' | translate}}</option>
-            <option value="RACE">{{ 'marathon.schedule.type.RACE' | translate}}</option>
-            <option value="COOP">{{ 'marathon.schedule.type.COOP' | translate}}</option>
-            <option value="COOP_RACE">{{ 'marathon.schedule.type.COOP_RACE' | translate}}</option>
-            <option value="RELAY">{{ 'marathon.schedule.type.RELAY' | translate}}</option>
-            <option value="RELAY_RACE">{{ 'marathon.schedule.type.RELAY_RACE' | translate}}</option>
-            <option value="OTHER">{{ 'marathon.schedule.type.OTHER' | translate}}</option>
-          </select>
-        </div>
-      </div>
-
+      <app-setup-block-editor *ngIf="line.setupBlock" [line]="line"></app-setup-block-editor>
+      <app-normal-run-editor *ngIf="!line.setupBlock" [line]="line"></app-normal-run-editor>
 
       <!-- (custom data exists for both setup block and normal runs) -->
       <div>
@@ -97,7 +83,7 @@
         <textarea id="custom-data-{{i}}" class="textarea"
                   [(ngModel)]="line.customData"
                   placeholder='{"layout": "19:9", "other-data": "here"} or whatever else you want'></textarea>
-      </div>input also lives here
+      </div>
     </app-element-table-detail>
   </ng-template>
 </app-element-table>

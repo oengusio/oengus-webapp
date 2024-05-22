@@ -63,6 +63,7 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     // the service has updateLines() for updating the lines.
+    // TODO: when updating lines, make sure to map empty strings to null
     this.scheduleService.getLines(this.marathonId, this.scheduleInfo.id).subscribe((resp) => {
       this.lines = resp.data;
     });
