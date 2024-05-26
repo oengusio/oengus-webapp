@@ -1,10 +1,24 @@
-<div>
-  <!-- TODO: translate -->
-  <label for="setup-text-{{i}}">Custom label (leave empty for default):</label>
-  <input type="text" name="setup-text-{{i}}" id="setup-text-{{i}}" [(ngModel)]="line.setupBlockText" placeholder="Setup Block" />
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="setup-text-{{i}}">Custom label (this needs translation):</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="text" name="setup-text-{{i}}" id="setup-text-{{i}}" [(ngModel)]="line.setupBlockText" placeholder="Setup Block"/>
+      <p class="help">
+        Leave empty for default text
+      </p>
+    </div>
+  </div>
 </div>
 
-<div>
-  <label for="setup-{{i}}">{{ 'marathon.schedule.table.setup' | translate}}:</label>
-  <input type="text" name="setup-{{i}}" id="setup-{{i}}" [(ngModel)]="lineSetup"/>
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="setup-{{i}}">{{ 'marathon.schedule.table.setup' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="time" name="setup-{{i}}" id="setup-{{i}}" [(ngModel)]="lineSetup"/>
+    </div>
+  </div>
 </div>

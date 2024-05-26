@@ -37,7 +37,7 @@
     </app-element-table-cell>
   </app-element-table-row>
 
-  <!-- TODO: drag and drop the schedule lines is wonky -->
+  <!-- TODO: drag and drop the schedule lines is wonky and broken -->
   <div class="droplist" cdkDropList [cdkDropListData]="lines" (cdkDropListDropped)="scheduleDrop($event)">
     <ng-template ngFor [ngForOf]="lines" let-line let-i="index">
       <app-schedule-edit-row
@@ -59,14 +59,16 @@
         <app-normal-run-editor *ngIf="!line.setupBlock" [line]="line"></app-normal-run-editor>
 
         <!-- (custom data exists for both setup block and normal runs) -->
-        <div>
+        <div class="field custom-data-field">
           <label for="custom-data-{{i}}">
             {{ 'marathon.schedule.management.customData.inputText' | translate }}
           </label>
 
-          <textarea id="custom-data-{{i}}" class="textarea"
-                    [(ngModel)]="line.customData"
-                    placeholder='{"layout": "19:9", "other-data": "here"} or whatever else you want'></textarea>
+          <div class="control">
+            <textarea id="custom-data-{{i}}" class="textarea"
+                      [(ngModel)]="line.customData"
+                      placeholder='{"layout": "19:9", "other-data": "here"} or whatever else you want'></textarea>
+          </div>
         </div>
       </app-element-table-detail>
     </ng-template>

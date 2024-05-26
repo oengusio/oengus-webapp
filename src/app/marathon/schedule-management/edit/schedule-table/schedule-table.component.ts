@@ -18,6 +18,10 @@ export class ScheduleTableComponent {
 
   expanded = new Set<number>();
 
+  constructor() {
+    this.expanded.add(48);
+  }
+
   toggleExpand(lineId: number): void {
     if (this.expanded.has(lineId)) {
       this.expanded.delete(lineId);

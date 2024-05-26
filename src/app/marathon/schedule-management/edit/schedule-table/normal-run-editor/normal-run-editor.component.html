@@ -2,56 +2,97 @@
   <p>TODO: runners</p>
 </div>
 
-<div>
-  <label for="game-{{i}}">{{ 'marathon.schedule.table.game' | translate}}:</label>
-  <input type="text" name="game-{{i}}" id="game-{{i}}" [(ngModel)]="line.game"/>
-</div>
-
-<div>
-  <label for="category-{{i}}">{{ 'marathon.schedule.table.category' | translate}}:</label>
-  <input type="text" name="category-{{i}}" id="category-{{i}}" [(ngModel)]="line.category"/>
-</div>
-
-<div>
-  <label for="type-{{i}}">{{ 'marathon.schedule.table.type' | translate}}:</label>
-  <span
-    *ngIf="line.runners.length === 1 && !line.customRun">{{'marathon.schedule.type.SINGLE' | translate}}</span>
-  <div class="select" *ngIf="line.runners.length > 1 || line.customRun">
-    <select [(ngModel)]="line.type" id="type-{{i}}" name="type-{{i}}">
-      <option value="SINGLE"
-              *ngIf="line.customRun">{{ 'marathon.schedule.type.SINGLE' | translate}}</option>
-      <option value="RACE">{{ 'marathon.schedule.type.RACE' | translate}}</option>
-      <option value="COOP">{{ 'marathon.schedule.type.COOP' | translate}}</option>
-      <option value="COOP_RACE">{{ 'marathon.schedule.type.COOP_RACE' | translate}}</option>
-      <option value="RELAY">{{ 'marathon.schedule.type.RELAY' | translate}}</option>
-      <option value="RELAY_RACE">{{ 'marathon.schedule.type.RELAY_RACE' | translate}}</option>
-      <option value="OTHER">{{ 'marathon.schedule.type.OTHER' | translate}}</option>
-    </select>
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="game-{{i}}">{{ 'marathon.schedule.table.game' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="text" name="game-{{i}}" id="game-{{i}}" [(ngModel)]="line.game"/>
+    </div>
   </div>
 </div>
 
-<div>
-  <label for="console-{{i}}">{{ 'marathon.schedule.table.console' | translate}}:</label>
-  <span>
-    <input type="text" name="console-{{i}}" id="console-{{i}}" [(ngModel)]="line.console"/>
-    <sup *ngIf="line.emulated">{{ 'global.emu' |translate}}</sup>
-  </span>
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="category-{{i}}">{{ 'marathon.schedule.table.category' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="text" name="category-{{i}}" id="category-{{i}}" [(ngModel)]="line.category"/>
+    </div>
+  </div>
 </div>
 
-<div>
-  <!-- Recycling a string :) -->
-  <label for="emulated-{{i}}">{{ 'marathon.submit.game.console.emulated' | translate}}:</label>
-  <span>
-    <input type="checkbox" name="emulated-{{i}}" id="emulated-{{i}}" [(ngModel)]="line.emulated"/>
-  </span>
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="type-{{i}}">{{ 'marathon.schedule.table.type' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <span
+        *ngIf="line.runners.length === 1 && !line.customRun">
+        {{'marathon.schedule.type.SINGLE' | translate}}</span>
+      <div class="select" *ngIf="line.runners.length > 1 || line.customRun">
+        <select [(ngModel)]="line.type" id="type-{{i}}" name="type-{{i}}">
+          <option value="SINGLE"
+                  *ngIf="line.customRun">{{ 'marathon.schedule.type.SINGLE' | translate}}</option>
+          <option value="RACE">{{ 'marathon.schedule.type.RACE' | translate}}</option>
+          <option value="COOP">{{ 'marathon.schedule.type.COOP' | translate}}</option>
+          <option value="COOP_RACE">{{ 'marathon.schedule.type.COOP_RACE' | translate}}</option>
+          <option value="RELAY">{{ 'marathon.schedule.type.RELAY' | translate}}</option>
+          <option value="RELAY_RACE">{{ 'marathon.schedule.type.RELAY_RACE' | translate}}</option>
+          <option value="OTHER">{{ 'marathon.schedule.type.OTHER' | translate}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div>
-  <label for="estimate-{{i}}">{{ 'marathon.schedule.table.estimate' | translate}}:</label>
-  <input type="text" name="estimate-{{i}}" id="estimate-{{i}}" [(ngModel)]="lineEstimate"/>
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="console-{{i}}">{{ 'marathon.schedule.table.console' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input consoleInput" type="text" name="console-{{i}}" id="console-{{i}}" [(ngModel)]="line.console"/>
+      <sup *ngIf="line.emulated">{{ 'global.emu' |translate}}</sup>
+    </div>
+  </div>
 </div>
 
-<div>
-  <label for="setup-{{i}}">{{ 'marathon.schedule.table.setup' | translate}}:</label>
-  <input type="text" name="setup-{{i}}" id="setup-{{i}}" [(ngModel)]="lineSetup"/>
+<div class="field is-horizontal">
+  <div class="field-label is-normal"></div>
+  <div class="field-body">
+    <div class="field">
+      <label class="checkbox" for="emulated-{{i}}">
+        <input type="checkbox" name="emulated-{{i}}" id="emulated-{{i}}" [(ngModel)]="line.emulated">
+
+        <!-- Recycling a string :) -->
+        {{ 'marathon.submit.game.console.emulated' | translate}}
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="estimate-{{i}}">{{ 'marathon.schedule.table.estimate' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="time" name="estimate-{{i}}" id="estimate-{{i}}" [(ngModel)]="lineEstimate"/>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="setup-{{i}}">{{ 'marathon.schedule.table.setup' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="time" name="setup-{{i}}" id="setup-{{i}}" [(ngModel)]="lineSetup"/>
+    </div>
+  </div>
 </div>
