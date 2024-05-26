@@ -13,6 +13,10 @@ $discordBlurple: #5865F2;
 $twitchPurple: #9146FF;
 $googleWhite: #000000;
 
+.is-warning {
+  background-color: $warning !important;
+}
+
 @import 'bulma';
 @import 'bulmaswatch/solar/overrides';
 @import '@duncte123/bulma-tagsinput/src/sass/index';

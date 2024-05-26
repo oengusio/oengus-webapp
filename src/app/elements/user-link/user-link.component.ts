@@ -26,7 +26,7 @@ export class UserLinkComponent {
 
   get displayName(): string {
     // @ts-expect-error I need to fix the type checks here.
-    return this?.user?.displayName ?? this?.user?.runnerName ?? this.username;
+    return this?.user?.displayName ?? this?.user?.profile?.displayName ?? this?.user?.runnerName ?? this.username;
   }
 
 }

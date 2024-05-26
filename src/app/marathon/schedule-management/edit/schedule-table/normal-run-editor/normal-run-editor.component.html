@@ -1,5 +1,42 @@
-<div>
-  <p>TODO: runners</p>
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    {{ 'marathon.schedule.table.runner' | translate}}:
+  </div>
+  <div class="field-body">
+    <ul>
+      <li *ngFor="let runner of line.runners; let ri = index">
+        <a href="#" class="userAction"
+           *ngIf="line.runners.length > 1 || line.customRun"
+           (click)="removeUser(ri)"
+        >
+          <fa-icon [icon]="iconTimes"></fa-icon>
+        </a>
+        <app-user-link
+          [user]="runner"
+          [username]="runner.runnerName"
+          [isLink]="!!runner.profile"
+        ></app-user-link>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal"></div>
+  <div class="field-body">
+    <div class="field">
+      <ng-autocomplete
+        #autocompleteComponent
+        placeholder="Search for a runner"
+        [data]="userSearch[line.position]"
+        searchKeyword="username"
+        minQueryLength="3"
+        (selected)="onSelectUser($event, line)"
+        (inputChanged)="onSearchUser($event, line.position)"
+        [itemTemplate]="searchTemplate"
+      ></ng-autocomplete>
+    </div>
+  </div>
 </div>
 
 <div class="field is-horizontal">
@@ -96,3 +133,11 @@
     </div>
   </div>
 </div>
+
+<ng-template #searchTemplate let-item>
+  <!-- TODO: this potentially allows for HTML injection -->
+  <a class="no-hover" *ngIf="item.isCustom; else oengusUser;" [innerHTML]="item.username + ' (custom)'"></a>
+  <ng-template #oengusUser>
+    <a class="no-hover" [innerHTML]="item.displayName + ' (' + item.username + ')'"></a>
+  </ng-template>
+</ng-template>
