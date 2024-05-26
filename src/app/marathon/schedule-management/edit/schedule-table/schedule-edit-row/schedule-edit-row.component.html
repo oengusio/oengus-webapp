@@ -22,9 +22,9 @@
 
   <ng-template #notASetupBlock>
     <app-element-table-cell>
-        <span *ngFor="let runner of line.runners">
+        <p *ngFor="let runner of line.runners">
           {{ runner.runnerName ?? runner.profile.displayName }}
-        </span>
+        </p>
     </app-element-table-cell>
     <app-element-table-cell>
       <app-simple-md [data]="line.game"></app-simple-md>
