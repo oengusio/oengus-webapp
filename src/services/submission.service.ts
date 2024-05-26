@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BaseService } from './BaseService';
 import { Answer } from '../model/answer';
 import { SubmissionPage } from '../model/submission-page';
+import { AvailabilityResponse } from '../model/availability';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class SubmissionService extends BaseService {
     }
   }
 
-  availabilities(marathonId: string): Observable<any> {
+  availabilities(marathonId: string): Observable<AvailabilityResponse> {
     return this.http.get<any>(this.url(`${marathonId}/submissions/availabilities`));
   }
 
@@ -89,7 +90,7 @@ export class SubmissionService extends BaseService {
     return this.http.get<Answer[]>(this.url(`${marathonId}/submissions/answers`));
   }
 
-  availabilitiesForUser(marathonId: string, userId: number): Observable<any> {
+  availabilitiesForUser(marathonId: string, userId: number): Observable<AvailabilityResponse> {
     return this.http.get<any>(this.url(`${marathonId}/submissions/availabilities/${userId}`));
   }
 

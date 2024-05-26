@@ -153,6 +153,25 @@
 
 <hr>
 
+<section class="section">
+  <div id="timeline"></div>
+  <div style="margin-top: var(--spacing)">
+    <!-- custom data toggle -->
+    <nwb-switch [(ngModel)]="hideCompleteUsers">
+      <span>{{ 'marathon.schedule.management.hideCompleteUsers' | translate }}</span>
+    </nwb-switch>
+  </div>
+  <div style="margin-top: var(--spacing)">
+    <button type="button"
+            class="button is-info"
+            (click)="clearSelectedAvailabilities()">
+      {{'action.clearAvailabilities' | translate}}
+    </button>
+  </div>
+</section>
+
+<hr>
+
 <!-- TODO: -->
 <!--  - Availability timeline -->
 <!--  - Help information -->
@@ -177,9 +196,11 @@
 
     <app-schedule-table
       [lines]="lines"
+      [availabilities]="allAvailabilities"
       (moveToToDo)="moveToTodo($event)"
       (delete)="removeScheduleLine($event)"
       (computeSchedule)="computeSchedule()"
+      (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
     ></app-schedule-table>
   </div>
 </div>

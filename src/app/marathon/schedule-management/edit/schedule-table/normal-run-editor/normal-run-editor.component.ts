@@ -1,9 +1,9 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { LineRunner, V2ScheduleLine } from '../../../../../../model/schedule-line';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { DurationService } from '../../../../../../services/duration.service';
 import moment from 'moment-timezone';
 import { UserProfile } from '../../../../../../model/user-profile';
-import { MAX_NAME_LENGTH, User } from '../../../../../../model/user';
+import { MAX_NAME_LENGTH } from '../../../../../../model/user';
 import DOMPurify from 'dompurify';
 import { UserService } from '../../../../../../services/user.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +24,7 @@ export class NormalRunEditorComponent {
 
   @Input() line: V2ScheduleLine;
   @Input() i: number;
+  @Output() loadAvailabilities = new EventEmitter<number>();
 
   @ViewChild('autocompleteComponent') searchBox: AutocompleteComponent;
 
@@ -41,13 +42,15 @@ export class NormalRunEditorComponent {
     return false;
   }
 
-  onSelectUser(item: UserSearchType, line: V2ScheduleLine) {
-    if ('isCustom' in item) {
-      line.runners.push({ runnerName: item.username });
-    } else if (line.runners.findIndex(runner => 'user' in runner && runner.profile.id === item.id) < 0) {
-      line.runners.push({ profile: item });
-      // TODO: fix
-      // this.getAvailabilitiesForRunner(item.id);
+  // TODO: types are shit
+  onSelectUser(user: UserSearchType, line: V2ScheduleLine) {
+    if ('isCustom' in user) {
+      line.runners.push({ runnerName: user.username });
+    } else if (line.runners.findIndex(
+      (runner) => runner.profile && runner.profile.id === user.id
+    ) < 0) {
+      line.runners.push({ profile: user });
+      this.loadAvailabilities.emit(user.id);
     }
 
     if (line.runners.length > 1) {

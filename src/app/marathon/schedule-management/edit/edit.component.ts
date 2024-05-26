@@ -1,40 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { environment } from '../../../../environments/environment';
 import { ScheduleService } from '../../../../services/schedule.service';
 import { firstValueFrom } from 'rxjs';
-import { LineRunner, V2ScheduleLine } from '../../../../model/schedule-line';
+import { LineRunner, ScheduleRunner, V2ScheduleLine } from '../../../../model/schedule-line';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { SubmissionService } from '../../../../services/submission.service';
 import { SelectionService } from '../../../../services/selection.service';
 import { MarathonService } from '../../../../services/marathon.service';
-import {
-  faBars,
-  faCalendarTimes,
-  faCalendarWeek,
-  faChevronLeft,
-  faChevronRight,
-  faEdit,
-  faExclamationTriangle,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons';
+import * as vis from 'vis-timeline';
+import { DataSet } from 'vis-data';
+import { Availability, AvailabilityResponse } from '../../../../model/availability';
+import moment from 'moment-timezone';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  styleUrls: ['./edit.component.scss'],
 })
-export class EditComponent implements OnInit {
-  public iconBars = faBars;
-  public iconEdit = faEdit;
-  public iconTimes = faTimes;
-  public iconCalendarWeek = faCalendarWeek;
-  public iconCalendarTimes = faCalendarTimes;
-  public iconChevronRight = faChevronRight;
-  public iconChevronLeft = faChevronLeft;
-  public iconExclamation = faExclamationTriangle;
-
+export class EditComponent implements OnInit, OnDestroy {
   scheduleInfo: ScheduleInfo;
   marathonId = '';
   oldSlug = '';
@@ -48,6 +33,27 @@ export class EditComponent implements OnInit {
 
   submissionsLoaded = false;
 
+
+  public timezone = moment.tz.guess();
+  private timeline: vis.Timeline;
+  private timebar: vis.IdType;
+  public availabilitiesGroups: vis.DataSetDataGroup;
+  public availabilitiesItems: vis.DataSetDataItem;
+  public availabilitiesSelected = [];
+  private availabilitiesSelectedItems = [];
+  public allAvailabilities: AvailabilityResponse = {};
+
+  private _hideCompleteUsers = true;
+
+  get hideCompleteUsers() {
+    return this._hideCompleteUsers;
+  }
+
+  set hideCompleteUsers(val: boolean) {
+    localStorage.setItem('hideCompleteUsers', val ? 'true' : 'false');
+    this._hideCompleteUsers = val;
+  }
+
   constructor(
     private route: ActivatedRoute,
     private scheduleService: ScheduleService,
@@ -56,25 +62,63 @@ export class EditComponent implements OnInit {
     private marathonService: MarathonService,
     private toastr: NwbAlertService,
   ) {
+    const localItem = localStorage.getItem('hideCompleteUsers');
+
+    if (localItem === null) {
+      this.hideCompleteUsers = true;
+    }
+
+    this._hideCompleteUsers = localStorage.getItem('hideCompleteUsers') === 'true';
+
+    this.availabilitiesGroups = new DataSet([], {queue: {delay: 1000}});
+    this.availabilitiesItems = new DataSet([], {queue: {delay: 1000}});
+
+    // TODO: load availabilities for all runners.
+
     this.marathonId = this.route.snapshot.parent.paramMap.get('id');
     this.scheduleInfo = this.route.snapshot.data.scheduleInfo;
     this.oldSlug = this.scheduleInfo.slug;
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     // the service has updateLines() for updating the lines.
     // TODO: when updating lines, make sure to map empty strings to null
     this.scheduleService.getLines(this.marathonId, this.scheduleInfo.id).subscribe((resp) => {
       this.lines = resp.data;
     });
-    this.loadAllSubmissions();
+    await this.loadAllSubmissions();
+    await this.loadAllAvailabilities();
+    await this.initTimeline();
+  }
+
+  ngOnDestroy(): void {
+    this.timeline.destroy();
+  }
+
+  async initTimeline() {
+    // Somehow this delay solves the availabilities not showing.
+    await new Promise((resolve) => window.requestAnimationFrame(resolve));
+
+    this.timeline = new vis.Timeline(document.getElementById('timeline'),
+      this.availabilitiesItems,
+      this.availabilitiesGroups,
+      {
+        min: moment.tz(this.marathonService.marathon.startDate, this.timezone).subtract(1, 'hours').toDate(),
+        max: moment.tz(this.marathonService.marathon.endDate, this.timezone).add(1, 'hours').toDate(),
+        orientation: {
+          axis: 'both',
+          item: 'bottom',
+        },
+      });
+    this.timebar = this.timeline.addCustomTime(this.marathonService.marathon.startDate);
+    this.computeSchedule();
   }
 
   async loadAllSubmissions(): Promise<void> {
     this.submissionsLoaded = false;
 
     const selections = await firstValueFrom(
-      this.selectionService.getAllForMarathonAdmin(this.marathonId, ['VALIDATED', 'BONUS'])
+      this.selectionService.getAllForMarathonAdmin(this.marathonId, ['VALIDATED', 'BONUS']),
     ).catch(() => new Map());
 
     // TODO: implement pagination on search endpoint so we can just pass our desired statuses to it
@@ -84,8 +128,8 @@ export class EditComponent implements OnInit {
         submission.games.filter(game => game.categories
           .filter(category =>
             Object.keys(selections).includes(category.id.toString()))
-          .length > 0).length > 0
-      )
+          .length > 0).length > 0,
+      ),
     );
 
     const setupTime = this.marathonService.marathon.defaultSetupTime ?? 'PT15M';
@@ -97,10 +141,10 @@ export class EditComponent implements OnInit {
           // TODO: find a better way of doing this, category ID works but I hate to store it.
           .filter(category => !this.lines.map(line => line.categoryId).includes(category.id))
           .forEach((category) => {
-            const runners: LineRunner[] = [{ profile: submission.user }];
+            const runners: LineRunner[] = [{profile: submission.user}];
 
             category.opponents.forEach((opponent) => {
-              runners.push({ profile: opponent.user });
+              runners.push({profile: opponent.user});
             });
 
             this.todoLines.push({
@@ -126,6 +170,10 @@ export class EditComponent implements OnInit {
       });
     });
 
+    if (this.hideCompleteUsers) {
+      this.hideAllUsersNotInTodo();
+    }
+
     this.submissionsLoaded = true;
   }
 
@@ -133,7 +181,7 @@ export class EditComponent implements OnInit {
     try {
       this.loading = true;
       await firstValueFrom(
-        this.scheduleService.updateSchedule(this.marathonId, this.scheduleInfo.id, this.scheduleInfo)
+        this.scheduleService.updateSchedule(this.marathonId, this.scheduleInfo.id, this.scheduleInfo),
       );
     } catch (e: any) {
       console.log(e);
@@ -155,7 +203,7 @@ export class EditComponent implements OnInit {
     this.loading = true;
 
     this.scheduleService.publish(this.marathonId, this.scheduleInfo.id).subscribe({
-      next () {
+      next() {
         // Reload the window to see the new changes!
         window.location.reload();
       },
@@ -166,11 +214,148 @@ export class EditComponent implements OnInit {
           message: `Something went wrong: ${err.message}`,
           duration: 5000,
           position: 'is-right',
-          color: 'is-warning'
+          color: 'is-warning',
         };
         this.toastr.open(alertConfig);
       },
     });
+  }
+
+  async loadAllAvailabilities() {
+    const allAvailabilities = await firstValueFrom(
+      this.submissionService.availabilities(this.marathonId)
+    );
+
+    this.allAvailabilities = allAvailabilities;
+
+    const entries = Object.entries<Availability[]>(allAvailabilities)
+      .sort((a, b) => a[0].localeCompare(b[0]));
+
+    for (const [username, availabilities] of entries) {
+      const contentName = availabilities.length ? availabilities[0].username : username;
+
+      this.availabilitiesGroups.add({
+        id: username,
+        content: contentName,
+      });
+
+      availabilities.forEach((availability, index) => {
+        this.availabilitiesItems.add({
+          id: username + index,
+          group: username,
+          start: availability.from,
+          end: availability.to,
+          content: '',
+        });
+      });
+    }
+
+    this.availabilitiesGroups.flush();
+    this.availabilitiesItems.flush();
+  }
+
+  async loadAvailabilitiesForRunner(userId: number) {
+    // TODO: do not load if we have a user in the array already.
+
+    try {
+      const availabilities = await firstValueFrom(
+        this.submissionService.availabilitiesForUser(this.marathonId, userId),
+      );
+
+      this.allAvailabilities = {
+        ...this.allAvailabilities,
+        ...availabilities,
+      };
+
+      for (const [key, value] of Object.entries(availabilities)) {
+
+        // in case of adding a runner that did not submit.
+        // TODO: add to empty array either way?
+        if (!value.length) {
+          continue;
+        }
+
+        // data already exists, just ignore
+        if (this.availabilitiesGroups.get(key)) {
+          continue;
+        }
+
+        this.availabilitiesGroups.add({
+          id: key,
+          content: value[0].username,
+        });
+
+        value.forEach((availability, index) => {
+          this.availabilitiesItems.add({
+            id: key + index,
+            group: key,
+            start: availability.from,
+            end: availability.to,
+            content: '',
+          });
+        });
+      }
+    } catch (e: any) {
+      console.error(e);
+    }
+  }
+
+  clearSelectedAvailabilities() {
+    const toRemove = this.availabilitiesItems.getIds({
+      filter: (item) => this.availabilitiesSelected.includes(item.group),
+    });
+    this.availabilitiesSelected = [];
+    this.availabilitiesSelectedItems = this.availabilitiesSelectedItems.filter(el => !toRemove.includes(el));
+    this.timeline.setSelection(this.availabilitiesSelectedItems);
+  }
+
+  selectAvailabilities(username: string) {
+    this.availabilitiesSelected.push(username);
+    this.availabilitiesSelectedItems = [
+      ...new Set([
+        ...this.availabilitiesSelectedItems,
+        ...this.availabilitiesItems.getIds({
+          filter: (item) => item.group === username,
+        }),
+      ]),
+    ];
+    this.timeline.setSelection(this.availabilitiesSelectedItems);
+  }
+
+  unselectAvailabilities(username: string) {
+    this.availabilitiesSelected.splice(this.availabilitiesSelected.findIndex(name => name === username), 1);
+    const toRemove = this.availabilitiesItems.getIds({
+      filter: (item) => item.group === username,
+    });
+    this.availabilitiesSelectedItems = this.availabilitiesSelectedItems.filter(el => !toRemove.includes(el));
+    this.timeline.setSelection(this.availabilitiesSelectedItems);
+  }
+
+  addCustomLine(isSetup: boolean): void {
+    const customLine: V2ScheduleLine = {
+      category: '',
+      categoryId: 0,
+      console: '',
+      customData: '',
+      customRun: true,
+      date: undefined,
+      emulated: false,
+      estimate: 'PT0S',
+      game: '',
+      id: -1,
+      position: this.lines.length,
+      ratio: '',
+      runners: [],
+      setupBlock: isSetup,
+      setupBlockText: '',
+      setupTime: this.marathonService.marathon.defaultSetupTime,
+      type: 'OTHER',
+      //
+    };
+
+    this.lines.push(customLine);
+
+    this.computeSchedule();
   }
 
   computeSchedule(): void {
@@ -183,6 +368,12 @@ export class EditComponent implements OnInit {
     this.lines.push(run);
     this.todoLines.splice(index, 1);
     this.computeSchedule();
+
+    const usernames = run.runners
+      .map((runner) => runner.profile ? runner.profile.username : null)
+      .filter((runner) => runner);
+
+    this.removeFromTimelineWhenNoMoreRunsTodo(usernames);
   }
 
   removeScheduleLine(index: number) {
@@ -199,5 +390,102 @@ export class EditComponent implements OnInit {
     this.todoLines.push(run);
     this.lines.splice(index, 1);
     this.computeSchedule();
+
+    const usernames = run.runners
+      .map((runner) => runner.profile ? runner.profile.username : null)
+      .filter((runner) => runner);
+
+    this.addToTimelineWhenRunsInTodo(usernames);
+  }
+
+  private removeFromTimelineWhenNoMoreRunsTodo(usernames: string[]) {
+    if (!this.hideCompleteUsers) {
+      return;
+    }
+
+    // We can just remove the group, that will hide the user from the timeline.
+    const usernamesInTodo = this.getUsernamesInTodo();
+    const filteredUsernames = usernames.filter((username) => !usernamesInTodo.includes(username));
+
+    if (filteredUsernames.length) {
+      this.availabilitiesGroups.remove(filteredUsernames);
+    }
+
+    this.availabilitiesGroups.flush();
+  }
+
+  private addToTimelineWhenRunsInTodo(usernames: string[]) {
+    // We're not checking if the feature is on here.
+    // The user might enable it mid schedule config, and we should always add the user to the groups.
+
+    // We can just remove the group, that will hide the user from the timeline.
+    const usernamesInTodo = this.getUsernamesInTodo();
+    const filteredUsernames = usernames
+      .filter((username) => usernamesInTodo.includes(username))
+      .filter((username) => !this.availabilitiesGroups.get(username));
+
+    if (filteredUsernames.length) {
+      this.availabilitiesGroups.add(
+        filteredUsernames.map((username) => {
+          const av = this.allAvailabilities[username];
+
+          const contentUsername = av.length ? av[0].username : username;
+
+          return {
+            id: username,
+            content: contentUsername,
+          };
+        })
+      );
+    }
+
+    this.availabilitiesGroups.flush();
+
+    const sortedData = this.availabilitiesGroups.get({ order: 'id' });
+
+    this.availabilitiesGroups.clear();
+    this.availabilitiesGroups.add(sortedData);
+    this.availabilitiesGroups.flush();
+  }
+
+  private getUsernamesInTodo(): string[] {
+    return [
+      ...new Set(
+        this.todoLines.map(
+          (run) => run.runners
+            .map((runner) => runner.profile ? runner.profile.username : null)
+            .filter((runner) => runner)
+        )
+          .flat()
+      )
+    ];
+  }
+
+  private hideAllUsersNotInTodo() {
+    this.lines.forEach((run) => {
+      const usernames = run.runners
+        .map((runner) => runner.profile ? runner.profile.username : null)
+        .filter((runner) => runner);
+
+      this.removeFromTimelineWhenNoMoreRunsTodo(usernames);
+    });
+  }
+
+  getRunnerUsername(runner: LineRunner): string {
+    if (runner.profile) {
+      const user = runner.profile;
+
+      return `${user.displayName} (${user.username})`;
+    }
+
+    return runner.runnerName;
+  }
+
+  getRunnerRawUsername(runner: LineRunner): string {
+    if (runner.profile) {
+      return runner.profile.username;
+    }
+
+    return runner.runnerName;
   }
 }

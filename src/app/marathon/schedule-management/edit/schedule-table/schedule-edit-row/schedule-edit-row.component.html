@@ -4,8 +4,9 @@
                           (click)="toggleExpand.emit(line.id)"
                           class="expandable"
   ></app-element-table-cell>
-  <!-- TODO: show warning when any runners are not available -->
-  <app-element-table-cell class="is-warning">
+  <app-element-table-cell [class]="{
+    'is-warning': !matchesAvailabilities()
+  }">
     <app-element-temporal-datetime [dateTime]="line.date" format="shortTime"></app-element-temporal-datetime>
   </app-element-table-cell>
 
@@ -23,9 +24,9 @@
 
   <ng-template #notASetupBlock>
     <app-element-table-cell>
-      <!-- TODO: show availabilities! -->
-      <!-- TODO: class has-text-warning if not available -->
-        <p *ngFor="let runner of line.runners" [class]="{'has-text-warning': !!runner.profile}">
+        <p *ngFor="let runner of line.runners" [class]="{
+          'has-text-warning': !isAvailable(runner)
+        }">
           {{ runner.runnerName ?? runner.profile.displayName }}
         </p>
     </app-element-table-cell>
@@ -44,7 +45,6 @@
       <app-element-temporal-duration [duration]="line.setupTime"></app-element-temporal-duration>
     </app-element-table-cell>
   </ng-template>
-
 
   <app-element-table-cell class="actions">
     <a (click)="moveToToDo.emit(i)" *ngIf="!line.customRun">

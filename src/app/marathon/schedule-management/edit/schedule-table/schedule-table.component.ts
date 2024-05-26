@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { V2ScheduleLine } from '../../../../../model/schedule-line';
 import { getRowParity } from '../../../../../assets/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { AvailabilityResponse } from '../../../../../model/availability';
 
 @Component({
   selector: 'app-schedule-table',
@@ -12,9 +13,11 @@ export class ScheduleTableComponent {
   getRowParity = getRowParity;
 
   @Input() lines: V2ScheduleLine[] = [];
+  @Input() availabilities: AvailabilityResponse;
   @Output() moveToToDo = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
   @Output() computeSchedule = new EventEmitter<void>();
+  @Output() loadAvailabilities = new EventEmitter<number>();
 
   expanded = new Set<number>();
 

@@ -42,6 +42,9 @@
     <ng-template ngFor [ngForOf]="lines" let-line let-i="index">
       <app-schedule-edit-row
         cdkDrag
+        cdkDragLockAxis="y"
+        [availabilities]="availabilities"
+        [cdkDragDisabled]="expanded.has(line.id)"
         [i]="i"
         [class]="getRowParity(i)"
         [expanded]="expanded.has(line.id)"
@@ -56,7 +59,9 @@
         <!-- TODO: add styling -->
 
         <app-setup-block-editor *ngIf="line.setupBlock" [line]="line"></app-setup-block-editor>
-        <app-normal-run-editor *ngIf="!line.setupBlock" [line]="line"></app-normal-run-editor>
+        <app-normal-run-editor *ngIf="!line.setupBlock"
+                               (loadAvailabilities)="loadAvailabilities.emit($event)"
+                               [line]="line"></app-normal-run-editor>
 
         <!-- (custom data exists for both setup block and normal runs) -->
         <div class="field custom-data-field">
