@@ -14,6 +14,7 @@ import { DataSet } from 'vis-data';
 import { Availability, AvailabilityResponse } from '../../../../model/availability';
 import moment from 'moment-timezone';
 import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit',
@@ -64,6 +65,7 @@ export class EditComponent implements OnInit, OnDestroy {
     private selectionService: SelectionService,
     private marathonService: MarathonService,
     private toastr: NwbAlertService,
+    private translateService: TranslateService
   ) {
     const localItem = localStorage.getItem('hideCompleteUsers');
 
@@ -81,8 +83,6 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    // the service has updateLines() for updating the lines.
-    // TODO: when updating lines, make sure to map empty strings to null
     this.scheduleService.getLines(this.marathonId, this.scheduleInfo.id).subscribe((resp) => {
       this.lines = resp.data;
     });
@@ -183,6 +183,23 @@ export class EditComponent implements OnInit, OnDestroy {
       await firstValueFrom(
         this.scheduleService.updateSchedule(this.marathonId, this.scheduleInfo.id, this.scheduleInfo),
       );
+
+      await firstValueFrom(
+        this.scheduleService.updateLines(
+          this.marathonId, this.scheduleInfo.id, this.lines,
+        )
+      );
+
+      this.translateService.get('alert.schedule.save.success').subscribe((res: string) => {
+        const alertConfig: NwbAlertConfig = {
+          message: res,
+          duration: 3000,
+          position: 'is-right',
+          color: 'is-success'
+        };
+
+        this.toastr.open(alertConfig);
+      });
     } catch (e: any) {
       console.log(e);
       alert(`Something broke: ${e.message}`);
