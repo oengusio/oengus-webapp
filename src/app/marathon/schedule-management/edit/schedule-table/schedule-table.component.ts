@@ -3,6 +3,7 @@ import { V2ScheduleLine } from '../../../../../model/schedule-line';
 import { getRowParity } from '../../../../../assets/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AvailabilityResponse } from '../../../../../model/availability';
+import { debounce } from 'lodash';
 
 @Component({
   selector: 'app-schedule-table',
@@ -23,10 +24,7 @@ export class ScheduleTableComponent {
 
   expanded = new Set<number>();
 
-  constructor() {
-    this.expanded.add(0);
-    this.expanded.add(1);
-  }
+  estimateChangedDebounce = debounce(this.estimateChanged, 500);
 
   shouldShowDay(index: number): boolean {
     // Always show the day header at the top
@@ -56,7 +54,9 @@ export class ScheduleTableComponent {
     }
   }
 
-  // TODO: events for when estimate or setup changes.
+  private estimateChanged() {
+    this.computeSchedule.emit();
+  }
 
   scheduleDrop(event: CdkDragDrop<V2ScheduleLine[]>) {
     console.log(event);

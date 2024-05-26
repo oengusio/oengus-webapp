@@ -67,8 +67,12 @@
         <!-- TODO: disable drag and drop when edit is open -->
         <!-- TODO: add styling -->
 
-        <app-setup-block-editor *ngIf="line.setupBlock" [line]="line"></app-setup-block-editor>
+        <app-setup-block-editor *ngIf="line.setupBlock"
+                                (setupTimeChanged)="estimateChangedDebounce()"
+                                [line]="line"></app-setup-block-editor>
         <app-normal-run-editor *ngIf="!line.setupBlock"
+                               (estimateChanged)="estimateChangedDebounce()"
+                               (setupTimeChanged)="estimateChangedDebounce()"
                                (loadAvailabilities)="loadAvailabilities.emit($event)"
                                [line]="line"></app-normal-run-editor>
 

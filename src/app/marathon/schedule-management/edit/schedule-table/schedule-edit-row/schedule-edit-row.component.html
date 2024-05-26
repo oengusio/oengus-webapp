@@ -62,10 +62,11 @@
   </ng-template>
 
   <app-element-table-cell class="actions">
-    <a (click)="moveToToDo.emit(i)" *ngIf="!line.customRun">
+    <!-- Setup blocks are custom runs imo, but for legacy reasons they are not -->
+    <a (click)="moveToToDo.emit(i)" *ngIf="!line.customRun && !line.setupBlock">
       <fa-icon [icon]="iconChevronLeft"></fa-icon>
     </a>
-    <a (click)="delete.emit(i)" *ngIf="line.customRun">
+    <a (click)="delete.emit(i)" *ngIf="line.customRun || line.setupBlock">
       <fa-icon [icon]="iconTimes"></fa-icon>
     </a>
     <a (click)="toggleExpand.emit(line.id)">

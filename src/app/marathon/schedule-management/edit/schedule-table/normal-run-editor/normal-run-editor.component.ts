@@ -25,6 +25,8 @@ export class NormalRunEditorComponent {
   @Input() line: V2ScheduleLine;
   @Input() i: number;
   @Output() loadAvailabilities = new EventEmitter<number>();
+  @Output() estimateChanged = new EventEmitter<string>();
+  @Output() setupTimeChanged = new EventEmitter<string>();
 
   @ViewChild('autocompleteComponent') searchBox: AutocompleteComponent;
 
@@ -89,6 +91,8 @@ export class NormalRunEditorComponent {
 
   set lineEstimate(value: string) {
     this.line.estimate = moment.duration(value).toISOString();
+
+    this.estimateChanged.emit(this.line.estimate);
   }
 
   get lineSetup(): string {
@@ -97,5 +101,7 @@ export class NormalRunEditorComponent {
 
   set lineSetup(value: string) {
     this.line.setupTime = moment.duration(value).toISOString();
+
+    this.setupTimeChanged.emit(this.line.setupTime);
   }
 }
