@@ -1,4 +1,4 @@
-<app-element-table>
+<app-element-table cdkDropList [cdkDropListData]="lines" (cdkDropListDropped)="scheduleDrop($event)">
   <app-element-table-cell class="time" [isHeader]="true">
   </app-element-table-cell>
   <app-element-table-cell class="time" [isHeader]="true">
@@ -33,10 +33,12 @@
   <ng-template ngFor [ngForOf]="lines" let-line let-i="index">
 
     <app-schedule-edit-row
+      cdkDrag
       [i]="i"
       [class]="getRowParity(i)"
       [expanded]="expanded.has(line.id)"
       (toggleExpand)="toggleExpand(line.id)"
+      (moveToToDo)="moveToToDo.emit($event)"
       [line]="line"
     ></app-schedule-edit-row>
 

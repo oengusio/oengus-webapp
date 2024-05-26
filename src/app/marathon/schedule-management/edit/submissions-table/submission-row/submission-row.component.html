@@ -1,0 +1,18 @@
+<app-element-table-row>
+  <app-element-table-cell>
+        <span *ngFor="let runner of line.runners">
+          {{ runner.runnerName ?? runner.profile.displayName }}
+        </span>
+  </app-element-table-cell>
+  <app-element-table-cell>{{ line.game }}</app-element-table-cell>
+  <app-element-table-cell>{{ line.category }}</app-element-table-cell>
+  <app-element-table-cell>{{ line.console }}<sup *ngIf="line.emulated">{{ 'global.emu' | translate}}</sup></app-element-table-cell>
+  <app-element-table-cell>
+    <app-element-temporal-duration [duration]="line.estimate"></app-element-temporal-duration>
+  </app-element-table-cell>
+  <app-element-table-cell>
+    <a (click)="moveToSchedule.emit(i)">
+      <fa-icon [icon]="iconChevronRight"></fa-icon>
+    </a>
+  </app-element-table-cell>
+</app-element-table-row>

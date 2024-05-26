@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { V2ScheduleLine } from '../../../../../model/schedule-line';
 import { faBars, faChevronLeft, faEdit, faPencil, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { getRowParity } from '../../../../../assets/table';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-schedule-table',
@@ -35,4 +36,7 @@ export class ScheduleTableComponent implements OnInit {
     }
   }
 
+  scheduleDrop(event: CdkDragDrop<V2ScheduleLine[]>) {
+    console.log(event);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faBars, faChevronLeft, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { getRowParity } from '../../../../../../assets/table';
 import { V2ScheduleLine } from '../../../../../../model/schedule-line';
@@ -8,7 +8,7 @@ import { V2ScheduleLine } from '../../../../../../model/schedule-line';
   templateUrl: './schedule-edit-row.component.html',
   styleUrls: ['./schedule-edit-row.component.scss']
 })
-export class ScheduleEditRowComponent implements OnInit {
+export class ScheduleEditRowComponent {
   @Input() i: number;
   @Input() line: V2ScheduleLine;
   @Input() expanded = false;
@@ -22,9 +22,4 @@ export class ScheduleEditRowComponent implements OnInit {
   getRowParity = getRowParity;
   iconEdit = faEdit;
   iconChevronLeft = faChevronLeft;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 }

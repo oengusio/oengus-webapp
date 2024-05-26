@@ -54,6 +54,6 @@
     <a (click)="toggleExpand.emit(line.id)">
       <fa-icon [icon]="iconEdit"></fa-icon>
     </a>
-    <fa-icon [icon]="iconBars" cdkDragHandle class="is-pulled-right"></fa-icon>
+    <fa-icon [icon]="iconBars" cdkDragHandle [cdkDragHandleDisabled]="expanded" class="is-pulled-right"></fa-icon>
   </app-element-table-cell>
 </app-element-table-row>
