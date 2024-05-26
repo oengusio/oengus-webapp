@@ -32,14 +32,21 @@
   </app-element-table-row>
 
   <app-element-table-row *ngIf="!lines.length">
-    <app-element-table-cell columnEnd="span 10">
+    <app-element-table-cell columnStart="1" columnEnd="-1">
       {{ 'marathon.schedule.table.placeholder' | translate}}
     </app-element-table-cell>
   </app-element-table-row>
 
   <!-- TODO: drag and drop the schedule lines is wonky and broken -->
+  <!-- Documentation: https://v13.material.angular.io/cdk/drag-drop/overview -->
   <div class="droplist" cdkDropList [cdkDropListData]="lines" (cdkDropListDropped)="scheduleDrop($event)">
     <ng-template ngFor [ngForOf]="lines" let-line let-i="index">
+      <app-element-table-row *ngIf="shouldShowDay(i)">
+        <app-element-table-cell columnStart="1" columnEnd="-1" class="day is-info">
+          <app-element-temporal-datetime [dateTime]="line.date" format="longDateWithWeekday"></app-element-temporal-datetime>
+        </app-element-table-cell>
+      </app-element-table-row>
+
       <app-schedule-edit-row
         cdkDrag
         cdkDragLockAxis="y"
