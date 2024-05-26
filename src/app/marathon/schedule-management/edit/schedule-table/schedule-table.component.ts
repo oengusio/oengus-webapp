@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { V2ScheduleLine } from '../../../../../model/schedule-line';
 import { getRowParity } from '../../../../../assets/table';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-schedule-table',
@@ -25,6 +25,8 @@ export class ScheduleTableComponent {
       this.expanded.add(lineId);
     }
   }
+
+  // TODO: events for when estimate or setup changes.
 
   scheduleDrop(event: CdkDragDrop<V2ScheduleLine[]>) {
     console.log(event);

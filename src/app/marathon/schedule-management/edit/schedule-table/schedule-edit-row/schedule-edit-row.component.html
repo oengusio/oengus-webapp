@@ -12,7 +12,7 @@
     <app-element-table-cell>
       <strong>{{'marathon.schedule.setupBlock' | translate}}</strong>
     </app-element-table-cell>
-    <app-element-table-cell class="setup-text"  columnEnd="span 5">
+    <app-element-table-cell class="setup-text" columnEnd="span 5">
       <app-simple-md [data]="line.setupBlockText || 'marathon.schedule.setupBlock' | translate"></app-simple-md>
     </app-element-table-cell>
     <app-element-table-cell>
@@ -43,7 +43,7 @@
   </ng-template>
 
 
-  <app-element-table-cell>
+  <app-element-table-cell class="actions">
     <a (click)="moveToToDo.emit(i)" *ngIf="!line.customRun">
       <fa-icon [icon]="iconChevronLeft"></fa-icon>
     </a>

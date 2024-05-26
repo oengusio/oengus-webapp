@@ -185,6 +185,14 @@ export class EditComponent implements OnInit {
     this.computeSchedule();
   }
 
+  removeScheduleLine(index: number) {
+    const run = this.lines[index];
+
+    if (run) {
+      this.lines.splice(index, 1);
+    }
+  }
+
   moveToTodo(index: number) {
     const run = this.lines[index];
 

@@ -1,4 +1,4 @@
-<app-element-table cdkDropList [cdkDropListData]="lines" (cdkDropListDropped)="scheduleDrop($event)">
+<app-element-table>
   <app-element-table-row header>
     <app-element-table-cell class="time" [isHeader]="true">
     </app-element-table-cell>
@@ -31,36 +31,44 @@
     </app-element-table-cell>
   </app-element-table-row>
 
-  <!-- TODO: drag and drop the schedule lines -->
-  <ng-template ngFor [ngForOf]="lines" let-line let-i="index">
+  <app-element-table-row *ngIf="!lines.length">
+    <app-element-table-cell columnEnd="span 10">
+      {{ 'marathon.schedule.table.placeholder' | translate}}
+    </app-element-table-cell>
+  </app-element-table-row>
 
-    <app-schedule-edit-row
-      cdkDrag
-      [i]="i"
-      [class]="getRowParity(i)"
-      [expanded]="expanded.has(line.id)"
-      (toggleExpand)="toggleExpand(line.id)"
-      (moveToToDo)="moveToToDo.emit($event)"
-      [line]="line"
-    ></app-schedule-edit-row>
+  <!-- TODO: drag and drop the schedule lines is wonky -->
+  <div class="droplist" cdkDropList [cdkDropListData]="lines" (cdkDropListDropped)="scheduleDrop($event)">
+    <ng-template ngFor [ngForOf]="lines" let-line let-i="index">
+      <app-schedule-edit-row
+        cdkDrag
+        [i]="i"
+        [class]="getRowParity(i)"
+        [expanded]="expanded.has(line.id)"
+        (toggleExpand)="toggleExpand(line.id)"
+        (moveToToDo)="moveToToDo.emit($event)"
+        (delete)="delete.emit($event)"
+        [line]="line"
+      ></app-schedule-edit-row>
 
-    <app-element-table-detail *ngIf="expanded.has(line.id)" [class]="getRowParity(i)">
-      <!-- TODO: disable drag and drop when edit is open -->
-      <!-- TODO: add styling -->
+      <app-element-table-detail *ngIf="expanded.has(line.id)" [class]="getRowParity(i)">
+        <!-- TODO: disable drag and drop when edit is open -->
+        <!-- TODO: add styling -->
 
-      <app-setup-block-editor *ngIf="line.setupBlock" [line]="line"></app-setup-block-editor>
-      <app-normal-run-editor *ngIf="!line.setupBlock" [line]="line"></app-normal-run-editor>
+        <app-setup-block-editor *ngIf="line.setupBlock" [line]="line"></app-setup-block-editor>
+        <app-normal-run-editor *ngIf="!line.setupBlock" [line]="line"></app-normal-run-editor>
 
-      <!-- (custom data exists for both setup block and normal runs) -->
-      <div>
-        <label for="custom-data-{{i}}">
-          {{ 'marathon.schedule.management.customData.inputText' | translate }}
-        </label>
+        <!-- (custom data exists for both setup block and normal runs) -->
+        <div>
+          <label for="custom-data-{{i}}">
+            {{ 'marathon.schedule.management.customData.inputText' | translate }}
+          </label>
 
-        <textarea id="custom-data-{{i}}" class="textarea"
-                  [(ngModel)]="line.customData"
-                  placeholder='{"layout": "19:9", "other-data": "here"} or whatever else you want'></textarea>
-      </div>
-    </app-element-table-detail>
-  </ng-template>
+          <textarea id="custom-data-{{i}}" class="textarea"
+                    [(ngModel)]="line.customData"
+                    placeholder='{"layout": "19:9", "other-data": "here"} or whatever else you want'></textarea>
+        </div>
+      </app-element-table-detail>
+    </ng-template>
+  </div>
 </app-element-table>

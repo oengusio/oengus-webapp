@@ -178,6 +178,7 @@
     <app-schedule-table
       [lines]="lines"
       (moveToToDo)="moveToTodo($event)"
+      (delete)="removeScheduleLine($event)"
       (computeSchedule)="computeSchedule()"
     ></app-schedule-table>
   </div>

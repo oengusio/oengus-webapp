@@ -9,6 +9,10 @@
   display: contents;
 }
 
+.actions a:first-child {
+  margin-right: 10px;
+}
+
 .expandable {
   cursor: pointer;
 }
