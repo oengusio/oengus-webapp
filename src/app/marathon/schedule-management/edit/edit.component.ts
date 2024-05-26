@@ -72,9 +72,6 @@ export class EditComponent implements OnInit, OnDestroy {
 
     this.availabilitiesGroups = new DataSet([], {queue: {delay: 1000}});
     this.availabilitiesItems = new DataSet([], {queue: {delay: 1000}});
-
-    // TODO: load availabilities for all runners.
-
     this.marathonId = this.route.snapshot.parent.paramMap.get('id');
     this.scheduleInfo = this.route.snapshot.data.scheduleInfo;
     this.oldSlug = this.scheduleInfo.slug;
@@ -359,7 +356,30 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   computeSchedule(): void {
-    // TODO recompute times
+    if (!this.lines.length) {
+      return;
+    }
+
+    this.lines[0].date = this.marathonService.marathon.startDate;
+    this.lines[0].position = 0;
+
+    for (let i = 1; i < this.lines.length; i++) {
+      const prevEl = this.lines[i - 1];
+
+      this.lines[i].date = moment.tz(prevEl.date, this.timezone)
+        .add(moment.duration(prevEl.estimate))
+        .add(moment.duration(prevEl.setupTime))
+        .toDate();
+      this.lines[i].position = i;
+    }
+    const lastElement = this.lines[this.lines.length - 1];
+
+    if (this.timeline) {
+      this.timeline.setCustomTime(moment.tz(lastElement.date, this.timezone)
+        .add(moment.duration(lastElement.estimate))
+        .add(moment.duration(lastElement.setupTime))
+        .toDate(), this.timebar);
+    }
   }
 
   moveToSchedule(index: number): void {

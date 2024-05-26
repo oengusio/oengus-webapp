@@ -22,14 +22,14 @@ export class ScheduleTableComponent {
   expanded = new Set<number>();
 
   constructor() {
-    this.expanded.add(48);
+    this.expanded.add(1);
   }
 
-  toggleExpand(lineId: number): void {
-    if (this.expanded.has(lineId)) {
-      this.expanded.delete(lineId);
+  toggleExpand(linePosition: number): void {
+    if (this.expanded.has(linePosition)) {
+      this.expanded.delete(linePosition);
     } else {
-      this.expanded.add(lineId);
+      this.expanded.add(linePosition);
     }
   }
 

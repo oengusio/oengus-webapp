@@ -44,17 +44,17 @@
         cdkDrag
         cdkDragLockAxis="y"
         [availabilities]="availabilities"
-        [cdkDragDisabled]="expanded.has(line.id)"
+        [cdkDragDisabled]="expanded.has(line.position)"
         [i]="i"
         [class]="getRowParity(i)"
-        [expanded]="expanded.has(line.id)"
-        (toggleExpand)="toggleExpand(line.id)"
+        [expanded]="expanded.has(line.position)"
+        (toggleExpand)="toggleExpand(line.position)"
         (moveToToDo)="moveToToDo.emit($event)"
         (delete)="delete.emit($event)"
         [line]="line"
       ></app-schedule-edit-row>
 
-      <app-element-table-detail *ngIf="expanded.has(line.id)" [class]="getRowParity(i)">
+      <app-element-table-detail *ngIf="expanded.has(line.position)" [class]="getRowParity(i)">
         <!-- TODO: disable drag and drop when edit is open -->
         <!-- TODO: add styling -->
 
