@@ -1,8 +1,23 @@
 <app-element-table-row>
   <app-element-table-cell>
-        <span *ngFor="let runner of line.runners">
-          {{ runner.runnerName ?? runner.profile.displayName }}
-        </span>
+    <p *ngFor="let runner of line.runners">
+      <a (click)="selectAvailability.emit({
+          username: getRunnerUsername(runner),
+          on: false
+       })"
+         *ngIf="selectedAvailabilities.includes(getRunnerUsername(runner)); else notSelected">
+        <fa-icon [icon]="iconCalendarTimes"></fa-icon>
+      </a>
+      <ng-template #notSelected>
+        <a (click)="selectAvailability.emit({
+          username: getRunnerUsername(runner),
+          on: true
+       })">
+          <fa-icon [icon]="iconCalendarWeek"></fa-icon>
+        </a>
+      </ng-template>
+      {{ runner.runnerName ?? runner.profile.displayName }}
+    </p>
   </app-element-table-cell>
   <app-element-table-cell>{{ line.game }}</app-element-table-cell>
   <app-element-table-cell>{{ line.category }}</app-element-table-cell>

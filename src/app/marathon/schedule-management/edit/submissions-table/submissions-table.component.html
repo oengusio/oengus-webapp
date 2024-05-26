@@ -23,6 +23,8 @@
       [i]="i"
       [class]="getRowParity(i)"
       [line]="line"
+      [selectedAvailabilities]="selectedAvailabilities"
+      (selectAvailability)="selectAvailability.emit($event)"
       (moveToSchedule)="moveToSchedule.emit($event)"
     ></app-submission-row>
   </ng-template>

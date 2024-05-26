@@ -1,5 +1,5 @@
 @use '../../../../../assets/table';
 
 app-element-table {
-  @include table.shrink($default-template-columns: 6, $has-expand-button: true);
+  @include table.shrink($default-template-columns: 6, $has-expand-button: false);
 }

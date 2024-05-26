@@ -182,6 +182,8 @@
 
     <app-submissions-table *ngIf="submissionsLoaded; else scheduleLoadingIndicator"
                            (moveToSchedule)="moveToSchedule($event)"
+                           [selectedAvailabilities]="availabilitiesSelected"
+                           (selectAvailability)="triggerSelectedAvailability($event)"
                            [todoLines]="todoLines"></app-submissions-table>
 
     <ng-template #scheduleLoadingIndicator>
