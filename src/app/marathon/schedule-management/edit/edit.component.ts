@@ -306,6 +306,14 @@ export class EditComponent implements OnInit, OnDestroy {
     this.timeline.setSelection(this.availabilitiesSelectedItems);
   }
 
+  triggerSelectedAvailability(inp: { username: string, on: boolean }) {
+    if (inp.on) {
+      this.selectAvailabilities(inp.username);
+    } else {
+      this.unselectAvailabilities(inp.username);
+    }
+  }
+
   selectAvailabilities(username: string) {
     this.availabilitiesSelected.push(username);
     this.availabilitiesSelectedItems = [
@@ -489,23 +497,5 @@ export class EditComponent implements OnInit, OnDestroy {
 
       this.removeFromTimelineWhenNoMoreRunsTodo(usernames);
     });
-  }
-
-  getRunnerUsername(runner: LineRunner): string {
-    if (runner.profile) {
-      const user = runner.profile;
-
-      return `${user.displayName} (${user.username})`;
-    }
-
-    return runner.runnerName;
-  }
-
-  getRunnerRawUsername(runner: LineRunner): string {
-    if (runner.profile) {
-      return runner.profile.username;
-    }
-
-    return runner.runnerName;
   }
 }

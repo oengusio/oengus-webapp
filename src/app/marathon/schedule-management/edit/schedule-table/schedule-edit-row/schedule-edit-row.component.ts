@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { faBars, faChevronLeft, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCalendarTimes, faCalendarWeek, faChevronLeft, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { getRowParity } from '../../../../../../assets/table';
 import { LineRunner, V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { AvailabilityResponse } from '../../../../../../model/availability';
@@ -14,11 +14,13 @@ export class ScheduleEditRowComponent {
   @Input() i: number;
   @Input() line: V2ScheduleLine;
   @Input() availabilities: AvailabilityResponse;
+  @Input() selectedAvailabilities: Array<string> = [];
   @Input() expanded = false;
 
   @Output() toggleExpand = new EventEmitter<number>();
   @Output() moveToToDo = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
+  @Output() selectAvailability = new EventEmitter<{ username: string, on: boolean }>();
 
   public timezone = moment.tz.guess();
 
@@ -27,6 +29,8 @@ export class ScheduleEditRowComponent {
   getRowParity = getRowParity;
   iconEdit = faEdit;
   iconChevronLeft = faChevronLeft;
+  iconCalendarWeek = faCalendarWeek;
+  iconCalendarTimes = faCalendarTimes;
 
   matchesAvailabilities() {
     return this.line.runners.every(runner => {
@@ -49,5 +53,13 @@ export class ScheduleEditRowComponent {
         const endDateAvail = moment.tz(availability.to, this.timezone);
         return startDateAvail.isSameOrBefore(startDateRun) && endDateAvail.isSameOrAfter(endDateRun);
       });
+  }
+
+  getRunnerUsername(runner: LineRunner): string {
+    if (runner.profile) {
+      return runner.profile.username;
+    }
+
+    return runner.runnerName;
   }
 }

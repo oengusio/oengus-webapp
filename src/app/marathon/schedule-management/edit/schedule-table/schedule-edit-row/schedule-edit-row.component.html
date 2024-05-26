@@ -27,6 +27,21 @@
         <p *ngFor="let runner of line.runners" [class]="{
           'has-text-warning': !isAvailable(runner)
         }">
+          <a (click)="selectAvailability.emit({
+              username: getRunnerUsername(runner),
+              on: false
+           })"
+             *ngIf="selectedAvailabilities.includes(getRunnerUsername(runner)); else notSelected">
+            <fa-icon [icon]="iconCalendarTimes"></fa-icon>
+          </a>
+          <ng-template #notSelected>
+            <a (click)="selectAvailability.emit({
+              username: getRunnerUsername(runner),
+              on: true
+           })">
+              <fa-icon [icon]="iconCalendarWeek"></fa-icon>
+            </a>
+          </ng-template>
           {{ runner.runnerName ?? runner.profile.displayName }}
         </p>
     </app-element-table-cell>

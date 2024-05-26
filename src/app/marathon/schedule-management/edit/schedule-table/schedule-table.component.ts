@@ -7,17 +7,19 @@ import { AvailabilityResponse } from '../../../../../model/availability';
 @Component({
   selector: 'app-schedule-table',
   templateUrl: './schedule-table.component.html',
-  styleUrls: ['./schedule-table.component.scss']
+  styleUrls: ['./schedule-table.component.scss'],
 })
 export class ScheduleTableComponent {
   getRowParity = getRowParity;
 
   @Input() lines: V2ScheduleLine[] = [];
   @Input() availabilities: AvailabilityResponse;
+  @Input() selectedAvailabilities: Array<string>;
   @Output() moveToToDo = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
   @Output() computeSchedule = new EventEmitter<void>();
   @Output() loadAvailabilities = new EventEmitter<number>();
+  @Output() selectAvailability = new EventEmitter<{ username: string, on: boolean }>();
 
   expanded = new Set<number>();
 

@@ -51,6 +51,8 @@
         (toggleExpand)="toggleExpand(line.position)"
         (moveToToDo)="moveToToDo.emit($event)"
         (delete)="delete.emit($event)"
+        [selectedAvailabilities]="selectedAvailabilities"
+        (selectAvailability)="selectAvailability.emit($event)"
         [line]="line"
       ></app-schedule-edit-row>
 

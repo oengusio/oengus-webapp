@@ -200,6 +200,8 @@
       (moveToToDo)="moveToTodo($event)"
       (delete)="removeScheduleLine($event)"
       (computeSchedule)="computeSchedule()"
+      [selectedAvailabilities]="availabilitiesSelected"
+      (selectAvailability)="triggerSelectedAvailability($event)"
       (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
     ></app-schedule-table>
   </div>
