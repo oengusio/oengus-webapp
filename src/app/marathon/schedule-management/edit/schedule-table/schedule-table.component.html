@@ -1,33 +1,35 @@
 <app-element-table cdkDropList [cdkDropListData]="lines" (cdkDropListDropped)="scheduleDrop($event)">
-  <app-element-table-cell class="time" [isHeader]="true">
-  </app-element-table-cell>
-  <app-element-table-cell class="time" [isHeader]="true">
-    {{ 'marathon.schedule.table.time' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell class="runners" [isHeader]="true">
-    {{ 'marathon.schedule.table.runner' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell class="game" [isHeader]="true">
-    {{ 'marathon.schedule.table.game' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell class="category" [isHeader]="true">
-    {{ 'marathon.schedule.table.category' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell class="type" [isHeader]="true">
-    {{ 'marathon.schedule.table.type' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell class="console" [isHeader]="true">
-    {{ 'marathon.schedule.table.console' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell class="estimate" [isHeader]="true">
-    {{ 'marathon.schedule.table.estimate' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell class="setup" [isHeader]="true">
-    {{ 'marathon.schedule.table.setup' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell [isHeader]="true">
-    {{ 'marathon.schedule.table.actions' | translate }}
-  </app-element-table-cell>
+  <app-element-table-row header>
+    <app-element-table-cell class="time" [isHeader]="true">
+    </app-element-table-cell>
+    <app-element-table-cell class="time" [isHeader]="true">
+      {{ 'marathon.schedule.table.time' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="runners" [isHeader]="true">
+      {{ 'marathon.schedule.table.runner' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="game" [isHeader]="true">
+      {{ 'marathon.schedule.table.game' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="category" [isHeader]="true">
+      {{ 'marathon.schedule.table.category' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="type" [isHeader]="true">
+      {{ 'marathon.schedule.table.type' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="console" [isHeader]="true">
+      {{ 'marathon.schedule.table.console' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="estimate" [isHeader]="true">
+      {{ 'marathon.schedule.table.estimate' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="setup" [isHeader]="true">
+      {{ 'marathon.schedule.table.setup' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">
+      {{ 'marathon.schedule.table.actions' | translate }}
+    </app-element-table-cell>
+  </app-element-table-row>
 
   <!-- TODO: drag and drop the schedule lines -->
   <ng-template ngFor [ngForOf]="lines" let-line let-i="index">

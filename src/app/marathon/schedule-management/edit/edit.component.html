@@ -175,6 +175,10 @@
     <h4 class="subtitle mb-0 is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
     <small class="mb-2">{{ 'marathon.schedule.management.markdown' | translate}}</small>
 
-    <app-schedule-table [lines]="lines" (moveToToDo)="moveToTodo($event)"></app-schedule-table>
+    <app-schedule-table
+      [lines]="lines"
+      (moveToToDo)="moveToTodo($event)"
+      (computeSchedule)="computeSchedule()"
+    ></app-schedule-table>
   </div>
 </div>

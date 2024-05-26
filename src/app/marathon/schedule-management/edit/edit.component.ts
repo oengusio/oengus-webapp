@@ -174,7 +174,7 @@ export class EditComponent implements OnInit {
   }
 
   computeSchedule(): void {
-    // TODO
+    // TODO recompute times
   }
 
   moveToSchedule(index: number): void {

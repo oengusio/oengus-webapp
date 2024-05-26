@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { V2ScheduleLine } from '../../../../../model/schedule-line';
-import { faBars, faChevronLeft, faEdit, faPencil, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { getRowParity } from '../../../../../assets/table';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
@@ -9,24 +8,15 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
   templateUrl: './schedule-table.component.html',
   styleUrls: ['./schedule-table.component.scss']
 })
-export class ScheduleTableComponent implements OnInit {
-  public getRowParity = getRowParity;
-  public iconBars = faBars;
-  public iconEdit = faEdit;
-  public iconTimes = faTimes;
-  public iconPencil = faPencil;
-  iconChevronLeft = faChevronLeft;
+export class ScheduleTableComponent {
+  getRowParity = getRowParity;
 
   @Input() lines: V2ScheduleLine[] = [];
   @Output() moveToToDo = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
+  @Output() computeSchedule = new EventEmitter<void>();
 
   expanded = new Set<number>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   toggleExpand(lineId: number): void {
     if (this.expanded.has(lineId)) {
@@ -38,5 +28,6 @@ export class ScheduleTableComponent implements OnInit {
 
   scheduleDrop(event: CdkDragDrop<V2ScheduleLine[]>) {
     console.log(event);
+    this.computeSchedule.emit();
   }
 }
