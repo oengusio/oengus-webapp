@@ -39,6 +39,14 @@
 </div>
 
 <div>
+  <!-- Recycling a string :) -->
+  <label for="emulated-{{i}}">{{ 'marathon.submit.game.console.emulated' | translate}}:</label>
+  <span>
+    <input type="checkbox" name="emulated-{{i}}" id="emulated-{{i}}" [(ngModel)]="line.emulated"/>
+  </span>
+</div>
+
+<div>
   <label for="estimate-{{i}}">{{ 'marathon.schedule.table.estimate' | translate}}:</label>
   <input type="text" name="estimate-{{i}}" id="estimate-{{i}}" [(ngModel)]="lineEstimate"/>
 </div>

@@ -1,0 +1,59 @@
+<app-element-table-row>
+  <app-element-table-cell [isExpandButton]="true"
+                          [expanded]="expanded"
+                          (click)="toggleExpand.emit(line.id)"
+                          class="expandable"
+  ></app-element-table-cell>
+  <!-- TODO: format time to HH:mm -->
+  <app-element-table-cell>
+    <app-element-temporal-datetime [dateTime]="line.date" format="shortTime"></app-element-temporal-datetime>
+  </app-element-table-cell>
+
+  <ng-template [ngIf]="line.setupBlock" [ngIfElse]="notASetupBlock">
+    <app-element-table-cell>
+      <strong>{{'marathon.schedule.setupBlock' | translate}}</strong>
+    </app-element-table-cell>
+    <app-element-table-cell class="setup-text"  columnEnd="span 5">
+      <app-simple-md [data]="line.setupBlockText || 'marathon.schedule.setupBlock' | translate"></app-simple-md>
+    </app-element-table-cell>
+    <app-element-table-cell>
+      <app-element-temporal-duration [duration]="line.setupTime"></app-element-temporal-duration>
+    </app-element-table-cell>
+  </ng-template>
+
+  <ng-template #notASetupBlock>
+    <app-element-table-cell>
+        <span *ngFor="let runner of line.runners">
+          {{ runner.runnerName ?? runner.profile.displayName }}
+        </span>
+    </app-element-table-cell>
+    <app-element-table-cell>
+      <app-simple-md [data]="line.game"></app-simple-md>
+    </app-element-table-cell>
+    <app-element-table-cell>
+      <app-simple-md [data]="line.category"></app-simple-md>
+    </app-element-table-cell>
+    <app-element-table-cell>{{ 'marathon.schedule.type.' + line.type | translate }}</app-element-table-cell>
+    <app-element-table-cell>{{ line.console }}<sup *ngIf="line.emulated">{{ 'global.emu' | translate}}</sup></app-element-table-cell>
+    <app-element-table-cell>
+      <app-element-temporal-duration [duration]="line.estimate"></app-element-temporal-duration>
+    </app-element-table-cell>
+    <app-element-table-cell>
+      <app-element-temporal-duration [duration]="line.setupTime"></app-element-temporal-duration>
+    </app-element-table-cell>
+  </ng-template>
+
+
+  <app-element-table-cell>
+    <a (click)="moveToToDo.emit(i)" *ngIf="!line.customRun">
+      <fa-icon [icon]="iconChevronLeft"></fa-icon>
+    </a>
+    <a (click)="delete.emit(i)" *ngIf="line.customRun">
+      <fa-icon [icon]="iconTimes"></fa-icon>
+    </a>
+    <a (click)="toggleExpand.emit(line.id)">
+      <fa-icon [icon]="iconEdit"></fa-icon>
+    </a>
+    <fa-icon [icon]="iconBars" cdkDragHandle class="is-pulled-right"></fa-icon>
+  </app-element-table-cell>
+</app-element-table-row>
