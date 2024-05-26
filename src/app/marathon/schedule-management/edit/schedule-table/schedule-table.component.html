@@ -57,16 +57,13 @@
         [expanded]="expanded.has(line.position)"
         (toggleExpand)="toggleExpand(line.position)"
         (moveToToDo)="moveToToDo.emit($event)"
-        (delete)="delete.emit($event)"
+        (delete)="deleteRow($event)"
         [selectedAvailabilities]="selectedAvailabilities"
         (selectAvailability)="selectAvailability.emit($event)"
         [line]="line"
       ></app-schedule-edit-row>
 
       <app-element-table-detail *ngIf="expanded.has(line.position)" [class]="getRowParity(i)">
-        <!-- TODO: disable drag and drop when edit is open -->
-        <!-- TODO: add styling -->
-
         <app-setup-block-editor *ngIf="line.setupBlock"
                                 (setupTimeChanged)="estimateChangedDebounce()"
                                 [line]="line"></app-setup-block-editor>

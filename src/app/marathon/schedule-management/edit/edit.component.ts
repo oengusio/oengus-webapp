@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { environment } from '../../../../environments/environment';
 import { ScheduleService } from '../../../../services/schedule.service';
 import { firstValueFrom } from 'rxjs';
-import { LineRunner, ScheduleRunner, V2ScheduleLine } from '../../../../model/schedule-line';
+import { LineRunner, V2ScheduleLine } from '../../../../model/schedule-line';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { SubmissionService } from '../../../../services/submission.service';
 import { SelectionService } from '../../../../services/selection.service';
@@ -13,6 +13,7 @@ import * as vis from 'vis-timeline';
 import { DataSet } from 'vis-data';
 import { Availability, AvailabilityResponse } from '../../../../model/availability';
 import moment from 'moment-timezone';
+import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
 
 @Component({
   selector: 'app-edit',
@@ -20,6 +21,8 @@ import moment from 'moment-timezone';
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit, OnDestroy {
+  @ViewChild('scheduleTableComponent') scheduleTable: ScheduleTableComponent;
+
   scheduleInfo: ScheduleInfo;
   marathonId = '';
   oldSlug = '';
@@ -355,10 +358,11 @@ export class EditComponent implements OnInit, OnDestroy {
       setupBlockText: '',
       setupTime: this.marathonService.marathon.defaultSetupTime,
       type: 'OTHER',
-      //
     };
 
     this.lines.push(customLine);
+
+    this.scheduleTable.toggleExpand(this.lines.length - 1);
 
     this.computeSchedule();
   }

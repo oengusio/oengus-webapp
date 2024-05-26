@@ -205,6 +205,16 @@
       [selectedAvailabilities]="availabilitiesSelected"
       (selectAvailability)="triggerSelectedAvailability($event)"
       (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
+      #scheduleTableComponent
     ></app-schedule-table>
+
+    <div class="buttons mt-4">
+      <button type="button" class="button is-info"
+              (click)="addCustomLine(true)">{{'marathon.schedule.management.action.addSetupBlock' | translate}}
+      </button>
+      <button type="button" class="button is-info"
+              (click)="addCustomLine(false)">{{'marathon.schedule.management.action.addRun' | translate}}
+      </button>
+    </div>
   </div>
 </div>

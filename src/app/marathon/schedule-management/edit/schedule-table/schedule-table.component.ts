@@ -46,7 +46,14 @@ export class ScheduleTableComponent {
       currentRun.getFullYear() !== previousRun.getFullYear();
   }
 
-  toggleExpand(linePosition: number): void {
+  deleteRow(linePosition: number): void {
+    // Delete collapsed state when line gets deleted
+    this.expanded.delete(linePosition);
+
+    this.delete.emit(linePosition);
+  }
+
+  public toggleExpand(linePosition: number): void {
     if (this.expanded.has(linePosition)) {
       this.expanded.delete(linePosition);
     } else {
