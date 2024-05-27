@@ -17,8 +17,6 @@ type UserSearchType = UserProfile | { username: string; isCustom: true };
   styleUrls: ['./normal-run-editor.component.scss']
 })
 export class NormalRunEditorComponent {
-  // TODO: emit event when line estimate or setup time is updated so we can re-compute the schedule times.
-
   iconTimes = faTimes;
   userSearch: { [key: string]: UserSearchType[] } = {};
 
@@ -44,7 +42,7 @@ export class NormalRunEditorComponent {
     return false;
   }
 
-  // TODO: types are shit
+  // TODO: types are shit, come up with better ones
   onSelectUser(user: UserSearchType, line: V2ScheduleLine) {
     if ('isCustom' in user) {
       line.runners.push({ runnerName: user.username });
@@ -69,6 +67,7 @@ export class NormalRunEditorComponent {
     }
 
     this.userService.searchV1(val).subscribe(response => {
+      // TODO: types are shit, come up with better ones
       // @ts-ignore
       const combinedItems: UserSearchType[] = response;
 
