@@ -66,8 +66,8 @@ export class ScheduleTableComponent {
   }
 
   scheduleDrop(event: CdkDragDrop<V2ScheduleLine[]>) {
-    console.log(event);
-    // TODO: use moveItemInArray from @angular/cdk/drag-drop to move the item around when the UI allows the drag and drop to work.
+    console.log({ ...event });
+    moveItemInArray(this.lines, event.previousIndex, event.currentIndex);
     this.computeSchedule.emit();
   }
 }
