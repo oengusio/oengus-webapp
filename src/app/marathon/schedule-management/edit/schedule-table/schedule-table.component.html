@@ -60,7 +60,13 @@
       [selectedAvailabilities]="selectedAvailabilities"
       (selectAvailability)="selectAvailability.emit($event)"
       [line]="line"
-    ></app-schedule-edit-row>
+    >
+      <fa-icon [icon]="iconBars"
+               cdkDragHandle
+               [cdkDragHandleDisabled]="expanded.has(line.position)"
+               class="is-pulled-right"
+               oengusDragDandlePosition></fa-icon>
+    </app-schedule-edit-row>
 
     <app-element-table-detail *ngIf="expanded.has(line.position)" [class]="getRowParity(i)">
       <app-setup-block-editor *ngIf="line.setupBlock"

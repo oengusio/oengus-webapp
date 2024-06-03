@@ -9,6 +9,20 @@ app-element-table {
   margin-top: var(--spacing);
 }
 
+.cdk-drag-handle {
+  cursor: move;
+}
+
+.cdk-drag-preview {
+  position: relative;
+  display: block;
+}
+
+.cdk-drag-placeholder {
+  position: relative;
+  display: block;
+}
+
 .day {
   font-weight: bold;
   text-align: center;

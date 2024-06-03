@@ -4,6 +4,7 @@ import { getRowParity } from '../../../../../assets/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AvailabilityResponse } from '../../../../../model/availability';
 import { debounce } from 'lodash';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-schedule-table',
@@ -12,6 +13,7 @@ import { debounce } from 'lodash';
 })
 export class ScheduleTableComponent {
   public getRowParity = getRowParity;
+  iconBars = faBars;
 
   @Input() lines: V2ScheduleLine[] = [];
   @Input() availabilities: AvailabilityResponse;

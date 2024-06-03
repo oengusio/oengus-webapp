@@ -72,6 +72,6 @@
     <a (click)="toggleExpand.emit(line.id)">
       <fa-icon [icon]="iconEdit"></fa-icon>
     </a>
-    <fa-icon [icon]="iconBars" cdkDragHandle [cdkDragHandleDisabled]="expanded" class="is-pulled-right"></fa-icon>
+    <ng-content select="[oengusDragDandlePosition]"></ng-content>
   </app-element-table-cell>
 </app-element-table-row>
