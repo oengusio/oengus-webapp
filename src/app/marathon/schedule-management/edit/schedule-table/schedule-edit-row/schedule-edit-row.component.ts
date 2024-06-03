@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { faBars, faCalendarTimes, faCalendarWeek, faChevronLeft, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { getRowParity } from '../../../../../../assets/table';
 import { LineRunner, V2ScheduleLine } from '../../../../../../model/schedule-line';
@@ -8,7 +8,7 @@ import moment from 'moment-timezone';
 @Component({
   selector: 'app-schedule-edit-row',
   templateUrl: './schedule-edit-row.component.html',
-  styleUrls: ['./schedule-edit-row.component.scss']
+  styleUrls: ['./schedule-edit-row.component.scss'],
 })
 export class ScheduleEditRowComponent {
   @Input() i: number;

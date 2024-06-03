@@ -6,7 +6,7 @@
 
   // XXX display: contents should be a hack and an implementation detail and is subject to change
   // This is a substitute for properly using subgrid (CSS Grid Level 2)
-  display: block;
+  display: contents;
 }
 
 .actions a:first-child {
