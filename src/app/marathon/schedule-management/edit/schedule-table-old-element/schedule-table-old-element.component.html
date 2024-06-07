@@ -98,7 +98,7 @@
                 <fa-icon [icon]="iconCalendarWeek"></fa-icon>
               </a>
             </ng-template>
-            {{ runner.runnerName ?? runner.profile.displayName }}
+            {{ getRunnerUsername(runner) }}
           </p>
         </td>
         <td>

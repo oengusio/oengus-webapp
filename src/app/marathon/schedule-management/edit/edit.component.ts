@@ -380,7 +380,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
     this.lines.push(customLine);
 
-    this.scheduleTable.toggleExpand(this.lines.length - 1);
+    this.scheduleTable.toggleExpand(this.lines.length - 1, true);
 
     this.computeSchedule();
   }

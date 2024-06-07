@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faBars, faCalendarTimes, faCalendarWeek, faChevronLeft, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { getRowParity } from '../../../../../../assets/table';
 import { LineRunner, V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { AvailabilityResponse } from '../../../../../../model/availability';
 import moment from 'moment-timezone';
+import { getRunnerUsername } from '../../../../../../utils/helpers';
 
 @Component({
   selector: 'app-schedule-edit-row',
@@ -24,6 +25,7 @@ export class ScheduleEditRowComponent {
 
   public timezone = moment.tz.guess();
 
+  getRunnerUsername = getRunnerUsername;
   iconBars = faBars;
   iconTimes = faTimes;
   getRowParity = getRowParity;
@@ -53,13 +55,5 @@ export class ScheduleEditRowComponent {
         const endDateAvail = moment.tz(availability.to, this.timezone);
         return startDateAvail.isSameOrBefore(startDateRun) && endDateAvail.isSameOrAfter(endDateRun);
       });
-  }
-
-  getRunnerUsername(runner: LineRunner): string {
-    if (runner.profile) {
-      return runner.profile.username;
-    }
-
-    return runner.runnerName;
   }
 }

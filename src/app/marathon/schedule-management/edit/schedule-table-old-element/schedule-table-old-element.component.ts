@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LineRunner, V2ScheduleLine } from '../../../../../model/schedule-line';
 import { AvailabilityResponse } from '../../../../../model/availability';
-import { getRowParity } from '../../../../../assets/table';
+import { getRowParity, toggleTableExpand } from '../../../../../assets/table';
 import moment from 'moment-timezone';
 import { faBars, faCalendarTimes, faCalendarWeek, faChevronLeft, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { debounce } from 'lodash';
+import { getRunnerUsername } from '../../../../../utils/helpers';
 
 /**
  * @deprecated please use the new component when we get it working.
@@ -17,6 +18,7 @@ import { debounce } from 'lodash';
 })
 export class ScheduleTableOldElementComponent {
   public getRowParity = getRowParity;
+  getRunnerUsername = getRunnerUsername;
   public timezone = moment.tz.guess();
 
   @Input() lines: V2ScheduleLine[] = [];
@@ -38,12 +40,9 @@ export class ScheduleTableOldElementComponent {
   iconCalendarWeek = faCalendarWeek;
   iconCalendarTimes = faCalendarTimes;
 
-  public toggleExpand(linePosition: number): void {
-    if (this.expanded.has(linePosition)) {
-      this.expanded.delete(linePosition);
-    } else {
-      this.expanded.add(linePosition);
-    }
+  public toggleExpand(linePosition: number, openOnly: boolean = false): void {
+    toggleTableExpand(this.expanded, linePosition, openOnly);
+    this.expanded = new Set(this.expanded);
   }
 
   matchesAvailabilities(line: V2ScheduleLine): boolean {
@@ -87,14 +86,6 @@ export class ScheduleTableOldElementComponent {
     return currentRun.getDate() !== previousRun.getDate() ||
       currentRun.getMonth() !== previousRun.getMonth() ||
       currentRun.getFullYear() !== previousRun.getFullYear();
-  }
-
-  getRunnerUsername(runner: LineRunner): string {
-    if (runner.profile) {
-      return runner.profile.username;
-    }
-
-    return runner.runnerName;
   }
 
   scheduleDrop(event: CdkDragDrop<V2ScheduleLine[]>) {

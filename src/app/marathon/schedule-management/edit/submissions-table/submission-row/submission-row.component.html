@@ -16,7 +16,7 @@
           <fa-icon [icon]="iconCalendarWeek"></fa-icon>
         </a>
       </ng-template>
-      {{ runner.runnerName ?? runner.profile.displayName }}
+      {{ getRunnerUsername(runner) }}
     </p>
   </app-element-table-cell>
   <app-element-table-cell>{{ line.game }}</app-element-table-cell>

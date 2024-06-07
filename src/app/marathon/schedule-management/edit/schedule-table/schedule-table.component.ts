@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { V2ScheduleLine } from '../../../../../model/schedule-line';
-import { getRowParity } from '../../../../../assets/table';
+import { getRowParity, toggleTableExpand } from '../../../../../assets/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AvailabilityResponse } from '../../../../../model/availability';
 import { debounce } from 'lodash';
@@ -55,12 +55,9 @@ export class ScheduleTableComponent {
     this.delete.emit(linePosition);
   }
 
-  public toggleExpand(linePosition: number): void {
-    if (this.expanded.has(linePosition)) {
-      this.expanded.delete(linePosition);
-    } else {
-      this.expanded.add(linePosition);
-    }
+  public toggleExpand(linePosition: number, openOnly: boolean = false): void {
+    toggleTableExpand(this.expanded, linePosition, openOnly);
+    this.expanded = new Set(this.expanded);
   }
 
   private estimateChanged() {

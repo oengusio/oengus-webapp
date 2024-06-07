@@ -9,7 +9,7 @@ import { UserService } from '../../../../../../services/user.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AutocompleteComponent } from 'angular-ng-autocomplete';
 
-type UserSearchType = UserProfile | { username: string; isCustom: true };
+type UserSearchType = { username: string; profile: null; isCustom: true} |  { username: null; profile: UserProfile; isCustom: false};
 
 @Component({
   selector: 'app-normal-run-editor',
@@ -43,12 +43,14 @@ export class NormalRunEditorComponent {
   }
 
   // TODO: types are shit, come up with better ones
-  onSelectUser(user: UserSearchType, line: V2ScheduleLine) {
-    if ('isCustom' in user) {
-      line.runners.push({ runnerName: user.username });
+  onSelectUser(search: UserSearchType, line: V2ScheduleLine) {
+    if (search.isCustom) {
+      line.runners.push({ runnerName: search.username });
     } else if (line.runners.findIndex(
-      (runner) => runner.profile && runner.profile.id === user.id
+      (runner) => runner.profile && runner.profile.id === search.profile.id
     ) < 0) {
+      const user = search.profile;
+
       line.runners.push({ profile: user });
       this.loadAvailabilities.emit(user.id);
     }
@@ -67,11 +69,15 @@ export class NormalRunEditorComponent {
     }
 
     this.userService.searchV1(val).subscribe(response => {
-      // TODO: types are shit, come up with better ones
-      // @ts-ignore
-      const combinedItems: UserSearchType[] = response;
+      const combinedItems: UserSearchType[] = response.map((user) => ({
+        isCustom: false,
+        username: null,
+        // @ts-ignore
+        profile: user as UserProfile,
+      }));
 
       combinedItems.push({
+        profile: null,
         username: val.length > MAX_NAME_LENGTH ? val.substring(0, MAX_NAME_LENGTH) : val,
         isCustom: true
       });
