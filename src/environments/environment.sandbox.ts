@@ -21,4 +21,5 @@ export const environment = {
   },
   v2Domain: false,
   donationsDisabled: false,
+  newScheduleEditTable: false,
 };

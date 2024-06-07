@@ -1,0 +1,95 @@
+<app-element-table cdkDropList (cdkDropListDropped)="scheduleDrop($event)">
+  <app-element-table-row header>
+    <app-element-table-cell class="expand-button" [isHeader]="true">
+    </app-element-table-cell>
+    <app-element-table-cell class="time" [isHeader]="true">
+      {{ 'marathon.schedule.table.time' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="runners" [isHeader]="true">
+      {{ 'marathon.schedule.table.runner' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="game" [isHeader]="true">
+      {{ 'marathon.schedule.table.game' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="category" [isHeader]="true">
+      {{ 'marathon.schedule.table.category' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="type" [isHeader]="true">
+      {{ 'marathon.schedule.table.type' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="console" [isHeader]="true">
+      {{ 'marathon.schedule.table.console' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="estimate" [isHeader]="true">
+      {{ 'marathon.schedule.table.estimate' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell class="setup" [isHeader]="true">
+      {{ 'marathon.schedule.table.setup' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">
+      {{ 'marathon.schedule.table.actions' | translate }}
+    </app-element-table-cell>
+  </app-element-table-row>
+
+  <app-element-table-row *ngIf="!lines.length">
+    <app-element-table-cell columnStart="1" columnEnd="-1">
+      {{ 'marathon.schedule.table.placeholder' | translate}}
+    </app-element-table-cell>
+  </app-element-table-row>
+
+  <!-- TODO: drag and drop the schedule lines is wonky and broken -->
+  <!-- Documentation: https://v13.material.angular.io/cdk/drag-drop/overview -->
+  <ng-template ngFor [ngForOf]="lines" let-line let-i="index">
+    <app-element-table-row *ngIf="shouldShowDay(i)">
+      <app-element-table-cell columnStart="1" columnEnd="-1" class="day is-info">
+        <app-element-temporal-datetime [dateTime]="line.date" format="longDateWithWeekday"></app-element-temporal-datetime>
+      </app-element-table-cell>
+    </app-element-table-row>
+
+    <app-schedule-edit-row
+      cdkDrag
+      cdkDragPreviewContainer="parent"
+      [availabilities]="availabilities"
+      [cdkDragDisabled]="expanded.has(line.position)"
+      [i]="i"
+      [class]="getRowParity(i)"
+      [expanded]="expanded.has(line.position)"
+      (toggleExpand)="toggleExpand(line.position)"
+      (moveToToDo)="moveToToDo.emit($event)"
+      (delete)="deleteRow($event)"
+      [selectedAvailabilities]="selectedAvailabilities"
+      (selectAvailability)="selectAvailability.emit($event)"
+      [line]="line"
+    >
+      <fa-icon [icon]="iconBars"
+               cdkDragHandle
+               [cdkDragHandleDisabled]="expanded.has(line.position)"
+               class="is-pulled-right"
+               oengusDragDandlePosition></fa-icon>
+    </app-schedule-edit-row>
+
+    <app-element-table-detail *ngIf="expanded.has(line.position)" [class]="getRowParity(i)">
+      <app-setup-block-editor *ngIf="line.setupBlock"
+                              (setupTimeChanged)="estimateChangedDebounce()"
+                              [line]="line"></app-setup-block-editor>
+      <app-normal-run-editor *ngIf="!line.setupBlock"
+                             (estimateChanged)="estimateChangedDebounce()"
+                             (setupTimeChanged)="estimateChangedDebounce()"
+                             (loadAvailabilities)="loadAvailabilities.emit($event)"
+                             [line]="line"></app-normal-run-editor>
+
+      <!-- (custom data exists for both setup block and normal runs) -->
+      <div class="field custom-data-field">
+        <label for="custom-data-{{i}}">
+          {{ 'marathon.schedule.management.customData.inputText' | translate }}
+        </label>
+
+        <div class="control">
+            <textarea id="custom-data-{{i}}" class="textarea"
+                      [(ngModel)]="line.customData"
+                      placeholder='{"layout": "19:9", "other-data": "here"} or whatever else you want'></textarea>
+        </div>
+      </div>
+    </app-element-table-detail>
+  </ng-template>
+</app-element-table>

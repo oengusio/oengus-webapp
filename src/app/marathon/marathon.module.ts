@@ -71,6 +71,13 @@ import { HomeSubmitButtonComponent } from './home/home-submit-button/home-submit
 import { WarningModalComponent } from './schedule-management/warning-modal/warning-modal.component';
 import { ScheduleBySlugResolver } from '../resolvers/schedule-by-slug-resolver';
 import { ScheduleV1ModelResolver } from '../resolvers/schedule-v1-model-resolver';
+import { SubmissionsTableComponent } from './schedule-management/edit/submissions-table/submissions-table.component';
+import { ScheduleTableComponent } from './schedule-management/edit/schedule-table/schedule-table.component';
+import { SetupBlockEditorComponent } from './schedule-management/edit/schedule-table/setup-block-editor/setup-block-editor.component';
+import { NormalRunEditorComponent } from './schedule-management/edit/schedule-table/normal-run-editor/normal-run-editor.component';
+import { ScheduleEditRowComponent } from './schedule-management/edit/schedule-table/schedule-edit-row/schedule-edit-row.component';
+import { SubmissionRowComponent } from './schedule-management/edit/submissions-table/submission-row/submission-row.component';
+import { ScheduleTableOldElementComponent } from './schedule-management/edit/schedule-table-old-element/schedule-table-old-element.component';
 
 const marathonRoutes: Routes = [
   {
@@ -274,6 +281,13 @@ const marathonRoutes: Routes = [
     ScheduleManagementEditComponent,
     HomeSubmitButtonComponent,
     WarningModalComponent,
+    SubmissionsTableComponent,
+    ScheduleTableComponent,
+    SetupBlockEditorComponent,
+    NormalRunEditorComponent,
+    ScheduleEditRowComponent,
+    SubmissionRowComponent,
+    ScheduleTableOldElementComponent,
   ],
   imports: [
     CommonModule,

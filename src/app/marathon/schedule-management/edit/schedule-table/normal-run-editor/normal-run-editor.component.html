@@ -1,0 +1,143 @@
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    {{ 'marathon.schedule.table.runner' | translate}}:
+  </div>
+  <div class="field-body">
+    <ul>
+      <li *ngFor="let runner of line.runners; let ri = index">
+        <a href="#" class="userAction"
+           *ngIf="line.runners.length > 1 || line.customRun"
+           (click)="removeUser(ri)"
+        >
+          <fa-icon [icon]="iconTimes"></fa-icon>
+        </a>
+        <app-user-link
+          [user]="runner"
+          [username]="runner.runnerName"
+          [isLink]="!!runner.profile"
+        ></app-user-link>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal"></div>
+  <div class="field-body">
+    <div class="field">
+      <ng-autocomplete
+        #autocompleteComponent
+        placeholder="Search for a runner"
+        [data]="userSearch[line.position]"
+        searchKeyword="username"
+        minQueryLength="3"
+        (selected)="onSelectUser($event, line)"
+        (inputChanged)="onSearchUser($event, line.position)"
+        [itemTemplate]="searchTemplate"
+      ></ng-autocomplete>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="game-{{i}}">{{ 'marathon.schedule.table.game' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="text" name="game-{{i}}" id="game-{{i}}" [(ngModel)]="line.game"/>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="category-{{i}}">{{ 'marathon.schedule.table.category' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="text" name="category-{{i}}" id="category-{{i}}" [(ngModel)]="line.category"/>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="type-{{i}}">{{ 'marathon.schedule.table.type' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <span
+        *ngIf="line.runners.length === 1 && !line.customRun">
+        {{'marathon.schedule.type.SINGLE' | translate}}</span>
+      <div class="select" *ngIf="line.runners.length > 1 || line.customRun">
+        <select [(ngModel)]="line.type" id="type-{{i}}" name="type-{{i}}">
+          <option value="SINGLE"
+                  *ngIf="line.customRun">{{ 'marathon.schedule.type.SINGLE' | translate}}</option>
+          <option value="RACE">{{ 'marathon.schedule.type.RACE' | translate}}</option>
+          <option value="COOP">{{ 'marathon.schedule.type.COOP' | translate}}</option>
+          <option value="COOP_RACE">{{ 'marathon.schedule.type.COOP_RACE' | translate}}</option>
+          <option value="RELAY">{{ 'marathon.schedule.type.RELAY' | translate}}</option>
+          <option value="RELAY_RACE">{{ 'marathon.schedule.type.RELAY_RACE' | translate}}</option>
+          <option value="OTHER">{{ 'marathon.schedule.type.OTHER' | translate}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="console-{{i}}">{{ 'marathon.schedule.table.console' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input consoleInput" type="text" name="console-{{i}}" id="console-{{i}}" [(ngModel)]="line.console"/>
+      <sup *ngIf="line.emulated">{{ 'global.emu' |translate}}</sup>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal"></div>
+  <div class="field-body">
+    <div class="field">
+      <label class="checkbox" for="emulated-{{i}}">
+        <input type="checkbox" name="emulated-{{i}}" id="emulated-{{i}}" [(ngModel)]="line.emulated">
+
+        <!-- Recycling a string :) -->
+        {{ 'marathon.submit.game.console.emulated' | translate}}
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="estimate-{{i}}">{{ 'marathon.schedule.table.estimate' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="time" name="estimate-{{i}}" id="estimate-{{i}}" [(ngModel)]="lineEstimate"/>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="setup-{{i}}">{{ 'marathon.schedule.table.setup' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="time" name="setup-{{i}}" id="setup-{{i}}" [(ngModel)]="lineSetup"/>
+    </div>
+  </div>
+</div>
+
+<ng-template #searchTemplate let-item>
+  <!-- TODO: this potentially allows for HTML injection -->
+  <a class="no-hover" *ngIf="item.isCustom; else oengusUser;" [innerHTML]="item.username + ' (custom)'"></a>
+  <ng-template #oengusUser>
+    <a class="no-hover" [innerHTML]="item.displayName + ' (' + item.username + ')'"></a>
+  </ng-template>
+</ng-template>

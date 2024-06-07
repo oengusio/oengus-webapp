@@ -17,6 +17,7 @@
 </div>
 
 <div>
+  <!-- TODO: split this out to a component -->
   <form (ngSubmit)="submit()" #infoForm="ngForm">
     <div class="field">
       <label for="sched_name" class="label">
@@ -152,17 +153,79 @@
 
 <hr>
 
-<div>
-  <p>If this schedule has lines they should be editable here, but I am too scared to turn this into a good UI.</p>
-  <p>The submissions should also be loaded in just like the old ui</p>
-  <p>But for now, here is a OL</p>
+<section class="section">
+  <div id="timeline"></div>
+  <div style="margin-top: var(--spacing)">
+    <!-- custom data toggle -->
+    <nwb-switch [(ngModel)]="hideCompleteUsers">
+      <span>{{ 'marathon.schedule.management.hideCompleteUsers' | translate }}</span>
+    </nwb-switch>
+  </div>
+  <div style="margin-top: var(--spacing)">
+    <button type="button"
+            class="button is-info"
+            (click)="clearSelectedAvailabilities()">
+      {{'action.clearAvailabilities' | translate}}
+    </button>
+  </div>
+</section>
 
-  <ol>
-    <li *ngFor="let line of lines">
-      {{ line.id }} -
-      {{ line.game ?? line.setupBlockText ?? 'Setup block' }} -
-      {{ line.category ?? 'No category' }} -
-      {{ line.setupBlock }}
-    </li>
-  </ol>
+<hr>
+
+<div class="columns is-desktop">
+  <div class="column is-5">
+    <h4 class="subtitle is-4">{{ 'marathon.schedule.management.selectedRuns' | translate}}</h4>
+
+    <app-submissions-table *ngIf="submissionsLoaded; else scheduleLoadingIndicator"
+                           (moveToSchedule)="moveToSchedule($event)"
+                           [selectedAvailabilities]="availabilitiesSelected"
+                           (selectAvailability)="triggerSelectedAvailability($event)"
+                           [todoLines]="todoLines"></app-submissions-table>
+
+    <ng-template #scheduleLoadingIndicator>
+      <div class="is-centered">
+        <app-loading-indicator></app-loading-indicator>
+      </div>
+    </ng-template>
+  </div>
+  <div class="column is-7">
+    <h4 class="subtitle mb-0 is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
+    <small class="mb-2">{{ 'marathon.schedule.management.markdown' | translate}}</small>
+
+    <app-schedule-table
+      *ngIf="env.newScheduleEditTable; else oldScheduleTable"
+      [lines]="lines"
+      [availabilities]="allAvailabilities"
+      (moveToToDo)="moveToTodo($event)"
+      (delete)="removeScheduleLine($event)"
+      (computeSchedule)="computeSchedule()"
+      [selectedAvailabilities]="availabilitiesSelected"
+      (selectAvailability)="triggerSelectedAvailability($event)"
+      (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
+      #scheduleTableComponent
+    ></app-schedule-table>
+
+    <ng-template #oldScheduleTable>
+      <app-schedule-table-old-element
+        [lines]="lines"
+        [availabilities]="allAvailabilities"
+        (moveToToDo)="moveToTodo($event)"
+        (delete)="removeScheduleLine($event)"
+        (computeSchedule)="computeSchedule()"
+        [selectedAvailabilities]="availabilitiesSelected"
+        (selectAvailability)="triggerSelectedAvailability($event)"
+        (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
+        #scheduleTableComponent
+      ></app-schedule-table-old-element>
+    </ng-template>
+
+    <div class="buttons mt-4">
+      <button type="button" class="button is-info"
+              (click)="addCustomLine(true)">{{'marathon.schedule.management.action.addSetupBlock' | translate}}
+      </button>
+      <button type="button" class="button is-info"
+              (click)="addCustomLine(false)">{{'marathon.schedule.management.action.addRun' | translate}}
+      </button>
+    </div>
+  </div>
 </div>

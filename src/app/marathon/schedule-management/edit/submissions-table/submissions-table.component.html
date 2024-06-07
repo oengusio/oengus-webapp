@@ -1,0 +1,31 @@
+<app-element-table>
+  <app-element-table-row header>
+    <app-element-table-cell [isHeader]="true">
+      {{ 'marathon.schedule.table.runner' | translate }}
+    </app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">
+      {{ 'marathon.submissions.table.game' | translate}}</app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">{{ 'marathon.submissions.table.category' | translate}}
+    </app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">
+      {{ 'marathon.submissions.table.console' | translate}}
+    </app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">
+      {{ 'marathon.submissions.table.estimate' | translate}}
+    </app-element-table-cell>
+    <app-element-table-cell [isHeader]="true">
+      {{ 'marathon.submissions.table.actions' | translate}}
+    </app-element-table-cell>
+  </app-element-table-row>
+
+  <ng-template ngFor [ngForOf]="todoLines" let-line let-i="index">
+    <app-submission-row
+      [i]="i"
+      [class]="getRowParity(i)"
+      [line]="line"
+      [selectedAvailabilities]="selectedAvailabilities"
+      (selectAvailability)="selectAvailability.emit($event)"
+      (moveToSchedule)="moveToSchedule.emit($event)"
+    ></app-submission-row>
+  </ng-template>
+</app-element-table>

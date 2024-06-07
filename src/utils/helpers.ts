@@ -1,3 +1,5 @@
+import { LineRunner } from '../model/schedule-line';
+
 const mastodonRegex = /@?([^@]+)(?:@(.*))?/;
 
 export function parseMastodonUrl(input: string): string {
@@ -23,4 +25,12 @@ export function downloadBlob(blob: Blob, filename: string) {
   link.click();
   document.body.removeChild(link);
   URL.revokeObjectURL(blobUrl);
+}
+
+export function getRunnerUsername(runner: LineRunner): string {
+  if (runner.profile) {
+    return runner.profile.username;
+  }
+
+  return runner.runnerName;
 }

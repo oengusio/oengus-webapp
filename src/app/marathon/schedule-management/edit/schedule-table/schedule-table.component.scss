@@ -1,0 +1,29 @@
+@use '../../../../../assets/table';
+
+app-element-table {
+  @include table.shrink($default-template-columns: 10, $has-expand-button: true);
+  position: relative;
+}
+
+.custom-data-field {
+  margin-top: var(--spacing);
+}
+
+.cdk-drag-handle {
+  cursor: move;
+}
+
+.cdk-drag-preview {
+  position: relative;
+  display: block;
+}
+
+.cdk-drag-placeholder {
+  position: relative;
+  display: block;
+}
+
+.day {
+  font-weight: bold;
+  text-align: center;
+}

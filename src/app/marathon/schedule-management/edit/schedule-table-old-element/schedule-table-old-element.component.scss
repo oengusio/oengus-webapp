@@ -1,0 +1,33 @@
+@use '../../../../../assets/table';
+
+tbody {
+  tr {
+    @include table.cell-varients();
+
+    td {
+      border: none !important;
+    }
+  }
+}
+
+app-element-table-detail {
+  width: 100%;
+  display: block;
+}
+
+.expandable {
+  cursor: pointer;
+}
+
+.actions a:first-child {
+  margin-right: 10px;
+}
+
+.day {
+  font-weight: bold;
+  text-align: center;
+}
+
+app-element-table-cell {
+  background-color: transparent;
+}

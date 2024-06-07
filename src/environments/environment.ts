@@ -16,7 +16,8 @@ export const environment = {
   api: '/api',
   // api: 'https://oengus.dev/api',
   // api: 'https://oengus.io/api',
-  // Optional, in case of a custom hosted patreon api, will use api by default
+  // Optional, in case of a custom hosted patreon api, will use api
+  // by default
   // patronApi: 'http://localhost:9000',
   patronApi: 'https://oengus.io/api/patreon',
   twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',
@@ -30,6 +31,7 @@ export const environment = {
   // v2Domain: 'https://v2.oengus.dev/',
   v2Domain: false,
   donationsDisabled: false,
+  newScheduleEditTable: false,
 };
 
 /*

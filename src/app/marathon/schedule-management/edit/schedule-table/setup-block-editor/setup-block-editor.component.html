@@ -1,0 +1,25 @@
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="setup-text-{{i}}">{{ 'marathon.schedule.management.settings.customLabel' | translate }}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <input class="input" type="text" name="setup-text-{{i}}" id="setup-text-{{i}}" [(ngModel)]="line.setupBlockText" placeholder="Setup Block"/>
+      <p class="help">
+        {{ 'marathon.schedule.management.help.setupBlock' | translate }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label for="setup-{{i}}">{{ 'marathon.schedule.table.setup' | translate}}:</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <p>TODO: seems that the time input can't handle anything over 24 hours, sorry that this is a bit jank</p>
+      <input class="input" type="text" name="setup-{{i}}" id="setup-{{i}}" [(ngModel)]="lineSetup"/>
+    </div>
+  </div>
+</div>
