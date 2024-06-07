@@ -1,12 +1,12 @@
 <div class="field is-horizontal">
   <div class="field-label is-normal">
-    <label for="setup-text-{{i}}">Custom label (this needs translation):</label>
+    <label for="setup-text-{{i}}">{{ 'marathon.schedule.management.settings.customLabel' | translate }}:</label>
   </div>
   <div class="field-body">
     <div class="field">
       <input class="input" type="text" name="setup-text-{{i}}" id="setup-text-{{i}}" [(ngModel)]="line.setupBlockText" placeholder="Setup Block"/>
       <p class="help">
-        Leave empty for default text
+        {{ 'marathon.schedule.management.help.setupBlock' | translate }}
       </p>
     </div>
   </div>
