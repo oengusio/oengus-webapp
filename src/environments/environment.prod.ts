@@ -25,4 +25,5 @@ export const environment = {
   // v2Domain: 'https://oengus.io/',
   v2Domain: false,
   donationsDisabled: true,
+  newScheduleEditTable: false,
 };

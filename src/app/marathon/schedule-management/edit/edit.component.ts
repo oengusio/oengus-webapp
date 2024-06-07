@@ -15,6 +15,7 @@ import { Availability, AvailabilityResponse } from '../../../../model/availabili
 import moment from 'moment-timezone';
 import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
 import { TranslateService } from '@ngx-translate/core';
+import { ScheduleTableOldElementComponent } from './schedule-table-old-element/schedule-table-old-element.component';
 
 @Component({
   selector: 'app-edit',
@@ -22,7 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit, OnDestroy {
-  @ViewChild('scheduleTableComponent') scheduleTable: ScheduleTableComponent;
+  @ViewChild('scheduleTableComponent') scheduleTable: ScheduleTableComponent | ScheduleTableOldElementComponent;
 
   scheduleInfo: ScheduleInfo;
   marathonId = '';

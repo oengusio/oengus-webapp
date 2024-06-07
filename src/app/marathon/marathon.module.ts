@@ -77,6 +77,7 @@ import { SetupBlockEditorComponent } from './schedule-management/edit/schedule-t
 import { NormalRunEditorComponent } from './schedule-management/edit/schedule-table/normal-run-editor/normal-run-editor.component';
 import { ScheduleEditRowComponent } from './schedule-management/edit/schedule-table/schedule-edit-row/schedule-edit-row.component';
 import { SubmissionRowComponent } from './schedule-management/edit/submissions-table/submission-row/submission-row.component';
+import { ScheduleTableOldElementComponent } from './schedule-management/edit/schedule-table-old-element/schedule-table-old-element.component';
 
 const marathonRoutes: Routes = [
   {
@@ -286,6 +287,7 @@ const marathonRoutes: Routes = [
     NormalRunEditorComponent,
     ScheduleEditRowComponent,
     SubmissionRowComponent,
+    ScheduleTableOldElementComponent,
   ],
   imports: [
     CommonModule,

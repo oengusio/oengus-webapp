@@ -197,6 +197,7 @@
     <small class="mb-2">{{ 'marathon.schedule.management.markdown' | translate}}</small>
 
     <app-schedule-table
+      *ngIf="env.newScheduleEditTable; else oldScheduleTable"
       [lines]="lines"
       [availabilities]="allAvailabilities"
       (moveToToDo)="moveToTodo($event)"
@@ -207,6 +208,20 @@
       (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
       #scheduleTableComponent
     ></app-schedule-table>
+
+    <ng-template #oldScheduleTable>
+      <app-schedule-table-old-element
+        [lines]="lines"
+        [availabilities]="allAvailabilities"
+        (moveToToDo)="moveToTodo($event)"
+        (delete)="removeScheduleLine($event)"
+        (computeSchedule)="computeSchedule()"
+        [selectedAvailabilities]="availabilitiesSelected"
+        (selectAvailability)="triggerSelectedAvailability($event)"
+        (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
+        #scheduleTableComponent
+      ></app-schedule-table-old-element>
+    </ng-template>
 
     <div class="buttons mt-4">
       <button type="button" class="button is-info"
