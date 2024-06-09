@@ -17,6 +17,9 @@ import { ScheduleTableComponent } from './schedule-table/schedule-table.componen
 import { TranslateService } from '@ngx-translate/core';
 import { ScheduleTableOldElementComponent } from './schedule-table-old-element/schedule-table-old-element.component';
 
+// Options are 'id' and 'content'
+const AVAILABILITY_SORT_KEY = 'content';
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -272,7 +275,7 @@ export class EditComponent implements OnInit, OnDestroy {
     this.availabilitiesItems.flush();
 
     // Sort availabilities alphabetically.
-    const sortedData = this.availabilitiesGroups.get({ order: 'id' });
+    const sortedData = this.availabilitiesGroups.get({ order: AVAILABILITY_SORT_KEY });
 
     this.availabilitiesGroups.clear();
     this.availabilitiesGroups.add(sortedData);
@@ -498,7 +501,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
     this.availabilitiesGroups.flush();
 
-    const sortedData = this.availabilitiesGroups.get({ order: 'id' });
+    const sortedData = this.availabilitiesGroups.get({ order: AVAILABILITY_SORT_KEY });
 
     this.availabilitiesGroups.clear();
     this.availabilitiesGroups.add(sortedData);
