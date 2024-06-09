@@ -34,3 +34,11 @@ export function getRunnerUsername(runner: LineRunner): string {
 
   return runner.runnerName;
 }
+
+export function getRunnerDisplayName(runner: LineRunner): string {
+  if (runner.profile) {
+    return `${runner.profile.displayName} (${runner.profile.username})`;
+  }
+
+  return runner.runnerName;
+}

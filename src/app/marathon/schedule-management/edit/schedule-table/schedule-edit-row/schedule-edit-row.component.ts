@@ -4,7 +4,7 @@ import { getRowParity } from '../../../../../../assets/table';
 import { LineRunner, V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { AvailabilityResponse } from '../../../../../../model/availability';
 import moment from 'moment-timezone';
-import { getRunnerUsername } from '../../../../../../utils/helpers';
+import { getRunnerDisplayName, getRunnerUsername } from '../../../../../../utils/helpers';
 
 @Component({
   selector: 'app-schedule-edit-row',
@@ -26,6 +26,7 @@ export class ScheduleEditRowComponent {
   public timezone = moment.tz.guess();
 
   getRunnerUsername = getRunnerUsername;
+  getRunnerDisplayName = getRunnerDisplayName;
   iconBars = faBars;
   iconTimes = faTimes;
   getRowParity = getRowParity;

@@ -6,7 +6,7 @@ import moment from 'moment-timezone';
 import { faBars, faCalendarTimes, faCalendarWeek, faChevronLeft, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { debounce } from 'lodash';
-import { getRunnerUsername } from '../../../../../utils/helpers';
+import { getRunnerDisplayName, getRunnerUsername } from '../../../../../utils/helpers';
 
 /**
  * @deprecated please use the new component when we get it working.
@@ -19,6 +19,7 @@ import { getRunnerUsername } from '../../../../../utils/helpers';
 export class ScheduleTableOldElementComponent {
   public getRowParity = getRowParity;
   getRunnerUsername = getRunnerUsername;
+  getRunnerDisplayName = getRunnerDisplayName;
   public timezone = moment.tz.guess();
 
   @Input() lines: V2ScheduleLine[] = [];
