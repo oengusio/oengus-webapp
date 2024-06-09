@@ -270,6 +270,13 @@ export class EditComponent implements OnInit, OnDestroy {
 
     this.availabilitiesGroups.flush();
     this.availabilitiesItems.flush();
+
+    // Sort availabilities alphabetically.
+    const sortedData = this.availabilitiesGroups.get({ order: 'id' });
+
+    this.availabilitiesGroups.clear();
+    this.availabilitiesGroups.add(sortedData);
+    this.availabilitiesGroups.flush();
   }
 
   async loadAvailabilitiesForRunner(userId: number) {
