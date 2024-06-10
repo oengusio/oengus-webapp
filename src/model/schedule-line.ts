@@ -1,4 +1,4 @@
-import { User } from './user';
+import { BasicUserInfo, User } from './user';
 
 /**
  * @deprecated v1 api, for removal when old UI is phased out in the future.
@@ -44,7 +44,7 @@ export type RunType = 'SINGLE' | 'RACE' | 'COOP' | 'COOP_RACE' | 'RELAY' | 'RELA
 // Only one property can be sent (not-null) at a time.
 export interface LineRunner {
   runnerName?: string;
-  profile?: { id: number; username: string; displayName: string; };
+  profile?: BasicUserInfo;
 }
 
 export interface V2ScheduleLine {

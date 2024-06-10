@@ -2,7 +2,13 @@ import { SocialAccount } from './social-account';
 
 export const MAX_NAME_LENGTH = 32;
 
-export class User {
+export interface BasicUserInfo {
+  id: number;
+  username: string;
+  displayName: string;
+}
+
+export class User implements BasicUserInfo {
 
   id: number;
   username: string;

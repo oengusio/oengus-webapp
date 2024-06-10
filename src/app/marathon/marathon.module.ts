@@ -78,6 +78,7 @@ import { NormalRunEditorComponent } from './schedule-management/edit/schedule-ta
 import { ScheduleEditRowComponent } from './schedule-management/edit/schedule-table/schedule-edit-row/schedule-edit-row.component';
 import { SubmissionRowComponent } from './schedule-management/edit/submissions-table/submission-row/submission-row.component';
 import { ScheduleTableOldElementComponent } from './schedule-management/edit/schedule-table-old-element/schedule-table-old-element.component';
+import { MarathonScheduleShareComponent } from './schedule/marathon-schedule-share/marathon-schedule-share.component';
 
 const marathonRoutes: Routes = [
   {
@@ -288,6 +289,7 @@ const marathonRoutes: Routes = [
     ScheduleEditRowComponent,
     SubmissionRowComponent,
     ScheduleTableOldElementComponent,
+    MarathonScheduleShareComponent,
   ],
   imports: [
     CommonModule,
