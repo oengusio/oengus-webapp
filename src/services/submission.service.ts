@@ -8,6 +8,7 @@ import { BaseService } from './BaseService';
 import { Answer } from '../model/answer';
 import { SubmissionPage } from '../model/submission-page';
 import { AvailabilityResponse } from '../model/availability';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -81,9 +82,11 @@ export class SubmissionService extends BaseService {
       params.status = status;
     }
 
-    return this.http.get<Submission[]>(this.url(`${marathonId}/submissions/search`), {
+    return this.http.get<SubmissionPage>(this.url(`${marathonId}/submissions/search`), {
       params,
-    });
+    }).pipe(
+      map(x => x.content)
+    );
   }
 
   answers(marathonId: string): Observable<Answer[]> {
