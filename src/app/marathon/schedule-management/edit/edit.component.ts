@@ -87,9 +87,9 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    this.scheduleService.getLines(this.marathonId, this.scheduleInfo.id).subscribe((resp) => {
-      this.lines = resp.data;
-    });
+    const { data } = await firstValueFrom(this.scheduleService.getLines(this.marathonId, this.scheduleInfo.id));
+
+    this.lines = data;
     await this.loadAllSubmissions();
     await this.loadAllAvailabilities();
     await this.initTimeline();
