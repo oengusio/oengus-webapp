@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
 import { toggleTableExpand } from '../../../../assets/table';
 
@@ -7,13 +7,17 @@ import { toggleTableExpand } from '../../../../assets/table';
   templateUrl: './marathon-schedule-list.component.html',
   styleUrls: ['./marathon-schedule-list.component.scss']
 })
-export class MarathonScheduleListComponent implements OnChanges {
+export class MarathonScheduleListComponent implements OnChanges, OnInit {
   @Input() runs: V2ScheduleLine[];
   @Input() currentRun: V2ScheduleLine;
   @Input() nextRun: V2ScheduleLine;
   @Input() runHash: string;
 
   expanded = new Set<number>();
+
+  ngOnInit(): void {
+    this.expandRunHash();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.runHash && changes.runHash.currentValue !== changes.runHash.previousValue) {
@@ -70,11 +74,14 @@ export class MarathonScheduleListComponent implements OnChanges {
       const runHashResults = runHashRegExp.exec(this.runHash);
       if (runHashResults) {
         this.toggleExpand(Number.parseInt(runHashResults[1], 10), true);
+        this.scrollToHash();
       } else if (this.currentRun || this.nextRun) {
         if (this.runHash === '#current') {
           this.toggleExpand(this.currentRun?.id, true);
+          this.scrollToHash();
         } else if (this.runHash === '#next') {
           this.toggleExpand(this.nextRun?.id, true);
+          this.scrollToHash();
         }
       }
     }
@@ -83,6 +90,13 @@ export class MarathonScheduleListComponent implements OnChanges {
   toggleExpand(runId: number, openOnly = false): void {
     toggleTableExpand(this.expanded, runId, openOnly);
     this.expanded = new Set(this.expanded);
+  }
+
+  private scrollToHash() {
+    const element = document.getElementById(this.runHash);
+    if (element) {
+      element.scrollIntoView();
+    }
   }
 
   get advertisementIndices(): Array<number> {
