@@ -304,7 +304,10 @@ export class ScheduleManagementComponent implements OnInit {
 
   realPublish(): void {
     this.showModal = false;
+    this.loading = true;
 
+    // HACK: this might not work, but I don't really care tbh
+    this.scheduleService.publish(this.marathonService.marathon.id, this.schedule.id).subscribe();
     this.submit();
     this.marathonService.update({...this.marathonService.marathon, scheduleDone: true}, false);
   }
