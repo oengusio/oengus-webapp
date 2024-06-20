@@ -192,7 +192,6 @@
       }
     }
   },
-  "defaultProject": "webapp",
   "schematics": {
     "@schematics/angular:component": {
       "style": "scss"
