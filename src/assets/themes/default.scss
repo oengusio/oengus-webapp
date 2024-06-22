@@ -19,7 +19,7 @@ $googleWhite: #000000;
   background-color: $warning !important;
 }
 
-@import 'bulma';
+@import 'bulma/bulma';
 @import 'bulmaswatch/solar/overrides';
 @import '@duncte123/bulma-tagsinput/src/sass/index';
 @import './elements';
