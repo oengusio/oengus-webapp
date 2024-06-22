@@ -90,9 +90,16 @@ export class UserService extends BaseService {
   me(): Subscription {
     return this.getMe().subscribe({
       next: (response: User) => {
-        this._user = response;
-        if (!this._user.email) {
-          this.router.navigate(['user/new']);
+        console.log(response);
+
+        if (response) {
+          this._user = response;
+          if (!this._user.email) {
+            this.router.navigate(['user/new']);
+          }
+        } else {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
         }
       },
       error: (error: Error) => {
