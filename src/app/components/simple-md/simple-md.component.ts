@@ -13,7 +13,7 @@ export class SimpleMdComponent {
   private md = new MarkdownIt('zero', {
     linkify: false,
   })
-    // Only enable [links](https://oengus.io), *bold* and _italic_
+    // Only enable [links](https://oengus.io), **bold** and _italic_
     .enable(['link', 'emphasis'])
     .use(dompurify());
 

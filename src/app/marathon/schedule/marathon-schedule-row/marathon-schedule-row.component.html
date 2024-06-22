@@ -5,11 +5,11 @@
   </app-element-table-cell>
 
   <app-element-table-cell *ngIf="run.setupBlock; else notSetupBlock" class="setup-text" columnEnd="span 2">
-    {{ (run.setupBlockText || 'marathon.schedule.setupBlock' | translate) }}
+    <app-simple-md [data]="(run.setupBlockText || 'marathon.schedule.setupBlock' | translate)" ></app-simple-md>
   </app-element-table-cell>
   <ng-template #notSetupBlock>
     <app-element-table-cell class="runners">
-      <app-user-link *ngFor="let runner of run.runners" [user]="runner"></app-user-link>
+      <app-user-link *ngFor="let runner of run.runners" [user]="runner" [isLink]="runner?.profile?.id > 0"></app-user-link>
     </app-element-table-cell>
     <app-element-table-cell class="game">
       <app-simple-md [data]="run.game"></app-simple-md>
