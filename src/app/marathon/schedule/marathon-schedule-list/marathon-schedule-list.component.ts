@@ -72,16 +72,14 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
     if (this.runHash) {
       const runHashRegExp = /^#run-(\d+)$/;
       const runHashResults = runHashRegExp.exec(this.runHash);
+
       if (runHashResults) {
         this.toggleExpand(Number.parseInt(runHashResults[1], 10), true);
-        this.scrollToHash();
       } else if (this.currentRun || this.nextRun) {
         if (this.runHash === '#current') {
           this.toggleExpand(this.currentRun?.id, true);
-          this.scrollToHash();
         } else if (this.runHash === '#next') {
           this.toggleExpand(this.nextRun?.id, true);
-          this.scrollToHash();
         }
       }
     }
@@ -90,13 +88,6 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   toggleExpand(runId: number, openOnly = false): void {
     toggleTableExpand(this.expanded, runId, openOnly);
     this.expanded = new Set(this.expanded);
-  }
-
-  private scrollToHash() {
-    const element = document.getElementById(this.runHash);
-    if (element) {
-      element.scrollIntoView();
-    }
   }
 
   get advertisementIndices(): Array<number> {

@@ -46,6 +46,7 @@
       [class]="getRowParity(index, run)"
       [expanded]="expanded.has(run.id)"
       [internalId]="getId(run)"
+      [runHash]="runHash"
       (click)="toggleExpand(run.id)"
       [run]="run"></app-marathon-schedule-row>
 
