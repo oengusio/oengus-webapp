@@ -34,7 +34,7 @@ export class EditComponent implements OnInit, OnDestroy {
   todoLines: Array<V2ScheduleLine> = [];
   lines: Array<V2ScheduleLine> = [];
 
-  loading = false;
+  loading = true;
   warningModalActive = false;
 
   env = environment;
@@ -87,8 +87,12 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    this.loadAllAvailabilities().then(() => {
-      this.initTimeline();
+    const timelinePromise = new Promise<void>((resolve) => {
+      this.loadAllAvailabilities().then(() => {
+        this.initTimeline().then(() => {
+          resolve();
+        });
+      });
     });
 
     const { data } = await firstValueFrom(this.scheduleService.getLines(this.marathonId, this.scheduleInfo.id));
@@ -96,6 +100,8 @@ export class EditComponent implements OnInit, OnDestroy {
     this.lines = data;
     await this.loadAllSubmissions();
     this.computeSchedule();
+    await timelinePromise;
+    this.loading = false;
   }
 
   ngOnDestroy(): void {
@@ -185,6 +191,10 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   async submit(): Promise<void> {
+    if (this.loading) {
+      return;
+    }
+
     try {
       this.loading = true;
       await firstValueFrom(
