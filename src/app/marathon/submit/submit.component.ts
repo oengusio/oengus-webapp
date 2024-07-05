@@ -237,6 +237,9 @@ export class SubmitComponent implements OnInit {
       });
     });
 
+    // @ts-ignore
+    delete this.submission.opponentDtos;
+
     if (this.submission.id < 1) {
       this.submissionService.create(this.marathonService.marathon.id, this.submission).add(() => {
         this.refresh();
