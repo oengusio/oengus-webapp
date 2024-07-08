@@ -4,7 +4,7 @@ Oengus is a web application that helps manage speedrun marathons
 
 https://oengus.io
 
-Note that the back-end lives on this repository [https://github.com/esamarathon/oengusio](https://github.com/esamarathon/oengusio).
+Note that the back-end lives on this repository [https://github.com/oengusio/oengusio](https://github.com/oengusio/oengusio).
 
 ## How to run on your computer
 

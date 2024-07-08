@@ -2,8 +2,14 @@
   <h3 class="title is-3">
     {{ 'homepage.sponsors.title' | translate }}
   </h3>
-  <p class="icon-text">
-    <img src="/assets/ESA-Logo.svg" alt="European Speedrunner Assembly Logo" class="icon">
-    <span [innerHTML]="'homepage.sponsors.esa' | translate"></span>
+  <h4 class="title is-4">
+    {{ 'homepage.sponsors.patreon.nobody' | translate }}
+  </h4>
+  <p>
+    <app-element-i18n key="homepage.sponsors.patreon.but_patreon" elementKey="patrons">
+      <a href="https://www.patreon.com/oengusio" target="_blank">{{ 'homepage.sponsors.patreon.patrons' | translate }}</a>
+    </app-element-i18n>
+    <br>
+    {{ 'homepage.sponsors.patreon.see_footer' | translate }}
   </p>
 </div>
