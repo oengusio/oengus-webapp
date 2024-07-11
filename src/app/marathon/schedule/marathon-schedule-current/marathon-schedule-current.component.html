@@ -10,10 +10,10 @@
         {{ (ticker.setupBlockText || 'marathon.schedule.setupBlock' | translate) }}
       </span>
       <span *ngIf="ticker.game" class="info">
-        {{ ticker.game }}
+        <app-simple-md [data]="ticker.game"></app-simple-md>
       </span>
       <span *ngIf="ticker.category" class="info">
-        {{ ticker.category }}
+        <app-simple-md [data]="ticker.category" ></app-simple-md>
       </span>
       <span *ngIf="ticker.console" class="info">
         {{ ticker.console }}
