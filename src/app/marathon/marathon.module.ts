@@ -81,6 +81,7 @@ import { ScheduleTableOldElementComponent } from './schedule-management/edit/sch
 import { MarathonScheduleShareComponent } from './schedule/marathon-schedule-share/marathon-schedule-share.component';
 import { marathonSettingsResolverResolver } from '../resolvers/marathon-settings-resolver.resolver';
 import { questionsResolverResolver } from '../resolvers/questions-resolver.resolver';
+import { moderatorsResolver } from '../resolvers/moderators.resolver';
 
 const marathonRoutes: Routes = [
   {
@@ -104,6 +105,7 @@ const marathonRoutes: Routes = [
         resolve: {
           settings: marathonSettingsResolverResolver,
           questions: questionsResolverResolver,
+          moderators: moderatorsResolver,
         },
         canActivate: [
           (route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state),

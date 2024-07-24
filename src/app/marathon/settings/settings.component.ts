@@ -51,7 +51,7 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(({ settings, questions }) => {
+    this.activatedRoute.data.subscribe(({ settings, questions, moderators }) => {
       this.settings = cloneDeep(settings);
       this.marathonId = settings.id;
 
@@ -61,6 +61,8 @@ export class SettingsComponent implements OnInit {
 
       this.submissionsQuestions = this.questions.filter(q => q.type === 'SUBMISSION');
       this.donationsQuestions = this.questions.filter(q => q.type === 'DONATION');
+
+      this.moderators = moderators;
     });
   }
 
@@ -84,11 +86,10 @@ export class SettingsComponent implements OnInit {
     this.questions = this.questions.concat(this.submissionsQuestions);
     this.questions = this.questions.concat(this.donationsQuestions);
 
-
     try {
       await firstValueFrom(this.marathonService.update(this.settings));
       await firstValueFrom(this.marathonService.updateQuestions(this.marathonId, this.questions));
-
+      await firstValueFrom(this.marathonService.updateModerators(this.marathonId, this.moderators.map(it => it.id)));
 
       this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
         const alertConfig: NwbAlertConfig = {

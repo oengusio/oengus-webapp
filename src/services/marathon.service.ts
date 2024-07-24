@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { Marathon, MarathonSettings } from '../model/marathon';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { Observable, Subscription } from 'rxjs';
@@ -15,6 +15,7 @@ import { parseMastodonUrl } from '../utils/helpers';
 import { Question } from '../model/question';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
 import { map } from 'rxjs/operators';
+import { UserProfile } from '../model/user-profile';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,14 @@ export class MarathonService extends BaseService {
     return this.http.put<BooleanStatusDto>(
       this.v2Url(`${marathonId}/settings/questions`),
       { questions }
+    )
+      .pipe(map(x => x.status));
+  }
+
+  updateModerators(marathonId: string, userIds: number[]): Observable<boolean> {
+    return this.http.put<BooleanStatusDto>(
+      this.v2Url(`${marathonId}/settings/moderators`),
+      { userIds }
     )
       .pipe(map(x => x.status));
   }
@@ -155,5 +164,9 @@ export class MarathonService extends BaseService {
 
   loadQuestions(marathonId: string): Observable<DataListDto<Question>> {
     return this.http.get<DataListDto<Question>>(this.v2Url(`${marathonId}/settings/questions`));
+  }
+
+  loadModerators(marathonId: string): Observable<DataListDto<UserProfile>> {
+    return this.http.get<DataListDto<UserProfile>>(this.v2Url(`${marathonId}/settings/moderators`));
   }
 }
