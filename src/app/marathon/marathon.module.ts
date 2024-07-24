@@ -79,6 +79,7 @@ import { ScheduleEditRowComponent } from './schedule-management/edit/schedule-ta
 import { SubmissionRowComponent } from './schedule-management/edit/submissions-table/submission-row/submission-row.component';
 import { ScheduleTableOldElementComponent } from './schedule-management/edit/schedule-table-old-element/schedule-table-old-element.component';
 import { MarathonScheduleShareComponent } from './schedule/marathon-schedule-share/marathon-schedule-share.component';
+import { marathonSettingsResolverResolver } from '../resolvers/marathon-settings-resolver.resolver';
 
 const marathonRoutes: Routes = [
   {
@@ -99,7 +100,12 @@ const marathonRoutes: Routes = [
       {
         path: 'settings',
         component: SettingsComponent,
-        canActivate: [(route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state)]
+        resolve: {
+          settings: marathonSettingsResolverResolver,
+        },
+        canActivate: [
+          (route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state),
+        ]
       },
       {
         path: 'submit',

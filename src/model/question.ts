@@ -1,18 +1,11 @@
-export class Question {
+export interface Question {
 
   id: number;
   label: string;
   fieldType: string;
   required: boolean;
   options: string[];
-  questionType: string;
+  type: string;
   description: string;
   position: number;
-
-  constructor(questionType: string) {
-    this.options = [];
-    this.fieldType = 'TEXT';
-    this.required = false;
-    this.questionType = questionType;
-  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Marathon } from '../model/marathon';
+import { Marathon, MarathonSettings } from '../model/marathon';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { Observable, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
@@ -12,6 +12,9 @@ import moment from 'moment-timezone';
 import { User } from '../model/user';
 import {BaseService} from './BaseService';
 import { parseMastodonUrl } from '../utils/helpers';
+import { Question } from '../model/question';
+import { BooleanStatusDto } from '../model/dto/base-dtos';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -58,20 +61,16 @@ export class MarathonService extends BaseService {
     });
   }
 
-  update(marathon: Marathon, showToaster: boolean = true) {
-    return this.http.patch(this.url(`${marathon.id}`), marathon).subscribe(() => {
-      if (showToaster) {
-        this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
-          this.toast(res);
-        });
-      }
+  update(marathon: MarathonSettings, showToaster: boolean = true) {
+    return this.http.patch<MarathonSettings>(this.v2Url(`${marathon.id}/settings`), marathon);
+  }
 
-      this._marathon = {...marathon};
-    }, () => {
-      this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
-        this.toast(res, 3000, 'warning');
-      });
-    });
+  updateQuestions(marathonId: string, questions: Question[]): Observable<boolean> {
+    return this.http.post<BooleanStatusDto>(
+      this.v2Url(`${marathonId}/questions`),
+      { questions }
+    )
+      .pipe(map(x => x.status));
   }
 
   publishSelection(marathon: Marathon) {
@@ -148,5 +147,9 @@ export class MarathonService extends BaseService {
     return this.http.get(this.url(`${marathonId}/webhook`), {
       params: params
     });
+  }
+
+  loadSettings(marathonId: string): Observable<MarathonSettings> {
+    return this.http.get<MarathonSettings>(this.v2Url(`${marathonId}/settings`));
   }
 }

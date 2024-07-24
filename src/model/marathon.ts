@@ -76,3 +76,47 @@ export class MarathonWithExtraData extends Marathon {
   effectiveDate: Date;
   translateKey: string;
 }
+
+export interface MarathonSettings {
+  id: string;
+  name: string;
+  description: string;
+  isPrivate: boolean;
+  startDate: Date;
+  endDate: Date;
+  submissionsStartDate: Date;
+  submissionsEndDate: Date;
+  onsite: boolean;
+  location: string;
+  country: string;
+  language: string;
+
+  unlimitedGames: boolean;
+  unlimitedCategories: boolean;
+  maxGamesPerRunner: number;
+  maxCategoriesPerGame: number;
+  allowMultiplayer: boolean;
+  maxNumberOfScreens: number;
+
+  videoRequired: boolean;
+  allowEmulators: boolean;
+
+  discordGuildId: string;
+  discordGuildName: string;
+
+  submissionsOpen: boolean;
+
+  twitch: string;
+  twitter: string;
+  mastodon: string;
+  discord: string;
+  youtube: string;
+  discordPrivate: boolean;
+
+  defaultSetupTime: string;
+  selectionDone: boolean;
+  scheduleDone: boolean;
+
+  webhook: string;
+  announceAcceptedSubmissions: boolean;
+}
