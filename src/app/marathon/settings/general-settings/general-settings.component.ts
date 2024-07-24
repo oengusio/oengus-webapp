@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Marathon, MarathonSettings } from '../../../../model/marathon';
+import { Marathon, MarathonSettings, MarathonSettingsWithHelpfulProps } from '../../../../model/marathon';
 import { MarathonService } from '../../../../services/marathon.service';
 import { environment } from '../../../../environments/environment';
 import isoLang from '../../../../assets/languages.json';
@@ -17,7 +17,7 @@ import { UserProfile } from '../../../../model/user-profile';
 })
 export class GeneralSettingsComponent implements OnInit {
 
-  @Input() public settings: MarathonSettings;
+  @Input() public settings: MarathonSettingsWithHelpfulProps;
   @Input() public moderators: UserProfile[];
   @Input() public updateStartTime: boolean;
   @Input() public disabled: boolean;

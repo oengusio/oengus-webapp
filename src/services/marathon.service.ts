@@ -13,7 +13,7 @@ import { User } from '../model/user';
 import {BaseService} from './BaseService';
 import { parseMastodonUrl } from '../utils/helpers';
 import { Question } from '../model/question';
-import { BooleanStatusDto } from '../model/dto/base-dtos';
+import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -66,8 +66,8 @@ export class MarathonService extends BaseService {
   }
 
   updateQuestions(marathonId: string, questions: Question[]): Observable<boolean> {
-    return this.http.post<BooleanStatusDto>(
-      this.v2Url(`${marathonId}/questions`),
+    return this.http.put<BooleanStatusDto>(
+      this.v2Url(`${marathonId}/settings/questions`),
       { questions }
     )
       .pipe(map(x => x.status));
@@ -151,5 +151,9 @@ export class MarathonService extends BaseService {
 
   loadSettings(marathonId: string): Observable<MarathonSettings> {
     return this.http.get<MarathonSettings>(this.v2Url(`${marathonId}/settings`));
+  }
+
+  loadQuestions(marathonId: string): Observable<DataListDto<Question>> {
+    return this.http.get<DataListDto<Question>>(this.v2Url(`${marathonId}/settings/questions`));
   }
 }

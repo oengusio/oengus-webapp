@@ -257,6 +257,32 @@
       </div>
     </div>
     <div class="column">
+      <label class="label">Youtube</label>
+      <div class="field">
+        <div class="control">
+          <input class="input"
+                 [ngClass]="{'is-danger': youtube.invalid}"
+                 type="text"
+                 [(ngModel)]="settings.youtube"
+                 name="youtube"
+                 maxlength="100"
+                 pattern="^(https?:\/\/)?(www\.)?youtu((\.be)|(be\..{2,5}))\/((user)\/|(channel)\/|(c)\/|@).+$"
+                 #youtube="ngModel">
+          <p class="help">
+            <span>{{ 'marathon.settings.youtube.help.url' | translate}}</span>
+            <span class="is-pulled-right">{{settings.youtube?.length}}/100</span>
+          </p>
+        </div>
+        <div *ngIf="youtube.invalid">
+          <p class="help is-danger"
+             *ngIf="youtube.errors.pattern">{{ 'marathon.settings.youtube.error.pattern' | translate}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column">
       <label class="label">Twitter</label>
       <div class="field has-addons">
         <div class="control">
@@ -283,7 +309,6 @@
            *ngIf="twitter.errors.pattern">{{ 'marathon.settings.twitter.error.pattern' | translate}}</p>
       </div>
     </div>
-
     <div class="column">
       <label class="label">Mastodon</label>
       <div class="field">
@@ -331,37 +356,15 @@
            *ngIf="discord.errors.pattern">{{ 'marathon.settings.discord.error.pattern' | translate}}</p>
       </div>
     </div>
-    <div class="column">
-      <label class="label">Youtube</label>
-      <div class="field">
-        <div class="control">
-          <input class="input"
-                 [ngClass]="{'is-danger': youtube.invalid}"
-                 type="text"
-                 [(ngModel)]="settings.youtube"
-                 name="youtube"
-                 maxlength="100"
-                 pattern="^(https?:\/\/)?(www\.)?youtu((\.be)|(be\..{2,5}))\/((user)\/|(channel)\/|(c)\/|@).+$"
-                 #youtube="ngModel">
-          <p class="help">
-            <span>{{ 'marathon.settings.youtube.help.url' | translate}}</span>
-            <span class="is-pulled-right">{{settings.youtube?.length}}/100</span>
-          </p>
-        </div>
-        <div *ngIf="youtube.invalid">
-          <p class="help is-danger"
-             *ngIf="youtube.errors.pattern">{{ 'marathon.settings.youtube.error.pattern' | translate}}</p>
-        </div>
-      </div>
-    </div>
   </div>
+
   <!-- discord privacy/marathon privacy -->
   <div class="columns">
     <div class="column">
       <div class="field">
         <label class="label">{{ 'marathon.settings.discordPrivacy.label' | translate}}</label>
         <div class="control">
-          <nwb-switch [(ngModel)]="settings.discordPrivacy" name="discordPrivacy">
+          <nwb-switch [(ngModel)]="settings.discordPrivate" name="discordPrivacy">
             <span>{{ 'marathon.settings.discordPrivacy.private' | translate}}</span>
           </nwb-switch>
         </div>

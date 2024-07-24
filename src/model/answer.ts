@@ -10,6 +10,8 @@ export class Answer {
   username: string;
 
   constructor() {
-    this.question = new Question('SUBMISSION');
+    this.question = {
+      description: '', fieldType: '', id: 0, label: '', options: [], position: 0, required: false, type: 'DONATION'
+    };
   }
 }

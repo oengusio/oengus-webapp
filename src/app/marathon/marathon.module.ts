@@ -80,6 +80,7 @@ import { SubmissionRowComponent } from './schedule-management/edit/submissions-t
 import { ScheduleTableOldElementComponent } from './schedule-management/edit/schedule-table-old-element/schedule-table-old-element.component';
 import { MarathonScheduleShareComponent } from './schedule/marathon-schedule-share/marathon-schedule-share.component';
 import { marathonSettingsResolverResolver } from '../resolvers/marathon-settings-resolver.resolver';
+import { questionsResolverResolver } from '../resolvers/questions-resolver.resolver';
 
 const marathonRoutes: Routes = [
   {
@@ -102,6 +103,7 @@ const marathonRoutes: Routes = [
         component: SettingsComponent,
         resolve: {
           settings: marathonSettingsResolverResolver,
+          questions: questionsResolverResolver,
         },
         canActivate: [
           (route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state),

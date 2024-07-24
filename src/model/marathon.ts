@@ -120,3 +120,7 @@ export interface MarathonSettings {
   webhook: string;
   announceAcceptedSubmissions: boolean;
 }
+
+export interface MarathonSettingsWithHelpfulProps extends MarathonSettings {
+  defaultSetupTimeHuman: string;
+}

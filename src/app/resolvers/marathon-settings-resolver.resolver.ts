@@ -6,5 +6,5 @@ import { MarathonService } from '../../services/marathon.service';
 export const marathonSettingsResolverResolver: ResolveFn<MarathonSettings> = (route, state) => {
   const marathonService = inject(MarathonService);
 
-  return marathonService.loadSettings(route.paramMap.get('id'));
+  return marathonService.loadSettings(route.parent.paramMap.get('id'));
 };

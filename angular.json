@@ -42,6 +42,7 @@
           "defaultConfiguration": "development",
           "configurations": {
             "development": {
+              "outputHashing": "media",
               "optimization": {
                 "scripts": false,
                 "styles": false,
@@ -59,7 +60,7 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "media",
               "sourceMap": false,
               "namedChunks": false,
               "aot": true,
@@ -80,7 +81,7 @@
                 }
               ],
               "optimization": false,
-              "outputHashing": "all",
+              "outputHashing": "media",
               "sourceMap": true,
               "namedChunks": true,
               "aot": true,
@@ -101,7 +102,7 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "media",
               "sourceMap": false,
               "namedChunks": false,
               "aot": true,

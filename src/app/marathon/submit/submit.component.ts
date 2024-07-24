@@ -81,6 +81,7 @@ export class SubmitComponent implements OnInit {
       if (!this.submission.answers || this.submission.answers.length === 0) {
         this.submission.answers = [];
         this.marathonService.marathon.questions.forEach(question => {
+          // @ts-ignore
           if (question.questionType === 'SUBMISSION') {
             const answer = new Answer();
             answer.question = question;
@@ -92,6 +93,7 @@ export class SubmitComponent implements OnInit {
         });
       } else {
         this.marathonService.marathon.questions.forEach(question => {
+          // @ts-ignore
           if (question.questionType === 'SUBMISSION') {
             let found = false;
             this.submission.answers.forEach(existingAnswer => {

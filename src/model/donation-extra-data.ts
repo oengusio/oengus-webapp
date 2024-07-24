@@ -7,6 +7,15 @@ export class DonationExtraData {
   answer: any;
 
   constructor() {
-    this.question = new Question('DONATION');
+    this.question = {
+      id: 0,
+      label: '',
+      fieldType: '',
+      required: false,
+      options: [],
+      type: 'DONATION',
+      description: '',
+      position: 0
+    };
   }
 }

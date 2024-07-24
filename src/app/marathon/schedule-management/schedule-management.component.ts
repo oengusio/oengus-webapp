@@ -307,6 +307,7 @@ export class ScheduleManagementComponent implements OnInit {
     this.loading = true;
 
     this.submit();
+    // @ts-ignore
     this.marathonService.update({...this.marathonService.marathon, scheduleDone: true}, false);
   }
 

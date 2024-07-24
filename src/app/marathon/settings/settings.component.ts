@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MarathonSettings } from '../../../model/marathon';
+import { MarathonSettings, MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
 import { cloneDeep } from 'lodash';
@@ -22,7 +22,7 @@ import { UserProfile } from '../../../model/user-profile';
 export class SettingsComponent implements OnInit {
 
   private marathonId: string;
-  public settings: MarathonSettings;
+  public settings: MarathonSettingsWithHelpfulProps;
   public questions: Question[];
   public moderators: UserProfile[] = [];
   public loading = false;
@@ -41,8 +41,6 @@ export class SettingsComponent implements OnInit {
 
   public settingsValid = true;
 
-  defaultSetupTimeHuman: string;
-
   constructor(
     public marathonService: MarathonService,
     public userService: UserService,
@@ -53,14 +51,17 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(({ settings }) => {
+    this.activatedRoute.data.subscribe(({ settings, questions }) => {
       this.settings = cloneDeep(settings);
       this.marathonId = settings.id;
-    });
 
-    this.defaultSetupTimeHuman = DurationService.toHuman(this.settings.defaultSetupTime);
-    this.submissionsQuestions = this.questions.filter(q => q.type === 'SUBMISSION');
-    this.donationsQuestions = this.questions.filter(q => q.type === 'DONATION');
+      this.settings.defaultSetupTimeHuman = DurationService.toHuman(this.settings.defaultSetupTime);
+
+      this.questions = questions;
+
+      this.submissionsQuestions = this.questions.filter(q => q.type === 'SUBMISSION');
+      this.donationsQuestions = this.questions.filter(q => q.type === 'DONATION');
+    });
   }
 
   async submit(event: SubmitEvent) {
@@ -75,7 +76,10 @@ export class SettingsComponent implements OnInit {
     }
 
     this.loading = true;
-    this.settings.defaultSetupTime = moment.duration(this.defaultSetupTimeHuman).toISOString();
+    this.settings.defaultSetupTime = moment.duration(this.settings.defaultSetupTimeHuman).toISOString();
+
+    delete this.settings.defaultSetupTimeHuman;
+
     this.questions = [];
     this.questions = this.questions.concat(this.submissionsQuestions);
     this.questions = this.questions.concat(this.donationsQuestions);
