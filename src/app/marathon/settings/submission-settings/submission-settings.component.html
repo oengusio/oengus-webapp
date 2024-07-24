@@ -3,7 +3,7 @@
   <label class="label">{{ 'marathon.settings.submissions.label' | translate}}</label>
   <div class="control is-flex">
     <span style="margin-right: 0.5rem">{{'marathon.settings.submissions.closed' | translate}}</span>
-    <nwb-switch [(ngModel)]="settings.submitsOpen" name="submitsOpen" (click)="onSubmitsOpenChanged($event)" [disabled]="settings.selectionDone">
+    <nwb-switch [(ngModel)]="settings.submissionsOpen" name="submitsOpen" (click)="onSubmitsOpenChanged($event)" [disabled]="settings.selectionDone">
       <span>{{ 'marathon.settings.submissions.open' | translate}}</span>
     </nwb-switch>
   </div>
@@ -87,7 +87,7 @@
       <label class="label">{{'marathon.settings.multiplayer.label' | translate}}</label>
       <div class="control is-flex">
         <span style="margin-right: 0.5rem">{{'marathon.settings.multiplayer.forbidden' | translate}}</span>
-        <nwb-switch [(ngModel)]="settings.hasMultiplayer"
+        <nwb-switch [(ngModel)]="settings.allowMultiplayer"
                     name="hasMultiplayer"
                     [disabled]="settings.selectionDone">
           <span>{{'marathon.settings.multiplayer.allowed' | translate}}</span>
@@ -102,7 +102,7 @@
         <input class="input"
                [ngClass]="{'is-danger': maxNumberOfScreens.invalid}"
                type="number"
-               [disabled]="settings.selectionDone && !settings.hasMultiplayer"
+               [disabled]="settings.selectionDone && !settings.allowMultiplayer"
                [(ngModel)]="settings.maxNumberOfScreens"
                name="maxNumberOfScreens"
                appMinNumberValidator="1"
@@ -128,7 +128,7 @@
     <div class="field">
       <label class="label">{{'marathon.settings.emulatorAuthorized.label' | translate}}</label>
       <div class="control">
-        <nwb-switch [(ngModel)]="settings.emulatorAuthorized"
+        <nwb-switch [(ngModel)]="settings.allowEmulators"
                     name="emulatorAuthorized"
                     [disabled]="settings.selectionDone">
           <span>{{'marathon.settings.emulatorAuthorized.allowed' | translate}}</span>
@@ -152,7 +152,7 @@
 <!-- Discord requirement -->
 <div class="columns">
   <div class="column">
-    <fieldset [disabled]="!settings.discord && !settings.discordPrivacy">
+    <fieldset [disabled]="!settings.discord && !settings.discordPrivate">
       <div class="field">
         <div class="control" [ngClass]="{'is-loading': loadingDiscordCheck}" style="width: 10px"></div>
         <label class="label">{{ 'marathon.settings.discordRequirement.label' | translate }}</label>
