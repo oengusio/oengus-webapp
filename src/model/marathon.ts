@@ -101,6 +101,7 @@ export interface MarathonSettings {
   videoRequired: boolean;
   allowEmulators: boolean;
 
+  discordRequired: boolean;
   discordGuildId: string;
   discordGuildName: string;
 

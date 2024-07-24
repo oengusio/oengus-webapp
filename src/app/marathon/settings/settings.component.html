@@ -52,13 +52,13 @@
       ></app-marathon-general-settings>
     </div>
     <div [hidden]="active !== 'discord'">
-      Soon my friend, soon.
+      <app-marathon-discord-settings></app-marathon-discord-settings>
     </div>
     <!-- submissions -->
     <fieldset [disabled]="marathonService.isArchived() && !marathonService.isAdmin(userService.user)">
       <div [hidden]="active !== 'submissions'">
         <app-marathon-submission-settings
-          [marathon]="settings"
+          [settings]="settings"
           [submissionsQuestions]="submissionsQuestions"
           [disabled]="marathonService.isArchived()"
           (stateUpdate)="settingsComponentUpdated($event)"
@@ -72,7 +72,7 @@
       </div>
       <!-- incentives -->
       <div [hidden]="active !== 'incentives'">
-        <app-marathon-incentive-settings
+        <!--<app-marathon-incentive-settings
           [marathon]="settings"
           [donationsQuestions]="donationsQuestions"
           [disabled]="marathonService.isArchived()"
@@ -83,7 +83,7 @@
           (addQuestion)="addQuestion($event)"
           (removeQuestion)="removeQuestion($event)"
           (drop)="drop($event)"
-        ></app-marathon-incentive-settings>
+        ></app-marathon-incentive-settings>-->
       </div>
       <!-- dangerZone -->
       <div [hidden]="active !== 'dangerZone'">

@@ -125,7 +125,7 @@ export class MarathonService extends BaseService {
     return moment(marathon.endDate).isBefore(moment());
   }
 
-  fetchDiscordInfo(marathon: Marathon): Observable<{ id: string, name: string }> {
+  fetchDiscordInfo(marathon: MarathonSettings | Marathon): Observable<{ id: string, name: string }> {
     return this.http.get<any>(this.url(`${marathon.id}/discord/lookup-invite?invite_code=${marathon.discord}`));
   }
 

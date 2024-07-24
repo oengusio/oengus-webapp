@@ -3,7 +3,7 @@
   <label class="label">{{ 'marathon.settings.submissions.label' | translate}}</label>
   <div class="control is-flex">
     <span style="margin-right: 0.5rem">{{'marathon.settings.submissions.closed' | translate}}</span>
-    <nwb-switch [(ngModel)]="marathon.submitsOpen" name="submitsOpen" (click)="onSubmitsOpenChanged($event)" [disabled]="marathon.selectionDone">
+    <nwb-switch [(ngModel)]="settings.submitsOpen" name="submitsOpen" (click)="onSubmitsOpenChanged($event)" [disabled]="settings.selectionDone">
       <span>{{ 'marathon.settings.submissions.open' | translate}}</span>
     </nwb-switch>
   </div>
@@ -14,10 +14,10 @@
     <div class="field has-addons">
       <div class="control is-expanded">
         <input class="input"
-               [disabled]="marathon.selectionDone || marathon.unlimitedGames"
+               [disabled]="settings.selectionDone || settings.unlimitedGames"
                [ngClass]="{'is-danger': maxGamesPerRunner.invalid}"
                type="number"
-               [(ngModel)]="marathon.maxGamesPerRunner"
+               [(ngModel)]="settings.maxGamesPerRunner"
                name="maxGamesPerRunner"
                appMinNumberValidator="1"
                required
@@ -27,7 +27,7 @@
       <p class="control">
         <button type="button" class="button">
           <label class="checkbox">
-            <input type="checkbox" [(ngModel)]="marathon.unlimitedGames" name="unlimitedGames"
+            <input type="checkbox" [(ngModel)]="settings.unlimitedGames" name="unlimitedGames"
                    style="margin-right: 0.25rem">{{'marathon.settings.unlimited' | translate}}
           </label>
         </button>
@@ -49,8 +49,8 @@
         <input class="input"
                [ngClass]="{'is-danger': maxCategoriesPerGame.invalid}"
                type="number"
-               [disabled]="marathon.selectionDone || marathon.unlimitedCategories"
-               [(ngModel)]="marathon.maxCategoriesPerGame"
+               [disabled]="settings.selectionDone || settings.unlimitedCategories"
+               [(ngModel)]="settings.maxCategoriesPerGame"
                name="maxCategoriesPerGame"
                appMinNumberValidator="1"
                appMaxNumberValidator="10"
@@ -61,7 +61,7 @@
       <p class="control">
         <button type="button" class="button">
           <label class="checkbox">
-            <input type="checkbox" [(ngModel)]="marathon.unlimitedCategories" name="unlimitedCategories"
+            <input type="checkbox" [(ngModel)]="settings.unlimitedCategories" name="unlimitedCategories"
                    style="margin-right: 0.25rem">{{'marathon.settings.unlimited' | translate}}
           </label>
         </button>
@@ -87,9 +87,9 @@
       <label class="label">{{'marathon.settings.multiplayer.label' | translate}}</label>
       <div class="control is-flex">
         <span style="margin-right: 0.5rem">{{'marathon.settings.multiplayer.forbidden' | translate}}</span>
-        <nwb-switch [(ngModel)]="marathon.hasMultiplayer"
+        <nwb-switch [(ngModel)]="settings.hasMultiplayer"
                     name="hasMultiplayer"
-                    [disabled]="marathon.selectionDone">
+                    [disabled]="settings.selectionDone">
           <span>{{'marathon.settings.multiplayer.allowed' | translate}}</span>
         </nwb-switch>
       </div>
@@ -102,8 +102,8 @@
         <input class="input"
                [ngClass]="{'is-danger': maxNumberOfScreens.invalid}"
                type="number"
-               [disabled]="marathon.selectionDone && !marathon.hasMultiplayer"
-               [(ngModel)]="marathon.maxNumberOfScreens"
+               [disabled]="settings.selectionDone && !settings.hasMultiplayer"
+               [(ngModel)]="settings.maxNumberOfScreens"
                name="maxNumberOfScreens"
                appMinNumberValidator="1"
                required
@@ -128,9 +128,9 @@
     <div class="field">
       <label class="label">{{'marathon.settings.emulatorAuthorized.label' | translate}}</label>
       <div class="control">
-        <nwb-switch [(ngModel)]="marathon.emulatorAuthorized"
+        <nwb-switch [(ngModel)]="settings.emulatorAuthorized"
                     name="emulatorAuthorized"
-                    [disabled]="marathon.selectionDone">
+                    [disabled]="settings.selectionDone">
           <span>{{'marathon.settings.emulatorAuthorized.allowed' | translate}}</span>
         </nwb-switch>
       </div>
@@ -140,9 +140,9 @@
     <div class="field">
       <label class="label">{{'marathon.settings.videoRequired.label' | translate}}</label>
       <div class="control">
-        <nwb-switch [(ngModel)]="marathon.videoRequired"
+        <nwb-switch [(ngModel)]="settings.videoRequired"
                     name="videoRequired"
-                    [disabled]="marathon.selectionDone">
+                    [disabled]="settings.selectionDone">
           <span>{{'marathon.settings.videoRequired.allowed' | translate}}</span>
         </nwb-switch>
       </div>
@@ -152,12 +152,12 @@
 <!-- Discord requirement -->
 <div class="columns">
   <div class="column">
-    <fieldset [disabled]="!marathon.discord && !marathon.discordPrivacy">
+    <fieldset [disabled]="!settings.discord && !settings.discordPrivacy">
       <div class="field">
         <div class="control" [ngClass]="{'is-loading': loadingDiscordCheck}" style="width: 10px"></div>
         <label class="label">{{ 'marathon.settings.discordRequirement.label' | translate }}</label>
         <div class="control">
-          <nwb-switch [(ngModel)]="marathon.discordRequired"
+          <nwb-switch [(ngModel)]="settings.discordRequired"
                       name="discordRequired"
                       [disabled]="loadingDiscordCheck"
                       (change)="checkDiscordStatus()">
@@ -173,10 +173,10 @@
           <li>{{ 'marathon.settings.discordRequirement.help.3' | translate }}</li>
         </ul>
       </div>
-      <div class="field" *ngIf="marathon.discordGuildId">
+      <div class="field" *ngIf="settings.discordGuildId">
         <p>{{ 'marathon.settings.discordRequirement.found.title' | translate }}</p>
-        <p [innerHTML]="'marathon.settings.discordRequirement.found.name' | translate: { guildName: marathon.discordGuildName }"></p>
-        <p [innerHTML]="'marathon.settings.discordRequirement.found.id' | translate: { guildId: marathon.discordGuildId }"></p>
+        <p [innerHTML]="'marathon.settings.discordRequirement.found.name' | translate: { guildName: settings.discordGuildName }"></p>
+        <p [innerHTML]="'marathon.settings.discordRequirement.found.id' | translate: { guildId: settings.discordGuildId }"></p>
       </div>
     </fieldset>
   </div>

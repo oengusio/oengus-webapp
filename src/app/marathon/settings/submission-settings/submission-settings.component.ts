@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MarathonService } from '../../../../services/marathon.service';
-import { Marathon } from '../../../../model/marathon';
+import { MarathonSettings } from '../../../../model/marathon';
 import { Question } from '../../../../model/question';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
@@ -11,7 +11,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
   styleUrls: ['./submission-settings.component.scss']
 })
 export class SubmissionSettingsComponent implements OnInit {
-  @Input() public marathon: Marathon;
+  @Input() public settings: MarathonSettings;
   @Input() public submissionsQuestions: Question[];
   @Input() public disabled: boolean;
 
@@ -37,18 +37,18 @@ export class SubmissionSettingsComponent implements OnInit {
   }
 
   checkDiscordStatus() {
-    if (!this.marathon.discordRequired) {
-      this.marathon.discordGuildId = null;
-      this.marathon.discordGuildName = null;
+    if (!this.settings.discordRequired) {
+      this.settings.discordGuildId = null;
+      this.settings.discordGuildName = null;
       return;
     }
 
-    if (this.marathon.discord) {
+    if (this.settings.discord) {
       this.loadingDiscordCheck = true;
-      this.marathonService.fetchDiscordInfo(this.marathon)
+      this.marathonService.fetchDiscordInfo(this.settings)
         .subscribe(({ id, name }) => {
-          this.marathon.discordGuildId = id;
-          this.marathon.discordGuildName = name;
+          this.settings.discordGuildId = id;
+          this.settings.discordGuildName = name;
         })
         .add(() => this.loadingDiscordCheck = false);
     }
@@ -56,14 +56,14 @@ export class SubmissionSettingsComponent implements OnInit {
 
   onSubmitsOpenChanged(event: any): void {
     const now = new Date();
-    const closeDate = new Date(this.marathon.submissionsEndDate);
+    const closeDate = new Date(this.settings.submissionsEndDate);
 
-    if (!this.marathon.submitsOpen && (Boolean(this.marathon.submissionsEndDate) && now > closeDate)) {
+    if (!this.settings.submissionsOpen && (Boolean(this.settings.submissionsEndDate) && now > closeDate)) {
       const conf = confirm('Re-opening the submissions will clear the automatic open and close times, do you want to continue?');
 
       if (conf) {
-        this.marathon.submissionsEndDate = null;
-        this.marathon.submissionsStartDate = null;
+        this.settings.submissionsEndDate = null;
+        this.settings.submissionsStartDate = null;
       } else {
         event.preventDefault();
         event.stopPropagation();
