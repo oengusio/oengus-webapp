@@ -80,8 +80,6 @@ export class SettingsComponent implements OnInit {
     this.loading = true;
     this.settings.defaultSetupTime = moment.duration(this.settings.defaultSetupTimeHuman).toISOString();
 
-    delete this.settings.defaultSetupTimeHuman;
-
     this.questions = [];
     this.questions = this.questions.concat(this.submissionsQuestions);
     this.questions = this.questions.concat(this.donationsQuestions);
