@@ -44,8 +44,6 @@ export class NormalRunEditorComponent {
 
   // TODO: types are shit, come up with better ones
   onSelectUser(search: UserSearchType, line: V2ScheduleLine) {
-    console.log(search);
-
     if (search.isCustom) {
       line.runners.push({ runnerName: search.username });
     } else if (line.runners.findIndex(
@@ -88,8 +86,6 @@ export class NormalRunEditorComponent {
         username: val.length > MAX_NAME_LENGTH ? val.substring(0, MAX_NAME_LENGTH) : val,
         isCustom: true
       });
-
-      console.log(combinedItems);
 
       combinedItems.forEach((item) => {
         item.username = DOMPurify.sanitize(item.username);
