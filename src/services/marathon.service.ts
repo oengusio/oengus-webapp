@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Data, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Marathon, MarathonSettings } from '../model/marathon';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { Observable, Subscription } from 'rxjs';
@@ -62,26 +62,7 @@ export class MarathonService extends BaseService {
     });
   }
 
-  /**
-   * @deprecated use updateSettings instead
-   */
-  update(marathon: Marathon, showToaster: boolean = true) {
-    return this.http.patch(this.url(`${marathon.id}`), marathon).subscribe(() => {
-      if (showToaster) {
-        this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
-          this.toast(res);
-        });
-      }
-
-      this._marathon = {...marathon};
-    }, () => {
-      this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
-        this.toast(res, 3000, 'warning');
-      });
-    });
-  }
-
-  updateSettings(marathon: MarathonSettings) {
+  updateSettings(marathon: Partial<MarathonSettings> & { id: string }) {
     return this.http.patch<MarathonSettings>(this.v2Url(`${marathon.id}/settings`), marathon);
   }
 
@@ -102,12 +83,15 @@ export class MarathonService extends BaseService {
   }
 
   publishSelection(marathon: Marathon) {
-    return this.http.post(this.url(`${marathon.id}/selections/publish`), null).subscribe(() => {
-      this._marathon = {...marathon, selectionDone: true, submitsOpen: false};
-    }, () => {
-      this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
-        this.toast(res, 3000, 'warning');
-      });
+    return this.http.post(this.url(`${marathon.id}/selections/publish`), null).subscribe({
+      next: () => {
+        this._marathon = {...marathon, selectionDone: true, submitsOpen: false};
+      },
+      error: () => {
+        this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
+          this.toast(res, 3000, 'warning');
+        });
+      },
     });
   }
 
