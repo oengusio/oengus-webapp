@@ -87,7 +87,7 @@ export class SettingsComponent implements OnInit {
     this.questions = this.questions.concat(this.donationsQuestions);
 
     try {
-      await firstValueFrom(this.marathonService.update(this.settings));
+      await firstValueFrom(this.marathonService.updateSettings(this.settings));
       await firstValueFrom(this.marathonService.updateQuestions(this.marathonId, this.questions));
       await firstValueFrom(this.marathonService.updateModerators(this.marathonId, this.moderators.map(it => it.id)));
 

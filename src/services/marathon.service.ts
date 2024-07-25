@@ -62,7 +62,26 @@ export class MarathonService extends BaseService {
     });
   }
 
-  update(marathon: MarathonSettings, showToaster: boolean = true) {
+  /**
+   * @deprecated use updateSettings instead
+   */
+  update(marathon: Marathon, showToaster: boolean = true) {
+    return this.http.patch(this.url(`${marathon.id}`), marathon).subscribe(() => {
+      if (showToaster) {
+        this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
+          this.toast(res);
+        });
+      }
+
+      this._marathon = {...marathon};
+    }, () => {
+      this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
+        this.toast(res, 3000, 'warning');
+      });
+    });
+  }
+
+  updateSettings(marathon: MarathonSettings) {
     return this.http.patch<MarathonSettings>(this.v2Url(`${marathon.id}/settings`), marathon);
   }
 
