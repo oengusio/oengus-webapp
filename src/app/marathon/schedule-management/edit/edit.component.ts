@@ -237,9 +237,21 @@ export class EditComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     this.scheduleService.publish(this.marathonId, this.scheduleInfo.id).subscribe({
-      next() {
-        // Reload the window to see the new changes!
-        window.location.reload();
+      next: () => {
+        // Reload the window to see the new changes?
+        // window.location.reload();
+        this.scheduleInfo.published = true;
+        this.translateService.get('marathon.schedule.management.action.published').subscribe((msg: string) => {
+          const alertConfig: NwbAlertConfig = {
+            message: msg,
+            duration: 5000,
+            position: 'is-right',
+            color: 'is-success',
+          };
+          this.toastr.open(alertConfig);
+        });
+
+        this.loading = false;
       },
 
       error: (err: any) => {

@@ -307,7 +307,14 @@ export class ScheduleManagementComponent implements OnInit {
     this.loading = true;
 
     this.submit();
-    this.marathonService.update({...this.marathonService.marathon, scheduleDone: true}, false);
+    this.marathonService.updateSettings({
+      id: this.marathonService.marathon.id,
+      scheduleDone: true
+    }).subscribe({
+      error: (e) => {
+        alert(`Failed to publish schedule: ${e.message}.\nPlease try the new UI if this error persists.`);
+      }
+    });
   }
 
   onSelectUser(item: User | { username: string; isCustom: true }, line: ScheduleLine) {

@@ -54,6 +54,7 @@ export class DonateComponent implements OnInit {
       if (!this.donation.answers || this.donation.answers.length === 0) {
         this.donation.answers = [];
         this.marathonService.marathon.questions.forEach(question => {
+          // @ts-ignore
           if (question.questionType === 'DONATION') {
             const answer = new DonationExtraData();
             answer.question = question;

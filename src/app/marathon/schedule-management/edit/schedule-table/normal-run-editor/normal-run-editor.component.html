@@ -21,6 +21,14 @@
   </div>
 </div>
 
+<ng-template #searchTemplate let-item>
+  <!-- TODO: this potentially allows for HTML injection -->
+  <a class="no-hover" *ngIf="item.isCustom; else userThatHasProfile;" [innerHTML]="item.username + ' (custom)'"></a>
+  <ng-template #userThatHasProfile>
+    <a class="no-hover" [innerHTML]="item.profile.displayName + ' (' + item.profile.username + ')'"></a>
+  </ng-template>
+</ng-template>
+
 <div class="field is-horizontal">
   <div class="field-label is-normal"></div>
   <div class="field-body">
@@ -133,11 +141,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #searchTemplate let-item>
-  <!-- TODO: this potentially allows for HTML injection -->
-  <a class="no-hover" *ngIf="item.isCustom; else oengusUser;" [innerHTML]="item.username + ' (custom)'"></a>
-  <ng-template #oengusUser>
-    <a class="no-hover" [innerHTML]="item.displayName + ' (' + item.username + ')'"></a>
-  </ng-template>
-</ng-template>

@@ -44,20 +44,21 @@
     </div>
     <div [hidden]="active !== 'general'">
       <app-marathon-general-settings
-        [marathon]="marathon"
+        [settings]="settings"
+        [moderators]="moderators"
         [updateStartTime]="updateStartTime"
         [disabled]="marathonService.isArchived()"
         (stateUpdate)="settingsComponentUpdated($event)"
       ></app-marathon-general-settings>
     </div>
     <div [hidden]="active !== 'discord'">
-      Soon my friend, soon.
+      <app-marathon-discord-settings></app-marathon-discord-settings>
     </div>
     <!-- submissions -->
     <fieldset [disabled]="marathonService.isArchived() && !marathonService.isAdmin(userService.user)">
       <div [hidden]="active !== 'submissions'">
         <app-marathon-submission-settings
-          [marathon]="marathon"
+          [settings]="settings"
           [submissionsQuestions]="submissionsQuestions"
           [disabled]="marathonService.isArchived()"
           (stateUpdate)="settingsComponentUpdated($event)"
@@ -71,8 +72,8 @@
       </div>
       <!-- incentives -->
       <div [hidden]="active !== 'incentives'">
-        <app-marathon-incentive-settings
-          [marathon]="marathon"
+        <!--<app-marathon-incentive-settings
+          [marathon]="settings"
           [donationsQuestions]="donationsQuestions"
           [disabled]="marathonService.isArchived()"
           (stateUpdate)="settingsComponentUpdated($event)"
@@ -82,7 +83,7 @@
           (addQuestion)="addQuestion($event)"
           (removeQuestion)="removeQuestion($event)"
           (drop)="drop($event)"
-        ></app-marathon-incentive-settings>
+        ></app-marathon-incentive-settings>-->
       </div>
       <!-- dangerZone -->
       <div [hidden]="active !== 'dangerZone'">
@@ -101,7 +102,7 @@
                    name="deleteShortname" style="margin-bottom: 1rem">
             <br>
             <button class="button is-primary" type="button"
-                    [disabled]="deleteShortname !== marathon.id" (click)="marathonService.delete(deleteShortname)">
+                    [disabled]="deleteShortname !== settings.id" (click)="marathonService.delete(deleteShortname)">
               {{'action.confirm' | translate}}
             </button>
             <button class="button is-danger" type="button" (click)="deleteConfirm = false"

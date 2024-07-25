@@ -9,7 +9,7 @@ import { UserService } from '../../../../../../services/user.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AutocompleteComponent } from 'angular-ng-autocomplete';
 
-type UserSearchType = { username: string; profile: null; isCustom: true} |  { username: null; profile: UserProfile; isCustom: false};
+type UserSearchType = { username: string; profile: null; isCustom: true} |  { username: string; profile: UserProfile; isCustom: false};
 
 @Component({
   selector: 'app-normal-run-editor',
@@ -64,14 +64,19 @@ export class NormalRunEditorComponent {
   }
 
   onSearchUser(val: string, position: number) {
-    if (!val || val.length < 3) {
+    if (!val) {
+      this.userSearch[position] = [];
+      return;
+    }
+
+    if (val.length < 3) {
       return;
     }
 
     this.userService.searchV1(val).subscribe(response => {
       const combinedItems: UserSearchType[] = response.map((user) => ({
         isCustom: false,
-        username: null,
+        username: user.username,
         // @ts-ignore
         profile: user as UserProfile,
       }));

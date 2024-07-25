@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Marathon } from '../../../../model/marathon';
+import { Marathon, MarathonSettings, MarathonSettingsWithHelpfulProps } from '../../../../model/marathon';
 import { MarathonService } from '../../../../services/marathon.service';
 import { environment } from '../../../../environments/environment';
 import isoLang from '../../../../assets/languages.json';
@@ -8,6 +8,7 @@ import { UserService } from '../../../../services/user.service';
 import { User } from '../../../../model/user';
 import { debounce } from 'lodash';
 import { firstValueFrom } from 'rxjs';
+import { UserProfile } from '../../../../model/user-profile';
 
 @Component({
   selector: 'app-marathon-general-settings',
@@ -16,7 +17,8 @@ import { firstValueFrom } from 'rxjs';
 })
 export class GeneralSettingsComponent implements OnInit {
 
-  @Input() public marathon: Marathon;
+  @Input() public settings: MarathonSettingsWithHelpfulProps;
+  @Input() public moderators: UserProfile[];
   @Input() public updateStartTime: boolean;
   @Input() public disabled: boolean;
 
@@ -46,7 +48,7 @@ export class GeneralSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isOengusBotWebhook = (this.marathon.webhook || '').startsWith('oengus-bot');
+    this.isOengusBotWebhook = (this.settings.webhook || '').startsWith('oengus-bot');
   }
 
   checkWebhook(text: any): void {
@@ -79,10 +81,12 @@ export class GeneralSettingsComponent implements OnInit {
       .finally(() => this.loadWebhookCheck = false);
   }
 
-  onSelectMod(item: User) {
-    if (this.marathon.moderators.findIndex(user => user.id === item.id) < 0
-      && this.marathon.creator.id !== item.id) {
-      this.marathon.moderators.push(item);
+  onSelectMod(item: UserProfile) {
+    const creator = this.marathonService.marathon.creator;
+
+    if (this.moderators.findIndex(user => user.id === item.id) < 0
+      && creator.id !== item.id) {
+      this.moderators.push(item);
     }
   }
 
@@ -96,7 +100,7 @@ export class GeneralSettingsComponent implements OnInit {
   }
 
   removeModerator(index: number) {
-    this.marathon.moderators.splice(index, 1);
+    this.moderators.splice(index, 1);
   }
 
 }

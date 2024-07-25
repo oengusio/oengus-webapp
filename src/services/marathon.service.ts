@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Marathon } from '../model/marathon';
+import { Marathon, MarathonSettings } from '../model/marathon';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { Observable, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
@@ -12,6 +12,10 @@ import moment from 'moment-timezone';
 import { User } from '../model/user';
 import {BaseService} from './BaseService';
 import { parseMastodonUrl } from '../utils/helpers';
+import { Question } from '../model/question';
+import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
+import { map } from 'rxjs/operators';
+import { UserProfile } from '../model/user-profile';
 
 @Injectable({
   providedIn: 'root'
@@ -58,29 +62,36 @@ export class MarathonService extends BaseService {
     });
   }
 
-  update(marathon: Marathon, showToaster: boolean = true) {
-    return this.http.patch(this.url(`${marathon.id}`), marathon).subscribe(() => {
-      if (showToaster) {
-        this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
-          this.toast(res);
-        });
-      }
+  updateSettings(marathon: Partial<MarathonSettings> & { id: string }) {
+    return this.http.patch<MarathonSettings>(this.v2Url(`${marathon.id}/settings`), marathon);
+  }
 
-      this._marathon = {...marathon};
-    }, () => {
-      this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
-        this.toast(res, 3000, 'warning');
-      });
-    });
+  updateQuestions(marathonId: string, questions: Question[]): Observable<boolean> {
+    return this.http.put<BooleanStatusDto>(
+      this.v2Url(`${marathonId}/settings/questions`),
+      { questions }
+    )
+      .pipe(map(x => x.status));
+  }
+
+  updateModerators(marathonId: string, userIds: number[]): Observable<boolean> {
+    return this.http.put<BooleanStatusDto>(
+      this.v2Url(`${marathonId}/settings/moderators`),
+      { userIds }
+    )
+      .pipe(map(x => x.status));
   }
 
   publishSelection(marathon: Marathon) {
-    return this.http.post(this.url(`${marathon.id}/selections/publish`), null).subscribe(() => {
-      this._marathon = {...marathon, selectionDone: true, submitsOpen: false};
-    }, () => {
-      this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
-        this.toast(res, 3000, 'warning');
-      });
+    return this.http.post(this.url(`${marathon.id}/selections/publish`), null).subscribe({
+      next: () => {
+        this._marathon = {...marathon, selectionDone: true, submitsOpen: false};
+      },
+      error: () => {
+        this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
+          this.toast(res, 3000, 'warning');
+        });
+      },
     });
   }
 
@@ -126,7 +137,7 @@ export class MarathonService extends BaseService {
     return moment(marathon.endDate).isBefore(moment());
   }
 
-  fetchDiscordInfo(marathon: Marathon): Observable<{ id: string, name: string }> {
+  fetchDiscordInfo(marathon: MarathonSettings | Marathon): Observable<{ id: string, name: string }> {
     return this.http.get<any>(this.url(`${marathon.id}/discord/lookup-invite?invite_code=${marathon.discord}`));
   }
 
@@ -148,5 +159,17 @@ export class MarathonService extends BaseService {
     return this.http.get(this.url(`${marathonId}/webhook`), {
       params: params
     });
+  }
+
+  loadSettings(marathonId: string): Observable<MarathonSettings> {
+    return this.http.get<MarathonSettings>(this.v2Url(`${marathonId}/settings`));
+  }
+
+  loadQuestions(marathonId: string): Observable<DataListDto<Question>> {
+    return this.http.get<DataListDto<Question>>(this.v2Url(`${marathonId}/settings/questions`));
+  }
+
+  loadModerators(marathonId: string): Observable<DataListDto<UserProfile>> {
+    return this.http.get<DataListDto<UserProfile>>(this.v2Url(`${marathonId}/settings/moderators`));
   }
 }

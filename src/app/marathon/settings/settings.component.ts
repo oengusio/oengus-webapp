@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Marathon } from '../../../model/marathon';
+import { MarathonSettings, MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
 import { cloneDeep } from 'lodash';
@@ -8,6 +8,11 @@ import moment from 'moment';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Question } from '../../../model/question';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ActivatedRoute } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { UserProfile } from '../../../model/user-profile';
 
 @Component({
   selector: 'app-settings',
@@ -16,7 +21,10 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class SettingsComponent implements OnInit {
 
-  public marathon: Marathon;
+  private marathonId: string;
+  public settings: MarathonSettingsWithHelpfulProps;
+  public questions: Question[];
+  public moderators: UserProfile[] = [];
   public loading = false;
 
   public active = 'general';
@@ -33,18 +41,36 @@ export class SettingsComponent implements OnInit {
 
   public settingsValid = true;
 
-  constructor(public marathonService: MarathonService,
-              public userService: UserService) {
+  constructor(
+    public marathonService: MarathonService,
+    public userService: UserService,
+    private activatedRoute: ActivatedRoute,
+    private translateService: TranslateService,
+    private toastr: NwbAlertService
+  ) {
   }
 
   ngOnInit() {
-    this.marathon = cloneDeep(this.marathonService.marathon);
-    this.marathon.defaultSetupTimeHuman = DurationService.toHuman(this.marathon.defaultSetupTime);
-    this.submissionsQuestions = this.marathon.questions.filter(q => q.questionType === 'SUBMISSION');
-    this.donationsQuestions = this.marathon.questions.filter(q => q.questionType === 'DONATION');
+    this.activatedRoute.data.subscribe(({ settings, questions, moderators }) => {
+      this.settings = cloneDeep(settings);
+      this.marathonId = settings.id;
+
+      this.settings.defaultSetupTimeHuman = DurationService.toHuman(this.settings.defaultSetupTime);
+
+      this.questions = questions;
+
+      this.submissionsQuestions = this.questions.filter(q => q.type === 'SUBMISSION');
+      this.donationsQuestions = this.questions.filter(q => q.type === 'DONATION');
+
+      this.moderators = moderators;
+    });
   }
 
-  submit(event: SubmitEvent) {
+  async submit(event: SubmitEvent) {
+    if (this.loading) {
+      return;
+    }
+
     const form = event.target as HTMLFormElement;
 
     if (!form.reportValidity()) {
@@ -52,17 +78,41 @@ export class SettingsComponent implements OnInit {
     }
 
     this.loading = true;
-    this.marathon.defaultSetupTime = moment.duration(this.marathon.defaultSetupTimeHuman).toISOString();
-    this.marathon.questions = [];
-    this.marathon.questions = this.marathon.questions.concat(this.submissionsQuestions);
-    this.marathon.questions = this.marathon.questions.concat(this.donationsQuestions);
-    this.marathonService.update(this.marathon).add(() => {
-      // re-fetch marathon
-      this.marathonService.find(this.marathon.id).subscribe((marathon) => {
-        this.marathonService.marathon = marathon;
-        this.loading = false;
+    this.settings.defaultSetupTime = moment.duration(this.settings.defaultSetupTimeHuman).toISOString();
+
+    this.questions = [];
+    this.questions = this.questions.concat(this.submissionsQuestions);
+    this.questions = this.questions.concat(this.donationsQuestions);
+
+    try {
+      await firstValueFrom(this.marathonService.updateSettings(this.settings));
+      await firstValueFrom(this.marathonService.updateQuestions(this.marathonId, this.questions));
+      await firstValueFrom(this.marathonService.updateModerators(this.marathonId, this.moderators.map(it => it.id)));
+
+      this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
+        const alertConfig: NwbAlertConfig = {
+          message: res,
+          duration: 3000,
+          position: 'is-right',
+          color: 'is-success'
+        };
+
+        return this.toastr.open(alertConfig);
       });
-    });
+    } catch (e) {
+      this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
+        const alertConfig: NwbAlertConfig = {
+          message: `${res}\n${e.message}`,
+          duration: 3000,
+          position: 'is-right',
+          color: 'is-warning'
+        };
+
+        return this.toastr.open(alertConfig);
+      });
+    } finally {
+      this.loading = false;
+    }
   }
 
   settingsComponentUpdated(isValid: boolean): void {
@@ -70,7 +120,9 @@ export class SettingsComponent implements OnInit {
   }
 
   addQuestion({ questionType }: { questionType: string }) {
-    const question = new Question(questionType);
+    const question: Question = {
+      description: '', fieldType: '', id: 0, label: '', options: [], position: 0, required: false, type: questionType
+    };
     if (questionType === 'SUBMISSION') {
       question.position = this.submissionsQuestions.length;
       this.submissionsQuestions.push(question);
