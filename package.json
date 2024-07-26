@@ -1,6 +1,6 @@
 {
   "name": "webapp",
-  "version": "2024.06.16",
+  "version": "2024.07.26",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --hmr true",
