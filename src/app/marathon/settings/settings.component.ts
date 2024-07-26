@@ -87,7 +87,10 @@ export class SettingsComponent implements OnInit {
     try {
       await firstValueFrom(this.marathonService.updateSettings(this.settings));
       await firstValueFrom(this.marathonService.updateQuestions(this.marathonId, this.questions));
-      await firstValueFrom(this.marathonService.updateModerators(this.marathonId, this.moderators.map(it => it.id)));
+
+      if (this.userService.user.id === this.marathonService.marathon.creator.id) {
+        await firstValueFrom(this.marathonService.updateModerators(this.marathonId, this.moderators.map(it => it.id)));
+      }
 
       this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
         const alertConfig: NwbAlertConfig = {
