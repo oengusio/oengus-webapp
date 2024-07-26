@@ -26,6 +26,7 @@ marker('alert.submit.ALREADY_IN_OPPONENTS');
 marker('user.profile.filter.temporality.PAST');
 marker('user.profile.filter.temporality.FUTURE');
 
+// Enable prod mode in production.
 if (environment.production) {
   enableProdMode();
 }
