@@ -13,13 +13,26 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "moment",
+              "moment-timezone",
+              "vis-timeline",
+              "vis-data",
+              "dompurify",
+              "markdown-it",
+              "markdown-it-dompurify",
+              "markdown-it-multimd-table",
+              "markdown-it-emoji"
+            ],
             "outputPath": {
               "base": "./dist",
               "browser": ""
             },
             "index": "src/index.html",
             "polyfills": [
-              "src/polyfills.ts"
+              "src/polyfills.ts",
+              "@angular/localize/init"
             ],
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
@@ -42,7 +55,7 @@
           "defaultConfiguration": "development",
           "configurations": {
             "development": {
-              "outputHashing": "media",
+              "outputHashing": "all",
               "optimization": {
                 "scripts": false,
                 "styles": false,
@@ -60,9 +73,9 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "media",
+              "outputHashing": "all",
               "sourceMap": false,
-              "namedChunks": false,
+              "namedChunks": true,
               "aot": true,
               "extractLicenses": true,
               "budgets": [
@@ -80,8 +93,8 @@
                   "with": "src/environments/environment.dynamic.ts"
                 }
               ],
-              "optimization": false,
-              "outputHashing": "media",
+              "optimization": true,
+              "outputHashing": "all",
               "sourceMap": true,
               "namedChunks": true,
               "aot": true,
@@ -102,9 +115,9 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "media",
+              "outputHashing": "all",
               "sourceMap": false,
-              "namedChunks": false,
+              "namedChunks": true,
               "aot": true,
               "extractLicenses": true,
               "budgets": [
