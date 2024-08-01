@@ -36,10 +36,14 @@
             ],
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/robots/sandbox/robots.txt",
               "src/ads.txt",
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "robots.txt",
+                "input": "src/robots/sandbox/",
+                "output": "./"
+              }
             ],
             "styles": [
               "src/styles.scss"
@@ -73,10 +77,14 @@
                 }
               ],
               "assets": [
-                "src/robots/production/robots.txt",
                 "src/ads.txt",
                 "src/favicon.ico",
-                "src/assets"
+                "src/assets",
+                {
+                  "glob": "robots.txt",
+                  "input": "src/robots/production/",
+                  "output": "./"
+                }
               ],
               "optimization": true,
               "outputHashing": "all",
