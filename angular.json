@@ -36,7 +36,7 @@
             ],
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/robots.txt",
+              "src/robots/sandbox/robots.txt",
               "src/ads.txt",
               "src/favicon.ico",
               "src/assets"
@@ -72,6 +72,12 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "assets": [
+                "src/robots/production/robots.txt",
+                "src/ads.txt",
+                "src/favicon.ico",
+                "src/assets"
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -91,10 +97,6 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.dynamic.ts"
-                },
-                {
-                  "replace": "src/robots.txt",
-                  "with": "src/robots-dev.txt"
                 }
               ],
               "optimization": true,
@@ -116,10 +118,6 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.sandbox.ts"
-                },
-                {
-                  "replace": "src/robots.txt",
-                  "with": "src/robots-dev.txt"
                 }
               ],
               "optimization": true,
