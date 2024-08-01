@@ -91,6 +91,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.dynamic.ts"
+                },
+                {
+                  "replace": "src/robots.txt",
+                  "with": "src/robots-dev.txt"
                 }
               ],
               "optimization": true,
@@ -112,6 +116,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.sandbox.ts"
+                },
+                {
+                  "replace": "src/robots.txt",
+                  "with": "src/robots-dev.txt"
                 }
               ],
               "optimization": true,
