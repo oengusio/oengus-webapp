@@ -140,7 +140,7 @@
       </td>
     </tr>
 
-    <tr *ngIf="expanded.has(line.position)">
+    <tr *ngIf="expanded.has(line.position) || showAllCustomData">
       <td colspan="10">
         <app-element-table-detail [class]="getRowParity(i)">
           <app-setup-block-editor *ngIf="line.setupBlock"

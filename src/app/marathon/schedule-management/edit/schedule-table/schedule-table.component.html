@@ -68,7 +68,7 @@
                oengusDragDandlePosition></fa-icon>
     </app-schedule-edit-row>
 
-    <app-element-table-detail *ngIf="expanded.has(line.position)" [class]="getRowParity(i)">
+    <app-element-table-detail *ngIf="expanded.has(line.position) || showAllCustomData" [class]="getRowParity(i)">
       <app-setup-block-editor *ngIf="line.setupBlock"
                               (setupTimeChanged)="estimateChangedDebounce()"
                               [line]="line"></app-setup-block-editor>

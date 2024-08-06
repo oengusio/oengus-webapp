@@ -196,6 +196,7 @@
       *ngIf="env.newScheduleEditTable; else oldScheduleTable"
       [lines]="lines"
       [availabilities]="allAvailabilities"
+      [showAllCustomData]="showAllCustomData"
       (moveToToDo)="moveToTodo($event)"
       (delete)="removeScheduleLine($event)"
       (computeSchedule)="computeSchedule()"
@@ -208,6 +209,7 @@
     <ng-template #oldScheduleTable>
       <app-schedule-table-old-element
         [lines]="lines"
+        [showAllCustomData]="showAllCustomData"
         [availabilities]="allAvailabilities"
         (moveToToDo)="moveToTodo($event)"
         (delete)="removeScheduleLine($event)"
@@ -226,6 +228,11 @@
       <button type="button" class="button is-info"
               (click)="addCustomLine(false)">{{'marathon.schedule.management.action.addRun' | translate}}
       </button>
+
+      <!-- custom data toggle -->
+      <nwb-switch [(ngModel)]="showAllCustomData" name="showAllCustomData">
+        <span>{{ 'marathon.schedule.management.customData.newTick' | translate }}</span>
+      </nwb-switch>
     </div>
   </div>
 </div>

@@ -40,6 +40,7 @@ export class EditComponent implements OnInit, OnDestroy {
   env = environment;
 
   submissionsLoaded = false;
+  showAllCustomData = false;
 
 
   public timezone = moment.tz.guess();

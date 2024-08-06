@@ -18,6 +18,7 @@ export class ScheduleTableComponent {
   @Input() lines: V2ScheduleLine[] = [];
   @Input() availabilities: AvailabilityResponse;
   @Input() selectedAvailabilities: Array<string>;
+  @Input() showAllCustomData: boolean;
   @Output() moveToToDo = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
   @Output() computeSchedule = new EventEmitter<void>();
