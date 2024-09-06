@@ -82,6 +82,7 @@ import { MarathonScheduleShareComponent } from './schedule/marathon-schedule-sha
 import { marathonSettingsResolverResolver } from '../resolvers/marathon-settings-resolver.resolver';
 import { questionsResolverResolver } from '../resolvers/questions-resolver.resolver';
 import { moderatorsResolver } from '../resolvers/moderators.resolver';
+import { ClonePopupComponent } from './schedule-management/edit/clone-popup/clone-popup.component';
 
 const marathonRoutes: Routes = [
   {
@@ -346,6 +347,7 @@ const marathonRoutes: Routes = [
     ButtonsModule,
     ElementModule,
     ComponentsModule,
+    ClonePopupComponent,
   ],
   exports: [
     //

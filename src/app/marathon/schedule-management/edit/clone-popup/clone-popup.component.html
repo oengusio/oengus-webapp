@@ -1,0 +1,31 @@
+<button type="button"
+        class="button is-primary"
+        [class]="{ 'is-hidden': !shown }"
+        (click)="openClonePopup()"
+>
+  Copy from existing schedule
+</button>
+
+<div class="modal is-active" *ngIf="open">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        Hello I am header
+      </p>
+    </header>
+    <section class="modal-card-body">
+      <p>Hello I am body</p>
+      <p *ngIf="loading">Loading.....</p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">
+        Import
+      </button>
+      <button class="button is-warning" >
+        {{ 'action.cancel' | translate }}
+      </button>
+    </footer>
+  </div>
+</div>
+

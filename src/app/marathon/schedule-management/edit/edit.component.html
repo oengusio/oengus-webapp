@@ -227,11 +227,11 @@
       </button>
       <button type="button" class="button is-info"
               (click)="addCustomLine(false)">{{'marathon.schedule.management.action.addRun' | translate}}
-        <button type="button" class="button is-warning is-hidden">Copy from existing schedule</button>
       </button>
+      <app-clone-popup></app-clone-popup>
 
       <!-- custom data toggle -->
-      <nwb-switch [(ngModel)]="showAllCustomData" name="showAllCustomData">
+      <nwb-switch class="ml-2" [(ngModel)]="showAllCustomData" name="showAllCustomData">
         <span>{{ 'marathon.schedule.management.customData.newTick' | translate }}</span>
       </nwb-switch>
     </div>

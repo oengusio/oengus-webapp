@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { Schedule, ScheduleCreateRequest, ScheduleInfo, V2Schedule } from '../model/schedule';
@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ScheduleService extends BaseService {
+  private scheduleCache: Map<string, Array<ScheduleInfo>> = new Map();
 
   constructor(private http: HttpClient,
               toastr: NwbAlertService,
@@ -22,8 +23,21 @@ export class ScheduleService extends BaseService {
   }
 
   getAllOverview(marathonId: string): Observable<Array<ScheduleInfo>> {
+    if (this.scheduleCache.has(marathonId)) {
+      return of(this.scheduleCache.get(marathonId));
+    }
+
+    // In theory, we only have one instance of the application in a browser tab
+    // this means that clearing it is a safe call, and if the page refreshes this is cleared either way.
+    this.scheduleCache.clear();
+
     return this.http.get<DataListDto<ScheduleInfo>>(this.v2Url(`${marathonId}/schedules`)).pipe(
-      map((res) => res.data)
+      map((res) => res.data),
+
+      // Tapping the wire for our own gain, hehe
+      tap((scheduleData) => {
+        this.scheduleCache.set(marathonId, scheduleData);
+      })
     );
   }
 
