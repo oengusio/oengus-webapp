@@ -326,6 +326,7 @@ const marathonRoutes: Routes = [
     SubmissionRowComponent,
     ScheduleTableOldElementComponent,
     MarathonScheduleShareComponent,
+    ClonePopupComponent,
   ],
   imports: [
     CommonModule,
@@ -347,7 +348,6 @@ const marathonRoutes: Routes = [
     ButtonsModule,
     ElementModule,
     ComponentsModule,
-    ClonePopupComponent,
   ],
   exports: [
     //

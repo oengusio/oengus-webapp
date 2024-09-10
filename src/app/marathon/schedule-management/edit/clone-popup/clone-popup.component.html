@@ -17,12 +17,30 @@
     <section class="modal-card-body">
       <p>Hello I am body</p>
       <p *ngIf="loading">Loading.....</p>
+
+      <form>
+        <div class="select" [class]="{
+          'is-loading': loading,
+        }">
+          <select name="selectedSchedule" [(ngModel)]="cloneFromScheduleId" [disabled]="loading">
+            <option *ngIf="loading; else selectIt;"
+                    value="-1" disabled selected hidden>Loading....</option>
+            <ng-template #selectIt>
+              <option disabled selected value="-1" hidden>Select a schedule....</option>
+            </ng-template>
+            <option
+              *ngFor="let schedule of schedules"
+              [value]="schedule.id"
+            >{{ schedule.name }}</option>
+          </select>
+        </div>
+      </form>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success">
+      <button class="button is-success" (click)="startImport()">
         Import
       </button>
-      <button class="button is-warning" >
+      <button class="button is-warning" (click)="cancelPopup()">
         {{ 'action.cancel' | translate }}
       </button>
     </footer>

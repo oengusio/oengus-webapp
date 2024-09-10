@@ -228,7 +228,7 @@
       <button type="button" class="button is-info"
               (click)="addCustomLine(false)">{{'marathon.schedule.management.action.addRun' | translate}}
       </button>
-      <app-clone-popup></app-clone-popup>
+      <app-clone-popup [selfId]="scheduleInfo.id"></app-clone-popup>
 
       <!-- custom data toggle -->
       <nwb-switch class="ml-2" [(ngModel)]="showAllCustomData" name="showAllCustomData">
