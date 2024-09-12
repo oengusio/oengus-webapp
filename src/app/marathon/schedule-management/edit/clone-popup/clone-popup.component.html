@@ -11,14 +11,20 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">
-        Hello I am header
+        Clone a schedule!
       </p>
+      <button class="delete"
+              type="button"
+              aria-label="close"
+              [disabled]="loading"
+              (click)="cancelPopup()"></button>
     </header>
     <section class="modal-card-body">
-      <p>Hello I am body</p>
-      <p *ngIf="loading">Loading.....</p>
+      <p>In order to import lines from a different schedule you will first need to select one from the list below.</p>
+      <p>Once you have selected a schedule from the dropdown below, please press "Import" to start the import process.</p>
+      <p>If you change your mind, please press "Cancel".</p>
 
-      <form>
+      <form class="mt-3">
         <div class="select" [class]="{
           'is-loading': loading,
         }">
@@ -37,10 +43,10 @@
       </form>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success" (click)="startImport()">
+      <button class="button is-success" [disabled]="loading" (click)="startImport()">
         Import
       </button>
-      <button class="button is-warning" (click)="cancelPopup()">
+      <button class="button is-warning" [disabled]="loading" (click)="cancelPopup()">
         {{ 'action.cancel' | translate }}
       </button>
     </footer>

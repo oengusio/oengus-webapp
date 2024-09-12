@@ -54,6 +54,8 @@ export class ClonePopupComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     const { data: lines } = await firstValueFrom(
       this.scheduleService.getLines(this.marathonId, this.cloneFromScheduleId)
     );
@@ -66,6 +68,9 @@ export class ClonePopupComponent implements OnInit {
     await firstValueFrom(
       this.scheduleService.updateLines(this.marathonId, this.selfId, lines)
     );
+
+    // TODO: reload page
+    this.open = false;
   }
 
   cancelPopup(): void {

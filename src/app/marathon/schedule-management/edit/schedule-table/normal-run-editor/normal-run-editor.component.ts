@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { DurationService } from '../../../../../../services/duration.service';
 import moment from 'moment-timezone';
@@ -16,7 +16,7 @@ type UserSearchType = { username: string; profile: null; isCustom: true} |  { us
   templateUrl: './normal-run-editor.component.html',
   styleUrls: ['./normal-run-editor.component.scss']
 })
-export class NormalRunEditorComponent {
+export class NormalRunEditorComponent implements OnInit {
   iconTimes = faTimes;
   userSearch: { [key: string]: UserSearchType[] } = {};
 
@@ -28,9 +28,27 @@ export class NormalRunEditorComponent {
 
   @ViewChild('autocompleteComponent') searchBox: AutocompleteComponent;
 
+  setupTimeHuman = '00:00:00';
+  estimateHuman = '00:00:00';
+
   constructor(
     private userService: UserService,
   ) {
+  }
+
+  ngOnInit(): void {
+    this.setupTimeHuman = DurationService.toHuman(this.line.setupTime);
+    this.estimateHuman = DurationService.toHuman(this.line.estimate);
+  }
+
+  onSetupTimeBlur(): void {
+    this.line.setupTime = moment.duration(this.setupTimeHuman).toISOString();
+    this.setupTimeChanged.emit(this.line.setupTime);
+  }
+
+  onEstimateBlur(): void {
+    this.line.estimate = moment.duration(this.estimateHuman).toISOString();
+    this.estimateChanged.emit(this.line.estimate);
   }
 
   removeUser(index: number) {
@@ -93,25 +111,5 @@ export class NormalRunEditorComponent {
 
       this.userSearch[position] = combinedItems;
     });
-  }
-
-  get lineEstimate(): string {
-    return DurationService.toHuman(this.line.estimate);
-  }
-
-  set lineEstimate(value: string) {
-    this.line.estimate = moment.duration(value).toISOString();
-
-    this.estimateChanged.emit(this.line.estimate);
-  }
-
-  get lineSetup(): string {
-    return DurationService.toHuman(this.line.setupTime);
-  }
-
-  set lineSetup(value: string) {
-    this.line.setupTime = moment.duration(value).toISOString();
-
-    this.setupTimeChanged.emit(this.line.setupTime);
   }
 }

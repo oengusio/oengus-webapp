@@ -18,8 +18,12 @@
   </div>
   <div class="field-body">
     <div class="field">
-      <p>TODO: seems that the time input can't handle anything over 24 hours, sorry that this is a bit jank</p>
-      <input class="input" type="text" name="setup-{{i}}" id="setup-{{i}}" [(ngModel)]="lineSetup"/>
+      <input class="input"
+             type="text"
+             name="setup-{{i}}"
+             id="setup-{{i}}"
+             (blur)="onSetupTimeBlur()"
+             [(ngModel)]="humanSetupTime"/>
     </div>
   </div>
 </div>
