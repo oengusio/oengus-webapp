@@ -12,7 +12,6 @@ import { firstValueFrom } from 'rxjs';
 export class ClonePopupComponent implements OnInit {
   @Input() selfId: number;
 
-  shown = true;
   loading = false;
   open = false;
 

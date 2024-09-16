@@ -1,15 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import MarkdownIt from 'markdown-it';
 import dompurify from 'markdown-it-dompurify';
 
-@Component({
-  selector: 'app-simple-md',
-  templateUrl: './simple-md.component.html',
-  styleUrls: ['./simple-md.component.scss'],
+@Pipe({
+  standalone: true,
+  name: 'markdown'
 })
-export class SimpleMdComponent {
-  @Input() public data: string;
-
+export class MarkdownPipe implements PipeTransform {
   // TODO: add helper function to get markdown configuration
   private md = new MarkdownIt('zero', {
     linkify: false,
@@ -18,12 +15,11 @@ export class SimpleMdComponent {
     .enable(['link', 'emphasis'])
     .use(dompurify());
 
-  get markdownText(): string {
-    if (!this.data) {
+  transform(value: string, ...args: any[]): string {
+    if (!value) {
       return '';
     }
 
-    return this.md.renderInline(this.data);
+    return this.md.renderInline(value);
   }
-
 }

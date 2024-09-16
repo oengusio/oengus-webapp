@@ -1,9 +1,10 @@
+<!-- Yes I know about the random padding that appears when the button is pressed -->
+<!-- Don't know why it happens but it's funny enough to keep -->
 <button type="button"
         class="button is-primary"
-        [class]="{ 'is-hidden': !shown }"
         (click)="openClonePopup()"
 >
-  Copy from existing schedule
+  {{ 'marathon.schedule.clone.trigger' | translate }}
 </button>
 
 <div class="modal is-active" *ngIf="open">
@@ -11,7 +12,7 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">
-        Clone a schedule!
+        {{ 'marathon.schedule.clone.title' | translate }}
       </p>
       <button class="delete"
               type="button"
@@ -20,19 +21,18 @@
               (click)="cancelPopup()"></button>
     </header>
     <section class="modal-card-body">
-      <p>In order to import <strong><em>all</em></strong> runs from a different schedule you will first need to select one from the list below.</p>
-      <p>Once you have selected a schedule from the dropdown below, please press "Import" to start the import process.</p>
-      <p>If you change your mind, please press "Cancel".</p>
+      <p [innerHTML]="'marathon.schedule.clone.help1' | translate | markdown" ></p>
+      <p [innerHTML]="'marathon.schedule.clone.help2' | translate | markdown" ></p>
 
-      <form class="mt-3">
+      <form class="mt-4">
         <div class="select" [class]="{
           'is-loading': loading,
         }">
           <select name="selectedSchedule" [(ngModel)]="cloneFromScheduleId" [disabled]="loading">
             <option *ngIf="loading; else selectIt;"
-                    value="-1" disabled selected hidden>Loading....</option>
+                    value="-1" disabled selected hidden>{{ 'global.loading' | translate }}</option>
             <ng-template #selectIt>
-              <option disabled selected value="-1" hidden>Select a schedule....</option>
+              <option disabled selected value="-1" hidden>{{ 'marathon.schedule.clone.placeholder' | translate }}</option>
             </ng-template>
             <option
               *ngFor="let schedule of schedules"
@@ -44,7 +44,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" [disabled]="loading" (click)="startImport()">
-        Import
+        {{ 'action.import' | translate }}
       </button>
       <button class="button is-warning" [disabled]="loading" (click)="cancelPopup()">
         {{ 'action.cancel' | translate }}
