@@ -49,27 +49,32 @@ export class ClonePopupComponent implements OnInit {
 
   // TODO: handle errors & translations
   async startImport(): Promise<void> {
-    if (this.cloneFromScheduleId < 0) {
-      return;
+    try {
+      if (this.cloneFromScheduleId < 0) {
+        return;
+      }
+
+      this.loading = true;
+
+      const { data: lines } = await firstValueFrom(
+        this.scheduleService.getLines(this.marathonId, this.cloneFromScheduleId)
+      );
+
+      // Strip all ids of all lines to make sure that we are not moving the lines to a different schedule.
+      lines.forEach((line) => {
+        line.id = -1;
+      });
+
+      await firstValueFrom(
+        this.scheduleService.updateLines(this.marathonId, this.selfId, lines)
+      );
+
+      this.open = false;
+      window.location.reload();
+    } catch (error: any) {
+      console.error('Error cloning schedule:', error);
+      alert('TODO: proper error handling ' + error.message);
     }
-
-    this.loading = true;
-
-    const { data: lines } = await firstValueFrom(
-      this.scheduleService.getLines(this.marathonId, this.cloneFromScheduleId)
-    );
-
-    // Strip all ids of all lines to make sure that we are not moving the lines to a different schedule.
-    lines.forEach((line) => {
-      line.id = -1;
-    });
-
-    await firstValueFrom(
-      this.scheduleService.updateLines(this.marathonId, this.selfId, lines)
-    );
-
-    // TODO: reload page
-    this.open = false;
   }
 
   cancelPopup(): void {
