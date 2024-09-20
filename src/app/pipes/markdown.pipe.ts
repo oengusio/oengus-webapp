@@ -1,25 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import MarkdownIt from 'markdown-it';
-import dompurify from 'markdown-it-dompurify';
+import { MarkdownService } from '../../services/markdown.service';
 
 @Pipe({
   standalone: true,
   name: 'markdown'
 })
 export class MarkdownPipe implements PipeTransform {
-  // TODO: add helper function to get markdown configuration
-  private md = new MarkdownIt('zero', {
-    linkify: false,
-  })
-    // Only enable [links](https://oengus.io), **bold** and _italic_
-    .enable(['link', 'emphasis'])
-    .use(dompurify());
+
+  constructor(
+    private readonly markdown: MarkdownService,
+  ) {
+  }
 
   transform(value: string, ...args: any[]): string {
     if (!value) {
       return '';
     }
 
-    return this.md.renderInline(value);
+    return this.markdown.renderInlineSimple(value);
   }
 }

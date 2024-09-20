@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import MarkdownIt from 'markdown-it';
-import dompurify from 'markdown-it-dompurify';
+import { MarkdownService } from '../../../services/markdown.service';
 
 @Component({
   selector: 'app-simple-md',
@@ -10,20 +9,17 @@ import dompurify from 'markdown-it-dompurify';
 export class SimpleMdComponent {
   @Input() public data: string;
 
-  // TODO: add helper function to get markdown configuration
-  private md = new MarkdownIt('zero', {
-    linkify: false,
-  })
-    // Only enable [links](https://oengus.io), **bold** and _italic_
-    .enable(['link', 'emphasis'])
-    .use(dompurify());
+  constructor(
+    private readonly markdown: MarkdownService,
+  ) {
+  }
 
   get markdownText(): string {
     if (!this.data) {
       return '';
     }
 
-    return this.md.renderInline(this.data);
+    return this.markdown.renderInlineSimple(this.data);
   }
 
 }

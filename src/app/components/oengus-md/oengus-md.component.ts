@@ -1,8 +1,5 @@
 import { Component, Input } from '@angular/core';
-import MarkdownIt from 'markdown-it';
-import dompurify from 'markdown-it-dompurify';
-import tablePlugin from 'markdown-it-multimd-table';
-import emojiPlugin from 'markdown-it-emoji';
+import { MarkdownService } from '../../../services/markdown.service';
 
 @Component({
   selector: 'app-oengus-md',
@@ -13,21 +10,16 @@ export class OengusMdComponent {
   @Input() public data: string;
   @Input() padTop = false;
 
-  private md = new MarkdownIt('default', {
-    html: true,
-    xhtmlOut: true,
-    breaks: true,
-    linkify: true,
-  })
-    .use(dompurify())
-    .use(tablePlugin)
-    .use(emojiPlugin);
+  constructor(
+    private readonly markdown: MarkdownService,
+  ) {
+  }
 
   get markdownText(): string {
     if (!this.data) {
       return '';
     }
 
-    return this.md.render(this.data);
+    return this.markdown.render(this.data);
   }
 }
