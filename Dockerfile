@@ -1,4 +1,4 @@
-FROM node:20.11.1-bookworm AS builder
+FROM node:20.17.0-bookworm AS builder
 
 WORKDIR /oengus-frontend
 COPY package.json package-lock.json ./

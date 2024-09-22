@@ -31,3 +31,17 @@ $googleWhite: #000000;
 @import "./assets/themes/ng-pick-datetime-picker.min.css";
 @import "flag-icon-css/css/flag-icon.min.css";
 @import "vis-timeline/dist/vis-timeline-graph2d.min.css";
+
+
+// set the colours from the dark mode ourselves
+
+:root {
+  --color-note: #2f81f7;
+  --color-tip: #3fb950;
+  --color-warning: #d29922;
+  --color-severe: #db6d28;
+  --color-caution: #f85149;
+  --color-important: #a371f7;
+}
+
+@import 'markdown-it-github-alerts/styles/github-base.css';
