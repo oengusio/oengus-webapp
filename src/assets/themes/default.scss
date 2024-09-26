@@ -2,6 +2,8 @@
 
 @import 'bulmaswatch/solar/variables';
 
+$white: white;
+
 // Improve text contrast for accessibility
 $-lightness-change: 36%;
 $text: color.scale($text, $lightness: $-lightness-change);
@@ -12,6 +14,9 @@ $code: #ffc8e2;
 $discordBlurple: #5865F2;
 $twitchPurple: #9146FF;
 $googleWhite: #000000;
+
+$input-placeholder-color: #9d8484;
+//$input-background-color: $white;
 
 //$table-colors
 
