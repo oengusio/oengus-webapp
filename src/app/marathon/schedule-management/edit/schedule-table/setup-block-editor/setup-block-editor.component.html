@@ -4,7 +4,14 @@
   </div>
   <div class="field-body">
     <div class="field">
-      <input class="input" type="text" name="setup-text-{{i}}" id="setup-text-{{i}}" [(ngModel)]="line.setupBlockText" placeholder="Setup Block"/>
+      <input class="input"
+             type="text"
+             name="setup-text-{{i}}"
+             id="setup-text-{{i}}"
+             [(ngModel)]="line.setupBlockText"
+             maxlength="255"
+             placeholder="Setup Block"/>
+      <p class="help is-pulled-right">{{line.setupBlockText?.length}}/255</p>
       <p class="help">
         {{ 'marathon.schedule.management.help.setupBlock' | translate }}
       </p>
