@@ -2,7 +2,7 @@
   <app-element-temporal-datetime [dateTime]="datetime" format="longMonth"></app-element-temporal-datetime>
 </h4>
 
-<div class="controls-container">
+<div class="controls-container" *ngIf="!loading">
   <a [routerLink]="'/calendar/' + previousCalendar.year + '/' + previousCalendar.month | localize" class="button">
     <fa-icon [icon]="iconLeft"></fa-icon>
   </a>

@@ -1,4 +1,4 @@
-<app-calendar-controller [year]="year" [month]="month"></app-calendar-controller>
+<app-calendar-controller [year]="year" [month]="month" [loading]="loading"></app-calendar-controller>
 
 <div *ngIf="loading; else loaded" class="is-centered">
   <app-loading-indicator></app-loading-indicator>

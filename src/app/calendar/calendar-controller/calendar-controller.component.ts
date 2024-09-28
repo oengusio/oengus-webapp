@@ -14,6 +14,7 @@ interface CalendarLinkInfo {
 export class CalendarControllerComponent implements OnInit {
   @Input() year: number;
   @Input() month: number;
+  @Input() loading: boolean;
 
   iconLeft = faCaretLeft;
   iconRight = faCaretRight;

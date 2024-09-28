@@ -23,6 +23,8 @@ export class MarathonCalendarContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(({ year, month }) => {
+      this.loading = true;
+
       const cur = new Date();
       this.year = parseInt(year ?? cur.getFullYear(), 10);
       this.month = parseInt(month ?? cur.getMonth() + 1, 10);
