@@ -30,11 +30,12 @@ async function fetchWithOffset(offset) {
 async function main() {
   let offset = 0;
   let lastData = [];
-  let totalData = [
+  const customConsoles = [
     // Custom "consoles" that are not actually consoles
     'N/A',
     'Other'
   ]
+  let totalData = [];
 
   do {
     lastData = await fetchWithOffset(offset);
@@ -46,8 +47,12 @@ async function main() {
     offset += 200;
   } while (lastData.length > 0);
 
+  const sortedData = totalData.sort((a,b) => a.localeCompare(b));
+
+  customConsoles.push(...sortedData);
+
   fs.writeFileSync('./src/assets/consoles.json', JSON.stringify(
-    totalData.sort((a,b) => a.localeCompare(b)),
+    customConsoles,
     null, 2)
   );
 }
