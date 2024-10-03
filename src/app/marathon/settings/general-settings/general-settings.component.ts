@@ -31,6 +31,8 @@ export class GeneralSettingsComponent implements OnInit {
   public now: Date;
   public env = environment;
 
+  marathonDescMaxLen = 10000;
+
   // TODO: remove support for bot webhook
   public loadWebhookCheck: boolean;
   public isWebhookOnline = true;
