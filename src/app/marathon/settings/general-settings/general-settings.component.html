@@ -214,15 +214,15 @@
   </div>
 </fieldset>
 <div class="field">
-  <label class="label">{{ 'marathon.settings.marathonDescription.label' | translate}}</label>
+  <label class="label" for="description">{{ 'marathon.settings.marathonDescription.label' | translate}}</label>
   <div class="control">
         <textarea class="textarea"
                   [readOnly]="disabled"
                   rows=10
-                  maxlength="5000"
+                  [maxlength]="marathonDescMaxLen"
                   [(ngModel)]="settings.description"
-                  name="description"></textarea>
-    <p class="help is-pulled-right">{{settings.description?.length}}/5000</p>
+                  name="description" id="description"></textarea>
+    <p class="help is-pulled-right">{{settings.description?.length}}/{{marathonDescMaxLen}}</p>
   </div>
   <p class="help">{{ 'marathon.settings.marathonDescription.help' | translate}}</p>
 </div>
