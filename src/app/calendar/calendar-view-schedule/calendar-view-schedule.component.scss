@@ -1,0 +1,21 @@
+@import 'bulmaswatch/solar/variables';
+
+:host {
+  ::ng-deep {
+    .fc-col-header-cell-cushion {
+      color: $grey-alt !important;
+      text-decoration: none !important;
+      cursor: text;
+
+      &:hover {
+        color: $grey-alt !important;
+      }
+    }
+
+    .fc-daygrid-day-number {
+      color: $grey-light !important;
+      text-decoration: none !important;
+      cursor: default;
+    }
+  }
+}

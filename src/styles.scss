@@ -9,9 +9,12 @@
   // Matches the Bulma box padding so that we can have consistent spacing
   // We're using CSS variables over SASS variables so it can be changed on the fly as needed
   --spacing: 20px;
+
+  // For best effect, manually enable this
+  // cursor: url("./assets/tony_cursor_fixed.png"), auto !important;
 }
 
-// <editor-fold desc="v2 default layout">
+// <editor-fold desc="v2 default layout" defaultstate="collapsed">
 
 html {
   font-family:

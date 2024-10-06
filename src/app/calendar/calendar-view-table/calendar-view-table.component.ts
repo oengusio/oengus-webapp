@@ -8,11 +8,11 @@ interface CalendarType {
 }
 
 @Component({
-  selector: 'app-calendar-view',
-  templateUrl: './calendar-view.component.html',
-  styleUrls: ['./calendar-view.component.scss']
+  selector: 'app-calendar-view-table',
+  templateUrl: './calendar-view-table.component.html',
+  styleUrls: ['./calendar-view-table.component.scss']
 })
-export class CalendarViewComponent implements OnInit, OnChanges {
+export class CalendarViewTableComponent implements OnInit, OnChanges {
   @Input() year: number;
   @Input() month: number;
   @Input() marathons: Marathon[] = [];

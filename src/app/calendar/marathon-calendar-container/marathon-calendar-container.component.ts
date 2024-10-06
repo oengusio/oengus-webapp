@@ -17,6 +17,8 @@ export class MarathonCalendarContainerComponent implements OnInit {
 
   loading = true;
 
+  tableView = false;
+
   constructor(private route: ActivatedRoute,
               private marathonService: MarathonService) {
   }
