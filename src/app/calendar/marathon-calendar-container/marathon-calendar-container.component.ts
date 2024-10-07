@@ -17,7 +17,7 @@ export class MarathonCalendarContainerComponent implements OnInit {
 
   loading = true;
 
-  tableView = false;
+  tableView = localStorage.getItem('calendar_tableViewBool') !== 'false';
 
   constructor(private route: ActivatedRoute,
               private marathonService: MarathonService) {
@@ -57,6 +57,16 @@ export class MarathonCalendarContainerComponent implements OnInit {
       end: this.end,
       zoneId: 'Etc/UTC',
     };
+  }
+
+  get calendarView(): boolean {
+    return !this.tableView;
+  }
+
+  set calendarView(value: boolean) {
+    this.tableView = !value;
+
+    localStorage.setItem('calendar_tableViewBool', `${this.tableView}`);
   }
 
 }

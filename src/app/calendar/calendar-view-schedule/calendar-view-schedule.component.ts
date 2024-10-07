@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/core';
 import { Router } from '@angular/router';
+import { LocaleService } from '../../../services/locale.service';
 
 @Component({
   selector: 'app-calendar-view-schedule',
@@ -21,6 +22,7 @@ export class CalendarViewScheduleComponent implements OnInit, OnChanges {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin],
     locale: localStorage.getItem('language'),
+    firstDay: 1,
     headerToolbar: {
       left: '',
       center: '',
@@ -29,26 +31,17 @@ export class CalendarViewScheduleComponent implements OnInit, OnChanges {
     navLinks: false,
     events: this.events,
     eventClick: this.goToEvent.bind(this),
-    // datesSet: this.fetchMarathons.bind(this),
-    now: () => {
-      const currDate = new Date();
-      const normalisedMonth = this.month - 1;
-
-      console.log(currDate.getMonth(), normalisedMonth);
-
-      if (currDate.getMonth() !== normalisedMonth) {
-        return new Date(this.year, this.month, 0);
-      }
-
-      return currDate;
-    },
   };
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private localeService: LocaleService,
+  ) {
   }
 
   ngOnInit(): void {
-    //
+    this.calendarOptions.locale = this.localeService.language;
+    this.setInitialDate();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -63,11 +56,20 @@ export class CalendarViewScheduleComponent implements OnInit, OnChanges {
     }
   }
 
-  // If keydown or middle mouse button open in new tab?
+  setInitialDate(): void {
+    let initialDate = new Date();
+    const normalisedMonth = this.month - 1;
+
+    if (initialDate.getMonth() !== normalisedMonth) {
+      initialDate = new Date(this.year, normalisedMonth, 1);
+    }
+
+    this.calendarOptions.initialDate = initialDate;
+  }
+
+  // If keydown ctrl or middle mouse button open in new tab?
   // Or just always open in new tab?
   goToEvent(eventClickInfo: EventClickArg) {
-    // localStorage.setItem('calendar-prev-day', eventClickInfo.event.startStr);
-
     this.router.navigate(['/marathon', eventClickInfo.event.id]);
   }
 

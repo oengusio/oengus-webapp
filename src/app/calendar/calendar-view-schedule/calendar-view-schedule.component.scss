@@ -3,12 +3,12 @@
 :host {
   ::ng-deep {
     .fc-col-header-cell-cushion {
-      color: $grey-alt !important;
+      color: $grey-light !important;
       text-decoration: none !important;
       cursor: text;
 
       &:hover {
-        color: $grey-alt !important;
+        color: $grey-light !important;
       }
     }
 

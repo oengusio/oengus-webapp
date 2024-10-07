@@ -2,7 +2,7 @@
   <app-element-temporal-datetime [dateTime]="datetime" format="longMonth"></app-element-temporal-datetime>
 </h4>
 
-<div class="controls-container" *ngIf="!loading">
+<div class="controls-container">
   <a [routerLink]="'/calendar/' + previousCalendar.year + '/' + previousCalendar.month | localize" class="button">
     <fa-icon [icon]="iconLeft"></fa-icon>
   </a>
@@ -14,4 +14,10 @@
   </a>
 </div>
 
-<!-- TODO: add view toggle and month selector -->
+
+<!-- TODO: add month selector -->
+<div class="controls-container">
+  <nwb-switch [ngModel]="calendarView"
+              (ngModelChange)="changeCalendarView($event)"
+              name="CalendarView">Calender View</nwb-switch>
+</div>
