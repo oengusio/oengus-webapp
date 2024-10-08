@@ -1,4 +1,4 @@
-<app-calendar-controller [year]="year" [month]="month" [loading]="loading"></app-calendar-controller>
+<app-calendar-controller [(calendarView)]="calendarView" [year]="year" [month]="month"></app-calendar-controller>
 
 <div *ngIf="loading; else loaded" class="is-centered">
   <app-loading-indicator></app-loading-indicator>
@@ -6,5 +6,16 @@
 
 
 <ng-template #loaded>
-  <app-calendar-view [year]="year" [month]="month" [marathons]="marathons"></app-calendar-view>
+  <app-calendar-view-table *ngIf="tableView; else scheduleView"
+                           [year]="year"
+                           [month]="month"
+                           [marathons]="marathons"
+  ></app-calendar-view-table>
+
+  <ng-template #scheduleView>
+    <app-calendar-view-schedule [year]="year"
+                                [month]="month"
+                                [marathons]="marathons"
+    ></app-calendar-view-schedule>
+  </ng-template>
 </ng-template>

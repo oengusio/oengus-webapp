@@ -36,7 +36,7 @@ import { FooterPatronsComponent } from './_layout/footer/footer-patrons/footer-p
 import { ElementModule } from './elements/elements.module';
 import { MarathonCalendarContainerComponent } from './calendar/marathon-calendar-container/marathon-calendar-container.component';
 import { CalendarControllerComponent } from './calendar/calendar-controller/calendar-controller.component';
-import { CalendarViewComponent } from './calendar/calendar-view/calendar-view.component';
+import { CalendarViewTableComponent } from './calendar/calendar-view-table/calendar-view-table.component';
 import { CalendarViewRowComponent } from './calendar/calendar-view-row/calendar-view-row.component';
 import { ComponentsModule } from './components/components.module';
 import { RouterModule, Routes } from '@angular/router';
@@ -58,6 +58,8 @@ import { HeaderBarVerifyEmailComponent } from './_layout/header-bar/header-bar-v
 import { PasswordResetComponent } from './auth/password-reset/password-reset.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { LoginOauthComponent } from './auth/login-oauth/login-oauth.component';
+import { CalendarViewScheduleComponent } from './calendar/calendar-view-schedule/calendar-view-schedule.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 const appRoutes: Routes = [
   {
@@ -144,7 +146,8 @@ const appRoutes: Routes = [
     FooterPatronsComponent,
     MarathonCalendarContainerComponent,
     CalendarControllerComponent,
-    CalendarViewComponent,
+    CalendarViewScheduleComponent,
+    CalendarViewTableComponent,
     CalendarViewRowComponent,
     AboutInfoComponent,
     AboutContactComponent,
@@ -181,7 +184,7 @@ const appRoutes: Routes = [
       alwaysSetPrefix: false,
       initialNavigation: false,
       cacheName: 'language',
-      defaultLangFunction: (languages: string[], cachedLang?: string, browserLang?: string) => cachedLang || browserLang || 'en-GB',
+      defaultLangFunction: (languages: string[], cachedLang?: string, browserLang?: string) => 'en-GB',
       parser: {
         provide: LocalizeParser,
         useFactory: (translate, location, settings) => new ManualParserLoader(translate, location, settings, availableLocaleNames, 'YOUR_PREFIX'),
@@ -203,6 +206,7 @@ const appRoutes: Routes = [
     ButtonsModule,
     ElementModule,
     ComponentsModule,
+    FullCalendarModule,
   ],
   providers: [
     {

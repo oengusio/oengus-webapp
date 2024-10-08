@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 interface CalendarLinkInfo {
@@ -11,17 +11,18 @@ interface CalendarLinkInfo {
   templateUrl: './calendar-controller.component.html',
   styleUrls: ['./calendar-controller.component.scss']
 })
-export class CalendarControllerComponent implements OnInit {
+export class CalendarControllerComponent {
   @Input() year: number;
   @Input() month: number;
-  @Input() loading: boolean;
+
+  @Input() calendarView: boolean;
+  @Output() calendarViewChange = new EventEmitter<boolean>();
 
   iconLeft = faCaretLeft;
   iconRight = faCaretRight;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  changeCalendarView(newVal: boolean): void {
+    this.calendarViewChange.emit(newVal);
   }
 
   get datetime(): string {
