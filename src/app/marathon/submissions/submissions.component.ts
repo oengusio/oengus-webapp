@@ -16,6 +16,8 @@ interface SearchItem {
   status: string;
 }
 
+type AllowedTabs = 'submissions' | 'answers';
+
 @Component({
   selector: 'app-submissions',
   templateUrl: './submissions.component.html',
@@ -28,6 +30,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   public canLoadMore = true;
   waitingOnNextPage = false;
   private lastPageLoaded = 0;
+  answerLoadAttempted = false;
 
   public submissions$ = new BehaviorSubject<Submission[]>([]);
   filteredSubmissions$: Observable<Submission[]>;
@@ -39,7 +42,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   public gameFilter = '';
   public statusFilter = '';
 
-  public active = 'submissions';
+  public active: AllowedTabs = 'submissions';
 
   public faTimes = faTimes;
   public faSearch = faSearch;
@@ -65,7 +68,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
               public gameService: GameService,
               private submissionService: SubmissionService,
               private categoryService: CategoryService) {
-    // this.submissions = this.route.snapshot.data.submissions;
     this.selection = this.route.snapshot.data.selection;
     this.answers = new Map<string, Answer[]>();
     this.questions = new Map<number, Question>();
@@ -177,6 +179,24 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     }
 
     return true;
+  }
+
+  loadAnswers() {
+    if (this.answerLoadAttempted) {
+      return;
+    }
+
+    this.answerLoadAttempted = true;
+
+    // TODO: load answers
+  }
+
+  switchTab(newTab: AllowedTabs) {
+    this.active = newTab;
+
+    if (newTab === 'answers') {
+      this.loadAnswers();
+    }
   }
 
   get displaysTabs() {

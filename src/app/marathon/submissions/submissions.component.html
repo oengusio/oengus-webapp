@@ -12,10 +12,10 @@
 <div class="tabs is-centered" *ngIf="displaysTabs">
   <ul>
     <li [ngClass]="{'is-active':active==='submissions'}">
-      <a (click)="active = 'submissions'">{{'marathon.submissions.tabs.submissions' | translate}}</a>
+      <a (click)="switchTab('submissions')">{{'marathon.submissions.tabs.submissions' | translate}}</a>
     </li>
     <li [ngClass]="{'is-active':active==='answers'}">
-      <a (click)="active = 'answers'">{{'marathon.submissions.tabs.answers' | translate}}</a>
+      <a (click)="switchTab('answers')">{{'marathon.submissions.tabs.answers' | translate}}</a>
     </li>
   </ul>
 </div>
