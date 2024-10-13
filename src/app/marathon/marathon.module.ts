@@ -84,6 +84,7 @@ import { questionsResolverResolver } from '../resolvers/questions-resolver.resol
 import { moderatorsResolver } from '../resolvers/moderators.resolver';
 import { ClonePopupComponent } from './schedule-management/edit/clone-popup/clone-popup.component';
 import { MarkdownPipe } from '../pipes/markdown.pipe';
+import { SubmissionLazyLoaderComponent } from './submissions/submission-lazy-loader/submission-lazy-loader.component';
 
 const marathonRoutes: Routes = [
   {
@@ -326,6 +327,7 @@ const marathonRoutes: Routes = [
     ScheduleEditRowComponent,
     SubmissionRowComponent,
     ScheduleTableOldElementComponent,
+    SubmissionLazyLoaderComponent,
     MarathonScheduleShareComponent,
     ClonePopupComponent,
   ],

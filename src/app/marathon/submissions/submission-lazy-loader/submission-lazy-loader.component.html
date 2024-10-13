@@ -1,0 +1,28 @@
+<ng-template ngFor let-submission [ngForOf]="submissions$ | async">
+  <div class="box">
+    <h4 class="title is-4">
+      <app-user-link [user]="submission.user" [isLink]="true" [showAvatar]="true"></app-user-link>
+      <app-delete-button *ngIf="showDelete"
+                         [baseText]="'marathon.submissions.submission.delete' | translate"
+                         [confirmText]="'action.confirm' | translate"
+                         [cancelText]="'action.cancel' | translate"
+                         (confirmHandler)="deleteSubmission.emit(submission.id)"
+      ></app-delete-button>
+    </h4>
+    <ng-template ngFor let-game [ngForOf]="submission.games">
+      <app-submission-game
+        [game]="game"
+        [marathon]="marathonService.marathon"
+        [showDelete]="showDelete"
+        [selection]="selection"
+        [userIsAdmin]="userIsAdmin"
+        (deleteGame)="deleteGame.emit(game.id)"
+        (deleteCategory)="deleteCategory.emit({ gameId: game.id, categoryId: $event })"
+      ></app-submission-game>
+    </ng-template>
+  </div>
+</ng-template>
+
+<div class="is-centered" *ngIf="canLoadMore" #lazyLoadTrigger>
+  <app-loading-indicator></app-loading-indicator>
+</div>

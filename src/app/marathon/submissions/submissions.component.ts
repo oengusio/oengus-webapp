@@ -10,6 +10,7 @@ import { CategoryService } from '../../../services/category.service';
 import { Question } from 'src/model/question';
 import { Answer } from '../../../model/answer';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, firstValueFrom, Observable, Subject, switchMap, tap } from 'rxjs';
+import { SubmissionPage } from '../../../model/submission-page';
 
 interface SearchItem {
   term: string;
@@ -32,6 +33,9 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   private lastPageLoaded = 0;
   answerLoadAttempted = false;
 
+  public nextSubmissionPageLoaded = new Subject<SubmissionPage>();
+  public nextSearchPageLoaded = new Subject<SubmissionPage>();
+
   public submissions$ = new BehaviorSubject<Submission[]>([]);
   filteredSubmissions$: Observable<Submission[]>;
   public selection: Map<number, Selection>;
@@ -50,17 +54,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   private searchTerm = new Subject<SearchItem>();
 
   private handlerBound = this.ctrlFHandler.bind(this);
-  private observer = new IntersectionObserver(async (entries) => {
-    if (entries[0] && entries[0].isIntersecting) {
-      if (!this.gameFilter && !this.statusFilter) {
-        await this.loadNextSubmissionPage();
-      }
-    }
-  }, {
-    root: null,
-    rootMargin: '0px',
-    threshold: 1.0
-  });
 
   constructor(private route: ActivatedRoute,
               public marathonService: MarathonService,
@@ -100,6 +93,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     this.lastPageLoaded = 0;
     window.addEventListener('keydown', this.handlerBound);
 
+    // TODO: needs some special logic to reset page counter
     this.filteredSubmissions$ = this.searchTerm.pipe(
       debounceTime(300),
 
@@ -123,12 +117,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
         this.loading = false;
       })
     );
-
-    // set-up lazy loading
-    window.requestAnimationFrame(() => {
-      this.observer.observe(document.getElementById('lazyLoadTrigger'));
-      this.search('');
-    });
   }
 
   // TODO: handler does not get removed
@@ -136,33 +124,13 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     window.removeEventListener('keydown', this.handlerBound);
   }
 
-  async loadNextSubmissionPage(): Promise<void> {
-    if (!this.canLoadMore || this.waitingOnNextPage) {
-      return;
-    }
-
-    this.waitingOnNextPage = true;
-    this.loading = true;
-
+  async loadNextSubmissionPage(pageNum: number): Promise<void> {
     const nextPage = await firstValueFrom(this.submissionService.submissions(
       this.marathonService.marathon.id,
-      ++this.lastPageLoaded
+      pageNum
     ));
 
-    this.canLoadMore = !nextPage.empty && !nextPage.last;
-
-    if (!nextPage.empty) {
-      const content = nextPage.content.filter(
-        (submission) => submission.games.filter(
-          (game) => game.categories.length > 0
-        ).length > 0
-      );
-
-      this.submissions$.next(this.submissions$.getValue().concat(...content));
-    }
-
-    this.loading = false;
-    this.waitingOnNextPage = false;
+    this.nextSubmissionPageLoaded.next(nextPage);
   }
 
   ctrlFHandler(event: KeyboardEvent): boolean {
@@ -246,6 +214,10 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
+
+  get isSearching(): boolean {
+    return !!(this.gameFilter || this.statusFilter);
   }
 
   get title(): string {
