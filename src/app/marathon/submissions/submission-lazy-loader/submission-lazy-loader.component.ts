@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Submission } from '../../../../model/submission';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { MarathonService } from '../../../../services/marathon.service';
 import { SubmissionPage } from '../../../../model/submission-page';
 
@@ -20,6 +20,7 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
   @Input() public selection: Map<number, Selection>;
   @Input() public showDelete: boolean;
   @Input() public userIsAdmin: boolean;
+  @Input() private doInitialLoad = true;
 
   @Output() private loadNextPage = new EventEmitter<number>();
   @Output() public deleteSubmission = new EventEmitter<number>();
@@ -30,8 +31,8 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
 
   private observer = new IntersectionObserver((entries) => {
     if (entries[0] && entries[0].isIntersecting && !this.waitingOnNextPage) {
-      this.loadNextPage.emit(++this.lastPageLoaded);
-      this.waitingOnNextPage = true;
+      console.log('Triggering next page load...');
+      this.triggerNextPageLoad();
     }
   }, {
     root: null,
@@ -46,7 +47,8 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    console.log(this.lazyLoadTrigger);
+    // Prevents flickering when the component first appears
+    this.canLoadMore = this.doInitialLoad;
 
     this.nextSubmissionPage.subscribe((nextPage) => {
       this.canLoadMore = !nextPage.empty && !nextPage.last;
@@ -67,11 +69,27 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
     // set-up lazy loading
     window.requestAnimationFrame(() => {
       this.observer.observe(this.lazyLoadTrigger.nativeElement);
-      // this.search('');
     });
   }
 
   ngOnDestroy(): void {
     this.observer.disconnect();
+  }
+
+  public resetLoadedSubmissions(): void {
+    // Reset page counter
+    this.lastPageLoaded = 0;
+
+    // Prepare state to allow new loads
+    this.waitingOnNextPage = false;
+    this.canLoadMore = true;
+
+    // Clear submissions to allow trigger to move into view
+    this.submissions$.next([]);
+  }
+
+  private triggerNextPageLoad(): void {
+    this.waitingOnNextPage = true;
+    this.loadNextPage.emit(++this.lastPageLoaded);
   }
 }

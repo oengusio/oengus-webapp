@@ -5,6 +5,9 @@ import { SubmissionService } from '../../services/submission.service';
 import { Answer } from '../../model/answer';
 import { UserService } from '../../services/user.service';
 
+/**
+ * @deprecated no need for this anymore
+ */
 @Injectable()
 export class AnswersResolver  {
 

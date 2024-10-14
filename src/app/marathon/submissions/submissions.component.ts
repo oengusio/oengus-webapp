@@ -9,8 +9,9 @@ import { SubmissionService } from '../../../services/submission.service';
 import { CategoryService } from '../../../services/category.service';
 import { Question } from 'src/model/question';
 import { Answer } from '../../../model/answer';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, firstValueFrom, Observable, Subject, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, firstValueFrom, Subject } from 'rxjs';
 import { SubmissionPage } from '../../../model/submission-page';
+import { SubmissionLazyLoaderComponent } from './submission-lazy-loader/submission-lazy-loader.component';
 
 interface SearchItem {
   term: string;
@@ -26,18 +27,16 @@ type AllowedTabs = 'submissions' | 'answers';
 })
 export class SubmissionsComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', {static: true}) searchInput: ElementRef<HTMLInputElement>;
-
-  loading = true;
-  public canLoadMore = true;
-  waitingOnNextPage = false;
-  private lastPageLoaded = 0;
-  answerLoadAttempted = false;
+  @ViewChild('searchLazyLoader') searchLazyLoader: SubmissionLazyLoaderComponent;
 
   public nextSubmissionPageLoaded = new Subject<SubmissionPage>();
   public nextSearchPageLoaded = new Subject<SubmissionPage>();
 
+  /**
+   * @TODO: fix this to make sure submissions get removed from the list properly
+   * @deprecated
+   */
   public submissions$ = new BehaviorSubject<Submission[]>([]);
-  filteredSubmissions$: Observable<Submission[]>;
   public selection: Map<number, Selection>;
   public questions: Map<number, Question>;
   // username -> answers
@@ -54,6 +53,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   private searchTerm = new Subject<SearchItem>();
 
   private handlerBound = this.ctrlFHandler.bind(this);
+  private answerLoadAttempted = false;
 
   constructor(private route: ActivatedRoute,
               public marathonService: MarathonService,
@@ -73,54 +73,26 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
       this.questions.set(question.id, question);
     });
-
-    // TODO: lazy load answers!
-    // map all the answers to the username
-    const answers = this.route.snapshot.data.answers as Answer[];
-
-    for (const answer of answers) {
-      if (!this.answers.has(answer.username)) {
-        this.answers.set(answer.username, []);
-      }
-
-      this.answers.get(answer.username).push(answer);
-    }
   }
 
   ngOnInit() {
-    this.loading = true;
-    this.canLoadMore = true;
-    this.lastPageLoaded = 0;
+    console.log('Registering ctrl+f handler');
     window.addEventListener('keydown', this.handlerBound);
 
-    // TODO: needs some special logic to reset page counter
-    this.filteredSubmissions$ = this.searchTerm.pipe(
+    this.searchTerm.pipe(
       debounceTime(300),
 
-      distinctUntilChanged((prev, curr) => prev.term === curr.term && prev.status === curr.status),
-
-      tap(() => {
-        this.loading = true;
-      }),
-
-      switchMap(({ term, status }: SearchItem) => {
-        if (term || status) {
-          return this.submissionService.searchSubmissions(
-            this.marathonService.marathon.id, term, status ? status : null
-          );
-        }
-
-        return this.submissions$;
-      }),
-
-      tap(() => {
-        this.loading = false;
-      })
-    );
+      distinctUntilChanged((prev, curr) => prev.term === curr.term && prev.status === curr.status)
+    ).subscribe(() => {
+      console.log('is searching', this.isSearching);
+      if (this.isSearching) {
+        this.searchLazyLoader.resetLoadedSubmissions();
+      }
+    });
   }
 
-  // TODO: handler does not get removed
   ngOnDestroy(): void {
+    console.log('Submissions destroyed');
     window.removeEventListener('keydown', this.handlerBound);
   }
 
@@ -133,9 +105,20 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     this.nextSubmissionPageLoaded.next(nextPage);
   }
 
+  async loadNextSearchPage(pageNum: number): Promise<void> {
+    const nextPage = await firstValueFrom(this.submissionService.searchSubmissions(
+      this.marathonService.marathon.id,
+      this.gameFilter,
+      this.statusFilter ? this.statusFilter : null,
+      pageNum
+    ));
+
+    this.nextSearchPageLoaded.next(nextPage);
+  }
+
   ctrlFHandler(event: KeyboardEvent): boolean {
-    console.log('handling ctrl+f');
     if (event.ctrlKey && event.key === 'f' && this.active === 'submissions') {
+      console.log('handling ctrl+f');
       event.preventDefault();
 
       const el = this.searchInput.nativeElement;
@@ -156,7 +139,15 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
     this.answerLoadAttempted = true;
 
-    // TODO: load answers
+    this.submissionService.answers(this.marathonService.marathon.id).subscribe((answers) => {
+      for (const answer of answers) {
+        if (!this.answers.has(answer.username)) {
+          this.answers.set(answer.username, []);
+        }
+
+        this.answers.get(answer.username).push(answer);
+      }
+    });
   }
 
   switchTab(newTab: AllowedTabs) {

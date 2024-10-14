@@ -50,24 +50,35 @@
       </nav>
     </div>
   </div>
-  <div class="is-centered" *ngIf="loading">
-    <app-loading-indicator></app-loading-indicator>
-  </div>
 
-  <!-- Normal submission lazy loader -->
+  <!-- Search lazy loader -->
   <app-submission-lazy-loader
-    [nextSubmissionPage]="nextSubmissionPageLoaded"
+    *ngIf="isSearching; else normalSubmissionLoader"
+    [nextSubmissionPage]="nextSearchPageLoaded"
     [selection]="selection"
     [showDelete]="showDelete"
     [userIsAdmin]="userIsAdmin"
-    (loadNextPage)="loadNextSubmissionPage($event)"
+    [doInitialLoad]="false"
+    (loadNextPage)="loadNextSearchPage($event)"
     (deleteSubmission)="deleteSubmission($event)"
     (deleteGame)="deleteGame($event)"
     (deleteCategory)="deleteCategory($event.gameId, $event.categoryId)"
+    #searchLazyLoader
   ></app-submission-lazy-loader>
 
-  <!-- Search lazy loader -->
-<!--  <app-submission-lazy-loader></app-submission-lazy-loader>-->
+  <ng-template #normalSubmissionLoader>
+    <!-- Normal submission lazy loader -->
+    <app-submission-lazy-loader
+      [nextSubmissionPage]="nextSubmissionPageLoaded"
+      [selection]="selection"
+      [showDelete]="showDelete"
+      [userIsAdmin]="userIsAdmin"
+      (loadNextPage)="loadNextSubmissionPage($event)"
+      (deleteSubmission)="deleteSubmission($event)"
+      (deleteGame)="deleteGame($event)"
+      (deleteCategory)="deleteCategory($event.gameId, $event.categoryId)"
+    ></app-submission-lazy-loader>
+  </ng-template>
 </div>
 
 <div [hidden]="!displaysTabs || active !== 'answers'" class="container">

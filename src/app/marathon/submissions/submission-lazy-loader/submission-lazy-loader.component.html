@@ -23,6 +23,6 @@
   </div>
 </ng-template>
 
-<div class="is-centered" *ngIf="canLoadMore" #lazyLoadTrigger>
+<div class="is-centered" [hidden]="!canLoadMore" #lazyLoadTrigger>
   <app-loading-indicator></app-loading-indicator>
 </div>
