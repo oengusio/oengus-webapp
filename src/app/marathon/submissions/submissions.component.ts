@@ -3,13 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
-import { Submission } from '../../../model/submission';
 import { GameService } from '../../../services/game.service';
 import { SubmissionService } from '../../../services/submission.service';
 import { CategoryService } from '../../../services/category.service';
 import { Question } from 'src/model/question';
 import { Answer } from '../../../model/answer';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, firstValueFrom, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, firstValueFrom, Subject } from 'rxjs';
 import { SubmissionPage } from '../../../model/submission-page';
 import { SubmissionLazyLoaderComponent } from './submission-lazy-loader/submission-lazy-loader.component';
 
@@ -32,11 +31,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   public nextSubmissionPageLoaded = new Subject<SubmissionPage>();
   public nextSearchPageLoaded = new Subject<SubmissionPage>();
 
-  /**
-   * @TODO: fix this to make sure submissions get removed from the list properly
-   * @deprecated
-   */
-  public submissions$ = new BehaviorSubject<Submission[]>([]);
   public selection: Map<number, Selection>;
   public questions: Map<number, Question>;
   // username -> answers
@@ -176,35 +170,15 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   }
 
   deleteSubmission(id: number) {
-    this.submissionService.delete(this.marathonService.marathon.id, id).add(() => {
-      this.submissions$.next(this.submissions$.getValue().filter(submission => submission.id !== id));
-    });
+    this.submissionService.delete(this.marathonService.marathon.id, id);
   }
 
-  deleteGame(id: number, doApi: boolean = true) {
-    const delFromList = () => {
-      this.submissions$.getValue().forEach((submission) => {
-        submission.games = submission.games.filter(game => game.id !== id);
-      });
-    };
-
-    if (doApi) {
-      this.gameService.delete(this.marathonService.marathon.id, id).add(delFromList);
-    } else {
-      delFromList();
-    }
+  deleteGame(id: number) {
+    this.gameService.delete(this.marathonService.marathon.id, id);
   }
 
-  deleteCategory(gameId: number, id: number) {
-    this.categoryService.delete(this.marathonService.marathon.id, id).add(() => {
-      this.submissions$.getValue().forEach((submission) => {
-        const game = submission.games.find(g => g.id === gameId);
-        game.categories = game.categories.filter(c => c.id !== id);
-        if (game.categories.length === 0) {
-          this.deleteGame(gameId, false);
-        }
-      });
-    });
+  deleteCategory(id: number) {
+    this.categoryService.delete(this.marathonService.marathon.id, id);
   }
 
   get isSearching(): boolean {

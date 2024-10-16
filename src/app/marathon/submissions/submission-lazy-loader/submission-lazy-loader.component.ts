@@ -23,9 +23,9 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
   @Input() private doInitialLoad = true;
 
   @Output() private loadNextPage = new EventEmitter<number>();
-  @Output() public deleteSubmission = new EventEmitter<number>();
-  @Output() public deleteGame = new EventEmitter<number>();
-  @Output() public deleteCategory = new EventEmitter<{ gameId: number; categoryId: number }>();
+  @Output() private deleteSubmission = new EventEmitter<number>();
+  @Output() private deleteGame = new EventEmitter<number>();
+  @Output() private deleteCategory = new EventEmitter<number>();
 
   private lastPageLoaded = 0;
 
@@ -91,5 +91,32 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
   private triggerNextPageLoad(): void {
     this.waitingOnNextPage = true;
     this.loadNextPage.emit(++this.lastPageLoaded);
+  }
+
+  deleteSubmissionFromList(id: number): void {
+    this.deleteSubmission.emit(id);
+    this.submissions$.next(this.submissions$.getValue().filter(submission => submission.id !== id));
+  }
+
+  deleteGameFromList(gameId: number, doApi: boolean = false): void {
+    if (doApi) {
+      this.deleteGame.emit(gameId);
+    }
+
+    this.submissions$.getValue().forEach((submission) => {
+      submission.games = submission.games.filter(game => game.id !== gameId);
+    });
+  }
+
+  deleteCategoryFromList(gameId: number, categoryId: number): void {
+    this.submissions$.getValue().forEach((submission) => {
+      const game = submission.games.find(g => g.id === gameId);
+      game.categories = game.categories.filter(c => c.id !== categoryId);
+      if (game.categories.length === 0) {
+        this.deleteGameFromList(gameId, false);
+      }
+    });
+
+    this.deleteCategory.emit(categoryId);
   }
 }

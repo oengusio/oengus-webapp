@@ -6,7 +6,7 @@
                          [baseText]="'marathon.submissions.submission.delete' | translate"
                          [confirmText]="'action.confirm' | translate"
                          [cancelText]="'action.cancel' | translate"
-                         (confirmHandler)="deleteSubmission.emit(submission.id)"
+                         (confirmHandler)="deleteSubmissionFromList(submission.id)"
       ></app-delete-button>
     </h4>
     <ng-template ngFor let-game [ngForOf]="submission.games">
@@ -16,8 +16,8 @@
         [showDelete]="showDelete"
         [selection]="selection"
         [userIsAdmin]="userIsAdmin"
-        (deleteGame)="deleteGame.emit(game.id)"
-        (deleteCategory)="deleteCategory.emit({ gameId: game.id, categoryId: $event })"
+        (deleteGame)="deleteGameFromList(game.id)"
+        (deleteCategory)="deleteCategoryFromList(game.id, $event)"
       ></app-submission-game>
     </ng-template>
   </div>

@@ -62,7 +62,7 @@
     (loadNextPage)="loadNextSearchPage($event)"
     (deleteSubmission)="deleteSubmission($event)"
     (deleteGame)="deleteGame($event)"
-    (deleteCategory)="deleteCategory($event.gameId, $event.categoryId)"
+    (deleteCategory)="deleteCategory($event)"
     #searchLazyLoader
   ></app-submission-lazy-loader>
 
@@ -76,7 +76,7 @@
       (loadNextPage)="loadNextSubmissionPage($event)"
       (deleteSubmission)="deleteSubmission($event)"
       (deleteGame)="deleteGame($event)"
-      (deleteCategory)="deleteCategory($event.gameId, $event.categoryId)"
+      (deleteCategory)="deleteCategory($event)"
     ></app-submission-lazy-loader>
   </ng-template>
 </div>
