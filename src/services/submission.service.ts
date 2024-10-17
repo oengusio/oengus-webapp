@@ -8,7 +8,6 @@ import { BaseService } from './BaseService';
 import { Answer } from '../model/answer';
 import { SubmissionPage } from '../model/submission-page';
 import { AvailabilityResponse } from '../model/availability';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -73,9 +72,10 @@ export class SubmissionService extends BaseService {
     });
   }
 
-  searchSubmissions(marathonId: string, query: string, status?: string): Observable<Submission[]> {
-    const params: { q: string; status?: string; } = {
+  searchSubmissions(marathonId: string, query: string, status?: string, page: number = 1): Observable<SubmissionPage> {
+    const params: { q: string; page: number; status?: string; } = {
       q: query,
+      page,
     };
 
     if (status) {
@@ -84,9 +84,7 @@ export class SubmissionService extends BaseService {
 
     return this.http.get<SubmissionPage>(this.url(`${marathonId}/submissions/search`), {
       params,
-    }).pipe(
-      map(x => x.content)
-    );
+    });
   }
 
   answers(marathonId: string): Observable<Answer[]> {

@@ -41,7 +41,6 @@ import { OengusShirtWideComponent } from '../adsense/oengus/oengus-shirt-wide/oe
 import { SubmissionCategoryComponent } from './submissions/submission-category/submission-category.component';
 import { SubmissionGameComponent } from './submissions/submission-game/submission-game.component';
 import { ButtonsModule } from '../buttons/buttons.module';
-import { AnswersResolver } from '../resolvers/answers-resolver';
 import { GeneralSettingsComponent } from './settings/general-settings/general-settings.component';
 import { SubmissionSettingsComponent } from './settings/submission-settings/submission-settings.component';
 import { DiscordSettingsComponent } from './settings/discord-settings/discord-settings.component';
@@ -77,13 +76,16 @@ import { SetupBlockEditorComponent } from './schedule-management/edit/schedule-t
 import { NormalRunEditorComponent } from './schedule-management/edit/schedule-table/normal-run-editor/normal-run-editor.component';
 import { ScheduleEditRowComponent } from './schedule-management/edit/schedule-table/schedule-edit-row/schedule-edit-row.component';
 import { SubmissionRowComponent } from './schedule-management/edit/submissions-table/submission-row/submission-row.component';
-import { ScheduleTableOldElementComponent } from './schedule-management/edit/schedule-table-old-element/schedule-table-old-element.component';
+import {
+  ScheduleTableOldElementComponent,
+} from './schedule-management/edit/schedule-table-old-element/schedule-table-old-element.component';
 import { MarathonScheduleShareComponent } from './schedule/marathon-schedule-share/marathon-schedule-share.component';
 import { marathonSettingsResolverResolver } from '../resolvers/marathon-settings-resolver.resolver';
 import { questionsResolverResolver } from '../resolvers/questions-resolver.resolver';
 import { moderatorsResolver } from '../resolvers/moderators.resolver';
 import { ClonePopupComponent } from './schedule-management/edit/clone-popup/clone-popup.component';
 import { MarkdownPipe } from '../pipes/markdown.pipe';
+import { SubmissionLazyLoaderComponent } from './submissions/submission-lazy-loader/submission-lazy-loader.component';
 
 const marathonRoutes: Routes = [
   {
@@ -128,7 +130,6 @@ const marathonRoutes: Routes = [
         path: 'submissions',
         component: SubmissionsComponent,
         resolve: {
-          answers: AnswersResolver,
           selection: SelectionResolver,
         }
       },
@@ -326,6 +327,7 @@ const marathonRoutes: Routes = [
     ScheduleEditRowComponent,
     SubmissionRowComponent,
     ScheduleTableOldElementComponent,
+    SubmissionLazyLoaderComponent,
     MarathonScheduleShareComponent,
     ClonePopupComponent,
   ],
@@ -372,7 +374,6 @@ const marathonRoutes: Routes = [
     ScheduleOverviewResolver,
     DonationsResolver,
     DonationsStatsResolver,
-    AnswersResolver,
   ]
 })
 export class MarathonModule {

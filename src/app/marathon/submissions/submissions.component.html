@@ -12,10 +12,10 @@
 <div class="tabs is-centered" *ngIf="displaysTabs">
   <ul>
     <li [ngClass]="{'is-active':active==='submissions'}">
-      <a (click)="active = 'submissions'">{{'marathon.submissions.tabs.submissions' | translate}}</a>
+      <a (click)="switchTab('submissions')">{{'marathon.submissions.tabs.submissions' | translate}}</a>
     </li>
     <li [ngClass]="{'is-active':active==='answers'}">
-      <a (click)="active = 'answers'">{{'marathon.submissions.tabs.answers' | translate}}</a>
+      <a (click)="switchTab('answers')">{{'marathon.submissions.tabs.answers' | translate}}</a>
     </li>
   </ul>
 </div>
@@ -50,37 +50,35 @@
       </nav>
     </div>
   </div>
-  <div class="is-centered" *ngIf="loading">
-    <app-loading-indicator></app-loading-indicator>
-  </div>
 
-  <ng-template ngFor let-submission [ngForOf]="filteredSubmissions$ | async">
-    <div class="box">
-      <h4 class="title is-4">
-        <app-user-link [user]="submission.user" [isLink]="true" [showAvatar]="true"></app-user-link>
-        <app-delete-button *ngIf="showDelete"
-                           [baseText]="'marathon.submissions.submission.delete' | translate"
-                           [confirmText]="'action.confirm' | translate"
-                           [cancelText]="'action.cancel' | translate"
-                           (confirmHandler)="deleteSubmission(submission.id)"
-        ></app-delete-button>
-      </h4>
-      <ng-template ngFor let-game [ngForOf]="submission.games">
-        <app-submission-game
-          [game]="game"
-          [marathon]="marathonService.marathon"
-          [showDelete]="showDelete"
-          [selection]="selection"
-          [userIsAdmin]="userIsAdmin"
-          (deleteGame)="deleteGame(game.id)"
-          (deleteCategory)="deleteCategory(game.id, $event)"
-        ></app-submission-game>
-      </ng-template>
-    </div>
+  <!-- Search lazy loader -->
+  <app-submission-lazy-loader
+    *ngIf="isSearching; else normalSubmissionLoader"
+    [nextSubmissionPage]="nextSearchPageLoaded"
+    [selection]="selection"
+    [showDelete]="showDelete"
+    [userIsAdmin]="userIsAdmin"
+    [doInitialLoad]="false"
+    (loadNextPage)="loadNextSearchPage($event)"
+    (deleteSubmission)="deleteSubmission($event)"
+    (deleteGame)="deleteGame($event)"
+    (deleteCategory)="deleteCategory($event)"
+    #searchLazyLoader
+  ></app-submission-lazy-loader>
+
+  <ng-template #normalSubmissionLoader>
+    <!-- Normal submission lazy loader -->
+    <app-submission-lazy-loader
+      [nextSubmissionPage]="nextSubmissionPageLoaded"
+      [selection]="selection"
+      [showDelete]="showDelete"
+      [userIsAdmin]="userIsAdmin"
+      (loadNextPage)="loadNextSubmissionPage($event)"
+      (deleteSubmission)="deleteSubmission($event)"
+      (deleteGame)="deleteGame($event)"
+      (deleteCategory)="deleteCategory($event)"
+    ></app-submission-lazy-loader>
   </ng-template>
-  <div id="lazyLoadTrigger" class="is-centered" *ngIf="canLoadMore" [hidden]="gameFilter || statusFilter">
-    <app-loading-indicator></app-loading-indicator>
-  </div>
 </div>
 
 <div [hidden]="!displaysTabs || active !== 'answers'" class="container">

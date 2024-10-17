@@ -21,7 +21,7 @@ export class HeaderBarVerifyEmailComponent {
     this.canPressButton = false;
     this.loading = true;
     this.authService.requestNewVerificationEmail().subscribe({
-      next({ status }) {
+      next: ({ status }) => {
         console.log(status);
         alert('Email sent!');
         this.loading = false;
