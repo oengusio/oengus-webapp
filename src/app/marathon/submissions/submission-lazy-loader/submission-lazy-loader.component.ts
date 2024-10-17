@@ -98,7 +98,7 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
     this.submissions$.next(this.submissions$.getValue().filter(submission => submission.id !== id));
   }
 
-  deleteGameFromList(gameId: number, doApi: boolean = false): void {
+  deleteGameFromList(gameId: number, doApi: boolean = true): void {
     if (doApi) {
       this.deleteGame.emit(gameId);
     }
