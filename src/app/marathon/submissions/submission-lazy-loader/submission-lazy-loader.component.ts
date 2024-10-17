@@ -111,12 +111,16 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
   deleteCategoryFromList(gameId: number, categoryId: number): void {
     this.submissions$.getValue().forEach((submission) => {
       const game = submission.games.find(g => g.id === gameId);
-      game.categories = game.categories.filter(c => c.id !== categoryId);
-      if (game.categories.length === 0) {
-        this.deleteGameFromList(gameId, false);
+
+      if (game) {
+        game.categories = game.categories.filter(c => c.id !== categoryId);
+
+        if (game.categories.length === 0) {
+          this.deleteGameFromList(gameId, false);
+        }
+
+        this.deleteCategory.emit(categoryId);
       }
     });
-
-    this.deleteCategory.emit(categoryId);
   }
 }
