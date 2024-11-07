@@ -30,12 +30,7 @@ export class SignUpComponent {
     country: null,
     pronouns: [],
     languagesSpoken: [],
-    connections: [
-      {
-        platform: 'YOUTUBE',
-        username: 'duncte123',
-      }
-    ],
+    connections: [],
   };
 
   errors: { [key: string]: string } = {};
