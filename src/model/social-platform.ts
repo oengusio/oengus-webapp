@@ -1,3 +1,5 @@
+export type SocialPlatformName = keyof typeof SocialPlatform;
+
 export enum SocialPlatform {
   DISCORD = '',
   EMAIL = 'mailto:',

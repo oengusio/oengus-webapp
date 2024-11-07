@@ -12,13 +12,15 @@
   </div>
   <div class="column is-two-fifths">
     <div class="control">
-      <input class="input" type="text"
+      <input class="input"
+             type="text"
+             [ngClass]="{'is-danger': username.invalid}"
+             #username="ngModel"
              [disabled]="disabled"
+             [pattern]="connectionMeta.regex"
+             [attr.maxLength]="connectionMeta.maxLength"
              [placeholder]="'user.settings.connections.username' | translate"
              [(ngModel)]="connection.username"/>
-      <p *ngIf="platforms[connection.platform]">
-        {{ profileLink }}
-      </p>
     </div>
   </div>
   <div class="column">
@@ -28,4 +30,7 @@
     </button>
   </div>
 </div>
+<p *ngIf="platforms[connection.platform]">
+  {{ profileLink }}
+</p>
 <p *ngIf="disabled" class="help">{{ 'user.settings.' + connection.platform.toLowerCase() + '.disabled.help' | translate }}</p>

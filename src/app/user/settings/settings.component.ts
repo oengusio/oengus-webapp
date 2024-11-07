@@ -6,7 +6,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { SocialAccount } from '../../../model/social-account';
-import { SocialPlatform } from '../../../model/social-platform';
+import { SocialPlatform, SocialPlatformName } from '../../../model/social-platform';
 import { PatreonStatusDto, RelationShip } from '../../../model/annoying-patreon-shit';
 import DOMPurify from 'dompurify';
 import { AuthService } from '../../../services/auth.service';
@@ -67,7 +67,7 @@ export class SettingsComponent implements OnInit {
 
   addNewConnection(): void {
     this.user.connections.push({
-      platform: '',
+      platform: 'SPEEDRUNCOM',
       username: '',
     });
   }
@@ -100,7 +100,7 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  addOrUpdateConnectionByType(type: string, username: string): void {
+  addOrUpdateConnectionByType(type: SocialPlatformName, username: string): void {
     const conn = this.user.connections.find((c) => c.platform === type);
 
     if (conn) {

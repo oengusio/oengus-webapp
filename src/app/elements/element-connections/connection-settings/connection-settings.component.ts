@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SocialAccount } from '../../../../model/social-account';
-import { SocialPlatform } from '../../../../model/social-platform';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ConnectionMeta, connectionMetas, SocialAccount } from '../../../../model/social-account';
+import { SocialPlatform, SocialPlatformName } from '../../../../model/social-platform';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { parseMastodonUrl } from '../../../../utils/helpers';
 
@@ -20,12 +20,16 @@ export class ConnectionSettingsComponent {
   public platforms = SocialPlatform;
 
   get disabled(): boolean {
-    const type = this.connection.platform;
+    const type = this.connection.platform as SocialPlatformName;
 
     return Boolean(
       (type === 'DISCORD' && this.discordId) ||
       (type === 'TWITCH' && this.twitchId),
     );
+  }
+
+  get connectionMeta(): ConnectionMeta | null {
+    return connectionMetas[this.connection.platform ?? '_DEFAULT'];
   }
 
   get profileLink(): string {
