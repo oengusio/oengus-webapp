@@ -15,7 +15,7 @@
   <ng-template [ngIf]="marathon.scheduleDone && schedules.length > 0">
     <li *ngIf="schedules.length == 1; else multiSchedule" [title]="'marathon.menu.schedule' | translate">
       <!-- 1 schedule: normal link -->
-      <a [routerLink]="'/marathon/' + marathonId + '/schedule/' + (schedules[0].slug ?? '') | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+      <a [routerLink]="'/marathon/' + marathonId + '/schedule/' + schedules[0].slug | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
         <fa-icon class="menu-item-icon" [icon]="iconCalendar"></fa-icon>
         <span class="menu-item-label">
           {{ 'marathon.menu.schedule' | translate }}

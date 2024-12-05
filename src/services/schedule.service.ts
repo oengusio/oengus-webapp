@@ -102,16 +102,6 @@ export class ScheduleService extends BaseService {
   /////////////////
   // V1 stuff below
 
-  /**
-   * @deprecated this only gets the first schedule for a marathon
-   */
-  getAllForMarathon(marathonId: string, customData: boolean = false, adminRoute: boolean = false): Observable<Schedule> {
-    const adminPart = adminRoute ? '/admin' : '';
-    const query = customData ? '?withCustomData=true' : '';
-
-    return this.http.get<Schedule>(this.url(`${marathonId}/schedule${adminPart}${query}`));
-  }
-
   save(marathonId: string, schedule: Schedule) {
     const fixedSchedule = Object.assign({}, schedule);
 

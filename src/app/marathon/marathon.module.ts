@@ -19,8 +19,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SelectionComponent } from './selection/selection.component';
 import { SelectionResolver } from '../resolvers/selection-resolver';
 import { CanActivateMarathonSubmitGuard } from '../guards/can-activate-marathon-submit-guard.service';
-import { ScheduleManagementComponent } from './schedule-management/schedule-management.component';
-import { ScheduleResolver } from '../resolvers/schedule-resolver';
 import { OengusCommonModule } from '../oengus-common/oengus-common.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScheduleComponent } from './schedule/schedule.component';
@@ -69,7 +67,6 @@ import { ScheduleByIdResolver } from '../resolvers/schedule-by-id-resolver';
 import { HomeSubmitButtonComponent } from './home/home-submit-button/home-submit-button.component';
 import { WarningModalComponent } from './schedule-management/warning-modal/warning-modal.component';
 import { ScheduleBySlugResolver } from '../resolvers/schedule-by-slug-resolver';
-import { ScheduleV1ModelResolver } from '../resolvers/schedule-v1-model-resolver';
 import { SubmissionsTableComponent } from './schedule-management/edit/submissions-table/submissions-table.component';
 import { ScheduleTableComponent } from './schedule-management/edit/schedule-table/schedule-table.component';
 import { SetupBlockEditorComponent } from './schedule-management/edit/schedule-table/setup-block-editor/setup-block-editor.component';
@@ -149,31 +146,6 @@ const marathonRoutes: Routes = [
         ]
       },
       {
-        path: 'schedule',
-        component: ScheduleComponent,
-        resolve: {
-          schedule: ScheduleResolver
-        },
-      },
-      {
-        path: 'schedule/manage',
-        component: ScheduleManagementComponent,
-        resolve: {
-          selection: SelectionResolver,
-          schedule: ScheduleV1ModelResolver,
-          availabilities: AvailabilitiesResolver
-        },
-        data: {
-          statuses: ['VALIDATED', 'BONUS'],
-          withCustomData: true,
-          isAdminRoute: true,
-        },
-        canActivate: [
-          (route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state),
-          (route, state) => inject(CanActivateMarathonActiveGuard).canActivate(route, state)
-        ]
-      },
-      {
         path: 'schedule/:slug',
         component: ScheduleComponent,
         resolve: {
@@ -241,7 +213,7 @@ const marathonRoutes: Routes = [
         path: 'incentives/manage',
         component: IncentiveManagementComponent,
         resolve: {
-          schedule: ScheduleV1ModelResolver,
+          schedule: null,
           incentives: IncentivesResolver
         },
         data: {
@@ -288,7 +260,6 @@ const marathonRoutes: Routes = [
     SubmitComponent,
     SubmissionsComponent,
     SelectionComponent,
-    ScheduleManagementComponent,
     ScheduleComponent,
     IncentiveManagementComponent,
     IncentiveComponent,
@@ -364,8 +335,6 @@ const marathonRoutes: Routes = [
     CanActivateMarathonActiveGuard,
     MarathonResolver,
     SubmissionResolver,
-    ScheduleResolver,
-    ScheduleV1ModelResolver,
     ScheduleBySlugResolver,
     ScheduleByIdResolver,
     SelectionResolver,
