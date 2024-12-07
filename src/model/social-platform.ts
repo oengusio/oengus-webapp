@@ -1,6 +1,7 @@
 export type SocialPlatformName = keyof typeof SocialPlatform;
 
 export enum SocialPlatform {
+  BLUESKY = 'https://bsky.app/profile/',
   DISCORD = '',
   EMAIL = 'mailto:',
   FACEBOOK = 'https://www.facebook.com/',
