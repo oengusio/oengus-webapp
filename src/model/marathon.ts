@@ -1,6 +1,5 @@
 import { User } from './user';
 import { Question } from './question';
-import { parseMastodonUrl } from '../utils/helpers';
 
 export class Marathon {
 
