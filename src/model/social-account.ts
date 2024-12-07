@@ -1,6 +1,7 @@
 import { faEnvelope, faPhone, faStar, faTrophy, faTv, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { SocialPlatformName } from './social-platform';
+import { SocialPlatform, SocialPlatformName } from './social-platform';
 import {
+  faBluesky,
   faDiscord,
   faFacebookF,
   faInstagram,
@@ -10,6 +11,7 @@ import {
   faTwitter,
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
+import { parseMastodonUrl } from '../utils/helpers';
 
 export type ConnectionPlatform = SocialPlatformName | 'PHONE';
 
@@ -34,6 +36,12 @@ export type ConnectionMetas = Record<ConnectionPlatform, ConnectionMeta>;
 const simpleUsernameRegex = '^[\\w\\-0-9]+$';
 
 export const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
+  BLUESKY: {
+    linkBase: (fragment) => `${SocialPlatform.BLUESKY}${stripAtPrefix(fragment)}`,
+    icon: faBluesky,
+    header: 'platform.BLUESKY',
+    regex: '^(@([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$',
+  },
   DISCORD: {
     icon: faDiscord,
     header: 'platform.DISCORD',
@@ -71,11 +79,7 @@ export const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
     header: 'platform.NICO',
   },
   MASTODON: {
-    linkBase: (fragment) => {
-      const [ username, domain ] = fragment.split('@');
-
-      return `https://${domain}/@${username}`;
-    },
+    linkBase: (fragment) => parseMastodonUrl(fragment),
     icon: faMastodon,
     header: 'platform.MASTODON',
   },
@@ -116,3 +120,11 @@ export const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
     icon: faStar,
   },
 };
+
+function stripAtPrefix(input: string): string {
+  if (input.startsWith('@')) {
+    return input.slice(1);
+  }
+
+  return input;
+}
