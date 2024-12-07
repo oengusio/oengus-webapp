@@ -75,7 +75,7 @@
     "@types/moment-timezone": "^0.5.12",
     "@types/node": "~22.9.3",
     "codelyzer": "~6.0.2",
-    "jasmine-core": "~2.99.1",
+    "jasmine-core": "~5.5.0",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "~6.3.17",
     "karma-chrome-launcher": "~2.2.0",
