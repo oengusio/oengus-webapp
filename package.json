@@ -3,9 +3,9 @@
   "version": "2024.10.27",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --hmr true",
-    "dev": "npm start",
-    "serve": "npm start",
+    "start": "npm dev",
+    "dev": "ng serve --hmr true",
+    "serve": "npm dev",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

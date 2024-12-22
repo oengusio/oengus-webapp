@@ -16,7 +16,7 @@
       {{ 'marathon.home.location' | translate }}
     </p>
     <app-marathon-location [marathon]="marathon" class="info"></app-marathon-location>
-    <p *ngIf="marathon.location">{{ marathon.location }}</p>
+    <p *ngIf="marathon.onsite && marathon.location">{{ marathon.location }}</p>
   </div>
   <div class="info-box">
     <p class="info-label">
