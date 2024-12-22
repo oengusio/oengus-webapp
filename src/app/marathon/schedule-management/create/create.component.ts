@@ -35,6 +35,8 @@ export class CreateComponent {
   async submit(): Promise<void> {
     this.loading = true;
 
+    this.data.slug = this.data.slug.toLowerCase();
+
     try {
       const createdSchedule = await firstValueFrom(
         this.scheduleService.createSchedule(

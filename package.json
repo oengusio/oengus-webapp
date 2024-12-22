@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm dev",
-    "dev": "ng serve --hmr true",
+    "dev": "ng serve --hmr true --host 127.0.0.1 --port 4200",
     "serve": "npm dev",
     "build": "ng build",
     "test": "ng test",

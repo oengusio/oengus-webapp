@@ -196,6 +196,8 @@ export class EditComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.scheduleInfo.slug = this.scheduleInfo.slug.toLowerCase();
+
     try {
       this.loading = true;
       await firstValueFrom(
