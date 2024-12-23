@@ -39,7 +39,7 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "@sentry/angular": "^8.38.0",
     "@wizishop/ng-wizi-bulma": "^18.0.0",
-    "angular-ng-autocomplete": "2.0.8",
+    "angular-ng-autocomplete": "2.0.12",
     "bulma": "^0.9.4",
     "bulma-extensions": "^6.2.7",
     "bulmaswatch": "^0.8.1",
