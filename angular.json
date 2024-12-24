@@ -36,7 +36,6 @@
             ],
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/ads.txt",
               "src/favicon.ico",
               "src/assets",
               {
@@ -77,7 +76,6 @@
                 }
               ],
               "assets": [
-                "src/ads.txt",
                 "src/favicon.ico",
                 "src/assets",
                 {

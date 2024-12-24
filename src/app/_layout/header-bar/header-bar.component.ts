@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./header-bar.component.scss']
 })
 export class HeaderBarComponent {
-  showCookieBar = true;
+  //
 }

@@ -4,23 +4,6 @@
   <meta charset="utf-8">
   <title>Oengus</title>
 
-  <script>
-    // TODO: ugly hack
-    window.getGtagIds = () => ([
-      'G-26CN947SSZ',
-      'UA-153189507-4',
-      'GTM-KK8K7V8',
-    ]);
-
-    const disableGtag = navigator?.doNotTrack === '1' ||
-      (localStorage.getItem('consent') || 'false') === 'false';
-
-    getGtagIds().forEach((id) => {
-      // disable google analytics if consent is not given
-      window[`ga-disable-${id}`] = disableGtag;
-    });
-  </script>
-
   <!-- OGP metatags -->
   <meta name="theme-color" content="#073642">
   <meta name="msapplication-TileColor" content="#073642" />
@@ -32,7 +15,7 @@
 
   <!-- Twitter meta tags -->
   <meta name="twitter:card" content="summary" />
-  <!-- TODO: make these dynamic with server side rendering -->
+  <!-- TODO: make these dynamic with server side rendering? -->
   <meta name="twitter:site" content="@OengusIO" />
   <!-- Use the twitter name of the marathon when serverside rendering -->
   <!--<meta name="twitter:creator" content="@OengusIO" />-->
@@ -45,23 +28,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="me" href="https://mas.to/@oengusio"/>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-26CN947SSZ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    getGtagIds().forEach((id) => {
-      gtag('config', id, { 'anonymize_ip': true });
-    });
-  </script>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-26CN947SSZ"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 <app-root>
   <div class="loading-bar"></div>
 </app-root>
