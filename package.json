@@ -72,7 +72,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash": "^4.17.13",
     "@types/markdown-it": "^14.1.2",
-    "@types/moment-timezone": "^0.5.12",
+    "@types/moment-timezone": "^0.5.30",
     "@types/node": "~22.10.2",
     "codelyzer": "~6.0.2",
     "jasmine-core": "~5.5.0",
