@@ -6,7 +6,7 @@ jobs:
   push_to_registry:
 
     concurrency:
-      group: ${{ github.ref }}
+      group: ${{ github.ref }}-dev
       cancel-in-progress: true
 
     name: Push development docker image

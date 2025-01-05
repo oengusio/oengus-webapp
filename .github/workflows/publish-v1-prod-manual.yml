@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     concurrency:
-      group: ${{ github.ref }}
+      group: ${{ github.ref }}-prod
       cancel-in-progress: true
 
     steps:
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
 
     concurrency:
-      group: ${{ github.ref }}
+      group: ${{ github.ref }}-sandbox
       cancel-in-progress: true
 
     steps:
