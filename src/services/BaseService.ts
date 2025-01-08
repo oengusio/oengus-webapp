@@ -4,18 +4,21 @@ import {NwbAlertConfig, NwbAlertService, NwbAlertComponent} from '@wizishop/ng-w
 export class BaseService {
   constructor(private toastr: NwbAlertService, private base: String = '') {}
 
-  protected url(path: string, version = 'v1'): string {
-    let parsedPath = path;
-
-    if (parsedPath.startsWith('/')) {
-      parsedPath = parsedPath.substring(1, parsedPath.length);
+  private stripLastSlash(path: string): string {
+    if (path.endsWith('/')) {
+      return path.substring(0, path.length - 1);
     }
 
+    return path;
+  }
+
+  protected url(path: string, version = 'v1'): string {
+    const parsedPath = this.stripLastSlash(path);
     const fullPath = this.base ?
       `${environment.api}/${version}/${this.base}/` :
       `${environment.api}/${version}/`;
 
-    return `${fullPath}${parsedPath}`;
+    return this.stripLastSlash(`${fullPath}${parsedPath}`);
   }
 
   protected v2Url(path: string): string {
