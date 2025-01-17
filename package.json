@@ -43,7 +43,7 @@
     "bulma": "^0.9.4",
     "bulma-extensions": "^6.2.7",
     "bulmaswatch": "^0.8.1",
-    "core-js": "^2.5.4",
+    "core-js": "^3.40.0",
     "dompurify": "^3.2.3",
     "flag-icon-css": "^4.1.7",
     "lodash": "^4.17.15",
