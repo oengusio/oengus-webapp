@@ -200,15 +200,17 @@ export class EditComponent implements OnInit, OnDestroy {
 
     try {
       this.loading = true;
-      await firstValueFrom(
+      this.scheduleInfo = await firstValueFrom(
         this.scheduleService.updateSchedule(this.marathonId, this.scheduleInfo.id, this.scheduleInfo),
       );
 
-      await firstValueFrom(
+      const { data: newLines } = await firstValueFrom(
         this.scheduleService.updateLines(
           this.marathonId, this.scheduleInfo.id, this.lines,
         )
       );
+
+      this.lines = newLines;
 
       this.translateService.get('alert.schedule.save.success').subscribe((res: string) => {
         const alertConfig: NwbAlertConfig = {
