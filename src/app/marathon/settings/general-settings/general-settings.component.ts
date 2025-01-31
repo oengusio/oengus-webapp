@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Marathon, MarathonSettings, MarathonSettingsWithHelpfulProps } from '../../../../model/marathon';
+import { MarathonSettingsWithHelpfulProps } from '../../../../model/marathon';
 import { MarathonService } from '../../../../services/marathon.service';
 import { environment } from '../../../../environments/environment';
 import isoLang from '../../../../assets/languages.json';
 import countriesImport from '../../../../assets/countries.json';
 import { UserService } from '../../../../services/user.service';
-import { User } from '../../../../model/user';
 import { debounce } from 'lodash';
 import { firstValueFrom } from 'rxjs';
 import { UserProfile } from '../../../../model/user-profile';
@@ -105,4 +104,7 @@ export class GeneralSettingsComponent implements OnInit {
     this.moderators.splice(index, 1);
   }
 
+  get currentUserIsOwner(): boolean {
+    return this.userService.user.id === this.marathonService.marathon.creator.id;
+  }
 }

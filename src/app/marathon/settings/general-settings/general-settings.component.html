@@ -397,10 +397,10 @@
         <tr *ngFor="let moderator of moderators; let i = index">
           <td>{{moderator.username}}
             <button class="delete is-pulled-right" (click)="removeModerator(i)"
-                    *ngIf="userService.user.id === marathonService.marathon.creator.id"></button>
+                    *ngIf="currentUserIsOwner"></button>
           </td>
         </tr>
-        <tr>
+        <tr *ngIf="currentUserIsOwner">
           <td>
             <ng-autocomplete
               [data]="userResults"
