@@ -159,6 +159,7 @@
                     <select [(ngModel)]="selection[category.id].status" name="status-{{category.id}}">
                       <option value="TODO">{{ 'marathon.selection.status.TODO' | translate}}</option>
                       <option value="REJECTED">{{ 'marathon.selection.status.REJECTED' | translate}}</option>
+                      <option *ngIf="marathonId.startsWith('uksg')" value="" disabled>Third option</option>
                       <option value="BONUS">{{ 'marathon.selection.status.BONUS' | translate}}</option>
                       <option value="BACKUP">{{ 'marathon.selection.status.BACKUP' | translate}}</option>
                       <option value="VALIDATED">{{ 'marathon.selection.status.VALIDATED' | translate}}</option>

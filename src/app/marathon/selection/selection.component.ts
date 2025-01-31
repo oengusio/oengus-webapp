@@ -258,4 +258,8 @@ export class SelectionComponent implements OnInit {
   get title(): string {
     return 'Select Runs';
   }
+
+  get marathonId() {
+    return this.marathonService.marathon.id.toLowerCase();
+  }
 }
