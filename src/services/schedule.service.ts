@@ -40,12 +40,22 @@ export class ScheduleService extends BaseService {
     );
   }
 
+  getAllOverviewManagement(marathonId: string): Observable<Array<ScheduleInfo>> {
+    return this.http.get<DataListDto<ScheduleInfo>>(this.v2Url(`${marathonId}/schedules/manage`)).pipe(
+      map((res) => res.data),
+    );
+  }
+
   getInfoById(marathonId: string, scheduleId: number): Observable<ScheduleInfo> {
     return this.http.get<ScheduleInfo>(this.v2Url(`${marathonId}/schedules/${scheduleId}`));
   }
 
+  getInfoByIdManagement(marathonId: string, scheduleId: number): Observable<ScheduleInfo> {
+    return this.http.get<ScheduleInfo>(this.v2Url(`${marathonId}/schedules/${scheduleId}/manage`));
+  }
+
   deleteById(marathonId: string, scheduleId: number): Observable<void> {
-    return this.http.delete<void>(this.v2Url(`${marathonId}/schedules/${scheduleId}`));
+    return this.http.delete<void>(this.v2Url(`${marathonId}/schedules/${scheduleId}/manage`));
   }
 
   isSlugInUse(marathonId: string, slug: string): Observable<BooleanStatusDto> {
@@ -66,16 +76,16 @@ export class ScheduleService extends BaseService {
   }
 
   updateSchedule(marathonId: string, scheduleId: number, data: ScheduleCreateRequest): Observable<ScheduleInfo> {
-    return this.http.patch<ScheduleInfo>(this.v2Url(`${marathonId}/schedules/${scheduleId}`), data);
+    return this.http.patch<ScheduleInfo>(this.v2Url(`${marathonId}/schedules/${scheduleId}/manage`), data);
   }
 
   getLines(marathonId: string, scheduleId: number): Observable<DataListDto<V2ScheduleLine>> {
-    return this.http.get<DataListDto<V2ScheduleLine>>(this.v2Url(`${marathonId}/schedules/${scheduleId}/lines`));
+    return this.http.get<DataListDto<V2ScheduleLine>>(this.v2Url(`${marathonId}/schedules/${scheduleId}/manage/lines`));
   }
 
   updateLines(marathonId: string, scheduleId: number, lines: Array<V2ScheduleLine>): Observable<DataListDto<V2ScheduleLine>> {
     return this.http.put<DataListDto<V2ScheduleLine>>(
-      this.v2Url(`${marathonId}/schedules/${scheduleId}/lines`),
+      this.v2Url(`${marathonId}/schedules/${scheduleId}/manage/lines`),
       {
         data: lines,
       }
@@ -84,7 +94,7 @@ export class ScheduleService extends BaseService {
 
   publish(marathonId: string, scheduleId: number): Observable<BooleanStatusDto> {
     return this.http.post<BooleanStatusDto>(
-      this.v2Url(`${marathonId}/schedules/${scheduleId}/publish`),
+      this.v2Url(`${marathonId}/schedules/${scheduleId}/manage/publish`),
       null
     );
   }

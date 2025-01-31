@@ -14,6 +14,6 @@ export class ScheduleOverviewResolver  {
     Observable<Array<ScheduleInfo>> | Promise<Array<ScheduleInfo>> | Array<ScheduleInfo> {
     const marathonId = route.parent.paramMap.get('id');
 
-    return this.scheduleService.getAllOverview(marathonId);
+    return this.scheduleService.getAllOverviewManagement(marathonId);
   }
 }

@@ -14,6 +14,6 @@ export class ScheduleByIdResolver  {
     Observable<ScheduleInfo> | Promise<ScheduleInfo> | ScheduleInfo {
     const scheduleId = parseInt(route.paramMap.get('scheduleId'), 10);
 
-    return this.scheduleService.getInfoById(route.parent.paramMap.get('id'), scheduleId);
+    return this.scheduleService.getInfoByIdManagement(route.parent.paramMap.get('id'), scheduleId);
   }
 }
