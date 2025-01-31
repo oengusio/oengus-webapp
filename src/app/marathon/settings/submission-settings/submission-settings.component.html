@@ -209,9 +209,9 @@
                name="submission-label{{i}}"
                [ngClass]="{'is-danger': submissionLabel.invalid}"
                required
-               maxlength="50"
+               maxlength="100"
                #submissionLabel="ngModel">
-        <p class="help is-pulled-right">{{question.label?.length}}/50</p>
+        <p class="help is-pulled-right">{{question.label?.length}}/100</p>
         <div *ngIf="submissionLabel.invalid">
           <p class="help is-danger" *ngIf="submissionLabel.errors.required">
             {{'marathon.settings.customFields.label.error.required' | translate}}</p>
