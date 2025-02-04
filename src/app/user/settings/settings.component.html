@@ -115,14 +115,15 @@
         <button type="button"
                 *ngIf="user.mfaEnabled; else noMfa"
                 class="button is-warning"
+                (click)="resetMfa()"
                 [disabled]="mfaLoading"
-                [class]="{  'is-loading': mfaLoading }"
+                [class]="{ 'is-loading': mfaLoading }"
                 id="enable-2fa" >{{ 'user.settings.mfa.disableButton' | translate }}</button>
         <ng-template #noMfa>
           <button type="button"
                   class="button is-success"
                   [disabled]="mfaLoading"
-                  [class]="{  'is-loading': mfaLoading }"
+                  [class]="{ 'is-loading': mfaLoading }"
                   id="enable-2fa" (click)="initMfa()">{{ 'user.settings.mfa.enableButton' | translate }}</button>
         </ng-template>
       </div>

@@ -110,6 +110,10 @@ export class AuthService extends BaseService {
     return this.http.post<{ status: boolean }>(`${this.v2Url('mfa')}?code=${code}`, null);
   }
 
+  deleteMfa(code: string): Observable<{ status: boolean }> {
+    return this.http.delete<{ status: boolean }>(`${this.v2Url('mfa')}?code=${code}`);
+  }
+
   set token(value: string) {
     localStorage.setItem('token', value);
   }

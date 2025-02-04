@@ -255,6 +255,36 @@ export class SettingsComponent implements OnInit {
     this.mfaLoading = false;
   }
 
+  async resetMfa() {
+    this.loading = true;
+    this.mfaLoading = true;
+
+    const mfaCode = prompt('Please enter your current 2FA code:');
+
+    if (!mfaCode || mfaCode.length < 6) {
+      this.loading = false;
+      this.mfaLoading = false;
+      return;
+    }
+
+    try {
+      const result = await firstValueFrom(this.authService.deleteMfa(mfaCode));
+
+      if (result.status) {
+        alert('2fa reset successful');
+      } else {
+        alert('2fa code was not valid');
+      }
+
+      window.location.reload(); // just to make sure stuff get purged
+    } catch (e) {
+      alert(`Failed to reset MFA: ${JSON.stringify(e.error)}`);
+    } finally {
+      this.loading = true;
+      this.mfaLoading = true;
+    }
+  }
+
   private async syncService(params: Params, queryParams: Params): Promise<void> {
     this.loading = true;
 
