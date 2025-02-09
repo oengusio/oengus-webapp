@@ -77,6 +77,11 @@ export class SettingsComponent implements OnInit {
       return;
     }
 
+    if (this.settings.webhook?.toLowerCase().includes('discord')) {
+      alert('Discord is not compatible with Oengus webhooks.');
+      return;
+    }
+
     this.loading = true;
     this.settings.defaultSetupTime = moment.duration(this.settings.defaultSetupTimeHuman).toISOString();
 
