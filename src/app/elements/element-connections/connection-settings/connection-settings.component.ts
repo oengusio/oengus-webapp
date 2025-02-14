@@ -33,13 +33,7 @@ export class ConnectionSettingsComponent {
   }
 
   get profileLink(): string {
-    const type = this.connection.platform;
-
-    if (type === 'MASTODON') {
-      return parseMastodonUrl(this.connection.username);
-    }
-
-    return SocialPlatform[type] + this.connection.username;
+    return this.connectionMeta?.linkBase?.(this.connection.username) ?? '';
   }
 
   get parsedPlatforms(): { [key: string]: { url: string, disabled: boolean } } {
