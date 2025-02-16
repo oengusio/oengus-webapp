@@ -122,7 +122,7 @@ export const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
 };
 
 function stripAtPrefix(input: string): string {
-  if (input.startsWith('@')) {
+  if (input.startsWith('@') || input.length > 1) {
     return input.slice(1);
   }
 

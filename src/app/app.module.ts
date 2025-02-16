@@ -60,6 +60,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { LoginOauthComponent } from './auth/login-oauth/login-oauth.component';
 import { CalendarViewScheduleComponent } from './calendar/calendar-view-schedule/calendar-view-schedule.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { SecurityPopupComponent } from './homepage/security-popup/security-popup.component';
 
 const appRoutes: Routes = [
   {
@@ -163,6 +164,7 @@ const appRoutes: Routes = [
     PasswordResetComponent,
     ForgotPasswordComponent,
     LoginOauthComponent,
+    SecurityPopupComponent,
   ],
   exports: [
     //
