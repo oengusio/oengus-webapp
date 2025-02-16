@@ -10,9 +10,10 @@ import { DonationStats } from '../../../model/donation-stats';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-donations',
-  templateUrl: './donations.component.html',
-  styleUrls: ['./donations.component.scss']
+    selector: 'app-donations',
+    templateUrl: './donations.component.html',
+    styleUrls: ['./donations.component.scss'],
+    standalone: false
 })
 export class DonationsComponent implements OnInit {
 

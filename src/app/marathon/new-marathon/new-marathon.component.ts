@@ -4,9 +4,10 @@ import { MarathonService } from '../../../services/marathon.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-new-marathon',
-  templateUrl: './new-marathon.component.html',
-  styleUrls: ['./new-marathon.component.css']
+    selector: 'app-new-marathon',
+    templateUrl: './new-marathon.component.html',
+    styleUrls: ['./new-marathon.component.css'],
+    standalone: false
 })
 export class NewMarathonComponent implements OnInit {
 

@@ -13,9 +13,10 @@ import {
 import { faEnvelope, faPhone, faStar, faTrophy, faTv } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-box',
-  templateUrl: './box.component.html',
-  styleUrls: ['./box.component.scss']
+    selector: 'app-box',
+    templateUrl: './box.component.html',
+    styleUrls: ['./box.component.scss'],
+    standalone: false
 })
 export class BoxComponent {
   @Input() connection: SocialAccount;

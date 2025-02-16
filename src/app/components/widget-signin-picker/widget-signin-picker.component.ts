@@ -4,9 +4,10 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-widget-signin-picker',
-  templateUrl: './widget-signin-picker.component.html',
-  styleUrls: ['./widget-signin-picker.component.scss'],
+    selector: 'app-widget-signin-picker',
+    templateUrl: './widget-signin-picker.component.html',
+    styleUrls: ['./widget-signin-picker.component.scss'],
+    standalone: false
 })
 export class WidgetSigninPickerComponent {
   @Input() type: 'DROPDOWN' | 'NAVBAR' = 'DROPDOWN';

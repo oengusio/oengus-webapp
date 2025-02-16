@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-element-country',
-  templateUrl: './element-country.component.html',
-  styleUrls: ['./element-country.component.scss'],
-  host: {
-    'class': 'field',
-  },
+    selector: 'app-element-country',
+    templateUrl: './element-country.component.html',
+    styleUrls: ['./element-country.component.scss'],
+    host: {
+        'class': 'field',
+    },
+    standalone: false
 })
 export class ElementCountryComponent {
   @Input() country: string | null;

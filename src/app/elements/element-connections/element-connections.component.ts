@@ -3,9 +3,10 @@ import { SocialAccount } from '../../../model/social-account';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-element-connections',
-  templateUrl: './element-connections.component.html',
-  styleUrls: ['./element-connections.component.scss']
+    selector: 'app-element-connections',
+    templateUrl: './element-connections.component.html',
+    styleUrls: ['./element-connections.component.scss'],
+    standalone: false
 })
 export class ElementConnectionsComponent implements OnInit {
   faPlus = faPlus;

@@ -2,9 +2,10 @@ import {Component, OnInit, NgZone} from '@angular/core';
 import {Subject} from 'rxjs';
 
 @Component({
-  selector: 'app-plum',
-  templateUrl: './plum.component.html',
-  styleUrls: ['./plum.component.scss']
+    selector: 'app-plum',
+    templateUrl: './plum.component.html',
+    styleUrls: ['./plum.component.scss'],
+    standalone: false
 })
 export class PlumComponent implements OnInit {
   public plumSubject = new Subject<boolean>();

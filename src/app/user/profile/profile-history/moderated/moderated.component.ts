@@ -3,9 +3,10 @@ import { getRowParity } from '../../../../../assets/table';
 import { HistoryMarathon } from '../../../../../model/user-profile-history';
 
 @Component({
-  selector: 'app-user-profile-moderated-history',
-  templateUrl: './moderated.component.html',
-  styleUrls: ['./moderated.component.scss']
+    selector: 'app-user-profile-moderated-history',
+    templateUrl: './moderated.component.html',
+    styleUrls: ['./moderated.component.scss'],
+    standalone: false
 })
 export class ModeratedComponent {
   @Input() history: HistoryMarathon[];

@@ -7,9 +7,10 @@ interface CalendarLinkInfo {
 }
 
 @Component({
-  selector: 'app-calendar-controller',
-  templateUrl: './calendar-controller.component.html',
-  styleUrls: ['./calendar-controller.component.scss']
+    selector: 'app-calendar-controller',
+    templateUrl: './calendar-controller.component.html',
+    styleUrls: ['./calendar-controller.component.scss'],
+    standalone: false
 })
 export class CalendarControllerComponent {
   @Input() year: number;

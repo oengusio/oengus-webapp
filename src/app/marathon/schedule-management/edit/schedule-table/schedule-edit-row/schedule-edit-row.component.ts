@@ -7,9 +7,10 @@ import moment from 'moment-timezone';
 import { getRunnerDisplayName, getRunnerUsername } from '../../../../../../utils/helpers';
 
 @Component({
-  selector: 'app-schedule-edit-row',
-  templateUrl: './schedule-edit-row.component.html',
-  styleUrls: ['./schedule-edit-row.component.scss'],
+    selector: 'app-schedule-edit-row',
+    templateUrl: './schedule-edit-row.component.html',
+    styleUrls: ['./schedule-edit-row.component.scss'],
+    standalone: false
 })
 export class ScheduleEditRowComponent {
   @Input() i: number;

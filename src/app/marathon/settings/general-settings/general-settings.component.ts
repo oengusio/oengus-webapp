@@ -10,9 +10,10 @@ import { firstValueFrom } from 'rxjs';
 import { UserProfile } from '../../../../model/user-profile';
 
 @Component({
-  selector: 'app-marathon-general-settings',
-  templateUrl: './general-settings.component.html',
-  styleUrls: ['./general-settings.component.scss']
+    selector: 'app-marathon-general-settings',
+    templateUrl: './general-settings.component.html',
+    styleUrls: ['./general-settings.component.scss'],
+    standalone: false
 })
 export class GeneralSettingsComponent implements OnInit {
 

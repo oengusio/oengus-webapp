@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { getRandomPun } from '../shirt-common';
 
 @Component({
-  selector: 'app-oengus-shirt-tall',
-  templateUrl: './oengus-shirt-tall.component.html',
-  styleUrls: ['./oengus-shirt-tall.component.scss']
+    selector: 'app-oengus-shirt-tall',
+    templateUrl: './oengus-shirt-tall.component.html',
+    styleUrls: ['./oengus-shirt-tall.component.scss'],
+    standalone: false
 })
 export class OengusShirtTallComponent implements OnInit {
 

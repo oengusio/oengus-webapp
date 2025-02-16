@@ -3,9 +3,10 @@ import { Marathon } from '../../../../model/marathon';
 import { faBullseye, faDonate, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-sidebar-tracker',
-  templateUrl: './sidebar-tracker.component.html',
-  styleUrls: ['./sidebar-tracker.component.scss']
+    selector: 'app-sidebar-tracker',
+    templateUrl: './sidebar-tracker.component.html',
+    styleUrls: ['./sidebar-tracker.component.scss'],
+    standalone: false
 })
 export class SidebarTrackerComponent {
   @Input() marathon: Marathon;

@@ -5,9 +5,10 @@ import { HistoryMarathon, UserProfileHistory } from '../../../../model/user-prof
 import { UserService } from '../../../../services/user.service';
 
 @Component({
-  selector: 'app-profile-history',
-  templateUrl: './profile-history.component.html',
-  styleUrls: ['./profile-history.component.scss']
+    selector: 'app-profile-history',
+    templateUrl: './profile-history.component.html',
+    styleUrls: ['./profile-history.component.scss'],
+    standalone: false
 })
 export class ProfileHistoryComponent implements OnInit {
   @Input() user: UserProfile;

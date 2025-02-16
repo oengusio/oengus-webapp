@@ -4,9 +4,10 @@ import {Marathon} from '../../../../model/marathon';
 import { faFilm, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-submission-category',
-  templateUrl: './submission-category.component.html',
-  styleUrls: ['./submission-category.component.scss']
+    selector: 'app-submission-category',
+    templateUrl: './submission-category.component.html',
+    styleUrls: ['./submission-category.component.scss'],
+    standalone: false
 })
 export class SubmissionCategoryComponent implements OnInit, OnDestroy {
 

@@ -3,9 +3,10 @@ import { Marathon } from '../../../../model/marathon';
 import { faCalendarCheck, faCheckSquare, faCogs, faDotCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-sidebar-admin',
-  templateUrl: './sidebar-admin.component.html',
-  styleUrls: ['./sidebar-admin.component.scss']
+    selector: 'app-sidebar-admin',
+    templateUrl: './sidebar-admin.component.html',
+    styleUrls: ['./sidebar-admin.component.scss'],
+    standalone: false
 })
 export class SidebarAdminComponent {
   @Input() marathon: Marathon;

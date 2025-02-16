@@ -4,9 +4,10 @@ import { faDiscord, faMastodon, faTwitch, faTwitter, faYoutube } from '@fortawes
 import { faComputer } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
+    selector: 'app-details',
+    templateUrl: './details.component.html',
+    styleUrls: ['./details.component.scss'],
+    standalone: false
 })
 export class DetailsComponent {
   @Input() marathon: Marathon;

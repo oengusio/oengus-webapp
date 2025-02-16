@@ -6,9 +6,10 @@ import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-marathon-schedule-share',
-  templateUrl: './marathon-schedule-share.component.html',
-  styleUrls: ['./marathon-schedule-share.component.scss']
+    selector: 'app-marathon-schedule-share',
+    templateUrl: './marathon-schedule-share.component.html',
+    styleUrls: ['./marathon-schedule-share.component.scss'],
+    standalone: false
 })
 export class MarathonScheduleShareComponent {
   iconShare = faShare;

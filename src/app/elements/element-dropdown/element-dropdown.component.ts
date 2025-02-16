@@ -2,9 +2,10 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-element-dropdown',
-  templateUrl: './element-dropdown.component.html',
-  styleUrls: ['./element-dropdown.component.scss']
+    selector: 'app-element-dropdown',
+    templateUrl: './element-dropdown.component.html',
+    styleUrls: ['./element-dropdown.component.scss'],
+    standalone: false
 })
 export class ElementDropdownComponent implements OnInit {
   faAngleDown = faAngleDown;

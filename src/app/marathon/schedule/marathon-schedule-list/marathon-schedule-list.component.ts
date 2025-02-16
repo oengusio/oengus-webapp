@@ -3,9 +3,10 @@ import { V2ScheduleLine } from '../../../../model/schedule-line';
 import { toggleTableExpand } from '../../../../assets/table';
 
 @Component({
-  selector: 'app-marathon-schedule-list',
-  templateUrl: './marathon-schedule-list.component.html',
-  styleUrls: ['./marathon-schedule-list.component.scss']
+    selector: 'app-marathon-schedule-list',
+    templateUrl: './marathon-schedule-list.component.html',
+    styleUrls: ['./marathon-schedule-list.component.scss'],
+    standalone: false
 })
 export class MarathonScheduleListComponent implements OnChanges, OnInit {
   @Input() runs: V2ScheduleLine[];

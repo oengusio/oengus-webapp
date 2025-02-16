@@ -14,9 +14,10 @@ import { SocialPlatform } from '../../../../model/social-platform';
 import { parseMastodonUrl } from '../../../../utils/helpers';
 
 @Component({
-  selector: 'app-connection',
-  templateUrl: './connection.component.html',
-  styleUrls: ['./connection.component.scss']
+    selector: 'app-connection',
+    templateUrl: './connection.component.html',
+    styleUrls: ['./connection.component.scss'],
+    standalone: false
 })
 export class ConnectionComponent implements OnInit {
 

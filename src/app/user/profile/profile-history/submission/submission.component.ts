@@ -3,9 +3,10 @@ import { HistoryGame, HistoryGameCategory, UserProfileHistory } from '../../../.
 import { RunStatus } from '../../../../../model/category';
 
 @Component({
-  selector: 'app-user-profile-submission-history',
-  templateUrl: './submission.component.html',
-  styleUrls: ['./submission.component.scss']
+    selector: 'app-user-profile-submission-history',
+    templateUrl: './submission.component.html',
+    styleUrls: ['./submission.component.scss'],
+    standalone: false
 })
 export class SubmissionComponent {
   @Input() submissions: UserProfileHistory[];

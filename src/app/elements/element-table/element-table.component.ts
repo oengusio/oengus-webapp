@@ -1,9 +1,10 @@
 import { Component, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-element-table',
-  templateUrl: './element-table.component.html',
-  styleUrls: ['./element-table.component.scss'],
+    selector: 'app-element-table',
+    templateUrl: './element-table.component.html',
+    styleUrls: ['./element-table.component.scss'],
+    standalone: false
 })
 export class ElementTableComponent implements OnChanges {
   @Input() isDivided: boolean;

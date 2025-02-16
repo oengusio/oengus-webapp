@@ -4,9 +4,10 @@ import { UserService } from '../../../services/user.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-homepage-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss']
+    selector: 'app-homepage-welcome',
+    templateUrl: './welcome.component.html',
+    styleUrls: ['./welcome.component.scss'],
+    standalone: false
 })
 export class WelcomeComponent {
   faCheck = faCheck;

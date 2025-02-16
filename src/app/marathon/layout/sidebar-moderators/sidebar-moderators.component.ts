@@ -3,9 +3,10 @@ import { Marathon } from '../../../../model/marathon';
 import { User } from '../../../../model/user';
 
 @Component({
-  selector: 'app-sidebar-moderators',
-  templateUrl: './sidebar-moderators.component.html',
-  styleUrls: ['./sidebar-moderators.component.scss']
+    selector: 'app-sidebar-moderators',
+    templateUrl: './sidebar-moderators.component.html',
+    styleUrls: ['./sidebar-moderators.component.scss'],
+    standalone: false
 })
 export class SidebarModeratorsComponent implements OnInit {
   @Input() marathon: Marathon;

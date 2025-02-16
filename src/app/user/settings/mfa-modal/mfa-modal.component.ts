@@ -3,9 +3,10 @@ import { InitMFADto } from '../../../../model/auth';
 import { AuthService } from '../../../../services/auth.service';
 
 @Component({
-  selector: 'app-mfa-modal',
-  templateUrl: './mfa-modal.component.html',
-  styleUrls: ['./mfa-modal.component.scss']
+    selector: 'app-mfa-modal',
+    templateUrl: './mfa-modal.component.html',
+    styleUrls: ['./mfa-modal.component.scss'],
+    standalone: false
 })
 export class MfaModalComponent {
   loading = false;

@@ -4,9 +4,10 @@ import { UserService } from '../../services/user.service';
 import { HomepageMetadata } from '../../model/homepage-metadata';
 
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.scss'],
+    selector: 'app-homepage',
+    templateUrl: './homepage.component.html',
+    styleUrls: ['./homepage.component.scss'],
+    standalone: false
 })
 export class HomepageComponent implements OnInit {
 

@@ -12,9 +12,10 @@ import { AutocompleteComponent } from 'angular-ng-autocomplete';
 type UserSearchType = { username: string; profile: null; isCustom: true} |  { username: string; profile: UserProfile; isCustom: false};
 
 @Component({
-  selector: 'app-normal-run-editor',
-  templateUrl: './normal-run-editor.component.html',
-  styleUrls: ['./normal-run-editor.component.scss']
+    selector: 'app-normal-run-editor',
+    templateUrl: './normal-run-editor.component.html',
+    styleUrls: ['./normal-run-editor.component.scss'],
+    standalone: false
 })
 export class NormalRunEditorComponent implements OnInit {
   iconTimes = faTimes;

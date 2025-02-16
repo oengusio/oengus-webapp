@@ -10,12 +10,13 @@ interface LangType {
 }
 
 @Component({
-  selector: 'app-element-languages',
-  templateUrl: './element-languages.component.html',
-  styleUrls: ['./element-languages.component.scss'],
-  host: {
-    'class': 'field',
-  },
+    selector: 'app-element-languages',
+    templateUrl: './element-languages.component.html',
+    styleUrls: ['./element-languages.component.scss'],
+    host: {
+        'class': 'field',
+    },
+    standalone: false
 })
 export class ElementLanguagesComponent implements OnInit {
   @ViewChild('languagesEl', {static: true}) languageInput: ElementRef<HTMLInputElement>;

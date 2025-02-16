@@ -4,9 +4,10 @@ import { Incentive } from '../../../model/incentive';
 import { MarathonService } from '../../../services/marathon.service';
 
 @Component({
-  selector: 'app-incentive',
-  templateUrl: './incentive.component.html',
-  styleUrls: ['./incentive.component.scss']
+    selector: 'app-incentive',
+    templateUrl: './incentive.component.html',
+    styleUrls: ['./incentive.component.scss'],
+    standalone: false
 })
 export class IncentiveComponent implements OnInit {
 

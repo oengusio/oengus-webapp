@@ -5,9 +5,10 @@ import { MarathonService } from '../../../../services/marathon.service';
 import { SubmissionPage } from '../../../../model/submission-page';
 
 @Component({
-  selector: 'app-submission-lazy-loader',
-  templateUrl: './submission-lazy-loader.component.html',
-  styleUrl: './submission-lazy-loader.component.scss'
+    selector: 'app-submission-lazy-loader',
+    templateUrl: './submission-lazy-loader.component.html',
+    styleUrl: './submission-lazy-loader.component.scss',
+    standalone: false
 })
 export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
   @ViewChild('lazyLoadTrigger') lazyLoadTrigger: ElementRef<HTMLDivElement>;

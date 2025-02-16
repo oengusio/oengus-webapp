@@ -5,9 +5,10 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { parseMastodonUrl } from '../../../../utils/helpers';
 
 @Component({
-  selector: 'app-connection-settings',
-  templateUrl: './connection-settings.component.html',
-  styleUrls: ['./connection-settings.component.scss'],
+    selector: 'app-connection-settings',
+    templateUrl: './connection-settings.component.html',
+    styleUrls: ['./connection-settings.component.scss'],
+    standalone: false
 })
 export class ConnectionSettingsComponent {
   @Input() public connection: SocialAccount;

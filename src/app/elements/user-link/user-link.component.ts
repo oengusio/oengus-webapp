@@ -4,9 +4,10 @@ import { environment } from '../../../environments/environment';
 import { LineRunner } from '../../../model/schedule-line';
 
 @Component({
-  selector: 'app-user-link',
-  templateUrl: './user-link.component.html',
-  styleUrls: ['./user-link.component.scss']
+    selector: 'app-user-link',
+    templateUrl: './user-link.component.html',
+    styleUrls: ['./user-link.component.scss'],
+    standalone: false
 })
 export class UserLinkComponent {
   @Input() user: User | LineRunner;

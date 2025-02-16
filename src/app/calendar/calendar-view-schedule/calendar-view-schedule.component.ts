@@ -7,9 +7,10 @@ import { Router } from '@angular/router';
 import { LocaleService } from '../../../services/locale.service';
 
 @Component({
-  selector: 'app-calendar-view-schedule',
-  templateUrl: './calendar-view-schedule.component.html',
-  styleUrl: './calendar-view-schedule.component.scss'
+    selector: 'app-calendar-view-schedule',
+    templateUrl: './calendar-view-schedule.component.html',
+    styleUrl: './calendar-view-schedule.component.scss',
+    standalone: false
 })
 export class CalendarViewScheduleComponent implements OnInit, OnChanges {
   @Input() year: number;

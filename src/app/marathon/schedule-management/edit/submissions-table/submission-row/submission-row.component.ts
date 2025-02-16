@@ -4,9 +4,10 @@ import { faCalendarTimes, faCalendarWeek, faChevronRight } from '@fortawesome/fr
 import { getRunnerDisplayName, getRunnerUsername } from '../../../../../../utils/helpers';
 
 @Component({
-  selector: 'app-submission-row',
-  templateUrl: './submission-row.component.html',
-  styleUrls: ['./submission-row.component.scss']
+    selector: 'app-submission-row',
+    templateUrl: './submission-row.component.html',
+    styleUrls: ['./submission-row.component.scss'],
+    standalone: false
 })
 export class SubmissionRowComponent {
   iconChevronRight = faChevronRight;

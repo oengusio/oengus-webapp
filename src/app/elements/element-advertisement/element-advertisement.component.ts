@@ -1,9 +1,10 @@
 import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-element-advertisement',
-  templateUrl: './element-advertisement.component.html',
-  styleUrls: ['./element-advertisement.component.scss'],
+    selector: 'app-element-advertisement',
+    templateUrl: './element-advertisement.component.html',
+    styleUrls: ['./element-advertisement.component.scss'],
+    standalone: false
 })
 export class ElementAdvertisementComponent {
 

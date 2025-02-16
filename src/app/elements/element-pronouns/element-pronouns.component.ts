@@ -5,12 +5,13 @@ import { firstValueFrom } from 'rxjs';
 import { MiscService } from '../../../services/misc.service';
 
 @Component({
-  selector: 'app-element-pronouns',
-  templateUrl: './element-pronouns.component.html',
-  styleUrls: ['./element-pronouns.component.scss'],
-  host: {
-    'class': 'field',
-  },
+    selector: 'app-element-pronouns',
+    templateUrl: './element-pronouns.component.html',
+    styleUrls: ['./element-pronouns.component.scss'],
+    host: {
+        'class': 'field',
+    },
+    standalone: false
 })
 export class ElementPronounsComponent implements OnInit {
   @Input() pronouns: string[];

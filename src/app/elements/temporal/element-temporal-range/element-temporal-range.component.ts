@@ -3,9 +3,10 @@ import { TemporalServiceService } from '../../../../services/termporal/temporal-
 import { dateTimeFormatKey } from '../../../../services/termporal/config';
 
 @Component({
-  selector: 'app-element-temporal-range',
-  templateUrl: './element-temporal-range.component.html',
-  styleUrls: ['./element-temporal-range.component.scss']
+    selector: 'app-element-temporal-range',
+    templateUrl: './element-temporal-range.component.html',
+    styleUrls: ['./element-temporal-range.component.scss'],
+    standalone: false
 })
 export class ElementTemporalRangeComponent {
   @Input() start: string | Date;

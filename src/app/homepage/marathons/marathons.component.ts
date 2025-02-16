@@ -12,9 +12,10 @@ interface HomepageListData {
 }
 
 @Component({
-  selector: 'app-homepage-marathons',
-  templateUrl: './marathons.component.html',
-  styleUrls: ['./marathons.component.scss'],
+    selector: 'app-homepage-marathons',
+    templateUrl: './marathons.component.html',
+    styleUrls: ['./marathons.component.scss'],
+    standalone: false
 })
 export class MarathonsComponent implements OnInit {
 

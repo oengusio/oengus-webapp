@@ -21,9 +21,10 @@ import { ScheduleTableOldElementComponent } from './schedule-table-old-element/s
 const AVAILABILITY_SORT_KEY = 'content';
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
+    selector: 'app-edit',
+    templateUrl: './edit.component.html',
+    styleUrls: ['./edit.component.scss'],
+    standalone: false
 })
 export class EditComponent implements OnInit, OnDestroy {
   @ViewChild('scheduleTableComponent') scheduleTable: ScheduleTableComponent | ScheduleTableOldElementComponent;

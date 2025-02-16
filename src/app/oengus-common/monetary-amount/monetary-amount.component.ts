@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-monetary-amount',
-  templateUrl: './monetary-amount.component.html',
-  styleUrls: ['./monetary-amount.component.scss']
+    selector: 'app-monetary-amount',
+    templateUrl: './monetary-amount.component.html',
+    styleUrls: ['./monetary-amount.component.scss'],
+    standalone: false
 })
 export class MonetaryAmountComponent implements OnInit {
 

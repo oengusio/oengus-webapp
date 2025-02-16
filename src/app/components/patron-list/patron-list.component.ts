@@ -3,9 +3,10 @@ import Patron from '../../../model/patron';
 import { PatreonService } from '../../../services/patreon.service';
 
 @Component({
-  selector: 'app-patron-list',
-  templateUrl: './patron-list.component.html',
-  styleUrls: ['./patron-list.component.scss'],
+    selector: 'app-patron-list',
+    templateUrl: './patron-list.component.html',
+    styleUrls: ['./patron-list.component.scss'],
+    standalone: false
 })
 export class PatronListComponent implements OnInit {
 

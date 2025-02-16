@@ -6,8 +6,9 @@ import { MarathonService } from '../../services/marathon.service';
 import { map } from 'rxjs/operators';
 
 @Directive({
-  selector: '[appScheduleSlugExistsValidator]',
-  providers: [{provide: NG_ASYNC_VALIDATORS, useExisting: ScheduleSlugExistsValidatorDirective, multi: true}],
+    selector: '[appScheduleSlugExistsValidator]',
+    providers: [{ provide: NG_ASYNC_VALIDATORS, useExisting: ScheduleSlugExistsValidatorDirective, multi: true }],
+    standalone: false
 })
 export class ScheduleSlugExistsValidatorDirective implements AsyncValidator {
   // Holds the old value of the slug

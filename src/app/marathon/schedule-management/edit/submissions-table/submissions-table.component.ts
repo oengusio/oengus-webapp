@@ -3,9 +3,10 @@ import { V2ScheduleLine } from '../../../../../model/schedule-line';
 import { getRowParity } from '../../../../../assets/table';
 
 @Component({
-  selector: 'app-submissions-table',
-  templateUrl: './submissions-table.component.html',
-  styleUrls: ['./submissions-table.component.scss']
+    selector: 'app-submissions-table',
+    templateUrl: './submissions-table.component.html',
+    styleUrls: ['./submissions-table.component.scss'],
+    standalone: false
 })
 export class SubmissionsTableComponent {
   public getRowParity = getRowParity;

@@ -3,9 +3,10 @@ import { TemporalServiceService } from '../../../../services/termporal/temporal-
 import { V2ScheduleLine } from '../../../../model/schedule-line';
 
 @Component({
-  selector: 'app-marathon-schedule-current',
-  templateUrl: './marathon-schedule-current.component.html',
-  styleUrls: ['./marathon-schedule-current.component.scss']
+    selector: 'app-marathon-schedule-current',
+    templateUrl: './marathon-schedule-current.component.html',
+    styleUrls: ['./marathon-schedule-current.component.scss'],
+    standalone: false
 })
 export class MarathonScheduleCurrentComponent {
   @Input() isNext = false;

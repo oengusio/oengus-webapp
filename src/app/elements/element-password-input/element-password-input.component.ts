@@ -2,12 +2,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-element-password-input',
-  templateUrl: './element-password-input.component.html',
-  styleUrls: ['./element-password-input.component.scss'],
-  host: {
-    'class': 'field',
-  },
+    selector: 'app-element-password-input',
+    templateUrl: './element-password-input.component.html',
+    styleUrls: ['./element-password-input.component.scss'],
+    host: {
+        'class': 'field',
+    },
+    standalone: false
 })
 export class ElementPasswordInputComponent {
   passwordHidden = true;

@@ -1,12 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-header-bar-cookies',
-  templateUrl: './header-bar-cookies.component.html',
-  styleUrls: ['./header-bar-cookies.component.scss'],
-  host: {
-    class: 'box has-background-dark',
-  },
+    selector: 'app-header-bar-cookies',
+    templateUrl: './header-bar-cookies.component.html',
+    styleUrls: ['./header-bar-cookies.component.scss'],
+    host: {
+        class: 'box has-background-dark',
+    },
+    standalone: false
 })
 export class HeaderBarCookiesComponent implements OnInit {
   @Output() visibilityUpdated = new EventEmitter<boolean>();

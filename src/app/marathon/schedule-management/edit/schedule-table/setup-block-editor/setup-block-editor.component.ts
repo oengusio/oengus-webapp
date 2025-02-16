@@ -4,9 +4,10 @@ import { DurationService } from '../../../../../../services/duration.service';
 import moment from 'moment-timezone';
 
 @Component({
-  selector: 'app-setup-block-editor',
-  templateUrl: './setup-block-editor.component.html',
-  styleUrls: ['./setup-block-editor.component.scss']
+    selector: 'app-setup-block-editor',
+    templateUrl: './setup-block-editor.component.html',
+    styleUrls: ['./setup-block-editor.component.scss'],
+    standalone: false
 })
 export class SetupBlockEditorComponent implements OnInit {
   @Output() setupTimeChanged = new EventEmitter<string>();

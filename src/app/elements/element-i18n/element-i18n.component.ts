@@ -3,9 +3,10 @@ import { Subject, takeUntil } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-element-i18n',
-  templateUrl: './element-i18n.component.html',
-  styleUrls: ['./element-i18n.component.scss'],
+    selector: 'app-element-i18n',
+    templateUrl: './element-i18n.component.html',
+    styleUrls: ['./element-i18n.component.scss'],
+    standalone: false
 })
 export class ElementI18nComponent implements OnDestroy, AfterViewInit {
   @Input() key: string;

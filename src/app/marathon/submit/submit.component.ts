@@ -21,8 +21,9 @@ import gameConsoles from '../../../assets/consoles.json';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-submit',
-  templateUrl: './submit.component.html',
+    selector: 'app-submit',
+    templateUrl: './submit.component.html',
+    standalone: false
 })
 export class SubmitComponent implements OnInit {
 

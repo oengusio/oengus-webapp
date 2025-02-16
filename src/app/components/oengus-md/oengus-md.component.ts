@@ -3,9 +3,10 @@ import { MarkdownService } from '../../../services/markdown.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-oengus-md',
-  templateUrl: './oengus-md.component.html',
-  styleUrls: ['./oengus-md.component.scss']
+    selector: 'app-oengus-md',
+    templateUrl: './oengus-md.component.html',
+    styleUrls: ['./oengus-md.component.scss'],
+    standalone: false
 })
 export class OengusMdComponent implements OnInit {
   @Input() public data: string;

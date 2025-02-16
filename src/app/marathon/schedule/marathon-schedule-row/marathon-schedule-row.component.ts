@@ -2,9 +2,10 @@ import { Component, ElementRef, Input, OnChanges, SimpleChanges } from '@angular
 import { V2ScheduleLine } from '../../../../model/schedule-line';
 
 @Component({
-  selector: 'app-marathon-schedule-row',
-  templateUrl: './marathon-schedule-row.component.html',
-  styleUrls: ['./marathon-schedule-row.component.scss'],
+    selector: 'app-marathon-schedule-row',
+    templateUrl: './marathon-schedule-row.component.html',
+    styleUrls: ['./marathon-schedule-row.component.scss'],
+    standalone: false
 })
 export class MarathonScheduleRowComponent implements OnChanges {
   @Input() run: V2ScheduleLine;

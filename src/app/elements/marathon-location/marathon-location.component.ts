@@ -3,9 +3,10 @@ import { Marathon } from '../../../model/marathon';
 import { faDesktop } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-marathon-location',
-  templateUrl: './marathon-location.component.html',
-  styleUrls: ['./marathon-location.component.scss']
+    selector: 'app-marathon-location',
+    templateUrl: './marathon-location.component.html',
+    styleUrls: ['./marathon-location.component.scss'],
+    standalone: false
 })
 export class MarathonLocationComponent {
 

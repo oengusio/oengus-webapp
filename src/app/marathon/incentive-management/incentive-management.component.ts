@@ -9,9 +9,10 @@ import { Bid } from '../../../model/bid';
 import { ScheduleLine } from '../../../model/schedule-line';
 
 @Component({
-  selector: 'app-incentive-management',
-  templateUrl: './incentive-management.component.html',
-  styleUrls: ['./incentive-management.component.scss']
+    selector: 'app-incentive-management',
+    templateUrl: './incentive-management.component.html',
+    styleUrls: ['./incentive-management.component.scss'],
+    standalone: false
 })
 export class IncentiveManagementComponent implements OnInit {
 

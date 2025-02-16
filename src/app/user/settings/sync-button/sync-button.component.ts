@@ -2,9 +2,10 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-sync-button',
-  templateUrl: './sync-button.component.html',
-  styleUrls: ['./sync-button.component.scss']
+    selector: 'app-sync-button',
+    templateUrl: './sync-button.component.html',
+    styleUrls: ['./sync-button.component.scss'],
+    standalone: false
 })
 export class SyncButtonComponent implements OnInit {
   public faSyncAlt = faSyncAlt;

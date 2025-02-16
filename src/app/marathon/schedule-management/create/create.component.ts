@@ -7,9 +7,10 @@ import { ScheduleService } from '../../../../services/schedule.service';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss']
+    selector: 'app-create',
+    templateUrl: './create.component.html',
+    styleUrls: ['./create.component.scss'],
+    standalone: false
 })
 export class CreateComponent {
   env = environment;

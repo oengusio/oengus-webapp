@@ -3,9 +3,10 @@ import { UserProfile } from '../../../model/user-profile';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-user-management-dialog',
-  templateUrl: './management-dialog.component.html',
-  styleUrls: ['./management-dialog.component.scss']
+    selector: 'app-user-management-dialog',
+    templateUrl: './management-dialog.component.html',
+    styleUrls: ['./management-dialog.component.scss'],
+    standalone: false
 })
 export class ManagementDialogComponent implements OnInit {
   @Input() user: UserProfile;

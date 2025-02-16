@@ -9,9 +9,10 @@ import { firstValueFrom } from 'rxjs';
 import { LoginResponse, LoginResponseStatus } from '../../../model/auth';
 
 @Component({
-  selector: 'app-login-oauth',
-  templateUrl: './login-oauth.component.html',
-  styleUrls: ['./login-oauth.component.scss']
+    selector: 'app-login-oauth',
+    templateUrl: './login-oauth.component.html',
+    styleUrls: ['./login-oauth.component.scss'],
+    standalone: false
 })
 export class LoginOauthComponent implements OnInit {
 

@@ -5,9 +5,10 @@ import { downloadBlob } from '../../../../utils/helpers';
 import { LoadingBarService } from '../../../../services/loading-bar.service';
 
 @Component({
-  selector: 'app-marathon-schedule-export',
-  templateUrl: './marathon-schedule-export.component.html',
-  styleUrls: ['./marathon-schedule-export.component.scss']
+    selector: 'app-marathon-schedule-export',
+    templateUrl: './marathon-schedule-export.component.html',
+    styleUrls: ['./marathon-schedule-export.component.scss'],
+    standalone: false
 })
 export class MarathonScheduleExportComponent {
   @Input() scheduleId: number;

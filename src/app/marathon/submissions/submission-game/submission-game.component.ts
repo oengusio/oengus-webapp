@@ -4,9 +4,10 @@ import {Marathon} from '../../../../model/marathon';
 import {Category} from '../../../../model/category';
 
 @Component({
-  selector: 'app-submission-game',
-  templateUrl: './submission-game.component.html',
-  styleUrls: ['./submission-game.component.scss']
+    selector: 'app-submission-game',
+    templateUrl: './submission-game.component.html',
+    styleUrls: ['./submission-game.component.scss'],
+    standalone: false
 })
 export class SubmissionGameComponent implements OnInit, OnDestroy {
 

@@ -8,9 +8,10 @@ interface CalendarType {
 }
 
 @Component({
-  selector: 'app-calendar-view-table',
-  templateUrl: './calendar-view-table.component.html',
-  styleUrls: ['./calendar-view-table.component.scss']
+    selector: 'app-calendar-view-table',
+    templateUrl: './calendar-view-table.component.html',
+    styleUrls: ['./calendar-view-table.component.scss'],
+    standalone: false
 })
 export class CalendarViewTableComponent implements OnInit, OnChanges {
   @Input() year: number;

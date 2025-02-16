@@ -1,9 +1,10 @@
 import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-element-range',
-  templateUrl: './element-range.component.html',
-  styleUrls: ['./element-range.component.scss']
+    selector: 'app-element-range',
+    templateUrl: './element-range.component.html',
+    styleUrls: ['./element-range.component.scss'],
+    standalone: false
 })
 export class ElementRangeComponent {
   @Input() start = 0;

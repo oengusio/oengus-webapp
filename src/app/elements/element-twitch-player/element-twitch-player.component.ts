@@ -29,9 +29,10 @@ type TwitchEmbed = new(id: string, options?: TwitchEmbedOptions) => TwitchEmbed;
 declare const Twitch: { Embed: TwitchEmbed };
 
 @Component({
-  selector: 'app-element-twitch-player',
-  templateUrl: './element-twitch-player.component.html',
-  styleUrls: ['./element-twitch-player.component.scss']
+    selector: 'app-element-twitch-player',
+    templateUrl: './element-twitch-player.component.html',
+    styleUrls: ['./element-twitch-player.component.scss'],
+    standalone: false
 })
 export class ElementTwitchPlayerComponent implements OnInit {
   @Input() channel: string | null = null;

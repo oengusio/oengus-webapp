@@ -5,9 +5,10 @@ import { MarathonService } from '../../../services/marathon.service';
 import { parseInt } from 'lodash';
 
 @Component({
-  selector: 'app-marathon-calendar-container',
-  templateUrl: './marathon-calendar-container.component.html',
-  styleUrls: ['./marathon-calendar-container.component.scss']
+    selector: 'app-marathon-calendar-container',
+    templateUrl: './marathon-calendar-container.component.html',
+    styleUrls: ['./marathon-calendar-container.component.scss'],
+    standalone: false
 })
 export class MarathonCalendarContainerComponent implements OnInit {
   marathons: Marathon[] = [];

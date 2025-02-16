@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-security-popup',
-  templateUrl: './security-popup.component.html',
-  styleUrl: './security-popup.component.scss'
+    selector: 'app-security-popup',
+    templateUrl: './security-popup.component.html',
+    styleUrl: './security-popup.component.scss',
+    standalone: false
 })
 export class SecurityPopupComponent implements OnInit {
   open = true;

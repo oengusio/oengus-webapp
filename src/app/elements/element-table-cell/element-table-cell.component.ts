@@ -2,9 +2,10 @@ import { Component, ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleCha
 import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-element-table-cell',
-  templateUrl: './element-table-cell.component.html',
-  styleUrls: ['./element-table-cell.component.scss'],
+    selector: 'app-element-table-cell',
+    templateUrl: './element-table-cell.component.html',
+    styleUrls: ['./element-table-cell.component.scss'],
+    standalone: false
 })
 export class ElementTableCellComponent implements OnChanges {
   @Input() isHeader = false;

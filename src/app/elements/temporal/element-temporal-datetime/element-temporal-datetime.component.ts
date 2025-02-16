@@ -3,9 +3,10 @@ import { TemporalServiceService } from '../../../../services/termporal/temporal-
 import { dateTimeFormatKey } from '../../../../services/termporal/config';
 
 @Component({
-  selector: 'app-element-temporal-datetime',
-  templateUrl: './element-temporal-datetime.component.html',
-  styleUrls: ['./element-temporal-datetime.component.scss']
+    selector: 'app-element-temporal-datetime',
+    templateUrl: './element-temporal-datetime.component.html',
+    styleUrls: ['./element-temporal-datetime.component.scss'],
+    standalone: false
 })
 export class ElementTemporalDatetimeComponent {
   @Input() dateTime: string | Date = new Date().toString();

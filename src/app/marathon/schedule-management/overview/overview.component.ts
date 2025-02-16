@@ -8,9 +8,10 @@ import { UserSupporterStatus } from '../../../../model/user';
 import { UserService } from '../../../../services/user.service';
 
 @Component({
-  selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss']
+    selector: 'app-overview',
+    templateUrl: './overview.component.html',
+    styleUrls: ['./overview.component.scss'],
+    standalone: false
 })
 export class OverviewComponent implements OnInit {
 

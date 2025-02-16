@@ -2,8 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-delete-button',
-  templateUrl: './delete-button.component.html'
+    selector: 'app-delete-button',
+    templateUrl: './delete-button.component.html',
+    standalone: false
 })
 export class DeleteButtonComponent implements OnInit {
 

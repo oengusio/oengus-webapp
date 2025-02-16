@@ -6,9 +6,10 @@ import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-marathon-incentive-settings',
-  templateUrl: './incentive-settings.component.html',
-  styleUrls: ['./incentive-settings.component.scss']
+    selector: 'app-marathon-incentive-settings',
+    templateUrl: './incentive-settings.component.html',
+    styleUrls: ['./incentive-settings.component.scss'],
+    standalone: false
 })
 export class IncentiveSettingsComponent implements OnInit {
   @Input() public marathon: Marathon;

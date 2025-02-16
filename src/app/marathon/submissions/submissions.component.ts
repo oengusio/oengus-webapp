@@ -20,9 +20,10 @@ interface SearchItem {
 type AllowedTabs = 'submissions' | 'answers';
 
 @Component({
-  selector: 'app-submissions',
-  templateUrl: './submissions.component.html',
-  styleUrls: ['./submissions.component.scss']
+    selector: 'app-submissions',
+    templateUrl: './submissions.component.html',
+    styleUrls: ['./submissions.component.scss'],
+    standalone: false
 })
 export class SubmissionsComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', {static: true}) searchInput: ElementRef<HTMLInputElement>;

@@ -3,8 +3,9 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 import moment from 'moment';
 
 @Directive({
-  selector: '[appMinDurationValidator]',
-  providers: [{provide: NG_VALIDATORS, useExisting: MinDurationValidatorDirective, multi: true}]
+    selector: '[appMinDurationValidator]',
+    providers: [{ provide: NG_VALIDATORS, useExisting: MinDurationValidatorDirective, multi: true }],
+    standalone: false
 })
 export class MinDurationValidatorDirective implements Validator {
 

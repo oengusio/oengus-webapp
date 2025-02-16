@@ -7,9 +7,10 @@ import { debounce } from 'lodash';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-schedule-table',
-  templateUrl: './schedule-table.component.html',
-  styleUrls: ['./schedule-table.component.scss'],
+    selector: 'app-schedule-table',
+    templateUrl: './schedule-table.component.html',
+    styleUrls: ['./schedule-table.component.scss'],
+    standalone: false
 })
 export class ScheduleTableComponent {
   public getRowParity = getRowParity;

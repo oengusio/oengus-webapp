@@ -3,9 +3,10 @@ import { UserService } from '../../../../services/user.service';
 import { User } from '../../../../model/user';
 
 @Component({
-  selector: 'app-header-bar-user',
-  templateUrl: './header-bar-user.component.html',
-  styleUrls: ['./header-bar-user.component.scss']
+    selector: 'app-header-bar-user',
+    templateUrl: './header-bar-user.component.html',
+    styleUrls: ['./header-bar-user.component.scss'],
+    standalone: false
 })
 export class HeaderBarUserComponent implements OnInit {
 

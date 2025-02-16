@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { LocaleService } from '../../../../services/locale.service';
 
 @Component({
-  selector: 'app-header-language-picker',
-  templateUrl: './header-language-picker.component.html',
-  styleUrls: ['./header-language-picker.component.scss']
+    selector: 'app-header-language-picker',
+    templateUrl: './header-language-picker.component.html',
+    styleUrls: ['./header-language-picker.component.scss'],
+    standalone: false
 })
 export class HeaderLanguagePickerComponent {
 

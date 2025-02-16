@@ -4,9 +4,10 @@ import { UserProfile } from '../../../model/user-profile';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    standalone: false
 })
 export class ProfileComponent {
   public user: UserProfile | null = null;

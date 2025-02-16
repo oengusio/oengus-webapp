@@ -6,9 +6,10 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { TitleService } from '../../services/title.service';
 
 @Component({
-  selector: 'app-marathon',
-  templateUrl: './marathon.component.html',
-  styleUrls: ['./marathon.component.scss']
+    selector: 'app-marathon',
+    templateUrl: './marathon.component.html',
+    styleUrls: ['./marathon.component.scss'],
+    standalone: false
 })
 export class MarathonComponent implements OnInit {
 

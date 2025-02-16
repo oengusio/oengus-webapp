@@ -12,9 +12,10 @@ import { DonationIncentiveLink } from '../../../model/donation-incentive-link';
 import { Bid } from '../../../model/bid';
 
 @Component({
-  selector: 'app-donate',
-  templateUrl: './donate.component.html',
-  styleUrls: ['./donate.component.scss']
+    selector: 'app-donate',
+    templateUrl: './donate.component.html',
+    styleUrls: ['./donate.component.scss'],
+    standalone: false
 })
 export class DonateComponent implements OnInit {
 

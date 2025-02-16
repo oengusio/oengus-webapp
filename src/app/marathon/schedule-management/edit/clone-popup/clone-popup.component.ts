@@ -5,9 +5,10 @@ import { ScheduleInfo } from '../../../../../model/schedule';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-clone-popup',
-  templateUrl: './clone-popup.component.html',
-  styleUrl: './clone-popup.component.scss'
+    selector: 'app-clone-popup',
+    templateUrl: './clone-popup.component.html',
+    styleUrl: './clone-popup.component.scss',
+    standalone: false
 })
 export class ClonePopupComponent implements OnInit {
   @Input() selfId: number;

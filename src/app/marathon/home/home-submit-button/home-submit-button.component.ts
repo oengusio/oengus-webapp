@@ -4,9 +4,10 @@ import { UserService } from '../../../../services/user.service';
 import { MarathonService } from '../../../../services/marathon.service';
 
 @Component({
-  selector: 'app-home-submit-button',
-  templateUrl: './home-submit-button.component.html',
-  styleUrls: ['./home-submit-button.component.scss']
+    selector: 'app-home-submit-button',
+    templateUrl: './home-submit-button.component.html',
+    styleUrls: ['./home-submit-button.component.scss'],
+    standalone: false
 })
 export class HomeSubmitButtonComponent implements OnInit {
   @Input() marathon: Marathon;

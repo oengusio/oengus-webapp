@@ -6,9 +6,10 @@ import { Question } from '../../../../model/question';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-marathon-submission-settings',
-  templateUrl: './submission-settings.component.html',
-  styleUrls: ['./submission-settings.component.scss']
+    selector: 'app-marathon-submission-settings',
+    templateUrl: './submission-settings.component.html',
+    styleUrls: ['./submission-settings.component.scss'],
+    standalone: false
 })
 export class SubmissionSettingsComponent implements OnInit {
   @Input() public settings: MarathonSettings;

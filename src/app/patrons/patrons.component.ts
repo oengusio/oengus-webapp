@@ -3,9 +3,10 @@ import Patron from '../../model/patron';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-patrons',
-  templateUrl: './patrons.component.html',
-  styleUrls: ['./patrons.component.scss']
+    selector: 'app-patrons',
+    templateUrl: './patrons.component.html',
+    styleUrls: ['./patrons.component.scss'],
+    standalone: false
 })
 export class PatronsComponent implements OnInit {
   public patrons: Patron[];

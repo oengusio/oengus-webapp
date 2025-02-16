@@ -3,9 +3,10 @@ import { UserService } from '../../../../services/user.service';
 import { AuthService } from '../../../../services/auth.service';
 
 @Component({
-  selector: 'app-header-bar-verify-email',
-  templateUrl: './header-bar-verify-email.component.html',
-  styleUrls: ['./header-bar-verify-email.component.scss']
+    selector: 'app-header-bar-verify-email',
+    templateUrl: './header-bar-verify-email.component.html',
+    styleUrls: ['./header-bar-verify-email.component.scss'],
+    standalone: false
 })
 export class HeaderBarVerifyEmailComponent {
 

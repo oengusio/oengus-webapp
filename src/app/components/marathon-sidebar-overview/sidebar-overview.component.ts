@@ -7,9 +7,10 @@ import { ScheduleService } from '../../../services/schedule.service';
 import { ScheduleInfo } from '../../../model/schedule';
 
 @Component({
-  selector: 'app-marathon-sidebar-overview',
-  templateUrl: './sidebar-overview.component.html',
-  styleUrls: ['./sidebar-overview.component.scss']
+    selector: 'app-marathon-sidebar-overview',
+    templateUrl: './sidebar-overview.component.html',
+    styleUrls: ['./sidebar-overview.component.scss'],
+    standalone: false
 })
 export class SidebarOverviewComponent implements OnInit {
   @Input() marathon: Marathon;

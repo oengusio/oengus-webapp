@@ -12,9 +12,10 @@ import { getRunnerDisplayName, getRunnerUsername } from '../../../../../utils/he
  * @deprecated please use the new component when we get it working.
  */
 @Component({
-  selector: 'app-schedule-table-old-element',
-  templateUrl: './schedule-table-old-element.component.html',
-  styleUrls: ['./schedule-table-old-element.component.scss']
+    selector: 'app-schedule-table-old-element',
+    templateUrl: './schedule-table-old-element.component.html',
+    styleUrls: ['./schedule-table-old-element.component.scss'],
+    standalone: false
 })
 export class ScheduleTableOldElementComponent {
   public getRowParity = getRowParity;

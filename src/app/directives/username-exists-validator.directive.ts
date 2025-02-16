@@ -5,8 +5,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Directive({
-  selector: '[appUsernameExistsValidator]',
-  providers: [{provide: NG_ASYNC_VALIDATORS, useExisting: UsernameExistsValidatorDirective, multi: true}]
+    selector: '[appUsernameExistsValidator]',
+    providers: [{ provide: NG_ASYNC_VALIDATORS, useExisting: UsernameExistsValidatorDirective, multi: true }],
+    standalone: false
 })
 export class UsernameExistsValidatorDirective implements AsyncValidator {
 

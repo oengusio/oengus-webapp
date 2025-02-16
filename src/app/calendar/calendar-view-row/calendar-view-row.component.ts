@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { Marathon } from '../../../model/marathon';
 
 @Component({
-  selector: 'app-calendar-view-row',
-  templateUrl: './calendar-view-row.component.html',
-  styleUrls: ['./calendar-view-row.component.scss']
+    selector: 'app-calendar-view-row',
+    templateUrl: './calendar-view-row.component.html',
+    styleUrls: ['./calendar-view-row.component.scss'],
+    standalone: false
 })
 export class CalendarViewRowComponent {
   @Input() marathon: Marathon;

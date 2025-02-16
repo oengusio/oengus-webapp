@@ -4,9 +4,10 @@ import { faBug, faLanguage } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../../services/user.service';
 
 @Component({
-  selector: 'app-header-bar-nav',
-  templateUrl: './header-bar-nav.component.html',
-  styleUrls: ['./header-bar-nav.component.scss']
+    selector: 'app-header-bar-nav',
+    templateUrl: './header-bar-nav.component.html',
+    styleUrls: ['./header-bar-nav.component.scss'],
+    standalone: false
 })
 export class HeaderBarNavComponent {
 
