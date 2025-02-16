@@ -65,6 +65,9 @@ export class LoginOauthComponent implements OnInit {
         case LoginResponseStatus.ACCOUNT_DISABLED:
           this.disabledAccountToast();
           return;
+        case LoginResponseStatus.PASSWORD_RESET_REQUIRED:
+          this.passwordResetRequiredToast();
+          return;
         case LoginResponseStatus.OAUTH_ACCOUNT_NOT_FOUND:
           this.unknownAccountToast(error.token);
           return;
@@ -104,6 +107,19 @@ export class LoginOauthComponent implements OnInit {
   disabledAccountToast() {
     this.router.navigate(['/']);
     this.translateService.get('alert.user.login.disabledAccount').subscribe((res: string) => {
+      const alertConfig: NwbAlertConfig = {
+        message: res,
+        duration: 8000,
+        position: 'is-right',
+        color: 'is-warning'
+      };
+      this.toastr.open(alertConfig);
+    });
+  }
+
+  passwordResetRequiredToast() {
+    this.router.navigate(['/forgot-password']);
+    this.translateService.get('alert.user.login.passwordResetRequired').subscribe((res: string) => {
       const alertConfig: NwbAlertConfig = {
         message: res,
         duration: 8000,
