@@ -61,6 +61,7 @@ import { LoginOauthComponent } from './auth/login-oauth/login-oauth.component';
 import { CalendarViewScheduleComponent } from './calendar/calendar-view-schedule/calendar-view-schedule.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { SecurityPopupComponent } from './homepage/security-popup/security-popup.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const appRoutes: Routes = [
   {
@@ -105,6 +106,10 @@ const appRoutes: Routes = [
   {
     path: 'about',
     component: AboutComponent,
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent,
   },
   {
     path: 'patrons',
@@ -165,6 +170,7 @@ const appRoutes: Routes = [
     ForgotPasswordComponent,
     LoginOauthComponent,
     SecurityPopupComponent,
+    PrivacyPolicyComponent,
   ],
   exports: [
     //

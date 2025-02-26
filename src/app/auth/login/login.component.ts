@@ -5,6 +5,8 @@ import { UserService } from '../../../services/user.service';
 import { LoginDetails, LoginResponse, LoginResponseStatus } from '../../../model/auth';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 
 @Component({
     selector: 'app-login',
@@ -33,6 +35,8 @@ export class LoginComponent {
     private userService: UserService,
     private router: Router,
     public authService: AuthService,
+    private translateService: TranslateService,
+    private toastr: NwbAlertService,
   ) { }
 
   performLogin(): void {
@@ -61,6 +65,8 @@ export class LoginComponent {
           case LoginResponseStatus.MFA_INVALID:
             return;
           case LoginResponseStatus.MFA_REQUIRED:
+            // Be nice to users next time around?
+            // localStorage.setItem('alwaysShowMfa', 'true');
             this.mfaNeeded = true;
             return;
           case LoginResponseStatus.USERNAME_PASSWORD_INCORRECT:
@@ -71,7 +77,24 @@ export class LoginComponent {
       error: ({ error }: { error: LoginResponse }) => {
         this.loginError = error.status;
         this.loading = false;
+
+        if (this.loginError === LoginResponseStatus.PASSWORD_RESET_REQUIRED) {
+          this.passwordResetRequiredToast();
+        }
       }
+    });
+  }
+
+  passwordResetRequiredToast() {
+    this.router.navigate(['/forgot-password']);
+    this.translateService.get('alert.user.login.passwordResetRequired').subscribe((res: string) => {
+      const alertConfig: NwbAlertConfig = {
+        message: res,
+        duration: 8000,
+        position: 'is-right',
+        color: 'is-warning'
+      };
+      this.toastr.open(alertConfig);
     });
   }
 }
