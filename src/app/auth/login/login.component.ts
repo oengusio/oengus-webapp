@@ -71,15 +71,16 @@ export class LoginComponent {
             return;
           case LoginResponseStatus.USERNAME_PASSWORD_INCORRECT:
             return;
-          case LoginResponseStatus.PASSWORD_RESET_REQUIRED:
-            this.passwordResetRequiredToast();
-            return;
         }
       },
 
       error: ({ error }: { error: LoginResponse }) => {
         this.loginError = error.status;
         this.loading = false;
+
+        if (this.loginError === LoginResponseStatus.PASSWORD_RESET_REQUIRED) {
+          this.passwordResetRequiredToast();
+        }
       }
     });
   }
