@@ -14,7 +14,7 @@ export class MarathonScheduleExportComponent {
   @Input() scheduleId: number;
   @Input() disabled: boolean;
 
-  formats = [ 'ics', 'csv', 'json' ];
+  formats = [ 'ics', 'csv', 'json', 'gdq' ];
 
   constructor(
     private scheduleService: ScheduleService,
@@ -24,6 +24,11 @@ export class MarathonScheduleExportComponent {
 
   runExport(format: string, event: Event) {
     event.preventDefault();
+
+    if (format === 'gdq') {
+      window.open('https://github.com/oengusio/gdq-tracker-import', '_blank');
+      return;
+    }
 
     const marathonId = this.marathonService.marathon.id;
     this.loadingBar.setLoading(true);
