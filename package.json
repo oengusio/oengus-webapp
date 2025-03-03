@@ -48,7 +48,7 @@
     "flag-icon-css": "^4.1.7",
     "lodash": "^4.17.15",
     "markdown-it": "^14.1.0",
-    "markdown-it-emoji": "^2.0.2",
+    "markdown-it-emoji": "^3.0.0",
     "markdown-it-github-alerts": "^0.3.0",
     "markdown-it-multimd-table": "^4.2.3",
     "moment": "^2.30.1",
