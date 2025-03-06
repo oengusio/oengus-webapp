@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import MarkdownIt from 'markdown-it';
 import tablePlugin from 'markdown-it-multimd-table';
-import emojiPlugin from 'markdown-it-emoji';
+import { full as emojiPlugin } from 'markdown-it-emoji';
 import MarkdownItGitHubAlerts from 'markdown-it-github-alerts';
 import createDOMPurify from 'dompurify';
 
