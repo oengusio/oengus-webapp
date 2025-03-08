@@ -48,7 +48,7 @@
     <tr
       [class]="getRowParity(i)"
       cdkDrag
-      [cdkDragDisabled]="expanded.has(line.position)"
+      [cdkDragDisabled]="showAllCustomData || expanded.has(line.position)"
     >
       <td>
         <app-element-table-cell
@@ -138,7 +138,7 @@
       </td>
     </tr>
 
-    <tr *ngIf="expanded.has(line.position) || showAllCustomData">
+    <tr *ngIf="showAllCustomData || expanded.has(line.position)">
       <td colspan="10">
         <app-element-table-detail [class]="getRowParity(i)">
           <app-setup-block-editor *ngIf="line.setupBlock"

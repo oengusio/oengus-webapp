@@ -41,6 +41,7 @@ export class EditComponent implements OnInit, OnDestroy {
   env = environment;
 
   submissionsLoaded = false;
+  // when this is changed, we need to instead tell the component to just open all fields (fill the expanded sets I think)
   showAllCustomData = false;
 
 
