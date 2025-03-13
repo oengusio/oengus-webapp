@@ -71,4 +71,6 @@ export class ScheduleTableComponent {
     moveItemInArray(this.lines, event.previousIndex, event.currentIndex);
     this.computeSchedule.emit();
   }
+
+  toggleCollapseAll(open: boolean): void {}
 }

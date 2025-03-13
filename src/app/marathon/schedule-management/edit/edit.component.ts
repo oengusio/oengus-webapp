@@ -41,7 +41,6 @@ export class EditComponent implements OnInit, OnDestroy {
   env = environment;
 
   submissionsLoaded = false;
-  // when this is changed, we need to instead tell the component to just open all fields (fill the expanded sets I think)
   showAllCustomData = false;
 
 
@@ -488,6 +487,10 @@ export class EditComponent implements OnInit, OnDestroy {
       .filter((runner) => runner);
 
     this.addToTimelineWhenRunsInTodo(usernames);
+  }
+
+  toggleCollapseAllRows(open: boolean): void {
+    this.scheduleTable.toggleCollapseAll(open);
   }
 
   private removeFromTimelineWhenNoMoreRunsTodo(usernames: string[]) {
