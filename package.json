@@ -70,7 +70,7 @@
     "@types/dompurify": "^3.2.0",
     "@types/jasmine": "~5.1.5",
     "@types/jasminewd2": "~2.0.3",
-    "@types/lodash": "^4.17.13",
+    "@types/lodash": "^4.17.16",
     "@types/markdown-it": "^14.1.2",
     "@types/moment-timezone": "^0.5.30",
     "@types/node": "~22.10.2",
