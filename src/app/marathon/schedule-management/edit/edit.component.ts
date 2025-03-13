@@ -489,6 +489,10 @@ export class EditComponent implements OnInit, OnDestroy {
     this.addToTimelineWhenRunsInTodo(usernames);
   }
 
+  toggleCollapseAllRows(open: boolean): void {
+    this.scheduleTable.toggleCollapseAll(open);
+  }
+
   private removeFromTimelineWhenNoMoreRunsTodo(usernames: string[]) {
     if (!this.hideCompleteUsers) {
       return;

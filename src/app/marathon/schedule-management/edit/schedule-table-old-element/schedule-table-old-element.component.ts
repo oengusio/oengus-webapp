@@ -9,7 +9,7 @@ import { debounce } from 'lodash';
 import { getRunnerDisplayName, getRunnerUsername } from '../../../../../utils/helpers';
 
 /**
- * @deprecated please use the new component when we get it working.
+ * @-deprecated please use the new component when we get it working.
  */
 @Component({
     selector: 'app-schedule-table-old-element',
@@ -26,7 +26,7 @@ export class ScheduleTableOldElementComponent {
   @Input() lines: V2ScheduleLine[] = [];
   @Input() availabilities: AvailabilityResponse;
   @Input() selectedAvailabilities: Array<string>;
-  @Input() showAllCustomData = false;
+  showAllCustomData = false;
   @Output() moveToToDo = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
   @Output() computeSchedule = new EventEmitter<void>();
@@ -99,5 +99,9 @@ export class ScheduleTableOldElementComponent {
 
   private estimateChanged() {
     this.computeSchedule.emit();
+  }
+
+  toggleCollapseAll(open: boolean): void {
+    this.showAllCustomData = open;
   }
 }

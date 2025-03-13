@@ -192,11 +192,9 @@
     <h4 class="subtitle mb-0 is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
     <small class="mb-2">{{ 'marathon.schedule.management.markdown' | translate}}</small>
 
-    <app-schedule-table
-      *ngIf="env.newScheduleEditTable; else oldScheduleTable"
+    <app-schedule-table-old-element
       [lines]="lines"
       [availabilities]="allAvailabilities"
-      [showAllCustomData]="showAllCustomData"
       (moveToToDo)="moveToTodo($event)"
       (delete)="removeScheduleLine($event)"
       (computeSchedule)="computeSchedule()"
@@ -204,22 +202,7 @@
       (selectAvailability)="triggerSelectedAvailability($event)"
       (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
       #scheduleTableComponent
-    ></app-schedule-table>
-
-    <ng-template #oldScheduleTable>
-      <app-schedule-table-old-element
-        [lines]="lines"
-        [showAllCustomData]="showAllCustomData"
-        [availabilities]="allAvailabilities"
-        (moveToToDo)="moveToTodo($event)"
-        (delete)="removeScheduleLine($event)"
-        (computeSchedule)="computeSchedule()"
-        [selectedAvailabilities]="availabilitiesSelected"
-        (selectAvailability)="triggerSelectedAvailability($event)"
-        (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
-        #scheduleTableComponent
-      ></app-schedule-table-old-element>
-    </ng-template>
+    ></app-schedule-table-old-element>
 
     <div class="buttons mt-4">
       <button type="button" class="button is-info"
@@ -231,7 +214,7 @@
       <app-clone-popup [selfId]="scheduleInfo.id"></app-clone-popup>
 
       <!-- custom data toggle -->
-      <nwb-switch class="ml-2" [(ngModel)]="showAllCustomData" name="showAllCustomData">
+      <nwb-switch class="ml-2" [(ngModel)]="showAllCustomData" (ngModelChange)="toggleCollapseAllRows($event)" name="showAllCustomData">
         <span>{{ 'marathon.schedule.management.customData.newTick' | translate }}</span>
       </nwb-switch>
     </div>
