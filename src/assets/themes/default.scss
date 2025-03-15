@@ -1,5 +1,6 @@
 @use 'sass:color' as color;
 
+@use './solar';
 @import 'bulmaswatch/solar/variables';
 
 $white: white;
@@ -15,6 +16,8 @@ $discordBlurple: #5865F2;
 $twitchPurple: #9146FF;
 $googleWhite: #000000;
 
+$size-normal: 1px;
+
 $input-placeholder-color: #9d8484;
 //$input-background-color: $white;
 
@@ -25,13 +28,14 @@ $input-placeholder-color: #9d8484;
 }
 
 @import 'bulma/bulma';
-@import 'bulmaswatch/solar/overrides';
-@import '@duncte123/bulma-tagsinput/src/sass/index';
+//@import 'bulmaswatch/solar/overrides';
+@import '@duncte123/bulma-tagsinput/dist/css/bulma-tagsinput';
 @import './elements';
 
 @import 'bulma-extensions/dist/css/bulma-extensions.min.css';
-@import 'bulma-extensions/bulma-tooltip/src/sass/index';
-@import 'node_modules/@wizishop/ng-wizi-bulma/ng-wizi-bulma';
+//@import 'bulma-extensions/bulma-tooltip/src/sass/index';
+@import 'bulma-extensions/bulma-tooltip/dist/css/bulma-tooltip.min';
+//@import 'node_modules/@wizishop/ng-wizi-bulma/ng-wizi-bulma';
 // Manually copied in the file, it was not exported
 @import "./assets/themes/ng-pick-datetime-picker.min.css";
 @import "flag-icon-css/css/flag-icons.min.css";

@@ -1,0 +1,429 @@
+@use 'sass:color' as color;
+//@use "bulma/sass/utilities/css-variables" as cv;
+
+// Improve text contrast for accessibility
+$-lightness-change: 36%;
+
+@use 'bulmaswatch/solar/variables' as s;
+
+@use "bulma/sass" as b with (
+  $grey-lighter: s.$grey-lighter,
+  $grey-light: s.$grey-light,
+  $grey: s.$grey,
+  //$grey-alt: s.$grey-alt,
+  $grey-dark: s.$grey-dark,
+  $grey-darker: s.$grey-darker,
+
+  $orange: s.$orange,
+  $yellow: s.$yellow,
+  $green: s.$green,
+  $cyan: s.$cyan,
+  $blue: s.$blue,
+  $purple: s.$purple,
+  $red: s.$red,
+
+  $primary: s.$cyan,
+  $warning: s.$orange,
+  $info: s.$blue,
+
+  $light: s.$grey-lighter,
+  $dark: darken(s.$grey-darker, 3),
+
+  $family-sans-serif: s.$family-sans-serif,
+  $family-monospace: s.$family-monospace,
+
+  $radius-small: s.$radius-small,
+  $radius: s.$radius,
+  $radius-large: s.$radius-large,
+
+  $body-size: s.$body-size,
+  $size-7: s.$size-7,
+
+  $title-weight: s.$title-weight,
+  $subtitle-weight: s.$subtitle-weight,
+  //$subtitle-color: s.$subtitle-color,
+
+  //$border-width: s.$border-width,
+  $border: s.$border,
+
+  $body-background-color: s.$body-background-color,
+  $background: s.$background,
+  $footer-background-color: s.$footer-background-color,
+
+  $title-color: color.scale(s.$title-color, $lightness: $-lightness-change),
+  $subtitle-color: color.scale(s.$title-color, $lightness: $-lightness-change),
+  $subtitle-strong-color: s.$subtitle-strong-color,
+
+  $text: color.scale(s.$text, $lightness: $-lightness-change),
+  //$text-light: lighten(s.$text, 10),
+  //$text-strong: darken(s.$text, 5),
+
+  $box-shadow: s.$box-shadow,
+  $box-background-color: s.$box-background-color,
+
+  $card-shadow: s.$card-shadow,
+  $card-background-color: s.$card-background-color,
+  //$card-header-box-shadow: s.$card-header-box-shadow,
+  $card-header-background-color: s.$card-header-background-color,
+  $card-footer-background-color: s.$card-footer-background-color,
+
+  $link: s.$link,
+  //$link-hover: s.$link-hover,
+  //$link-hover-border: s.$link-hover-border,
+  //$link-focus: s.$link-focus,
+  //$link-focus-border: s.$link-focus-border,
+  //$link-active: s.$link-active,
+
+  //$button-color: s.$button-color,
+  //$button-background-color: s.$button-background-color,
+  $button-border-color: s.$button-border-color,
+
+  //$input-color: s.$input-color,
+  $input-icon-color: s.$input-icon-color,
+  //$input-background-color: s.$input-background-color,
+  $input-border-color: s.$input-border-color,
+  //$input-hover-color: s.$input-hover-color,
+  $input-disabled-background-color: s.$input-disabled-background-color,
+  $input-disabled-border-color: s.$input-disabled-border-color,
+
+  $table-color: s.$table-color,
+  //$table-head-color: s.$table-head-color,
+  $table-background-color: s.$table-background-color,
+  //$table-cell-border: s.$table-cell-border,
+
+  $table-row-hover-background-color: s.$table-row-hover-background-color,
+  $table-striped-row-even-background-color: s.$table-striped-row-even-background-color,
+  $table-striped-row-even-hover-background-color: s.$table-striped-row-even-hover-background-color,
+
+  //$pagination-border-color: s.$pagination-border-color,
+
+  $navbar-background-color: s.$navbar-background-color,
+  $navbar-item-color: s.$navbar-item-color,
+  $navbar-item-hover-background-l-delta: 0,
+  $navbar-item-active-background-l-delta: 0,
+  //$navbar-item-hover-color: s.$navbar-item-hover-color,
+  //$navbar-item-active-color: s.$navbar-item-active-color,
+  //$navbar-item-active-background-color: s.$navbar-item-active-background-color,
+  //$navbar-item-hover-background-color: s.$navbar-item-hover-background-color,
+  //$navbar-dropdown-border-top: s.$navbar-dropdown-border-top,
+  //$navbar-divider-background-color: s.$navbar-divider-background-color,
+  $navbar-dropdown-arrow: s.$navbar-dropdown-arrow,
+  $navbar-dropdown-background-color: s.$navbar-dropdown-background-color,
+  //$navbar-dropdown-item-hover-color: s.$navbar-dropdown-item-hover-color,
+  //$navbar-dropdown-item-hover-background-color: s.$navbar-dropdown-item-hover-background-color,
+  //$navbar-dropdown-item-active-background-color: s.$navbar-dropdown-item-active-background-color,
+  //$navbar-dropdown-item-active-color: s.$navbar-dropdown-item-active-color,
+  $navbar-burger-color: s.$navbar-item-color,
+
+  $dropdown-content-background-color: s.$dropdown-content-background-color,
+  //$navbar-dropdown-item-background-l: color.lightness(s.$navbar-dropdown-background-color),
+  $navbar-dropdown-item-background-l: 0,
+  $navbar-dropdown-item-h: color.hue(s.$dropdown-item-color),
+  $navbar-dropdown-item-s: color.saturation(s.$dropdown-item-color),
+  $navbar-dropdown-item-l: color.lightness(s.$dropdown-item-color),
+  $navbar-dropdown-item-color-l: color.lightness(s.$dropdown-item-color),
+  //$dropdown-item-color: s.$dropdown-item-color,
+  //$dropdown-item-hover-color: s.$dropdown-item-hover-color,
+
+  // Oengus specific overrides
+  $code: #ffc8e2,
+  $input-placeholder-color: #9d8484,
+);
+
+@forward "bulma/sass/themes";
+
+@use 'bulma/sass/utilities/mixins' as mixins;
+
+$radius: s.$radius;
+
+.section {
+  background-color: s.$grey-darker;
+}
+
+hr {
+  //height: b.$border-width;
+}
+
+h6 {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hero {
+  background-color: s.$grey-dark;
+}
+
+a {
+  transition: all 200ms ease;
+}
+
+.content blockquote {
+  border-color: s.$grey;
+}
+
+.button {
+  transition: all 200ms ease;
+  border-width: s.$border-width;
+
+  &.is-active,
+  &.is-focused,
+  &:active,
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(b.$button-focus-border-color, 0.5);
+  }
+
+  &.is-loading:after {
+    border-color: transparent transparent s.$button-border-color
+    s.$button-border-color;
+  }
+  @each $name, $pair in b.$colors {
+    $color: nth($pair, 1);
+    $color-invert: b.bulmaFindColorInvert($color);
+
+    &.is-#{$name} {
+      &.is-hovered,
+      &:hover {
+        background-color: lighten($color, 7.5%);
+      }
+
+      &.is-active,
+      &.is-focused,
+      &:active,
+      &:focus {
+        border-color: $color;
+        box-shadow: 0 0 0 2px rgba($color, 0.5);
+      }
+    }
+  }
+}
+
+.label {
+  color: s.$grey-lighter;
+}
+
+.button,
+.input,
+.pagination-ellipsis,
+.pagination-link,
+.pagination-next,
+.pagination-previous,
+.select,
+.select select,
+.textarea,
+.control.has-icons-left .icon,
+.control.has-icons-right .icon {
+  height: 2.5em;
+}
+
+.input,
+.textarea {
+  transition: all 200ms ease;
+  box-shadow: none;
+  border-width: s.$border-width;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.select {
+  &:after,
+  select {
+    border-width: s.$border-width;
+  }
+}
+
+.control {
+  &.has-addons {
+    .button,
+    .input,
+    .select {
+      margin-right: -(s.$border-width);
+    }
+  }
+}
+
+.progress {
+  &::-webkit-progress-value {
+    background-color: s.$grey;
+  }
+
+  &::-moz-progress-bar {
+    background-color: s.$grey;
+  }
+}
+
+.card {
+  $card-border-color: lighten(s.$grey-darker, 5);
+  border: s.$border-width solid $card-border-color;
+  border-radius: $radius;
+
+  .card-image {
+    img {
+      border-radius: $radius $radius 0 0;
+    }
+  }
+
+  .card-header {
+    border-radius: $radius $radius 0 0;
+  }
+
+  .card-footer,
+  .card-footer-item {
+    border-width: s.$border-width;
+    border-color: $card-border-color;
+  }
+}
+
+.notification {
+  @each $name, $pair in b.$colors {
+    $color: nth($pair, 1);
+    $color-invert: b.bulmaFindColorInvert($color);
+
+    &.is-#{$name} {
+      a:not(.button) {
+        color: $color-invert;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.tag {
+  border-radius: $radius;
+}
+
+.menu-list {
+  a {
+    transition: all 300ms ease;
+  }
+}
+
+.modal-card-body {
+  background-color: s.$grey-darker;
+}
+
+.modal-card-foot,
+.modal-card-head {
+  border-color: s.$grey-dark;
+}
+
+.message-header {
+  font-weight: b.$weight-bold;
+}
+
+.message-body {
+  border-width: s.$border-width;
+  border-color: s.$grey;
+}
+
+.navbar {
+  border-radius: $radius;
+
+  &.is-transparent {
+    background-color: transparent;
+  }
+
+  @include mixins.touch {
+    .navbar-menu {
+      background-color: inherit;
+    }
+  }
+
+  @each $name, $pair in b.$colors {
+    $color: nth($pair, 1);
+    $color-invert: b.bulmaFindColorInvert($color);
+
+    &.is-#{$name} {
+      @include mixins.touch {
+        .navbar-item,
+        .navbar-link {
+          color: rgba($color-invert, 0.75);
+
+          &.is-active {
+            color: $color-invert;
+          }
+        }
+      }
+    }
+  }
+}
+
+.pagination-link,
+.pagination-next,
+.pagination-previous {
+  border-width: s.$border-width;
+}
+
+.panel-block,
+.panel-heading,
+.panel-tabs {
+  border-width: s.$border-width;
+
+  &:first-child {
+    border-top-width: s.$border-width;
+  }
+}
+
+.panel-heading {
+  font-weight: b.$weight-bold;
+}
+
+.panel-tabs {
+  a {
+    border-width: s.$border-width;
+    margin-bottom: -(s.$border-width);
+
+    &.is-active {
+      border-bottom-color: s.$link-active;
+    }
+  }
+}
+
+.panel-block {
+  &:hover {
+    color: s.$link-hover;
+
+    .panel-icon {
+      color: s.$link-hover;
+    }
+  }
+
+  &.is-active {
+    .panel-icon {
+      color: s.$link-active;
+    }
+  }
+}
+
+.tabs {
+  a {
+    border-bottom-width: s.$border-width;
+    margin-bottom: -(s.$border-width);
+  }
+
+  ul {
+    border-bottom-width: s.$border-width;
+  }
+
+  &.is-boxed {
+    a {
+      border-width: s.$border-width;
+    }
+
+    li.is-active a {
+      background-color: s.$background;
+    }
+  }
+
+  &.is-toggle {
+    li a {
+      border-width: s.$border-width;
+      margin-bottom: 0;
+    }
+
+    li + li {
+      margin-left: -(s.$border-width);
+    }
+  }
+}
+
+
