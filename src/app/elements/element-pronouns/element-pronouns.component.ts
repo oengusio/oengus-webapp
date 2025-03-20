@@ -44,6 +44,7 @@ export class ElementPronounsComponent implements OnInit {
       placeholder,
       caseSensitive: false,
       trim: true,
+      tagClass: 'is-rounded is-primary',
       source: (value: string) => new Promise((resolve) => {
         if (!value) {
           return resolve([]);

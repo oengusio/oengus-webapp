@@ -40,7 +40,7 @@ export class ElementLanguagesComponent implements OnInit {
       this.translateService.get('user.settings.language.no_results')
     );
 
-    this.languagesTagsInput = window['tagsInput'] = new BulmaTagsInput(tagsInput, {
+    this.languagesTagsInput = new BulmaTagsInput(tagsInput, {
       noResultsLabel: noResults,
       selectable: false,
       freeInput: false,
@@ -49,6 +49,7 @@ export class ElementLanguagesComponent implements OnInit {
       placeholder: placeholder,
       caseSensitive: false,
       trim: true,
+      tagClass: 'is-rounded is-primary',
       source: (value: string) => new Promise((resolve) => {
         if (!value) {
           return resolve([]);
