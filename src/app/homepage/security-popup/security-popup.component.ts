@@ -17,6 +17,6 @@ export class SecurityPopupComponent implements OnInit {
 
   closePopup() {
     this.open = false;
-    document.cookie = 'popup_closed=true; expires=Thu, 01 Jan 2026 00:00:00 UTC; SameSite=Strict';
+    document.cookie = 'popup_closed=true; expires=Thu, 01 Jan 2026 00:00:00 UTC; Path=/; SameSite=Strict';
   }
 }
