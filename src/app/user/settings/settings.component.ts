@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../../model/user';
+import { SelfUser } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
 import { faPlus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -24,16 +24,14 @@ interface LangType {
     styleUrls: ['./settings.component.scss'],
     standalone: false
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
   public faSyncAlt = faSyncAlt;
   public faPlus = faPlus;
 
-  public user: User;
+  public user: SelfUser;
   public loading = false;
   mfaLoading = false;
   mfaSettings: InitMFADto | null = null;
-  tmpPronouns: string[] = [];
-  tmpLanguages: string[] = [];
 
   public deactivateConfirm = false;
   public deleteConfirm = false;
@@ -54,22 +52,6 @@ export class SettingsComponent implements OnInit {
           this.syncService(params, queryParams);
         }
       });
-    });
-  }
-
-  ngOnInit(): void {
-    this.tmpPronouns = this.stringOrList(this.user.pronouns || '');
-    this.tmpLanguages = this.stringOrList(this.user.languagesSpoken || '');
-  }
-
-  private stringOrList(value: string | string[]): string[] {
-    return Array.isArray(value) ? value : (value || '').split(',');
-  }
-
-  addNewConnection(): void {
-    this.user.connections.push({
-      platform: 'SPEEDRUNCOM',
-      username: '',
     });
   }
 
@@ -132,12 +114,6 @@ export class SettingsComponent implements OnInit {
     window.location.assign(this.authService.patreonSyncUrl);
   }
 
-  syncTwitter(): void {
-    delete this.user.twitterId;
-
-    window.location.assign(this.authService.getTwitterAuthUrl(true));
-  }
-
   unsyncDiscord(): void {
     delete this.user.discordId;
     this.removeConnectionByType('DISCORD');
@@ -155,33 +131,32 @@ export class SettingsComponent implements OnInit {
     this.submit();
   }
 
-  unsyncTwitter(): void {
-    delete this.user.twitterId;
-    this.removeConnectionByType('TWITTER');
-    this.submit();
-  }
-
-  submit(): Promise<void> {
+  async submit(): Promise<void> {
     this.loading = true;
-    this.user.pronouns = this.tmpPronouns.join(',') || null;
-    this.user.languagesSpoken = this.tmpLanguages.join(',');
     this.user.connections = this.user.connections.filter((c) => !!c.platform && !!c.username);
     // Display name is free text basically, here we strip all HTML and only keep text or default to username.
     this.user.displayName = DOMPurify.sanitize(this.user.displayName, {  ALLOWED_TAGS: [ '#text' ] }) || this.user.username;
-    return new Promise((resolve) => {
-      this.userService.update(this.user).add(() => {
-        this.loading = false;
-        resolve();
-      });
-    });
+
+    try {
+      await this.userService.update(this.user);
+    } catch (error) {
+      //
+    } finally {
+      this.loading = false;
+    }
   }
 
-  deactivate(): void {
+  async deactivate(): Promise<void> {
     this.loading = true;
     this.user.enabled = false;
-    this.userService.update(this.user).add(() => {
+
+    try {
+      await this.userService.update(this.user);
+    } catch (error) {
+      //
+    } finally {
       this.loading = false;
-    });
+    }
   }
 
   deleteUser(): void {
