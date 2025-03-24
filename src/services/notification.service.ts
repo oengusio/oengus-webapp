@@ -18,6 +18,10 @@ export class NotificationService {
     firstValueFrom(this.translateService.get(translateKey)).then((message) => {
       this.toastRaw(message, duration, color);
     });
+
+    // const message = this.translateService.instant(translateKey);
+
+    // return this.toastRaw(message, duration, color);
   }
 
   public toastRaw(message: string, duration: number = 3000, color: string = 'success') {

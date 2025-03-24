@@ -52,17 +52,17 @@ export class UserService extends BaseService {
   }
 
   async updatePatreonStatus(userId: number, data: PatreonStatusDto): Promise<void> {
-    return firstValueFrom(this.http.put<void>(this.url(`/${userId}/patreon-status`), data));
+    return firstValueFrom(this.http.put<void>(this.url(`${userId}/patreon-status`), data));
   }
 
   fetchRoles(userId: number): Observable<string[]> {
-    return this.http.get<DataListDto<string>>(this.v2Url(`/${userId}/roles`))
+    return this.http.get<DataListDto<string>>(this.v2Url(`${userId}/roles`))
       .pipe(map(x => x.data));
   }
 
   updateRoles(userId: number, roles: string[]): Observable<BooleanStatusDto> {
     return this.http.put<BooleanStatusDto>(
-      this.v2Url(`/${userId}/roles`),
+      this.v2Url(`${userId}/roles`),
       { data: roles }
     );
   }
@@ -110,7 +110,7 @@ export class UserService extends BaseService {
   }
 
   async update(user: SelfUser) {
-    const resp = await firstValueFrom(this.http.patch<SelfUser>(this.url(`${user.id}`), user));
+    const resp = await firstValueFrom(this.http.patch<SelfUser>(this.v2Url(`${user.id}`), user));
 
     this._user = resp;
     localStorage.setItem('user', JSON.stringify(resp));

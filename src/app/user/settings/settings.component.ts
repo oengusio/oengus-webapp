@@ -133,19 +133,6 @@ export class SettingsComponent {
     this.user.displayName = DOMPurify.sanitize(this.user.displayName, {  ALLOWED_TAGS: [ '#text' ] }) || this.user.username;
 
     try {
-      await this.userService.update(this.user);
-    } catch (error) {
-      //
-    } finally {
-      this.loading = false;
-    }
-  }
-
-  async deactivate(): Promise<void> {
-    this.loading = true;
-    this.user.enabled = false;
-
-    try {
       this.user = await this.userService.update(this.user);
 
       if (!this.user.enabled) {
@@ -160,6 +147,13 @@ export class SettingsComponent {
     } finally {
       this.loading = false;
     }
+  }
+
+  async deactivate(): Promise<void> {
+    this.loading = true;
+    this.user.enabled = false;
+
+    return this.submit();
   }
 
   deleteUser(): void {
