@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelfUser } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
-import { faPlus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { SocialAccount } from '../../../model/social-account';
 import { SocialPlatform, SocialPlatformName } from '../../../model/social-platform';
@@ -12,11 +11,7 @@ import DOMPurify from 'dompurify';
 import { AuthService } from '../../../services/auth.service';
 import { InitMFADto } from '../../../model/auth';
 import { firstValueFrom } from 'rxjs';
-
-interface LangType {
-  value: string;
-  text: string;
-}
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
     selector: 'app-settings',
@@ -25,7 +20,6 @@ interface LangType {
     standalone: false
 })
 export class SettingsComponent {
-  public faSyncAlt = faSyncAlt;
   public faPlus = faPlus;
 
   public user: SelfUser;
@@ -42,8 +36,9 @@ export class SettingsComponent {
               private authService: AuthService,
               private route: ActivatedRoute,
               private router: Router,
-              private toastr: NwbAlertService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private notificationService: NotificationService
+  ) {
     this.user = {...this.route.snapshot.data.user};
 
     this.route.params.subscribe(params => {
@@ -151,9 +146,17 @@ export class SettingsComponent {
     this.user.enabled = false;
 
     try {
-      await this.userService.update(this.user);
+      this.user = await this.userService.update(this.user);
+
+      if (!this.user.enabled) {
+        this.notificationService.toast('alert.user.deactivate.success');
+        this.userService.logout();
+        return;
+      }
+
+      this.notificationService.toast('alert.user.update.success');
     } catch (error) {
-      //
+      this.notificationService.toast('alert.user.update.error', 3000, 'warning');
     } finally {
       this.loading = false;
     }
@@ -163,9 +166,7 @@ export class SettingsComponent {
     this.loading = true;
     this.userService.delete(this.user.id).subscribe(() => {
       this.loading = false;
-      this.translateService.get('user.settings.deletingAccount.success').subscribe((res: string) => {
-        this.showSuccessToast(res);
-      });
+      this.notificationService.toast('user.settings.deletingAccount.success');
       // redirects to home
       this.userService.logout();
     });
@@ -195,7 +196,7 @@ export class SettingsComponent {
 
   async requestNewPassword(): Promise<void> {
     if (!this.user.emailVerified) {
-      this.translateService.get('auth.emailVerificationRequired').subscribe((res: string) => {
+      firstValueFrom(this.translateService.get('auth.emailVerificationRequired')).then((res: string) => {
         alert(res);
       });
 
@@ -209,9 +210,7 @@ export class SettingsComponent {
 
       if (status === 'PASSWORD_RESET_SENT') {
         this.pwResetButtonDisabled = true;
-        this.translateService.get('auth.passwordReset.requested').subscribe((res: string) => {
-          this.showSuccessToast(res);
-        });
+        this.notificationService.toast('auth.passwordReset.requested');
       }
 
       console.log(status);
@@ -298,43 +297,19 @@ export class SettingsComponent {
 
       if (error.error) {
         if (error.error.error) {
-          this.showWarningToast(error.error.error);
+          this.notificationService.toastRaw(error.error.error, 3000, 'warning');
         } else {
           switch (error.error) {
             case 'ACCOUNT_ALREADY_SYNCED':
-              this.translateService.get('alert.user.sync.alreadySynced').subscribe((res: string) => {
-                this.showWarningToast(res);
-              });
+              this.notificationService.toast('alert.user.sync.alreadySynced', 3000, 'warning');
               break;
             default:
-              this.translateService.get('alert.user.sync.error').subscribe((res: string) => {
-                this.showWarningToast(res);
-              });
+              this.notificationService.toast('alert.user.sync.error', 3000, 'warning');
               break;
           }
         }
         return;
       }
     }
-  }
-
-  private showSuccessToast(message: string): void {
-    const alertConfig: NwbAlertConfig = {
-      message: message,
-      duration: 3000,
-      position: 'is-right',
-      color: 'is-success',
-    };
-    this.toastr.open(alertConfig);
-  }
-
-  private showWarningToast(message: string): void {
-    const alertConfig: NwbAlertConfig = {
-      message: message,
-      duration: 3000,
-      position: 'is-right',
-      color: 'is-warning',
-    };
-    this.toastr.open(alertConfig);
   }
 }

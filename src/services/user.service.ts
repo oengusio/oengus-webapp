@@ -6,7 +6,6 @@ import { SelfUser, User, UserSupporterStatus } from '../model/user';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { firstValueFrom, Observable, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
 import { PatreonStatusDto, RelationShip } from '../model/annoying-patreon-shit';
@@ -24,8 +23,7 @@ export class UserService extends BaseService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              toastr: NwbAlertService,
-              private translateService: TranslateService) {
+              toastr: NwbAlertService) {
     super(toastr, 'users');
   }
 
@@ -112,34 +110,12 @@ export class UserService extends BaseService {
   }
 
   async update(user: SelfUser) {
-    const resp = await firstValueFrom(this.http.patch(this.url(`${user.id}`), user));
+    const resp = await firstValueFrom(this.http.patch<SelfUser>(this.url(`${user.id}`), user));
 
-    this._user = {...this._user, ...user};
-    localStorage.setItem('user', JSON.stringify(this._user));
-  }
+    this._user = resp;
+    localStorage.setItem('user', JSON.stringify(resp));
 
-  update_old(user: SelfUser) {
-    return this.http.patch(this.url(`${user.id}`), user).subscribe({
-      next: () => {
-        if (!user.enabled) {
-          this.translateService.get('alert.user.deactivate.success').subscribe((res: string) => {
-            this.toast(res);
-          });
-          this.logout();
-          return;
-        }
-        this._user = {...this._user, ...user};
-        localStorage.setItem('user', JSON.stringify(this._user));
-        this.translateService.get('alert.user.update.success').subscribe((res: string) => {
-          this.toast(res);
-        });
-      },
-      error: () => {
-        this.translateService.get('alert.user.update.error').subscribe((res: string) => {
-          this.toast(res, 3000, 'warning');
-        });
-      },
-    });
+    return resp;
   }
 
   exists(name: string): Observable<ValidationErrors> {
