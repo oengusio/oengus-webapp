@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
-import { BasicUserInfo, SelfUser, User } from '../../../../model/user';
+import { BasicUserInfo } from '../../../../model/user';
 
 @Component({
     selector: 'app-sidebar-moderators',
