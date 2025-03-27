@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { User } from '../../../model/user';
+import { BasicUserInfo } from '../../../model/user';
 import { environment } from '../../../environments/environment';
 import { LineRunner } from '../../../model/schedule-line';
 
@@ -10,7 +10,7 @@ import { LineRunner } from '../../../model/schedule-line';
     standalone: false
 })
 export class UserLinkComponent {
-  @Input() user: User | LineRunner;
+  @Input() user: BasicUserInfo | LineRunner;
   @Input() username = '';
   @Input() target = '_self';
   @Input() isLink = false;

@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/r
 import { forkJoin, Observable, of } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { MarathonService } from '../../services/marathon.service';
-import { User } from '../../model/user';
+import { SelfUser } from '../../model/user';
 import { Marathon } from '../../model/marathon';
 import { catchError, map } from 'rxjs/operators';
 
@@ -31,7 +31,7 @@ export class CanActivateMarathonSettingsGuard  {
     return this.condition(this.userService.user, this.marathonService.marathon);
   }
 
-  private condition(user: User, marathon: Marathon) {
+  private condition(user: SelfUser, marathon: Marathon) {
     return !!user && !user.roles.includes('ROLE_BANNED') &&
       (marathon.creator.id === user.id ||
         marathon.moderators.findIndex(u => u.id === user.id) >= 0 ||

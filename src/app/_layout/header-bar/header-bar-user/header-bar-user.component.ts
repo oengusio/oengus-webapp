@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service';
-import { User } from '../../../../model/user';
+import { SelfUser } from '../../../../model/user';
 
 @Component({
     selector: 'app-header-bar-user',
@@ -15,7 +15,7 @@ export class HeaderBarUserComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get user(): User {
+  get user(): SelfUser {
     return this.userService.user;
   }
 }

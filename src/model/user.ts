@@ -29,6 +29,26 @@ export class User implements BasicUserInfo {
   patreonId: string;
 }
 
+export interface SelfUser extends BasicUserInfo {
+  email: string;
+  pronouns: string[];
+  languagesSpoken: string[];
+  country: string;
+  roles: string[];
+  connections: SocialAccount[];
+
+  enabled: boolean;
+  mfaEnabled: boolean;
+  emailVerified: boolean;
+
+  discordId: string;
+  twitchId: string;
+  patreonId: string;
+
+  createdAt: string;
+  lastLogin: string;
+}
+
 export interface UserSupporterStatus {
   sponsor: boolean;
   patreon: boolean;

@@ -1,11 +1,11 @@
-import { User } from './user';
+import { BasicUserInfo } from './user';
 import { Question } from './question';
 
 export class Marathon {
 
   id: string;
   name: string;
-  creator: User;
+  creator: BasicUserInfo;
   startDate: Date;
   endDate: Date;
   submissionsStartDate: Date;
@@ -26,7 +26,7 @@ export class Marathon {
   country: string;
   discordPrivacy: boolean;
   submitsOpen: boolean;
-  moderators: User[];
+  moderators: BasicUserInfo[];
   defaultSetupTime: string;
   defaultSetupTimeHuman: string;
   selectionDone: boolean;

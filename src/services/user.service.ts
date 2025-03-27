@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
-import { User, UserSupporterStatus } from '../model/user';
+import { SelfUser, User, UserSupporterStatus } from '../model/user';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { firstValueFrom, Observable, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
 import { PatreonStatusDto, RelationShip } from '../model/annoying-patreon-shit';
@@ -20,12 +19,11 @@ import { map } from 'rxjs/operators';
 })
 export class UserService extends BaseService {
 
-  private _user: User;
+  private _user: SelfUser;
 
   constructor(private http: HttpClient,
               private router: Router,
-              toastr: NwbAlertService,
-              private translateService: TranslateService) {
+              toastr: NwbAlertService) {
     super(toastr, 'users');
   }
 
@@ -54,17 +52,17 @@ export class UserService extends BaseService {
   }
 
   async updatePatreonStatus(userId: number, data: PatreonStatusDto): Promise<void> {
-    return firstValueFrom(this.http.put<void>(this.url(`/${userId}/patreon-status`), data));
+    return firstValueFrom(this.http.put<void>(this.url(`${userId}/patreon-status`), data));
   }
 
   fetchRoles(userId: number): Observable<string[]> {
-    return this.http.get<DataListDto<string>>(this.v2Url(`/${userId}/roles`))
+    return this.http.get<DataListDto<string>>(this.v2Url(`${userId}/roles`))
       .pipe(map(x => x.data));
   }
 
   updateRoles(userId: number, roles: string[]): Observable<BooleanStatusDto> {
     return this.http.put<BooleanStatusDto>(
-      this.v2Url(`/${userId}/roles`),
+      this.v2Url(`${userId}/roles`),
       { data: roles }
     );
   }
@@ -83,13 +81,13 @@ export class UserService extends BaseService {
     }
   }
 
-  getMe(): Observable<User> {
-    return this.http.get<User>(this.url('me'));
+  getMe(): Observable<SelfUser> {
+    return this.http.get<SelfUser>(this.v2Url('@me'));
   }
 
   me(): Subscription {
     return this.getMe().subscribe({
-      next: (response: User) => {
+      next: (response: SelfUser) => {
         console.log(response);
 
         if (response) {
@@ -111,28 +109,13 @@ export class UserService extends BaseService {
     });
   }
 
-  update(user: User) {
-    return this.http.patch(this.url(`${user.id}`), user).subscribe({
-      next: () => {
-        if (!user.enabled) {
-          this.translateService.get('alert.user.deactivate.success').subscribe((res: string) => {
-            this.toast(res);
-          });
-          this.logout();
-          return;
-        }
-        this._user = {...this._user, ...user};
-        localStorage.setItem('user', JSON.stringify(this._user));
-        this.translateService.get('alert.user.update.success').subscribe((res: string) => {
-          this.toast(res);
-        });
-      },
-      error: () => {
-        this.translateService.get('alert.user.update.error').subscribe((res: string) => {
-          this.toast(res, 3000, 'warning');
-        });
-      },
-    });
+  async update(user: SelfUser) {
+    const resp = await firstValueFrom(this.http.patch<SelfUser>(this.v2Url(`${user.id}`), user));
+
+    this._user = resp;
+    localStorage.setItem('user', JSON.stringify(resp));
+
+    return resp;
   }
 
   exists(name: string): Observable<ValidationErrors> {
@@ -196,7 +179,12 @@ export class UserService extends BaseService {
     return Boolean(this._user);
   }
 
-  set token(value: string) {
+  set token(value: string | null) {
+    if (value === null) {
+      localStorage.removeItem('token');
+      return;
+    }
+
     localStorage.setItem('token', value);
   }
 
@@ -204,7 +192,7 @@ export class UserService extends BaseService {
     return localStorage.getItem('token');
   }
 
-  get user(): User {
+  get user(): SelfUser {
     return this._user;
   }
 }

@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@a
 import { UserService } from '../../services/user.service';
 import { firstValueFrom, forkJoin, Observable, of } from 'rxjs';
 import { MarathonService } from '../../services/marathon.service';
-import { User } from '../../model/user';
+import { SelfUser } from '../../model/user';
 import { Marathon } from '../../model/marathon';
 import { catchError, map } from 'rxjs/operators';
 
@@ -40,7 +40,7 @@ export class CanActivateMarathonSubmitGuard  {
     return this.condition(this.userService.user, this.marathonService.marathon);
   }
 
-  private condition(user: User, marathon: Marathon) {
+  private condition(user: SelfUser, marathon: Marathon) {
     return marathon.canEditSubmissions && user !== null && !this.userService.isBanned();
   }
 }

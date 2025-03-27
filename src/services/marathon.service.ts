@@ -9,8 +9,8 @@ import { UserService } from './user.service';
 import { HomepageMetadata } from '../model/homepage-metadata';
 import { TranslateService } from '@ngx-translate/core';
 import moment from 'moment-timezone';
-import { User } from '../model/user';
-import {BaseService} from './BaseService';
+import { SelfUser, User } from '../model/user';
+import { BaseService } from './BaseService';
 import { parseMastodonUrl } from '../utils/helpers';
 import { Question } from '../model/question';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
 import { UserProfile } from '../model/user-profile';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MarathonService extends BaseService {
   private _marathon: Marathon;
@@ -117,11 +117,11 @@ export class MarathonService extends BaseService {
   }
 
   findHomepageMetadata(): Observable<HomepageMetadata> {
-    return this.http.get<HomepageMetadata>(this.v2Url('/for-home'));
+    return this.http.get<HomepageMetadata>(this.v2Url('for-home'));
   }
 
   findHomepageModerated(): Observable<{ marathons: Marathon[] }> {
-    return this.http.get<{ marathons: Marathon[] }>(this.url('/moderated-by/me'));
+    return this.http.get<{ marathons: Marathon[] }>(this.url('moderated-by/me'));
   }
 
   findForMonth(start: Date, end: Date): Observable<Marathon[]> {
@@ -141,7 +141,7 @@ export class MarathonService extends BaseService {
     return this.http.get<any>(this.url(`${marathon.id}/discord/lookup-invite?invite_code=${marathon.discord}`));
   }
 
-  isAdmin(user: User): boolean {
+  isAdmin(user: User | SelfUser): boolean {
     if (!user) {
       return false;
     }
@@ -157,7 +157,7 @@ export class MarathonService extends BaseService {
   isWebhookOnline(marathonId: string, url: string): Observable<any> {
     const params = new HttpParams().set('url', url);
     return this.http.get(this.url(`${marathonId}/webhook`), {
-      params: params
+      params: params,
     });
   }
 

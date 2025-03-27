@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../../../model/user';
+import { Component } from '@angular/core';
+import { SelfUser } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
-import { faPlus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { SocialAccount } from '../../../model/social-account';
 import { SocialPlatform, SocialPlatformName } from '../../../model/social-platform';
@@ -12,11 +11,7 @@ import DOMPurify from 'dompurify';
 import { AuthService } from '../../../services/auth.service';
 import { InitMFADto } from '../../../model/auth';
 import { firstValueFrom } from 'rxjs';
-
-interface LangType {
-  value: string;
-  text: string;
-}
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
     selector: 'app-settings',
@@ -24,16 +19,13 @@ interface LangType {
     styleUrls: ['./settings.component.scss'],
     standalone: false
 })
-export class SettingsComponent implements OnInit {
-  public faSyncAlt = faSyncAlt;
+export class SettingsComponent {
   public faPlus = faPlus;
 
-  public user: User;
+  public user: SelfUser;
   public loading = false;
   mfaLoading = false;
   mfaSettings: InitMFADto | null = null;
-  tmpPronouns: string[] = [];
-  tmpLanguages: string[] = [];
 
   public deactivateConfirm = false;
   public deleteConfirm = false;
@@ -44,8 +36,9 @@ export class SettingsComponent implements OnInit {
               private authService: AuthService,
               private route: ActivatedRoute,
               private router: Router,
-              private toastr: NwbAlertService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private notificationService: NotificationService
+  ) {
     this.user = {...this.route.snapshot.data.user};
 
     this.route.params.subscribe(params => {
@@ -54,22 +47,6 @@ export class SettingsComponent implements OnInit {
           this.syncService(params, queryParams);
         }
       });
-    });
-  }
-
-  ngOnInit(): void {
-    this.tmpPronouns = this.stringOrList(this.user.pronouns || '');
-    this.tmpLanguages = this.stringOrList(this.user.languagesSpoken || '');
-  }
-
-  private stringOrList(value: string | string[]): string[] {
-    return Array.isArray(value) ? value : (value || '').split(',');
-  }
-
-  addNewConnection(): void {
-    this.user.connections.push({
-      platform: 'SPEEDRUNCOM',
-      username: '',
     });
   }
 
@@ -132,12 +109,6 @@ export class SettingsComponent implements OnInit {
     window.location.assign(this.authService.patreonSyncUrl);
   }
 
-  syncTwitter(): void {
-    delete this.user.twitterId;
-
-    window.location.assign(this.authService.getTwitterAuthUrl(true));
-  }
-
   unsyncDiscord(): void {
     delete this.user.discordId;
     this.removeConnectionByType('DISCORD');
@@ -155,42 +126,41 @@ export class SettingsComponent implements OnInit {
     this.submit();
   }
 
-  unsyncTwitter(): void {
-    delete this.user.twitterId;
-    this.removeConnectionByType('TWITTER');
-    this.submit();
-  }
-
-  submit(): Promise<void> {
+  async submit(): Promise<void> {
     this.loading = true;
-    this.user.pronouns = this.tmpPronouns.join(',') || null;
-    this.user.languagesSpoken = this.tmpLanguages.join(',');
     this.user.connections = this.user.connections.filter((c) => !!c.platform && !!c.username);
     // Display name is free text basically, here we strip all HTML and only keep text or default to username.
     this.user.displayName = DOMPurify.sanitize(this.user.displayName, {  ALLOWED_TAGS: [ '#text' ] }) || this.user.username;
-    return new Promise((resolve) => {
-      this.userService.update(this.user).add(() => {
-        this.loading = false;
-        resolve();
-      });
-    });
+
+    try {
+      this.user = await this.userService.update(this.user);
+
+      if (!this.user.enabled) {
+        this.notificationService.toast('alert.user.deactivate.success');
+        this.userService.logout();
+        return;
+      }
+
+      this.notificationService.toast('alert.user.update.success');
+    } catch (error) {
+      this.notificationService.toast('alert.user.update.error', 3000, 'warning');
+    } finally {
+      this.loading = false;
+    }
   }
 
-  deactivate(): void {
+  async deactivate(): Promise<void> {
     this.loading = true;
     this.user.enabled = false;
-    this.userService.update(this.user).add(() => {
-      this.loading = false;
-    });
+
+    return this.submit();
   }
 
   deleteUser(): void {
     this.loading = true;
     this.userService.delete(this.user.id).subscribe(() => {
       this.loading = false;
-      this.translateService.get('user.settings.deletingAccount.success').subscribe((res: string) => {
-        this.showSuccessToast(res);
-      });
+      this.notificationService.toast('user.settings.deletingAccount.success');
       // redirects to home
       this.userService.logout();
     });
@@ -220,7 +190,7 @@ export class SettingsComponent implements OnInit {
 
   async requestNewPassword(): Promise<void> {
     if (!this.user.emailVerified) {
-      this.translateService.get('auth.emailVerificationRequired').subscribe((res: string) => {
+      firstValueFrom(this.translateService.get('auth.emailVerificationRequired')).then((res: string) => {
         alert(res);
       });
 
@@ -234,9 +204,7 @@ export class SettingsComponent implements OnInit {
 
       if (status === 'PASSWORD_RESET_SENT') {
         this.pwResetButtonDisabled = true;
-        this.translateService.get('auth.passwordReset.requested').subscribe((res: string) => {
-          this.showSuccessToast(res);
-        });
+        this.notificationService.toast('auth.passwordReset.requested');
       }
 
       console.log(status);
@@ -323,43 +291,19 @@ export class SettingsComponent implements OnInit {
 
       if (error.error) {
         if (error.error.error) {
-          this.showWarningToast(error.error.error);
+          this.notificationService.toastRaw(error.error.error, 3000, 'warning');
         } else {
           switch (error.error) {
             case 'ACCOUNT_ALREADY_SYNCED':
-              this.translateService.get('alert.user.sync.alreadySynced').subscribe((res: string) => {
-                this.showWarningToast(res);
-              });
+              this.notificationService.toast('alert.user.sync.alreadySynced', 3000, 'warning');
               break;
             default:
-              this.translateService.get('alert.user.sync.error').subscribe((res: string) => {
-                this.showWarningToast(res);
-              });
+              this.notificationService.toast('alert.user.sync.error', 3000, 'warning');
               break;
           }
         }
         return;
       }
     }
-  }
-
-  private showSuccessToast(message: string): void {
-    const alertConfig: NwbAlertConfig = {
-      message: message,
-      duration: 3000,
-      position: 'is-right',
-      color: 'is-success',
-    };
-    this.toastr.open(alertConfig);
-  }
-
-  private showWarningToast(message: string): void {
-    const alertConfig: NwbAlertConfig = {
-      message: message,
-      duration: 3000,
-      position: 'is-right',
-      color: 'is-warning',
-    };
-    this.toastr.open(alertConfig);
   }
 }
