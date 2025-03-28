@@ -24,7 +24,7 @@ export class HeaderBarVerifyEmailComponent {
     this.authService.requestNewVerificationEmail().subscribe({
       next: ({ status }) => {
         console.log(status);
-        alert('Email sent!');
+        alert('Email sent! (unless you have a microsoft account, microsoft is blocking oengus for unknown reasons)');
         this.loading = false;
       },
 
