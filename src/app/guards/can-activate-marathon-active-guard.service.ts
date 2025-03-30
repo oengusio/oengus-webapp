@@ -1,28 +1,33 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateFn, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
 import { MarathonService } from '../../services/marathon.service';
 import { map } from 'rxjs/operators';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class CanActivateMarathonActiveGuard  {
+export class CanActivateMarathonActiveGuard {
 
   constructor(private marathonService: MarathonService) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-    Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
     if (!this.marathonService.marathon) {
-      return new Promise<boolean>((resolve, reject) => {
-        resolve(this.marathonService.find(route.parent.paramMap.get('id')).pipe(
+      const findObservable = this.marathonService.find(route.parent.paramMap.get('id'))
+        .pipe(
           map((marathon) => {
             return !this.marathonService.isArchived(marathon);
-          })
-        ).toPromise());
-      });
+          }),
+        );
+
+      return firstValueFrom(findObservable);
     }
+
     return !this.marathonService.isArchived();
   }
 }
+
+export const canActivateMarathonActiveGuard: CanActivateFn = (route, state) => {
+  return inject(CanActivateMarathonActiveGuard).canActivate(route, state);
+};

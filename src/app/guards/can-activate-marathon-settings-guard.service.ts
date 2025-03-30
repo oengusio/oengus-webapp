@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { forkJoin, Observable, of } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateFn, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
+import { firstValueFrom, forkJoin, of } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { MarathonService } from '../../services/marathon.service';
 import { SelfUser } from '../../model/user';
@@ -15,19 +15,20 @@ export class CanActivateMarathonSettingsGuard  {
   constructor(private userService: UserService, private marathonService: MarathonService) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-    Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
     if (!this.userService.user && !this.marathonService.marathon) {
-      return new Promise<boolean>((resolve, reject) => {
-        resolve(forkJoin([this.userService.getMe(), this.marathonService.find(route.parent.paramMap.get('id'))])
-          .pipe(
-            map(([user, marathon]) => {
-              return this.condition(user, marathon);
-            }),
-            catchError(err => of(false))
-          ).toPromise());
-      });
+      const checkObservable = forkJoin([
+        this.userService.getMe(),
+        this.marathonService.find(route.parent.paramMap.get('id')),
+      ])
+        .pipe(
+          map(([user, marathon]) => this.condition(user, marathon)),
+          catchError(err => of(false)),
+        );
+
+      return firstValueFrom(checkObservable);
     }
+
     return this.condition(this.userService.user, this.marathonService.marathon);
   }
 
@@ -38,3 +39,7 @@ export class CanActivateMarathonSettingsGuard  {
         user.roles.includes('ROLE_ADMIN'));
   }
 }
+
+export const canActivateMarathonSettingsGuard: CanActivateFn = (route, state) => {
+  return inject(CanActivateMarathonSettingsGuard).canActivate(route, state);
+};

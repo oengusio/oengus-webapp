@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@busacca/ng-pick-datetime';
 import { NwbCommonModule, NwbEditInPlaceModule, NwbPaginatorModule, NwbSwitchModule } from '@wizishop/ng-wizi-bulma';
 import { DirectivesModule } from '../directives/directives.module';
-import { CanActivateMarathonSettingsGuard } from '../guards/can-activate-marathon-settings-guard.service';
+import { canActivateMarathonSettingsGuard } from '../guards/can-activate-marathon-settings-guard.service';
 import { MarathonResolver } from '../resolvers/marathon-resolver';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SettingsComponent } from './settings/settings.component';
@@ -18,7 +18,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { TranslateModule } from '@ngx-translate/core';
 import { SelectionComponent } from './selection/selection.component';
 import { SelectionResolver } from '../resolvers/selection-resolver';
-import { CanActivateMarathonSubmitGuard } from '../guards/can-activate-marathon-submit-guard.service';
+import { canActivateMarathonSubmitGuard } from '../guards/can-activate-marathon-submit-guard.service';
 import { OengusCommonModule } from '../oengus-common/oengus-common.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScheduleComponent } from './schedule/schedule.component';
@@ -32,7 +32,7 @@ import { CanActivateMarathonDonationsGuard } from '../guards/can-activate-marath
 import { DonationsComponent } from './donations/donations.component';
 import { DonationsResolver } from '../resolvers/donations-resolver';
 import { DonationsStatsResolver } from '../resolvers/donations-stats-resolver';
-import { CanActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
+import { canActivateMarathonActiveGuard } from '../guards/can-activate-marathon-active-guard.service';
 import { AdsenseComponent } from '../adsense/adsense.component';
 import { OengusShirtTallComponent } from '../adsense/oengus/oengus-shirt-tall/oengus-shirt-tall.component';
 import { OengusShirtWideComponent } from '../adsense/oengus/oengus-shirt-wide/oengus-shirt-wide.component';
@@ -83,11 +83,15 @@ import { moderatorsResolver } from '../resolvers/moderators.resolver';
 import { ClonePopupComponent } from './schedule-management/edit/clone-popup/clone-popup.component';
 import { MarkdownPipe } from '../pipes/markdown.pipe';
 import { SubmissionLazyLoaderComponent } from './submissions/submission-lazy-loader/submission-lazy-loader.component';
+import { isEmailVerifiedGuardGuard } from '../guards/is-email-verified-guard.guard';
 
 const marathonRoutes: Routes = [
   {
     path: 'marathon/new',
-    component: NewMarathonComponent
+    component: NewMarathonComponent,
+    canActivate: [
+      isEmailVerifiedGuardGuard,
+    ],
   },
   {
     path: 'marathon/:id',
@@ -109,7 +113,8 @@ const marathonRoutes: Routes = [
           moderators: moderatorsResolver,
         },
         canActivate: [
-          (route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state),
+          isEmailVerifiedGuardGuard,
+          canActivateMarathonSettingsGuard,
         ]
       },
       {
@@ -119,8 +124,9 @@ const marathonRoutes: Routes = [
           submission: SubmissionResolver
         },
         canActivate: [
-          (route, state) => inject(CanActivateMarathonSubmitGuard).canActivate(route, state),
-          (route, state) => inject(CanActivateMarathonActiveGuard).canActivate(route, state)
+          isEmailVerifiedGuardGuard,
+          canActivateMarathonSubmitGuard,
+          canActivateMarathonActiveGuard,
         ]
       },
       {
@@ -141,8 +147,9 @@ const marathonRoutes: Routes = [
           isAdminRoute: true,
         },
         canActivate: [
-          (route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state),
-          (route, state) => inject(CanActivateMarathonActiveGuard).canActivate(route, state)
+          isEmailVerifiedGuardGuard,
+          canActivateMarathonSettingsGuard,
+          canActivateMarathonActiveGuard,
         ]
       },
       {
@@ -162,8 +169,9 @@ const marathonRoutes: Routes = [
           //
         },
         canActivate: [
-          (route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state),
-          (route, state) => inject(CanActivateMarathonActiveGuard).canActivate(route, state)
+          isEmailVerifiedGuardGuard,
+          canActivateMarathonSettingsGuard,
+          canActivateMarathonActiveGuard,
         ]
       },
       {
@@ -176,8 +184,9 @@ const marathonRoutes: Routes = [
           //
         },
         canActivate: [
-          (route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state),
-          (route, state) => inject(CanActivateMarathonActiveGuard).canActivate(route, state)
+          isEmailVerifiedGuardGuard,
+          canActivateMarathonSettingsGuard,
+          canActivateMarathonActiveGuard,
         ]
       },
       {
@@ -190,8 +199,9 @@ const marathonRoutes: Routes = [
           withCustomData: true,
         },
         canActivate: [
-          (route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state),
-          (route, state) => inject(CanActivateMarathonActiveGuard).canActivate(route, state)
+          isEmailVerifiedGuardGuard,
+          canActivateMarathonSettingsGuard,
+          canActivateMarathonActiveGuard,
         ]
       },
       {
@@ -205,6 +215,7 @@ const marathonRoutes: Routes = [
           withUnapproved: false
         },
         canActivate: [
+          isEmailVerifiedGuardGuard,
           (route, state) => inject(CanActivateMarathonIncentivesGuard).canActivate(route, state)
 
         ]
@@ -221,9 +232,10 @@ const marathonRoutes: Routes = [
           withUnapproved: true
         },
         canActivate: [
-          (route, state) => inject(CanActivateMarathonSettingsGuard).canActivate(route, state),
+          isEmailVerifiedGuardGuard,
+          canActivateMarathonSettingsGuard,
           (route, state) => inject(CanActivateMarathonIncentivesGuard).canActivate(route, state),
-          (route, state) => inject(CanActivateMarathonActiveGuard).canActivate(route, state)
+          canActivateMarathonActiveGuard,
         ]
       },
       {
@@ -236,7 +248,11 @@ const marathonRoutes: Routes = [
           withLocked: false,
           withUnapproved: false
         },
-        canActivate: [CanActivateMarathonDonationsGuard, CanActivateMarathonActiveGuard]
+        canActivate: [
+          isEmailVerifiedGuardGuard,
+          CanActivateMarathonDonationsGuard,
+          canActivateMarathonActiveGuard,
+        ]
       },
       {
         path: 'donations',
@@ -328,11 +344,8 @@ const marathonRoutes: Routes = [
     //
   ],
   providers: [
-    CanActivateMarathonSettingsGuard,
-    CanActivateMarathonSubmitGuard,
     CanActivateMarathonIncentivesGuard,
     CanActivateMarathonDonationsGuard,
-    CanActivateMarathonActiveGuard,
     MarathonResolver,
     SubmissionResolver,
     ScheduleBySlugResolver,
