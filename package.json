@@ -22,7 +22,7 @@
     "@angular/forms": "^19.2.1",
     "@angular/localize": "^19.2.1",
     "@angular/platform-browser": "^19.2.1",
-    "@angular/platform-browser-dynamic": "^19.2.1",
+    "@angular/platform-browser-dynamic": "^19.2.4",
     "@angular/router": "^19.2.1",
     "@busacca/ng-pick-datetime": "^13.0.1",
     "@duncte123/bulma-tagsinput": "^1.0.8",
