@@ -4,6 +4,12 @@
 
 @use './assets/themes/default' as theme;
 
+
+@font-face {
+  font-family: 'OpenDyslectic';
+  src: url('/assets/fonts/OpenDyslectic/OpenDyslexic-Regular.woff2') format('woff2');
+}
+
 * {
   // Controls how far stuff is apart from each other.
   // Matches the Bulma box padding so that we can have consistent spacing
@@ -11,7 +17,9 @@
   --spacing: 20px;
 
   // For best effect, manually enable this
-  // cursor: url("./assets/tony_cursor_fixed.png"), auto !important;
+   cursor: url("./assets/tony_cursor_fixed.png"), auto !important;
+
+  font-family: 'OpenDyslectic', 'sans-serif', serif;
 }
 
 // <editor-fold desc="v2 default layout" defaultstate="collapsed">
