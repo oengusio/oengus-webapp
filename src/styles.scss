@@ -5,10 +5,10 @@
 @use './assets/themes/default' as theme;
 
 
-@font-face {
-  font-family: 'OpenDyslectic';
-  src: url('/assets/fonts/OpenDyslectic/OpenDyslexic-Regular.woff2') format('woff2');
-}
+// @font-face {
+//   font-family: 'OpenDyslectic';
+//   src: url('/assets/fonts/OpenDyslectic/OpenDyslexic-Regular.woff2') format('woff2');
+// }
 
 * {
   // Controls how far stuff is apart from each other.
@@ -17,9 +17,7 @@
   --spacing: 20px;
 
   // For best effect, manually enable this
-   cursor: url("./assets/tony_cursor_fixed.png"), auto !important;
-
-  font-family: 'OpenDyslectic', 'sans-serif', serif;
+  // cursor: url("./assets/tony_cursor_fixed.png"), auto !important;
 }
 
 // <editor-fold desc="v2 default layout" defaultstate="collapsed">
