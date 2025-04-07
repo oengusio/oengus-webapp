@@ -68,7 +68,7 @@
     "@biesbjerg/ngx-translate-extract": "^7.0.4",
     "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
     "@types/dompurify": "^3.2.0",
-    "@types/jasmine": "~5.1.5",
+    "@types/jasmine": "~5.1.7",
     "@types/jasminewd2": "~2.0.13",
     "@types/lodash": "^4.17.16",
     "@types/markdown-it": "^14.1.2",
