@@ -11,6 +11,8 @@ import { WidgetSigninPickerComponent } from './widget-signin-picker/widget-signi
 import { ElementModule } from '../elements/elements.module';
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 import { SimpleMdComponent } from './simple-md/simple-md.component';
+import { NotificationListComponent } from './notification-list/notification-list.component';
+import { MarkdownPipe } from '../pipes/markdown.pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { SimpleMdComponent } from './simple-md/simple-md.component';
     OengusMdComponent,
     WidgetSigninPickerComponent,
     SimpleMdComponent,
+    NotificationListComponent,
   ],
   exports: [
     OengusMdComponent,
@@ -26,6 +29,7 @@ import { SimpleMdComponent } from './simple-md/simple-md.component';
     SidebarOverviewComponent,
     WidgetSigninPickerComponent,
     SimpleMdComponent,
+    NotificationListComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +39,7 @@ import { SimpleMdComponent } from './simple-md/simple-md.component';
     TranslateModule,
     LocalizeRouterModule,
     ElementModule,
-  ]
+    MarkdownPipe,
+  ],
 })
 export class ComponentsModule { }

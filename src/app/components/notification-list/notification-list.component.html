@@ -1,0 +1,6 @@
+<section *ngIf="notifications.length" class="section container">
+  <div *ngFor="let notification of notifications; let i = index" class="notification is-{{notification.color}}">
+    <button class="delete" (click)="deleteNotification(i)"></button>
+    <div [innerHTML]="notification.message | markdown"></div>
+  </div>
+</section>

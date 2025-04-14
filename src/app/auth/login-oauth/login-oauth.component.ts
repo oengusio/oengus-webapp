@@ -7,6 +7,7 @@ import { LoadingBarService } from '../../../services/loading-bar.service';
 import { AuthService } from '../../../services/auth.service';
 import { firstValueFrom } from 'rxjs';
 import { LoginResponse, LoginResponseStatus } from '../../../model/auth';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
     selector: 'app-login-oauth',
@@ -22,6 +23,7 @@ export class LoginOauthComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastr: NwbAlertService,
+    private notificationService: NotificationService,
     private translateService: TranslateService,
     private loader: LoadingBarService
   ) { }
@@ -87,21 +89,13 @@ export class LoginOauthComponent implements OnInit {
   }
 
   unknownAccountToast(username: string | null) {
-    this.router.navigate(['/register'], {
+    this.router.navigate(['/login'], {
       queryParams: {
         username,
       }
     });
 
-    this.translateService.get('alert.user.login.noAccountFound').subscribe((res: string) => {
-      const alertConfig: NwbAlertConfig = {
-        message: res,
-        duration: 8000,
-        position: 'is-right',
-        color: 'is-warning'
-      };
-      this.toastr.open(alertConfig);
-    });
+    this.notificationService.notify('alert.user.login.noAccountFound', 'warning');
   }
 
   disabledAccountToast() {
