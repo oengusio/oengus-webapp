@@ -8,6 +8,7 @@ import { UserService } from '../../../../services/user.service';
 import { debounce } from 'lodash';
 import { firstValueFrom } from 'rxjs';
 import { UserProfile } from '../../../../model/user-profile';
+import { connectionMetas } from '../../../../model/social-account';
 
 @Component({
     selector: 'app-marathon-general-settings',
@@ -31,9 +32,12 @@ export class GeneralSettingsComponent implements OnInit {
   public now: Date;
   public env = environment;
 
+  bskySettings = connectionMetas.BLUESKY;
+  mastodonSettings = connectionMetas.MASTODON;
+
   marathonDescMaxLen = 10000;
 
-  // TODO: remove support for bot webhook
+  // TODO: remove support for bot webhook (and give it its own settings)
   public loadWebhookCheck: boolean;
   public isWebhookOnline = true;
   public isOengusBotWebhook = false;

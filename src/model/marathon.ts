@@ -21,6 +21,7 @@ export class Marathon {
   twitch: string;
   twitter: string;
   mastodon?: string;
+  bluesky?: string;
   discord: string;
   youtube: string;
   country: string;
@@ -109,6 +110,7 @@ export interface MarathonSettings {
   twitch: string;
   twitter: string;
   mastodon: string;
+  bluesky: string;
   discord: string;
   youtube: string;
   discordPrivate: boolean;

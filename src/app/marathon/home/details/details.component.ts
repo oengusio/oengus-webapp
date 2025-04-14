@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
-import { faDiscord, faMastodon, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faMastodon, faTwitch, faTwitter, faYoutube, faBluesky } from '@fortawesome/free-brands-svg-icons';
 import { faComputer } from '@fortawesome/free-solid-svg-icons';
+import { SocialPlatform } from '../../../../model/social-platform';
+import { stripAtPrefix } from '../../../../model/social-account';
 
 @Component({
     selector: 'app-details',
@@ -12,10 +14,10 @@ import { faComputer } from '@fortawesome/free-solid-svg-icons';
 export class DetailsComponent {
   @Input() marathon: Marathon;
 
-
   public faTwitch = faTwitch;
   public faTwitter = faTwitter;
   public faMastodon = faMastodon;
+  public faBluesky = faBluesky;
   public faDiscord = faDiscord;
   public faYoutube = faYoutube;
   public faComputer = faComputer;
@@ -38,7 +40,15 @@ export class DetailsComponent {
 
     const [ username, domain ] = this.marathon.mastodon.split('@');
 
-    return `https://${domain}/@${username}`;
+    return `https://${domain}/@${username}?utm_source=Oengus`;
+  }
+
+  get bskyUrl(): string {
+    if (this.marathon.bluesky) {
+      return `${SocialPlatform.BLUESKY}${stripAtPrefix(this.marathon.bluesky)}?utm_source=Oengus`;
+    }
+
+    return '';
   }
 
 }

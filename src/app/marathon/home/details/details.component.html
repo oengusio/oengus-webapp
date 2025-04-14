@@ -26,32 +26,38 @@
       {{ 'language.' + marathon.language | translate }}
     </p>
   </div>
-  <a *ngIf="marathon.twitch" [href]="'https://twitch.tv/' +  marathon.twitch" class="info-box">
+  <a *ngIf="marathon.twitch" [href]="'https://twitch.tv/' +  marathon.twitch + '?utm_source=Oengus'" target="_blank" class="info-box">
     <p class="info-label">
       {{ 'platform.TWITCH' | translate }}
     </p>
     <fa-icon [icon]="faTwitch" class="info"></fa-icon>
   </a>
-  <a *ngIf="marathon.mastodon" [href]="mastodonUrl" class="info-box">
+  <a *ngIf="marathon.mastodon" [href]="mastodonUrl" target="_blank" class="info-box">
     <p class="info-label">
       {{ 'platform.MASTODON' | translate }}
     </p>
     <fa-icon [icon]="faMastodon" class="info"></fa-icon>
   </a>
-  <a *ngIf="marathon.twitter" [href]="'https://twitter.com/' + marathon.twitter" class="info-box">
+  <a *ngIf="marathon.bluesky" [href]="bskyUrl" target="_blank" class="info-box">
+    <p class="info-label">
+      {{ 'platform.BLUESKY' | translate }}
+    </p>
+    <fa-icon [icon]="faBluesky" class="info"></fa-icon>
+  </a>
+  <a *ngIf="marathon.twitter" [href]="'https://twitter.com/' + marathon.twitter + '?utm_source=Oengus'" target="_blank" class="info-box">
     <p class="info-label">
       {{ 'platform.TWITTER' | translate }}
     </p>
     <fa-icon [icon]="faTwitter" class="info"></fa-icon>
   </a>
-  <a *ngIf="!marathon.discordPrivacy && marathon.discord" [href]="'https://discord.gg/' + marathon.discord" class="info-box">
+  <a *ngIf="!marathon.discordPrivacy && marathon.discord" [href]="'https://discord.gg/' + marathon.discord + '?utm_source=Oengus'" target="_blank" class="info-box">
     <p class="info-label">
       {{ 'platform.DISCORD' | translate }}
     </p>
     <fa-icon [icon]="faDiscord" class="info"></fa-icon>
   </a>
 
-  <a *ngIf="marathon.youtube" [href]="marathon.youtube" class="info-box">
+  <a *ngIf="marathon.youtube" [href]="marathon.youtube + '?utm_source=Oengus'" target="_blank" class="info-box">
     <p class="info-label">
       {{ 'platform.YOUTUBE' | translate }}
     </p>
@@ -59,6 +65,7 @@
   </a>
 </div>
 
+<!-- TODO: youtube player -->
 <app-element-twitch-player
   *ngIf="marathon.twitch && isLive"
   [channel]="marathon.twitch"

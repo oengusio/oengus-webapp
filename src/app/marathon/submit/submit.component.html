@@ -46,13 +46,17 @@
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">{{'marathon.home.from' | translate}}</p>
-      <p class="title">{{moment(marathonService.marathon.startDate).tz(timezone).format('L LT')}}</p>
+      <p class="title">
+        <app-element-temporal-datetime [dateTime]="marathonService.marathon.startDate" format="shortDateTime" />
+      </p>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">{{'marathon.home.to' | translate}}</p>
-      <p class="title">{{moment(marathonService.marathon.endDate).tz(timezone).format('L LT')}}</p>
+      <p class="title">
+        <app-element-temporal-datetime [dateTime]="marathonService.marathon.endDate" format="shortDateTime" />
+      </p>
     </div>
   </div>
   <div class="level-item has-text-centered">

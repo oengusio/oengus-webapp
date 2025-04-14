@@ -230,7 +230,7 @@
 <fieldset [disabled]="disabled">
   <div class="columns">
     <div class="column">
-      <label class="label">Twitch</label>
+      <label class="label">{{ 'platform.TWITCH' | translate }}</label>
       <div class="field has-addons">
         <div class="control">
           <a class="button is-static">
@@ -257,7 +257,7 @@
       </div>
     </div>
     <div class="column">
-      <label class="label">Youtube</label>
+      <label class="label">{{ 'platform.YOUTUBE' | translate }}</label>
       <div class="field">
         <div class="control">
           <input class="input"
@@ -283,7 +283,35 @@
 
   <div class="columns">
     <div class="column">
-      <label class="label">Twitter</label>
+      <label class="label">{{ 'platform.DISCORD' | translate }}</label>
+      <div class="field has-addons">
+        <div class="control">
+          <a class="button is-static">
+            https://discord.gg/
+          </a>
+        </div>
+        <div class="control">
+          <input class="input"
+                 [ngClass]="{'is-danger': discord.invalid}"
+                 type="text"
+                 [(ngModel)]="settings.discord"
+                 name="discord"
+                 pattern="^(\w)*$"
+                 maxlength="20"
+                 #discord="ngModel">
+          <p class="help is-pulled-right">{{settings.discord?.length}}/20</p>
+        </div>
+      </div>
+      <div *ngIf="discord.invalid">
+        <p class="help is-danger"
+           *ngIf="discord.errors.pattern">{{ 'marathon.settings.discord.error.pattern' | translate}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column">
+      <label class="label">{{ 'platform.TWITTER' | translate }}</label>
       <div class="field has-addons">
         <div class="control">
           <a class="button is-static">
@@ -310,7 +338,7 @@
       </div>
     </div>
     <div class="column">
-      <label class="label">Mastodon</label>
+      <label class="label">{{ 'platform.MASTODON' | translate }}</label>
       <div class="field">
         <div class="control">
           <input class="input"
@@ -324,6 +352,9 @@
                  #mastodon="ngModel">
         </div>
       </div>
+      <p class="help" *ngIf="settings.mastodon">
+        {{ mastodonSettings.linkBase(settings.mastodon) }}
+      </p>
       <div *ngIf="mastodon.invalid">
         <p class="help is-danger"
            *ngIf="mastodon.errors.maxlength">{{ 'marathon.settings.mastodon.error.max' | translate}}</p>
@@ -332,28 +363,28 @@
       </div>
     </div>
     <div class="column">
-      <label class="label">Discord</label>
-      <div class="field has-addons">
-        <div class="control">
-          <a class="button is-static">
-            https://discord.gg/
-          </a>
-        </div>
+      <label class="label">{{ 'platform.BLUESKY' | translate }}</label>
+      <div class="field">
         <div class="control">
           <input class="input"
-                 [ngClass]="{'is-danger': discord.invalid}"
+                 [ngClass]="{'is-danger': bluesky.invalid}"
+                 placeholder="@oengus.io"
                  type="text"
-                 [(ngModel)]="settings.discord"
-                 name="discord"
-                 pattern="^(\w)*$"
-                 maxlength="20"
-                 #discord="ngModel">
-          <p class="help is-pulled-right">{{settings.discord?.length}}/20</p>
+                 [(ngModel)]="settings.bluesky"
+                 name="mastodon"
+                 maxlength="255"
+                 [pattern]="bskySettings.regex"
+                 #bluesky="ngModel">
         </div>
       </div>
-      <div *ngIf="discord.invalid">
+      <p class="help" *ngIf="settings.bluesky">
+        {{ bskySettings.linkBase(settings.bluesky) }}
+      </p>
+      <div *ngIf="bluesky.invalid">
         <p class="help is-danger"
-           *ngIf="discord.errors.pattern">{{ 'marathon.settings.discord.error.pattern' | translate}}</p>
+           *ngIf="bluesky.errors.maxlength">{{ 'marathon.settings.mastodon.error.max' | translate}}</p>
+        <p class="help is-danger"
+           *ngIf="bluesky.errors.pattern">{{ 'marathon.settings.bluesky.error.pattern' | translate}}</p>
       </div>
     </div>
   </div>
