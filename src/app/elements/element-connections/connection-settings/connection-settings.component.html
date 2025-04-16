@@ -22,6 +22,12 @@
              [placeholder]="'user.settings.connections.username' | translate"
              [(ngModel)]="connection.username"/>
     </div>
+
+    <div *ngIf="username.invalid">
+      <p *ngFor="let error of username.errors | keyvalue" class="help is-danger">
+        {{ 'marathon.settings.'+connection.platform.toLowerCase()+'.error.'+error.key | translate }}
+      </p>
+    </div>
   </div>
   <div class="column">
     <button type="button" (click)="deleteSelf.emit()"

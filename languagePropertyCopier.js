@@ -11,6 +11,18 @@ for (const file of jsonFiles) {
   const json = fs.readFileSync(filePath, 'utf8');
   const obj = JSON.parse(json);
 
+  if (obj?.marathon?.settings?.twitch?.error?.max) {
+    obj.marathon.settings.twitch.error.maxlength = obj.marathon.settings.twitch.error.max;
+
+    delete obj.marathon.settings.twitch.error.max;
+  }
+
+  if (obj?.marathon?.settings?.bluesky?.error?.max) {
+    obj.marathon.settings.bluesky.error.maxlength = obj.marathon.settings.bluesky.error.max;
+
+    delete obj.marathon.settings.bluesky.error.max;
+  }
+
   // if (obj.navbar?.login?.discord) {
   //   obj.login = { ...obj.login };
   //   obj.login.provider = {...obj.login.provider };
@@ -31,10 +43,6 @@ for (const file of jsonFiles) {
   //
   //   obj.login.provider.google = obj.navbar.login.google;
   // }
-
-  if (obj.language?.['pt-PT']) {
-    obj.language.pt = obj.language['pt-PT'];
-  }
 
   fs.writeFileSync(filePath, JSON.stringify(obj, null, 2));
 }
