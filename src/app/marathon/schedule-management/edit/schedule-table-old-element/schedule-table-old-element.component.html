@@ -158,7 +158,8 @@
 
             <div class="control">
             <textarea id="custom-data-{{i}}" class="textarea"
-                      [(ngModel)]="line.customData"
+                      [ngModel]="line.customData"
+                      (blur)="onCustomDataBlur(i, $event)"
                       placeholder='{"layout": "19:9", "other-data": "here"} or whatever else you want'></textarea>
             </div>
           </div>

@@ -104,4 +104,10 @@ export class ScheduleTableOldElementComponent {
   toggleCollapseAll(open: boolean): void {
     this.showAllCustomData = open;
   }
+
+  onCustomDataBlur(lineIndex: number, event: FocusEvent) {
+    const textArea = event.target as HTMLTextAreaElement;
+
+    this.lines[lineIndex].customData = textArea.value;
+  }
 }
