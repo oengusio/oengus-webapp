@@ -265,7 +265,7 @@ export class SubmitComponent implements OnInit {
     });
   }
 
-  getGames() {
+  get gameNames() {
     return this.submission.games.map(game => game.name).join(',');
   }
 

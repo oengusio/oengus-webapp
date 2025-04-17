@@ -86,6 +86,7 @@ import { SubmissionLazyLoaderComponent } from './submissions/submission-lazy-loa
 import { isEmailVerifiedGuardGuard } from '../guards/is-email-verified-guard.guard';
 import { SubmitHeaderComponent } from './submit/submit-header/submit-header.component';
 import { SubmitMultiplayerJoinComponent } from './submit/submit-multiplayer-join/submit-multiplayer-join.component';
+import { SubmitShareButtonsComponent } from './submit/submit-share-buttons/submit-share-buttons.component';
 
 const marathonRoutes: Routes = [
   {
@@ -321,6 +322,7 @@ const marathonRoutes: Routes = [
     ClonePopupComponent,
     SubmitHeaderComponent,
     SubmitMultiplayerJoinComponent,
+    SubmitShareButtonsComponent,
   ],
   imports: [
     CommonModule,
