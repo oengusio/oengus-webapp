@@ -19,6 +19,7 @@ import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
 import gameConsoles from '../../../assets/consoles.json';
 import { firstValueFrom } from 'rxjs';
+import { Opponent } from '../../../model/opponent';
 
 @Component({
     selector: 'app-submit',
@@ -268,23 +269,11 @@ export class SubmitComponent implements OnInit {
     return this.submission.games.map(game => game.name).join(',');
   }
 
-  getMultiplayerSubmission() {
-    this.categoryService.getFromCode(this.marathonService.marathon.id, this.code).subscribe(response => {
-      this.submission.opponents.push(response);
-    }, error => {
-      this.translateService.get('alert.submit.' + error.error).subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-warning',
-        };
-        this.toastr.open(alertConfig);
-      });
-    });
+  addOpponent(opponent: Opponent) {
+    this.submission.opponents.push(opponent);
   }
 
-  removeMultiplayer(index: number) {
+  removeOpponent(index: number) {
     this.submission.opponents.splice(index, 1);
   }
 

@@ -1,0 +1,56 @@
+<nav class="level is-mobile is-flex-wrap-wrap">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">{{'marathon.home.from' | translate}}</p>
+      <p class="title">
+        <app-element-temporal-datetime [dateTime]="startDate" format="shortDateTime" />
+      </p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">{{'marathon.home.to' | translate}}</p>
+      <p class="title">
+        <app-element-temporal-datetime [dateTime]="endDate" format="shortDateTime" />
+      </p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">{{'marathon.submit.maxGamesPerRunner' | translate}}</p>
+      <p class="title"
+         *ngIf="unlimitedGames; else limitedGames">{{'marathon.settings.unlimited' | translate}}</p>
+      <ng-template #limitedGames>
+        <p class="title">{{maxGamesPerRunner}}</p>
+      </ng-template>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">{{'marathon.submit.maxCategoriesPerGame' | translate}}</p>
+      <p class="title"
+         *ngIf="unlimitedCategories; else limitedCategories">{{'marathon.settings.unlimited' | translate}}</p>
+      <ng-template #limitedCategories>
+        <p class="title">{{maxCategoriesPerGame}}</p>
+      </ng-template>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">{{'marathon.submit.racesAllowed' | translate}}</p>
+      <p class="title">
+        <fa-icon [icon]="faCheck"
+                 *ngIf="hasMultiplayer; else noMultiplayer"></fa-icon>
+        <ng-template #noMultiplayer>
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </ng-template>
+      </p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div *ngIf="hasMultiplayer">
+      <p class="heading">{{'marathon.submit.maxNumberOfScreens' | translate}}</p>
+      <p class="title">{{maxNumberOfScreens}}</p>
+    </div>
+  </div>
+</nav>

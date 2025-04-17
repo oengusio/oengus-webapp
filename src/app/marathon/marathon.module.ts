@@ -84,6 +84,8 @@ import { ClonePopupComponent } from './schedule-management/edit/clone-popup/clon
 import { MarkdownPipe } from '../pipes/markdown.pipe';
 import { SubmissionLazyLoaderComponent } from './submissions/submission-lazy-loader/submission-lazy-loader.component';
 import { isEmailVerifiedGuardGuard } from '../guards/is-email-verified-guard.guard';
+import { SubmitHeaderComponent } from './submit/submit-header/submit-header.component';
+import { SubmitMultiplayerJoinComponent } from './submit/submit-multiplayer-join/submit-multiplayer-join.component';
 
 const marathonRoutes: Routes = [
   {
@@ -317,6 +319,8 @@ const marathonRoutes: Routes = [
     SubmissionLazyLoaderComponent,
     MarathonScheduleShareComponent,
     ClonePopupComponent,
+    SubmitHeaderComponent,
+    SubmitMultiplayerJoinComponent,
   ],
   imports: [
     CommonModule,
