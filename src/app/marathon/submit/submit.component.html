@@ -318,7 +318,7 @@
 
         <div class="is-clearfix"></div>
 
-        <!-- categories below this line -->
+        <!-- Categories -->
         <p>
           {{'marathon.submit.table.categories' | translate}}
           <button type="button"
@@ -439,11 +439,29 @@
                             translate}}
                             <span *ngFor="let opponent of category.opponents; let i = index">
                               <span *ngIf="i > 0">, </span>
-                                <app-user [user]="opponent.user" [showSocialLinks]="true"></app-user>
+                                <app-user-link [user]="opponent.user" [isLink]="true" [showAvatar]="true" />
                             </span>
                           </p>
                           <p class="help" *ngIf="category.code">
                             {{'marathon.submit.category.code.help.withCode' | translate}} <b>{{category.code}}</b></p>
+                        </div>
+                      </div>
+
+                      <div class="field" *ngIf="category.type !== 'SINGLE'">
+                        <label for="expectedOpponentCount" class="label">Expected runner count</label>
+
+                        <div class="control">
+                          <input
+                            type="number"
+                            id="expectedOpponentCount"
+                            name="expectedOpponentCount"
+                            [(ngModel)]="category.expectedRunnerCount"
+                            class="input"
+                          />
+
+                          <p class="help">
+                            Enter the number of how many runners are expected for this run. INCLUDING yourself.
+                          </p>
                         </div>
                       </div>
                     </div>
