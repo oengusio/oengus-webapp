@@ -37,7 +37,7 @@
     "@gilsdav/ngx-translate-router": "^7.2.1",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
-    "@sentry/angular": "^9.1.0",
+    "@sentry/angular": "^9.14.0",
     "@wizishop/ng-wizi-bulma": "^18.0.0",
     "angular-ng-autocomplete": "2.0.12",
     "bulma": "^0.9.4",
