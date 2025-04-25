@@ -32,12 +32,14 @@
           </a>
         </span>
 
-        <span *ngIf="waitingRunnerCount > 0">, and {{ waitingRunnerCount }} more</span>
+        <span *ngIf="waitingRunnerCount > 0">{{
+            'marathon.submit.category.opponent.andMore' | translate:{ count: waitingRunnerCount, opponentList: '' }
+          }}</span>
       </p>
 
       <ng-template #waitingText>
         <p>
-          Waiting for {{ category.expectedRunnerCount - 1 }} runners to join...
+          {{ 'marathon.submit.category.opponent.waiting' | translate:{ count: category.expectedRunnerCount - 1 } }}
         </p>
       </ng-template>
 

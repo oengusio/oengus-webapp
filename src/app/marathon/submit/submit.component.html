@@ -448,7 +448,9 @@
                       </div>
 
                       <div class="field" *ngIf="category.type !== 'SINGLE'">
-                        <label for="expectedOpponentCount" class="label">Expected runner count</label>
+                        <label for="expectedOpponentCount" class="label">
+                          {{'marathon.submit.category.expectedRunners.label' | translate}}
+                        </label>
 
                         <div class="control">
                           <input
@@ -460,7 +462,7 @@
                           />
 
                           <p class="help">
-                            Enter the number of how many runners are expected for this run. INCLUDING yourself.
+                            {{'marathon.submit.category.expectedRunners.help.explanation' | translate}}
                           </p>
                         </div>
                       </div>
