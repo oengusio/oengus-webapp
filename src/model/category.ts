@@ -15,10 +15,12 @@ export class Category {
   type: string;
   code: string;
   status: string;
+  expectedRunnerCount: number;
   opponents: Opponent[];
 
   constructor() {
     this.id = -1;
+    this.expectedRunnerCount = 0;
     this.opponents = [];
     this.type = 'SINGLE';
   }

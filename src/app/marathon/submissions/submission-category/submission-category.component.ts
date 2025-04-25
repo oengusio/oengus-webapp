@@ -35,6 +35,10 @@ export class SubmissionCategoryComponent implements OnInit, OnDestroy {
     return this.rawStatus || 'TODO';
   }
 
+  get waitingRunnerCount(): number {
+    return this.category.expectedRunnerCount - 1 /* subtract the runner themselves from the count */ - this.category.opponents.length;
+  }
+
   ngOnInit() {
     this.status = this.statusMap[this.safeStatus] || '';
   }

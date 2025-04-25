@@ -238,6 +238,11 @@ export class SubmitComponent implements OnInit {
     this.submission.games.forEach(game => {
       game.categories.forEach(category => {
         category.estimate = moment.duration(category.estimateHuman).toISOString();
+
+        // Help the user a little bit
+        if (category.type !== 'SINGLE' && category.expectedRunnerCount < 2) {
+          category.expectedRunnerCount = 2;
+        }
       });
     });
 
