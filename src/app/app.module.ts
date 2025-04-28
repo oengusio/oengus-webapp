@@ -24,7 +24,6 @@ import { PatronsResolver } from './resolvers/patrons-resolver';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { KasperskyAnnouncementComponent } from './news/kaspersky-announcement/kaspersky-announcement.component';
 import { ButtonsModule } from './buttons/buttons.module';
-import { PlumComponent } from './plum/plum.component';
 import * as Sentry from '@sentry/angular';
 import { HomepageModeratedResolver } from './resolvers/homepage-moderated-resolver';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
@@ -142,7 +141,6 @@ const appRoutes: Routes = [
     CalendarComponent,
     PageNotFoundComponent,
     KasperskyAnnouncementComponent,
-    PlumComponent,
     SignUpComponent,
     LoginComponent,
     WelcomeComponent,
