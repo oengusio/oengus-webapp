@@ -45,6 +45,7 @@
               }
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
               "src/styles.scss"
             ],
             "scripts": [],

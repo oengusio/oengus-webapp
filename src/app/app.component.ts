@@ -11,6 +11,7 @@ import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import * as Sentry from '@sentry/angular';
 import { TemporalServiceService } from '../services/termporal/temporal-service.service';
 import { LocaleService } from '../services/locale.service';
+import { FaConfig } from '@fortawesome/angular-fontawesome';
 
 @Component({
     selector: 'app-root',
@@ -37,7 +38,11 @@ export class AppComponent implements OnInit {
               private titleService: TitleService,
               private loader: LoadingBarService,
               private temporal: TemporalServiceService,
-              private localeService: LocaleService) {
+              private localeService: LocaleService,
+              faConfig: FaConfig,
+  ) {
+    faConfig.autoAddCss = false;
+
     this.loader.stateObserver.subscribe((loading) => {
       this.loading = loading;
     });
