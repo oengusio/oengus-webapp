@@ -38,7 +38,7 @@
       </p>
 
       <ng-template #waitingText>
-        <p>
+        <p *ngIf="category.expectedRunnerCount - 1 > 0">
           {{ 'marathon.submit.category.opponent.waiting' | translate:{ count: category.expectedRunnerCount - 1 } }}
         </p>
       </ng-template>
