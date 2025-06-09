@@ -2,7 +2,7 @@ FROM node:20.17.0-bookworm AS builder
 
 WORKDIR /oengus-frontend
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 COPY . .
 # PROFILE is either production, sandbox or production-dev
 ARG PROFILE
