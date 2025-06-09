@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ConnectionMeta, connectionMetas, SocialAccount } from '../../../../model/social-account';
 import { SocialPlatform, SocialPlatformName } from '../../../../model/social-platform';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { parseMastodonUrl } from '../../../../utils/helpers';
 
 @Component({
     selector: 'app-connection-settings',

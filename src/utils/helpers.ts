@@ -11,8 +11,15 @@ export function parseMastodonUrl(input: string): string {
   }
 
   const [_, username, platform] = match;
+  const safePlatform = platform || 'mastodon.social';
+  let usernameUrlPart = `@${username}`;
 
-  return `https://${platform || 'mastodon.social'}/@${username}`;
+  // Their urls are not compatible with mastodon so we have to check and strip the @ part
+  if (safePlatform === 'bsky.brid.gy') {
+    usernameUrlPart = username;
+  }
+
+  return `https://${safePlatform}/${usernameUrlPart}`;
 }
 
 export function downloadBlob(blob: Blob, filename: string) {
