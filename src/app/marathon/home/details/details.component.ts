@@ -4,6 +4,7 @@ import { faDiscord, faMastodon, faTwitch, faTwitter, faYoutube, faBluesky } from
 import { faComputer } from '@fortawesome/free-solid-svg-icons';
 import { SocialPlatform } from '../../../../model/social-platform';
 import { stripAtPrefix } from '../../../../model/social-account';
+import { parseMastodonUrl } from '../../../../utils/helpers';
 
 @Component({
     selector: 'app-details',
@@ -38,9 +39,9 @@ export class DetailsComponent {
       return 'https://mas.to/@OengusIO';
     }
 
-    const [ username, domain ] = this.marathon.mastodon.split('@');
+    const mastodonUrl = parseMastodonUrl(this.marathon.mastodon);
 
-    return `https://${domain}/@${username}?utm_source=Oengus`;
+    return `${mastodonUrl}?utm_source=Oengus`;
   }
 
   get bskyUrl(): string {
