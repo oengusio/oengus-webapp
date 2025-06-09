@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { httpInterceptorProviders } from '../interceptors';
 import { FormsModule } from '@angular/forms';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@busacca/ng-pick-datetime';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NwbAlertModule, NwbCommonModule, NwbSwitchModule } from '@wizishop/ng-wizi-bulma';
 import { MarathonModule } from './marathon/marathon.module';

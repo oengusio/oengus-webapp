@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { TranslateService } from '@ngx-translate/core';
-import { DateTimeAdapter } from '@busacca/ng-pick-datetime';
+import { DateTimeAdapter } from '@danielmoncada/angular-datetime-picker';
 import { environment } from '../environments/environment';
 import { Location } from '@angular/common';
 import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';

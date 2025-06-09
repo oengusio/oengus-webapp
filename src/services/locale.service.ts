@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import moment from 'moment-timezone';
 import { TranslateService } from '@ngx-translate/core';
 import { TemporalServiceService } from './termporal/temporal-service.service';
-import { DateTimeAdapter } from '@busacca/ng-pick-datetime';
+import { DateTimeAdapter } from '@danielmoncada/angular-datetime-picker';
 import { registerLocaleData } from '@angular/common';
 import localeEnGb from '@angular/common/locales/en-GB';
 import localeEn from '@angular/common/locales/en';
