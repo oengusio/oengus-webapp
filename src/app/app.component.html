@@ -1,4 +1,6 @@
-<div *ngIf="loading" class="loading-bar"></div>
+@if (loading) {
+  <div class="loading-bar"></div>
+}
 <div class="default-layout-wrapper">
   <app-header-bar class="default-layout-header"></app-header-bar>
 

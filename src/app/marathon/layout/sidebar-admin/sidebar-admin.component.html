@@ -26,12 +26,14 @@
       </span>
     </a>
   </li>
-  <li *ngIf="marathon.hasDonations && marathon.hasIncentives" [title]="'marathon.menu.manageIncentives' | translate">
-    <a [routerLink]="'/marathon/' + marathonId + '/incentives/manage' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-      <fa-icon [icon]="iconManageIncentive" class="menu-item-icon"></fa-icon>
-      <span class="menu-item-label">
-        {{ 'marathon.menu.manageIncentives' | translate }}
-      </span>
-    </a>
-  </li>
+  @if (marathon.hasDonations && marathon.hasIncentives) {
+    <li [title]="'marathon.menu.manageIncentives' | translate">
+      <a [routerLink]="'/marathon/' + marathonId + '/incentives/manage' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+        <fa-icon [icon]="iconManageIncentive" class="menu-item-icon"></fa-icon>
+        <span class="menu-item-label">
+          {{ 'marathon.menu.manageIncentives' | translate }}
+        </span>
+      </a>
+    </li>
+  }
 </ul>

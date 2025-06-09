@@ -1,55 +1,58 @@
 <!-- Yes I know about the random padding that appears when the button is pressed -->
 <!-- Don't know why it happens but it's funny enough to keep -->
 <button type="button"
-        class="button is-primary"
-        (click)="openClonePopup()"
->
+  class="button is-primary"
+  (click)="openClonePopup()"
+  >
   {{ 'marathon.schedule.clone.trigger' | translate }}
 </button>
 
-<div class="modal is-active" *ngIf="open">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">
-        {{ 'marathon.schedule.clone.title' | translate }}
-      </p>
-      <button class="delete"
-              type="button"
-              aria-label="close"
-              [disabled]="loading"
-              (click)="cancelPopup()"></button>
-    </header>
-    <section class="modal-card-body">
-      <p [innerHTML]="'marathon.schedule.clone.help1' | translate | markdown" ></p>
-      <p [innerHTML]="'marathon.schedule.clone.help2' | translate | markdown" ></p>
-
-      <form class="mt-4">
+@if (open) {
+  <div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">
+          {{ 'marathon.schedule.clone.title' | translate }}
+        </p>
+        <button class="delete"
+          type="button"
+          aria-label="close"
+          [disabled]="loading"
+        (click)="cancelPopup()"></button>
+      </header>
+      <section class="modal-card-body">
+        <p [innerHTML]="'marathon.schedule.clone.help1' | translate | markdown" ></p>
+        <p [innerHTML]="'marathon.schedule.clone.help2' | translate | markdown" ></p>
+        <form class="mt-4">
         <div class="select" [class]="{
           'is-loading': loading,
         }">
-          <select name="selectedSchedule" [(ngModel)]="cloneFromScheduleId" [disabled]="loading">
-            <option *ngIf="loading; else selectIt;"
-                    value="-1" disabled selected hidden>{{ 'global.loading' | translate }}</option>
-            <ng-template #selectIt>
-              <option disabled selected value="-1" hidden>{{ 'marathon.schedule.clone.placeholder' | translate }}</option>
-            </ng-template>
-            <option
-              *ngFor="let schedule of schedules"
-              [value]="schedule.id"
-            >{{ schedule.name }}</option>
-          </select>
-        </div>
-      </form>
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button is-success" [disabled]="loading" (click)="startImport()">
-        {{ 'action.import' | translate }}
-      </button>
-      <button class="button is-warning" [disabled]="loading" (click)="cancelPopup()">
-        {{ 'action.cancel' | translate }}
-      </button>
-    </footer>
+            <select name="selectedSchedule" [(ngModel)]="cloneFromScheduleId" [disabled]="loading">
+              @if (loading) {
+                <option
+                value="-1" disabled selected hidden>{{ 'global.loading' | translate }}</option>
+              } @else {
+                <option disabled selected value="-1" hidden>{{ 'marathon.schedule.clone.placeholder' | translate }}</option>
+              }
+              @for (schedule of schedules; track schedule) {
+                <option
+                  [value]="schedule.id"
+                >{{ schedule.name }}</option>
+              }
+            </select>
+          </div>
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" [disabled]="loading" (click)="startImport()">
+          {{ 'action.import' | translate }}
+        </button>
+        <button class="button is-warning" [disabled]="loading" (click)="cancelPopup()">
+          {{ 'action.cancel' | translate }}
+        </button>
+      </footer>
+    </div>
   </div>
-</div>
+}
 

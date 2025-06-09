@@ -4,41 +4,46 @@
   </h1>
   <p [innerHTML]="'homepage.welcomeText.par1' | translate"></p>
 
-  <ng-template [ngIf]="!userService.user">
+  @if (!userService.user) {
     <p>
       {{ 'homepage.welcomeText.par3' | translate }}
     </p>
     <div class="is-centered">
       <app-widget-signin-picker></app-widget-signin-picker>
     </div>
-  </ng-template>
+  }
 
-  <p *ngIf="sandbox; else prodMsg" [innerHTML]="'homepage.welcomeText.par4.sandbox' | translate"></p>
-
-  <ng-template #prodMsg>
+  @if (sandbox) {
+    <p [innerHTML]="'homepage.welcomeText.par4.sandbox' | translate"></p>
+  } @else {
     <p [innerHTML]="'homepage.welcomeText.par4.prod' | translate"></p>
-  </ng-template>
+  }
+
 
   <br>
 
-  <h3 class="title is-3 below-the-fold">
-    {{ 'homepage.plannedFeatures.title' | translate }}
-  </h3>
-  <ul class="below-the-fold">
-    <li *ngFor="let feature of plannedFeatures">
-        <span>
-          {{ 'homepage.plannedFeatures.' + feature.key | translate }}
-        </span>
-      <fa-icon [icon]="faCheck" *ngIf="feature.complete" size="sm"></fa-icon>
-    </li>
-  </ul>
+    <h3 class="title is-3 below-the-fold">
+      {{ 'homepage.plannedFeatures.title' | translate }}
+    </h3>
+    <ul class="below-the-fold">
+      @for (feature of plannedFeatures; track feature) {
+        <li>
+          <span>
+            {{ 'homepage.plannedFeatures.' + feature.key | translate }}
+          </span>
+          @if (feature.complete) {
+            <fa-icon [icon]="faCheck" size="sm"></fa-icon>
+          }
+        </li>
+      }
+    </ul>
 
-  <div class="is-centered is-fold-trigger">
-    <button class="button" (click)="openFold()">
+    <div class="is-centered is-fold-trigger">
+      <button class="button" (click)="openFold()">
         <span>
           {{ 'homepage.plannedFeatures.title' | translate }}
         </span>
-      <fa-icon [icon]="faAngleDown"></fa-icon>
-    </button>
+        <fa-icon [icon]="faAngleDown"></fa-icon>
+      </button>
+    </div>
   </div>
-</div>

@@ -1,17 +1,18 @@
-<div *ngIf="showConsentPrompt">
+@if (showConsentPrompt) {
   <div>
-    {{ 'navbar.privacyConsent' | translate}}
+    <div>
+      {{ 'navbar.privacyConsent' | translate}}
+    </div>
+    <div class="buttons are-small">
+      <button class="button is-primary" (click)="setCookies(true)">
+        {{ 'action.accept' | translate }}
+      </button>
+      <button class="button is-warning" (click)="setCookies(false)">
+        {{ 'action.decline' | translate }}
+      </button>
+      <a [routerLink]="'/about' | localize" class="button is-info">
+        {{ 'navbar.about' | translate }}
+      </a>
+    </div>
   </div>
-
-  <div class="buttons are-small">
-    <button class="button is-primary" (click)="setCookies(true)">
-      {{ 'action.accept' | translate }}
-    </button>
-    <button class="button is-warning" (click)="setCookies(false)">
-      {{ 'action.decline' | translate }}
-    </button>
-    <a [routerLink]="'/about' | localize" class="button is-info">
-      {{ 'navbar.about' | translate }}
-    </a>
-  </div>
-</div>
+}

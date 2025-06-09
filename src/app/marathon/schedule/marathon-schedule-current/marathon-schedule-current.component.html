@@ -6,21 +6,31 @@
   </div>
   <div class="message-body">
     <p class="run-info-container">
-      <span *ngIf="ticker.setupBlock" class="info">
-        {{ (ticker.setupBlockText || 'marathon.schedule.setupBlock' | translate) }}
-      </span>
-      <span *ngIf="ticker.game" class="info">
-        <app-simple-md [data]="ticker.game"></app-simple-md>
-      </span>
-      <span *ngIf="ticker.category" class="info">
-        <app-simple-md [data]="ticker.category" ></app-simple-md>
-      </span>
-      <span *ngIf="ticker.console" class="info">
-        {{ ticker.console }}
-      </span>
+      @if (ticker.setupBlock) {
+        <span class="info">
+          {{ (ticker.setupBlockText || 'marathon.schedule.setupBlock' | translate) }}
+        </span>
+      }
+      @if (ticker.game) {
+        <span class="info">
+          <app-simple-md [data]="ticker.game"></app-simple-md>
+        </span>
+      }
+      @if (ticker.category) {
+        <span class="info">
+          <app-simple-md [data]="ticker.category" ></app-simple-md>
+        </span>
+      }
+      @if (ticker.console) {
+        <span class="info">
+          {{ ticker.console }}
+        </span>
+      }
     </p>
     <p class="runner-info">
-      <app-user-link *ngFor="let runner of ticker.runners" [user]="runner" class="runner"></app-user-link>
+      @for (runner of ticker.runners; track runner) {
+        <app-user-link [user]="runner" class="runner"></app-user-link>
+      }
     </p>
     <!-- TODO: loading indicator -->
   </div>

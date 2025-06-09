@@ -1,6 +1,7 @@
-<app-publish-warning-modal
-  *ngIf="warningModalActive"
+@if (warningModalActive) {
+  <app-publish-warning-modal
   (publishConfirm)="handlePublishCallback($event)"></app-publish-warning-modal>
+}
 
 <div class="level">
   <div class="level-left">
@@ -12,7 +13,7 @@
 
   <div class="level-right">
     <app-marathon-schedule-export [disabled]="lines.length < 1 && scheduleInfo.published"
-                                  [scheduleId]="scheduleInfo.id"></app-marathon-schedule-export>
+    [scheduleId]="scheduleInfo.id"></app-marathon-schedule-export>
   </div>
 </div>
 
@@ -25,35 +26,45 @@
       </label>
       <div class="control">
         <input class="input"
-               [ngClass]="{'is-danger': name.invalid}"
-               [(ngModel)]="scheduleInfo.name"
-               type="text"
-               name="name"
-               id="sched_name"
-               placeholder="My Schedule"
-               maxlength="50"
-               minlength="1"
-               pattern="^[a-zA-Z0-9_\- ]{1,50}$"
-               required
-               #name="ngModel"
-        />
+          [ngClass]="{'is-danger': name.invalid}"
+          [(ngModel)]="scheduleInfo.name"
+          type="text"
+          name="name"
+          id="sched_name"
+          placeholder="My Schedule"
+          maxlength="50"
+          minlength="1"
+          pattern="^[a-zA-Z0-9_\- ]{1,50}$"
+          required
+          #name="ngModel"
+          />
         <p class="help is-pulled-right">{{scheduleInfo.name?.length}}/50</p>
       </div>
 
-      <div *ngIf="name.invalid">
-        <p class="help is-danger" *ngIf="name.errors.required">
-          {{ 'marathon.schedule.management.settings.name.error.required' | translate }}
-        </p>
-        <p class="help is-danger" *ngIf="name.errors.minlength">
-          {{ 'marathon.schedule.management.settings.name.error.min' | translate }}
-        </p>
-        <p class="help is-danger" *ngIf="name.errors.maxlength">
-          {{ 'marathon.schedule.management.settings.name.error.max' | translate }}
-        </p>
-        <p class="help is-danger" *ngIf="name.errors.pattern">
-          {{ 'marathon.schedule.management.settings.name.error.pattern' | translate }}
-        </p>
-      </div>
+      @if (name.invalid) {
+        <div>
+          @if (name.errors.required) {
+            <p class="help is-danger">
+              {{ 'marathon.schedule.management.settings.name.error.required' | translate }}
+            </p>
+          }
+          @if (name.errors.minlength) {
+            <p class="help is-danger">
+              {{ 'marathon.schedule.management.settings.name.error.min' | translate }}
+            </p>
+          }
+          @if (name.errors.maxlength) {
+            <p class="help is-danger">
+              {{ 'marathon.schedule.management.settings.name.error.max' | translate }}
+            </p>
+          }
+          @if (name.errors.pattern) {
+            <p class="help is-danger">
+              {{ 'marathon.schedule.management.settings.name.error.pattern' | translate }}
+            </p>
+          }
+        </div>
+      }
     </div>
 
     <label class="label">
@@ -68,37 +79,49 @@
         </div>
         <div class="control is-expanded">
           <input class="input"
-                 [ngClass]="{'is-danger': slug.invalid}"
-                 type="text"
-                 [(ngModel)]="scheduleInfo.slug"
-                 name="id"
-                 maxlength="255"
-                 minlength="1"
-                 pattern="^[\w\-]{1,255}$"
-                 required
-                 #slug="ngModel"
-                 [appScheduleSlugExistsValidator]="oldSlug"
-          />
+            [ngClass]="{'is-danger': slug.invalid}"
+            type="text"
+            [(ngModel)]="scheduleInfo.slug"
+            name="id"
+            maxlength="255"
+            minlength="1"
+            pattern="^[\w\-]{1,255}$"
+            required
+            #slug="ngModel"
+            [appScheduleSlugExistsValidator]="oldSlug"
+            />
         </div>
       </div>
       <p class="help is-pulled-right">{{scheduleInfo.slug?.length}}/10</p>
-      <div *ngIf="slug.invalid">
-        <p class="help is-danger" *ngIf="slug.errors.required">
-          {{ 'marathon.schedule.management.settings.slug.error.required' | translate }}
-        </p>
-        <p class="help is-danger" *ngIf="slug.errors.minlength">
-          {{ 'marathon.schedule.management.settings.slug.error.min' | translate }}
-        </p>
-        <p class="help is-danger" *ngIf="slug.errors.maxlength">
-          {{ 'marathon.schedule.management.settings.slug.error.max' | translate }}
-        </p>
-        <p class="help is-danger" *ngIf="slug.errors.exists">
-          {{ 'marathon.schedule.management.settings.slug.error.exists' | translate }}
-        </p>
-        <p class="help is-danger" *ngIf="slug.errors.pattern">
-          {{ 'marathon.schedule.management.settings.slug.error.pattern' | translate }}
-        </p>
-      </div>
+      @if (slug.invalid) {
+        <div>
+          @if (slug.errors.required) {
+            <p class="help is-danger">
+              {{ 'marathon.schedule.management.settings.slug.error.required' | translate }}
+            </p>
+          }
+          @if (slug.errors.minlength) {
+            <p class="help is-danger">
+              {{ 'marathon.schedule.management.settings.slug.error.min' | translate }}
+            </p>
+          }
+          @if (slug.errors.maxlength) {
+            <p class="help is-danger">
+              {{ 'marathon.schedule.management.settings.slug.error.max' | translate }}
+            </p>
+          }
+          @if (slug.errors.exists) {
+            <p class="help is-danger">
+              {{ 'marathon.schedule.management.settings.slug.error.exists' | translate }}
+            </p>
+          }
+          @if (slug.errors.pattern) {
+            <p class="help is-danger">
+              {{ 'marathon.schedule.management.settings.slug.error.pattern' | translate }}
+            </p>
+          }
+        </div>
+      }
     </div>
 
     <div class="field">
@@ -108,7 +131,7 @@
           type="text"
           [value]="env.shortUrl + '/' + marathonId + '/' + scheduleInfo.slug"
           readonly
-        />
+          />
       </div>
       <p class="help">{{ 'marathon.new.shortDomain' | translate}}</p>
     </div>
@@ -121,30 +144,34 @@
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-link"
-                [ngClass]="{'is-loading': loading}"
-                type="submit"
-                [disabled]="infoForm.invalid">
+          [ngClass]="{'is-loading': loading}"
+          type="submit"
+          [disabled]="infoForm.invalid">
           {{'action.save' | translate}}
         </button>
       </div>
 
       <div class="control">
         <!-- TODO: do the confirm dialog as well? -->
-        <button *ngIf="!scheduleInfo.published"
-                type="button"
-                class="button is-success"
-                [ngClass]="{'is-loading': loading}"
-                (click)="warningModalActive = true">
-          {{'marathon.schedule.management.action.publish' | translate}}
-        </button>
+        @if (!scheduleInfo.published) {
+          <button
+            type="button"
+            class="button is-success"
+            [ngClass]="{'is-loading': loading}"
+            (click)="warningModalActive = true">
+            {{'marathon.schedule.management.action.publish' | translate}}
+          </button>
+        }
 
-        <button *ngIf="scheduleInfo.published"
-                type="button"
-                class="button is-success"
-                [ngClass]="{'is-loading': loading}"
-                disabled>
-          {{'marathon.schedule.management.action.alreadyPublished' | translate}}
-        </button>
+        @if (scheduleInfo.published) {
+          <button
+            type="button"
+            class="button is-success"
+            [ngClass]="{'is-loading': loading}"
+            disabled>
+            {{'marathon.schedule.management.action.alreadyPublished' | translate}}
+          </button>
+        }
       </div>
     </div>
   </form>
@@ -153,80 +180,81 @@
 
 <hr>
 
-<section class="section">
-  <div id="timeline"></div>
-  <div style="margin-top: var(--spacing)">
-    <!-- custom data toggle -->
-    <nwb-switch [(ngModel)]="hideCompleteUsers">
-      <span>{{ 'marathon.schedule.management.hideCompleteUsers' | translate }}</span>
-    </nwb-switch>
-  </div>
-  <div style="margin-top: var(--spacing)">
-    <button type="button"
-            class="button is-info"
-            (click)="clearSelectedAvailabilities()">
-      {{'action.clearAvailabilities' | translate}}
-    </button>
-  </div>
-</section>
-
-<hr>
-
-<div class="columns">
-  <div class="column is-fullwidth">
-    <small class="mb-2">
-      <app-element-i18n key="marathon.schedule.management.horaro.missingFeature" elementKey="horaro">
-        <a href="https://horaro.org/" target="_blank">{{ 'marathon.schedule.management.horaro.appName' | translate }}</a>
-      </app-element-i18n>
-    </small>
-  </div>
-</div>
-
-<div class="columns is-desktop">
-  <div class="column is-5">
-    <h4 class="subtitle is-4">{{ 'marathon.schedule.management.selectedRuns' | translate}}</h4>
-
-    <app-submissions-table *ngIf="submissionsLoaded; else scheduleLoadingIndicator"
-                           (moveToSchedule)="moveToSchedule($event)"
-                           [selectedAvailabilities]="availabilitiesSelected"
-                           (selectAvailability)="triggerSelectedAvailability($event)"
-                           [todoLines]="todoLines"></app-submissions-table>
-
-    <ng-template #scheduleLoadingIndicator>
-      <div class="is-centered">
-        <app-loading-indicator></app-loading-indicator>
-      </div>
-    </ng-template>
-  </div>
-  <div class="column is-7">
-    <h4 class="subtitle mb-0 is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
-    <small class="mb-2">{{ 'marathon.schedule.management.markdown' | translate}}</small>
-
-    <app-schedule-table-old-element
-      [lines]="lines"
-      [availabilities]="allAvailabilities"
-      (moveToToDo)="moveToTodo($event)"
-      (delete)="removeScheduleLine($event)"
-      (computeSchedule)="computeSchedule()"
-      [selectedAvailabilities]="availabilitiesSelected"
-      (selectAvailability)="triggerSelectedAvailability($event)"
-      (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
-      #scheduleTableComponent
-    ></app-schedule-table-old-element>
-
-    <div class="buttons mt-4">
-      <button type="button" class="button is-info"
-              (click)="addCustomLine(true)">{{'marathon.schedule.management.action.addSetupBlock' | translate}}
-      </button>
-      <button type="button" class="button is-info"
-              (click)="addCustomLine(false)">{{'marathon.schedule.management.action.addRun' | translate}}
-      </button>
-      <app-clone-popup [selfId]="scheduleInfo.id"></app-clone-popup>
-
+  <section class="section">
+    <div id="timeline"></div>
+    <div style="margin-top: var(--spacing)">
       <!-- custom data toggle -->
-      <nwb-switch class="ml-2" [(ngModel)]="showAllCustomData" (ngModelChange)="toggleCollapseAllRows($event)" name="showAllCustomData">
-        <span>{{ 'marathon.schedule.management.customData.newTick' | translate }}</span>
+      <nwb-switch [(ngModel)]="hideCompleteUsers">
+        <span>{{ 'marathon.schedule.management.hideCompleteUsers' | translate }}</span>
       </nwb-switch>
     </div>
-  </div>
-</div>
+    <div style="margin-top: var(--spacing)">
+      <button type="button"
+        class="button is-info"
+        (click)="clearSelectedAvailabilities()">
+        {{'action.clearAvailabilities' | translate}}
+      </button>
+    </div>
+  </section>
+
+  <hr>
+
+    <div class="columns">
+      <div class="column is-fullwidth">
+        <small class="mb-2">
+          <app-element-i18n key="marathon.schedule.management.horaro.missingFeature" elementKey="horaro">
+            <a href="https://horaro.org/" target="_blank">{{ 'marathon.schedule.management.horaro.appName' | translate }}</a>
+          </app-element-i18n>
+        </small>
+      </div>
+    </div>
+
+    <div class="columns is-desktop">
+      <div class="column is-5">
+        <h4 class="subtitle is-4">{{ 'marathon.schedule.management.selectedRuns' | translate}}</h4>
+
+        @if (submissionsLoaded) {
+          <app-submissions-table
+            (moveToSchedule)="moveToSchedule($event)"
+            [selectedAvailabilities]="availabilitiesSelected"
+            (selectAvailability)="triggerSelectedAvailability($event)"
+          [todoLines]="todoLines"></app-submissions-table>
+        } @else {
+          <div class="is-centered">
+            <app-loading-indicator></app-loading-indicator>
+          </div>
+        }
+
+      </div>
+      <div class="column is-7">
+        <h4 class="subtitle mb-0 is-4">{{ 'marathon.schedule.management.schedule' | translate}}</h4>
+        <small class="mb-2">{{ 'marathon.schedule.management.markdown' | translate}}</small>
+
+        <app-schedule-table-old-element
+          [lines]="lines"
+          [availabilities]="allAvailabilities"
+          (moveToToDo)="moveToTodo($event)"
+          (delete)="removeScheduleLine($event)"
+          (computeSchedule)="computeSchedule()"
+          [selectedAvailabilities]="availabilitiesSelected"
+          (selectAvailability)="triggerSelectedAvailability($event)"
+          (loadAvailabilities)="loadAvailabilitiesForRunner($event)"
+          #scheduleTableComponent
+        ></app-schedule-table-old-element>
+
+        <div class="buttons mt-4">
+          <button type="button" class="button is-info"
+            (click)="addCustomLine(true)">{{'marathon.schedule.management.action.addSetupBlock' | translate}}
+          </button>
+          <button type="button" class="button is-info"
+            (click)="addCustomLine(false)">{{'marathon.schedule.management.action.addRun' | translate}}
+          </button>
+          <app-clone-popup [selfId]="scheduleInfo.id"></app-clone-popup>
+
+          <!-- custom data toggle -->
+          <nwb-switch class="ml-2" [(ngModel)]="showAllCustomData" (ngModelChange)="toggleCollapseAllRows($event)" name="showAllCustomData">
+            <span>{{ 'marathon.schedule.management.customData.newTick' | translate }}</span>
+          </nwb-switch>
+        </div>
+      </div>
+    </div>

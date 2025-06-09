@@ -1,27 +1,32 @@
 <app-element-table-row>
   <app-element-table-cell>
-    <p *ngFor="let runner of line.runners">
-      <a (click)="selectAvailability.emit({
+    @for (runner of line.runners; track runner) {
+      <p>
+        @if (selectedAvailabilities.includes(getRunnerUsername(runner))) {
+<a (click)="selectAvailability.emit({
           username: getRunnerUsername(runner),
           on: false
        })"
-         *ngIf="selectedAvailabilities.includes(getRunnerUsername(runner)); else notSelected">
-        <fa-icon [icon]="iconCalendarTimes"></fa-icon>
-      </a>
-      <ng-template #notSelected>
+            >
+            <fa-icon [icon]="iconCalendarTimes"></fa-icon>
+          </a>
+        } @else {
         <a (click)="selectAvailability.emit({
           username: getRunnerUsername(runner),
           on: true
        })">
-          <fa-icon [icon]="iconCalendarWeek"></fa-icon>
-        </a>
-      </ng-template>
-      {{ getRunnerDisplayName(runner) }}
-    </p>
+            <fa-icon [icon]="iconCalendarWeek"></fa-icon>
+          </a>
+        }
+        {{ getRunnerDisplayName(runner) }}
+      </p>
+    }
   </app-element-table-cell>
   <app-element-table-cell>{{ line.game }}</app-element-table-cell>
   <app-element-table-cell>{{ line.category }}</app-element-table-cell>
-  <app-element-table-cell>{{ line.console }}<sup *ngIf="line.emulated">{{ 'global.emu' | translate}}</sup></app-element-table-cell>
+  <app-element-table-cell>{{ line.console }}@if (line.emulated) {
+    <sup>{{ 'global.emu' | translate}}</sup>
+  }</app-element-table-cell>
   <app-element-table-cell>
     <app-element-temporal-duration [duration]="line.estimate"></app-element-temporal-duration>
   </app-element-table-cell>

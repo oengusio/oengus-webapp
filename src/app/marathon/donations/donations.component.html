@@ -1,8 +1,10 @@
 <div class="container">
   <h1 class="title">{{'marathon.donations.title' | translate}}
-    <button class="button is-pulled-right is-info" (click)="exportToCsv()"
-            *ngIf="marathonService.isAdmin(userService.user)">{{ 'marathon.donations.export' | translate}}
-    </button>
+    @if (marathonService.isAdmin(userService.user)) {
+      <button class="button is-pulled-right is-info" (click)="exportToCsv()"
+        >{{ 'marathon.donations.export' | translate}}
+      </button>
+    }
   </h1>
   <hr/>
   <nav class="level">
@@ -11,7 +13,7 @@
         <p class="heading has-text-warning">{{ 'marathon.donations.total' | translate}}</p>
         <p class="title has-text-warning">
           <app-monetary-amount [amount]="stats.total"
-                               [currency]="marathonService.marathon.donationCurrency"></app-monetary-amount>
+          [currency]="marathonService.marathon.donationCurrency"></app-monetary-amount>
         </p>
       </div>
     </div>
@@ -28,7 +30,7 @@
         <p class="heading">{{ 'marathon.donations.average' | translate}}</p>
         <p class="title">
           <app-monetary-amount [amount]="stats.average"
-                               [currency]="marathonService.marathon.donationCurrency"></app-monetary-amount>
+          [currency]="marathonService.marathon.donationCurrency"></app-monetary-amount>
         </p>
       </div>
     </div>
@@ -37,7 +39,7 @@
         <p class="heading">{{ 'marathon.donations.max' | translate}}</p>
         <p class="title">
           <app-monetary-amount [amount]="stats.max"
-                               [currency]="marathonService.marathon.donationCurrency"></app-monetary-amount>
+          [currency]="marathonService.marathon.donationCurrency"></app-monetary-amount>
         </p>
       </div>
     </div>
@@ -46,27 +48,29 @@
 
   <table class="table is-fullwidth is-striped">
     <thead>
-    <tr>
-      <th>{{'marathon.donations.table.date' | translate}}</th>
-      <th>{{'marathon.donations.table.name' | translate}}</th>
-      <th>{{'marathon.donations.table.amount' | translate}}</th>
-      <th>{{'marathon.donations.table.comment' | translate}}</th>
-    </tr>
+      <tr>
+        <th>{{'marathon.donations.table.date' | translate}}</th>
+        <th>{{'marathon.donations.table.name' | translate}}</th>
+        <th>{{'marathon.donations.table.amount' | translate}}</th>
+        <th>{{'marathon.donations.table.comment' | translate}}</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let donation of donations.content">
-      <td>{{moment(donation.date).format('L LT')}}</td>
-      <td>{{donation.nickname}}</td>
-      <td>
-        <app-monetary-amount [amount]="donation.amount"
-                             [currency]="marathonService.marathon.donationCurrency"></app-monetary-amount>
-      </td>
-      <td>
-        <p class="content">
-          <app-oengus-md [data]="donation.comment"></app-oengus-md>
-        </p>
-      </td>
-    </tr>
+      @for (donation of donations.content; track donation) {
+        <tr>
+          <td>{{moment(donation.date).format('L LT')}}</td>
+          <td>{{donation.nickname}}</td>
+          <td>
+            <app-monetary-amount [amount]="donation.amount"
+            [currency]="marathonService.marathon.donationCurrency"></app-monetary-amount>
+          </td>
+          <td>
+            <p class="content">
+              <app-oengus-md [data]="donation.comment"></app-oengus-md>
+            </p>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
   <nwb-paginator
@@ -74,5 +78,5 @@
     [pageSize]="donations.size"
     [pageSizeOptions]="pageSizeOptions"
     [pageIndex]="donations.number"
-    (page)="pageChange($event)"></nwb-paginator>
+  (page)="pageChange($event)"></nwb-paginator>
 </div>

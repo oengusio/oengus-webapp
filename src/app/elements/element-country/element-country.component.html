@@ -2,8 +2,10 @@
 <div class="select is-fullwidth">
   <select name="platform" [ngModel]="country" (ngModelChange)="countryChange.emit($event)">
     <option [ngValue]="null" selected>{{ 'global.non_select' | translate }}</option>
-    <option [ngValue]="country" *ngFor="let country of countries">
-      {{'country.' + country | translate}}
-    </option>
+    @for (country of countries; track country) {
+      <option [ngValue]="country">
+        {{'country.' + country | translate}}
+      </option>
+    }
   </select>
 </div>

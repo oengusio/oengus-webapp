@@ -1,41 +1,37 @@
-<div class="modal is-active" *ngIf="open">
-  <div class="modal-background"></div>
-
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <div class="modal-card-title">
-        Warning! Oengus recently had a security vulnerability
+@if (open) {
+  <div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <div class="modal-card-title">
+          Warning! Oengus recently had a security vulnerability
+        </div>
+      </header>
+      <section class="modal-card-body">
+        <p>TL;DR: read this popup</p>
+        <hr>
+          <p>Recently Oengus had an unfortunate event. A security vulnerability that has possibly caused a data leak. Currently it is still unclear if a data leak has actually occurred.</p>
+          <p>Because of this we ask you to reset your password and 2fa settings if you have not already.</p>
+          <p>There will be a few changes made to hopefully prevent and better tackle stuff like this in the future. You can read those changes in the second linked post.</p>
+          <p>Finally, an update to the terms of service will me made soon to include new data points we will start tracking of you. These data points are highlighted in the second post listed below.</p>
+          <br>
+            <p>If you would like to read more you can check these two posts we made:</p>
+            <div class="content">
+              <ol>
+                <li>
+                  Initial announcement: <a href="https://www.patreon.com/posts/121512660" target="_blank">https://www.patreon.com/posts/121512660</a>
+                </li>
+                <li>
+                  Followup post: <a href="https://www.patreon.com/posts/121852106" target="_blank">https://www.patreon.com/posts/121852106</a>
+                </li>
+              </ol>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-warning" (click)="closePopup()">
+              Close (this popup will not show again)
+            </button>
+          </footer>
+        </div>
       </div>
-    </header>
-
-    <section class="modal-card-body">
-      <p>TL;DR: read this popup</p>
-
-      <hr>
-
-      <p>Recently Oengus had an unfortunate event. A security vulnerability that has possibly caused a data leak. Currently it is still unclear if a data leak has actually occurred.</p>
-      <p>Because of this we ask you to reset your password and 2fa settings if you have not already.</p>
-      <p>There will be a few changes made to hopefully prevent and better tackle stuff like this in the future. You can read those changes in the second linked post.</p>
-      <p>Finally, an update to the terms of service will me made soon to include new data points we will start tracking of you. These data points are highlighted in the second post listed below.</p>
-
-      <br>
-      <p>If you would like to read more you can check these two posts we made:</p>
-      <div class="content">
-        <ol>
-          <li>
-            Initial announcement: <a href="https://www.patreon.com/posts/121512660" target="_blank">https://www.patreon.com/posts/121512660</a>
-          </li>
-          <li>
-            Followup post: <a href="https://www.patreon.com/posts/121852106" target="_blank">https://www.patreon.com/posts/121852106</a>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <footer class="modal-card-foot">
-      <button class="button is-warning" (click)="closePopup()">
-        Close (this popup will not show again)
-      </button>
-    </footer>
-  </div>
-</div>
+    }

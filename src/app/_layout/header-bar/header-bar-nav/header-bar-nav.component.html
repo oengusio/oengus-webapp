@@ -15,57 +15,60 @@
     <div class="navbar-start">
       <div class="navbar-item field is-grouped">
         <a href="https://discord.gg/ZZFS8YT" class="navbar-item" target="_blank"
-           [nwbToolTip]="'navbar.discord' | translate" nwbToolTipPosition="bottom">
+          [nwbToolTip]="'navbar.discord' | translate" nwbToolTipPosition="bottom">
           <fa-icon [icon]="iconDiscord"></fa-icon>
         </a>
         <a href="https://mas.to/@OengusIO" rel="me" class="navbar-item" target="_blank"
-           [nwbToolTip]="'navbar.mastodon' | translate" nwbToolTipPosition="bottom">
+          [nwbToolTip]="'navbar.mastodon' | translate" nwbToolTipPosition="bottom">
           <fa-icon [icon]="iconMastodon"></fa-icon>
         </a>
-<!--        <a href="https://twitter.com/OengusIO" rel="me" class="navbar-item" target="_blank"
-           [nwbToolTip]="'navbar.twitter' | translate" nwbToolTipPosition="bottom">
-          <fa-icon [icon]="iconTwitter"></fa-icon>
-        </a>-->
-        <a href="https://github.com/oengusio/oengusio" class="navbar-item" target="_blank"
-           [nwbToolTip]="'navbar.sourceCode' | translate" nwbToolTipPosition="bottom">
-          <fa-icon [icon]="iconGithub"></fa-icon>
-        </a>
-        <a href="https://github.com/oengusio/oengusio/issues" class="navbar-item" target="_blank"
-           [nwbToolTip]="'navbar.bugtracker' | translate" nwbToolTipPosition="bottom">
-          <fa-icon [icon]="iconBug"></fa-icon>
-        </a>
-        <a href="https://hosted.weblate.org/projects/oengusio/site/" class="navbar-item" target="_blank"
-           [nwbToolTip]="'navbar.translate' | translate" nwbToolTipPosition="bottom">
-          <fa-icon [icon]="iconLanguage"></fa-icon>
-        </a>
-        <a href="https://www.patreon.com/oengusio" rel="me" class="navbar-item" target="_blank"
-           [nwbToolTip]="'navbar.donate' | translate" nwbToolTipPosition="bottom">
-          <fa-icon [icon]="iconPatreon"></fa-icon>
-        </a>
-      </div>
+        <!--        <a href="https://twitter.com/OengusIO" rel="me" class="navbar-item" target="_blank"
+        [nwbToolTip]="'navbar.twitter' | translate" nwbToolTipPosition="bottom">
+        <fa-icon [icon]="iconTwitter"></fa-icon>
+      </a>-->
+      <a href="https://github.com/oengusio/oengusio" class="navbar-item" target="_blank"
+        [nwbToolTip]="'navbar.sourceCode' | translate" nwbToolTipPosition="bottom">
+        <fa-icon [icon]="iconGithub"></fa-icon>
+      </a>
+      <a href="https://github.com/oengusio/oengusio/issues" class="navbar-item" target="_blank"
+        [nwbToolTip]="'navbar.bugtracker' | translate" nwbToolTipPosition="bottom">
+        <fa-icon [icon]="iconBug"></fa-icon>
+      </a>
+      <a href="https://hosted.weblate.org/projects/oengusio/site/" class="navbar-item" target="_blank"
+        [nwbToolTip]="'navbar.translate' | translate" nwbToolTipPosition="bottom">
+        <fa-icon [icon]="iconLanguage"></fa-icon>
+      </a>
+      <a href="https://www.patreon.com/oengusio" rel="me" class="navbar-item" target="_blank"
+        [nwbToolTip]="'navbar.donate' | translate" nwbToolTipPosition="bottom">
+        <fa-icon [icon]="iconPatreon"></fa-icon>
+      </a>
     </div>
+  </div>
 
 
 
-    <div class="navbar-end">
-      <div class="navbar-item" *ngIf="userService.user && !userService.isBanned()">
+  <div class="navbar-end">
+    @if (userService.user && !userService.isBanned()) {
+      <div class="navbar-item">
         <button class="button is-primary" [routerLink]="'/marathon/new' | localize">
           {{'navbar.createMarathon' | translate}}
         </button>
       </div>
-      <a [routerLink]="'/about' | localize" class="navbar-item">
-        {{ 'navbar.about' | translate }}
+    }
+    <a [routerLink]="'/about' | localize" class="navbar-item">
+      {{ 'navbar.about' | translate }}
+    </a>
+    <app-header-language-picker class="navbar-item pr-0"></app-header-language-picker>
+    @if (userService.user) {
+      <app-header-bar-user class="navbar-item pl-0"></app-header-bar-user>
+    } @else {
+      <a [routerLink]="'/login' | localize" (click)="storeCurrentLocation()" class="navbar-item">
+        {{ 'navbar.login.title' | translate }}
       </a>
-      <app-header-language-picker class="navbar-item pr-0"></app-header-language-picker>
-      <app-header-bar-user *ngIf="userService.user; else loggedOut" class="navbar-item pl-0"></app-header-bar-user>
-      <ng-template #loggedOut>
-        <a [routerLink]="'/login' | localize" (click)="storeCurrentLocation()" class="navbar-item">
-          {{ 'navbar.login.title' | translate }}
-        </a>
-        <a [routerLink]="'/register' | localize" class="navbar-item">
-          {{ 'navbar.register' | translate }}
-        </a>
-      </ng-template>
-    </div>
+      <a [routerLink]="'/register' | localize" class="navbar-item">
+        {{ 'navbar.register' | translate }}
+      </a>
+    }
   </div>
+</div>
 </nav>

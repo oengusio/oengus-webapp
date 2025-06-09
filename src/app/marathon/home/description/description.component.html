@@ -1,1 +1,3 @@
-<app-oengus-md *ngIf="marathon.description" [padTop]="true" [data]="marathon.description"></app-oengus-md>
+@if (marathon.description) {
+  <app-oengus-md [padTop]="true" [data]="marathon.description"></app-oengus-md>
+}

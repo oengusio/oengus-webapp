@@ -1,50 +1,53 @@
 <div class="header">
-  <h4 class="title is-4" *ngIf="titleText; else defaultSetupBlock">
-    <app-simple-md [data]="titleText"></app-simple-md>
-  </h4>
-  <ng-template #defaultSetupBlock>
+  @if (titleText) {
+    <h4 class="title is-4">
+      <app-simple-md [data]="titleText"></app-simple-md>
+    </h4>
+  } @else {
     <h4 class="title is-4">
       {{ 'marathon.schedule.setupBlock' | translate }}
     </h4>
-  </ng-template>
+  }
 
-  <app-user-link *ngFor="let runner of run.runners" [user]="runner" [isLink]="runner?.profile?.id > 0"></app-user-link>
+  @for (runner of run.runners; track runner) {
+    <app-user-link [user]="runner" [isLink]="runner?.profile?.id > 0"></app-user-link>
+  }
 </div>
 
-<ng-template [ngIf]="run.date">
+@if (run.date) {
   <span class="is-label">{{ 'marathon.schedule.table.time' | translate }}</span>
   <span>
     <app-element-temporal-datetime [dateTime]="run.date" format="mediumDateTime"></app-element-temporal-datetime>
     (<app-element-temporal-distance [dateTime]="run.date"></app-element-temporal-distance>)
   </span>
-</ng-template>
+}
 
-<ng-template [ngIf]="run.category">
+@if (run.category) {
   <span class="is-label">{{ 'marathon.schedule.table.category' | translate }}</span>
   <span>
     <app-simple-md [data]="run.category" ></app-simple-md>
   </span>
-</ng-template>
+}
 
-<ng-template [ngIf]="run.type">
+@if (run.type) {
   <span class="is-label">{{ 'marathon.schedule.table.type' | translate }}</span>
   <span>{{ 'marathon.schedule.type.' + run.type | translate }}</span>
-</ng-template>
+}
 
-<ng-template [ngIf]="run.console">
+@if (run.console) {
   <span class="is-label">{{ 'marathon.schedule.table.console' | translate }}</span>
   <app-element-console [console]="run.console" [emulated]="run.emulated"></app-element-console>
-</ng-template>
+}
 
-<ng-template [ngIf]="run.estimate">
+@if (run.estimate) {
   <span class="is-label">{{ 'marathon.schedule.table.estimate' | translate }}</span>
   <app-element-temporal-duration [duration]="run.estimate"></app-element-temporal-duration>
-</ng-template>
+}
 
-<ng-template [ngIf]="run.setupTime">
+@if (run.setupTime) {
   <span class="is-label">{{ 'marathon.schedule.table.setup' | translate }}</span>
   <app-element-temporal-duration [duration]="run.setupTime"></app-element-temporal-duration>
-</ng-template>
+}
 
 <span class="is-label">{{ 'marathon.schedule.table.link' | translate }}</span>
 <a [routerLink]="'.' | localize" [fragment]="'run-' + run.id">

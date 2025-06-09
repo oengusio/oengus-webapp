@@ -1,16 +1,18 @@
-<app-element-dropdown *ngIf="user" [type]="'NAVBAR'" [isRight]="true">
-  <span trigger>
-    <app-user-link [username]="user.displayName || '[missingno]'"></app-user-link>
-  </span>
-  <div options>
-    <a class="navbar-item" [routerLink]="'/user/' + user.username | localize">
-      {{'navbar.profile' | translate}}
-    </a>
-    <a class="navbar-item" [routerLink]="'/user/settings' | localize">
-      {{'navbar.settings' | translate}}
-    </a>
-    <a class="navbar-item" (click)="userService.logout()">
-      {{'navbar.logout' | translate}}
-    </a>
-  </div>
-</app-element-dropdown>
+@if (user) {
+  <app-element-dropdown [type]="'NAVBAR'" [isRight]="true">
+    <span trigger>
+      <app-user-link [username]="user.displayName || '[missingno]'"></app-user-link>
+    </span>
+    <div options>
+      <a class="navbar-item" [routerLink]="'/user/' + user.username | localize">
+        {{'navbar.profile' | translate}}
+      </a>
+      <a class="navbar-item" [routerLink]="'/user/settings' | localize">
+        {{'navbar.settings' | translate}}
+      </a>
+      <a class="navbar-item" (click)="userService.logout()">
+        {{'navbar.logout' | translate}}
+      </a>
+    </div>
+  </app-element-dropdown>
+}

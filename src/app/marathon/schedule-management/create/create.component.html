@@ -11,35 +11,45 @@
     </label>
     <div class="control">
       <input class="input"
-             [ngClass]="{'is-danger': name.invalid}"
-             [(ngModel)]="data.name"
-             type="text"
-             name="name"
-             id="sched_name"
-             placeholder="My Schedule"
-             maxlength="50"
-             minlength="1"
-             pattern="^[a-zA-Z0-9_\- ]{1,50}$"
-             required
-             #name="ngModel"
-      />
+        [ngClass]="{'is-danger': name.invalid}"
+        [(ngModel)]="data.name"
+        type="text"
+        name="name"
+        id="sched_name"
+        placeholder="My Schedule"
+        maxlength="50"
+        minlength="1"
+        pattern="^[a-zA-Z0-9_\- ]{1,50}$"
+        required
+        #name="ngModel"
+        />
       <p class="help is-pulled-right">{{data.name?.length}}/50</p>
     </div>
 
-    <div *ngIf="name.invalid">
-      <p class="help is-danger" *ngIf="name.errors.required">
-        {{ 'marathon.schedule.management.settings.name.error.required' | translate }}
-      </p>
-      <p class="help is-danger" *ngIf="name.errors.minlength">
-        {{ 'marathon.schedule.management.settings.name.error.min' | translate }}
-      </p>
-      <p class="help is-danger" *ngIf="name.errors.maxlength">
-        {{ 'marathon.schedule.management.settings.name.error.max' | translate }}
-      </p>
-      <p class="help is-danger" *ngIf="name.errors.pattern">
-        {{ 'marathon.schedule.management.settings.name.error.pattern' | translate }}
-      </p>
-    </div>
+    @if (name.invalid) {
+      <div>
+        @if (name.errors.required) {
+          <p class="help is-danger">
+            {{ 'marathon.schedule.management.settings.name.error.required' | translate }}
+          </p>
+        }
+        @if (name.errors.minlength) {
+          <p class="help is-danger">
+            {{ 'marathon.schedule.management.settings.name.error.min' | translate }}
+          </p>
+        }
+        @if (name.errors.maxlength) {
+          <p class="help is-danger">
+            {{ 'marathon.schedule.management.settings.name.error.max' | translate }}
+          </p>
+        }
+        @if (name.errors.pattern) {
+          <p class="help is-danger">
+            {{ 'marathon.schedule.management.settings.name.error.pattern' | translate }}
+          </p>
+        }
+      </div>
+    }
   </div>
 
   <label class="label">
@@ -54,37 +64,49 @@
       </div>
       <div class="control is-expanded">
         <input class="input"
-               [ngClass]="{'is-danger': slug.invalid}"
-               type="text"
-               [(ngModel)]="data.slug"
-               name="id"
-               maxlength="255"
-               minlength="1"
-               pattern="^[\w\-]{1,255}$"
-               required
-               #slug="ngModel"
-               appScheduleSlugExistsValidator
-        />
+          [ngClass]="{'is-danger': slug.invalid}"
+          type="text"
+          [(ngModel)]="data.slug"
+          name="id"
+          maxlength="255"
+          minlength="1"
+          pattern="^[\w\-]{1,255}$"
+          required
+          #slug="ngModel"
+          appScheduleSlugExistsValidator
+          />
       </div>
     </div>
     <p class="help is-pulled-right">{{data.slug?.length}}/10</p>
-    <div *ngIf="slug.invalid">
-      <p class="help is-danger" *ngIf="slug.errors.required">
-        {{ 'marathon.schedule.management.settings.slug.error.required' | translate }}
-      </p>
-      <p class="help is-danger" *ngIf="slug.errors.minlength">
-        {{ 'marathon.schedule.management.settings.slug.error.min' | translate }}
-      </p>
-      <p class="help is-danger" *ngIf="slug.errors.maxlength">
-        {{ 'marathon.schedule.management.settings.slug.error.max' | translate }}
-      </p>
-      <p class="help is-danger" *ngIf="slug.errors.exists">
-        {{ 'marathon.schedule.management.settings.slug.error.exists' | translate }}
-      </p>
-      <p class="help is-danger" *ngIf="slug.errors.pattern">
-        {{ 'marathon.schedule.management.settings.slug.error.pattern' | translate }}
-      </p>
-    </div>
+    @if (slug.invalid) {
+      <div>
+        @if (slug.errors.required) {
+          <p class="help is-danger">
+            {{ 'marathon.schedule.management.settings.slug.error.required' | translate }}
+          </p>
+        }
+        @if (slug.errors.minlength) {
+          <p class="help is-danger">
+            {{ 'marathon.schedule.management.settings.slug.error.min' | translate }}
+          </p>
+        }
+        @if (slug.errors.maxlength) {
+          <p class="help is-danger">
+            {{ 'marathon.schedule.management.settings.slug.error.max' | translate }}
+          </p>
+        }
+        @if (slug.errors.exists) {
+          <p class="help is-danger">
+            {{ 'marathon.schedule.management.settings.slug.error.exists' | translate }}
+          </p>
+        }
+        @if (slug.errors.pattern) {
+          <p class="help is-danger">
+            {{ 'marathon.schedule.management.settings.slug.error.pattern' | translate }}
+          </p>
+        }
+      </div>
+    }
   </div>
 
   <div class="field">
@@ -94,7 +116,7 @@
         type="text"
         [value]="env.shortUrl + '/' + marathonId + '/' + data.slug"
         readonly
-      />
+        />
     </div>
     <p class="help">{{ 'marathon.new.shortDomain' | translate}}</p>
   </div>
@@ -102,9 +124,9 @@
   <div class="field">
     <div class="control">
       <button class="button is-link"
-              [ngClass]="{'is-loading': loading}"
-              type="submit"
-              [disabled]="form.invalid">
+        [ngClass]="{'is-loading': loading}"
+        type="submit"
+        [disabled]="form.invalid">
         {{'action.create' | translate}}
       </button>
     </div>

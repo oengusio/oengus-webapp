@@ -3,9 +3,11 @@
 </p>
 
 <ul class="menu-list">
-  <li *ngFor="let moderator of moderators">
-    <a [routerLink]="'/user/' + moderator.username | localize" class="menu-item-link">
-      <app-user-link [user]="moderator"></app-user-link>
-    </a>
-  </li>
+  @for (moderator of moderators; track moderator) {
+    <li>
+      <a [routerLink]="'/user/' + moderator.username | localize" class="menu-item-link">
+        <app-user-link [user]="moderator"></app-user-link>
+      </a>
+    </li>
+  }
 </ul>

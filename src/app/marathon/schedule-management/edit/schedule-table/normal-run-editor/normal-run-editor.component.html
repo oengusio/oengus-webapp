@@ -4,29 +4,33 @@
   </div>
   <div class="field-body">
     <ul>
-      <li *ngFor="let runner of line.runners; let ri = index">
-        <a href="#" class="userAction"
-           *ngIf="line.runners.length > 1 || line.customRun"
-           (click)="removeUser(ri)"
-        >
-          <fa-icon [icon]="iconTimes"></fa-icon>
-        </a>
-        <app-user-link
-          [user]="runner"
-          [username]="runner.runnerName"
-          [isLink]="!!runner.profile"
-        ></app-user-link>
-      </li>
+      @for (runner of line.runners; track runner; let ri = $index) {
+        <li>
+          @if (line.runners.length > 1 || line.customRun) {
+            <a href="#" class="userAction"
+              (click)="removeUser(ri)"
+              >
+              <fa-icon [icon]="iconTimes"></fa-icon>
+            </a>
+          }
+          <app-user-link
+            [user]="runner"
+            [username]="runner.runnerName"
+            [isLink]="!!runner.profile"
+          ></app-user-link>
+        </li>
+      }
     </ul>
   </div>
 </div>
 
 <ng-template #searchTemplate let-item>
   <!-- TODO: this potentially allows for HTML injection -->
-  <a class="no-hover" *ngIf="item.isCustom; else userThatHasProfile;" [innerHTML]="item.username + ' (custom)'"></a>
-  <ng-template #userThatHasProfile>
+  @if (item.isCustom) {
+    <a class="no-hover" [innerHTML]="item.username + ' (custom)'"></a>
+  } @else {
     <a class="no-hover" [innerHTML]="item.profile.displayName + ' (' + item.profile.username + ')'"></a>
-  </ng-template>
+  }
 </ng-template>
 
 <div class="field is-horizontal">
@@ -75,21 +79,27 @@
   </div>
   <div class="field-body">
     <div class="field">
-      <span
-        *ngIf="line.runners.length === 1 && !line.customRun">
+      @if (line.runners.length === 1 && !line.customRun) {
+        <span
+          >
         {{'marathon.schedule.type.SINGLE' | translate}}</span>
-      <div class="select" *ngIf="line.runners.length > 1 || line.customRun">
-        <select [(ngModel)]="line.type" id="type-{{i}}" name="type-{{i}}">
-          <option value="SINGLE"
-                  *ngIf="line.customRun">{{ 'marathon.schedule.type.SINGLE' | translate}}</option>
-          <option value="RACE">{{ 'marathon.schedule.type.RACE' | translate}}</option>
-          <option value="COOP">{{ 'marathon.schedule.type.COOP' | translate}}</option>
-          <option value="COOP_RACE">{{ 'marathon.schedule.type.COOP_RACE' | translate}}</option>
-          <option value="RELAY">{{ 'marathon.schedule.type.RELAY' | translate}}</option>
-          <option value="RELAY_RACE">{{ 'marathon.schedule.type.RELAY_RACE' | translate}}</option>
-          <option value="OTHER">{{ 'marathon.schedule.type.OTHER' | translate}}</option>
-        </select>
-      </div>
+      }
+      @if (line.runners.length > 1 || line.customRun) {
+        <div class="select">
+          <select [(ngModel)]="line.type" id="type-{{i}}" name="type-{{i}}">
+            @if (line.customRun) {
+              <option value="SINGLE"
+              >{{ 'marathon.schedule.type.SINGLE' | translate}}</option>
+            }
+            <option value="RACE">{{ 'marathon.schedule.type.RACE' | translate}}</option>
+            <option value="COOP">{{ 'marathon.schedule.type.COOP' | translate}}</option>
+            <option value="COOP_RACE">{{ 'marathon.schedule.type.COOP_RACE' | translate}}</option>
+            <option value="RELAY">{{ 'marathon.schedule.type.RELAY' | translate}}</option>
+            <option value="RELAY_RACE">{{ 'marathon.schedule.type.RELAY_RACE' | translate}}</option>
+            <option value="OTHER">{{ 'marathon.schedule.type.OTHER' | translate}}</option>
+          </select>
+        </div>
+      }
     </div>
   </div>
 </div>
@@ -101,7 +111,9 @@
   <div class="field-body">
     <div class="field">
       <input class="input consoleInput" type="text" name="console-{{i}}" id="console-{{i}}" [(ngModel)]="line.console"/>
-      <sup *ngIf="line.emulated">{{ 'global.emu' |translate}}</sup>
+      @if (line.emulated) {
+        <sup>{{ 'global.emu' |translate}}</sup>
+      }
     </div>
   </div>
 </div>
@@ -127,11 +139,11 @@
   <div class="field-body">
     <div class="field">
       <input class="input"
-             type="text"
-             name="estimate-{{i}}"
-             id="estimate-{{i}}"
-             (blur)="onEstimateBlur()"
-             [(ngModel)]="estimateHuman"/>
+        type="text"
+        name="estimate-{{i}}"
+        id="estimate-{{i}}"
+        (blur)="onEstimateBlur()"
+        [(ngModel)]="estimateHuman"/>
     </div>
   </div>
 </div>
@@ -143,11 +155,11 @@
   <div class="field-body">
     <div class="field">
       <input class="input"
-             type="text"
-             name="setup-{{i}}"
-             id="setup-{{i}}"
-             (blur)="onSetupTimeBlur()"
-             [(ngModel)]="setupTimeHuman"/>
+        type="text"
+        name="setup-{{i}}"
+        id="setup-{{i}}"
+        (blur)="onSetupTimeBlur()"
+        [(ngModel)]="setupTimeHuman"/>
     </div>
   </div>
 </div>

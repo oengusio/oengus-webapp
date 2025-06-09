@@ -2,49 +2,63 @@
   <div class="message-header">
     <p>
       {{ category.name }} ({{ 'marathon.schedule.type.' + category.type | translate}}) - <app-element-temporal-duration [duration]="category.estimate"></app-element-temporal-duration>
-      <a [href]="category.video" class="video" target="_blank" aria-label="Video" *ngIf="category.video">
-                          <span class="icon">
-                            <fa-icon [icon]="faFilm"></fa-icon>
-                          </span>
-      </a>
+      @if (category.video) {
+        <a [href]="category.video" class="video" target="_blank" aria-label="Video">
+          <span class="icon">
+            <fa-icon [icon]="faFilm"></fa-icon>
+          </span>
+        </a>
+      }
     </p>
-    <p class="is-pulled-right" *ngIf="marathon.selectionDone">
-      {{'marathon.selection.status.' + safeStatus | translate}}
-    </p>
-    <app-delete-button *ngIf="showDelete"
-                       [baseText]="'marathon.submissions.category.delete' | translate"
-                       [confirmText]="'action.confirm' | translate"
-                       [cancelText]="'action.cancel' | translate"
-                       (confirmHandler)="triggerDelete.next()"
-    ></app-delete-button>
+    @if (marathon.selectionDone) {
+      <p class="is-pulled-right">
+        {{'marathon.selection.status.' + safeStatus | translate}}
+      </p>
+    }
+    @if (showDelete) {
+      <app-delete-button
+        [baseText]="'marathon.submissions.category.delete' | translate"
+        [confirmText]="'action.confirm' | translate"
+        [cancelText]="'action.cancel' | translate"
+        (confirmHandler)="triggerDelete.next()"
+      ></app-delete-button>
+    }
   </div>
   <div class="message-body">
-    <ng-template [ngIf]="category.type !== 'SINGLE' && category.opponents">
-      <p *ngIf="category.opponents.length; else waitingText">
-        {{'marathon.submit.category.opponent.with' | translate}}
-        <span *ngFor="let opponent of category.opponents; let i = index">
-          <span *ngIf="i > 0">, </span>
-          <app-user-link [user]="opponent.user" [isLink]="true" [showAvatar]="true"></app-user-link>
-          <a [href]="opponent.video" target="_blank" aria-label="Video" *ngIf="opponent.video">
-            <span class="icon" title="Click to watch the runner's submission video">
-              <fa-icon [icon]="faFilm"></fa-icon>
+    @if (category.type !== 'SINGLE' && category.opponents) {
+      @if (category.opponents.length) {
+        <p>
+          {{'marathon.submit.category.opponent.with' | translate}}
+          @for (opponent of category.opponents; track opponent; let i = $index) {
+            <span>
+              @if (i > 0) {
+                <span>, </span>
+              }
+              <app-user-link [user]="opponent.user" [isLink]="true" [showAvatar]="true"></app-user-link>
+              @if (opponent.video) {
+                <a [href]="opponent.video" target="_blank" aria-label="Video">
+                  <span class="icon" title="Click to watch the runner's submission video">
+                    <fa-icon [icon]="faFilm"></fa-icon>
+                  </span>
+                </a>
+              }
             </span>
-          </a>
-        </span>
-
-        <span *ngIf="waitingRunnerCount > 0">{{
-            'marathon.submit.category.opponent.andMore' | translate:{ count: waitingRunnerCount, opponentList: '' }
-          }}</span>
-      </p>
-
-      <ng-template #waitingText>
-        <p *ngIf="category.expectedRunnerCount - 1 > 0">
-          {{ 'marathon.submit.category.opponent.waiting' | translate:{ count: category.expectedRunnerCount - 1 } }}
+          }
+          @if (waitingRunnerCount > 0) {
+            <span>{{
+              'marathon.submit.category.opponent.andMore' | translate:{ count: waitingRunnerCount, opponentList: '' }
+            }}</span>
+          }
         </p>
-      </ng-template>
-
+      } @else {
+        @if (category.expectedRunnerCount - 1 > 0) {
+          <p>
+            {{ 'marathon.submit.category.opponent.waiting' | translate:{ count: category.expectedRunnerCount - 1 } }}
+          </p>
+        }
+      }
       <hr />
-    </ng-template>
+    }
     <p>
       <app-simple-md [data]="category.description"></app-simple-md>
     </p>

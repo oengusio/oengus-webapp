@@ -7,67 +7,68 @@
     <a [routerLink]="'/marathon/' + marathonId | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon class="menu-item-icon" [icon]="iconHome"></fa-icon>
       <span class="menu-item-label">
-          {{ 'marathon.menu.home' | translate }}
+        {{ 'marathon.menu.home' | translate }}
       </span>
     </a>
   </li>
 
-  <ng-template [ngIf]="marathon.scheduleDone && schedules.length > 0">
-    <li *ngIf="schedules.length == 1; else multiSchedule" [title]="'marathon.menu.schedule' | translate">
-      <!-- 1 schedule: normal link -->
-      <a [routerLink]="'/marathon/' + marathonId + '/schedule/' + schedules[0].slug | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-        <fa-icon class="menu-item-icon" [icon]="iconCalendar"></fa-icon>
-        <span class="menu-item-label">
-          {{ 'marathon.menu.schedule' | translate }}
-      </span>
-      </a>
-    </li>
-
-    <!-- > 1 schedule: Multiple schedule links -->
-    <ng-template #multiSchedule>
+  @if (marathon.scheduleDone && schedules.length > 0) {
+    @if (schedules.length == 1) {
+      <li [title]="'marathon.menu.schedule' | translate">
+        <!-- 1 schedule: normal link -->
+        <a [routerLink]="'/marathon/' + marathonId + '/schedule/' + schedules[0].slug | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+          <fa-icon class="menu-item-icon" [icon]="iconCalendar"></fa-icon>
+          <span class="menu-item-label">
+            {{ 'marathon.menu.schedule' | translate }}
+          </span>
+        </a>
+      </li>
+    } @else {
       <li>
         <a class="menu-item-link no-hover menu-item-has-children">
           <fa-icon class="menu-item-icon" [icon]="iconCalendarRegular"></fa-icon>
           <span class="menu-item-label">{{ 'marathon.menu.schedules' | translate }}</span>
         </a>
-
         <ul class="menu-item-children">
-          <li *ngFor="let schedule of schedules" [title]="'marathon.menu.schedule' | translate">
-            <a [routerLink]="'/marathon/' + marathonId + '/schedule/' + schedule.slug | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-              <fa-icon class="menu-item-icon" [icon]="iconCalendar"></fa-icon>
-              <span class="menu-item-label">
-                {{ schedule.name }}
-              </span>
-            </a>
-          </li>
+          @for (schedule of schedules; track schedule) {
+            <li [title]="'marathon.menu.schedule' | translate">
+              <a [routerLink]="'/marathon/' + marathonId + '/schedule/' + schedule.slug | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+                <fa-icon class="menu-item-icon" [icon]="iconCalendar"></fa-icon>
+                <span class="menu-item-label">
+                  {{ schedule.name }}
+                </span>
+              </a>
+            </li>
+          }
         </ul>
       </li>
-    </ng-template>
-  </ng-template>
+    }
+    <!-- > 1 schedule: Multiple schedule links -->
+  }
 
   <li [title]="'marathon.menu.viewSubmissions' | translate">
     <a [routerLink]="'/marathon/' + marathonId + '/submissions' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
       <fa-icon class="menu-item-icon" [icon]="iconBook"></fa-icon>
       <span class="menu-item-label">
-          {{ 'marathon.menu.viewSubmissions' | translate }}
+        {{ 'marathon.menu.viewSubmissions' | translate }}
       </span>
     </a>
   </li>
 
-  <ng-template [ngIf]="marathon.submitsOpen || marathon.canEditSubmissions">
-    <li *ngIf="loggedIn; else notLoggedIn"
+  @if (marathon.submitsOpen || marathon.canEditSubmissions) {
+    @if (loggedIn) {
+      <li
         [title]="'marathon.menu.submitRuns' | translate"
-    >
-      <a [routerLink]="'/marathon/' + marathonId + '/submit' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-        <fa-icon class="menu-item-icon" [icon]="iconPaperPlane"></fa-icon>
-        <span class="menu-item-label">
-        <fa-icon class="menu-item-icon submit-live-icon" [icon]="iconCircle"></fa-icon>
-          {{ (marathon.hasSubmitted ? 'marathon.menu.editSubmission' : 'marathon.menu.submitRuns') | translate }}
-      </span>
-      </a>
-    </li>
-
-    <ng-template #notLoggedIn>
+        >
+        <a [routerLink]="'/marathon/' + marathonId + '/submit' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
+          <fa-icon class="menu-item-icon" [icon]="iconPaperPlane"></fa-icon>
+          <span class="menu-item-label">
+            <fa-icon class="menu-item-icon submit-live-icon" [icon]="iconCircle"></fa-icon>
+            {{ (marathon.hasSubmitted ? 'marathon.menu.editSubmission' : 'marathon.menu.submitRuns') | translate }}
+          </span>
+        </a>
+      </li>
+    } @else {
       <li [title]="'marathon.menu.loginToSubmit' | translate">
         <a class="menu-item-link">
           <span class="menu-item-label">
@@ -75,6 +76,6 @@
           </span>
         </a>
       </li>
-    </ng-template>
-  </ng-template>
+    }
+  }
 </ul>

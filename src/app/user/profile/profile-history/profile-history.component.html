@@ -14,10 +14,16 @@
 </div>
 
 <div class="history-view-container">
-  <app-user-profile-submission-history *ngIf="isActive(submissionTab)" [submissions]="submissionHistory"></app-user-profile-submission-history>
-  <app-user-profile-moderated-history *ngIf="isActive(moderationTab)" [history]="moderationHistory"></app-user-profile-moderated-history>
+  @if (isActive(submissionTab)) {
+    <app-user-profile-submission-history [submissions]="submissionHistory"></app-user-profile-submission-history>
+  }
+  @if (isActive(moderationTab)) {
+    <app-user-profile-moderated-history [history]="moderationHistory"></app-user-profile-moderated-history>
+  }
 
-  <div *ngIf="loading" class="is-centered">
-    <app-loading-indicator></app-loading-indicator>
-  </div>
+  @if (loading) {
+    <div class="is-centered">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  }
 </div>

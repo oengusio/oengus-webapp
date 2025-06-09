@@ -6,10 +6,11 @@
 </ng-template>
 
 <!-- Trigger -->
-<a *ngIf="isNavbar; else notNavbar" class="navbar-link" (click)="toggleActive()" [ngClass]="{ 'is-disabled': disabled }">
-  <ng-container *ngTemplateOutlet="dropdownTrigger"></ng-container>
-</a>
-<ng-template #notNavbar>
+@if (isNavbar) {
+  <a class="navbar-link" (click)="toggleActive()" [ngClass]="{ 'is-disabled': disabled }">
+    <ng-container *ngTemplateOutlet="dropdownTrigger"></ng-container>
+  </a>
+} @else {
   <div class="dropdown-trigger">
     <button class="button is-primary" (click)="toggleActive()" [disabled]="disabled">
       <div>
@@ -18,15 +19,16 @@
       <fa-icon [icon]="faAngleDown"></fa-icon>
     </button>
   </div>
-</ng-template>
+}
 <!-- Options -->
-<div *ngIf="isNavbar; else notNavOptions" class="navbar-dropdown" [class]="{ 'is-right': isRight }">
-  <ng-container *ngTemplateOutlet="dropdownOptions"></ng-container>
-</div>
-<ng-template #notNavOptions>
+@if (isNavbar) {
+  <div class="navbar-dropdown" [class]="{ 'is-right': isRight }">
+    <ng-container *ngTemplateOutlet="dropdownOptions"></ng-container>
+  </div>
+} @else {
   <div class="dropdown-menu">
     <div class="dropdown-content">
       <ng-container *ngTemplateOutlet="dropdownOptions"></ng-container>
     </div>
   </div>
-</ng-template>
+}

@@ -1,15 +1,17 @@
-<ng-template ngFor let-submission [ngForOf]="submissions$ | async">
+@for (submission of submissions$ | async; track submission) {
   <div class="box">
     <h4 class="title is-4">
       <app-user-link [user]="submission.user" [isLink]="true" [showAvatar]="true"></app-user-link>
-      <app-delete-button *ngIf="showDelete"
-                         [baseText]="'marathon.submissions.submission.delete' | translate"
-                         [confirmText]="'action.confirm' | translate"
-                         [cancelText]="'action.cancel' | translate"
-                         (confirmHandler)="deleteSubmissionFromList(submission.id)"
-      ></app-delete-button>
+      @if (showDelete) {
+        <app-delete-button
+          [baseText]="'marathon.submissions.submission.delete' | translate"
+          [confirmText]="'action.confirm' | translate"
+          [cancelText]="'action.cancel' | translate"
+          (confirmHandler)="deleteSubmissionFromList(submission.id)"
+        ></app-delete-button>
+      }
     </h4>
-    <ng-template ngFor let-game [ngForOf]="submission.games">
+    @for (game of submission.games; track game) {
       <app-submission-game
         [game]="game"
         [marathon]="marathonService.marathon"
@@ -19,9 +21,9 @@
         (deleteGame)="deleteGameFromList(game.id)"
         (deleteCategory)="deleteCategoryFromList(game.id, $event)"
       ></app-submission-game>
-    </ng-template>
+    }
   </div>
-</ng-template>
+}
 
 <div class="is-centered" [hidden]="!canLoadMore" #lazyLoadTrigger>
   <app-loading-indicator></app-loading-indicator>

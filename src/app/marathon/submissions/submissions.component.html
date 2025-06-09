@@ -4,21 +4,25 @@
 
 <h3 class="title is-3 mb-4">
   {{ 'marathon.submissions.title' | translate }}
-  <button class="button is-pulled-right is-info" (click)="exportToCsv()"
-          *ngIf="marathonService.isAdmin(userService.user)">{{ 'marathon.submissions.export' | translate}}
-  </button>
+  @if (marathonService.isAdmin(userService.user)) {
+    <button class="button is-pulled-right is-info" (click)="exportToCsv()"
+      >{{ 'marathon.submissions.export' | translate}}
+    </button>
+  }
 </h3>
 
-<div class="tabs is-centered" *ngIf="displaysTabs">
-  <ul>
-    <li [ngClass]="{'is-active':active==='submissions'}">
-      <a (click)="switchTab('submissions')">{{'marathon.submissions.tabs.submissions' | translate}}</a>
-    </li>
-    <li [ngClass]="{'is-active':active==='answers'}">
-      <a (click)="switchTab('answers')">{{'marathon.submissions.tabs.answers' | translate}}</a>
-    </li>
-  </ul>
-</div>
+@if (displaysTabs) {
+  <div class="tabs is-centered">
+    <ul>
+      <li [ngClass]="{'is-active':active==='submissions'}">
+        <a (click)="switchTab('submissions')">{{'marathon.submissions.tabs.submissions' | translate}}</a>
+      </li>
+      <li [ngClass]="{'is-active':active==='answers'}">
+        <a (click)="switchTab('answers')">{{'marathon.submissions.tabs.answers' | translate}}</a>
+      </li>
+    </ul>
+  </div>
+}
 
 <div [hidden]="displaysTabs && active !== 'submissions'" class="container" id="submissionScrollArea">
 
@@ -28,45 +32,46 @@
         <div class="panel-block">
           <p class="control has-icons-left">
             <input class="input searchInput" type="text" #searchInput
-                   [(ngModel)]="gameFilter"
-                   [placeholder]="'marathon.submissions.filter' | translate"
-                   (input)="search(searchInput.value)">
+              [(ngModel)]="gameFilter"
+              [placeholder]="'marathon.submissions.filter' | translate"
+              (input)="search(searchInput.value)">
             <span class="icon is-left">
               <fa-icon [icon]="faSearch"></fa-icon>
             </span>
           </p>
         </div>
-        <div class="panel-block" *ngIf="marathonService.marathon.selectionDone">
-          <div class="select is-fullwidth">
-            <select [(ngModel)]="statusFilter" (ngModelChange)="search(searchInput.value)">
-              <option value="">{{ 'marathon.selection.status.ALL' | translate}}</option>
-              <option value="REJECTED">{{ 'marathon.selection.status.REJECTED' | translate}}</option>
-              <option value="BONUS">{{ 'marathon.selection.status.BONUS' | translate}}</option>
-              <option value="BACKUP">{{ 'marathon.selection.status.BACKUP' | translate}}</option>
-              <option value="VALIDATED">{{ 'marathon.selection.status.VALIDATED' | translate}}</option>
-            </select>
+        @if (marathonService.marathon.selectionDone) {
+          <div class="panel-block">
+            <div class="select is-fullwidth">
+              <select [(ngModel)]="statusFilter" (ngModelChange)="search(searchInput.value)">
+                <option value="">{{ 'marathon.selection.status.ALL' | translate}}</option>
+                <option value="REJECTED">{{ 'marathon.selection.status.REJECTED' | translate}}</option>
+                <option value="BONUS">{{ 'marathon.selection.status.BONUS' | translate}}</option>
+                <option value="BACKUP">{{ 'marathon.selection.status.BACKUP' | translate}}</option>
+                <option value="VALIDATED">{{ 'marathon.selection.status.VALIDATED' | translate}}</option>
+              </select>
+            </div>
           </div>
-        </div>
+        }
       </nav>
     </div>
   </div>
 
   <!-- Search lazy loader -->
-  <app-submission-lazy-loader
-    *ngIf="isSearching; else normalSubmissionLoader"
-    [nextSubmissionPage]="nextSearchPageLoaded"
-    [selection]="selection"
-    [showDelete]="showDelete"
-    [userIsAdmin]="userIsAdmin"
-    [doInitialLoad]="false"
-    (loadNextPage)="loadNextSearchPage($event)"
-    (deleteSubmission)="deleteSubmission($event)"
-    (deleteGame)="deleteGame($event)"
-    (deleteCategory)="deleteCategory($event)"
-    #searchLazyLoader
-  ></app-submission-lazy-loader>
-
-  <ng-template #normalSubmissionLoader>
+  @if (isSearching) {
+    <app-submission-lazy-loader
+      [nextSubmissionPage]="nextSearchPageLoaded"
+      [selection]="selection"
+      [showDelete]="showDelete"
+      [userIsAdmin]="userIsAdmin"
+      [doInitialLoad]="false"
+      (loadNextPage)="loadNextSearchPage($event)"
+      (deleteSubmission)="deleteSubmission($event)"
+      (deleteGame)="deleteGame($event)"
+      (deleteCategory)="deleteCategory($event)"
+      #searchLazyLoader
+    ></app-submission-lazy-loader>
+  } @else {
     <!-- Normal submission lazy loader -->
     <app-submission-lazy-loader
       [nextSubmissionPage]="nextSubmissionPageLoaded"
@@ -78,37 +83,40 @@
       (deleteGame)="deleteGame($event)"
       (deleteCategory)="deleteCategory($event)"
     ></app-submission-lazy-loader>
-  </ng-template>
+  }
+
 </div>
 
 <div [hidden]="!displaysTabs || active !== 'answers'" class="container">
   <div class="table-container">
     <table class="table is-fullwidth is-striped">
       <thead>
-      <tr>
-        <th>{{ 'marathon.submissions.table.runner' | translate}}</th>
-        <th>{{ 'marathon.submissions.table.question' | translate}}</th>
-        <th>{{ 'marathon.submissions.table.answer' | translate}}</th>
-      </tr>
+        <tr>
+          <th>{{ 'marathon.submissions.table.runner' | translate}}</th>
+          <th>{{ 'marathon.submissions.table.question' | translate}}</th>
+          <th>{{ 'marathon.submissions.table.answer' | translate}}</th>
+        </tr>
       </thead>
       <tbody>
-      <ng-template ngFor let-entry [ngForOf]="answers | keyvalue">
-        <tr *ngFor="let answer of entry.value; let i = index">
-          <ng-template [ngIf]="i === 0">
-            <td [attr.rowspan]="entry.value.length">
-              <app-user-link [username]="entry.key" [isLink]="true" [showAvatar]="true"></app-user-link>
-            </td>
-          </ng-template>
-          <td>
-            {{ questions.get(answer.questionId)?.label ?? 'MissingNo' }}
-          </td>
-          <td>
-            <p class="content">
-              <app-oengus-md [data]="answer.answer"></app-oengus-md>
-            </p>
-          </td>
-        </tr>
-      </ng-template>
+        @for (entry of answers | keyvalue; track entry) {
+          @for (answer of entry.value; track answer; let i = $index) {
+            <tr>
+              @if (i === 0) {
+                <td [attr.rowspan]="entry.value.length">
+                  <app-user-link [username]="entry.key" [isLink]="true" [showAvatar]="true"></app-user-link>
+                </td>
+              }
+              <td>
+                {{ questions.get(answer.questionId)?.label ?? 'MissingNo' }}
+              </td>
+              <td>
+                <p class="content">
+                  <app-oengus-md [data]="answer.answer"></app-oengus-md>
+                </p>
+              </td>
+            </tr>
+          }
+        }
       </tbody>
     </table>
   </div>

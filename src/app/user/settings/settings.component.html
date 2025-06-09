@@ -10,42 +10,44 @@
       <p>{{ 'user.settings.deletingAccount.body.2' | translate }}</p>
       <br />
       <input class="input"
-             type="text"
-             [(ngModel)]="deleteUsername"
-             name="deleteShortname" style="margin-bottom: 1rem">
+        type="text"
+        [(ngModel)]="deleteUsername"
+        name="deleteShortname" style="margin-bottom: 1rem">
     </section>
     <footer class="modal-card-foot">
       <button class="button is-warning"
-              (click)="deleteUser()"
-              [disabled]="!usernameConfirmed"
-              [ngClass]="{ 'is-loading': loading }">
+        (click)="deleteUser()"
+        [disabled]="!usernameConfirmed"
+        [ngClass]="{ 'is-loading': loading }">
         {{ 'user.settings.deletingAccount.btnDelete' | translate }}
       </button>
       <button class="button is-success"
-              (click)="deleteConfirm = false; deleteUsername = ''"
-              [ngClass]="{ 'is-loading': loading }">
+        (click)="deleteConfirm = false; deleteUsername = ''"
+        [ngClass]="{ 'is-loading': loading }">
         {{ 'user.settings.deletingAccount.btnCancel' | translate }}
       </button>
     </footer>
   </div>
 </div>
-<app-mfa-modal *ngIf="mfaSettings?.secretKey" [mfaSettings]="mfaSettings" (mfaResult)="handleMfaResult($event)"></app-mfa-modal>
+@if (mfaSettings?.secretKey) {
+  <app-mfa-modal [mfaSettings]="mfaSettings" (mfaResult)="handleMfaResult($event)"></app-mfa-modal>
+}
 
 <div class="container">
   <h1 class="title">{{'user.settings.title' | translate}}</h1>
 
   <form ngForm="userForm"
-        #form="ngForm">
+    #form="ngForm">
     <h4 class="title is-4">{{'user.settings.general' | translate}}</h4>
 
 
     <div class="field">
       <div class="control">
         <button class="button is-link"
-                [ngClass]="{'is-loading': loading}"
-                type="button"
-                (click)="submit()"
-                [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' | translate}}
+          [ngClass]="{'is-loading': loading}"
+          type="button"
+          (click)="submit()"
+          [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' | translate}}
         </button>
       </div>
     </div>
@@ -55,50 +57,68 @@
       <label class="label">{{'user.settings.displayName.label' | translate}}</label>
       <div class="control">
         <input class="input"
-               [ngClass]="{'is-danger': displayName.invalid}"
-               type="text"
-               [(ngModel)]="user.displayName"
-               name="displayName"
-               #displayName="ngModel"
-               minlength="1"
-               maxlength="32">
+          [ngClass]="{'is-danger': displayName.invalid}"
+          type="text"
+          [(ngModel)]="user.displayName"
+          name="displayName"
+          #displayName="ngModel"
+          minlength="1"
+          maxlength="32">
       </div>
       <p class="help">{{'user.settings.displayName.help' | translate}}</p>
-      <div *ngIf="displayName.invalid">
-        <p class="help is-danger"
-           *ngIf="displayName.errors.maxlength">{{'user.settings.displayName.error.max' | translate}}</p>
-        <p class="help is-danger"
-           *ngIf="displayName.errors.minlength">{{'user.settings.displayName.error.min' | translate}}</p>
-      </div>
+      @if (displayName.invalid) {
+        <div>
+          @if (displayName.errors.maxlength) {
+            <p class="help is-danger"
+            >{{'user.settings.displayName.error.max' | translate}}</p>
+          }
+          @if (displayName.errors.minlength) {
+            <p class="help is-danger"
+            >{{'user.settings.displayName.error.min' | translate}}</p>
+          }
+        </div>
+      }
     </div>
     <!-- username -->
     <div class="field">
       <label class="label">{{'user.settings.username.label' | translate}}</label>
       <div class="control">
         <input class="input"
-               [ngClass]="{'is-danger': username.invalid}"
-               type="text"
-               [(ngModel)]="user.username"
-               name="username"
-               #username="ngModel"
-               minlength="3"
-               maxlength="32"
-               pattern="^[a-z_\-0-9]{3,32}$"
-               appUsernameExistsValidator
-               required>
+          [ngClass]="{'is-danger': username.invalid}"
+          type="text"
+          [(ngModel)]="user.username"
+          name="username"
+          #username="ngModel"
+          minlength="3"
+          maxlength="32"
+          pattern="^[a-z_\-0-9]{3,32}$"
+          appUsernameExistsValidator
+          required>
       </div>
-      <div *ngIf="username.invalid">
-        <p class="help is-danger"
-           *ngIf="username.errors.minlength">{{'user.settings.username.error.min' | translate}}</p>
-        <p class="help is-danger"
-           *ngIf="username.errors.maxlength">{{'user.settings.username.error.max' | translate}}</p>
-        <p class="help is-danger"
-           *ngIf="username.errors.exists">{{'user.settings.username.error.exists' | translate}}</p>
-        <p class="help is-danger"
-           *ngIf="username.errors.required">{{'user.settings.username.error.required' | translate}}</p>
-        <p class="help is-danger"
-           *ngIf="username.errors.pattern">{{'user.settings.username.error.pattern' | translate}}</p>
-      </div>
+      @if (username.invalid) {
+        <div>
+          @if (username.errors.minlength) {
+            <p class="help is-danger"
+            >{{'user.settings.username.error.min' | translate}}</p>
+          }
+          @if (username.errors.maxlength) {
+            <p class="help is-danger"
+            >{{'user.settings.username.error.max' | translate}}</p>
+          }
+          @if (username.errors.exists) {
+            <p class="help is-danger"
+            >{{'user.settings.username.error.exists' | translate}}</p>
+          }
+          @if (username.errors.required) {
+            <p class="help is-danger"
+            >{{'user.settings.username.error.required' | translate}}</p>
+          }
+          @if (username.errors.pattern) {
+            <p class="help is-danger"
+            >{{'user.settings.username.error.pattern' | translate}}</p>
+          }
+        </div>
+      }
     </div>
 
     <div class="field">
@@ -112,20 +132,20 @@
     <div class="field">
       <label for="enable-2fa" class="label">{{ 'user.settings.mfa.label' | translate }}</label>
       <div class="control">
-        <button type="button"
-                *ngIf="user.mfaEnabled; else noMfa"
-                class="button is-warning"
-                (click)="resetMfa()"
-                [disabled]="mfaLoading"
-                [class]="{ 'is-loading': mfaLoading }"
-                id="enable-2fa" >{{ 'user.settings.mfa.disableButton' | translate }}</button>
-        <ng-template #noMfa>
+        @if (user.mfaEnabled) {
           <button type="button"
-                  class="button is-success"
-                  [disabled]="mfaLoading"
-                  [class]="{ 'is-loading': mfaLoading }"
-                  id="enable-2fa" (click)="initMfa()">{{ 'user.settings.mfa.enableButton' | translate }}</button>
-        </ng-template>
+            class="button is-warning"
+            (click)="resetMfa()"
+            [disabled]="mfaLoading"
+            [class]="{ 'is-loading': mfaLoading }"
+          id="enable-2fa" >{{ 'user.settings.mfa.disableButton' | translate }}</button>
+        } @else {
+          <button type="button"
+            class="button is-success"
+            [disabled]="mfaLoading"
+            [class]="{ 'is-loading': mfaLoading }"
+          id="enable-2fa" (click)="initMfa()">{{ 'user.settings.mfa.enableButton' | translate }}</button>
+        }
       </div>
     </div>
 
@@ -133,10 +153,10 @@
       <label for="change-password" class="label">{{ 'user.settings.password.changeLabel' | translate }}</label>
       <div class="control">
         <button type="button"
-                (click)="requestNewPassword()"
-                class="button is-warning"
-                [disabled]="pwResetButtonDisabled"
-                id="change-password">{{ 'auth.passwordReset.request' | translate }}</button>
+          (click)="requestNewPassword()"
+          class="button is-warning"
+          [disabled]="pwResetButtonDisabled"
+        id="change-password">{{ 'auth.passwordReset.request' | translate }}</button>
       </div>
       <p class="help">Clicking this button will send you an email to reset your password, if you did not have a password set previously this will set it.</p>
     </div>
@@ -146,13 +166,19 @@
       <label class="label">{{'user.settings.email.label' | translate}}</label>
       <div class="control">
         <input class="input" [ngClass]="{'is-danger': mail.invalid}" type="email" [(ngModel)]="user.email" name="mail"
-               #mail="ngModel" email required>
+          #mail="ngModel" email required>
       </div>
       <p class="help" [innerHTML]="'user.settings.email.help' | translate"></p>
-      <div *ngIf="mail.invalid">
-        <p class="help is-danger" *ngIf="mail.errors.email">{{'user.settings.email.error.email' | translate}}</p>
-        <p class="help is-danger" *ngIf="mail.errors.required">{{'user.settings.email.error.required' | translate}}</p>
-      </div>
+      @if (mail.invalid) {
+        <div>
+          @if (mail.errors.email) {
+            <p class="help is-danger">{{'user.settings.email.error.email' | translate}}</p>
+          }
+          @if (mail.errors.required) {
+            <p class="help is-danger">{{'user.settings.email.error.required' | translate}}</p>
+          }
+        </div>
+      }
     </div>
     <!-- pronouns -->
     <app-element-pronouns [(pronouns)]="user.pronouns" ></app-element-pronouns>
@@ -175,71 +201,77 @@
     <p>{{'user.settings.accountSync.description' | translate}}</p>
     <br/>
     <app-sync-button [synced]="!!user.discordId"
-                     [username]="getUsernameByConnectionType('DISCORD')"
-                     title="Discord"
-                     (sync)="syncDiscord()"
-                     (unsync)="unsyncDiscord()">
+      [username]="getUsernameByConnectionType('DISCORD')"
+      title="Discord"
+      (sync)="syncDiscord()"
+      (unsync)="unsyncDiscord()">
     </app-sync-button>
     <app-sync-button [synced]="!!user.twitchId"
-                     [username]="getUsernameByConnectionType('TWITCH')"
-                     title="Twitch"
-                     (sync)="syncTwitch()"
-                     (unsync)="unsyncTwitch()">
+      [username]="getUsernameByConnectionType('TWITCH')"
+      title="Twitch"
+      (sync)="syncTwitch()"
+      (unsync)="unsyncTwitch()">
     </app-sync-button>
     <app-sync-button [synced]="!!user.patreonId"
-                     [username]="'ID: ' + user.patreonId"
-                     title="Patreon"
-                     (sync)="syncPatreon()"
-                     (unsync)="unsyncPatreon()">
+      [username]="'ID: ' + user.patreonId"
+      title="Patreon"
+      (sync)="syncPatreon()"
+      (unsync)="unsyncPatreon()">
     </app-sync-button>
     <!--<app-sync-button [synced]="!!user.twitterId"
-                     [username]="getUsernameByConnectionType('TWITTER')"
-                     title="Twitter"
-                     (sync)="syncTwitter()"
-                     (unsync)="unsyncTwitter()">
-    </app-sync-button>-->
+    [username]="getUsernameByConnectionType('TWITTER')"
+    title="Twitter"
+    (sync)="syncTwitter()"
+    (unsync)="unsyncTwitter()">
+  </app-sync-button>-->
+  @if (!user.discordId && !user.twitchId) {
     <p class="help is-danger"
-       *ngIf="!user.discordId && !user.twitchId">{{'user.settings.accountSync.error.noService' | translate}}</p>
-    <div class="field">
-      <div class="control">
-        <button class="button is-link"
-                [ngClass]="{'is-loading': loading}"
-                type="button"
-                (click)="submit()"
-                [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' |
-          translate}}
-        </button>
-      </div>
+    >{{'user.settings.accountSync.error.noService' | translate}}</p>
+  }
+  <div class="field">
+    <div class="control">
+      <button class="button is-link"
+        [ngClass]="{'is-loading': loading}"
+        type="button"
+        (click)="submit()"
+        [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' |
+        translate}}
+      </button>
     </div>
-    <hr/>
-    <h4 class="title is-4">{{'user.settings.deactivateAccount.title' | translate}}</h4>
-    <p>{{'user.settings.deactivateAccount.description' | translate}}</p>
-    <br/>
-    <div class="field">
-      <div class="buttons">
-        <div class="control" *ngIf="!deactivateConfirm">
+  </div>
+  <hr/>
+  <h4 class="title is-4">{{'user.settings.deactivateAccount.title' | translate}}</h4>
+  <p>{{'user.settings.deactivateAccount.description' | translate}}</p>
+  <br/>
+  <div class="field">
+    <div class="buttons">
+      @if (!deactivateConfirm) {
+        <div class="control">
           <button class="button is-danger is-outlined" type="button" (click)="deactivateConfirm = true">
             {{ 'user.settings.deactivateAccount.action' | translate}}
           </button>
         </div>
-        <div class="control" *ngIf="deactivateConfirm">
+      }
+      @if (deactivateConfirm) {
+        <div class="control">
           <p class="help">{{ 'user.settings.deactivateAccount.confirmText' | translate}}</p>
           <input class="input"
-                 type="text"
-                 [(ngModel)]="deleteUsername"
-                 name="deleteShortname" style="margin-bottom: 1rem">
+            type="text"
+            [(ngModel)]="deleteUsername"
+            name="deleteShortname" style="margin-bottom: 1rem">
           <br>
-          <button class="button is-primary" type="button"
-                  [ngClass]="{'is-loading': loading}"
-                  [disabled]="!usernameConfirmed" (click)="deactivate()">
-            {{'action.confirm' | translate}}
-          </button>
-          <button class="button is-danger" type="button" (click)="deactivateConfirm = false"
-                  [ngClass]="{'is-loading': loading}"
-                  style="margin-left: 1rem">
-            {{'action.cancel' | translate}}
-          </button>
-        </div>
+            <button class="button is-primary" type="button"
+              [ngClass]="{'is-loading': loading}"
+              [disabled]="!usernameConfirmed" (click)="deactivate()">
+              {{'action.confirm' | translate}}
+            </button>
+            <button class="button is-danger" type="button" (click)="deactivateConfirm = false"
+              [ngClass]="{'is-loading': loading}"
+              style="margin-left: 1rem">
+              {{'action.cancel' | translate}}
+            </button>
+          </div>
+        }
 
         <!-- DELETING account -->
         <div class="control" style="margin-left: 0.5rem">

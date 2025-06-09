@@ -1,5 +1,7 @@
-<div *ngIf="isMissingDisplayName" class="has-background-info has-text-white">
-  <h1 class="is-size-1">
-    {{ 'navbar.displayNameNotification' | translate }}
-  </h1>
-</div>
+@if (isMissingDisplayName) {
+  <div class="has-background-info has-text-white">
+    <h1 class="is-size-1">
+      {{ 'navbar.displayNameNotification' | translate }}
+    </h1>
+  </div>
+}

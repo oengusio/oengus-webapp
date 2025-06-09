@@ -1,2 +1,6 @@
-<ng-content *ngIf="!isExpandButton"></ng-content>
-<fa-icon *ngIf="isExpandButton" [icon]="icon"></fa-icon>
+@if (!isExpandButton) {
+  <ng-content></ng-content>
+}
+@if (isExpandButton) {
+  <fa-icon [icon]="icon"></fa-icon>
+}

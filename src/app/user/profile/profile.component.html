@@ -1,5 +1,9 @@
-<app-user-management-dialog *ngIf="isAdmin && dialogOpen" (close)="dialogOpen = false" [user]="user"></app-user-management-dialog>
+@if (isAdmin && dialogOpen) {
+  <app-user-management-dialog (close)="dialogOpen = false" [user]="user"></app-user-management-dialog>
+}
 <app-user-profile class="box" [user]="user"></app-user-profile>
-<app-user-admin-controls *ngIf="isAdmin" [user]="user" (openDialog)="dialogOpen = true" class="buttons"></app-user-admin-controls>
+@if (isAdmin) {
+  <app-user-admin-controls [user]="user" (openDialog)="dialogOpen = true" class="buttons"></app-user-admin-controls>
+}
 <app-user-social [user]="user"></app-user-social>
 <app-profile-history [user]="user"></app-profile-history>

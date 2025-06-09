@@ -1,6 +1,10 @@
-<section *ngIf="notifications.length" class="section container">
-  <div *ngFor="let notification of notifications; let i = index" class="notification is-{{notification.color}}">
-    <button class="delete" (click)="deleteNotification(i)"></button>
-    <div [innerHTML]="notification.message | markdown"></div>
-  </div>
-</section>
+@if (notifications.length) {
+  <section class="section container">
+    @for (notification of notifications; track notification; let i = $index) {
+      <div class="notification is-{{notification.color}}">
+        <button class="delete" (click)="deleteNotification(i)"></button>
+        <div [innerHTML]="notification.message | markdown"></div>
+      </div>
+    }
+  </section>
+}

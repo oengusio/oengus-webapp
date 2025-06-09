@@ -4,23 +4,33 @@
       {{ marathonName }} <!-- TODO: find a way to put the schedule name here -->
     </h3>
 
-    <button *ngIf="collapsed" class="button navbar-burger" [class]="buttonClass" (click)="toggleSidebar.emit(!collapsed)">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    @if (collapsed) {
+      <button class="button navbar-burger" [class]="buttonClass" (click)="toggleSidebar.emit(!collapsed)">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    }
   </div>
 
-  <div *ngIf="collapsed" class="menu-sections">
-    <app-marathon-sidebar-overview [marathon]="marathon" [collapsed]="true"></app-marathon-sidebar-overview>
-    <app-sidebar-tracker *ngIf="marathon.hasDonations || marathon.hasIncentives"
-                         [marathon]="marathon" [collapsed]="true"></app-sidebar-tracker>
-    <app-sidebar-admin *ngIf="isAdmin" [marathon]="marathon" [collapsed]="true"></app-sidebar-admin>
-  </div>
+  @if (collapsed) {
+    <div class="menu-sections">
+      <app-marathon-sidebar-overview [marathon]="marathon" [collapsed]="true"></app-marathon-sidebar-overview>
+      @if (marathon.hasDonations || marathon.hasIncentives) {
+        <app-sidebar-tracker
+        [marathon]="marathon" [collapsed]="true"></app-sidebar-tracker>
+      }
+      @if (isAdmin) {
+        <app-sidebar-admin [marathon]="marathon" [collapsed]="true"></app-sidebar-admin>
+      }
+    </div>
+  }
 </div>
 
-<app-element-advertisement *ngIf="collapsed"
-                           [showAdvertisement]="false"
-                           [isVertical]="false"
-                           [isHorizontal]="true"
-                           class="is-advertisement"></app-element-advertisement>
+@if (collapsed) {
+  <app-element-advertisement
+    [showAdvertisement]="false"
+    [isVertical]="false"
+    [isHorizontal]="true"
+  class="is-advertisement"></app-element-advertisement>
+}

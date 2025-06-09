@@ -8,28 +8,30 @@
     <section class="modal-card-body">
 
       <div class="buttons">
-        <button class="button is-danger"
-                (click)="unbanUser()"
-                [disabled]="banLoading"
-                [ngClass]="{'is-loading': banLoading}"
-                *ngIf="user.banned else banUserTemplate">{{ 'user.profile.unban' | translate }}</button>
-        <ng-template #banUserTemplate>
+        @if (user.banned) {
+          <button class="button is-danger"
+            (click)="unbanUser()"
+            [disabled]="banLoading"
+            [ngClass]="{'is-loading': banLoading}"
+          >{{ 'user.profile.unban' | translate }}</button>
+        } @else {
           <button class="button is-warning"
-                  [ngClass]="{'is-loading': banLoading}"
-                  [disabled]="banLoading"
-                  (click)="banUser()">{{ 'user.profile.ban' | translate }}</button>
-        </ng-template>
-        <button class="button is-warning"
-                (click)="setActivated(false)"
-                [ngClass]="{'is-loading': banLoading}"
-                [disabled]="banLoading"
-                *ngIf="user.enabled else deactivateUserTemplate">{{ 'user.profile.deactivate' | translate }}</button>
-        <ng-template #deactivateUserTemplate>
+            [ngClass]="{'is-loading': banLoading}"
+            [disabled]="banLoading"
+          (click)="banUser()">{{ 'user.profile.ban' | translate }}</button>
+        }
+        @if (user.enabled) {
           <button class="button is-warning"
-                  [ngClass]="{'is-loading': banLoading}"
-                  [disabled]="banLoading"
-                  (click)="setActivated(true)">{{ 'user.profile.activate' | translate }}</button>
-        </ng-template>
+            (click)="setActivated(false)"
+            [ngClass]="{'is-loading': banLoading}"
+            [disabled]="banLoading"
+          >{{ 'user.profile.deactivate' | translate }}</button>
+        } @else {
+          <button class="button is-warning"
+            [ngClass]="{'is-loading': banLoading}"
+            [disabled]="banLoading"
+          (click)="setActivated(true)">{{ 'user.profile.activate' | translate }}</button>
+        }
       </div>
 
       <div class="field">

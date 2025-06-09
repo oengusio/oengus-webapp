@@ -8,16 +8,24 @@
 
   <div class="menu-sections">
     <app-marathon-sidebar-overview [collapsed]="collapsed"
-                          [marathon]="marathon"
-                          class="menu-section"></app-marathon-sidebar-overview>
-    <app-sidebar-tracker *ngIf="marathon.hasDonations || marathon.hasIncentives"
-                         [collapsed]="collapsed" [marathon]="marathon"
-                         class="menu-section"></app-sidebar-tracker>
-    <app-sidebar-admin *ngIf="isAdmin"
-                       [collapsed]="collapsed"
-                       [marathon]="marathon"
-                       class="menu-section"></app-sidebar-admin>
-    <hr *ngIf="!collapsed">
-    <app-sidebar-moderators *ngIf="!collapsed" [collapsed]="collapsed" [marathon]="marathon" class="menu-section"></app-sidebar-moderators>
-  </div>
-</nav>
+      [marathon]="marathon"
+    class="menu-section"></app-marathon-sidebar-overview>
+    @if (marathon.hasDonations || marathon.hasIncentives) {
+      <app-sidebar-tracker
+        [collapsed]="collapsed" [marathon]="marathon"
+      class="menu-section"></app-sidebar-tracker>
+    }
+    @if (isAdmin) {
+      <app-sidebar-admin
+        [collapsed]="collapsed"
+        [marathon]="marathon"
+      class="menu-section"></app-sidebar-admin>
+    }
+    @if (!collapsed) {
+      <hr>
+      }
+      @if (!collapsed) {
+        <app-sidebar-moderators [collapsed]="collapsed" [marathon]="marathon" class="menu-section"></app-sidebar-moderators>
+      }
+    </div>
+  </nav>

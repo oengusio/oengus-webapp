@@ -1,21 +1,22 @@
 <app-calendar-controller [(calendarView)]="calendarView" [year]="year" [month]="month"></app-calendar-controller>
 
-<div *ngIf="loading; else loaded" class="is-centered">
-  <app-loading-indicator></app-loading-indicator>
-</div>
-
-
-<ng-template #loaded>
-  <app-calendar-view-table *ngIf="tableView; else scheduleView"
-                           [year]="year"
-                           [month]="month"
-                           [marathons]="marathons"
-  ></app-calendar-view-table>
-
-  <ng-template #scheduleView>
+@if (loading) {
+  <div class="is-centered">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+} @else {
+  @if (tableView) {
+    <app-calendar-view-table
+      [year]="year"
+      [month]="month"
+      [marathons]="marathons"
+    ></app-calendar-view-table>
+  } @else {
     <app-calendar-view-schedule [year]="year"
-                                [month]="month"
-                                [marathons]="marathons"
+      [month]="month"
+      [marathons]="marathons"
     ></app-calendar-view-schedule>
-  </ng-template>
-</ng-template>
+  }
+}
+
+

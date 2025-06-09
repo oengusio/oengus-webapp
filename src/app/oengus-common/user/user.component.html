@@ -1,21 +1,26 @@
-<ng-template [ngIf]="user" [ngIfElse]="justUserName">
+@if (user) {
   <div class="is-inline-flex">
-    <a *ngIf="showProfileLink"
-       [routerLink]="'/user/' + user.username | localize">
-      {{user.displayName}}
-    </a>
-    <span *ngIf="!showProfileLink">
-    {{user.displayName}}
-  </span>
-    <ng-template [ngIf]="showSocialLinks && user.enabled">
-      <a [href]="platforms[connection.platform] + connection.username" *ngFor="let connection of profileConnections" target="_blank">
-        <fa-icon [icon]="iconMapping[connection.platform]" style="margin-left: 0.4rem"></fa-icon>
+    @if (showProfileLink) {
+      <a
+        [routerLink]="'/user/' + user.username | localize">
+        {{user.displayName}}
       </a>
-    </ng-template>
+    }
+    @if (!showProfileLink) {
+      <span>
+        {{user.displayName}}
+      </span>
+    }
+    @if (showSocialLinks && user.enabled) {
+      @for (connection of profileConnections; track connection) {
+        <a [href]="platforms[connection.platform] + connection.username" target="_blank">
+          <fa-icon [icon]="iconMapping[connection.platform]" style="margin-left: 0.4rem"></fa-icon>
+        </a>
+      }
+    }
   </div>
-</ng-template>
-<ng-template #justUserName>
+} @else {
   <a [routerLink]="'/user/' + username | localize">
     {{ username }}
   </a>
-</ng-template>
+}

@@ -1,6 +1,8 @@
-<div class="notification is-info has-text-centered" *ngIf="marathonService.isArchived()">
-  <i>{{ 'marathon.help.isArchived' | translate}}</i>
-</div>
+@if (marathonService.isArchived()) {
+  <div class="notification is-info has-text-centered">
+    <i>{{ 'marathon.help.isArchived' | translate}}</i>
+  </div>
+}
 
 <app-details [marathon]="marathon"></app-details>
 <app-home-submit-button [marathon]="marathon"></app-home-submit-button>

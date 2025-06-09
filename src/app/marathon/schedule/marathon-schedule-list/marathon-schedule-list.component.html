@@ -27,31 +27,32 @@
     {{ 'marathon.schedule.table.setup' | translate }}
   </app-element-table-cell>
 
-  <ng-template ngFor let-run let-index="index" [ngForOf]="runs">
+  @for (run of runs; track run; let index = $index) {
     <!--<app-element-advertisement
-      *ngIf="index !== 0 && shouldShowDay(index)"
-      dataMinHeight="100px"
-      class="is-advertisement"
-      [showAdvertisement]="advertisementIndices.includes(index)"
-      [showSpacer]="true"
-      [isHorizontal]="true"
-    ></app-element-advertisement>-->
-
-    <app-element-table-cell *ngIf="shouldShowDay(index)" class="day is-info" columnStart="1" columnEnd="-1">
+    *ngIf="index !== 0 && shouldShowDay(index)"
+    dataMinHeight="100px"
+    class="is-advertisement"
+    [showAdvertisement]="advertisementIndices.includes(index)"
+    [showSpacer]="true"
+    [isHorizontal]="true"
+  ></app-element-advertisement>-->
+  @if (shouldShowDay(index)) {
+    <app-element-table-cell class="day is-info" columnStart="1" columnEnd="-1">
       <app-element-temporal-datetime [dateTime]="run.date" format="longDateWithWeekday"></app-element-temporal-datetime>
     </app-element-table-cell>
-
-    <app-marathon-schedule-row
-      class="run"
-      [class]="getRowParity(index, run)"
-      [expanded]="expanded.has(run.id)"
-      [internalId]="getId(run)"
-      [runHash]="runHash"
-      (click)="toggleExpand(run.id)"
-      [run]="run"></app-marathon-schedule-row>
-
-    <app-element-table-detail *ngIf="expanded.has(run.id)" class="expanded-run" [class]="getRowParity(index, run)">
+  }
+  <app-marathon-schedule-row
+    class="run"
+    [class]="getRowParity(index, run)"
+    [expanded]="expanded.has(run.id)"
+    [internalId]="getId(run)"
+    [runHash]="runHash"
+    (click)="toggleExpand(run.id)"
+  [run]="run"></app-marathon-schedule-row>
+  @if (expanded.has(run.id)) {
+    <app-element-table-detail class="expanded-run" [class]="getRowParity(index, run)">
       <app-run-details [run]="run"></app-run-details>
     </app-element-table-detail>
-  </ng-template>
+  }
+}
 </div>

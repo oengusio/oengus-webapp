@@ -11,8 +11,12 @@
 </div>
 
 <div class="current-runs-container block">
-  <app-marathon-schedule-current *ngIf="currentRun" [ticker]="currentRun"></app-marathon-schedule-current>
-  <app-marathon-schedule-current *ngIf="nextRun" [isNext]="true" [ticker]="nextRun"></app-marathon-schedule-current>
+  @if (currentRun) {
+    <app-marathon-schedule-current [ticker]="currentRun"></app-marathon-schedule-current>
+  }
+  @if (nextRun) {
+    <app-marathon-schedule-current [isNext]="true" [ticker]="nextRun"></app-marathon-schedule-current>
+  }
 </div>
 
 <p class="block">

@@ -2,44 +2,48 @@
   <h1 class="title">{{'marathon.settings.title' | translate}}</h1>
   <h2 class="subtitle">{{'marathon.settings.description' | translate}}</h2>
 
-  <div class="notification is-info has-text-centered" *ngIf="marathonService.isArchived()">
-    <i>{{ 'marathon.help.isArchived' | translate}}</i>
-  </div>
+  @if (marathonService.isArchived()) {
+    <div class="notification is-info has-text-centered">
+      <i>{{ 'marathon.help.isArchived' | translate}}</i>
+    </div>
+  }
   <form ngForm="newMarathonForm" (ngSubmit)="submit($event)" #form="ngForm">
     <div class="field is-pulled-right">
       <div class="control">
         <button class="button is-link"
-                type="submit"
-                [disabled]="form.invalid || !settingsValid"
-                [ngClass]="{'is-loading': loading}">{{'action.submit' | translate}}</button>
+          type="submit"
+          [disabled]="form.invalid || !settingsValid"
+        [ngClass]="{'is-loading': loading}">{{'action.submit' | translate}}</button>
       </div>
       <br>
-      <div class="control">
-        <nwb-switch [(ngModel)]="updateStartTime" name="updateStartTime">
-          <span>Update start time</span>
-        </nwb-switch>
+        <div class="control">
+          <nwb-switch [(ngModel)]="updateStartTime" name="updateStartTime">
+            <span>Update start time</span>
+          </nwb-switch>
+        </div>
       </div>
-    </div>
-    <div class="is-clearfix"></div>
-    <!-- tabs -->
-    <div class="tabs is-centered">
-      <ul>
-        <li [ngClass]="{'is-active':active==='general'}">
-          <a (click)="active = 'general'">{{'marathon.settings.tabs.general' | translate}}</a>
-        </li>
-        <li [ngClass]="{'is-active':active==='discord'}" style="display: none;">
-          <a (click)="active = 'discord'">{{'marathon.settings.tabs.discord' | translate}}</a>
-        </li>
-        <li [ngClass]="{'is-active':active==='submissions'}">
-          <a (click)="active = 'submissions'">{{'marathon.settings.tabs.submissions' | translate}}</a>
-        </li>
-        <!--<li [ngClass]="{'is-active':active==='incentives'}">
+      <div class="is-clearfix"></div>
+      <!-- tabs -->
+      <div class="tabs is-centered">
+        <ul>
+          <li [ngClass]="{'is-active':active==='general'}">
+            <a (click)="active = 'general'">{{'marathon.settings.tabs.general' | translate}}</a>
+          </li>
+          <li [ngClass]="{'is-active':active==='discord'}" style="display: none;">
+            <a (click)="active = 'discord'">{{'marathon.settings.tabs.discord' | translate}}</a>
+          </li>
+          <li [ngClass]="{'is-active':active==='submissions'}">
+            <a (click)="active = 'submissions'">{{'marathon.settings.tabs.submissions' | translate}}</a>
+          </li>
+          <!--<li [ngClass]="{'is-active':active==='incentives'}">
           <a (click)="active = 'incentives'">{{'marathon.settings.tabs.incentives' | translate}}</a>
         </li>-->
-        <li [ngClass]="{'is-active':active==='dangerZone'}" *ngIf="!marathonService.isArchived() ||
-        marathonService.isAdmin(userService.user)">
-          <a (click)="active = 'dangerZone'">{{'marathon.settings.tabs.dangerZone' | translate}}</a>
-        </li>
+        @if (!marathonService.isArchived() ||
+          marathonService.isAdmin(userService.user)) {
+          <li [ngClass]="{'is-active':active==='dangerZone'}">
+            <a (click)="active = 'dangerZone'">{{'marathon.settings.tabs.dangerZone' | translate}}</a>
+          </li>
+        }
       </ul>
     </div>
     <div [hidden]="active !== 'general'">
@@ -73,43 +77,47 @@
       <!-- incentives -->
       <div [hidden]="active !== 'incentives'">
         <!--<app-marathon-incentive-settings
-          [marathon]="settings"
-          [donationsQuestions]="donationsQuestions"
-          [disabled]="marathonService.isArchived()"
-          (stateUpdate)="settingsComponentUpdated($event)"
-          (questionTypeChange)="questionTypeChange($event)"
-          (addOption)="addOption($event)"
-          (removeOption)="removeOption($event)"
-          (addQuestion)="addQuestion($event)"
-          (removeQuestion)="removeQuestion($event)"
-          (drop)="drop($event)"
-        ></app-marathon-incentive-settings>-->
-      </div>
-      <!-- dangerZone -->
-      <div [hidden]="active !== 'dangerZone'">
-        <h1 class="title">{{ 'marathon.settings.dangerZone' | translate}}</h1>
-        <div class="field">
-          <div class="control" *ngIf="!deleteConfirm">
+        [marathon]="settings"
+        [donationsQuestions]="donationsQuestions"
+        [disabled]="marathonService.isArchived()"
+        (stateUpdate)="settingsComponentUpdated($event)"
+        (questionTypeChange)="questionTypeChange($event)"
+        (addOption)="addOption($event)"
+        (removeOption)="removeOption($event)"
+        (addQuestion)="addQuestion($event)"
+        (removeQuestion)="removeQuestion($event)"
+        (drop)="drop($event)"
+      ></app-marathon-incentive-settings>-->
+    </div>
+    <!-- dangerZone -->
+    <div [hidden]="active !== 'dangerZone'">
+      <h1 class="title">{{ 'marathon.settings.dangerZone' | translate}}</h1>
+      <div class="field">
+        @if (!deleteConfirm) {
+          <div class="control">
             <button class="button is-danger" type="button" (click)="deleteConfirm = true">
               {{ 'marathon.settings.delete.action' | translate}}
             </button>
           </div>
-          <div class="control" *ngIf="deleteConfirm">
+        }
+        @if (deleteConfirm) {
+          <div class="control">
             <p class="help">{{ 'marathon.settings.delete.confirmText' | translate}}</p>
             <input class="input"
-                   type="text"
-                   [(ngModel)]="deleteShortname"
-                   name="deleteShortname" style="margin-bottom: 1rem">
+              type="text"
+              [(ngModel)]="deleteShortname"
+              name="deleteShortname" style="margin-bottom: 1rem">
             <br>
-            <button class="button is-primary" type="button"
-                    [disabled]="deleteShortname !== settings.id" (click)="marathonService.delete(deleteShortname)">
-              {{'action.confirm' | translate}}
-            </button>
-            <button class="button is-danger" type="button" (click)="deleteConfirm = false"
-                    style="margin-left: 1rem">
-              {{'action.cancel' | translate}}
-            </button>
-          </div>
+              <button class="button is-primary" type="button"
+                [disabled]="deleteShortname !== settings.id" (click)="marathonService.delete(deleteShortname)">
+                {{'action.confirm' | translate}}
+              </button>
+              <button class="button is-danger" type="button" (click)="deleteConfirm = false"
+                style="margin-left: 1rem">
+                {{'action.cancel' | translate}}
+              </button>
+            </div>
+          }
         </div>
       </div>
     </fieldset>

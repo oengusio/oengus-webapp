@@ -1,7 +1,7 @@
 <div class="columns">
   <div class="column is-one-fifth vertical-center"><b>{{ title }}</b></div>
   <div class="column is-four-fifths vertical-center">
-    <ng-template [ngIf]="synced" [ngIfElse]="twitchSyncButton">
+    @if (synced) {
       <span>{{ username }}</span>
       <button type="button" class="button is-info" style="margin-left: 1rem" (click)="sync.emit()">
         <fa-icon [icon]="faSyncAlt"></fa-icon>
@@ -9,11 +9,10 @@
       <button type="button" class="button is-warning" style="margin-left: 0.5rem" (click)="unsync.emit()">
         {{'user.settings.accountSync.unsync' | translate}}
       </button>
-    </ng-template>
-    <ng-template #twitchSyncButton>
+    } @else {
       <button type="button" class="button is-info" (click)="sync.emit()">
         {{'user.settings.accountSync.sync' | translate}}
       </button>
-    </ng-template>
+    }
   </div>
 </div>

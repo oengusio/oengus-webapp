@@ -1,17 +1,20 @@
 <app-marathon-header class="marathon-header"
-                     [marathon]="marathonService.marathon"
-                     [isAdmin]="isAdmin"
-                     [collapsed]="collapsed"
-                     (toggleSidebar)="toggleSidebar($event)"></app-marathon-header>
-<app-sidebar class="marathon-sidebar"
-             *ngIf="!collapsed"
-             [isAdmin]="isAdmin"
-             [marathon]="marathonService.marathon"
-             (toggleSidebar)="toggleSidebar($event)"></app-sidebar>
-<app-element-advertisement *ngIf="!collapsed"
-                           [showAdvertisement]="showAdsense"
-                           [isVertical]="true"
-                           dataWidth="169px"
-                           dataMinHeight="350px"
-                           class="is-advertisement"></app-element-advertisement>
+  [marathon]="marathonService.marathon"
+  [isAdmin]="isAdmin"
+  [collapsed]="collapsed"
+(toggleSidebar)="toggleSidebar($event)"></app-marathon-header>
+@if (!collapsed) {
+  <app-sidebar class="marathon-sidebar"
+    [isAdmin]="isAdmin"
+    [marathon]="marathonService.marathon"
+  (toggleSidebar)="toggleSidebar($event)"></app-sidebar>
+}
+@if (!collapsed) {
+  <app-element-advertisement
+    [showAdvertisement]="showAdsense"
+    [isVertical]="true"
+    dataWidth="169px"
+    dataMinHeight="350px"
+  class="is-advertisement"></app-element-advertisement>
+}
 <router-outlet (activate)="marathonRouteActivate($event)" class="marathon-view"></router-outlet>

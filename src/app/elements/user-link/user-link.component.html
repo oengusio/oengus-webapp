@@ -1,6 +1,9 @@
-<img *ngIf="showAvatar" [src]="avatarUrl" alt="Profile image" />
+@if (showAvatar) {
+  <img [src]="avatarUrl" alt="Profile image" />
+}
 
-<a *ngIf="isLink; else justName" [routerLink]="'/user/' + userId | localize" [target]="target">{{ displayName }}</a>
-<ng-template #justName>
+@if (isLink) {
+  <a [routerLink]="'/user/' + userId | localize" [target]="target">{{ displayName }}</a>
+} @else {
   <span>{{ displayName }}</span>
-</ng-template>
+}
