@@ -34,8 +34,8 @@
         {{ 'platform.TWITCH' | translate }}
       </p>
       <fa-icon [icon]="faTwitch" class="info"></fa-icon>
+      <p>{{ marathon.twitch }}</p>
     </a>
-    <p>{{ marathon.twitch }}</p>
   }
   @if (marathon.mastodon) {
     <a [href]="mastodonUrl" target="_blank" class="info-box">
@@ -43,8 +43,8 @@
         {{ 'platform.MASTODON' | translate }}
       </p>
       <fa-icon [icon]="faMastodon" class="info"></fa-icon>
+      <p>{{ marathon.mastodon }}</p>
     </a>
-    <p>{{ marathon.mastodon }}</p>
   }
   @if (marathon.bluesky) {
     <a [href]="bskyUrl" target="_blank" class="info-box">
@@ -52,8 +52,8 @@
         {{ 'platform.BLUESKY' | translate }}
       </p>
       <fa-icon [icon]="faBluesky" class="info"></fa-icon>
+      <p>{{ marathon.bluesky }}</p>
     </a>
-    <p>{{ marathon.bluesky }}</p>
   }
   @if (marathon.twitter) {
     <a [href]="'https://twitter.com/' + marathon.twitter + '?utm_source=Oengus'" target="_blank" class="info-box">
@@ -61,8 +61,8 @@
         {{ 'platform.TWITTER' | translate }}
       </p>
       <fa-icon [icon]="faTwitter" class="info"></fa-icon>
+      <p>&#64;{{ marathon.twitter }}</p>
     </a>
-    <p>&#64;{{ marathon.twitter }}</p>
   }
   @if (!marathon.discordPrivacy && marathon.discord) {
     <a [href]="'https://discord.gg/' + marathon.discord + '?utm_source=Oengus'" target="_blank" class="info-box">
