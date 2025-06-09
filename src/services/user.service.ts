@@ -110,6 +110,10 @@ export class UserService extends BaseService {
   }
 
   async update(user: SelfUser) {
+    user.connections.forEach((conn) => {
+      conn.username = conn.username.trim();
+    });
+
     const resp = await firstValueFrom(this.http.patch<SelfUser>(this.v2Url(`${user.id}`), user));
 
     this._user = resp;

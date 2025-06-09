@@ -1,23 +1,23 @@
 <app-element-table class="marathon-calendar-table">
-  @for ( of realDaylyCallendars; track ; let dailyCalendar = $$implicit.marathons; let endtime = $$implicit.endtime; let datetime = $$implicit.datetime) {
-    @if (dailyCalendar.length) {
+  @for ($$implicit of realDaylyCallendars; track $$implicit;) {
+    @if ($$implicit.marathons.length) {
       <app-element-table-cell [isHeader]="true"
         class="day"
-        [class]="isToday(datetime)"
+        [class]="isToday($$implicit.datetime)"
         columnStart="1"
         columnEnd="-1">
-        <app-element-temporal-datetime [dateTime]="datetime" format="longDate"></app-element-temporal-datetime>
+        <app-element-temporal-datetime [dateTime]="$$implicit.datetime" format="longDate"></app-element-temporal-datetime>
       </app-element-table-cell>
-      @for (marathon of dailyCalendar; track marathon; let index = $index) {
-        <app-calendar-view-row [marathon]="marathon" [datetime]="datetime" [class]="getClasses(index)"></app-calendar-view-row>
+      @for (marathon of $$implicit.marathons; track marathon; let index = $index) {
+        <app-calendar-view-row [marathon]="marathon" [datetime]="$$implicit.datetime" [class]="getClasses(index)"></app-calendar-view-row>
       }
     } @else {
       <app-element-table-cell [isHeader]="true"
         class="day-range"
-        [class]="isToday(endtime, datetime)"
+        [class]="isToday($$implicit.endtime, $$implicit.datetime)"
         columnStart="1"
         columnEnd="-1">
-        <app-element-temporal-range [start]="endtime" [end]="datetime" format="longDate" ></app-element-temporal-range>
+        <app-element-temporal-range [start]="$$implicit.endtime" [end]="$$implicit.datetime" format="longDate" ></app-element-temporal-range>
       </app-element-table-cell>
       <app-element-table-cell class="no-marathons is-even"
         columnStart="1"

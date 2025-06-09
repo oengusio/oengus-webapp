@@ -1,5 +1,6 @@
 import { LineRunner } from '../model/schedule-line';
 
+// Possibly better regex: ^@?\b([A-Za-z0-9._%+-]+)@([A-Za-z0-9.-]+\.[A-Za-z]{2,})\b$
 const mastodonRegex = /@?([^@]+)(?:@(.*))?/;
 
 export function parseMastodonUrl(input: string): string {
