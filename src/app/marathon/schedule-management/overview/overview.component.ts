@@ -60,6 +60,10 @@ export class OverviewComponent implements OnInit {
     }
   }
 
+  get maxScheduleCount(): number {
+    return this.isSponsor ? 4 : 1;
+  }
+
   get isSponsor(): boolean {
     return this.supporterStatus?.anySupporter ?? false;
   }

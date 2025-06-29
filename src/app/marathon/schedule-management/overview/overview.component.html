@@ -2,6 +2,12 @@
 
 <div>
   <p>
+    {{ 'marathon.schedule.management.overview.scheduleCount' | translate: { total: schedules.length, maxSchedules: maxScheduleCount } }}
+  </p>
+
+  <br>
+
+  <p>
     {{ 'marathon.schedule.management.overview.title' | translate: { 'create-new': '' } }}
     @if ((isSponsor && schedules.length < 4) || schedules.length === 0) {
       <a [routerLink]="'../new' | localize"
@@ -14,9 +20,12 @@
       </button>
     }
   </p>
-  <p class="help">
-    {{ 'marathon.schedule.management.help.patronNudge' | translate}}
-  </p>
+
+  @if (!isSponsor) {
+    <p class="help">
+      <strong>{{ 'marathon.schedule.management.help.patronNudge' | translate}}</strong>
+    </p>
+  }
 </div>
 
 <hr>
