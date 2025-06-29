@@ -91,12 +91,17 @@ export class SettingsComponent implements OnInit {
     this.questions = this.questions.concat(this.donationsQuestions);
 
     try {
-      await firstValueFrom(this.marathonService.updateSettings(this.settings));
+      const updatedSettings = await firstValueFrom(this.marathonService.updateSettings(this.settings));
       await firstValueFrom(this.marathonService.updateQuestions(this.marathonId, this.questions));
 
       if (this.userService.user.id === this.marathonService.marathon.creator.id) {
         await firstValueFrom(this.marathonService.updateModerators(this.marathonId, this.moderators.map(it => it.id)));
       }
+
+      this.marathonService.marathon = {
+        ...this.marathonService.marathon,
+        ...updatedSettings,
+      };
 
       this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
         const alertConfig: NwbAlertConfig = {
