@@ -265,6 +265,14 @@
     <p class="help is-pulled-right">{{settings.description?.length}}/{{marathonDescMaxLen}}</p>
   </div>
   <p class="help">{{ 'marathon.settings.marathonDescription.help' | translate}}</p>
+  <p class="help">
+    <app-element-i18n key="marathon.settings.marathonDescription.markdown" elementKey="link">
+      <a href="https://gist.github.com/duncte123/694b5d2ea1273fe468718a2b42dda130" target="_blank">
+        https://gist.github.com/duncte123/694b5d2ea1273fe468718a2b42dda130
+      </a>
+    </app-element-i18n>
+  </p>
+  <!-- https://gist.github.com/duncte123/694b5d2ea1273fe468718a2b42dda130 -->
 </div>
 <!-- twitch/twitter/discord/youtube -->
 <fieldset [disabled]="disabled">
