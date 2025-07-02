@@ -87,6 +87,7 @@ import { isEmailVerifiedGuardGuard } from '../guards/is-email-verified-guard.gua
 import { SubmitHeaderComponent } from './submit/submit-header/submit-header.component';
 import { SubmitMultiplayerJoinComponent } from './submit/submit-multiplayer-join/submit-multiplayer-join.component';
 import { SubmitShareButtonsComponent } from './submit/submit-share-buttons/submit-share-buttons.component';
+import { DescriptionEditorComponent } from './settings/general-settings/description-editor/description-editor.component';
 
 const marathonRoutes: Routes = [
   {
@@ -345,6 +346,7 @@ const marathonRoutes: Routes = [
     ElementModule,
     ComponentsModule,
     MarkdownPipe,
+    DescriptionEditorComponent,
   ],
   exports: [
     //

@@ -1,9 +1,9 @@
 import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { platformBrowser } from '@angular/platform-browser';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { marker } from '@biesbjerg/ngx-translate-extract-marker';
+// import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 import * as Sentry from '@sentry/angular';
 
 if (environment.name !== 'local') {
@@ -17,6 +17,7 @@ if (environment.name !== 'local') {
   });
 }
 
+/*
 marker('alert.submit.DIFFERENT_MARATHON');
 marker('alert.submit.NOT_MULTIPLAYER');
 marker('alert.submit.SAME_USER');
@@ -25,11 +26,13 @@ marker('alert.submit.CODE_NOT_FOUND');
 marker('alert.submit.ALREADY_IN_OPPONENTS');
 marker('user.profile.filter.temporality.PAST');
 marker('user.profile.filter.temporality.FUTURE');
+*/
 
 // Enable prod mode in production.
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+platformBrowser()
+  .bootstrapModule(AppModule)
   .catch(err => console.error(err));

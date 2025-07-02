@@ -1,0 +1,29 @@
+<div class="tabs is-toggle">
+  <ul>
+    <li [class.is-active]="!previewActive">
+      <a (click)="$event.preventDefault(); previewActive = false;">{{
+        'editor.markdown.controls.edit' | translate
+        }}</a>
+    </li>
+    <li [class.is-active]="previewActive">
+      <a (click)="$event.preventDefault(); previewActive = true;">{{
+          'editor.markdown.controls.preview' | translate
+        }}</a>
+    </li>
+  </ul>
+</div>
+
+@if (previewActive) {
+  <div class="preview-area">
+    <app-oengus-md [data]="value"/>
+  </div>
+} @else {
+  <textarea class="textarea"
+            [readOnly]="disabled"
+            rows=10
+            [maxlength]="maxLength"
+            [ngModelOptions]="{ updateOn: 'change' }"
+            [(ngModel)]="descriptionValue"
+            name="description" id="description"></textarea>
+  <p class="help is-pulled-right">{{value.length}}/{{maxLength}}</p>
+}

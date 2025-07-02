@@ -9,6 +9,7 @@
              name="setup-text-{{i}}"
              id="setup-text-{{i}}"
              [(ngModel)]="line.setupBlockText"
+             [ngModelOptions]="{ updateOn: 'blur' }"
              maxlength="50"
              placeholder="Setup Block"/>
       <p class="help is-pulled-right">{{line.setupBlockText?.length}}/50</p>

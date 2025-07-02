@@ -256,13 +256,13 @@
 <div class="field">
   <label class="label" for="description">{{ 'marathon.settings.marathonDescription.label' | translate}}</label>
   <div class="control">
-    <textarea class="textarea"
-      [readOnly]="disabled"
-      rows=10
-      [maxlength]="marathonDescMaxLen"
-      [(ngModel)]="settings.description"
-    name="description" id="description"></textarea>
-    <p class="help is-pulled-right">{{settings.description?.length}}/{{marathonDescMaxLen}}</p>
+
+    <app-description-editor
+      [disabled]="disabled"
+      [maxLength]="marathonDescMaxLen"
+      [(value)]="settings.description"
+    />
+
   </div>
   <p class="help">{{ 'marathon.settings.marathonDescription.help' | translate}}</p>
   <p class="help">

@@ -42,7 +42,7 @@
         placeholder="Search for a runner"
         [data]="userSearch[line.position]"
         searchKeyword="username"
-        minQueryLength="3"
+        [minQueryLength]="3"
         (selected)="onSelectUser($event, line)"
         (inputChanged)="onSearchUser($event, line.position)"
         [itemTemplate]="searchTemplate"
@@ -57,7 +57,7 @@
   </div>
   <div class="field-body">
     <div class="field">
-      <input class="input" type="text" name="game-{{i}}" id="game-{{i}}" [(ngModel)]="line.game"/>
+      <input class="input" type="text" name="game-{{i}}" id="game-{{i}}" [(ngModel)]="line.game" [ngModelOptions]="{ updateOn: 'blur' }"/>
     </div>
   </div>
 </div>
@@ -68,7 +68,7 @@
   </div>
   <div class="field-body">
     <div class="field">
-      <input class="input" type="text" name="category-{{i}}" id="category-{{i}}" [(ngModel)]="line.category"/>
+      <input class="input" type="text" name="category-{{i}}" id="category-{{i}}" [(ngModel)]="line.category" [ngModelOptions]="{ updateOn: 'blur' }"/>
     </div>
   </div>
 </div>
@@ -110,7 +110,7 @@
   </div>
   <div class="field-body">
     <div class="field">
-      <input class="input consoleInput" type="text" name="console-{{i}}" id="console-{{i}}" [(ngModel)]="line.console"/>
+      <input class="input consoleInput" type="text" name="console-{{i}}" id="console-{{i}}" [(ngModel)]="line.console" [ngModelOptions]="{ updateOn: 'blur' }"/>
       @if (line.emulated) {
         <sup>{{ 'global.emu' |translate}}</sup>
       }
