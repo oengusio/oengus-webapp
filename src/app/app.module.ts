@@ -61,6 +61,7 @@ import { CalendarViewScheduleComponent } from './calendar/calendar-view-schedule
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { SecurityPopupComponent } from './homepage/security-popup/security-popup.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { ElementLoginLinkSelectorComponent } from './elements/element-login-link-selector/element-login-link-selector.component';
 
 const appRoutes: Routes = [
   {
@@ -213,6 +214,7 @@ const appRoutes: Routes = [
     ElementModule,
     ComponentsModule,
     FullCalendarModule,
+    ElementLoginLinkSelectorComponent,
   ],
   providers: [
     {

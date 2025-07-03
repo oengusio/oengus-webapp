@@ -32,23 +32,4 @@ export class HeaderBarNavComponent {
   toggleNavbarActive(): void {
     this.isNavbarActive = !this.isNavbarActive;
   }
-
-  get noRedirectPaths(): string[] {
-    return [
-      '/register',
-      '/forgot-password'
-    ];
-  }
-
-  storeCurrentLocation(): boolean {
-    let path = window.location.pathname;
-
-    if (this.noRedirectPaths.includes(path)) {
-      path = '/';
-    }
-
-    // We store pathname because "403" can be inserted if a user is not logged in
-    localStorage.setItem('prev_loc', path);
-    return true;
-  }
 }

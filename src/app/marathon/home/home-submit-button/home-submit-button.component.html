@@ -5,7 +5,7 @@
         {{ (marathon.hasSubmitted ? 'marathon.menu.editSubmission' : 'marathon.menu.submitRuns') | translate }}
       </a>
     } @else {
-      <a routerLink="." class="button is-large is-static">
+      <a  [routerLink]="'/login' | localize" login-link class="button is-large is-warning">
         <b>{{ 'marathon.menu.loginToSubmit' | translate}}</b>
       </a>
     }

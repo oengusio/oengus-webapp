@@ -88,6 +88,7 @@ import { SubmitHeaderComponent } from './submit/submit-header/submit-header.comp
 import { SubmitMultiplayerJoinComponent } from './submit/submit-multiplayer-join/submit-multiplayer-join.component';
 import { SubmitShareButtonsComponent } from './submit/submit-share-buttons/submit-share-buttons.component';
 import { DescriptionEditorComponent } from './settings/general-settings/description-editor/description-editor.component';
+import { ElementLoginLinkSelectorComponent } from '../elements/element-login-link-selector/element-login-link-selector.component';
 
 const marathonRoutes: Routes = [
   {
@@ -347,6 +348,7 @@ const marathonRoutes: Routes = [
     ComponentsModule,
     MarkdownPipe,
     DescriptionEditorComponent,
+    ElementLoginLinkSelectorComponent,
   ],
   exports: [
     //

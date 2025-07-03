@@ -70,7 +70,7 @@
       </li>
     } @else {
       <li [title]="'marathon.menu.loginToSubmit' | translate">
-        <a class="menu-item-link">
+        <a class="menu-item-link" [routerLink]="'/login' | localize" login-link>
           <span class="menu-item-label">
             {{ 'marathon.menu.loginToSubmit' | translate }}
           </span>

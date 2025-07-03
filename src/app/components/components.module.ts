@@ -13,6 +13,7 @@ import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 import { SimpleMdComponent } from './simple-md/simple-md.component';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { MarkdownPipe } from '../pipes/markdown.pipe';
+import { ElementLoginLinkSelectorComponent } from '../elements/element-login-link-selector/element-login-link-selector.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MarkdownPipe } from '../pipes/markdown.pipe';
     LocalizeRouterModule,
     ElementModule,
     MarkdownPipe,
+    ElementLoginLinkSelectorComponent,
   ],
 })
 export class ComponentsModule { }

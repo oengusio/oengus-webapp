@@ -62,7 +62,7 @@
     @if (userService.user) {
       <app-header-bar-user class="navbar-item pl-0"></app-header-bar-user>
     } @else {
-      <a [routerLink]="'/login' | localize" (click)="storeCurrentLocation()" class="navbar-item">
+      <a [routerLink]="'/login' | localize" login-link class="navbar-item">
         {{ 'navbar.login.title' | translate }}
       </a>
       <a [routerLink]="'/register' | localize" class="navbar-item">
