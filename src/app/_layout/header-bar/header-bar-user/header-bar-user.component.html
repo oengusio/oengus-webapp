@@ -13,6 +13,11 @@
       <!--<a href="">
         TODO: Saved Speedruns
       </a>-->
+
+      <a routerLink="/user/saved-games-settings" class="navbar-item">
+        Saved Speedruns
+      </a>
+
       <a class="navbar-item" (click)="userService.logout()">
         {{'navbar.logout' | translate}}
       </a>

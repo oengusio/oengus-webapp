@@ -9,7 +9,7 @@ import { ValidationErrors } from '@angular/forms';
 import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
 import { PatreonStatusDto, RelationShip } from '../model/annoying-patreon-shit';
-import { HistoryMarathon, UserProfileHistory } from '../model/user-profile-history';
+import { HistoryMarathon, SavedGame, UserProfileHistory } from '../model/user-profile-history';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
 import { map } from 'rxjs/operators';
 
@@ -165,6 +165,10 @@ export class UserService extends BaseService {
 
   getModerationHistory(id: number): Observable<DataListDto<HistoryMarathon>> {
     return this.http.get<DataListDto<HistoryMarathon>>(this.v2Url(`${id}/moderation-history`));
+  }
+
+  getSavedGamesList(id: number): Observable<DataListDto<SavedGame>> {
+    return this.http.get<DataListDto<SavedGame>>(this.v2Url(`${id}/saved-games`));
   }
 
   getSupporterStatus(id: number): Observable<UserSupporterStatus> {

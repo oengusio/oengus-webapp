@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserProfile } from '../../../../model/user-profile';
 import { ActivatedRoute, Params } from '@angular/router';
-import { HistoryMarathon, UserProfileHistory } from '../../../../model/user-profile-history';
+import { HistoryMarathon, SavedGame, UserProfileHistory } from '../../../../model/user-profile-history';
 import { UserService } from '../../../../services/user.service';
 
 @Component({
@@ -16,13 +16,16 @@ export class ProfileHistoryComponent implements OnInit {
   tabQuery = 'user-history';
   submissionTab = 'submission';
   moderationTab = 'moderation';
+  savedSpeedrunsTab = 'saved';
 
   submissionHistory: UserProfileHistory[] = [];
   moderationHistory: HistoryMarathon[] = [];
+  savedGames: SavedGame[] = [];
 
   fetched = {
     submission: false,
     moderation: false,
+    savedGames: false,
   };
 
   loading = true;
@@ -43,24 +46,58 @@ export class ProfileHistoryComponent implements OnInit {
   }
 
   private fetchNewData(): void {
-    if (this.activeTab === this.submissionTab) {
-      if (!this.fetched.submission) {
-        this.loading = true;
-        this.userService.getSubmissionHistory(this.user.id).subscribe((history) => {
-          this.submissionHistory = history.data;
-          this.fetched.submission = true;
-          this.loading = false;
-        });
-      }
-    } else if (this.activeTab === this.moderationTab) {
-      if (!this.fetched.moderation) {
-        this.loading = true;
-        this.userService.getModerationHistory(this.user.id).subscribe((history) => {
-          this.moderationHistory = history.data;
-          this.fetched.moderation = true;
-          this.loading = false;
-        });
-      }
+    switch (this.activeTab) {
+      case this.submissionTab:
+      default:
+        this.fetchSubmissions();
+        break;
+      case this.moderationTab:
+        this.fetchModeration();
+        break;
+      case this.savedSpeedrunsTab:
+        this.fetchSavedGames();
+        break;
+    }
+  }
+
+  private fetchSubmissions() {
+    if (!this.fetched.submission) {
+      this.loading = true;
+      this.userService.getSubmissionHistory(this.user.id).subscribe((history) => {
+        this.submissionHistory = history.data;
+        this.fetched.submission = true;
+        this.loading = false;
+      });
+    }
+  }
+
+  private fetchModeration() {
+    if (!this.fetched.moderation) {
+      this.loading = true;
+      this.userService.getModerationHistory(this.user.id).subscribe((history) => {
+        this.moderationHistory = history.data;
+        this.fetched.moderation = true;
+        this.loading = false;
+      });
+    }
+  }
+
+  private fetchSavedGames() {
+    // Ignore if we don't want saved games.
+    if (!this.user.savedGamesPublic) {
+      this.fetched.savedGames = true;
+      this.loading = false;
+      return;
+    }
+
+    if (!this.fetched.savedGames) {
+      this.loading = true;
+
+      this.userService.getSavedGamesList(this.user.id).subscribe((savedGames) => {
+        this.savedGames = savedGames.data;
+        this.fetched.savedGames = true;
+        this.loading = false;
+      });
     }
   }
 
@@ -81,5 +118,4 @@ export class ProfileHistoryComponent implements OnInit {
   queryFor(tab: string): Params {
     return { ...this.currentQuery, [this.tabQuery]: tab };
   }
-
 }

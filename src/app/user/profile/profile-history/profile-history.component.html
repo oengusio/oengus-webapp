@@ -1,35 +1,47 @@
 <div class="tabs is-boxed">
   <ul>
-    <li [class]="isActiveClass(submissionTab)">
+    <li [class.is-active]="isActive(submissionTab)">
       <a [routerLink]="'.' | localize" [queryParams]="queryFor(submissionTab)">
         {{ 'user.profile.submissions' | translate}}
       </a>
     </li>
-    <li [class]="isActiveClass(moderationTab)">
+    <li [class.is-active]="isActive(moderationTab)">
       <a [routerLink]="'.' | localize" [queryParams]="queryFor(moderationTab)">
         {{ 'user.profile.moderator' | translate}}
       </a>
     </li>
 
-    <!--<li>
-      <a href="">
-        Saved speedruns
-      </a>
-    </li>-->
+    @if (user.savedGamesPublic) {
+      <li [class.is-active]="isActive(savedSpeedrunsTab)">
+        <a [routerLink]="'.' | localize" [queryParams]="queryFor(savedSpeedrunsTab)">
+          Saved speedruns
+        </a>
+      </li>
+    }
   </ul>
 </div>
 
 <div class="history-view-container">
-  @if (isActive(submissionTab)) {
-    <app-user-profile-submission-history [submissions]="submissionHistory"></app-user-profile-submission-history>
-  }
-  @if (isActive(moderationTab)) {
-    <app-user-profile-moderated-history [history]="moderationHistory"></app-user-profile-moderated-history>
+  @switch (activeTab) {
+    <!--@case (submissionTab)-->
+    @default {
+      <app-user-profile-submission-history [submissions]="submissionHistory" />
+    }
+
+    @case (moderationTab) {
+      <app-user-profile-moderated-history [history]="moderationHistory" />
+    }
+
+    @case (savedSpeedrunsTab) {
+      @if(user.savedGamesPublic) {
+        <app-user-profile-saved-games [games]="savedGames" />
+      }
+    }
   }
 
   @if (loading) {
-    <div class="is-centered">
-      <app-loading-indicator></app-loading-indicator>
+    <div class="is-centered is-loader">
+      <app-loading-indicator />
     </div>
   }
 </div>

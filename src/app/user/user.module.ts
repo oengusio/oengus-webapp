@@ -23,6 +23,7 @@ import { AdminControlsComponent } from './profile/admin-controls/admin-controls.
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 import { MfaModalComponent } from './settings/mfa-modal/mfa-modal.component';
 import { ManagementDialogComponent } from './management-dialog/management-dialog.component';
+import { SavedGamesComponent } from './profile/profile-history/saved-games/saved-games.component';
 
 const userRoutes: Routes = [
   {
@@ -54,12 +55,12 @@ const userRoutes: Routes = [
     UserSocialComponent,
     BoxComponent,
     ProfileHistoryComponent,
-    SubmissionComponent,
     ModeratedComponent,
     AdminControlsComponent,
     MfaModalComponent,
     SubmissionComponent,
     ManagementDialogComponent,
+    SavedGamesComponent,
   ],
   imports: [
     CommonModule,
