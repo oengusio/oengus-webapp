@@ -1,0 +1,17 @@
+<h1>Saved games settings</h1>
+
+<!-- TODO: hide text for supporters -->
+<p>If you are supporting Oengus on patreon you will be able to modify your saved runs here.</p>
+
+<!-- text for all -->
+<p>Saved speedruns can be shown off on your profile (toggleable in account settings) and autofillable when submitting to events.</p>
+
+<p>Any changes you make here might take <strong>24 hours</strong> to update on your profile. Do not worry, autofill is unaffected.</p>
+
+@for (game of games; track game.id) {
+  TODO: game editor for {{ game.name }}
+
+  @for (category of game.categories; track category.id) {
+    TODO: simplified category editor for {{ category.name }}
+  }
+}

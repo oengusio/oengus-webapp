@@ -4,7 +4,7 @@ import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { SelfUser, User, UserSupporterStatus } from '../model/user';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
-import { firstValueFrom, Observable, Subscription } from 'rxjs';
+import { firstValueFrom, Observable, of, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
@@ -82,6 +82,10 @@ export class UserService extends BaseService {
   }
 
   getMe(): Observable<SelfUser> {
+    if (this._user) {
+      return of(this._user);
+    }
+
     return this.http.get<SelfUser>(this.v2Url('@me'));
   }
 
