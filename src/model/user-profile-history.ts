@@ -38,6 +38,7 @@ export interface HistoryGameCategory {
 export interface SavedGame {
   id: number;
   name: string;
+  ratio: string;
   description: string;
   console: string;
   emulated: boolean;
