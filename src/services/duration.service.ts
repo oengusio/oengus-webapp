@@ -17,4 +17,8 @@ export class DurationService {
     return '' + hours + ':' + minutes + ':' + seconds;
   }
 
+  static toIso(humanEstimate: string): string {
+    // TODO: replace moment with something not moment
+    return moment.duration(humanEstimate).toISOString();
+  }
 }
