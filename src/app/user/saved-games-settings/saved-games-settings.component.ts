@@ -46,31 +46,71 @@ export class SavedGamesSettingsComponent {
   }
 
   public addGame() {
-    //
+    this.games.push({
+      name: '',
+      id: -1,
+      emulated: false,
+      console: '',
+      description: '',
+      ratio: '',
+      categories: [],
+    });
+
+    this.addCategory(this.games.length - 1);
   }
 
   public addCategory(gameIndex: number) {
-    //
+    this.games[gameIndex].categories.push({
+      name: '',
+      gameId: -1,
+      estimate: '',
+      id: -1,
+      video: '',
+      description: '',
+    });
   }
 
   public removeGame(gameIndex: number) {
-    //
+    const game = this.games[gameIndex];
+
+    if (!confirm(`Are you sure that you want to delete "${game.name}"?`)) {
+      return;
+    }
+
+    // TODO: call http delete if id > -1
+    this.games.splice(gameIndex, 1);
   }
 
   public removeCategory(gameIndex: number, categoryIndex: number) {
-    //
+    const game = this.games[gameIndex];
+    const category = game.categories[categoryIndex];
+
+    if (!confirm(`Are you sure that you want to delete "${game.name} - ${category.name}"?`)) {
+      return;
+    }
+
+    // TODO: call http delete if id > -1
+    this.games[gameIndex].categories.splice(categoryIndex, 1);
   }
 
   public getCategoryEstimate(category: SavedCategory) {
     return DurationService.toHuman(category.estimate);
   }
 
-  public setCategoryEstimate(category: SavedCategory, event: Event) {
-    const { value } = event.target as HTMLInputElement;
+  public setCategoryEstimate(category: SavedCategory, newVal: string) {
+    console.log('Updating estimate', newVal);
 
-    console.log('Updating estimate', value);
+    category.estimate = DurationService.toIso(newVal);
+  }
 
-    category.estimate = DurationService.toIso(value);
+  public saveGame(game: SavedGame, gameIndex: number) {
+    if (game.id < 1) {
+      this.updateGame(game, gameIndex);
+    }
+  }
+
+  public updateGame(game: SavedGame, gameIndex: number) {
+    //
   }
 
   clickEmulatorButton(game: SavedGame, event: Event) {

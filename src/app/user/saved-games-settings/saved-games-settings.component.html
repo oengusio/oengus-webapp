@@ -28,7 +28,7 @@
 
   <form action="" ngForm="submitForm" #form="ngForm">
     <fieldset [disabled]="!isSupporter">
-      @for (game of games; track game.id; let i = $index; ) {
+      @for (game of games; track `${game.id}-${i}`; let i = $index; ) {
         <hr class="has-background-grey"/>
 
         <button class="delete is-absolute" style="right: 10px;" (click)="removeGame(i)"></button>
@@ -177,7 +177,10 @@
 
         <div class="columns is-multiline">
           @for (category of game.categories; track category.id; let j = $index; ) {
-            <div class="column is-relative is-full-touch" [ngClass]="{ 'is-half': (game.categories.length > 1) }">
+            <div
+              class="column is-relative is-full-touch"
+              [ngClass]="{ 'is-half': (game.categories.length > 1 && !(j === game.categories.length - 1 && j % 2 === 0)) }"
+            >
               <article class="message">
                 <div class="message-body">
 
@@ -234,7 +237,7 @@
                             class="input"
                             type="text"
                             [ngModel]="getCategoryEstimate(category)"
-                            (change)="setCategoryEstimate(category, $event)"
+                            (ngModelChange)="setCategoryEstimate(category, $event)"
                             [ngModelOptions]="{ updateOn: 'blur' }"
                             id="categoryEstimate{{i}}-{{j}}"
                             name="categoryEstimate{{i}}-{{j}}"
