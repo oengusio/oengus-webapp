@@ -6,7 +6,7 @@
     {{ 'marathon.submissions.table.date' | translate }}
   </app-element-table-cell>
 
-  @for (marathon of moderatedMarathons; track marathon; let i = $index) {
+  @for (marathon of moderatedMarathons; track marathon.marathonId; let i = $index) {
     <app-element-table-row [class]="getRowParity(i)">
       <app-element-table-cell class="marathon">
         <a [routerLink]="'/marathon/' + marathon.marathonId | localize">{{ marathon.marathonName }}</a>
