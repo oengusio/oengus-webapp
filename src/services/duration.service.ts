@@ -17,9 +17,11 @@ export class DurationService {
 
       // @ts-expect-error temporal is not polyfilled
       const d: Temporal.Duration = window.Temporal.Duration.from(estimate);
+      // tslint:disable:no-shadowed-variable
       const hours = d.hours.toString().padStart(2, '0');
       const minutes = d.minutes.toString().padStart(2, '0');
       const seconds = d.seconds.toString().padStart(2, '0');
+      // tslint:enable:no-shadowed-variable
 
       return `${hours}:${minutes}:${seconds}`;
     }
