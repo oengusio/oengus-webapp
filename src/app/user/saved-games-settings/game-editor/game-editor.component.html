@@ -138,14 +138,16 @@
       type="button">
       <fa-icon [icon]="saveIcon"></fa-icon>
     </button>
-    <button
-      class="button is-danger"
-      [class.is-loading]="loading"
-      (click)="cancelEdit()"
-      aria-label="Cancel"
-      type="button">
-      <fa-icon [icon]="cancelIcon"></fa-icon>
-    </button>
+    @if (game.id > 0) {
+      <button
+        class="button is-danger"
+        [class.is-loading]="loading"
+        (click)="cancelEdit()"
+        aria-label="Cancel"
+        type="button">
+        <fa-icon [icon]="cancelIcon"></fa-icon>
+      </button>
+    }
   } @else {
     <button aria-label="Edit" class="button is-info" (click)="editing = true" type="button">
       <fa-icon [icon]="editIcon"></fa-icon>
