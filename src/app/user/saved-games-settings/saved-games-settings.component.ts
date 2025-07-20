@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SavedCategory, SavedGame } from '../../../model/user-profile-history';
 import { UserService } from '../../../services/user.service';
 import { SelfUser } from '../../../model/user';
@@ -14,11 +14,13 @@ import { DurationService } from '../../../services/duration.service';
   styleUrl: './saved-games-settings.component.scss',
   standalone: false,
 })
-export class SavedGamesSettingsComponent {
-  readonly faPlus = faPlus;
+export class SavedGamesSettingsComponent implements OnInit {
+  protected readonly faPlus = faPlus;
 
-  readonly user: SelfUser;
-  readonly possibleConsoles: string[] = gameConsoles;
+  protected readonly user: SelfUser;
+  protected readonly possibleConsoles: string[] = gameConsoles;
+
+  protected readonly maxCategories = 20;
 
 
   games: Array<SavedGame> = [];
@@ -30,7 +32,9 @@ export class SavedGamesSettingsComponent {
     private route: ActivatedRoute,
   ) {
     this.user = this.route.snapshot.data.user;
+  }
 
+  ngOnInit(): void {
     firstValueFrom(
       this.userService.getSupporterStatus(this.user.id)
     ).then((data) => {
@@ -81,7 +85,7 @@ export class SavedGamesSettingsComponent {
     this.games.splice(gameIndex, 1);
   }
 
-  public removeCategory(gameIndex: number, categoryIndex: number) {
+  protected removeCategory(gameIndex: number, categoryIndex: number) {
     const game = this.games[gameIndex];
     const category = game.categories[categoryIndex];
 
@@ -93,24 +97,14 @@ export class SavedGamesSettingsComponent {
     this.games[gameIndex].categories.splice(categoryIndex, 1);
   }
 
-  public getCategoryEstimate(category: SavedCategory) {
+  protected getCategoryEstimate(category: SavedCategory) {
     return DurationService.toHuman(category.estimate);
   }
 
-  public setCategoryEstimate(category: SavedCategory, newVal: string) {
+  protected setCategoryEstimate(category: SavedCategory, newVal: string) {
     console.log('Updating estimate', newVal);
 
     category.estimate = DurationService.toIso(newVal);
-  }
-
-  public saveGame(game: SavedGame, gameIndex: number) {
-    if (game.id < 1) {
-      this.updateGame(game, gameIndex);
-    }
-  }
-
-  public updateGame(game: SavedGame, gameIndex: number) {
-    //
   }
 
   clickEmulatorButton(game: SavedGame, event: Event) {

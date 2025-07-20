@@ -25,6 +25,8 @@ import { MfaModalComponent } from './settings/mfa-modal/mfa-modal.component';
 import { ManagementDialogComponent } from './management-dialog/management-dialog.component';
 import { SavedGamesComponent } from './profile/profile-history/saved-games/saved-games.component';
 import { SavedGamesSettingsComponent } from './saved-games-settings/saved-games-settings.component';
+import { GameEditorComponent } from './saved-games-settings/game-editor/game-editor.component';
+import { CategoryEditorComponent } from './saved-games-settings/category-editor/category-editor.component';
 
 const userRoutes: Routes = [
   {
@@ -79,6 +81,8 @@ const userRoutes: Routes = [
     ManagementDialogComponent,
     SavedGamesComponent,
     SavedGamesSettingsComponent,
+    GameEditorComponent,
+    CategoryEditorComponent,
   ],
   imports: [
     CommonModule,

@@ -11,6 +11,10 @@ export class DurationService {
   }
 
   static toHuman(estimate: string): string {
+    if (!estimate) {
+      return '';
+    }
+
     // @ts-expect-error temporal is not polyfilled
     if (window.Temporal?.Duration) {
       console.log(`Using temporal to parse ${estimate}`);
@@ -34,6 +38,10 @@ export class DurationService {
   }
 
   static toIso(humanEstimate: string): string {
+    if (!humanEstimate) {
+      return '';
+    }
+
     // @ts-expect-error temporal is not polyfilled
     if (window.Temporal?.Duration) {
       console.log(`Using temporal to parse ${humanEstimate}`);

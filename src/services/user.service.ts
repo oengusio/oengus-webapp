@@ -171,7 +171,7 @@ export class UserService extends BaseService {
     return this.http.get<DataListDto<HistoryMarathon>>(this.v2Url(`${id}/moderation-history`));
   }
 
-  getSavedGamesList(id: number | string): Observable<DataListDto<SavedGame>> {
+  getSavedGamesList(id: number | '@me'): Observable<DataListDto<SavedGame>> {
     return this.http.get<DataListDto<SavedGame>>(this.v2Url(`${id}/saved-games`));
   }
 
