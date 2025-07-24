@@ -1,0 +1,17 @@
+@use '../../../../../assets/table';
+
+.submission-table {
+  @include table.shrink($default-template-columns: 3, $shrinking-rules: (
+    768px '.estimate' 4,
+    600px '.status' 3,
+  ));
+}
+
+@media (max-width: 500px) {
+  // At really small sizes, long names can become problematic
+  // this allows them to take scrollbars instead. We don't do this at every
+  // size, since doing this forces scrolls when they aren't needed
+  ::ng-deep app-element-table-cell {
+    overflow-x: auto;
+  }
+}
