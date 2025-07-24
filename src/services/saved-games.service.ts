@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './BaseService';
 import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
-import { SavedGame } from '../model/user-profile-history';
+import { SavedCategory, SavedGame } from '../model/user-profile-history';
 import { Observable } from 'rxjs';
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
@@ -20,7 +20,7 @@ export class SavedGamesService extends BaseService {
   }
 
   create(game: SavedGame): Observable<SavedGame> {
-    return this.http.post<SavedGame>(this.v2Url(''), game);
+    return this.http.post<SavedGame>(this.v2Url(), game);
   }
 
   update(game: Optional<SavedGame, 'categories'>): Observable<SavedGame> {
@@ -29,5 +29,13 @@ export class SavedGamesService extends BaseService {
     }
 
     return this.http.patch<SavedGame>(this.v2Url(`/${game.id}`), game);
+  }
+
+  createCategory(gameId: number, category: SavedCategory): Observable<SavedCategory> {
+    return this.http.post<SavedCategory>(this.v2Url(`/${gameId}`), category);
+  }
+
+  updateCategory(gameId: number, category: SavedCategory): Observable<SavedCategory> {
+    return this.http.post<SavedCategory>(this.v2Url(`/${gameId}/${category.id}`), category);
   }
 }

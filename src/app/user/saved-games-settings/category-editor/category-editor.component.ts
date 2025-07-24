@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { faCancel, faFloppyDisk, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { SavedCategory } from '../../../../model/user-profile-history';
+import { firstValueFrom } from 'rxjs';
+import { SavedGamesService } from '../../../../services/saved-games.service';
 
 @Component({
   selector: 'app-category-editor',
@@ -6,6 +10,82 @@ import { Component } from '@angular/core';
   templateUrl: './category-editor.component.html',
   styleUrl: './category-editor.component.scss'
 })
-export class CategoryEditorComponent {
+export class CategoryEditorComponent implements OnInit {
+  protected readonly editIcon = faPencil;
+  protected readonly saveIcon = faFloppyDisk;
+  protected readonly cancelIcon = faCancel;
 
+  @Input() gameId: number;
+  @Input('category') inputCategory: SavedCategory;
+  @Input('index') i = 0;
+
+  @Output() categoryChange = new EventEmitter<SavedCategory>();
+
+  editing = false;
+  loading = false;
+
+  protected category: SavedCategory;
+
+  constructor(
+    private savedGameService: SavedGamesService
+  ) {
+  }
+
+  ngOnInit() {
+    this.category = { ...this.inputCategory };
+
+    if (this.category.id < 1) {
+      this.editing = true;
+    }
+  }
+
+  protected cancelEdit() {
+    this.category = { ...this.inputCategory };
+    this.loading = false;
+    this.editing = false;
+  }
+
+  protected async saveCategory() {
+    if (this.category.id > 0) {
+      await this.updateCategory();
+      return;
+    }
+
+    try {
+      const updatedCategory = await firstValueFrom(
+        this.savedGameService.createCategory(this.gameId, this.category)
+      );
+
+      this.categoryChange.emit(updatedCategory);
+
+      this.editing = false;
+    } catch (e: unknown) {
+      // TODO: log error
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  private async updateCategory() {
+    this.loading = true;
+
+    try {
+      const updatedCategory = await firstValueFrom(
+        this.savedGameService.updateCategory(this.gameId, this.category)
+      );
+
+      this.categoryChange.emit(updatedCategory);
+
+      this.editing = false;
+    } catch (e: unknown) {
+      // TODO: log error
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  // TODO: is this what I want to do?
+  public triggerUpdate() {
+    this.categoryChange.emit(this.category);
+  }
 }

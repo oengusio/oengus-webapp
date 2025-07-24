@@ -12,6 +12,7 @@ export class BaseService {
     return path;
   }
 
+  // TODO: replace all instances of this with v1url
   protected url(path: string, version = 'v1'): string {
     const parsedPath = this.stripLastSlash(path);
     const fullPath = this.base ?
@@ -21,8 +22,12 @@ export class BaseService {
     return this.stripLastSlash(`${fullPath}${parsedPath}`);
   }
 
-  protected v2Url(path: string): string {
+  protected v2Url(path: string = ''): string {
     return this.url(path, 'v2');
+  }
+
+  protected v1Url(path: string = ''): string {
+    return this.url(path, 'v1');
   }
 
   protected toast(message: string, duration: number = 3000, color: string = 'success'): NwbAlertComponent {

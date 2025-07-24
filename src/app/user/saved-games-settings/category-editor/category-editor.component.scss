@@ -1,0 +1,9 @@
+:host {
+  padding-bottom: var(--spacing);
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  padding-top: var(--spacing);
+}
