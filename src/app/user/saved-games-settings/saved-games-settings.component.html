@@ -28,12 +28,10 @@
 
   <form action="" ngForm="submitForm" #form="ngForm">
     <fieldset [disabled]="!isSupporter">
-      @for (game of games; track `${game.id}-${i}`; let i = $index; ) {
+      @for (game of games; track i; let i = $index;) {
         <hr class="has-background-grey"/>
 
         <button class="delete is-absolute" style="right: 10px;" (click)="removeGame(i)"></button>
-
-        {{ game | json }}
 
         <app-game-editor
           [game]="game"
