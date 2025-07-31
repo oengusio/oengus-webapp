@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import gameConsoles from '../../../assets/consoles.json';
 import { DurationService } from '../../../services/duration.service';
+import { SavedGamesService } from '../../../services/saved-games.service';
 
 @Component({
   selector: 'app-saved-games-settings',
@@ -30,6 +31,7 @@ export class SavedGamesSettingsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
+    private savedGameService: SavedGamesService,
   ) {
     this.user = this.route.snapshot.data.user;
   }
@@ -83,6 +85,10 @@ export class SavedGamesSettingsComponent implements OnInit {
 
     // TODO: call http delete if id > -1
     this.games.splice(gameIndex, 1);
+
+    if (game.id > 0) {
+      this.savedGameService.delete(game.id).subscribe();
+    }
   }
 
   protected removeCategory(gameIndex: number, categoryIndex: number) {
@@ -95,16 +101,10 @@ export class SavedGamesSettingsComponent implements OnInit {
 
     // TODO: call http delete if id > -1
     this.games[gameIndex].categories.splice(categoryIndex, 1);
-  }
 
-  protected getCategoryEstimate(category: SavedCategory) {
-    return DurationService.toHuman(category.estimate);
-  }
-
-  protected setCategoryEstimate(category: SavedCategory, newVal: string) {
-    console.log('Updating estimate', newVal);
-
-    category.estimate = DurationService.toIso(newVal);
+    if (category.id > 0) {
+      this.savedGameService.deleteCategory(game.id, category.id).subscribe();
+    }
   }
 
   clickEmulatorButton(game: SavedGame, event: Event) {

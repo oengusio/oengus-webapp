@@ -1,1 +1,172 @@
-<p>category-editor works!</p>
+<fieldset [disabled]="!editing">
+  <div class="columns is-multiline">
+    <div class="column is-6">
+
+      <div class="field">
+        <label for="categoryName{{i}}-{{j}}" class="label">
+          {{ 'marathon.submit.category.name.label' | translate }}
+        </label>
+
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            [(ngModel)]="category.name"
+            id="categoryName{{i}}-{{j}}"
+            name="categoryName{{i}}-{{j}}"
+            [ngClass]="{'is-danger': categoryName.invalid}"
+            required
+            maxlength="100"
+            #categoryName="ngModel"
+          />
+          <p class="help is-pulled-right">{{ category.name?.length }}/100</p>
+        </div>
+        @if (categoryName.invalid) {
+          <div>
+            @if (categoryName.errors.required) {
+              <p class="help is-danger">
+                {{ 'marathon.submit.category.name.error.required' | translate }}
+              </p>
+            }
+          </div>
+        }
+
+      </div>
+
+    </div>
+
+    <div class="column is-6">
+      <div class="field">
+        <label for="categoryName{{i}}-{{j}}" class="label">
+          {{ 'marathon.submit.category.estimate.label' | translate }}
+        </label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            [(ngModel)]="parsedEstimate"
+            [ngModelOptions]="{ updateOn: 'blur' }"
+            id="categoryEstimate{{i}}-{{j}}"
+            name="categoryEstimate{{i}}-{{j}}"
+            placeholder="HH:MM:SS"
+            [ngClass]="{'is-danger': categoryEstimate.invalid}"
+            required
+            pattern="^(?:\d{1,3}):(?:[012345]\d):(?:[012345]\d)$"
+            [appMinDurationValidator]="1"
+            #categoryEstimate="ngModel"
+          />
+          <p class="help">{{ 'marathon.submit.category.estimate.hint' | translate }}</p>
+        </div>
+        @if (categoryEstimate.invalid) {
+          <div>
+            @if (categoryEstimate.errors.required) {
+              <p class="help is-danger">
+                {{ 'marathon.submit.category.estimate.error.required' | translate }}</p>
+            }
+            @if (categoryEstimate.errors.pattern) {
+              <p class="help is-danger">
+                {{ 'marathon.submit.category.estimate.error.pattern' | translate }}</p>
+            }
+            @if (categoryEstimate.errors.minDuration) {
+              <p class="help is-danger">
+                {{ 'marathon.submit.category.estimate.error.min' | translate }}</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="column is-full">
+      <div class="field">
+        <label for="video{{i}}-{{j}}" class="label">
+          {{ 'marathon.submit.category.video.label' | translate }}
+        </label>
+        <div class="control">
+          <input
+            class="input"
+            type="url"
+            [(ngModel)]="category.video"
+            [ngClass]="{'is-danger': categoryVideo.invalid || !testVideo.checkValidity()}"
+            id="video{{i}}-{{j}}"
+            name="video{{i}}-{{j}}"
+            required
+            maxlength="100"
+            #categoryVideo="ngModel" #testVideo
+          />
+          <p class="help is-pulled-right">{{ category.video?.length }}/100</p>
+        </div>
+        @if (categoryVideo.invalid) {
+          <div>
+            @if (categoryVideo.errors.required) {
+              <p class="help is-danger">
+                {{ 'marathon.submit.category.video.error.required' | translate }}</p>
+            }
+          </div>
+        }
+        @if (!testVideo.checkValidity()) {
+          <p class="help is-danger">
+            {{ 'errors.format.url' | translate }}
+          </p>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="categoryDescription{{i}}-{{j}}" class="label">
+      {{ 'marathon.submit.category.description.label' | translate }}
+    </label>
+    <p class="help">{{ 'marathon.submit.category.description.help' | translate }}</p>
+    <div class="control">
+                      <textarea
+                        class="textarea"
+                        rows=3
+                        maxlength="300"
+                        [(ngModel)]="category.description"
+                        [ngClass]="{'is-danger': categoryDescription.invalid}"
+                        id="categoryDescription{{i}}-{{j}}"
+                        name="categoryDescription{{i}}-{{j}}"
+                        required
+                        #categoryDescription="ngModel"></textarea>
+      <p class="help is-pulled-right">{{ category.description?.length }}/300</p>
+    </div>
+    @if (categoryDescription.invalid) {
+      <div>
+        @if (categoryDescription.errors.required) {
+          <p class="help is-danger">
+            {{ 'marathon.submit.category.description.error.required' | translate }}</p>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- clearfix to add a bit of space between the help texts and the bottom line -->
+  <div class="is-clearfix"></div>
+</fieldset>
+
+<div class="buttons">
+  @if (editing) {
+    <button
+      aria-label="Save"
+      class="button is-success"
+      [class.is-loading]="loading"
+      (click)="saveCategory()"
+      type="button">
+      <fa-icon [icon]="saveIcon"></fa-icon>
+    </button>
+    @if (category.id > 0) {
+      <button
+        class="button is-danger"
+        [class.is-loading]="loading"
+        (click)="cancelEdit()"
+        aria-label="Cancel"
+        type="button">
+        <fa-icon [icon]="cancelIcon"></fa-icon>
+      </button>
+    }
+  } @else {
+    <button aria-label="Edit" class="button is-info" (click)="editing = true" type="button">
+      <fa-icon [icon]="editIcon"></fa-icon>
+    </button>
+  }
+</div>

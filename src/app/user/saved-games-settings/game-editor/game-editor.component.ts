@@ -29,7 +29,7 @@ export class GameEditorComponent implements OnInit {
   game: SavedGame;
 
   constructor(
-    private savedGameService: SavedGamesService
+    private savedGameService: SavedGamesService,
   ) {
   }
 

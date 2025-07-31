@@ -3,6 +3,7 @@ import { faCancel, faFloppyDisk, faPencil } from '@fortawesome/free-solid-svg-ic
 import { SavedCategory } from '../../../../model/user-profile-history';
 import { firstValueFrom } from 'rxjs';
 import { SavedGamesService } from '../../../../services/saved-games.service';
+import { DurationService } from '../../../../services/duration.service';
 
 @Component({
   selector: 'app-category-editor',
@@ -17,7 +18,8 @@ export class CategoryEditorComponent implements OnInit {
 
   @Input() gameId: number;
   @Input('category') inputCategory: SavedCategory;
-  @Input('index') i = 0;
+  @Input('gameIndex') i = 0;
+  @Input('index') j = 0;
 
   @Output() categoryChange = new EventEmitter<SavedCategory>();
 
@@ -27,7 +29,7 @@ export class CategoryEditorComponent implements OnInit {
   protected category: SavedCategory;
 
   constructor(
-    private savedGameService: SavedGamesService
+    private savedGameService: SavedGamesService,
   ) {
   }
 
@@ -87,5 +89,15 @@ export class CategoryEditorComponent implements OnInit {
   // TODO: is this what I want to do?
   public triggerUpdate() {
     this.categoryChange.emit(this.category);
+  }
+
+  get parsedEstimate(): string {
+    return DurationService.toHuman(this.category.estimate);
+  }
+
+  set parsedEstimate(value: string) {
+    console.log('Updating estimate', value);
+
+    this.category.estimate = DurationService.toIso(value);
   }
 }

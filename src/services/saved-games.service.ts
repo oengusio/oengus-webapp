@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { SavedCategory, SavedGame } from '../model/user-profile-history';
 import { Observable } from 'rxjs';
+import { BooleanStatusDto } from '../model/dto/base-dtos';
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
@@ -31,11 +32,19 @@ export class SavedGamesService extends BaseService {
     return this.http.patch<SavedGame>(this.v2Url(`/${game.id}`), game);
   }
 
+  delete(gameId: number) {
+    return this.http.delete<BooleanStatusDto>(this.v2Url(`/${gameId}`));
+  }
+
   createCategory(gameId: number, category: SavedCategory): Observable<SavedCategory> {
     return this.http.post<SavedCategory>(this.v2Url(`/${gameId}`), category);
   }
 
   updateCategory(gameId: number, category: SavedCategory): Observable<SavedCategory> {
-    return this.http.post<SavedCategory>(this.v2Url(`/${gameId}/${category.id}`), category);
+    return this.http.patch<SavedCategory>(this.v2Url(`/${gameId}/${category.id}`), category);
+  }
+
+  deleteCategory(gameId: number, categoryId: number) {
+    return this.http.delete<BooleanStatusDto>(this.v2Url(`/${gameId}/${categoryId}`));
   }
 }
