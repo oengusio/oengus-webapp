@@ -63,7 +63,7 @@
     "@angular-devkit/build-angular": "^20.0.1",
     "@angular/cli": "^20.0.1",
     "@angular/compiler-cli": "^20.0.2",
-    "@angular/language-service": "^20.0.2",
+    "@angular/language-service": "^20.1.4",
     "@angular/service-worker": "^20.0.2",
     "@biesbjerg/ngx-translate-extract": "^7.0.4",
     "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
