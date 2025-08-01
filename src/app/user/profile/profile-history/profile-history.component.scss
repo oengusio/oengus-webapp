@@ -2,6 +2,7 @@
 
 :host {
   padding-block: var(--spacing);
+  display: block;
 }
 
 .tabs {
@@ -17,9 +18,13 @@
   }
 }
 
+.is-loader {
+  padding: var(--spacing);
+}
+
 .history-view-container {
   border-color: solar.$grey-dark;
   border-style: solid;
   border-width: 0 2px 2px;
-  padding: var(--spacing);
+  //padding: var(--spacing);
 }

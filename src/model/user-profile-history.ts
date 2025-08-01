@@ -34,3 +34,22 @@ export interface HistoryGameCategory {
   type: string;
   video: string;
 }
+
+export interface SavedGame {
+  id: number;
+  name: string;
+  ratio: string;
+  description: string;
+  console: string;
+  emulated: boolean;
+  categories: Array<SavedCategory>;
+}
+
+export interface SavedCategory {
+  id: number;
+  gameId: number;
+  name: string;
+  description: string;
+  estimate: string;
+  video: string;
+}
