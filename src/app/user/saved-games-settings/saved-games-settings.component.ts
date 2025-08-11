@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SavedCategory, SavedGame } from '../../../model/user-profile-history';
+import { SavedGame } from '../../../model/user-profile-history';
 import { UserService } from '../../../services/user.service';
 import { SelfUser } from '../../../model/user';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import gameConsoles from '../../../assets/consoles.json';
-import { DurationService } from '../../../services/duration.service';
 import { SavedGamesService } from '../../../services/saved-games.service';
 
 @Component({
@@ -17,12 +15,8 @@ import { SavedGamesService } from '../../../services/saved-games.service';
 })
 export class SavedGamesSettingsComponent implements OnInit {
   protected readonly faPlus = faPlus;
-
   protected readonly user: SelfUser;
-  protected readonly possibleConsoles: string[] = gameConsoles;
-
   protected readonly maxCategories = 20;
-
 
   games: Array<SavedGame> = [];
 
@@ -62,10 +56,18 @@ export class SavedGamesSettingsComponent implements OnInit {
       categories: [],
     });
 
-    this.addCategory(this.games.length - 1);
+    this.addCategory(this.games.length - 1, false);
+
+    window.requestAnimationFrame(() => {
+      const tags = Array.from(document.getElementsByTagName('app-game-editor'));
+
+      tags[tags.length - 1].scrollIntoView({
+        behavior: 'smooth',
+      });
+    });
   }
 
-  public addCategory(gameIndex: number) {
+  public addCategory(gameIndex: number, scrollIntoView = true) {
     this.games[gameIndex].categories.push({
       name: '',
       gameId: -1,
@@ -74,6 +76,10 @@ export class SavedGamesSettingsComponent implements OnInit {
       video: '',
       description: '',
     });
+
+    if (scrollIntoView) {
+      // TODO: scroll into view
+    }
   }
 
   public removeGame(gameIndex: number) {
@@ -83,11 +89,22 @@ export class SavedGamesSettingsComponent implements OnInit {
       return;
     }
 
-    // TODO: call http delete if id > -1
-    this.games.splice(gameIndex, 1);
+    const rmGame = () => this.games.splice(gameIndex, 1);
 
     if (game.id > 0) {
-      this.savedGameService.delete(game.id).subscribe();
+      this.savedGameService.delete(game.id).subscribe({
+        next(status) {
+          if (status.status) {
+            rmGame();
+          }
+        },
+
+        error() {
+          // TODO: handle
+        },
+      });
+    } else {
+      rmGame();
     }
   }
 
@@ -99,11 +116,22 @@ export class SavedGamesSettingsComponent implements OnInit {
       return;
     }
 
-    // TODO: call http delete if id > -1
-    this.games[gameIndex].categories.splice(categoryIndex, 1);
+    const rmCategory = () => this.games[gameIndex].categories.splice(categoryIndex, 1);
 
     if (category.id > 0) {
-      this.savedGameService.deleteCategory(game.id, category.id).subscribe();
+      this.savedGameService.deleteCategory(game.id, category.id).subscribe({
+        next(status) {
+          if (status.status) {
+            rmCategory();
+          }
+        },
+
+        error() {
+          // TODO: handle
+        },
+      });
+    } else {
+      rmCategory();
     }
   }
 

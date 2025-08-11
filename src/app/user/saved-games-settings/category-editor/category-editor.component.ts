@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { faCancel, faFloppyDisk, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { SavedCategory } from '../../../../model/user-profile-history';
 import { firstValueFrom } from 'rxjs';
@@ -11,7 +11,7 @@ import { DurationService } from '../../../../services/duration.service';
   templateUrl: './category-editor.component.html',
   styleUrl: './category-editor.component.scss'
 })
-export class CategoryEditorComponent implements OnInit {
+export class CategoryEditorComponent implements OnInit, OnChanges {
   protected readonly editIcon = faPencil;
   protected readonly saveIcon = faFloppyDisk;
   protected readonly cancelIcon = faCancel;
@@ -22,6 +22,7 @@ export class CategoryEditorComponent implements OnInit {
   @Input('index') j = 0;
 
   @Output() categoryChange = new EventEmitter<SavedCategory>();
+  @Output() saveGameInstead = new EventEmitter<void>();
 
   editing = false;
   loading = false;
@@ -41,6 +42,13 @@ export class CategoryEditorComponent implements OnInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.gameId && changes.gameId.currentValue !== changes.gameId.previousValue) {
+      this.editing = false;
+      this.loading = false;
+    }
+  }
+
   protected cancelEdit() {
     this.category = { ...this.inputCategory };
     this.loading = false;
@@ -48,6 +56,11 @@ export class CategoryEditorComponent implements OnInit {
   }
 
   protected async saveCategory() {
+    if (this.gameId < 0) {
+      this.triggerUpdateAndSaveGame();
+      return;
+    }
+
     if (this.category.id > 0) {
       await this.updateCategory();
       return;
@@ -87,8 +100,12 @@ export class CategoryEditorComponent implements OnInit {
   }
 
   // TODO: is this what I want to do?
-  public triggerUpdate() {
+  public triggerUpdateAndSaveGame() {
+    this.loading = true;
     this.categoryChange.emit(this.category);
+    window.requestAnimationFrame(() => {
+      this.saveGameInstead.emit();
+    });
   }
 
   get parsedEstimate(): string {

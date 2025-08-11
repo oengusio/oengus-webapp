@@ -37,6 +37,7 @@
           [game]="game"
           (gameChange)="games[i] = $event; // TODO: this is dirty, find a better way of doing this"
           [index]="i"
+          #urFavGameEditor
         />
 
         <!-- Categories -->
@@ -72,6 +73,7 @@
                   <app-category-editor
                     [category]="category"
                     (categoryChange)="game.categories[j] = $event"
+                    (saveGameInstead)="urFavGameEditor.saveGame()"
                     [gameId]="game.id"
                     [index]="j"
                     [gameIndex]="i"

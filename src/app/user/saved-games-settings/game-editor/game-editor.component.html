@@ -72,7 +72,7 @@
       <div class="field has-addons">
         <div class="select is-fullwidth">
           <select [(ngModel)]="game.console" name="gameConsole{{i}}" id="gameConsole{{i}}">
-            <option value="" disabled>(select a game)</option>
+            <option value="" disabled>(select a console)</option>
             @for (opt of possibleConsoles; track opt) {
               <option [ngValue]="opt">{{ opt }}</option>
             }
@@ -129,17 +129,21 @@
 </fieldset>
 
 <!-- TODO: if game id == -1 category save button should also update game -->
-<div class="buttons">
-  @if (editing) {
-    <button
-      aria-label="Save"
-      class="button is-success"
-      [class.is-loading]="loading"
-      (click)="saveGame()"
-      type="button">
-      <fa-icon [icon]="saveIcon"></fa-icon>
-    </button>
-    @if (game.id > 0) {
+@if (game.id > 0) {
+  <div class="buttons">
+    @if (editing) {
+      <button
+        aria-label="Save"
+        class="button is-success"
+        [class.is-loading]="loading"
+        (click)="saveGame()"
+        type="button">
+        <fa-icon [icon]="saveIcon"></fa-icon>
+      </button>
+      @if (game.id > 0) {
+        <!-- TODO: is this needed? -->
+      }
+
       <button
         class="button is-danger"
         [class.is-loading]="loading"
@@ -148,10 +152,10 @@
         type="button">
         <fa-icon [icon]="cancelIcon"></fa-icon>
       </button>
+    } @else {
+      <button aria-label="Edit" class="button is-info" (click)="editing = true" type="button">
+        <fa-icon [icon]="editIcon"></fa-icon>
+      </button>
     }
-  } @else {
-    <button aria-label="Edit" class="button is-info" (click)="editing = true" type="button">
-      <fa-icon [icon]="editIcon"></fa-icon>
-    </button>
-  }
-</div>
+  </div>
+}

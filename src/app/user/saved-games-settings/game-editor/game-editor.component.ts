@@ -47,7 +47,7 @@ export class GameEditorComponent implements OnInit {
     this.loading = false;
   }
 
-  protected async saveGame() {
+  public async saveGame() {
     if (this.game.id > 0) {
       await this.updateGame();
       return;
