@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MarathonService } from '../../../../services/marathon.service';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,6 +7,7 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './submit-header.component.html',
   styleUrl: './submit-header.component.scss',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubmitHeaderComponent {
   faCheck = faCheck;

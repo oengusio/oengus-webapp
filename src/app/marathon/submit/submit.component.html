@@ -1,6 +1,11 @@
 <h1 class="title">{{'marathon.submit.title' | translate}}</h1>
 
-<hr/>
+<app-import-run-dialog
+  [modalActive]="importDialogOpen"
+  [savedGames]="savedGames"
+  (cancel)="importCanceled()"
+  (doImport)="startImport($event)"
+/>
 
 <div class="modal" [ngClass]="{ 'is-active': discordRequired }">
   <div class="modal-background"></div>
@@ -52,14 +57,13 @@
 
 <app-submit-header />
 
-<hr/>
-
 @if (!marathonService.marathon.submitsOpen) {
   <div class="notification is-info">
     {{'marathon.submit.submitsClosed' | translate}}
   </div>
 }
 
+<!-- TODO: pain, split this up into components -->
 <form ngForm="submitForm" (ngSubmit)="submit()" #form="ngForm">
   <h3 class="title is-3">{{'marathon.submit.availabilities.label' | translate}} <br/>
     <span class="is-size-6" [innerHTML]="'footer.text' | translate:{'timezone': timezone}"></span>
@@ -270,11 +274,22 @@
 
     <div class="box is-relative">
       <p class="is-pulled-left">{{'marathon.submit.table.games' | translate}}</p>
-      <button type="button" class="button is-small is-primary is-pulled-left" style="margin-left: 5px" (click)="addGame()"
-              [disabled]="!marathonService.marathon.unlimitedGames && submission.games.length >=
+      <div class="buttons">
+        <button type="button" class="button is-small is-primary is-pulled-left" style="margin-left: 5px" (click)="addGame()"
+                [disabled]="!marathonService.marathon.unlimitedGames && submission.games.length >=
                     marathonService.marathon.maxGamesPerRunner">
-        <fa-icon [icon]="faPlus"></fa-icon>
-      </button>
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+        <button
+          type="button"
+          class="button is-small is-info is-pulled-left"
+          (click)="importDialogOpen = true"
+          [disabled]="!marathonService.marathon.unlimitedGames && submission.games.length >= marathonService.marathon.maxGamesPerRunner"
+        >
+          <fa-icon [icon]="faImport"/>
+          <span>Import saved games</span>
+        </button>
+      </div>
       <div class="is-clearfix"></div>
 
       @for (game of submission.games; track game; let i = $index) {
