@@ -105,17 +105,18 @@
     <p class="help">{{ 'marathon.submit.game.description.help' | translate }}</p>
 
     <div class="control">
-            <textarea
-              name="gameDescription{{i}}"
-              id="gameDescription{{i}}"
-              cols="30"
-              rows="10"
-              class="textarea"
-              [(ngModel)]="game.description"
-              [ngClass]="{'is-danger': gameDescription.invalid}"
-              required
-              #gameDescription="ngModel">
-            ></textarea>
+        <textarea
+          name="gameDescription{{i}}"
+          id="gameDescription{{i}}"
+          cols="30"
+          rows="5"
+          class="textarea"
+          [(ngModel)]="game.description"
+          [ngClass]="{'is-danger': gameDescription.invalid}"
+          required
+          #gameDescription="ngModel">
+        </textarea>
+        <p class="help is-pulled-right">{{game.description?.length}}/500</p>
     </div>
     @if (gameDescription.invalid) {
       <div>

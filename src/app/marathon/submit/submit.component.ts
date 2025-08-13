@@ -386,7 +386,7 @@ export class SubmitComponent {
     if (maxCategoriesPerGame === 1) {
       for (const savedCategory of categories) {
         // Halt and catch fire if we can't add more games.
-        if (this.submission.games.length + 1 >= maxGames) {
+        if (this.submission.games.length + 1 > maxGames) {
           return;
         }
 
@@ -396,19 +396,47 @@ export class SubmitComponent {
           continue;
         }
 
-        const game = this.savedGameToNormalGame(savedGame);
-        const category = this.savedCategoryToNormalCategory(savedCategory);
-
-        game.categories.push(category);
-
-        this.submission.games.push(game);
+        this.insertGameIfPossible(maxGames, savedGame, savedCategory);
       }
+
       return;
     }
 
-    // TODO: multi-category import flow
-    // TODO: make sure import never is able to go over max games + max categories
-    // If max games is 1, we should add a new game per new category
+    for (const savedCategory of categories) {
+      const savedGame = this.getSavedGameById(savedCategory.gameId);
+
+      if (!savedGame) {
+        continue;
+      }
+
+      const alreadySubmittedGame = this.findAlreadyInsertedGameByName(savedGame.name);
+
+      if (!alreadySubmittedGame) {
+        this.insertGameIfPossible(maxGames, savedGame, savedCategory);
+        continue;
+      }
+
+      if (alreadySubmittedGame.categories.length + 1 > maxCategoriesPerGame) {
+        continue;
+      }
+
+      const category = this.savedCategoryToNormalCategory(savedCategory);
+
+      alreadySubmittedGame.categories.push(category);
+    }
+  }
+
+  private insertGameIfPossible(maxGames: number, savedGame: SavedGame, savedCategory: SavedCategory) {
+    if (this.submission.games.length + 1 > maxGames) {
+      return;
+    }
+
+    const game = this.savedGameToNormalGame(savedGame);
+    const category = this.savedCategoryToNormalCategory(savedCategory);
+
+    game.categories.push(category);
+
+    this.submission.games.push(game);
   }
 
   private getSavedGameById(gameId: number): SavedGame | null {

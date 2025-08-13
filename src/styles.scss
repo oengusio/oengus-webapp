@@ -223,3 +223,9 @@ div.loading-bar {
 strong {
   color: #eafdff;
 }
+
+fieldset[disabled] {
+  input, textarea, select {
+    border-color: #5e5d5d !important;
+  }
+}
