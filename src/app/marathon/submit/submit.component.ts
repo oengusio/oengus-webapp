@@ -10,7 +10,6 @@ import moment from 'moment-timezone';
 import { Availability } from '../../../model/availability';
 import { Answer } from '../../../model/answer';
 import { environment } from '../../../environments/environment';
-import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { CategoryService } from '../../../services/category.service';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,7 +28,6 @@ import { DurationService } from '../../../services/duration.service';
     standalone: false
 })
 export class SubmitComponent {
-
   protected submission: Submission;
   protected faCheck = faCheck;
   protected faTimes = faTimes;
@@ -376,7 +374,71 @@ export class SubmitComponent {
 
   protected startImport(categories: SavedCategory[]) {
     this.importDialogOpen = false;
+
+    const maxGames = this.marathonService.marathon.maxGamesPerRunner;
+
+    if (this.submission.games.length >= maxGames) {
+      return;
+    }
+
+    const maxCategoriesPerGame = this.marathonService.marathon.maxCategoriesPerGame;
+
+    if (maxCategoriesPerGame === 1) {
+      for (const savedCategory of categories) {
+        // Halt and catch fire if we can't add more games.
+        if (this.submission.games.length + 1 >= maxGames) {
+          return;
+        }
+
+        const savedGame = this.getSavedGameById(savedCategory.gameId);
+
+        if (!savedGame) {
+          continue;
+        }
+
+        const game = this.savedGameToNormalGame(savedGame);
+        const category = this.savedCategoryToNormalCategory(savedCategory);
+
+        game.categories.push(category);
+
+        this.submission.games.push(game);
+      }
+      return;
+    }
+
+    // TODO: multi-category import flow
     // TODO: make sure import never is able to go over max games + max categories
     // If max games is 1, we should add a new game per new category
+  }
+
+  private getSavedGameById(gameId: number): SavedGame | null {
+    return this.savedGames.find((it) => it.id === gameId);
+  }
+
+  private savedGameToNormalGame(savedGame: SavedGame): Game {
+    return {
+      ...savedGame,
+      id: -1,
+      status: 'TODO',
+      visible: true, // TODO: what?
+      categories: [],
+    };
+  }
+
+  private savedCategoryToNormalCategory(savedCategory: SavedCategory): Category {
+    return {
+      ...savedCategory,
+      code: '',
+      type: 'SINGLE',
+      expectedRunnerCount: 1,
+      opponents: [],
+      status: '',
+      estimateHuman: DurationService.toHuman(savedCategory.estimate),
+      visible: true,
+    };
+  }
+
+  private findAlreadyInsertedGameByName(gameName: string): Game | null {
+    return this.submission.games.find((it) => it.name.toLowerCase() === gameName.toLowerCase());
   }
 }
