@@ -27,6 +27,7 @@ import { SavedGamesComponent } from './profile/profile-history/saved-games/saved
 import { SavedGamesSettingsComponent } from './saved-games-settings/saved-games-settings.component';
 import { GameEditorComponent } from './saved-games-settings/game-editor/game-editor.component';
 import { CategoryEditorComponent } from './saved-games-settings/category-editor/category-editor.component';
+import { MarkdownPipe } from '../pipes/markdown.pipe';
 
 const userRoutes: Routes = [
   {
@@ -93,6 +94,7 @@ const userRoutes: Routes = [
     DirectivesModule,
     FontAwesomeModule,
     ElementModule,
+    MarkdownPipe,
   ],
   providers: [UserResolver, UserProfileResolver],
   exports: [

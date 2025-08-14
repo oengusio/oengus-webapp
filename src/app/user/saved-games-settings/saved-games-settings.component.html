@@ -1,16 +1,13 @@
-<h1>Saved Speedrun settings</h1>
+<h1 class="title">{{ 'user.savedGames.header' | translate }}</h1>
 
 <div style="margin-bottom: 2em">
-  <!-- TODO: hide text for supporters -->
-  <p>If you are supporting Oengus on patreon you will be able to modify your saved runs here.</p>
+  <!-- TODO: hide text for supporters? -->
+  <p>{{ 'user.savedGames.patronNudge' | translate }}</p>
 
   <!-- text for all -->
-  <p>Saved speedruns can be shown off on your profile (toggleable in account settings) and autofillable when submitting
-    to
-    events.</p>
+  <p>{{ 'user.savedGames.instruction1' | translate }}</p>
 
-  <p>Any changes you make here might take <strong>24 hours</strong> to update on your profile. Do not worry, autofill is
-    unaffected.</p>
+  <p [innerHTML]="'user.savedGames.cacheWarning' | translate | markdown"></p>
 </div>
 
 <div class="box is-relative">
@@ -54,7 +51,7 @@
 
         <hr class="has-background-grey-darker"/>
 
-        <div class="columns is-multiline">
+        <div class="columns is-multiline" [attr.data-gi]="i">
           @for (category of game.categories; track j; let j = $index; ) {
             <div
               class="column is-relative is-full-touch"
@@ -81,8 +78,6 @@
                 </div>
               </article>
             </div>
-            <!--// .is-half-desktop
-              // .is-full-mobile-->
           }
         </div>
       }

@@ -3,14 +3,18 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">
-        Import runs
+        {{ 'marathon.submit.import.title' | translate }}
       </p>
     </header>
 
     <section class="modal-card-body">
       <p>
-        To import your runs, please select them and then press import. You can hold the <kbd class="tag is-info">CTRL</kbd> key to select multiple items.
+        <app-element-i18n key="marathon.submit.import.description" elementKey="ctrlKey">
+          <kbd class="tag is-info">{{ 'marathon.submit.import.ctrlKey' | translate }}</kbd>
+        </app-element-i18n>
       </p>
+
+      <br>
 
       <div class="select is-multiple">
         <select [(ngModel)]="selectedCategories"
@@ -33,10 +37,10 @@
     <footer class="modal-card-foot">
       <div class="buttons">
         <button class="button is-success" (click)="doImport.emit(selectedCategories)">
-          Import
+          {{ 'action.import' | translate }}
         </button>
         <button class="button is-danger" (click)="cancel.emit()">
-          Cancel
+          {{ 'action.cancel' | translate }}
         </button>
       </div>
     </footer>

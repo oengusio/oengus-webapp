@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import type { Temporal } from '@js-temporal/polyfill';
 import moment from 'moment';
 
 @Injectable({
@@ -15,11 +14,7 @@ export class DurationService {
       return '';
     }
 
-    // @ts-expect-error temporal is not polyfilled
-    if (window.Temporal?.Duration) {
-      console.log(`Using temporal to parse ${estimate}`);
-
-      // @ts-expect-error temporal is not polyfilled
+    if (window.Temporal.Duration) {
       const d: Temporal.Duration = window.Temporal.Duration.from(estimate);
       // tslint:disable:no-shadowed-variable
       const hours = d.hours.toString().padStart(2, '0');
@@ -29,6 +24,8 @@ export class DurationService {
 
       return `${hours}:${minutes}:${seconds}`;
     }
+
+    console.log('Chrome detected, using moment fallback');
 
     const duration = moment.duration(estimate);
     const hours = Math.floor(duration.asHours()).toString().padStart(2, '0');
@@ -42,26 +39,23 @@ export class DurationService {
       return '';
     }
 
-    // @ts-expect-error temporal is not polyfilled
-    if (window.Temporal?.Duration) {
-      console.log(`Using temporal to parse ${humanEstimate}`);
-
+    if (window.Temporal.Duration) {
       const timeParts = humanEstimate.split(':');
       let duration: Temporal.Duration;
 
       if (timeParts.length === 3) {
         const [hours, minutes, seconds] = timeParts.map((p) => parseInt(p, 10));
-        // @ts-expect-error temporal is not polyfilled
         duration = window.Temporal.Duration.from({hours, minutes, seconds});
       } else {
-        const [minutes, seconds] = timeParts.map((p) => parseInt(p, 10));
-        // @ts-expect-error temporal is not polyfilled
-        duration = window.Temporal.Duration.from({hours: 0, minutes, seconds});
+        const [hours, minutes] = timeParts.map((p) => parseInt(p, 10));
+        duration = window.Temporal.Duration.from({hours, minutes, seconds: 0});
       }
 
 
       return duration.toString();
     }
+
+    console.log('Chrome detected, using moment fallback');
 
     // TODO: replace moment with something not moment
     return moment.duration(humanEstimate).toISOString();

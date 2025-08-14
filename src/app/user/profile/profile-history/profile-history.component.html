@@ -14,7 +14,7 @@
     @if (user.savedGamesPublic) {
       <li [class.is-active]="isActive(savedSpeedrunsTab)">
         <a [routerLink]="'.' | localize" [queryParams]="queryFor(savedSpeedrunsTab)">
-          Saved speedruns
+          {{ 'navbar.savedGames' | translate }}
         </a>
       </li>
     }

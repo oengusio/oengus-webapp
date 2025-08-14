@@ -129,7 +129,6 @@
   </div>
 </fieldset>
 
-<!-- TODO: if game id == -1 category save button should also update game -->
 @if (game.id > 0) {
   <div class="buttons">
     @if (editing) {
@@ -141,9 +140,6 @@
         type="button">
         <fa-icon [icon]="saveIcon"></fa-icon>
       </button>
-      @if (game.id > 0) {
-        <!-- TODO: is this needed? -->
-      }
 
       <button
         class="button is-danger"

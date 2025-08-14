@@ -78,7 +78,13 @@ export class SavedGamesSettingsComponent implements OnInit {
     });
 
     if (scrollIntoView) {
-      // TODO: scroll into view
+      window.requestAnimationFrame(() => {
+        const categories = Array.from(document.querySelectorAll(`[data-gi="${gameIndex}"] app-category-editor`));
+
+        categories[categories.length - 1].scrollIntoView({
+          behavior: 'smooth',
+        });
+      });
     }
   }
 

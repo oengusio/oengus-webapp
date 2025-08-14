@@ -11,7 +11,7 @@
         {{'navbar.settings' | translate}}
       </a>
       <a [routerLink]="'/user/saved-games-settings' | localize" class="navbar-item">
-        Saved Speedruns
+        {{ 'navbar.savedGames' | translate }}
       </a>
       <a class="navbar-item" (click)="userService.logout()">
         {{'navbar.logout' | translate}}
