@@ -3,7 +3,7 @@
    target="_blank"
    href="https://twitter.com/intent/tweet?text={{'marathon.submit.tweet.submit' | translate:{'games':gameNames,
      'marathon': marathonName} }}&via=OengusIO&lang={{localStorage.getItem('language')}}&url=https://oengus.fun/{{marathonId}}">
-  <fa-icon [icon]="faTwitter" style="margin-right: 0.4rem"></fa-icon>
+  <fa-icon [icon]="faTwitter"></fa-icon>
   {{'action.sendTweet' | translate}}
 </a>
 <a type="button"
@@ -11,7 +11,7 @@
    target="_blank"
    href="https://bsky.app/intent/compose?text={{'marathon.submit.tweet.submit' | translate:{'games':gameNames,
      'marathon': marathonName} }}%0A%0Ahttps://oengus.fun/{{marathonId}}%0A%0Avia @oengus.io&lang={{localStorage.getItem('language')}}&url=https://oengus.fun/{{marathonId}}">
-  <fa-icon [icon]="faBluesky" style="margin-right: 0.4rem"></fa-icon>
+  <fa-icon [icon]="faBluesky"></fa-icon>
   {{'action.shareBluesky' | translate}}
 </a>
 <app-element-share-mastodon class="is-pulled-right"
