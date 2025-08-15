@@ -75,7 +75,7 @@ export class CategoryEditorComponent implements OnInit, OnChanges {
 
       this.editing = false;
     } catch (e: unknown) {
-      // TODO: log error
+      console.error(e);
     } finally {
       this.loading = false;
     }
@@ -93,13 +93,12 @@ export class CategoryEditorComponent implements OnInit, OnChanges {
 
       this.editing = false;
     } catch (e: unknown) {
-      // TODO: log error
+      console.error(e);
     } finally {
       this.loading = false;
     }
   }
 
-  // TODO: is this what I want to do?
   public triggerUpdateAndSaveGame() {
     this.loading = true;
     this.categoryChange.emit(this.category);

@@ -105,8 +105,8 @@ export class SavedGamesSettingsComponent implements OnInit {
           }
         },
 
-        error() {
-          // TODO: handle
+        error(e) {
+          console.error(e);
         },
       });
     } else {
@@ -132,18 +132,12 @@ export class SavedGamesSettingsComponent implements OnInit {
           }
         },
 
-        error() {
-          // TODO: handle
+        error(e) {
+          console.error(e);
         },
       });
     } else {
       rmCategory();
     }
-  }
-
-  clickEmulatorButton(game: SavedGame, event: Event) {
-    // event.preventDefault();
-    // event.stopPropagation();
-    // game.emulated = !game.emulated;
   }
 }

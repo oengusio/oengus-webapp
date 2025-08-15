@@ -53,7 +53,6 @@ export class GameEditorComponent implements OnInit {
       return;
     }
 
-    // TODO: test new game creation
     this.loading = true;
 
     try {
@@ -65,7 +64,7 @@ export class GameEditorComponent implements OnInit {
 
       this.editing = false;
     } catch (e: unknown) {
-      // TODO: log error
+      console.error(e);
     } finally {
       this.loading = false;
     }
@@ -83,7 +82,7 @@ export class GameEditorComponent implements OnInit {
 
       this.editing = false;
     } catch (e: unknown) {
-      // TODO: log error
+      console.error(e);
     } finally {
       this.loading = false;
     }
