@@ -26,7 +26,7 @@
                 multiple
         >
           @for (game of savedGames; track game.id) {
-            <optgroup [label]="game.name">
+            <optgroup [label]="game.name + ' - ' + game.console">
               @for (category of game.categories; track category.id) {
                 <option [value]="category">{{ category.name }} - {{ durationToHuman(category.estimate) }}</option>
               }
