@@ -457,6 +457,7 @@ export class SubmitComponent {
   private savedCategoryToNormalCategory(savedCategory: SavedCategory): Category {
     return {
       ...savedCategory,
+      id: -1,
       code: '',
       type: 'SINGLE',
       expectedRunnerCount: 1,
