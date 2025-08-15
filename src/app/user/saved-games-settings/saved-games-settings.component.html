@@ -1,6 +1,6 @@
 <h1 class="title">{{ 'user.savedGames.header' | translate }}</h1>
 
-<div style="margin-bottom: 2em">
+<div class="textheader">
   <!-- TODO: hide text for supporters? -->
   <p>{{ 'user.savedGames.patronNudge' | translate }}</p>
 
@@ -14,8 +14,7 @@
   <p class="is-pulled-left">{{ 'marathon.submit.table.games' | translate }}</p>
   <button
     type="button"
-    class="button is-small is-primary is-pulled-left"
-    style="margin-left: 5px"
+    class="button is-small is-primary is-pulled-left plusbtn"
     (click)="addGame()"
     [disabled]="!isSupporter"
   >
@@ -28,7 +27,7 @@
       @for (game of games; track i; let i = $index;) {
         <hr class="has-background-grey"/>
 
-        <button class="delete is-absolute" style="right: 10px;" (click)="removeGame(i)"></button>
+        <button class="delete is-absolute" (click)="removeGame(i)"></button>
 
         <app-game-editor
           [game]="game"
@@ -42,7 +41,6 @@
           {{'marathon.submit.table.categories' | translate}}
           <button type="button"
                   class="button is-small is-primary"
-                  style="margin-left: 5px"
                   (click)="addCategory(i)"
                   [disabled]="game.categories.length >= maxCategories">
             <fa-icon [icon]="faPlus"></fa-icon>
@@ -62,7 +60,6 @@
 
                   @if (game.categories.length > 1) {
                     <button class="delete is-absolute"
-                            style="right: 25px;"
                             (click)="removeCategory(i, j)"
                     ></button>
                   }

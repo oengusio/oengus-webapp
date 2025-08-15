@@ -25,6 +25,7 @@ import { DurationService } from '../../../services/duration.service';
 @Component({
     selector: 'app-submit',
     templateUrl: './submit.component.html',
+  styleUrls: ['./submit.component.scss'],
     standalone: false
 })
 export class SubmitComponent {

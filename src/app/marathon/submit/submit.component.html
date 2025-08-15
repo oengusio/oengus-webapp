@@ -82,9 +82,8 @@
     <p>{{ 'marathon.schedule.dstChange' | translate}}</p>
   }
   <button type="button"
-    class="button is-primary"
-    (click)="addAvailability()"
-    style="margin-bottom: 1rem">
+    class="button is-primary availAdd"
+    (click)="addAvailability()">
     {{'marathon.submit.availabilities.add' | translate}}
   </button>
   @if (submission.availabilities.length === 0) {
@@ -152,14 +151,14 @@
                 </p>
               }
             </td>
-            <td style="vertical-align: middle">
+            <td class="v-align-middle">
               @if (!!availability.from && !!availability.to) {
                 <a (click)="duplicateAvailabilityToNextDay(i)"
-                  style="margin-right: 0.5rem" [nwbToolTip]="'marathon.submit.availabilities.duplicate' | translate">
+                   class="dupeBtn" [nwbToolTip]="'marathon.submit.availabilities.duplicate' | translate">
                   <fa-icon [icon]="faClone"></fa-icon>
                 </a>
               }
-              <button class="delete" (click)="removeAvailability(i)" style="margin: auto"></button>
+              <button class="delete rmAvail" (click)="removeAvailability(i)"></button>
             </td>
           </tr>
         }
@@ -275,7 +274,7 @@
     <div class="box is-relative">
       <p class="is-pulled-left">{{'marathon.submit.table.games' | translate}}</p>
       <div class="buttons">
-        <button type="button" class="button is-small is-primary is-pulled-left" style="margin-left: 5px" (click)="addGame()"
+        <button type="button" class="button is-small is-primary is-pulled-left addBtn" (click)="addGame()"
                 [disabled]="!marathonService.marathon.unlimitedGames && submission.games.length >=
                     marathonService.marathon.maxGamesPerRunner">
           <fa-icon [icon]="faPlus"></fa-icon>
@@ -294,8 +293,7 @@
 
       @for (game of submission.games; track game; let i = $index) {
         <hr class="has-background-grey"/>
-        <button class="delete is-absolute"
-          style="right: 10px;"
+        <button class="delete is-absolute delBtn"
         (click)="removeGame(i)"></button>
         <div class="columns is-multiline">
           <div class="column is-half">
@@ -413,8 +411,7 @@
               {{'marathon.submit.table.categories' | translate}}
               @if (maxCategoriesPerGame > 1) {
                 <button type="button"
-                  class="button is-small is-primary"
-                  style="margin-left: 5px"
+                  class="button is-small is-primary addBtn"
                   (click)="addCategory(i)"
                   [disabled]="!marathonService.marathon.unlimitedCategories && game.categories.length >= maxCategoriesPerGame">
                 <fa-icon [icon]="faPlus"></fa-icon>
@@ -429,8 +426,7 @@
                 <article class="message">
                   <div class="message-body">
                     @if (game.categories.length > 1) {
-                      <button class="delete is-absolute"
-                        style="right: 25px;"
+                      <button class="delete is-absolute delBtn"
                         (click)="removeCategory(i, j)"
                       ></button>
                     }
@@ -644,7 +640,7 @@
                 </div>
               }
               @if (deleteConfirm) {
-                <div class="control">
+                <div class="control buttons">
                   <button class="button is-primary" type="button"
                     (click)="deleteSubmission(marathonService.marathon.id, submission.id)">
                     {{'action.confirm' | translate}}
