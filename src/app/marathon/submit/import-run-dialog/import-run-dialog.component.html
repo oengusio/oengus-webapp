@@ -1,0 +1,50 @@
+<div class="modal" [class.is-active]="modalActive">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        {{ 'marathon.submit.import.title' | translate }}
+      </p>
+    </header>
+
+    <section class="modal-card-body">
+      <p>
+        <app-element-i18n key="marathon.submit.import.description" elementKey="ctrlKey">
+          <kbd class="tag is-info">{{ 'marathon.submit.import.ctrlKey' | translate }}</kbd>
+        </app-element-i18n>
+      </p>
+
+      <p>{{ 'marathon.submit.import.settingsHint' | translate }}</p>
+
+      <br>
+
+      <div class="select is-multiple">
+        <select [(ngModel)]="selectedCategories"
+                name="saved_game_select"
+                id="saved_game_select"
+                [size]="savedGames.length * 2"
+                multiple
+        >
+          @for (game of savedGames; track game.id) {
+            <optgroup [label]="game.name + ' - ' + game.console">
+              @for (category of game.categories; track category.id) {
+                <option [value]="category">{{ category.name }} - {{ durationToHuman(category.estimate) }}</option>
+              }
+            </optgroup>
+          }
+        </select>
+      </div>
+    </section>
+
+    <footer class="modal-card-foot">
+      <div class="buttons">
+        <button class="button is-success" (click)="doImport.emit(selectedCategories)">
+          {{ 'action.import' | translate }}
+        </button>
+        <button class="button is-danger" (click)="cancel.emit()">
+          {{ 'action.cancel' | translate }}
+        </button>
+      </div>
+    </footer>
+  </div>
+</div>

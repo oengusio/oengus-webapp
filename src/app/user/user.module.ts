@@ -23,21 +23,43 @@ import { AdminControlsComponent } from './profile/admin-controls/admin-controls.
 import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
 import { MfaModalComponent } from './settings/mfa-modal/mfa-modal.component';
 import { ManagementDialogComponent } from './management-dialog/management-dialog.component';
+import { SavedGamesComponent } from './profile/profile-history/saved-games/saved-games.component';
+import { SavedGamesSettingsComponent } from './saved-games-settings/saved-games-settings.component';
+import { GameEditorComponent } from './saved-games-settings/game-editor/game-editor.component';
+import { CategoryEditorComponent } from './saved-games-settings/category-editor/category-editor.component';
+import { MarkdownPipe } from '../pipes/markdown.pipe';
+import { NwbSwitchModule } from '@wizishop/ng-wizi-bulma';
 
 const userRoutes: Routes = [
   {
-    path: 'user/settings', component: SettingsComponent, resolve: {
+    path: 'user/saved-games-settings',
+    component: SavedGamesSettingsComponent,
+    resolve: {
       user: UserResolver
     }
   },
   {
-    path: 'user/settings/sync/:service', component: SettingsComponent, resolve: {
+    path: 'user/settings',
+    component: SettingsComponent,
+    resolve: {
       user: UserResolver
     }
   },
-  {path: 'user/new', component: NewUserComponent},
   {
-    path: 'user/:name', component: ProfileComponent, resolve: {
+    path: 'user/settings/sync/:service',
+    component: SettingsComponent,
+    resolve: {
+      user: UserResolver
+    }
+  },
+  {
+    path: 'user/new',
+    component: NewUserComponent
+  },
+  {
+    path: 'user/:name',
+    component: ProfileComponent,
+    resolve: {
       user: UserProfileResolver
     }
   },
@@ -54,12 +76,15 @@ const userRoutes: Routes = [
     UserSocialComponent,
     BoxComponent,
     ProfileHistoryComponent,
-    SubmissionComponent,
     ModeratedComponent,
     AdminControlsComponent,
     MfaModalComponent,
     SubmissionComponent,
     ManagementDialogComponent,
+    SavedGamesComponent,
+    SavedGamesSettingsComponent,
+    GameEditorComponent,
+    CategoryEditorComponent,
   ],
   imports: [
     CommonModule,
@@ -70,6 +95,8 @@ const userRoutes: Routes = [
     DirectivesModule,
     FontAwesomeModule,
     ElementModule,
+    MarkdownPipe,
+    NwbSwitchModule,
   ],
   providers: [UserResolver, UserProfileResolver],
   exports: [

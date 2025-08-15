@@ -29,6 +29,7 @@
     </footer>
   </div>
 </div>
+
 @if (mfaSettings?.secretKey) {
   <app-mfa-modal [mfaSettings]="mfaSettings" (mfaResult)="handleMfaResult($event)"></app-mfa-modal>
 }
@@ -180,6 +181,16 @@
         </div>
       }
     </div>
+
+    <div class="field">
+      <label for="savedGameVisible" class="label">{{'user.settings.savedGames.label' | translate}}</label>
+      <div class="control is-flex">
+        <nwb-switch [(ngModel)]="user.savedGamesPublic" name="savedGameVisible">
+          <span>{{'user.settings.savedGames.yesOption' | translate}}</span>
+        </nwb-switch>
+      </div>
+    </div>
+
     <!-- pronouns -->
     <app-element-pronouns [(pronouns)]="user.pronouns" ></app-element-pronouns>
 

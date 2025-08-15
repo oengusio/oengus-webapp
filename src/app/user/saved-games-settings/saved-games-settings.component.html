@@ -1,0 +1,86 @@
+<h1 class="title">{{ 'user.savedGames.header' | translate }}</h1>
+
+<div style="margin-bottom: 2em">
+  <!-- TODO: hide text for supporters? -->
+  <p>{{ 'user.savedGames.patronNudge' | translate }}</p>
+
+  <!-- text for all -->
+  <p>{{ 'user.savedGames.instruction1' | translate }}</p>
+
+  <p [innerHTML]="'user.savedGames.cacheWarning' | translate | markdown"></p>
+</div>
+
+<div class="box is-relative">
+  <p class="is-pulled-left">{{ 'marathon.submit.table.games' | translate }}</p>
+  <button
+    type="button"
+    class="button is-small is-primary is-pulled-left"
+    style="margin-left: 5px"
+    (click)="addGame()"
+    [disabled]="!isSupporter"
+  >
+    <fa-icon [icon]="faPlus"></fa-icon>
+  </button>
+  <div class="is-clearfix"></div>
+
+  <form action="" ngForm="submitForm" #form="ngForm">
+    <fieldset [disabled]="!isSupporter">
+      @for (game of games; track i; let i = $index;) {
+        <hr class="has-background-grey"/>
+
+        <button class="delete is-absolute" style="right: 10px;" (click)="removeGame(i)"></button>
+
+        <app-game-editor
+          [game]="game"
+          (gameChange)="games[i] = $event; // TODO: this is dirty, find a better way of doing this"
+          [index]="i"
+          #urFavGameEditor
+        />
+
+        <!-- Categories -->
+        <p>
+          {{'marathon.submit.table.categories' | translate}}
+          <button type="button"
+                  class="button is-small is-primary"
+                  style="margin-left: 5px"
+                  (click)="addCategory(i)"
+                  [disabled]="game.categories.length >= maxCategories">
+            <fa-icon [icon]="faPlus"></fa-icon>
+          </button>
+        </p>
+
+        <hr class="has-background-grey-darker"/>
+
+        <div class="columns is-multiline" [attr.data-gi]="i">
+          @for (category of game.categories; track j; let j = $index; ) {
+            <div
+              class="column is-relative is-full-touch"
+              [ngClass]="{ 'is-half': (game.categories.length > 1 && !(j === game.categories.length - 1 && j % 2 === 0)) }"
+            >
+              <article class="message">
+                <div class="message-body">
+
+                  @if (game.categories.length > 1) {
+                    <button class="delete is-absolute"
+                            style="right: 25px;"
+                            (click)="removeCategory(i, j)"
+                    ></button>
+                  }
+
+                  <app-category-editor
+                    [category]="category"
+                    (categoryChange)="game.categories[j] = $event"
+                    (saveGameInstead)="urFavGameEditor.saveGame()"
+                    [gameId]="game.id"
+                    [index]="j"
+                    [gameIndex]="i"
+                  />
+                </div>
+              </article>
+            </div>
+          }
+        </div>
+      }
+    </fieldset>
+  </form>
+</div>

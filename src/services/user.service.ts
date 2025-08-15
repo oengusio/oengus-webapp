@@ -4,12 +4,12 @@ import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { SelfUser, User, UserSupporterStatus } from '../model/user';
 import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
-import { firstValueFrom, Observable, Subscription } from 'rxjs';
+import { firstValueFrom, Observable, of, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { UserProfile } from '../model/user-profile';
 import { BaseService } from './BaseService';
 import { PatreonStatusDto, RelationShip } from '../model/annoying-patreon-shit';
-import { HistoryMarathon, UserProfileHistory } from '../model/user-profile-history';
+import { HistoryMarathon, SavedGame, UserProfileHistory } from '../model/user-profile-history';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
 import { map } from 'rxjs/operators';
 
@@ -82,6 +82,10 @@ export class UserService extends BaseService {
   }
 
   getMe(): Observable<SelfUser> {
+    if (this._user) {
+      return of(this._user);
+    }
+
     return this.http.get<SelfUser>(this.v2Url('@me'));
   }
 
@@ -165,6 +169,10 @@ export class UserService extends BaseService {
 
   getModerationHistory(id: number): Observable<DataListDto<HistoryMarathon>> {
     return this.http.get<DataListDto<HistoryMarathon>>(this.v2Url(`${id}/moderation-history`));
+  }
+
+  getSavedGamesList(id: number | '@me'): Observable<DataListDto<SavedGame>> {
+    return this.http.get<DataListDto<SavedGame>>(this.v2Url(`${id}/saved-games`));
   }
 
   getSupporterStatus(id: number): Observable<UserSupporterStatus> {

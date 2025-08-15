@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SubmissionService } from '../../../services/submission.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Submission } from '../../../model/submission';
 import { MarathonService } from '../../../services/marathon.service';
-import { faCheck, faClone, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faClone, faPlus, faTimes, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { Game } from '../../../model/game';
 import { Category } from '../../../model/category';
 import moment from 'moment-timezone';
 import { Availability } from '../../../model/availability';
 import { Answer } from '../../../model/answer';
 import { environment } from '../../../environments/environment';
-import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { CategoryService } from '../../../services/category.service';
 import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,38 +19,41 @@ import { Location } from '@angular/common';
 import gameConsoles from '../../../assets/consoles.json';
 import { firstValueFrom } from 'rxjs';
 import { Opponent } from '../../../model/opponent';
+import { SavedCategory, SavedGame } from '../../../model/user-profile-history';
+import { DurationService } from '../../../services/duration.service';
 
 @Component({
     selector: 'app-submit',
     templateUrl: './submit.component.html',
     standalone: false
 })
-export class SubmitComponent implements OnInit {
+export class SubmitComponent {
+  protected submission: Submission;
+  protected faCheck = faCheck;
+  protected faTimes = faTimes;
+  protected faPlus = faPlus;
+  protected faImport = faCloudArrowUp;
+  protected faClone = faClone;
+  protected moment = moment;
+  protected timezone = moment.tz.guess();
+  protected loading = false;
+  protected localStorage = localStorage;
+  protected possibleConsoles: string[] = gameConsoles;
+  protected deleteConfirm = false;
+  protected savedGames: SavedGame[] = [];
 
-  public submission: Submission;
-  public faCheck = faCheck;
-  public faTimes = faTimes;
-  public faPlus = faPlus;
-  public faTwitter = faTwitter;
-  public faClone = faClone;
-  public moment = moment;
-  public timezone = moment.tz.guess();
-  public loading = false;
-  public localStorage = localStorage;
-  public possibleConsoles: string[] = gameConsoles;
-  public deleteConfirm = false;
+  protected code: string;
 
-  public code: string;
-
-  public isDiscordCheckLoading = false;
+  protected isDiscordCheckLoading = false;
   private showDiscordRequirement = true;
-  public discordErrors = {
+  protected discordErrors = {
     userNotInGuild: false,
     botNotInGuild: false,
   };
+  protected importDialogOpen = false;
 
-  constructor(public submissionService: SubmissionService,
-              public marathonService: MarathonService,
+  constructor(protected submissionService: SubmissionService,
+              protected marathonService: MarathonService,
               private categoryService: CategoryService,
               private translateService: TranslateService,
               private userService: UserService,
@@ -65,18 +67,23 @@ export class SubmitComponent implements OnInit {
     } else {
       this.initSubmission(new Submission());
     }
+
+    if (marathonService.marathon.submitsOpen) {
+      userService.getSavedGamesList('@me').subscribe({
+        next: (savedGames) =>  {
+          this.savedGames = savedGames.data;
+          console.log(savedGames.data);
+        },
+      });
+    }
   }
 
-  initSubmission(submission: Submission) {
+  private initSubmission(submission: Submission) {
     delete this.submission;
     this.submission = {...submission};
     this.submission.games.forEach(game => {
       game.categories.forEach(category => {
-        const duration = moment.duration(category.estimate);
-        const hours = Math.floor(duration.asHours()).toString().padStart(2, '0');
-        const minutes = duration.minutes().toString().padStart(2, '0');
-        const seconds = duration.seconds().toString().padStart(2, '0');
-        category.estimateHuman = '' + hours + ':' + minutes + ':' + seconds;
+        category.estimateHuman = DurationService.toHuman(category.estimate);
       });
     });
     if (this.marathonService.marathon.questions.length > 0) {
@@ -124,10 +131,6 @@ export class SubmitComponent implements OnInit {
     if (!this.submission.opponents || this.submission.opponents.length === 0) {
       this.submission.opponents = [];
     }
-  }
-
-  ngOnInit() {
-
   }
 
   goBack() {
@@ -237,7 +240,7 @@ export class SubmitComponent implements OnInit {
     this.loading = true;
     this.submission.games.forEach(game => {
       game.categories.forEach(category => {
-        category.estimate = moment.duration(category.estimateHuman).toISOString();
+        category.estimate = DurationService.toIso(category.estimateHuman);
 
         // Help the user a little bit
         if (category.type !== 'SINGLE' && category.expectedRunnerCount < 2) {
@@ -363,5 +366,107 @@ export class SubmitComponent implements OnInit {
     }
 
     return result;
+  }
+
+  protected importCanceled() {
+    this.importDialogOpen = false;
+  }
+
+  protected startImport(categories: SavedCategory[]) {
+    this.importDialogOpen = false;
+
+    const maxGames = this.marathonService.marathon.maxGamesPerRunner;
+
+    if (this.submission.games.length >= maxGames) {
+      return;
+    }
+
+    const maxCategoriesPerGame = this.marathonService.marathon.maxCategoriesPerGame;
+
+    if (maxCategoriesPerGame === 1) {
+      for (const savedCategory of categories) {
+        // Halt and catch fire if we can't add more games.
+        if (this.submission.games.length + 1 > maxGames) {
+          return;
+        }
+
+        const savedGame = this.getSavedGameById(savedCategory.gameId);
+
+        if (!savedGame) {
+          continue;
+        }
+
+        this.insertGameIfPossible(maxGames, savedGame, savedCategory);
+      }
+
+      return;
+    }
+
+    for (const savedCategory of categories) {
+      const savedGame = this.getSavedGameById(savedCategory.gameId);
+
+      if (!savedGame) {
+        continue;
+      }
+
+      const alreadySubmittedGame = this.findAlreadyInsertedGameByName(savedGame.name);
+
+      if (!alreadySubmittedGame) {
+        this.insertGameIfPossible(maxGames, savedGame, savedCategory);
+        continue;
+      }
+
+      if (alreadySubmittedGame.categories.length + 1 > maxCategoriesPerGame) {
+        continue;
+      }
+
+      const category = this.savedCategoryToNormalCategory(savedCategory);
+
+      alreadySubmittedGame.categories.push(category);
+    }
+  }
+
+  private insertGameIfPossible(maxGames: number, savedGame: SavedGame, savedCategory: SavedCategory) {
+    if (this.submission.games.length + 1 > maxGames) {
+      return;
+    }
+
+    const game = this.savedGameToNormalGame(savedGame);
+    const category = this.savedCategoryToNormalCategory(savedCategory);
+
+    game.categories.push(category);
+
+    this.submission.games.push(game);
+  }
+
+  private getSavedGameById(gameId: number): SavedGame | null {
+    return this.savedGames.find((it) => it.id === gameId);
+  }
+
+  private savedGameToNormalGame(savedGame: SavedGame): Game {
+    return {
+      ...savedGame,
+      id: -1,
+      status: 'TODO',
+      visible: true, // TODO: what?
+      categories: [],
+    };
+  }
+
+  private savedCategoryToNormalCategory(savedCategory: SavedCategory): Category {
+    return {
+      ...savedCategory,
+      code: '',
+      type: 'SINGLE',
+      expectedRunnerCount: 1,
+      opponents: [],
+      status: '',
+      estimateHuman: DurationService.toHuman(savedCategory.estimate),
+      visible: true,
+    };
+  }
+
+  private findAlreadyInsertedGameByName(gameName: string): Game | null {
+    return this.submission.games.find((it) => it.name.toLowerCase() === gameName.toLowerCase());
   }
 }
