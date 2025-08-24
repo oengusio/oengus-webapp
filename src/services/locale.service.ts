@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TemporalServiceService } from './termporal/temporal-service.service';
 import { DateTimeAdapter } from '@danielmoncada/angular-datetime-picker';
 import { registerLocaleData } from '@angular/common';
+import localeBr from '@angular/common/locales/br';
 import localeEnGb from '@angular/common/locales/en-GB';
 import localeEn from '@angular/common/locales/en';
 import localeFr from '@angular/common/locales/fr';
@@ -28,6 +29,7 @@ import { LocalizeRouterService } from '@gilsdav/ngx-translate-router';
 
 // removed languages have none to no translations
 export const availableLocales = {
+  'br': localeBr,
   'ca': localeCa,
   'cy': localeCy,
   'en-GB': localeEnGb,
