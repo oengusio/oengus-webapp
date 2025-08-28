@@ -31,7 +31,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fullcalendar/angular": "^6.1.16",
+    "@fullcalendar/angular": "^6.1.19",
     "@fullcalendar/core": "^6.1.19",
     "@fullcalendar/daygrid": "^6.1.19",
     "@gilsdav/ngx-translate-router": "^7.2.1",
