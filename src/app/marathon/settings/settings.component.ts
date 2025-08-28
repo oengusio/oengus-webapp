@@ -11,7 +11,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { UserProfile } from '../../../model/user-profile';
 
 @Component({

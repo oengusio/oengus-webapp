@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ScheduleCreateRequest } from '../../../../model/schedule';
 import { firstValueFrom } from 'rxjs';
 import { ScheduleService } from '../../../../services/schedule.service';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 
 @Component({
     selector: 'app-create',

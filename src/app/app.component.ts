@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { LoadingBarService } from '../services/loading-bar.service';
 import { TitleService } from '../services/title.service';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import * as Sentry from '@sentry/angular';
 import { TemporalServiceService } from '../services/termporal/temporal-service.service';
 import { LocaleService } from '../services/locale.service';

@@ -5,7 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { ScheduleService } from '../../../../services/schedule.service';
 import { firstValueFrom } from 'rxjs';
 import { LineRunner, V2ScheduleLine } from '../../../../model/schedule-line';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { SubmissionService } from '../../../../services/submission.service';
 import { SelectionService } from '../../../../services/selection.service';
 import { MarathonService } from '../../../../services/marathon.service';

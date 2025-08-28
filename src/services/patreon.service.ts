@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './BaseService';
 import { HttpClient } from '@angular/common/http';
-import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { PatronApiResponse } from '../model/patron';
 import { Observable, of, tap } from 'rxjs';
 import { environment } from '../environments/environment';

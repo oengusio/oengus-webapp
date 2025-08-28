@@ -4,7 +4,7 @@ import { PatronListComponent } from './patron-list/patron-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SidebarOverviewComponent } from './marathon-sidebar-overview/sidebar-overview.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbCommonModule } from '@wizishop/ng-wizi-bulma';
+import { NwbCommonModule } from '@oengus/ng-wizi-bulma';
 import { RouterModule } from '@angular/router';
 import { OengusMdComponent } from './oengus-md/oengus-md.component';
 import { WidgetSigninPickerComponent } from './widget-signin-picker/widget-signin-picker.component';

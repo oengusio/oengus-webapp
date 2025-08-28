@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { LoadingBarService } from '../../../services/loading-bar.service';
 import { AuthService } from '../../../services/auth.service';

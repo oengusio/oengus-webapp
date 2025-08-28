@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { SelfUser, User, UserSupporterStatus } from '../model/user';
-import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { firstValueFrom, Observable, of, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { UserProfile } from '../model/user-profile';

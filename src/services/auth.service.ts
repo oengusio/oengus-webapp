@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { Router } from '@angular/router';
 import { firstValueFrom, Observable } from 'rxjs';
 import { BaseService } from './BaseService';

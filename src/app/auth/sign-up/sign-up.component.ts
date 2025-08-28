@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SignupDto } from '../../../model/dto/signup-dto';
 import { faEnvelope, faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../services/auth.service';
-import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

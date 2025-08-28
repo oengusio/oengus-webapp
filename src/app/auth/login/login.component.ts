@@ -6,7 +6,7 @@ import { LoginDetails, LoginResponse, LoginResponseStatus } from '../../../model
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 
 @Component({
     selector: 'app-login',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, tap } from 'rxjs';
-import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { ScheduleCreateRequest, ScheduleInfo, V2Schedule } from '../model/schedule';
 import moment from 'moment-timezone';
 import { BaseService } from './BaseService';

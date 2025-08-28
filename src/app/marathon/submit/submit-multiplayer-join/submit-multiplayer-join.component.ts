@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NwbAlertConfig } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig } from '@oengus/ng-wizi-bulma';
 import { CategoryService } from '../../../../services/category.service';
 import { MarathonService } from '../../../../services/marathon.service';
 import { NotificationService } from '../../../../services/notification.service';

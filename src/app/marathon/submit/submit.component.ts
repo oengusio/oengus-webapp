@@ -11,7 +11,7 @@ import { Availability } from '../../../model/availability';
 import { Answer } from '../../../model/answer';
 import { environment } from '../../../environments/environment';
 import { CategoryService } from '../../../services/category.service';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../../../services/user.service';
 import { HttpClient } from '@angular/common/http';

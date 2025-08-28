@@ -1,4 +1,4 @@
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Subject } from 'rxjs';

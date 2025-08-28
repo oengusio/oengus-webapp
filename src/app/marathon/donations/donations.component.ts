@@ -5,7 +5,7 @@ import { MarathonService } from '../../../services/marathon.service';
 import { DonationService } from '../../../services/donation.service';
 import { Page } from '../../../model/page';
 import moment from 'moment';
-import { NwbPageEvent } from '@wizishop/ng-wizi-bulma';
+import { NwbPageEvent } from '@oengus/ng-wizi-bulma';
 import { DonationStats } from '../../../model/donation-stats';
 import { UserService } from '../../../services/user.service';
 

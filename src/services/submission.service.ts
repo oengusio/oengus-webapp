@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Submission } from '../model/submission';
 import { firstValueFrom, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseService } from './BaseService';
 import { Answer } from '../model/answer';

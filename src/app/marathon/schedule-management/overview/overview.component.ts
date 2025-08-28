@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { ScheduleService } from '../../../../services/schedule.service';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { MarathonService } from '../../../../services/marathon.service';
 import { UserSupporterStatus } from '../../../../model/user';
 import { UserService } from '../../../../services/user.service';

@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { NewMarathonComponent } from './new-marathon/new-marathon.component';
 import { FormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
-import { NwbCommonModule, NwbEditInPlaceModule, NwbPaginatorModule, NwbSwitchModule } from '@wizishop/ng-wizi-bulma';
+import { NwbCommonModule, NwbEditInPlaceModule, NwbPaginatorModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { DirectivesModule } from '../directives/directives.module';
 import { canActivateMarathonSettingsGuard } from '../guards/can-activate-marathon-settings-guard.service';
 import { MarathonResolver } from '../resolvers/marathon-resolver';

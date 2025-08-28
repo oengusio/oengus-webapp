@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { V2Schedule } from '../../../../model/schedule';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
-import { NwbAlertConfig, NwbAlertService } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

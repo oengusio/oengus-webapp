@@ -7,7 +7,7 @@ import { httpInterceptorProviders } from '../interceptors';
 import { FormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NwbAlertModule, NwbCommonModule, NwbSwitchModule } from '@wizishop/ng-wizi-bulma';
+import { NwbAlertModule, NwbCommonModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { MarathonModule } from './marathon/marathon.module';
 import { DirectivesModule } from './directives/directives.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';

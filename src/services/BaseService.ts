@@ -1,5 +1,5 @@
 import { environment } from '../environments/environment';
-import {NwbAlertConfig, NwbAlertService, NwbAlertComponent} from '@wizishop/ng-wizi-bulma';
+import {NwbAlertConfig, NwbAlertService, NwbAlertComponent} from '@oengus/ng-wizi-bulma';
 
 export class BaseService {
   constructor(private toastr: NwbAlertService, private base: String = '') {}
