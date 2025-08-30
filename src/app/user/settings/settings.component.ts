@@ -143,6 +143,12 @@ export class SettingsComponent {
 
       this.notificationService.toast('alert.user.update.success');
     } catch (error) {
+      if (error.error.type === 'AccountSyncOrPasswordRequiredException') {
+        alert('Please set a password or connect twitch/discord before proceeding');
+        window.location.reload();
+        return;
+      }
+
       this.notificationService.toast('alert.user.update.error', 3000, 'warning');
     } finally {
       this.loading = false;

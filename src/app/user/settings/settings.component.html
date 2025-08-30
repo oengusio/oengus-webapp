@@ -48,7 +48,8 @@
           [ngClass]="{'is-loading': loading}"
           type="button"
           (click)="submit()"
-          [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' | translate}}
+          [disabled]="form.invalid">
+          {{'action.save' | translate}}
         </button>
       </div>
     </div>
@@ -245,8 +246,8 @@
         [ngClass]="{'is-loading': loading}"
         type="button"
         (click)="submit()"
-        [disabled]="form.invalid || (!user.discordId && !user.twitchId)">{{'action.save' |
-        translate}}
+        [disabled]="form.invalid">
+        {{'action.save' | translate}}
       </button>
     </div>
   </div>
@@ -256,14 +257,14 @@
   <br/>
   <div class="field">
     <div class="buttons">
+      <!-- TODO: flip if -->
       @if (!deactivateConfirm) {
         <div class="control">
           <button class="button is-danger is-outlined" type="button" (click)="deactivateConfirm = true">
             {{ 'user.settings.deactivateAccount.action' | translate}}
           </button>
         </div>
-      }
-      @if (deactivateConfirm) {
+      } @else {
         <div class="control">
           <p class="help">{{ 'user.settings.deactivateAccount.confirmText' | translate}}</p>
           <input class="input"
