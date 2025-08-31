@@ -13,7 +13,6 @@ import { ElementTableDetailComponent } from './element-table-detail/element-tabl
 import { ElementTemporalDistanceComponent } from './temporal/element-temporal-distance/element-temporal-distance.component';
 import { ElementConsoleComponent } from './element-console/element-console.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { ElementAdvertisementComponent } from './element-advertisement/element-advertisement.component';
 import { MarathonLocationComponent } from './marathon-location/marathon-location.component';
 import { ElementTwitchPlayerComponent } from './element-twitch-player/element-twitch-player.component';
 import { UserLinkComponent } from './user-link/user-link.component';
@@ -44,7 +43,6 @@ import { ElementI18nComponent } from './element-i18n/element-i18n.component';
     ElementTableDetailComponent,
     ElementTemporalDistanceComponent,
     ElementConsoleComponent,
-    ElementAdvertisementComponent,
     MarathonLocationComponent,
     ElementTwitchPlayerComponent,
     UserLinkComponent,
@@ -71,7 +69,6 @@ import { ElementI18nComponent } from './element-i18n/element-i18n.component';
     ElementTableDetailComponent,
     ElementTemporalDistanceComponent,
     ElementConsoleComponent,
-    ElementAdvertisementComponent,
     MarathonLocationComponent,
     ElementTwitchPlayerComponent,
     UserLinkComponent,

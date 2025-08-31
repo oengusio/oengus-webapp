@@ -9,12 +9,4 @@
     [marathon]="marathonService.marathon"
   (toggleSidebar)="toggleSidebar($event)"></app-sidebar>
 }
-@if (!collapsed) {
-  <app-element-advertisement
-    [showAdvertisement]="showAdsense"
-    [isVertical]="true"
-    dataWidth="169px"
-    dataMinHeight="350px"
-  class="is-advertisement"></app-element-advertisement>
-}
 <router-outlet (activate)="marathonRouteActivate($event)" class="marathon-view"></router-outlet>

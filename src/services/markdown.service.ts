@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import MarkdownIt from 'markdown-it';
 import tablePlugin from 'markdown-it-multimd-table';
+import attrsPlugin from 'markdown-it-attrs';
+import anchorPlugin from 'markdown-it-anchor';
 import { full as emojiPlugin } from 'markdown-it-emoji';
 import MarkdownItGitHubAlerts from 'markdown-it-github-alerts';
 import createDOMPurify from 'dompurify';
@@ -18,6 +20,10 @@ export class MarkdownService {
   })
     .use(tablePlugin)
     .use(emojiPlugin)
+    .use(attrsPlugin)
+    .use(anchorPlugin, {
+      slugify: (input: string) => input.replace(/[^a-zA-Z0-9 ]/, '').replaceAll(' ', '-').toLowerCase(),
+    })
     .use(MarkdownItGitHubAlerts);
 
   private readonly simpleMd = new MarkdownIt('zero', {

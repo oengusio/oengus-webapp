@@ -16,8 +16,6 @@ export class MarathonComponent implements OnInit {
   public faTimes = faTimes;
 
   public collapsed = false;
-  // hack :)
-  public showAdsense = true;
 
   constructor(private route: ActivatedRoute,
               private titleService: TitleService,
@@ -43,13 +41,6 @@ export class MarathonComponent implements OnInit {
   }
 
   marathonRouteActivate(component) {
-    // hack for reloading the ad :)
-    this.showAdsense = false;
-
-    setTimeout(() => {
-      this.showAdsense = true;
-    }, 100);
-
     if (Object.getPrototypeOf(component).hasOwnProperty('title')) {
       this.titleService.setSubTitle(component.title);
     } else {
