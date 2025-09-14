@@ -1,4 +1,4 @@
-import { faEnvelope, faPhone, faStar, faTrophy, faTv, faStopwatch } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faPhone, faStar, faTrophy, faTv } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/angular-fontawesome';
 import { SocialPlatform, SocialPlatformName } from './social-platform';
 import {
@@ -13,6 +13,7 @@ import {
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import { parseMastodonUrl } from '../utils/helpers';
+import { speedrunsMeIcon } from '../assets/icons/speedrunsme';
 
 export type ConnectionPlatform = SocialPlatformName | 'PHONE';
 
@@ -97,7 +98,7 @@ export const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
   },
   SPEEDRUNSME: {
     linkBase: fragment => `https://speedruns.me/${fragment}`,
-    icon: faStopwatch,
+    icon: speedrunsMeIcon,
     header: 'platform.SPEEDRUNSME',
   },
   TWITCH: {
