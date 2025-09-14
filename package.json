@@ -80,7 +80,7 @@
     "@types/moment-timezone": "^0.5.30",
     "@types/node": "~22.15.30",
     "codelyzer": "~6.0.2",
-    "jasmine-core": "~5.8.0",
+    "jasmine-core": "~5.10.0",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
