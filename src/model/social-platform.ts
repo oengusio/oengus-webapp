@@ -10,6 +10,7 @@ export enum SocialPlatform {
   NICO = 'https://com.nicovideo.jp/community/',
   SNAPCHAT = 'https://www.snapchat.com/add/',
   SPEEDRUNCOM = 'https://speedrun.com/user/',
+  SPEEDRUNSME = 'https://speedruns.me/',
   TWITCH = 'https://www.twitch.tv/',
   TWITTER = 'https://www.twitter.com/',
   YOUTUBE = 'https://www.youtube.com/@',
