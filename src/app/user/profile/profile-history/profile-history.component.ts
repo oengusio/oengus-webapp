@@ -60,6 +60,18 @@ export class ProfileHistoryComponent implements OnInit {
     }
   }
 
+  public resetTabs(): void {
+    this.fetched.submission = false;
+    this.fetched.moderation = false;
+    this.fetched.savedGames = false;
+
+    this.submissionHistory = [];
+    this.moderationHistory = [];
+    this.savedGames = [];
+
+    this.fetchNewData();
+  }
+
   private fetchSubmissions() {
     if (!this.fetched.submission) {
       this.loading = true;

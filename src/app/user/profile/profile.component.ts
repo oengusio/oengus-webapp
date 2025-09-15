@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserProfile } from '../../../model/user-profile';
 import { UserService } from '../../../services/user.service';
+import { ProfileHistoryComponent } from './profile-history/profile-history.component';
 
 @Component({
     selector: 'app-profile',
@@ -10,6 +11,9 @@ import { UserService } from '../../../services/user.service';
     standalone: false
 })
 export class ProfileComponent {
+  @ViewChild('historyComponent')
+  private historyComp: ProfileHistoryComponent;
+
   public user: UserProfile | null = null;
   public dialogOpen = false;
 
@@ -55,6 +59,7 @@ export class ProfileComponent {
 
   updateUser(user: UserProfile): void {
     this.user = user;
+    this.historyComp.resetTabs();
   }
 
   get isAdmin(): boolean {
