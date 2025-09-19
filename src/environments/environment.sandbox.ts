@@ -2,7 +2,7 @@ export const environment = {
   name: 'sandbox',
   production: true,
   sandbox: true,
-  shortUrl: 'https://oengus.fun',
+  shortUrl: 'https://s.ong.run',
   baseSite: 'https://sandbox.oengus.io',
   api: 'https://sandbox.oengus.io/api',
   twitterClientId: 'Z0Zta2JiTjNLQU5iNHlBbGcyLUI6MTpjaQ',

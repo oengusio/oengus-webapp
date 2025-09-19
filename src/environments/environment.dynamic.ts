@@ -3,7 +3,8 @@
 export const environment = {
   name: 'development',
   // shortUrl: 'https://oengus.fun',
-  shortUrl: 'https://short.oengus.dev',
+  // shortUrl: 'https://short.oengus.dev',
+  shortUrl: 'https://d.ong.run',
   twitterClientId: 'WXg5Q1R5a05TX1VMNm5CNlJjYk46MTpjaQ', // oengus test
   twitchClientId: 'c3539b9q6x4ba7pomwa9fj1cs2culy', // oengus test
   discordClientId: '931093356006768681', // oengus test

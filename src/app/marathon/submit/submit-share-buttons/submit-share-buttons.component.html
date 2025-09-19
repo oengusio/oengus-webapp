@@ -2,7 +2,7 @@
    class="button is-pulled-right twitter"
    target="_blank"
    href="https://twitter.com/intent/tweet?text={{'marathon.submit.tweet.submit' | translate:{'games':gameNames,
-     'marathon': marathonName} }}&via=OengusIO&lang={{localStorage.getItem('language')}}&url=https://oengus.fun/{{marathonId}}">
+     'marathon': marathonName} }}&via=OengusIO&lang={{localStorage.getItem('language')}}&url={{shortDomain}}/{{marathonId}}">
   <fa-icon [icon]="faTwitter"></fa-icon>
   {{'action.sendTweet' | translate}}
 </a>
@@ -10,10 +10,10 @@
    class="button is-pulled-right bsky"
    target="_blank"
    href="https://bsky.app/intent/compose?text={{'marathon.submit.tweet.submit' | translate:{'games':gameNames,
-     'marathon': marathonName} }}%0A%0Ahttps://oengus.fun/{{marathonId}}%0A%0Avia @oengus.io&lang={{localStorage.getItem('language')}}&url=https://oengus.fun/{{marathonId}}">
+     'marathon': marathonName} }}%0A%0A{{shortDomain}}/{{marathonId}}%0A%0Avia @oengus.io&lang={{localStorage.getItem('language')}}&url={{shortDomain}}/{{marathonId}}">
   <fa-icon [icon]="faBluesky"></fa-icon>
   {{'action.shareBluesky' | translate}}
 </a>
 <app-element-share-mastodon class="is-pulled-right"
                             text="{{'marathon.submit.tweet.submit' | translate:{'games':gameNames,
-     'marathon': marathonName} }}%0Ahttps://oengus.fun/{{marathonId}}"></app-element-share-mastodon>
+     'marathon': marathonName} }}%0A{{shortDomain}}/{{marathonId}}"></app-element-share-mastodon>
