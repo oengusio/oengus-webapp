@@ -29,9 +29,9 @@
           <li [ngClass]="{'is-active':active==='general'}">
             <a (click)="active = 'general'">{{'marathon.settings.tabs.general' | translate}}</a>
           </li>
-          <li [ngClass]="{'is-active':active==='discord'}" style="display: none;">
+          <!--<li [ngClass]="{'is-active':active==='discord'}">
             <a (click)="active = 'discord'">{{'marathon.settings.tabs.discord' | translate}}</a>
-          </li>
+          </li>-->
           <li [ngClass]="{'is-active':active==='submissions'}">
             <a (click)="active = 'submissions'">{{'marathon.settings.tabs.submissions' | translate}}</a>
           </li>

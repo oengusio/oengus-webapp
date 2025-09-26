@@ -25,5 +25,5 @@
             [ngModelOptions]="{ updateOn: 'change' }"
             [(ngModel)]="descriptionValue"
             name="description" id="description"></textarea>
-  <p class="help is-pulled-right">{{value.length}}/{{maxLength}}</p>
+  <p class="help is-pulled-right">{{value?.length}}/{{maxLength}}</p>
 }
