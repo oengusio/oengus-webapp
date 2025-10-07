@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     concurrency:
-      group: ${{ github.ref }}
+      group: ${{ github.ref }}-lint
       cancel-in-progress: true
 
     steps:
