@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { NwbAlertConfig } from '@oengus/ng-wizi-bulma';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CategoryService } from '../../../../services/category.service';
 import { MarathonService } from '../../../../services/marathon.service';
 import { NotificationService } from '../../../../services/notification.service';
@@ -32,6 +31,7 @@ export class SubmitMultiplayerJoinComponent {
       );
 
       this.addOpponent.emit(opponent);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       this.notifyService.toast('alert.submit.' + error.error, 3000, 'warning');
     }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MarathonService } from '../../../../services/marathon.service';
 import { MarathonSettings } from '../../../../model/marathon';
@@ -11,7 +11,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
     styleUrls: ['./submission-settings.component.scss'],
     standalone: false
 })
-export class SubmissionSettingsComponent implements OnInit {
+export class SubmissionSettingsComponent {
   marathonService = inject(MarathonService);
 
   @Input() public settings: MarathonSettings;
@@ -24,6 +24,7 @@ export class SubmissionSettingsComponent implements OnInit {
   @Output() public removeOption = new EventEmitter<{ questionType: 'SUBMISSION', i: number, j: number }>();
   @Output() public addQuestion = new EventEmitter<{ questionType: 'SUBMISSION' }>();
   @Output() public removeQuestion = new EventEmitter<{ questionType: 'SUBMISSION', i: number }>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() public drop = new EventEmitter<CdkDragDrop<Question[]>>();
 
 
@@ -33,9 +34,6 @@ export class SubmissionSettingsComponent implements OnInit {
   public botInvite = 'https://discord.com/oauth2/authorize?client_id=559625844197163008&permissions=68608&scope=bot';
 
   public loadingDiscordCheck = false;
-
-  ngOnInit(): void {
-  }
 
   checkDiscordStatus() {
     if (!this.settings.discordRequired) {
@@ -55,6 +53,7 @@ export class SubmissionSettingsComponent implements OnInit {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmitsOpenChanged(event: any): void {
     const now = new Date();
     const closeDate = new Date(this.settings.submissionsEndDate);
@@ -70,9 +69,5 @@ export class SubmissionSettingsComponent implements OnInit {
         event.stopPropagation();
       }
     }
-  }
-
-  trackByIdx(index: number, obj: any): any {
-    return index;
   }
 }

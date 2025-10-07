@@ -172,7 +172,7 @@
       @for (answer of submission.answers; track answer; let i = $index) {
         <div class="field">
           @if (answer.question.fieldType !== 'CHECKBOX') {
-            <label class="label">{{answer.question.label}}</label>
+            <label for="answer{{i}}" class="label">{{answer.question.label}}</label>
           }
           @if (answer.question.fieldType === 'TEXT') {
             <div class="control">
@@ -180,6 +180,7 @@
                 type="text"
                 [(ngModel)]="answer.answer"
                 name="answer{{i}}"
+                id="answer{{i}}"
                 [ngClass]="{'is-danger': answerField.invalid}"
                 [required]="answer.question.required"
                 maxlength="50"
@@ -323,12 +324,13 @@
           </div>
           <div class="column is-half">
             <div class="field">
-              <label class="label">{{'marathon.submit.game.ratio.label' | translate}}</label>
+              <label for="gameRatio{{i}}" class="label">{{'marathon.submit.game.ratio.label' | translate}}</label>
               <div class="control">
                 <input class="input"
                   type="text"
                   [(ngModel)]="game.ratio"
                   name="gameRatio{{i}}"
+                  id="gameRatio{{i}}"
                   [ngClass]="{'is-danger': gameRatio.invalid}"
                   required
                   maxlength="10"
@@ -346,10 +348,10 @@
             </div>
           </div>
           <div class="column">
-            <label class="label">{{'marathon.submit.game.console.label' | translate}}</label>
+            <label for="gameConsole{{i}}" class="label">{{'marathon.submit.game.console.label' | translate}}</label>
             <div class="field has-addons">
               <div class="select is-fullwidth">
-                <select [(ngModel)]="game.console" name="gameConsole{{i}}">
+                <select [(ngModel)]="game.console" name="gameConsole{{i}}" id="gameConsole{{i}}">
                   <option value="" disabled></option>
                   @for (opt of possibleConsoles; track opt) {
                     <option [ngValue]="opt">{{opt}}</option>
@@ -364,7 +366,7 @@
                   <button type="button" class="button">
                     <label class="checkbox">
                       <input type="checkbox" [(ngModel)]="game.emulated" name="emulated{{i}}"
-                        style="margin-right: 0.25rem">{{'marathon.submit.game.console.emulated' | translate}}
+                         class="emuCb">{{'marathon.submit.game.console.emulated' | translate}}
                       </label>
                     </button>
                   </fieldset>
@@ -374,7 +376,7 @@
                     <button type="button" class="button" (click)="clickEmulatorButton(game, $event)">
                       <label class="checkbox">
                         <input type="checkbox" [checked]="game.emulated" name="emulated{{i}}"
-                          style="margin-right: 0.25rem">{{'marathon.submit.game.console.emulated' | translate}}
+                          class="emuCb">{{'marathon.submit.game.console.emulated' | translate}}
                         </label>
                       </button>
                     </p>
@@ -383,7 +385,7 @@
               </div>
             </div>
             <div class="field">
-              <label class="label">{{'marathon.submit.game.description.label' | translate}}</label>
+              <label for="gameDescription{{i}}" class="label">{{'marathon.submit.game.description.label' | translate}}</label>
               <p class="help">{{'marathon.submit.game.description.help' | translate}}</p>
               <div class="control">
                 <textarea class="textarea"
@@ -391,6 +393,7 @@
                   maxlength="500"
                   [(ngModel)]="game.description"
                   name="gameDescription{{i}}"
+                  id="gameDescription{{i}}"
                   [ngClass]="{'is-danger': gameDescription.invalid}"
                   required
                 #gameDescription="ngModel"></textarea>
@@ -433,12 +436,13 @@
                     <div class="columns is-multiline">
                       <div class="column is-6">
                         <div class="field">
-                          <label class="label">{{'marathon.submit.category.name.label' | translate}}</label>
+                          <label for="categoryName{{i}}-{{j}}" class="label">{{'marathon.submit.category.name.label' | translate}}</label>
                           <div class="control">
                             <input class="input"
                               type="text"
                               [(ngModel)]="category.name"
                               name="categoryName{{i}}-{{j}}"
+                              id="categoryName{{i}}-{{j}}"
                               [ngClass]="{'is-danger': categoryName.invalid}"
                               required
                               maxlength="100"
@@ -457,11 +461,12 @@
                       </div>
                       <div class="column is-6">
                         <div class="field">
-                          <label class="label">{{'marathon.submit.category.estimate.label' | translate}}</label>
+                          <label for="categoryEstimate{{i}}-{{j}}" class="label">{{'marathon.submit.category.estimate.label' | translate}}</label>
                           <input class="input"
                             type="text"
                             [(ngModel)]="category.estimateHuman"
                             name="categoryEstimate{{i}}-{{j}}"
+                            id="categoryEstimate{{i}}-{{j}}"
                             placeholder="HH:MM:SS"
                             [ngClass]="{'is-danger': categoryEstimate.invalid}"
                             required
@@ -489,13 +494,14 @@
                       </div>
                       <div class="column is-6">
                         <div class="field">
-                          <label class="label">{{'marathon.submit.category.video.label' | translate}}</label>
+                          <label for="video{{i}}-{{j}}" class="label">{{'marathon.submit.category.video.label' | translate}}</label>
                           <div class="control">
                             <input class="input"
                               type="url"
                               [(ngModel)]="category.video"
                               [ngClass]="{'is-danger': categoryVideo.invalid || !testVideo.checkValidity()}"
                               name="video{{i}}-{{j}}"
+                              id="video{{i}}-{{j}}"
                               [required]="marathonService.marathon.videoRequired"
                               maxlength="100"
                               #categoryVideo="ngModel" #testVideo>
@@ -518,10 +524,12 @@
                       </div>
                       <div class="column is-6">
                         <div class="field">
-                          <label class="label">{{'marathon.submit.category.type.label' | translate}}</label>
+                          <label for="type-{{i}}-{{j}}" class="label">{{'marathon.submit.category.type.label' | translate}}</label>
                           <div class="select is-fullwidth">
                             <select [(ngModel)]="category.type" [disabled]="!marathonService.marathon.hasMultiplayer"
-                              name="type-{{i}}-{{j}}">
+                              name="type-{{i}}-{{j}}"
+                              id="type-{{i}}-{{j}}"
+                            >
                               <option value="SINGLE"
                                 [disabled]="category.opponents && category.opponents.length > 0">
                                 {{'marathon.schedule.type.SINGLE' | translate}}
@@ -582,7 +590,7 @@
                         </div>
                       </div>
                       <div class="field">
-                        <label class="label">{{'marathon.submit.category.description.label' | translate}}</label>
+                        <label for="categoryDescription{{i}}-{{j}}" class="label">{{'marathon.submit.category.description.label' | translate}}</label>
                         <p class="help">{{'marathon.submit.category.description.help' | translate}}</p>
                         <div class="control">
                           <textarea class="textarea"
@@ -591,6 +599,7 @@
                             [(ngModel)]="category.description"
                             [ngClass]="{'is-danger': categoryDescription.invalid}"
                             name="categoryDescription{{i}}-{{j}}"
+                            id="categoryDescription{{i}}-{{j}}"
                             required
                           #categoryDescription="ngModel"></textarea>
                           <p class="help is-pulled-right">{{category.description?.length}}/300</p>
@@ -645,8 +654,7 @@
                     (click)="deleteSubmission(marathonService.marathon.id, submission.id)">
                     {{'action.confirm' | translate}}
                   </button>
-                  <button class="button is-danger" type="button" (click)="deleteConfirm = false"
-                    style="margin-left: 1rem">
+                  <button class="button is-danger confirm" type="button" (click)="deleteConfirm = false">
                     {{'action.cancel' | translate}}
                   </button>
                 </div>

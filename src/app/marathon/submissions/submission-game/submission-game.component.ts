@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {Game} from '../../../../model/game';
-import {Marathon} from '../../../../model/marathon';
-import {Category} from '../../../../model/category';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Game } from '../../../../model/game';
+import { Marathon } from '../../../../model/marathon';
+import { Category } from '../../../../model/category';
 
 @Component({
     selector: 'app-submission-game',
@@ -9,7 +9,7 @@ import {Category} from '../../../../model/category';
     styleUrls: ['./submission-game.component.scss'],
     standalone: false
 })
-export class SubmissionGameComponent implements OnInit, OnDestroy {
+export class SubmissionGameComponent implements OnDestroy {
 
   @Input() public game: Game;
   @Input() public marathon: Marathon;
@@ -19,11 +19,6 @@ export class SubmissionGameComponent implements OnInit, OnDestroy {
 
   @Output() public deleteGame = new EventEmitter<void>();
   @Output() public deleteCategory = new EventEmitter<number>();
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
   ngOnDestroy() {
     this.deleteGame.unsubscribe();

@@ -1,5 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { MarathonSettings, MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
+import { Component, inject, OnInit } from '@angular/core';
+import { MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
 import { cloneDeep } from 'lodash';
@@ -47,6 +47,8 @@ export class SettingsComponent implements OnInit {
   public donationsQuestions: Question[];
 
   public settingsValid = true;
+
+  readonly title = 'Settings';
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ settings, questions, moderators }) => {
@@ -195,9 +197,5 @@ export class SettingsComponent implements OnInit {
   drop(event: CdkDragDrop<Question[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     this.computeQuestionsPositions();
-  }
-
-  get title(): string {
-    return 'Settings';
   }
 }

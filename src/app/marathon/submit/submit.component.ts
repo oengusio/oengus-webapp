@@ -29,6 +29,50 @@ import { DurationService } from '../../../services/duration.service';
   standalone: false,
 })
 export class SubmitComponent {
+
+  constructor() {
+    const marathonService = this.marathonService;
+    const userService = this.userService;
+
+    if (this.route.snapshot.data.submission) {
+      this.initSubmission(this.route.snapshot.data.submission);
+    } else {
+      this.initSubmission(new Submission());
+    }
+
+    if (marathonService.marathon.submitsOpen) {
+      userService.getSavedGamesList('@me').subscribe({
+        next: (savedGames) => {
+          this.savedGames = savedGames.data;
+          console.log(savedGames.data);
+        },
+      });
+    }
+  }
+
+  get maxCategoriesPerGame(): number {
+    return this.marathonService.marathon.maxCategoriesPerGame;
+  }
+
+  get gameNames() {
+    return this.submission.games.map(game => game.name).join(',');
+  }
+
+  get discordRequired(): boolean {
+    const marathon = this.marathonService.marathon;
+
+    return !marathon.discordPrivacy && marathon.discordRequired && !marathon.hasSubmitted && this.showDiscordRequirement;
+  }
+
+  get userHasDiscord(): boolean {
+    const user = this.userService.user;
+
+    return user && Boolean(user.discordId);
+  }
+
+  get marathonDiscord(): string {
+    return `https://discord.gg/${this.marathonService.marathon.discord}`;
+  }
   protected submissionService = inject(SubmissionService);
   protected marathonService = inject(MarathonService);
   private categoryService = inject(CategoryService);
@@ -64,25 +108,7 @@ export class SubmitComponent {
   };
   protected importDialogOpen = false;
 
-  constructor() {
-    const marathonService = this.marathonService;
-    const userService = this.userService;
-
-    if (this.route.snapshot.data.submission) {
-      this.initSubmission(this.route.snapshot.data.submission);
-    } else {
-      this.initSubmission(new Submission());
-    }
-
-    if (marathonService.marathon.submitsOpen) {
-      userService.getSavedGamesList('@me').subscribe({
-        next: (savedGames) => {
-          this.savedGames = savedGames.data;
-          console.log(savedGames.data);
-        },
-      });
-    }
-  }
+  readonly title = 'Submit';
 
   private initSubmission(submission: Submission) {
     delete this.submission;
@@ -96,7 +122,7 @@ export class SubmitComponent {
       if (!this.submission.answers || this.submission.answers.length === 0) {
         this.submission.answers = [];
         this.marathonService.marathon.questions.forEach(question => {
-          // @ts-ignore
+          // @ts-expect-error types are wrong
           if (question.questionType === 'SUBMISSION') {
             const answer = new Answer();
             answer.question = question;
@@ -108,7 +134,7 @@ export class SubmitComponent {
         });
       } else {
         this.marathonService.marathon.questions.forEach(question => {
-          // @ts-ignore
+          // @ts-expect-error types are wrong
           if (question.questionType === 'SUBMISSION') {
             let found = false;
             this.submission.answers.forEach(existingAnswer => {
@@ -141,10 +167,6 @@ export class SubmitComponent {
 
   goBack() {
     this.location.back();
-  }
-
-  get maxCategoriesPerGame(): number {
-    return this.marathonService.marathon.maxCategoriesPerGame;
   }
 
   addGame() {
@@ -255,7 +277,7 @@ export class SubmitComponent {
       });
     });
 
-    // @ts-ignore
+    // @ts-expect-error types are wrong
     delete this.submission.opponentDtos;
 
     if (this.submission.id < 1) {
@@ -277,10 +299,6 @@ export class SubmitComponent {
     this.submissionService.mine(this.marathonService.marathon.id).then(response => {
       this.initSubmission(response);
     });
-  }
-
-  get gameNames() {
-    return this.submission.games.map(game => game.name).join(',');
   }
 
   addOpponent(opponent: Opponent) {
@@ -309,7 +327,7 @@ export class SubmitComponent {
 
     // TODO: why is this not in the marathon service?
     try {
-      const resp = await firstValueFrom(this.http.get<string>(
+      await firstValueFrom(this.http.get<string>(
         `${environment.api}/v1/marathons/${marathonId}/discord/in-guild/${discordUserId}`,
       ));
 
@@ -324,6 +342,7 @@ export class SubmitComponent {
         };
         this.toastr.open(alertConfig);
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log(error);
 
@@ -335,26 +354,6 @@ export class SubmitComponent {
     } finally {
       this.isDiscordCheckLoading = false;
     }
-  }
-
-  get discordRequired(): boolean {
-    const marathon = this.marathonService.marathon;
-
-    return !marathon.discordPrivacy && marathon.discordRequired && !marathon.hasSubmitted && this.showDiscordRequirement;
-  }
-
-  get userHasDiscord(): boolean {
-    const user = this.userService.user;
-
-    return user && Boolean(user.discordId);
-  }
-
-  get marathonDiscord(): string {
-    return `https://discord.gg/${this.marathonService.marathon.discord}`;
-  }
-
-  get title(): string {
-    return 'Submit';
   }
 
   clickEmulatorButton(game: Game, event: Event): void {

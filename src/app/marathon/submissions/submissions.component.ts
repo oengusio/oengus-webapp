@@ -57,6 +57,8 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   private handlerBound = this.ctrlFHandler.bind(this);
   private answerLoadAttempted = false;
 
+  readonly title = 'Submissions';
+
   constructor() {
     this.selection = this.route.snapshot.data.selection;
     this.answers = new Map<string, Answer[]>();
@@ -70,6 +72,24 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
       this.questions.set(question.id, question);
     });
+  }
+
+  get displaysTabs() {
+    return this.marathonService.isAdmin(this.userService.user) &&
+      !!this.marathonService.marathon.questions &&
+      this.marathonService.marathon.questions.length > 0;
+  }
+
+  get isSearching(): boolean {
+    return !!(this.gameFilter || this.statusFilter);
+  }
+
+  get showDelete(): boolean {
+    return !this.marathonService.marathon.selectionDone && this.userIsAdmin;
+  }
+
+  get userIsAdmin(): boolean {
+    return this.marathonService.isAdmin(this.userService.user);
   }
 
   ngOnInit() {
@@ -155,12 +175,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     }
   }
 
-  get displaysTabs() {
-    return this.marathonService.isAdmin(this.userService.user) &&
-      !!this.marathonService.marathon.questions &&
-      this.marathonService.marathon.questions.length > 0;
-  }
-
   exportToCsv() {
     this.gameService.exportAllForMarathon(this.marathonService.marathon.id);
   }
@@ -182,21 +196,5 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
   deleteCategory(id: number) {
     this.categoryService.delete(this.marathonService.marathon.id, id);
-  }
-
-  get isSearching(): boolean {
-    return !!(this.gameFilter || this.statusFilter);
-  }
-
-  get title(): string {
-    return 'Submissions';
-  }
-
-  get showDelete(): boolean {
-    return !this.marathonService.marathon.selectionDone && this.userIsAdmin;
-  }
-
-  get userIsAdmin(): boolean {
-    return this.marathonService.isAdmin(this.userService.user);
   }
 }

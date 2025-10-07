@@ -29,8 +29,6 @@ export class SubmissionCategoryComponent implements OnInit, OnDestroy {
     'BONUS': 'is-info',
   };
 
-  constructor() { }
-
   get safeStatus(): string {
     return this.rawStatus || 'TODO';
   }

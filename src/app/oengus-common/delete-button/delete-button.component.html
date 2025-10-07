@@ -13,12 +13,10 @@
       [nwbToolTip]="confirmText">
       <fa-icon [icon]="faCheck"></fa-icon>
     </a>
-  }
-  @if (showConfirm) {
+
     <a class="is-tooltip-danger" (click)="cancel()"
-      style="margin-left: 0.4rem"
-      nwbToolTipPosition="left"
-      [nwbToolTip]="cancelText">
+       nwbToolTipPosition="left"
+       [nwbToolTip]="cancelText">
       <fa-icon [icon]="faTimes"></fa-icon>
     </a>
   }
