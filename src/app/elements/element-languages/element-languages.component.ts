@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import BulmaTagsInput from '@duncte123/bulma-tagsinput';
 import { firstValueFrom } from 'rxjs';
@@ -19,16 +19,14 @@ interface LangType {
     standalone: false
 })
 export class ElementLanguagesComponent implements OnInit {
+  private miscService = inject(MiscService);
+  private translateService = inject(TranslateService);
+
   @ViewChild('languagesEl', {static: true}) languageInput: ElementRef<HTMLInputElement>;
   @Input() languages: string[];
   @Output() languagesChange = new EventEmitter<string[]>();
 
   private languagesTagsInput: BulmaTagsInput;
-
-  constructor(
-    private miscService: MiscService,
-    private translateService: TranslateService
-  ) { }
 
   async ngOnInit(): Promise<void> {
     const tagsInput = this.languageInput.nativeElement;

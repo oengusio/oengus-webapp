@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Donation } from '../../../model/donation';
 import { ActivatedRoute } from '@angular/router';
 import { MarathonService } from '../../../services/marathon.service';
@@ -16,16 +16,18 @@ import { UserService } from '../../../services/user.service';
     standalone: false
 })
 export class DonationsComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  marathonService = inject(MarathonService);
+  private donationService = inject(DonationService);
+  userService = inject(UserService);
+
 
   public donations: Page<Donation>;
   public stats: DonationStats;
   public moment = moment;
   public pageSizeOptions = [10, 25, 50, 100];
 
-  constructor(private route: ActivatedRoute,
-              public marathonService: MarathonService,
-              private donationService: DonationService,
-              public userService: UserService) {
+  constructor() {
     this.donations = this.route.snapshot.data.donations;
     this.stats = this.route.snapshot.data.stats;
     this.marathonService.marathon.donationsTotal = this.stats.total;

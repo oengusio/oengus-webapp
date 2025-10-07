@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnDestroy, Renderer2, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, Renderer2, ViewContainerRef, inject } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -9,6 +9,10 @@ import { TranslateService } from '@ngx-translate/core';
     standalone: false
 })
 export class ElementI18nComponent implements OnDestroy, AfterViewInit {
+  private viewContainerRef = inject(ViewContainerRef);
+  private translateService = inject(TranslateService);
+  private renderer = inject(Renderer2);
+
   @Input() key: string;
   @Input() elementKey: string;
 
@@ -16,13 +20,6 @@ export class ElementI18nComponent implements OnDestroy, AfterViewInit {
 
   private elementWrapper: HTMLElement;
   private element: HTMLElement;
-
-  constructor(
-    private viewContainerRef: ViewContainerRef,
-    private translateService: TranslateService,
-    private renderer: Renderer2,
-  ) {
-  }
 
   ngAfterViewInit(): void {
     if (!this.element && !this.elementWrapper) {

@@ -17,8 +17,8 @@ export class SubmissionGameComponent implements OnInit, OnDestroy {
   @Input() public userIsAdmin: boolean;
   @Input() private selection: Map<number, Selection>;
 
-  @Output() public deleteGame: EventEmitter<void> = new EventEmitter();
-  @Output() public deleteCategory: EventEmitter<number> = new EventEmitter();
+  @Output() public deleteGame = new EventEmitter<void>();
+  @Output() public deleteCategory = new EventEmitter<number>();
 
   constructor() { }
 

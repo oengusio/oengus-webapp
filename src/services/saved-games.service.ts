@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BaseService } from './BaseService';
 import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
@@ -12,11 +12,12 @@ type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
   providedIn: 'root'
 })
 export class SavedGamesService extends BaseService {
+  private http = inject(HttpClient);
 
-  constructor(
-    private http: HttpClient,
-    toastr: NwbAlertService
-  ) {
+
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr, 'users/@me/saved-games');
   }
 

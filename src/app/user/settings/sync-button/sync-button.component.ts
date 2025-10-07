@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,7 +7,7 @@ import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
     styleUrls: ['./sync-button.component.scss'],
     standalone: false
 })
-export class SyncButtonComponent implements OnInit {
+export class SyncButtonComponent {
   public faSyncAlt = faSyncAlt;
 
   @Input() public title: string;
@@ -16,10 +16,4 @@ export class SyncButtonComponent implements OnInit {
 
   @Output() public sync = new EventEmitter<void>();
   @Output() public unsync = new EventEmitter<void>();
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

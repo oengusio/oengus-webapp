@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Incentive } from '../../../model/incentive';
 import { MarathonService } from '../../../services/marathon.service';
@@ -10,11 +10,13 @@ import { MarathonService } from '../../../services/marathon.service';
     standalone: false
 })
 export class IncentiveComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  marathonService = inject(MarathonService);
+
 
   public incentives: Incentive[];
 
-  constructor(private route: ActivatedRoute,
-              public marathonService: MarathonService) {
+  constructor() {
     this.incentives = this.route.snapshot.data.incentives;
   }
 

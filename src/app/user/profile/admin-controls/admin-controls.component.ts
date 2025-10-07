@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { UserService } from '../../../../services/user.service';
 import { UserProfile } from '../../../../model/user-profile';
 
@@ -9,10 +9,10 @@ import { UserProfile } from '../../../../model/user-profile';
     standalone: false
 })
 export class AdminControlsComponent {
+  userService = inject(UserService);
+
   @Input() user: UserProfile;
   @Output() openDialog = new EventEmitter<void>();
-
-  constructor(public userService: UserService) { }
 
   public openAdminDialog(): void {
     this.openDialog.emit();

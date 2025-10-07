@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
 import { UserService } from '../../../services/user.service';
@@ -15,6 +15,12 @@ import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
     standalone: false
 })
 export class LoginComponent {
+  private userService = inject(UserService);
+  private router = inject(Router);
+  authService = inject(AuthService);
+  private translateService = inject(TranslateService);
+  private toastr = inject(NwbAlertService);
+
 
   loginData: LoginDetails = {
     username: '',
@@ -25,19 +31,11 @@ export class LoginComponent {
   loginError: LoginResponseStatus | null = null;
   loading = false;
   passwordHidden = true;
-  mfaNeeded: boolean = !!localStorage.getItem('alwaysShowMfa');
+  mfaNeeded = !!localStorage.getItem('alwaysShowMfa');
 
   iconUser = faUser;
   iconDiscord = faDiscord;
   iconTwitch = faTwitch;
-
-  constructor(
-    private userService: UserService,
-    private router: Router,
-    public authService: AuthService,
-    private translateService: TranslateService,
-    private toastr: NwbAlertService,
-  ) { }
 
   performLogin(): void {
     this.loading = true;

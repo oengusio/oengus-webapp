@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { faDiscord, faGithub, faMastodon, faPatreon, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faBug, faLanguage } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../../services/user.service';
@@ -10,6 +10,8 @@ import { UserService } from '../../../../services/user.service';
     standalone: false
 })
 export class HeaderBarNavComponent {
+  userService = inject(UserService);
+
 
   isNavbarActive = false;
 
@@ -20,8 +22,6 @@ export class HeaderBarNavComponent {
   iconBug = faBug;
   iconLanguage = faLanguage;
   iconPatreon = faPatreon;
-
-  constructor(public userService: UserService) { }
 
   get isActiveClass() {
     return {

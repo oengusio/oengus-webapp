@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'app-monetary-amount',
@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
     styleUrls: ['./monetary-amount.component.scss'],
     standalone: false
 })
-export class MonetaryAmountComponent implements OnInit {
+export class MonetaryAmountComponent {
 
   @Input() amount: number;
   @Input() currency: string;
@@ -17,9 +17,6 @@ export class MonetaryAmountComponent implements OnInit {
     if (!this.amount) {
       this.amount = 0;
     }
-  }
-
-  ngOnInit() {
   }
 
 }

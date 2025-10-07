@@ -7,7 +7,5 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class PrivacyPolicyComponent {
-  get title(): string {
-    return 'Privacy Policy';
-  }
+  readonly title = 'Privacy Policy';
 }

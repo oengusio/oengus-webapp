@@ -18,7 +18,7 @@ export class ScheduleTableComponent {
 
   @Input() lines: V2ScheduleLine[] = [];
   @Input() availabilities: AvailabilityResponse;
-  @Input() selectedAvailabilities: Array<string>;
+  @Input() selectedAvailabilities: string[];
   @Input() showAllCustomData: boolean;
   @Output() moveToToDo = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
@@ -57,7 +57,7 @@ export class ScheduleTableComponent {
     this.delete.emit(linePosition);
   }
 
-  public toggleExpand(linePosition: number, openOnly: boolean = false): void {
+  public toggleExpand(linePosition: number, openOnly = false): void {
     toggleTableExpand(this.expanded, linePosition, openOnly);
     this.expanded = new Set(this.expanded);
   }

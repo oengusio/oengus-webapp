@@ -12,14 +12,14 @@ export class UserProfileHistory extends HistoryMarathon {
 }
 
 export interface HistoryGame {
-  categories: Array<HistoryGameCategory>;
+  categories: HistoryGameCategory[];
   console: string;
   description: string;
   emulated: boolean;
   id: number;
   name: string;
   ratio: string;
-  submission: any; // HistoryGameSubmission
+  // submission: any; // HistoryGameSubmission
 }
 
 export interface HistoryGameCategory {
@@ -28,8 +28,8 @@ export interface HistoryGameCategory {
   estimate: string;
   id: number;
   name: string;
-  opponentDtos: Array<any>|null; // Array<OpponentCategoryDto>|null
-  opponents: Array<any>; // Array<Opponent>
+  // opponentDtos: any[]|null; // Array<OpponentCategoryDto>|null
+  // opponents: any[]; // Array<Opponent>
   status: keyof typeof RunStatus;
   type: string;
   video: string;
@@ -42,7 +42,7 @@ export interface SavedGame {
   description: string;
   console: string;
   emulated: boolean;
-  categories: Array<SavedCategory>;
+  categories: SavedCategory[];
 }
 
 export interface SavedCategory {

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import Patron from '../../model/patron';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-patrons',
@@ -8,18 +8,14 @@ import {ActivatedRoute} from '@angular/router';
     styleUrls: ['./patrons.component.scss'],
     standalone: false
 })
-export class PatronsComponent implements OnInit {
+export class PatronsComponent {
+  private route = inject(ActivatedRoute);
+
   public patrons: Patron[];
 
-  constructor(private route: ActivatedRoute) {
+  constructor() {
     this.patrons = this.route.snapshot.data.patrons.patrons;
   }
 
-  ngOnInit() {
-    //
-  }
-
-  get title(): string {
-    return 'Our patrons';
-  }
+  readonly title = 'Our patrons';
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
@@ -9,9 +9,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CanActivateMarathonIncentivesGuard  {
+  private userService = inject(UserService);
+  private marathonService = inject(MarathonService);
 
-  constructor(private userService: UserService, private marathonService: MarathonService) {
-  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

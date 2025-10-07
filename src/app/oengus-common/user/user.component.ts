@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { User } from '../../../model/user';
 import { faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { SocialAccount } from '../../../model/social-account';
-import {SocialPlatform} from '../../../model/social-platform';
+import { SocialPlatform } from '../../../model/social-platform';
 
 /**
  * @deprecated Please switch to app-user-link instead.
@@ -14,7 +14,7 @@ import {SocialPlatform} from '../../../model/social-platform';
     styleUrls: ['./user.component.scss'],
     standalone: false
 })
-export class UserComponent implements OnInit {
+export class UserComponent {
 
   @Input() username?: string;
   @Input() user?: User;
@@ -30,12 +30,6 @@ export class UserComponent implements OnInit {
   };
 
   public localStorage = localStorage;
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
 
   get profileConnections(): SocialAccount[] {
     return this.user.connections.filter((connection) => this.acceptedTypes.includes(connection.platform));

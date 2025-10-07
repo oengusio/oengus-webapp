@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SubmissionService } from '../../../services/submission.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Submission } from '../../../model/submission';
@@ -23,12 +23,23 @@ import { SavedCategory, SavedGame } from '../../../model/user-profile-history';
 import { DurationService } from '../../../services/duration.service';
 
 @Component({
-    selector: 'app-submit',
-    templateUrl: './submit.component.html',
+  selector: 'app-submit',
+  templateUrl: './submit.component.html',
   styleUrls: ['./submit.component.scss'],
-    standalone: false
+  standalone: false,
 })
 export class SubmitComponent {
+  protected submissionService = inject(SubmissionService);
+  protected marathonService = inject(MarathonService);
+  private categoryService = inject(CategoryService);
+  private translateService = inject(TranslateService);
+  private userService = inject(UserService);
+  private toastr = inject(NwbAlertService);
+  private route = inject(ActivatedRoute);
+  private http = inject(HttpClient);
+  private location = inject(Location);
+  private router = inject(Router);
+
   protected submission: Submission;
   protected faCheck = faCheck;
   protected faTimes = faTimes;
@@ -53,16 +64,10 @@ export class SubmitComponent {
   };
   protected importDialogOpen = false;
 
-  constructor(protected submissionService: SubmissionService,
-              protected marathonService: MarathonService,
-              private categoryService: CategoryService,
-              private translateService: TranslateService,
-              private userService: UserService,
-              private toastr: NwbAlertService,
-              private route: ActivatedRoute,
-              private http: HttpClient,
-              private location: Location,
-              private router: Router) {
+  constructor() {
+    const marathonService = this.marathonService;
+    const userService = this.userService;
+
     if (this.route.snapshot.data.submission) {
       this.initSubmission(this.route.snapshot.data.submission);
     } else {
@@ -71,7 +76,7 @@ export class SubmitComponent {
 
     if (marathonService.marathon.submitsOpen) {
       userService.getSavedGamesList('@me').subscribe({
-        next: (savedGames) =>  {
+        next: (savedGames) => {
           this.savedGames = savedGames.data;
           console.log(savedGames.data);
         },
@@ -359,7 +364,7 @@ export class SubmitComponent {
   }
 
   checkValidityUrlInputs(): boolean {
-    const inputs: Array<HTMLInputElement> = Array.from(document.querySelectorAll('input[type=url]'));
+    const inputs: HTMLInputElement[] = Array.from(document.querySelectorAll('input[type=url]'));
     let result = true;
 
     for (const input of inputs) {

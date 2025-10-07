@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
 import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -8,6 +8,8 @@ import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
     standalone: false
 })
 export class ElementTableCellComponent implements OnChanges {
+  private elem = inject(ElementRef);
+
   @Input() isHeader = false;
   @Input() columnStart = 'auto';
   @Input() columnEnd = 'auto';
@@ -29,8 +31,6 @@ export class ElementTableCellComponent implements OnChanges {
   get icon() {
     return this.expanded ? faCaretDown : faCaretRight;
   }
-
-  constructor(private elem: ElementRef) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.isHeader && changes.isHeader.currentValue !== changes.isHeader.previousValue) {

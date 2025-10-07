@@ -11,11 +11,10 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CanActivateMarathonSubmitGuard  {
+  private userService = inject(UserService);
+  private marathonService = inject(MarathonService);
+  private router = inject(Router);
 
-  constructor(private userService: UserService,
-              private marathonService: MarathonService,
-              private router: Router) {
-  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
     if (!this.userService.token) {

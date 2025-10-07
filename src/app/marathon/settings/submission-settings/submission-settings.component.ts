@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MarathonService } from '../../../../services/marathon.service';
 import { MarathonSettings } from '../../../../model/marathon';
@@ -12,6 +12,8 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
     standalone: false
 })
 export class SubmissionSettingsComponent implements OnInit {
+  marathonService = inject(MarathonService);
+
   @Input() public settings: MarathonSettings;
   @Input() public submissionsQuestions: Question[];
   @Input() public disabled: boolean;
@@ -31,8 +33,6 @@ export class SubmissionSettingsComponent implements OnInit {
   public botInvite = 'https://discord.com/oauth2/authorize?client_id=559625844197163008&permissions=68608&scope=bot';
 
   public loadingDiscordCheck = false;
-
-  constructor(public marathonService: MarathonService) { }
 
   ngOnInit(): void {
   }

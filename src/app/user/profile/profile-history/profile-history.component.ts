@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { UserProfile } from '../../../../model/user-profile';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HistoryMarathon, SavedGame, UserProfileHistory } from '../../../../model/user-profile-history';
@@ -11,6 +11,9 @@ import { UserService } from '../../../../services/user.service';
     standalone: false
 })
 export class ProfileHistoryComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private userService = inject(UserService);
+
   @Input() user: UserProfile;
 
   tabQuery = 'user-history';
@@ -31,12 +34,6 @@ export class ProfileHistoryComponent implements OnInit {
   loading = true;
 
   currentQuery: Params = {};
-
-  constructor(
-    private route: ActivatedRoute,
-    private userService: UserService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((newParams) => {
@@ -113,7 +110,7 @@ export class ProfileHistoryComponent implements OnInit {
     }
   }
 
-  get activeTab(): string|Array<string|null> {
+  get activeTab(): string|(string|null)[] {
     return this.currentQuery[this.tabQuery] ?? this.submissionTab;
   }
 

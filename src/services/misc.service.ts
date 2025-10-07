@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {BaseService} from './BaseService';
 import {Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -9,8 +9,11 @@ import {Language} from '../model/language';
   providedIn: 'root'
 })
 export class MiscService extends BaseService {
-  constructor(private http: HttpClient,
-              toastr: NwbAlertService) {
+  private http = inject(HttpClient);
+
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr);
   }
 

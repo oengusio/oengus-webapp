@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
@@ -16,17 +16,15 @@ import { NotificationService } from '../../../services/notification.service';
     standalone: false
 })
 export class LoginOauthComponent implements OnInit {
+  private authService = inject(AuthService);
+  private userService = inject(UserService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private toastr = inject(NwbAlertService);
+  private notificationService = inject(NotificationService);
+  private translateService = inject(TranslateService);
+  private loader = inject(LoadingBarService);
 
-  constructor(
-    private authService: AuthService,
-    private userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private toastr: NwbAlertService,
-    private notificationService: NotificationService,
-    private translateService: TranslateService,
-    private loader: LoadingBarService
-  ) { }
 
   ngOnInit(): void {
     setTimeout(() => {

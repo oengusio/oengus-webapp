@@ -1,28 +1,24 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-    selector: 'app-delete-button',
-    templateUrl: './delete-button.component.html',
-    standalone: false
+  selector: 'app-delete-button',
+  templateUrl: './delete-button.component.html',
+  styleUrls: ['./delete-button.component.scss'],
+  standalone: false,
 })
-export class DeleteButtonComponent implements OnInit {
+export class DeleteButtonComponent {
 
   public faTimes = faTimes;
   public faCheck = faCheck;
 
   public showConfirm = false;
 
-  @Output() public confirmHandler: EventEmitter<void> = new EventEmitter();
-  @Output() public cancelHandler: EventEmitter<void> = new EventEmitter();
+  @Output() public confirmHandler = new EventEmitter<void>();
+  @Output() public cancelHandler = new EventEmitter<void>();
   @Input() public baseText: string;
   @Input() public confirmText: string;
   @Input() public cancelText: string;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
   confirm() {
     this.showConfirm = true;

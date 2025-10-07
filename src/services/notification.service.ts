@@ -1,6 +1,6 @@
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { firstValueFrom, Subject } from 'rxjs';
 
 export interface NotificationItem {
@@ -12,22 +12,23 @@ export interface NotificationItem {
   providedIn: 'root',
 })
 export class NotificationService {
+  private toastr = inject(NwbAlertService);
+  private translateService = inject(TranslateService);
+
   private notifySubject = new Subject<NotificationItem>();
   public notificationObservable = this.notifySubject.asObservable();
 
-  constructor(private toastr: NwbAlertService, private translateService: TranslateService) {}
-
-  public notify(translateKey: string, color: string = 'success') {
+  public notify(translateKey: string, color = 'success') {
     firstValueFrom(this.translateService.get(translateKey)).then((message) => {
       this.notifyRw(message, color);
     });
   }
 
-  public notifyRw(message: string, color: string = 'success') {
+  public notifyRw(message: string, color = 'success') {
     this.notifySubject.next({ message, color });
   }
 
-  public toast(translateKey: string, duration: number = 3000, color: string = 'success') {
+  public toast(translateKey: string, duration = 3000, color = 'success') {
     firstValueFrom(this.translateService.get(translateKey)).then((message) => {
       this.toastRaw(message, duration, color);
     });
@@ -37,7 +38,7 @@ export class NotificationService {
     // return this.toastRaw(message, duration, color);
   }
 
-  public toastRaw(message: string, duration: number = 3000, color: string = 'success') {
+  public toastRaw(message: string, duration = 3000, color = 'success') {
     const alertConfig: NwbAlertConfig = {
       message,
       duration,

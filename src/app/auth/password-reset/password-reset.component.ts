@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { firstValueFrom } from 'rxjs';
@@ -11,17 +11,15 @@ import { passwordResetErrorToMessage } from '../../../utils/authHelpers';
     standalone: false
 })
 export class PasswordResetComponent implements OnInit {
+  private authService = inject(AuthService);
+  private route = inject(ActivatedRoute);
+
   errorTranslationKey: string | null = 'auth.passwordReset.error.PASSWORD_RESET_CODE_INVALID';
   resetToken: string | null = null;
 
   loading = true;
   newPassword = '';
   notificationClass = 'is-danger';
-
-  constructor(
-    private authService: AuthService,
-    private route: ActivatedRoute,
-  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

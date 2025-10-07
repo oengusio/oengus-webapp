@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { NwbAlertConfig } from '@oengus/ng-wizi-bulma';
 import { CategoryService } from '../../../../services/category.service';
 import { MarathonService } from '../../../../services/marathon.service';
@@ -13,6 +13,10 @@ import { Opponent } from '../../../../model/opponent';
   standalone: false,
 })
 export class SubmitMultiplayerJoinComponent {
+  private categoryService = inject(CategoryService);
+  marathonService = inject(MarathonService);
+  private notifyService = inject(NotificationService);
+
 
   code = '';
 
@@ -20,13 +24,6 @@ export class SubmitMultiplayerJoinComponent {
 
   @Output() private addOpponent = new EventEmitter<Opponent>();
   @Output() private removeOpponent = new EventEmitter<number>();
-
-  constructor(
-    private categoryService: CategoryService,
-    public marathonService: MarathonService,
-    private notifyService: NotificationService,
-  ) {
-  }
 
   async getMultiplayerSubmission() {
     try {

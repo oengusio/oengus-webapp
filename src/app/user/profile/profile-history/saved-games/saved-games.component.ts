@@ -9,7 +9,7 @@ import { SavedGame } from '../../../../../model/user-profile-history';
 })
 export class SavedGamesComponent {
 
-  @Input() games: Array<SavedGame>;
+  @Input() games: SavedGame[];
 
   getSpan(element: SavedGame): string {
     return `span ${element.categories.length}`;

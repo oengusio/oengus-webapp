@@ -11,8 +11,6 @@ import { RunStatus } from '../../../../../model/category';
 export class SubmissionComponent {
   @Input() submissions: UserProfileHistory[];
 
-  constructor() { }
-
   getSpan(element: UserProfileHistory|HistoryGame|HistoryGameCategory): string {
     return `span ${this.getCategories(element).length}`;
   }
@@ -29,13 +27,13 @@ export class SubmissionComponent {
     };
   }
 
-  getCategories(element: UserProfileHistory|HistoryGame|HistoryGameCategory): Array<HistoryGameCategory> {
+  getCategories(element: UserProfileHistory|HistoryGame|HistoryGameCategory): HistoryGameCategory[] {
     return this.isCategory(element)
       ? [ element ]
       : (
         this.isGame(element)
           ? element.categories
-          : element.games.reduce((categories, game) => [ ...categories, ...game.categories ], [ ] as Array<HistoryGameCategory>)
+          : element.games.reduce((categories, game) => [ ...categories, ...game.categories ], [ ] as HistoryGameCategory[])
       );
   }
   isMarathon(element: UserProfileHistory|HistoryGame|HistoryGameCategory): element is UserProfileHistory {

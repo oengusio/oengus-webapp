@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Submission } from '../model/submission';
 import { firstValueFrom, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -13,16 +13,20 @@ import { AvailabilityResponse } from '../model/availability';
   providedIn: 'root'
 })
 export class SubmissionService extends BaseService {
+  private http = inject(HttpClient);
+  private translateService = inject(TranslateService);
 
-  constructor(private http: HttpClient,
-              toastr: NwbAlertService,
-              private translateService: TranslateService) {
+
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr, 'marathons');
   }
 
   async mine(marathonId: string): Promise<Submission> {
     try {
       return await firstValueFrom(this.http.get<Submission>(this.url(`${marathonId}/submissions/me`)));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       if (e.status === 404) {
         return null;
@@ -33,7 +37,7 @@ export class SubmissionService extends BaseService {
   }
 
   availabilities(marathonId: string): Observable<AvailabilityResponse> {
-    return this.http.get<any>(this.url(`${marathonId}/submissions/availabilities`));
+    return this.http.get<AvailabilityResponse>(this.url(`${marathonId}/submissions/availabilities`));
   }
 
   submissions(marathonId: string, page: number): Observable<SubmissionPage> {
@@ -42,6 +46,7 @@ export class SubmissionService extends BaseService {
 
   // transform parameter allows us to transform smaller batches at once
   loadAllSubmissions(marathonId: string, transform = (page: Submission[]) => page): Promise<Submission[]> {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise<Submission[]>(async (resolve, reject) => {
       let page = 1;
       let hasMore = true;
@@ -72,7 +77,7 @@ export class SubmissionService extends BaseService {
     });
   }
 
-  searchSubmissions(marathonId: string, query: string, status?: string, page: number = 1): Observable<SubmissionPage> {
+  searchSubmissions(marathonId: string, query: string, status?: string, page = 1): Observable<SubmissionPage> {
     const params: { q: string; page: number; status?: string; } = {
       q: query,
       page,
@@ -92,17 +97,17 @@ export class SubmissionService extends BaseService {
   }
 
   availabilitiesForUser(marathonId: string, userId: number): Observable<AvailabilityResponse> {
-    return this.http.get<any>(this.url(`${marathonId}/submissions/availabilities/${userId}`));
+    return this.http.get<AvailabilityResponse>(this.url(`${marathonId}/submissions/availabilities/${userId}`));
   }
 
   create(marathonId: string, submission: Submission) {
     return this.http
       .post(this.url(`${marathonId}/submissions`), submission, {observe: 'response'})
-      .subscribe((response: any) => {
+      .subscribe(() => {
         this.translateService.get('alert.submission.save.success').subscribe((res: string) => {
           this.toast(res);
         });
-      }, error => {
+      }, () => {
         this.translateService.get('alert.submission.save.error').subscribe((res: string) => {
           this.toast(res, 3000, 'warning');
         });
@@ -112,11 +117,11 @@ export class SubmissionService extends BaseService {
   update(marathonId: string, submission: Submission) {
     return this.http
       .put(this.url(`${marathonId}/submissions`), submission, {observe: 'response'})
-      .subscribe((response: any) => {
+      .subscribe(() => {
         this.translateService.get('alert.submission.save.success').subscribe((res: string) => {
           this.toast(res);
         });
-      }, error => {
+      }, () => {
         this.translateService.get('alert.submission.save.error').subscribe((res: string) => {
           this.toast(res, 3000, 'warning');
         });
@@ -124,17 +129,20 @@ export class SubmissionService extends BaseService {
   }
 
   delete(marathonId: string, submissionId: number, callback?) {
-    return this.http.delete(this.url(`${marathonId}/submissions/${submissionId}`)).subscribe(response => {
-      this.translateService.get('alert.submission.deletion.success').subscribe((res: string) => {
-        this.toast(res);
-        if (callback) {
-          callback();
-        }
-      });
-    }, error => {
-      this.translateService.get('alert.submission.deletion.error').subscribe((res: string) => {
-        this.toast(res, 3000, 'warning');
-      });
+    return this.http.delete(this.url(`${marathonId}/submissions/${submissionId}`)).subscribe({
+      next: () => {
+        this.translateService.get('alert.submission.deletion.success').subscribe((res: string) => {
+          this.toast(res);
+          if (callback) {
+            callback();
+          }
+        });
+      },
+      error: () => {
+        this.translateService.get('alert.submission.deletion.error').subscribe((res: string) => {
+          this.toast(res, 3000, 'warning');
+        });
+      },
     });
   }
 

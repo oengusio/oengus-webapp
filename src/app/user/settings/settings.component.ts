@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SelfUser } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -20,6 +20,34 @@ import { NotificationService } from '../../../services/notification.service';
     standalone: false
 })
 export class SettingsComponent {
+
+  constructor() {
+    this.user = {...this.route.snapshot.data.user};
+
+    this.route.params.subscribe(params => {
+      this.route.queryParams.subscribe(queryParams => {
+        if (!!params['service'] && !!queryParams['code']) {
+          this.syncService(params, queryParams);
+        }
+      });
+    });
+  }
+
+  get usernameConfirmed(): boolean {
+    if (!this.userService.user) {
+      return false;
+    }
+
+    return this.deleteUsername === this.userService.user.username;
+  }
+
+  private userService = inject(UserService);
+  private authService = inject(AuthService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private translateService = inject(TranslateService);
+  private notificationService = inject(NotificationService);
+
   public faPlus = faPlus;
 
   public user: SelfUser;
@@ -32,23 +60,7 @@ export class SettingsComponent {
   public deleteUsername: string;
   pwResetButtonDisabled = false;
 
-  constructor(private userService: UserService,
-              private authService: AuthService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private translateService: TranslateService,
-              private notificationService: NotificationService
-  ) {
-    this.user = {...this.route.snapshot.data.user};
-
-    this.route.params.subscribe(params => {
-      this.route.queryParams.subscribe(queryParams => {
-        if (!!params['service'] && !!queryParams['code']) {
-          this.syncService(params, queryParams);
-        }
-      });
-    });
-  }
+  readonly title = 'Settings';
 
   getUsernameByConnectionType(type: string): string {
     const conn = this.user.connections.find((c) => c.platform === type);
@@ -172,18 +184,6 @@ export class SettingsComponent {
     });
   }
 
-  get usernameConfirmed(): boolean {
-    if (!this.userService.user) {
-      return false;
-    }
-
-    return this.deleteUsername === this.userService.user.username;
-  }
-
-  get title(): string {
-    return 'Settings';
-  }
-
   initMfa(): void {
     this.mfaLoading = true;
 
@@ -214,6 +214,7 @@ export class SettingsComponent {
       }
 
       console.log(status);
+      // eslint-disable-next-line
     } catch (e: any) {
       console.log(e.error);
       alert(`Something went wrong: ${JSON.stringify(e.error)}`);
@@ -269,7 +270,7 @@ export class SettingsComponent {
         queryParams['code'],
       );
 
-      if (typeof this.user[`${params['service'].toLowerCase()}Id`] !== 'undefined') {
+      if (typeof this.user[`${params['service'].toLowerCase()}Id`] !== 'undefined' && 'id' in response) {
         this.user[`${params['service'].toLowerCase()}Id`] = response.id;
         this.addOrUpdateConnectionByType(params['service'].toUpperCase(), response.name);
       }

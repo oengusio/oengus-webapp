@@ -7,7 +7,7 @@ interface HomepageListData {
   key: keyof HomepageMetadata;
   label: string;
   timeTranslationKey: string[];
-  timeTranslationValue: Array<keyof Marathon>;
+  timeTranslationValue: (keyof Marathon)[];
   headerClass: string;
 }
 
@@ -56,7 +56,7 @@ export class MarathonsComponent implements OnInit {
 
   private now = new Date();
 
-  private keyCache: {[key: string]: { [key: number]: Date }} = {};
+  private keyCache: Record<string, Record<number, Date>> = {};
 
   ngOnInit(): void {
   }
@@ -65,7 +65,7 @@ export class MarathonsComponent implements OnInit {
     return (this.homepageMarathons?.[key]?.length ?? 0) > 0;
   }
 
-  getTranslationData(marathon: Marathon, keys: Array<keyof Marathon>): { [key: number]: Date } {
+  getTranslationData(marathon: Marathon, keys: (keyof Marathon)[]): Record<number, Date> {
     if (keys.length === 1) {
       return {
         0: marathon[keys[0]] as Date

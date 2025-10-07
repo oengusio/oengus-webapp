@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,10 +9,13 @@ import {BaseService} from './BaseService';
   providedIn: 'root'
 })
 export class GameService extends BaseService {
+  private http = inject(HttpClient);
+  private translateService = inject(TranslateService);
 
-  constructor(private http: HttpClient,
-              toastr: NwbAlertService,
-              private translateService: TranslateService) {
+
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr, 'marathons');
   }
 

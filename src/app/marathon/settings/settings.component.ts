@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MarathonSettings, MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
@@ -21,6 +21,12 @@ import { UserProfile } from '../../../model/user-profile';
     standalone: false
 })
 export class SettingsComponent implements OnInit {
+  marathonService = inject(MarathonService);
+  userService = inject(UserService);
+  private activatedRoute = inject(ActivatedRoute);
+  private translateService = inject(TranslateService);
+  private toastr = inject(NwbAlertService);
+
 
   private marathonId: string;
   public settings: MarathonSettingsWithHelpfulProps;
@@ -41,15 +47,6 @@ export class SettingsComponent implements OnInit {
   public donationsQuestions: Question[];
 
   public settingsValid = true;
-
-  constructor(
-    public marathonService: MarathonService,
-    public userService: UserService,
-    private activatedRoute: ActivatedRoute,
-    private translateService: TranslateService,
-    private toastr: NwbAlertService
-  ) {
-  }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ settings, questions, moderators }) => {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MarathonService } from '../../../services/marathon.service';
@@ -26,6 +26,13 @@ type AllowedTabs = 'submissions' | 'answers';
     standalone: false
 })
 export class SubmissionsComponent implements OnInit, OnDestroy {
+  private route = inject(ActivatedRoute);
+  marathonService = inject(MarathonService);
+  userService = inject(UserService);
+  gameService = inject(GameService);
+  private submissionService = inject(SubmissionService);
+  private categoryService = inject(CategoryService);
+
   @ViewChild('searchInput', {static: true}) searchInput: ElementRef<HTMLInputElement>;
   @ViewChild('searchLazyLoader') searchLazyLoader: SubmissionLazyLoaderComponent;
 
@@ -50,12 +57,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   private handlerBound = this.ctrlFHandler.bind(this);
   private answerLoadAttempted = false;
 
-  constructor(private route: ActivatedRoute,
-              public marathonService: MarathonService,
-              public userService: UserService,
-              public gameService: GameService,
-              private submissionService: SubmissionService,
-              private categoryService: CategoryService) {
+  constructor() {
     this.selection = this.route.snapshot.data.selection;
     this.answers = new Map<string, Answer[]>();
     this.questions = new Map<number, Question>();

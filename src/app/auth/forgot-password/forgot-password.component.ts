@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { passwordResetErrorToMessage } from '../../../utils/authHelpers';
 import { firstValueFrom } from 'rxjs';
@@ -11,6 +11,8 @@ import { AuthService } from '../../../services/auth.service';
     standalone: false
 })
 export class ForgotPasswordComponent {
+  private authService = inject(AuthService);
+
   iconUser = faEnvelope;
 
   errorTranslationKey: string | null = null;
@@ -18,10 +20,6 @@ export class ForgotPasswordComponent {
 
   loading = false;
   email = '';
-
-  constructor(
-    private authService: AuthService,
-  ) { }
 
   async requestNewPassword(form: HTMLFormElement) {
     if (!form.reportValidity()) {

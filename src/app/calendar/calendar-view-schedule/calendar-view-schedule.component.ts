@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { Marathon } from '../../../model/marathon';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -13,6 +13,9 @@ import { LocaleService } from '../../../services/locale.service';
     standalone: false
 })
 export class CalendarViewScheduleComponent implements OnInit, OnChanges {
+  private router = inject(Router);
+  private localeService = inject(LocaleService);
+
   @Input() year: number;
   @Input() month: number;
   @Input() marathons: Marathon[] = [];
@@ -33,12 +36,6 @@ export class CalendarViewScheduleComponent implements OnInit, OnChanges {
     events: this.events,
     eventClick: this.goToEvent.bind(this),
   };
-
-  constructor(
-    private router: Router,
-    private localeService: LocaleService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.calendarOptions.locale = this.localeService.language;

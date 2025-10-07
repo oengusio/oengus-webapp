@@ -13,8 +13,6 @@ export class ModeratedComponent {
 
   getRowParity = getRowParity;
 
-  constructor() { }
-
   get moderatedMarathons() {
     return [ ...this.history ].reverse();
   }

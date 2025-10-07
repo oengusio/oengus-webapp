@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private userService: UserService) {
-  }
+  private userService = inject(UserService);
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const updateHeaders = {
       headers: req.headers.set('oengus-version', '1'),
     };

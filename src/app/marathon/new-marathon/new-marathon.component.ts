@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Marathon } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { environment } from '../../../environments/environment';
@@ -10,6 +10,8 @@ import { environment } from '../../../environments/environment';
     standalone: false
 })
 export class NewMarathonComponent implements OnInit {
+  marathonService = inject(MarathonService);
+
 
   public marathon: Marathon;
   public now: Date;
@@ -17,7 +19,7 @@ export class NewMarathonComponent implements OnInit {
   public loading = false;
   public marathonId = '';
 
-  constructor(public marathonService: MarathonService) {
+  constructor() {
     this.now = new Date();
     this.now.setSeconds(0);
   }

@@ -6,7 +6,7 @@ export class Answer {
   questionId: number;
   submissionId: number;
   question: Question;
-  answer: any;
+  answer: string | boolean;
   username: string;
 
   constructor() {

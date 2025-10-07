@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 
 @Component({
     selector: 'app-element-table',
@@ -7,12 +7,9 @@ import { Component, ElementRef, Input, OnChanges, SimpleChanges } from '@angular
     standalone: false
 })
 export class ElementTableComponent implements OnChanges {
-  @Input() isDivided: boolean;
-  // the good way 😄
-  // @HostBinding('style.--border-width') tableStyle = '';
+  private elem = inject(ElementRef);
 
-  constructor(private elem: ElementRef) {
-  }
+  @Input() isDivided: boolean;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.isDivided.currentValue !== changes.isDivided.previousValue) {

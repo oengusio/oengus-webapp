@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { Submission } from '../../model/submission';
 import { Observable } from 'rxjs';
 import { SubmissionService } from '../../services/submission.service';
 
 @Injectable()
 export class SubmissionResolver  {
+  private submissionService = inject(SubmissionService);
 
-  constructor(private submissionService: SubmissionService) {
-  }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Submission> | Promise<Submission> | Submission {
+  resolve(route: ActivatedRouteSnapshot): Observable<Submission> | Promise<Submission> | Submission {
     return this.submissionService.mine(route.parent.paramMap.get('id'));
   }
 }

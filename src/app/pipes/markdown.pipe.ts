@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { MarkdownService } from '../../services/markdown.service';
 
 @Pipe({
@@ -6,13 +6,10 @@ import { MarkdownService } from '../../services/markdown.service';
   name: 'markdown'
 })
 export class MarkdownPipe implements PipeTransform {
+  private readonly markdown = inject(MarkdownService);
 
-  constructor(
-    private readonly markdown: MarkdownService,
-  ) {
-  }
 
-  transform(value: string, ...args: any[]): string {
+  transform(value: string): string {
     if (!value) {
       return '';
     }

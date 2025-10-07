@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MarathonService } from '../../services/marathon.service';
@@ -8,9 +8,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CanActivateMarathonDonationsGuard  {
+  private marathonService = inject(MarathonService);
 
-  constructor(private marathonService: MarathonService) {
-  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

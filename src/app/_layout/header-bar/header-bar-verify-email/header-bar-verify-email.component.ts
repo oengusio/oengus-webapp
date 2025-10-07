@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserService } from '../../../../services/user.service';
 import { AuthService } from '../../../../services/auth.service';
 
@@ -9,14 +9,12 @@ import { AuthService } from '../../../../services/auth.service';
     standalone: false
 })
 export class HeaderBarVerifyEmailComponent {
+  private authService = inject(AuthService);
+  private userService = inject(UserService);
+
 
   canPressButton = true;
   loading = false;
-
-  constructor(
-    private authService: AuthService,
-    private userService: UserService,
-  ) { }
 
   requestNewEmail() {
     this.canPressButton = false;

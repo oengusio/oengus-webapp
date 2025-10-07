@@ -1,4 +1,4 @@
-import { Directive } from '@angular/core';
+import { Directive, inject } from '@angular/core';
 import { AbstractControl, AsyncValidator, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
@@ -10,9 +10,8 @@ import { map } from 'rxjs/operators';
     standalone: false
 })
 export class UsernameExistsValidatorDirective implements AsyncValidator {
+  private userService = inject(UserService);
 
-  constructor(private userService: UserService) {
-  }
 
   registerOnValidatorChange(fn: () => void): void {
   }

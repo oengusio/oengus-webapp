@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,11 +14,14 @@ import {BaseService} from './BaseService';
   providedIn: 'root'
 })
 export class DonationService extends BaseService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+  private translateService = inject(TranslateService);
 
-  constructor(private http: HttpClient,
-              private router: Router,
-              toastr: NwbAlertService,
-              private translateService: TranslateService) {
+
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr, 'marathons');
   }
 
@@ -33,20 +36,20 @@ export class DonationService extends BaseService {
     return this.http.get<DonationStats>(this.url(`${marathonId}/donations/stats`));
   }
 
-  donate(marathonId: string, donation: Donation): Observable<any> {
+  donate(marathonId: string, donation: Donation): Observable<unknown> {
     return this.http.post(this.url(`${marathonId}/donations/donate`), donation, {observe: 'response'});
   }
 
-  cancel(marathonId: string, orderId: string): Observable<any> {
+  cancel(marathonId: string, orderId: string): Observable<unknown> {
     return this.http.delete(this.url(`${marathonId}/donations/${orderId}`));
   }
 
   validate(marathonId: string, orderId: string) {
-    return this.http.post(this.url(`${marathonId}/donations/validate/${orderId}`), null).subscribe(response => {
+    return this.http.post(this.url(`${marathonId}/donations/validate/${orderId}`), null).subscribe(() => {
       this.translateService.get('alert.donation.validate.success').subscribe((res: string) => {
         this.toast(res);
       });
-    }, error => {
+    }, () => {
       this.translateService.get('alert.donation.validate.error').subscribe((res: string) => {
         this.toast(res, 3000, 'warning');
       });
@@ -68,7 +71,7 @@ export class DonationService extends BaseService {
           document.body.removeChild(a);
           window.URL.revokeObjectURL(url);
         },
-        error => {
+        () => {
           this.translateService.get('alert.donation.export.error').subscribe((res: string) => {
             this.toast(res, 3000, 'warning');
           });

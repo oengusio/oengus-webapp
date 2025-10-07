@@ -17,7 +17,7 @@ interface TwitchEmbedOptions {
   /** Accepts time in the format of HhMmSs, e.g. 3h12m7s. */
   time?: string;
   /** An array of domain names (protocol not included, Twitch requires https anyways) */
-  parent?: Array<string>;
+  parent?: string[];
 }
 
 /*interface TwitchEmbed {
@@ -87,8 +87,7 @@ export class ElementTwitchPlayerComponent implements OnInit {
       return;
     }
 
-    // tslint:disable-next-line:no-unused-expression
-    new Twitch.Embed('twitch-player', options);
+       new Twitch.Embed('twitch-player', options);
   }
 
 }

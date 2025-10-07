@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SubmissionService } from '../../services/submission.service';
+import { AvailabilityResponse } from '../../model/availability';
 
 @Injectable()
 export class AvailabilitiesResolver  {
+  private submissionService = inject(SubmissionService);
 
-  constructor(private submissionService: SubmissionService) {
-  }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+  resolve(route: ActivatedRouteSnapshot): Observable<AvailabilityResponse> | Promise<AvailabilityResponse> | AvailabilityResponse {
     return this.submissionService.availabilities(route.parent.paramMap.get('id'));
   }
 }

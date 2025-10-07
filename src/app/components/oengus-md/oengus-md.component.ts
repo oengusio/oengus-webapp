@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { MarkdownService } from '../../../services/markdown.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -9,16 +9,13 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     standalone: false
 })
 export class OengusMdComponent implements OnInit {
+  private readonly markdown = inject(MarkdownService);
+  private readonly sanitizer = inject(DomSanitizer);
+
   @Input() public data: string;
   @Input() padTop = false;
 
   trustedContent: SafeHtml = '';
-
-  constructor(
-    private readonly markdown: MarkdownService,
-    private readonly sanitizer: DomSanitizer,
-  ) {
-  }
 
   ngOnInit(): void {
     // This is safe because our markdown renderer has dompurify installed.

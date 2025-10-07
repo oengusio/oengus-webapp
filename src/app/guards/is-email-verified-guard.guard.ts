@@ -7,8 +7,8 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class IsEmailVerifiedGuardGuard implements CanActivate {
-  constructor(private userService: UserService) {
-  }
+  private userService = inject(UserService);
+
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<GuardResult> {
     if (!this.userService.user) {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ScheduleService } from '../../../../services/schedule.service';
 import { MarathonService } from '../../../../services/marathon.service';
 import { downloadBlob } from '../../../../utils/helpers';
@@ -11,16 +11,14 @@ import { LoadingBarService } from '../../../../services/loading-bar.service';
     standalone: false
 })
 export class MarathonScheduleExportComponent {
+  private scheduleService = inject(ScheduleService);
+  private marathonService = inject(MarathonService);
+  private loadingBar = inject(LoadingBarService);
+
   @Input() scheduleId: number;
   @Input() disabled: boolean;
 
   formats = [ 'ics', 'csv', 'json', 'gdq' ];
-
-  constructor(
-    private scheduleService: ScheduleService,
-    private marathonService: MarathonService,
-    private loadingBar: LoadingBarService,
-  ) { }
 
   runExport(format: string, event: Event) {
     event.preventDefault();

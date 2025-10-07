@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { Submission } from '../../../../model/submission';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { MarathonService } from '../../../../services/marathon.service';
@@ -11,6 +11,8 @@ import { SubmissionPage } from '../../../../model/submission-page';
     standalone: false
 })
 export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
+  marathonService = inject(MarathonService);
+
   @ViewChild('lazyLoadTrigger') lazyLoadTrigger: ElementRef<HTMLDivElement>;
 
   public submissions$ = new BehaviorSubject<Submission[]>([]);
@@ -40,11 +42,6 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
     rootMargin: '0px',
     threshold: 1.0
   });
-
-  constructor(
-    public marathonService: MarathonService,
-  ) {
-  }
 
 
   ngOnInit(): void {
@@ -99,7 +96,7 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
     this.submissions$.next(this.submissions$.getValue().filter(submission => submission.id !== id));
   }
 
-  deleteGameFromList(gameId: number, doApi: boolean = true): void {
+  deleteGameFromList(gameId: number, doApi = true): void {
     if (doApi) {
       this.deleteGame.emit(gameId);
     }

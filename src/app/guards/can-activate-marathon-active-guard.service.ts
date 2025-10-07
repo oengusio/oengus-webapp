@@ -8,9 +8,8 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class CanActivateMarathonActiveGuard {
+  private marathonService = inject(MarathonService);
 
-  constructor(private marathonService: MarathonService) {
-  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
     if (!this.marathonService.marathon) {

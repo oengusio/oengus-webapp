@@ -11,9 +11,9 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CanActivateMarathonSettingsGuard  {
+  private userService = inject(UserService);
+  private marathonService = inject(MarathonService);
 
-  constructor(private userService: UserService, private marathonService: MarathonService) {
-  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
     if (!this.userService.user && !this.marathonService.marathon) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NotificationService } from '../../../services/notification.service';
 
 @Component({
@@ -8,12 +8,14 @@ import { NotificationService } from '../../../services/notification.service';
   standalone: false,
 })
 export class NotificationListComponent {
-  public notifications: Array<{
+  public notifications: {
     message: string;
     color: string;
-  }> = [];
+  }[] = [];
 
-  constructor(notificationService: NotificationService) {
+  constructor() {
+    const notificationService = inject(NotificationService);
+
     notificationService.notificationObservable.subscribe(({ message, color }) => {
       this.notifications.push({
         message,

@@ -3,7 +3,7 @@ import { Marathon } from 'src/model/marathon';
 
 interface CalendarType {
   datetime: string;
-  marathons: Array<Marathon>;
+  marathons: Marathon[];
   endtime?: string;
 }
 
@@ -56,7 +56,7 @@ export class CalendarViewTableComponent implements OnInit, OnChanges {
     };
   }
 
-  getMarathons(day: number, marathonList: Marathon[]): Array<Marathon>|undefined {
+  getMarathons(day: number, marathonList: Marathon[]): Marathon[]|undefined {
     const dayStart = new Date(this.year, this.month - 1, day);
     const dayEnd = new Date(this.year, this.month - 1, day + 1);
     return marathonList.filter(marathon => new Date(marathon.endDate) > dayStart && new Date(marathon.startDate) < dayEnd);

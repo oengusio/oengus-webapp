@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { MarathonService } from '../../services/marathon.service';
 import { map } from 'rxjs/operators';
 
-export const questionsResolverResolver: ResolveFn<Question[]> = (route, state) => {
+export const questionsResolverResolver: ResolveFn<Question[]> = (route) => {
   const marathonService = inject(MarathonService);
 
   return marathonService.loadQuestions(route.parent.paramMap.get('id'))

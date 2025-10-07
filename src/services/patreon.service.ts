@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BaseService } from './BaseService';
 import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
@@ -10,11 +10,14 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class PatreonService extends BaseService {
+  private http = inject(HttpClient);
+
 
   private cachedPatrons: PatronApiResponse | null = null;
 
-  constructor(private http: HttpClient,
-              toastr: NwbAlertService) {
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr);
   }
 

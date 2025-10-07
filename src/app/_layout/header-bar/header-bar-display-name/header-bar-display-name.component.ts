@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserService } from '../../../../services/user.service';
 
 @Component({
@@ -8,8 +8,8 @@ import { UserService } from '../../../../services/user.service';
     standalone: false
 })
 export class HeaderBarDisplayNameComponent {
+  private userService = inject(UserService);
 
-  constructor(private userService: UserService) { }
 
   get isMissingDisplayName(): boolean {
     return this.userService.user && !this.userService.user.displayName;

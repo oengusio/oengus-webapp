@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
 
 @Component({
@@ -8,12 +8,12 @@ import { V2ScheduleLine } from '../../../../model/schedule-line';
     standalone: false
 })
 export class MarathonScheduleRowComponent implements OnChanges {
+  private elRef = inject(ElementRef);
+
   @Input() run: V2ScheduleLine;
   @Input() expanded = false;
   @Input() runHash: string;
   @Input() internalId: string;
-
-  constructor(private elRef: ElementRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.runHash) {

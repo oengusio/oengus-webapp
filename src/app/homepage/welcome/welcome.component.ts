@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { faAngleDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { environment } from '../../../environments/environment';
@@ -10,6 +10,8 @@ import { environment } from '../../../environments/environment';
     standalone: false
 })
 export class WelcomeComponent {
+  userService = inject(UserService);
+
   faCheck = faCheck;
   faAngleDown = faAngleDown;
   isFoldOpen = false;
@@ -24,9 +26,6 @@ export class WelcomeComponent {
     { key: '7', complete: false },
     { key: 'volunteerManager', complete: false },
   ];
-
-  constructor(public userService: UserService) {
-  }
 
   openFold(): void {
     this.isFoldOpen = true;

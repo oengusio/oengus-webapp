@@ -36,7 +36,7 @@ export class ConnectionSettingsComponent {
     return this.connectionMeta?.linkBase?.(this.connection.username) ?? '';
   }
 
-  get parsedPlatforms(): { [key: string]: { url: string, disabled: boolean } } {
+  get parsedPlatforms(): Record<string, { url: string, disabled: boolean }> {
     const cloned = {};
 
     for (const key of Object.keys(SocialPlatform)) {

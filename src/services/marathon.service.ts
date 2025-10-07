@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Marathon, MarathonSettings } from '../model/marathon';
@@ -21,10 +21,19 @@ import { UserProfile } from '../model/user-profile';
   providedIn: 'root',
 })
 export class MarathonService extends BaseService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private translateService = inject(TranslateService);
+
   private _marathon: Marathon;
 
   get marathon(): Marathon {
     return this._marathon;
+  }
+
+  set marathon(value: Marathon) {
+    this._marathon = value;
   }
 
   get mastodonUrl(): string {
@@ -35,21 +44,15 @@ export class MarathonService extends BaseService {
     return parseMastodonUrl(this.marathon.mastodon);
   }
 
-  set marathon(value: Marathon) {
-    this._marathon = value;
-  }
+  constructor() {
+    const toastr = inject(NwbAlertService);
 
-  constructor(private http: HttpClient,
-              private router: Router,
-              toastr: NwbAlertService,
-              private userService: UserService,
-              private translateService: TranslateService) {
     super(toastr, 'marathons');
   }
 
   create(marathon: Marathon): Subscription {
     marathon.creator = this.userService.user;
-    return this.http.put(this.url(''), marathon, {observe: 'response'}).subscribe((response: any) => {
+    return this.http.put(this.url(''), marathon, {observe: 'response'}).subscribe((response) => {
       this.router.navigate(['/marathon/' + response.headers.get('Location')]);
 
       this.translateService.get('alert.marathon.creation.success').subscribe((res: string) => {
@@ -138,7 +141,7 @@ export class MarathonService extends BaseService {
   }
 
   fetchDiscordInfo(marathon: MarathonSettings | Marathon): Observable<{ id: string, name: string }> {
-    return this.http.get<any>(this.url(`${marathon.id}/discord/lookup-invite?invite_code=${marathon.discord}`));
+    return this.http.get<{ id: string, name: string }>(this.url(`${marathon.id}/discord/lookup-invite?invite_code=${marathon.discord}`));
   }
 
   isAdmin(user: User | SelfUser): boolean {
@@ -154,7 +157,7 @@ export class MarathonService extends BaseService {
     return moment(this.marathon.startDate).isDST() !== moment(this.marathon.endDate).isDST();
   }
 
-  isWebhookOnline(marathonId: string, url: string): Observable<any> {
+  isWebhookOnline(marathonId: string, url: string): Observable<unknown> {
     const params = new HttpParams().set('url', url);
     return this.http.get(this.url(`${marathonId}/webhook`), {
       params: params,

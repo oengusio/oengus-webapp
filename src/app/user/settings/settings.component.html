@@ -12,7 +12,7 @@
       <input class="input"
         type="text"
         [(ngModel)]="deleteUsername"
-        name="deleteShortname" style="margin-bottom: 1rem">
+        name="deleteShortname">
     </section>
     <footer class="modal-card-foot">
       <button class="button is-warning"
@@ -56,13 +56,14 @@
 
     <!-- Display name -->
     <div class="field">
-      <label class="label">{{'user.settings.displayName.label' | translate}}</label>
+      <label for="displayName" class="label">{{'user.settings.displayName.label' | translate}}</label>
       <div class="control">
         <input class="input"
           [ngClass]="{'is-danger': displayName.invalid}"
           type="text"
           [(ngModel)]="user.displayName"
           name="displayName"
+          id="displayName"
           #displayName="ngModel"
           minlength="1"
           maxlength="32">
@@ -83,13 +84,14 @@
     </div>
     <!-- username -->
     <div class="field">
-      <label class="label">{{'user.settings.username.label' | translate}}</label>
+      <label for="username" class="label">{{'user.settings.username.label' | translate}}</label>
       <div class="control">
         <input class="input"
           [ngClass]="{'is-danger': username.invalid}"
           type="text"
           [(ngModel)]="user.username"
           name="username"
+          id="username"
           #username="ngModel"
           minlength="3"
           maxlength="32"
@@ -165,10 +167,10 @@
 
     <!-- email -->
     <div class="field">
-      <label class="label">{{'user.settings.email.label' | translate}}</label>
+      <label for="email" class="label">{{'user.settings.email.label' | translate}}</label>
       <div class="control">
         <input class="input" [ngClass]="{'is-danger': mail.invalid}" type="email" [(ngModel)]="user.email" name="mail"
-          #mail="ngModel" email required>
+          #mail="ngModel" id="email" email required>
       </div>
       <p class="help" [innerHTML]="'user.settings.email.help' | translate"></p>
       @if (mail.invalid) {
@@ -270,23 +272,22 @@
           <input class="input"
             type="text"
             [(ngModel)]="deleteUsername"
-            name="deleteShortname" style="margin-bottom: 1rem">
+            name="deleteShortname">
           <br>
             <button class="button is-primary" type="button"
               [ngClass]="{'is-loading': loading}"
               [disabled]="!usernameConfirmed" (click)="deactivate()">
               {{'action.confirm' | translate}}
             </button>
-            <button class="button is-danger" type="button" (click)="deactivateConfirm = false"
-              [ngClass]="{'is-loading': loading}"
-              style="margin-left: 1rem">
+            <button class="button is-danger del-cancel" type="button" (click)="deactivateConfirm = false"
+              [ngClass]="{'is-loading': loading}">
               {{'action.cancel' | translate}}
             </button>
           </div>
         }
 
         <!-- DELETING account -->
-        <div class="control" style="margin-left: 0.5rem">
+        <div class="control delete-account-btn">
           <button class="button is-danger" type="button" [disabled]="deleteConfirm" (click)="deleteConfirm = true">
             {{ 'user.settings.deletingAccount.settingsDeleteBtn' | translate }}
           </button>

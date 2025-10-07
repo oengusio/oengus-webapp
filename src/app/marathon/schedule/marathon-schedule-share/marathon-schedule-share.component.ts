@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { V2Schedule } from '../../../../model/schedule';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
@@ -12,15 +12,12 @@ import { TranslateService } from '@ngx-translate/core';
     standalone: false
 })
 export class MarathonScheduleShareComponent {
+  private toastr = inject(NwbAlertService);
+  private translate = inject(TranslateService);
+
   iconShare = faShare;
 
   @Input() schedule: V2Schedule;
-
-  constructor(
-    private toastr: NwbAlertService,
-    private translate: TranslateService
-  ) {
-  }
 
   onShareClick() {
     if (navigator.share) {

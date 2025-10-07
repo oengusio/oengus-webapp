@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { MarkdownService } from '../../../services/markdown.service';
 
 @Component({
@@ -8,12 +8,9 @@ import { MarkdownService } from '../../../services/markdown.service';
     standalone: false
 })
 export class SimpleMdComponent {
-  @Input() public data: string;
+  private readonly markdown = inject(MarkdownService);
 
-  constructor(
-    private readonly markdown: MarkdownService,
-  ) {
-  }
+  @Input() public data: string;
 
   get markdownText(): string {
     if (!this.data) {

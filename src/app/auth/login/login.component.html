@@ -1,14 +1,14 @@
 <section class="section container">
   <h1 class="title">{{ 'login.title' | translate }}</h1>
 
-  @if (loginError == 'USERNAME_PASSWORD_INCORRECT') {
+  @if (loginError === 'USERNAME_PASSWORD_INCORRECT') {
     <div class="notification is-danger">
       <button class="delete" (click)="loginError = null"></button>
       The entered username and password are incorrect.
     </div>
   }
 
-  @if (loginError == 'MFA_INVALID') {
+  @if (loginError === 'MFA_INVALID') {
     <div class="notification is-danger">
       <button class="delete" (click)="loginError = null"></button>
       2FA code is not valid.

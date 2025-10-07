@@ -1,4 +1,4 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, inject } from '@angular/core';
 import { AbstractControl, AsyncValidator, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ScheduleService } from '../../services/schedule.service';
@@ -11,14 +11,11 @@ import { map } from 'rxjs/operators';
     standalone: false
 })
 export class ScheduleSlugExistsValidatorDirective implements AsyncValidator {
+  private marathonService = inject(MarathonService);
+  private scheduleService = inject(ScheduleService);
+
   // Holds the old value of the slug
   @Input() appScheduleSlugExistsValidator = '';
-
-  constructor(
-    private marathonService: MarathonService,
-    private scheduleService: ScheduleService,
-  ) {
-  }
 
   validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
     if (this.appScheduleSlugExistsValidator === control.value) {
