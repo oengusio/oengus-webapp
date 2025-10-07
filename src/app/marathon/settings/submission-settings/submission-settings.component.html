@@ -1,16 +1,16 @@
 <h1 class="title">{{ 'marathon.settings.submissionsTitle' | translate}}</h1>
 <div class="field">
-  <label class="label">{{ 'marathon.settings.submissions.label' | translate}}</label>
+  <label for="submitsOpen" class="label">{{ 'marathon.settings.submissions.label' | translate}}</label>
   <div class="control is-flex">
-    <span style="margin-right: 0.5rem">{{'marathon.settings.submissions.closed' | translate}}</span>
-    <nwb-switch [(ngModel)]="settings.submissionsOpen" name="submitsOpen" (click)="onSubmitsOpenChanged($event)" [disabled]="settings.selectionDone">
+    <span class="forbidden">{{'marathon.settings.submissions.closed' | translate}}</span>
+    <nwb-switch [(ngModel)]="settings.submissionsOpen" id="submitsOpen" name="submitsOpen" (click)="onSubmitsOpenChanged($event)" [disabled]="settings.selectionDone">
       <span>{{ 'marathon.settings.submissions.open' | translate}}</span>
     </nwb-switch>
   </div>
 </div>
 <div class="columns">
   <div class="column">
-    <label class="label">{{ 'marathon.settings.maxGamesPerRunner.label' | translate}}</label>
+    <label for="maxGamesPerRunner" class="label">{{ 'marathon.settings.maxGamesPerRunner.label' | translate}}</label>
     <div class="field has-addons">
       <div class="control is-expanded">
         <input class="input"
@@ -19,7 +19,8 @@
           type="number"
           [(ngModel)]="settings.maxGamesPerRunner"
           name="maxGamesPerRunner"
-          appMinNumberValidator="1"
+          id="maxGamesPerRunner"
+          [appMinNumberValidator]="1"
           required
           step="1"
           #maxGamesPerRunner="ngModel">
@@ -28,7 +29,7 @@
         <button type="button" class="button">
           <label class="checkbox">
             <input type="checkbox" [(ngModel)]="settings.unlimitedGames" name="unlimitedGames"
-              style="margin-right: 0.25rem">{{'marathon.settings.unlimited' | translate}}
+              class="categoriesCb">{{'marathon.settings.unlimited' | translate}}
             </label>
           </button>
         </p>
@@ -49,7 +50,7 @@
       }
     </div>
     <div class="column">
-      <label class="label">{{'marathon.settings.maxCategoriesPerGame.label' | translate}}</label>
+      <label for="maxCategoriesPerGame" class="label">{{'marathon.settings.maxCategoriesPerGame.label' | translate}}</label>
       <div class="field has-addons">
         <div class="control is-expanded">
           <input class="input"
@@ -58,8 +59,9 @@
             [disabled]="settings.selectionDone || settings.unlimitedCategories"
             [(ngModel)]="settings.maxCategoriesPerGame"
             name="maxCategoriesPerGame"
-            appMinNumberValidator="1"
-            appMaxNumberValidator="10"
+            id="maxCategoriesPerGame"
+            [appMinNumberValidator]="1"
+            [appMaxNumberValidator]="10"
             required
             step="1"
             #maxCategoriesPerGame="ngModel">
@@ -67,8 +69,7 @@
         <p class="control">
           <button type="button" class="button">
             <label class="checkbox">
-              <input type="checkbox" [(ngModel)]="settings.unlimitedCategories" name="unlimitedCategories"
-                style="margin-right: 0.25rem">{{'marathon.settings.unlimited' | translate}}
+              <input type="checkbox" class="categoriesCb" [(ngModel)]="settings.unlimitedCategories" name="unlimitedCategories">{{'marathon.settings.unlimited' | translate}}
               </label>
             </button>
           </p>
@@ -98,11 +99,12 @@
   <div class="columns">
     <div class="column">
       <div class="field">
-        <label class="label">{{'marathon.settings.multiplayer.label' | translate}}</label>
+        <label for="hasMultiplayer" class="label">{{'marathon.settings.multiplayer.label' | translate}}</label>
         <div class="control is-flex">
-          <span style="margin-right: 0.5rem">{{'marathon.settings.multiplayer.forbidden' | translate}}</span>
+          <span class="forbidden">{{'marathon.settings.multiplayer.forbidden' | translate}}</span>
           <nwb-switch [(ngModel)]="settings.allowMultiplayer"
             name="hasMultiplayer"
+            id="hasMultiplayer"
             [disabled]="settings.selectionDone">
             <span>{{'marathon.settings.multiplayer.allowed' | translate}}</span>
           </nwb-switch>
@@ -110,7 +112,7 @@
       </div>
     </div>
     <div class="column">
-      <label class="label">{{'marathon.settings.maxNumberOfScreens.label' | translate}}</label>
+      <label for="maxNumberOfScreens" class="label">{{'marathon.settings.maxNumberOfScreens.label' | translate}}</label>
       <div class="field">
         <div class="control">
           <input class="input"
@@ -119,7 +121,8 @@
             [disabled]="settings.selectionDone && !settings.allowMultiplayer"
             [(ngModel)]="settings.maxNumberOfScreens"
             name="maxNumberOfScreens"
-            appMinNumberValidator="1"
+            id="maxNumberOfScreens"
+            [appMinNumberValidator]="1"
             required
             step="1"
             #maxNumberOfScreens="ngModel">
@@ -146,10 +149,11 @@
   <div class="columns is-multiline">
     <div class="column">
       <div class="field">
-        <label class="label">{{'marathon.settings.emulatorAuthorized.label' | translate}}</label>
+        <label for="emulatorAuthorized" class="label">{{'marathon.settings.emulatorAuthorized.label' | translate}}</label>
         <div class="control">
           <nwb-switch [(ngModel)]="settings.allowEmulators"
             name="emulatorAuthorized"
+            id="emulatorAuthorized"
             [disabled]="settings.selectionDone">
             <span>{{'marathon.settings.emulatorAuthorized.allowed' | translate}}</span>
           </nwb-switch>
@@ -158,10 +162,11 @@
     </div>
     <div class="column">
       <div class="field">
-        <label class="label">{{'marathon.settings.videoRequired.label' | translate}}</label>
+        <label for="videoRequired" class="label">{{'marathon.settings.videoRequired.label' | translate}}</label>
         <div class="control">
           <nwb-switch [(ngModel)]="settings.videoRequired"
             name="videoRequired"
+            id="videoRequired"
             [disabled]="settings.selectionDone">
             <span>{{'marathon.settings.videoRequired.allowed' | translate}}</span>
           </nwb-switch>
@@ -174,11 +179,12 @@
     <div class="column">
       <fieldset [disabled]="!settings.discord && !settings.discordPrivate">
         <div class="field">
-          <div class="control" [ngClass]="{'is-loading': loadingDiscordCheck}" style="width: 10px"></div>
-          <label class="label">{{ 'marathon.settings.discordRequirement.label' | translate }}</label>
+          <div class="control loader" [ngClass]="{'is-loading': loadingDiscordCheck}"></div>
+          <label for="discordRequired" class="label">{{ 'marathon.settings.discordRequirement.label' | translate }}</label>
           <div class="control">
             <nwb-switch [(ngModel)]="settings.discordRequired"
               name="discordRequired"
+              id="discordRequired"
               [disabled]="loadingDiscordCheck"
               (change)="checkDiscordStatus()">
               <span>{{ 'marathon.settings.discordRequirement.required' | translate }}</span>
@@ -207,7 +213,7 @@
   <h1 class="title">{{ 'marathon.settings.customFields.title' | translate}}</h1>
   <p>{{ 'marathon.settings.customFields.description1' | translate}}</p>
   <p>{{ 'marathon.settings.customFields.description2' | translate}}</p>
-  <button type="button" class="button is-info is-pulled-right" style="margin-bottom: 1rem"
+  <button type="button" class="button is-info is-pulled-right mb-3"
     (click)="addQuestion.emit({questionType: 'SUBMISSION'})">{{ 'marathon.settings.customFields.add' | translate}}
   </button>
   @if (submissionsQuestions?.length > 0) {
@@ -223,7 +229,7 @@
       <tbody cdkDropList
         [cdkDropListData]="submissionsQuestions"
         (cdkDropListDropped)="drop.emit($event)">
-        @for (question of submissionsQuestions; track trackByIdx(i, question); let i = $index) {
+        @for (question of submissionsQuestions; track i; let i = $index) {
           <tr cdkDrag>
             <td [attr.rowspan]="question.fieldType === 'SELECT' ? question.options.length + 1 : 1">
               <input class="input"
@@ -264,7 +270,7 @@
               <fa-icon [icon]="faBars" cdkDragHandle class="is-pulled-right"></fa-icon>
               @if (question.fieldType ===
                 'SELECT') {
-                <a (click)="addOption.emit({questionType: 'SUBMISSION', i})" style="margin-right: 0.4rem">
+                <a (click)="addOption.emit({questionType: 'SUBMISSION', i})" class="plsBtn">
                   <fa-icon [icon]="faPlus"></fa-icon>
                 </a>
               }
@@ -274,7 +280,7 @@
             </td>
           </tr>
           @if (question.fieldType === 'SELECT') {
-            @for (option of question.options; track trackByIdx(j, option); let j = $index) {
+            @for (option of question.options; track j; let j = $index) {
               <tr>
                 <td>
                   <input class="input"

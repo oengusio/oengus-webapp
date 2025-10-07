@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LocaleService } from '../../../../services/locale.service';
 
 @Component({
@@ -8,8 +8,8 @@ import { LocaleService } from '../../../../services/locale.service';
     standalone: false
 })
 export class HeaderLanguagePickerComponent {
+  private localeService = inject(LocaleService);
 
-  constructor(private localeService: LocaleService) { }
 
   get usableLocales(): string[] {
     return this.localeService.availableLocaleNames;

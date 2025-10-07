@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { passwordResetErrorToMessage } from '../../../utils/authHelpers';
 import { firstValueFrom } from 'rxjs';
@@ -11,6 +11,9 @@ import { AuthService } from '../../../services/auth.service';
     standalone: false
 })
 export class ForgotPasswordComponent {
+  readonly title = 'Forgot your password';
+  private authService = inject(AuthService);
+
   iconUser = faEnvelope;
 
   errorTranslationKey: string | null = null;
@@ -18,10 +21,6 @@ export class ForgotPasswordComponent {
 
   loading = false;
   email = '';
-
-  constructor(
-    private authService: AuthService,
-  ) { }
 
   async requestNewPassword(form: HTMLFormElement) {
     if (!form.reportValidity()) {
@@ -41,6 +40,7 @@ export class ForgotPasswordComponent {
         this.errorTranslationKey = 'You should never see this message. If you do, let me know what you did.';
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.log(e.error);
       this.notificationClass = 'is-danger';
@@ -48,9 +48,5 @@ export class ForgotPasswordComponent {
     } finally {
       this.loading = false;
     }
-  }
-
-  get title(): string {
-    return 'Forgot your password';
   }
 }

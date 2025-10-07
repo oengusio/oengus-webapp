@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import BulmaTagsInput from '@duncte123/bulma-tagsinput';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
@@ -14,17 +14,15 @@ import { MiscService } from '../../../services/misc.service';
     standalone: false
 })
 export class ElementPronounsComponent implements OnInit {
+  private miscService = inject(MiscService);
+  private translateService = inject(TranslateService);
+
   @Input() pronouns: string[];
   @Output() pronounsChange = new EventEmitter<string[]>();
 
   @ViewChild('pronounEl', {static: true}) pronounsInput: ElementRef<HTMLInputElement>;
 
   private pronounsTagsInput: BulmaTagsInput;
-
-  constructor(
-    private miscService: MiscService,
-    private translateService: TranslateService,
-  ) { }
 
   async ngOnInit(): Promise<void> {
     const tagsInput = this.pronounsInput.nativeElement;

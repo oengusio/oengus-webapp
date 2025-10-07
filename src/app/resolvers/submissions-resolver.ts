@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SubmissionService } from '../../services/submission.service';
-import {SubmissionPage} from '../../model/submission-page';
+import { SubmissionPage } from '../../model/submission-page';
 
 @Injectable()
 export class SubmissionsResolver  {
+  private submissionService = inject(SubmissionService);
 
-  constructor(private submissionService: SubmissionService) {
-  }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+  resolve(route: ActivatedRouteSnapshot):
     Observable<SubmissionPage> | Promise<SubmissionPage> | SubmissionPage {
     return this.submissionService.submissions(route.parent.paramMap.get('id'), 1).toPromise().catch(() => {
       const a = new SubmissionPage();

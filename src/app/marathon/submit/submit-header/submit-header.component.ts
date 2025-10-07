@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MarathonService } from '../../../../services/marathon.service';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,11 +10,10 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubmitHeaderComponent {
+  private marathonService = inject(MarathonService);
+
   faCheck = faCheck;
   faTimes = faTimes;
-
-  constructor(private marathonService: MarathonService) {
-  }
 
   get startDate() {
     return this.marathonService.marathon.startDate;

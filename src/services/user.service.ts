@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
@@ -18,18 +18,21 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UserService extends BaseService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+
 
   private _user: SelfUser;
 
-  constructor(private http: HttpClient,
-              private router: Router,
-              toastr: NwbAlertService) {
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr, 'users');
   }
 
-  async sync(service: string, code?: string): Promise<any | RelationShip> {
+  async sync(service: string, code?: string): Promise<{ id: string; name: string } | RelationShip> {
     if (service === 'patreon') {
-      const response = await this.http.get<RelationShip>(`${environment.patronApi}/sync?code=${code}`).toPromise() as any;
+      const response = await firstValueFrom(this.http.get<RelationShip>(`${environment.patronApi}/sync?code=${code}`));
 
       const patreon = {
         ...response,
@@ -45,7 +48,7 @@ export class UserService extends BaseService {
       return patreon;
     }
 
-    return firstValueFrom(this.http.post(this.url('sync'), {
+    return firstValueFrom(this.http.post<{ id: string; name: string }>(this.url('sync'), {
       service: service,
       code: code,
     }));
@@ -71,7 +74,7 @@ export class UserService extends BaseService {
    * @deprecated Use auth service instead
    */
   // TODO: we need to unset the user but we also don't want this logic here.
-  logout(redirectHome: boolean = true) {
+  logout(redirectHome = true) {
     this._user = null;
     localStorage.removeItem('token');
     localStorage.removeItem('user');

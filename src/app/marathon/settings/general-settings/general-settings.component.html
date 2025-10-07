@@ -1,13 +1,14 @@
 <fieldset [disabled]="disabled">
   <h1 class="title">{{'marathon.settings.generalTitle' | translate}}</h1>
   <div class="field">
-    <label class="label">{{ 'marathon.settings.name.label' | translate}}</label>
+    <label for="name" class="label">{{ 'marathon.settings.name.label' | translate}}</label>
     <div class="control">
       <input class="input"
         [ngClass]="{'is-danger': name.invalid}"
         type="text"
         [(ngModel)]="settings.name"
         name="name"
+        id="name"
         maxlength="40"
         minlength="4"
         pattern="^[\w\- À-ÿ]{4,40}$"
@@ -39,7 +40,7 @@
   </div>
   <div class="columns">
     <div class="column">
-      <label class="label">{{ 'marathon.settings.shortname.label' | translate}}</label>
+      <label for="id" class="label">{{ 'marathon.settings.shortname.label' | translate}}</label>
       <div class="field has-addons">
         <div class="control">
           <a class="button is-static">
@@ -52,6 +53,7 @@
             type="text"
             [(ngModel)]="settings.id"
             name="id"
+            id="id"
             maxlength="10"
             minlength="4"
             required>
@@ -60,9 +62,9 @@
     </div>
     <div class="column">
       <div class="field">
-        <label class="label">{{ 'marathon.settings.shortname.shorturl' | translate}}</label>
+        <label for="shortUrl" class="label">{{ 'marathon.settings.shortname.shorturl' | translate}}</label>
         <div class="control">
-          <input class="input" type="text" [value]="env.shortUrl + '/' + settings.id" readonly>
+          <input class="input" id="shortUrl" type="text" [value]="env.shortUrl + '/' + settings.id" readonly>
         </div>
         <p class="help">{{ 'marathon.new.shortDomain' | translate}}</p>
       </div>
@@ -71,7 +73,7 @@
   <div class="columns">
     <div class="column">
       <div class="field">
-        <label class="label">{{ 'marathon.settings.startDate.label' | translate}}</label>
+        <label for="startDate" class="label">{{ 'marathon.settings.startDate.label' | translate}}</label>
         <div class="control">
           <input class="input"
             readonly
@@ -83,6 +85,7 @@
             [(ngModel)]="settings.startDate"
             [min]="now"
             name="startDate"
+            id="startDate"
             required
             #startDate="ngModel">
           <owl-date-time #dtStartDate></owl-date-time>
@@ -99,7 +102,7 @@
     </div>
     <div class="column">
       <div class="field">
-        <label class="label">{{ 'marathon.settings.endDate.label' | translate}}</label>
+        <label for="endDate" class="label">{{ 'marathon.settings.endDate.label' | translate}}</label>
         <div class="control">
           <input class="input"
             readonly
@@ -108,7 +111,7 @@
             [ngClass]="{'is-danger': endDate.invalid}"
             [owlDateTimeTrigger]="dtEndDate" [owlDateTime]="dtEndDate"
             [min]="settings.startDate"
-            [(ngModel)]="settings.endDate" name="endDate" required #endDate="ngModel">
+            [(ngModel)]="settings.endDate" id="endDate" name="endDate" required #endDate="ngModel">
           <owl-date-time #dtEndDate></owl-date-time>
         </div>
         @if (endDate.invalid) {
@@ -128,7 +131,7 @@
   <div class="columns">
     <div class="column">
       <div class="field">
-        <label class="label">{{ 'marathon.settings.submissionsStartDate.label' | translate}}</label>
+        <label for="submissionsStartDate" class="label">{{ 'marathon.settings.submissionsStartDate.label' | translate}}</label>
         <div class="control">
           <input class="input"
             readonly
@@ -140,6 +143,7 @@
             [(ngModel)]="settings.submissionsStartDate"
             [max]="settings.startDate"
             name="submissionsStartDate"
+            id="submissionsStartDate"
             [required]="!!settings.submissionsEndDate"
             #submissionsStartDate="ngModel">
           <owl-date-time #dtSubmissionsStartDate></owl-date-time>
@@ -156,7 +160,7 @@
     </div>
     <div class="column">
       <div class="field">
-        <label class="label">{{ 'marathon.settings.submissionsEndDate.label' | translate}}</label>
+        <label for="submissionsEndDate" class="label">{{ 'marathon.settings.submissionsEndDate.label' | translate}}</label>
         <div class="control">
           <input class="input"
             readonly
@@ -168,6 +172,7 @@
             [max]="settings.startDate"
             [min]="settings.submissionsStartDate"
             [(ngModel)]="settings.submissionsEndDate"
+            id="submissionsEndDate"
             name="submissionsEndDate"
             [required]="!!settings.submissionsStartDate"
             #submissionsEndDate="ngModel">
@@ -190,10 +195,10 @@
   <div class="columns">
     <div class="column is-one-quarter">
       <div class="field">
-        <label class="label">{{ 'marathon.settings.type.label' | translate}}</label>
+        <label for="isOnsite" class="label">{{ 'marathon.settings.type.label' | translate}}</label>
         <div class="control is-flex">
-          <span style="margin-right: 0.5rem">{{ 'marathon.settings.type.online' | translate}}</span>
-          <nwb-switch [(ngModel)]="settings.onsite" name="isOnsite">
+          <span class="disabledCb">{{ 'marathon.settings.type.online' | translate}}</span>
+          <nwb-switch [(ngModel)]="settings.onsite" id="isOnsite" name="isOnsite">
             <span>{{ 'marathon.settings.type.onsite' | translate}}</span>
           </nwb-switch>
         </div>
@@ -201,10 +206,10 @@
     </div>
     <div class="column is-one-quarter">
       <div class="field">
-        <label class="label">{{ 'marathon.settings.language.label' | translate}}</label>
+        <label for="language" class="label">{{ 'marathon.settings.language.label' | translate}}</label>
         <div class="control">
           <span class="select">
-            <select [(ngModel)]="settings.language" name="language">
+            <select [(ngModel)]="settings.language" id="language" name="language">
               @for (language of languages | keyvalue; track language) {
                 <option
                 [ngValue]="language.key">{{language.value.nativeName | titlecase}}</option>
@@ -217,10 +222,10 @@
     @if (settings.onsite) {
       <div class="column is-one-quarter">
         <div class="field">
-          <label class="label">{{ 'marathon.settings.country.label' | translate}}</label>
+          <label for="country" class="label">{{ 'marathon.settings.country.label' | translate}}</label>
           <div class="control">
             <span class="select">
-              <select [(ngModel)]="settings.country" name="country">
+              <select [(ngModel)]="settings.country" name="country" id="country">
                 @for (country of countries | keyvalue; track country) {
                   <option
                   [ngValue]="country.key">{{country.value | titlecase}}</option>
@@ -233,7 +238,7 @@
     }
     @if (settings.onsite) {
       <div class="column is-one-quarter">
-        <label class="label">{{ 'marathon.settings.location.label' | translate}}</label>
+        <label for="location" class="label">{{ 'marathon.settings.location.label' | translate}}</label>
         <div class="field">
           <div class="control">
             <input class="input"
@@ -241,6 +246,7 @@
               type="text"
               [(ngModel)]="settings.location"
               name="location"
+              id="location"
               #location="ngModel">
             <p class="help is-pulled-right">{{settings.location?.length}}/150</p>
           </div>
@@ -278,7 +284,7 @@
 <fieldset [disabled]="disabled">
   <div class="columns">
     <div class="column">
-      <label class="label">{{ 'platform.TWITCH' | translate }}</label>
+      <label for="twitch" class="label">{{ 'platform.TWITCH' | translate }}</label>
       <div class="field has-addons">
         <div class="control">
           <a class="button is-static">
@@ -291,6 +297,7 @@
             type="text"
             [(ngModel)]="settings.twitch"
             name="twitch"
+            id="twitch"
             maxlength="25"
             pattern="^(|[a-zA-Z0-9][\w]{2,24})$"
             #twitch="ngModel">
@@ -311,7 +318,7 @@
       }
     </div>
     <div class="column">
-      <label class="label">{{ 'platform.YOUTUBE' | translate }}</label>
+      <label for="youtube" class="label">{{ 'platform.YOUTUBE' | translate }}</label>
       <div class="field">
         <div class="control">
           <input class="input"
@@ -319,6 +326,7 @@
             type="text"
             [(ngModel)]="settings.youtube"
             name="youtube"
+            id="youtube"
             maxlength="100"
             pattern="^(https?:\/\/)?(www\.)?youtu((\.be)|(be\..{2,5}))\/((user)\/|(channel)\/|(c)\/|@).+$"
             #youtube="ngModel">
@@ -374,7 +382,7 @@
 
   <div class="columns">
     <div class="column">
-      <label class="label">{{ 'platform.TWITTER' | translate }}</label>
+      <label for="twitter" class="label">{{ 'platform.TWITTER' | translate }}</label>
       <div class="field has-addons">
         <div class="control">
           <a class="button is-static">
@@ -387,6 +395,7 @@
             type="text"
             [(ngModel)]="settings.twitter"
             name="twitter"
+            id="twitter"
             maxlength="15"
             pattern="^(\w){0,15}$"
             #twitter="ngModel">
@@ -480,9 +489,9 @@
   <div class="columns">
     <div class="column">
       <div class="field">
-        <label class="label">{{ 'marathon.settings.discordPrivacy.label' | translate}}</label>
+        <label for="discordPrivacy" class="label">{{ 'marathon.settings.discordPrivacy.label' | translate}}</label>
         <div class="control">
-          <nwb-switch [(ngModel)]="settings.discordPrivate" name="discordPrivacy">
+          <nwb-switch [(ngModel)]="settings.discordPrivate" id="discordPrivacy" name="discordPrivacy">
             <span>{{ 'marathon.settings.discordPrivacy.private' | translate}}</span>
           </nwb-switch>
         </div>
@@ -491,10 +500,10 @@
     </div>
     <div class="column">
       <div class="field">
-        <label class="label">{{ 'marathon.settings.privacy.label' | translate}}</label>
+        <label for="isPrivate" class="label">{{ 'marathon.settings.privacy.label' | translate}}</label>
         <div class="control is-flex">
-          <span style="margin-right: 0.5rem">{{ 'marathon.settings.privacy.public' | translate}}</span>
-          <nwb-switch [(ngModel)]="settings.isPrivate" name="isPrivate">
+          <span class="disabledCb">{{ 'marathon.settings.privacy.public' | translate}}</span>
+          <nwb-switch [(ngModel)]="settings.isPrivate" id="isPrivate" name="isPrivate">
             <span>{{ 'marathon.settings.privacy.private' | translate}}</span>
           </nwb-switch>
         </div>
@@ -544,11 +553,12 @@
     <!-- default setup time -->
     <div class="column">
       <div class="field">
-        <label class="label">{{'marathon.settings.defaultSetupTime.label' | translate}}</label>
+        <label for="defaultSetupTime" class="label">{{'marathon.settings.defaultSetupTime.label' | translate}}</label>
         <input class="input"
           type="text"
           [(ngModel)]="settings.defaultSetupTimeHuman"
           name="defaultSetupTime"
+          id="defaultSetupTime"
           placeholder="HH:MM:SS"
           [ngClass]="{'is-danger': defaultSetupTime.invalid}"
           required
@@ -577,20 +587,21 @@
       <div class="field">
         <label for="announceAcceptedSubmissions" class="label">{{ 'marathon.settings.webhook.announceAcceptedSubmissions.title' | translate}}</label>
         <div class="control is-flex">
-          <span style="margin-right: 0.5rem">{{ 'global.disabled' | translate}}</span>
+          <span class="disabledCb">{{ 'global.disabled' | translate}}</span>
           <nwb-switch [(ngModel)]="settings.announceAcceptedSubmissions" name="announceAcceptedSubmissions" id="announceAcceptedSubmissions">
             <span>{{ 'global.enabled' | translate}}</span>
           </nwb-switch>
         </div>
       </div>
       <div class="field">
-        <label class="label">{{ 'marathon.settings.webhook.label' | translate}}</label>
+        <label for="webhook" class="label">{{ 'marathon.settings.webhook.label' | translate}}</label>
         <div class="control" [ngClass]="{'is-loading': loadWebhookCheck}">
           <input class="input"
             [ngClass]="{'is-danger': webhook.invalid || !isWebhookOnline}"
             type="text"
             [(ngModel)]="settings.webhook"
             name="webhook"
+            id="webhook"
             maxlength="200"
             #webhook="ngModel"
             (ngModelChange)="checkWebhookDebounced($event)">

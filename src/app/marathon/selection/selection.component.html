@@ -52,9 +52,8 @@
           <p class="help">{{'marathon.selection.publish.help' | translate}}</p>
           <div class="is-pulled-left">
             <div class="control">
-              <button type="submit" style="margin-right: 1rem"
-                [ngClass]="{'is-loading': loading}"
-              class="button is-primary">{{'action.save' | translate}}</button>
+              <button type="submit" [ngClass]="{'is-loading': loading}"
+              class="button is-primary submitBtn">{{'action.save' | translate}}</button>
 
               <button type="button"
                 class="button is-danger"
@@ -106,13 +105,13 @@
                         <td [rowSpan]="game.categories.length" [attr.rowspan]="game.categories.length">
                           <div class="is-flex">
                             @if (!availabilitiesSelected.includes(submission.user.username)) {
-                              <a (click)="getAvailabilitiesForRunner(submission.user.id)" style="margin-right: 0.4rem"
+                              <a (click)="getAvailabilitiesForRunner(submission.user.id)" class="availLink"
                                 >
                                 <fa-icon [icon]="faCalendarWeek"></fa-icon>
                               </a>
                             }
                             @if (availabilitiesSelected.includes(submission.user.username)) {
-                              <a (click)="removeAvailabilitiesForRunner(submission.user.username)" style="margin-right: 0.4rem"
+                              <a (click)="removeAvailabilitiesForRunner(submission.user.username)" class="availLink"
                                 >
                                 <fa-icon [icon]="faCalendarTimes"></fa-icon>
                               </a>
@@ -146,13 +145,13 @@
                           <span>
                             <div class="is-flex">
                               @if (!availabilitiesSelected.includes(opponent.user.username)) {
-                                <a (click)="getAvailabilitiesForRunner(opponent.user.id)" style="margin-right: 0.4rem"
+                                <a (click)="getAvailabilitiesForRunner(opponent.user.id)" class="availLink"
                                   >
                                   <fa-icon [icon]="faCalendarWeek"></fa-icon>
                                 </a>
                               }
                               @if (availabilitiesSelected.includes(opponent.user.username)) {
-                                <a (click)="removeAvailabilitiesForRunner(opponent.user.username)" style="margin-right: 0.4rem"
+                                <a (click)="removeAvailabilitiesForRunner(opponent.user.username)" class="availLink"
                                   >
                                   <fa-icon [icon]="faCalendarTimes"></fa-icon>
                                 </a>

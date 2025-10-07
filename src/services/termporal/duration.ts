@@ -67,6 +67,7 @@ export const durationExport = {
       }
       const { value, unitSymbol } = match.groups;
       // This... is hideous. This needs to be better.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (parts as any)[durationUnitConversion[isTime ? 'time' : 'date'][unitSymbol as 'Y'|'M'|'W'|'D'|'H'|'S']] = Number.parseFloat(value);
       duration = duration.slice(match[0].length);
     }

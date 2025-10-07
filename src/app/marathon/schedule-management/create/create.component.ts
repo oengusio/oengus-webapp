@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScheduleCreateRequest } from '../../../../model/schedule';
@@ -13,6 +13,11 @@ import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
     standalone: false
 })
 export class CreateComponent {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private scheduleService = inject(ScheduleService);
+  private toastr = inject(NwbAlertService);
+
   env = environment;
 
   marathonId = '';
@@ -24,12 +29,7 @@ export class CreateComponent {
 
   loading = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private scheduleService: ScheduleService,
-    private toastr: NwbAlertService,
-  ) {
+  constructor() {
     this.marathonId = this.route.snapshot.parent.paramMap.get('id');
   }
 
@@ -57,6 +57,7 @@ export class CreateComponent {
       this.router.navigate([
         'marathon', this.marathonId, 'schedule-management', createdSchedule.id
       ]);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.log(e);
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
 
 @Component({
@@ -8,8 +8,8 @@ import { TemporalServiceService } from '../../../../services/termporal/temporal-
     standalone: false
 })
 export class ElementTemporalDurationComponent {
-  @Input() duration = 'PT0S';
+  temporal = inject(TemporalServiceService);
 
-  constructor(public temporal: TemporalServiceService) { }
+  @Input() duration = 'PT0S';
 
 }

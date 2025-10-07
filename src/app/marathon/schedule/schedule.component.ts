@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { V2Schedule } from '../../../model/schedule';
 import moment from 'moment-timezone';
@@ -13,6 +13,10 @@ import { Subscription, timer } from 'rxjs';
     standalone: false
 })
 export class ScheduleComponent implements OnDestroy {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  marathonService = inject(MarathonService);
+
 
   public schedule: V2Schedule;
   public moment = moment;
@@ -24,9 +28,12 @@ export class ScheduleComponent implements OnDestroy {
 
   runHash = '';
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              public marathonService: MarathonService) {
+  // TODO: this title system needs to be reworked to allow for more dynamic titles
+  readonly title = 'Schedule';
+
+  constructor() {
+    const route = this.route;
+
     route.fragment.subscribe((fragment) => {
       this.runHash = `#${fragment}`;
     });
@@ -86,10 +93,5 @@ export class ScheduleComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.scheduleRefresher.unsubscribe();
-  }
-
-  get title(): string {
-    // TODO: this title system needs to be reworked to allow for more dynamic titles
-    return 'Schedule';
   }
 }

@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, inject } from '@angular/core';
 import { Marathon } from '../../../model/marathon';
 import { faBook, faCalendar, faCircle, faHome, faHomeLg, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar as faCalendarRegular } from '@fortawesome/free-regular-svg-icons';
@@ -13,6 +13,9 @@ import { ScheduleInfo } from '../../../model/schedule';
     standalone: false
 })
 export class SidebarOverviewComponent implements OnInit {
+  private userService = inject(UserService);
+  private scheduleService = inject(ScheduleService);
+
   @Input() marathon: Marathon;
   @Input() isBigHome = false;
   @HostBinding('class.collapsed') @Input() collapsed = false;
@@ -23,13 +26,7 @@ export class SidebarOverviewComponent implements OnInit {
   iconCalendarRegular = faCalendarRegular;
   iconBook = faBook;
 
-  schedules: Array<ScheduleInfo> = [];
-
-  constructor(
-    private userService: UserService,
-    private scheduleService: ScheduleService,
-  ) {
-  }
+  schedules: ScheduleInfo[] = [];
 
   ngOnInit(): void {
     if (this.marathon.scheduleDone) {

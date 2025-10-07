@@ -14,7 +14,7 @@
     @if (showSocialLinks && user.enabled) {
       @for (connection of profileConnections; track connection) {
         <a [href]="platforms[connection.platform] + connection.username" target="_blank">
-          <fa-icon [icon]="iconMapping[connection.platform]" style="margin-left: 0.4rem"></fa-icon>
+          <fa-icon [icon]="iconMapping[connection.platform]" class="platformIcon" />
         </a>
       }
     }

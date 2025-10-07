@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { faTwitter, faBluesky } from '@fortawesome/free-brands-svg-icons';
 import { MarathonService } from '../../../../services/marathon.service';
 import { environment } from '../../../../environments/environment';
@@ -10,15 +10,14 @@ import { environment } from '../../../../environments/environment';
   standalone: false,
 })
 export class SubmitShareButtonsComponent {
+  private marathonService = inject(MarathonService);
+
   protected faTwitter = faTwitter;
   protected faBluesky = faBluesky;
   protected localStorage = localStorage;
   protected shortDomain = environment.shortUrl;
 
   @Input() gameNames: string;
-
-  constructor(private marathonService: MarathonService) {
-  }
 
   get marathonName() {
     return this.marathonService.marathon.name;

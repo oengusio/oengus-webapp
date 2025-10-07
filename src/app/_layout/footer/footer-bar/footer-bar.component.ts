@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
 import { version } from '../../../../../package.json';
 
@@ -9,8 +9,8 @@ import { version } from '../../../../../package.json';
     standalone: false
 })
 export class FooterBarComponent {
+  temporal = inject(TemporalServiceService);
 
-  constructor(public temporal: TemporalServiceService) { }
 
   protected version = version;
 

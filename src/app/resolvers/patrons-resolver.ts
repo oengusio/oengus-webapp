@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {PatronApiResponse} from '../../model/patron';
+import { environment } from '../../environments/environment';
+import { PatronApiResponse } from '../../model/patron';
 
 @Injectable()
-export class PatronsResolver  {
+export class PatronsResolver {
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {
-  }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+  resolve():
     Observable<PatronApiResponse> | Promise<PatronApiResponse> | PatronApiResponse {
     return this.http.get<PatronApiResponse>(`${environment.patronApi}/patrons`);
   }

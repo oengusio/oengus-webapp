@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
 import { UserService } from '../../../../services/user.service';
 import { MarathonService } from '../../../../services/marathon.service';
@@ -9,16 +9,11 @@ import { MarathonService } from '../../../../services/marathon.service';
     styleUrls: ['./home-submit-button.component.scss'],
     standalone: false
 })
-export class HomeSubmitButtonComponent implements OnInit {
+export class HomeSubmitButtonComponent {
+  private userService = inject(UserService);
+  private marathonService = inject(MarathonService);
+
   @Input() marathon: Marathon;
-
-  constructor(
-    private userService: UserService,
-    private marathonService: MarathonService,
-  ) { }
-
-  ngOnInit(): void {
-  }
 
   get loggedIn(): boolean {
     return !!this.userService.user;

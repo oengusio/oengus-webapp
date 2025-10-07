@@ -10,12 +10,6 @@ export class MaxNumberValidatorDirective implements Validator {
 
   @Input('appMaxNumberValidator') maxNumber: number;
 
-  constructor() {
-  }
-
-  registerOnValidatorChange(fn: () => void): void {
-  }
-
   validate(control: AbstractControl): ValidationErrors | null {
     if (control.value <= this.maxNumber) {
       return null;

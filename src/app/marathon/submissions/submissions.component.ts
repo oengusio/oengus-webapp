@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MarathonService } from '../../../services/marathon.service';
@@ -26,6 +26,13 @@ type AllowedTabs = 'submissions' | 'answers';
     standalone: false
 })
 export class SubmissionsComponent implements OnInit, OnDestroy {
+  private route = inject(ActivatedRoute);
+  marathonService = inject(MarathonService);
+  userService = inject(UserService);
+  gameService = inject(GameService);
+  private submissionService = inject(SubmissionService);
+  private categoryService = inject(CategoryService);
+
   @ViewChild('searchInput', {static: true}) searchInput: ElementRef<HTMLInputElement>;
   @ViewChild('searchLazyLoader') searchLazyLoader: SubmissionLazyLoaderComponent;
 
@@ -50,12 +57,9 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   private handlerBound = this.ctrlFHandler.bind(this);
   private answerLoadAttempted = false;
 
-  constructor(private route: ActivatedRoute,
-              public marathonService: MarathonService,
-              public userService: UserService,
-              public gameService: GameService,
-              private submissionService: SubmissionService,
-              private categoryService: CategoryService) {
+  readonly title = 'Submissions';
+
+  constructor() {
     this.selection = this.route.snapshot.data.selection;
     this.answers = new Map<string, Answer[]>();
     this.questions = new Map<number, Question>();
@@ -68,6 +72,24 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
       this.questions.set(question.id, question);
     });
+  }
+
+  get displaysTabs() {
+    return this.marathonService.isAdmin(this.userService.user) &&
+      !!this.marathonService.marathon.questions &&
+      this.marathonService.marathon.questions.length > 0;
+  }
+
+  get isSearching(): boolean {
+    return !!(this.gameFilter || this.statusFilter);
+  }
+
+  get showDelete(): boolean {
+    return !this.marathonService.marathon.selectionDone && this.userIsAdmin;
+  }
+
+  get userIsAdmin(): boolean {
+    return this.marathonService.isAdmin(this.userService.user);
   }
 
   ngOnInit() {
@@ -153,12 +175,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     }
   }
 
-  get displaysTabs() {
-    return this.marathonService.isAdmin(this.userService.user) &&
-      !!this.marathonService.marathon.questions &&
-      this.marathonService.marathon.questions.length > 0;
-  }
-
   exportToCsv() {
     this.gameService.exportAllForMarathon(this.marathonService.marathon.id);
   }
@@ -180,21 +196,5 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
 
   deleteCategory(id: number) {
     this.categoryService.delete(this.marathonService.marathon.id, id);
-  }
-
-  get isSearching(): boolean {
-    return !!(this.gameFilter || this.statusFilter);
-  }
-
-  get title(): string {
-    return 'Submissions';
-  }
-
-  get showDelete(): boolean {
-    return !this.marathonService.marathon.selectionDone && this.userIsAdmin;
-  }
-
-  get userIsAdmin(): boolean {
-    return this.marathonService.isAdmin(this.userService.user);
   }
 }

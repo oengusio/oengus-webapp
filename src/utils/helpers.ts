@@ -10,6 +10,7 @@ export function parseMastodonUrl(input: string): string {
     return '';
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, username, platform] = match;
   const safePlatform = platform || 'mastodon.social';
   let usernameUrlPart = `@${username}`;

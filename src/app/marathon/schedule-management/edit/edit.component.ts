@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { environment } from '../../../../environments/environment';
@@ -27,13 +27,21 @@ const AVAILABILITY_SORT_KEY = 'content';
     standalone: false
 })
 export class EditComponent implements OnInit, OnDestroy {
+  private route = inject(ActivatedRoute);
+  private scheduleService = inject(ScheduleService);
+  private submissionService = inject(SubmissionService);
+  private selectionService = inject(SelectionService);
+  private marathonService = inject(MarathonService);
+  private toastr = inject(NwbAlertService);
+  private translateService = inject(TranslateService);
+
   @ViewChild('scheduleTableComponent') scheduleTable: ScheduleTableComponent | ScheduleTableOldElementComponent;
 
   scheduleInfo: ScheduleInfo;
   marathonId = '';
   oldSlug = '';
-  todoLines: Array<V2ScheduleLine> = [];
-  lines: Array<V2ScheduleLine> = [];
+  todoLines: V2ScheduleLine[] = [];
+  lines: V2ScheduleLine[] = [];
 
   loading = true;
   warningModalActive = false;
@@ -64,15 +72,7 @@ export class EditComponent implements OnInit, OnDestroy {
     this._hideCompleteUsers = val;
   }
 
-  constructor(
-    private route: ActivatedRoute,
-    private scheduleService: ScheduleService,
-    private submissionService: SubmissionService,
-    private selectionService: SelectionService,
-    private marathonService: MarathonService,
-    private toastr: NwbAlertService,
-    private translateService: TranslateService
-  ) {
+  constructor() {
     const localItem = localStorage.getItem('hideCompleteUsers');
 
     if (localItem === null) {
@@ -223,6 +223,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
         this.toastr.open(alertConfig);
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.log(e);
       alert(`Something broke: ${e.message}`);
@@ -260,6 +261,7 @@ export class EditComponent implements OnInit, OnDestroy {
         this.loading = false;
       },
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       error: (err: any) => {
         console.log(err);
         const alertConfig: NwbAlertConfig = {
@@ -354,6 +356,7 @@ export class EditComponent implements OnInit, OnDestroy {
           });
         });
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.error(e);
     }

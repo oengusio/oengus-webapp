@@ -151,13 +151,14 @@
         </div>
         <!-- password -->
         <!-- TODO: make this a component -->
-        <label class="label">{{ 'user.settings.password.label' | translate }}</label>
+        <label for="password" class="label">{{ 'user.settings.password.label' | translate }}</label>
         <div class="field has-addons">
           <div class="control has-icons-left is-expanded">
             <input class="input"
               [ngClass]="{'is-danger': pwField.invalid || errors.password}"
               [type]="passwordHidden ? 'password' : 'text'"
               name="password"
+              id="password"
               required
               [placeholder]="passwordHidden ? '********' : 'password'"
               [(ngModel)]="data.password"

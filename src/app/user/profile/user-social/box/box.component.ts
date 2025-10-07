@@ -1,16 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ConnectionMeta, connectionMetas, ConnectionMetas, SocialAccount } from '../../../../../model/social-account';
-import {
-  faDiscord,
-  faFacebookF,
-  faInstagram,
-  faMastodon,
-  faSnapchatGhost,
-  faTwitch,
-  faTwitter,
-  faYoutube,
-} from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope, faPhone, faStar, faTrophy, faTv } from '@fortawesome/free-solid-svg-icons';
+import { ConnectionMeta, connectionMetas, SocialAccount } from '../../../../../model/social-account';
 
 @Component({
     selector: 'app-box',

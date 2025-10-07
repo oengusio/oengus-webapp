@@ -13,7 +13,7 @@
   </li>
 
   @if (marathon.scheduleDone && schedules.length > 0) {
-    @if (schedules.length == 1) {
+    @if (schedules.length === 1) {
       <li [title]="'marathon.menu.schedule' | translate">
         <!-- 1 schedule: normal link -->
         <a [routerLink]="'/marathon/' + marathonId + '/schedule/' + schedules[0].slug | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">

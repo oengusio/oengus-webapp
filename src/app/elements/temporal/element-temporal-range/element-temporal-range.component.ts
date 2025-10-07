@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
 import { dateTimeFormatKey } from '../../../../services/termporal/config';
 
@@ -9,9 +9,9 @@ import { dateTimeFormatKey } from '../../../../services/termporal/config';
     standalone: false
 })
 export class ElementTemporalRangeComponent {
+  temporal = inject(TemporalServiceService);
+
   @Input() start: string | Date;
   @Input() end: string | Date;
   @Input() format: dateTimeFormatKey = 'mediumDateTime';
-
-  constructor(public temporal: TemporalServiceService) { }
 }

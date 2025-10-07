@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, GuardResult, MaybeAsync } from '@angular/router';
 import { MarathonService } from '../../services/marathon.service';
 import { map } from 'rxjs/operators';
 import { firstValueFrom } from 'rxjs';
@@ -8,11 +8,10 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class CanActivateMarathonActiveGuard {
+  private marathonService = inject(MarathonService);
 
-  constructor(private marathonService: MarathonService) {
-  }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
+  canActivate(route: ActivatedRouteSnapshot): MaybeAsync<GuardResult> {
     if (!this.marathonService.marathon) {
       const findObservable = this.marathonService.find(route.parent.paramMap.get('id'))
         .pipe(
@@ -28,6 +27,6 @@ export class CanActivateMarathonActiveGuard {
   }
 }
 
-export const canActivateMarathonActiveGuard: CanActivateFn = (route, state) => {
-  return inject(CanActivateMarathonActiveGuard).canActivate(route, state);
+export const canActivateMarathonActiveGuard: CanActivateFn = (route) => {
+  return inject(CanActivateMarathonActiveGuard).canActivate(route);
 };

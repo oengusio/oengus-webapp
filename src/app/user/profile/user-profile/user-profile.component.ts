@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { UserProfile } from '../../../../model/user-profile';
 import { User } from '../../../../model/user';
@@ -9,16 +9,11 @@ import { User } from '../../../../model/user';
     styleUrls: ['./user-profile.component.scss'],
     standalone: false
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent {
   @Input() user: UserProfile;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   get fakeUserModel(): User {
-    // @ts-ignore
+    // @ts-expect-error weird mapping that is valid
     return this.user as User;
   }
 

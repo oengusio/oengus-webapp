@@ -16,7 +16,7 @@ export class ScheduleEditRowComponent {
   @Input() i: number;
   @Input() line: V2ScheduleLine;
   @Input() availabilities: AvailabilityResponse;
-  @Input() selectedAvailabilities: Array<string> = [];
+  @Input() selectedAvailabilities: string[] = [];
   @Input() expanded = false;
 
   @Output() toggleExpand = new EventEmitter<number>();

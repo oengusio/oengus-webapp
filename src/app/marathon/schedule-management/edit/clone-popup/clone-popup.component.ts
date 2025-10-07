@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { ScheduleService } from '../../../../../services/schedule.service';
 import { MarathonService } from '../../../../../services/marathon.service';
 import { ScheduleInfo } from '../../../../../model/schedule';
@@ -11,6 +11,9 @@ import { firstValueFrom } from 'rxjs';
     standalone: false
 })
 export class ClonePopupComponent implements OnInit {
+  private scheduleService = inject(ScheduleService);
+  private marathonService = inject(MarathonService);
+
   @Input() selfId: number;
 
   loading = false;
@@ -21,11 +24,6 @@ export class ClonePopupComponent implements OnInit {
   schedules: ScheduleInfo[] = [];
 
   private marathonId: string;
-
-  constructor(
-    private scheduleService: ScheduleService,
-    private marathonService: MarathonService,
-  ) { }
 
   ngOnInit(): void {
     this.marathonId = this.marathonService.marathon.id;
@@ -72,6 +70,7 @@ export class ClonePopupComponent implements OnInit {
 
       this.open = false;
       window.location.reload();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Error cloning schedule:', error);
       alert('TODO: proper error handling ' + error.message);

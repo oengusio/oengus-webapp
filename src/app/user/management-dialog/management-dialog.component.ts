@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { UserProfile } from '../../../model/user-profile';
 import { UserService } from '../../../services/user.service';
 
@@ -9,13 +9,14 @@ import { UserService } from '../../../services/user.service';
     standalone: false
 })
 export class ManagementDialogComponent implements OnInit {
+  userService = inject(UserService);
+
   @Input() user: UserProfile;
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() close = new EventEmitter<void>();
 
   private roles: string[] = [];
   banLoading = false;
-
-  constructor(public userService: UserService) { }
 
   ngOnInit(): void {
     this.userService.fetchRoles(this.user.id).subscribe((roles) => {

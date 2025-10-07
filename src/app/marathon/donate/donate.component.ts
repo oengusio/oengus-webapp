@@ -1,4 +1,5 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component, NgZone, OnInit, inject } from '@angular/core';
 import { Donation } from '../../../model/donation';
 import { DonationService } from '../../../services/donation.service';
 import { MarathonService } from '../../../services/marathon.service';
@@ -18,6 +19,15 @@ import { Bid } from '../../../model/bid';
     standalone: false
 })
 export class DonateComponent implements OnInit {
+  readonly title = 'Donate';
+
+  private donationService = inject(DonationService);
+  marathonService = inject(MarathonService);
+  userService = inject(UserService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private zone = inject(NgZone);
+
 
   public donation = new Donation();
   public incentives: Incentive[];
@@ -31,12 +41,10 @@ export class DonateComponent implements OnInit {
   isBid = (tbd: any): tbd is Bid => (tbd as Bid).incentiveId !== undefined;
   isIncentive = (tbd: any): tbd is Incentive => (tbd as Incentive).scheduleLine !== undefined;
 
-  constructor(private donationService: DonationService,
-              public marathonService: MarathonService,
-              public userService: UserService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private zone: NgZone) {
+
+  constructor() {
+    const userService = this.userService;
+
     this.incentives = this.route.snapshot.data.incentives;
     this.incentives.forEach(incentive => {
       if (incentive.bidWar && incentive.openBid) {
@@ -48,14 +56,14 @@ export class DonateComponent implements OnInit {
       }
     });
     this.links = [];
-    if (!!userService.user) {
+    if (userService.user) {
       this.donation.nickname = userService.user.username;
     }
     if (this.marathonService.marathon.questions.length > 0) {
       if (!this.donation.answers || this.donation.answers.length === 0) {
         this.donation.answers = [];
         this.marathonService.marathon.questions.forEach(question => {
-          // @ts-ignore
+          // @ts-expect-error wrong typing
           if (question.questionType === 'DONATION') {
             const answer = new DonationExtraData();
             answer.question = question;
@@ -96,7 +104,7 @@ export class DonateComponent implements OnInit {
     this.paypalConfig = {
       currency: this.marathonService.marathon.donationCurrency,
       clientId: environment.paypalClientId,
-      createOrderOnServer: (data) => {
+      createOrderOnServer: () => {
         return new Promise<string>((resolve, reject) => {
           this.links.forEach(link => {
             const donationIncentiveLink = new DonationIncentiveLink();
@@ -110,6 +118,7 @@ export class DonateComponent implements OnInit {
           });
           this.donationService.donate(this.marathonService.marathon.id, this.donation).subscribe(response => {
             console.log(JSON.stringify(response));
+            // @ts-expect-error wrong types.
             resolve(response.body.id);
           }, reject);
         });
@@ -132,7 +141,7 @@ export class DonateComponent implements OnInit {
         label: 'paypal',
         layout: 'vertical'
       },
-      onApprove: (data) => {
+      onApprove: () => {
         this.loading = true;
       },
       onCancel: (data) => {
@@ -147,10 +156,6 @@ export class DonateComponent implements OnInit {
         return actions.resolve();
       }
     };
-  }
-
-  get title(): string {
-    return 'Donate';
   }
 }
 

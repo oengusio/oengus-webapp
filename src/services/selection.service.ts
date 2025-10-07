@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Selection } from '../model/selection';
@@ -10,10 +10,13 @@ import {BaseService} from './BaseService';
   providedIn: 'root'
 })
 export class SelectionService extends BaseService {
+  private http = inject(HttpClient);
+  private translateService = inject(TranslateService);
 
-  constructor(private http: HttpClient,
-              toastr: NwbAlertService,
-              private translateService: TranslateService) {
+
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr, 'marathons');
   }
 
@@ -28,11 +31,11 @@ export class SelectionService extends BaseService {
   }
 
   save(marathonId: string, selection: Selection[]) {
-    return this.http.put(this.url(`${marathonId}/selections`), selection).subscribe((response: any) => {
+    return this.http.put(this.url(`${marathonId}/selections`), selection).subscribe(() => {
       this.translateService.get('alert.selection.save.success').subscribe((res: string) => {
         this.toast(res);
       });
-    }, error => {
+    }, () => {
       this.translateService.get('alert.selection.save.error').subscribe((res: string) => {
         this.toast(res, 3000, 'warning');
       });

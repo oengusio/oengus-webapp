@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { firstValueFrom } from 'rxjs';
@@ -11,17 +11,16 @@ import { passwordResetErrorToMessage } from '../../../utils/authHelpers';
     standalone: false
 })
 export class PasswordResetComponent implements OnInit {
+  readonly title = 'Reset Password';
+  private authService = inject(AuthService);
+  private route = inject(ActivatedRoute);
+
   errorTranslationKey: string | null = 'auth.passwordReset.error.PASSWORD_RESET_CODE_INVALID';
   resetToken: string | null = null;
 
   loading = true;
   newPassword = '';
   notificationClass = 'is-danger';
-
-  constructor(
-    private authService: AuthService,
-    private route: ActivatedRoute,
-  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -52,15 +51,12 @@ export class PasswordResetComponent implements OnInit {
       } else {
         this.errorTranslationKey = 'You should never see this message. If you do, let me know what you did.';
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       this.notificationClass = 'is-danger';
       this.errorTranslationKey = passwordResetErrorToMessage(e);
     } finally {
       this.loading = false;
     }
-  }
-
-  get title(): string {
-    return 'Reset Password';
   }
 }

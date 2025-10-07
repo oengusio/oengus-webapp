@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { HomepageMetadata } from '../../model/homepage-metadata';
@@ -10,12 +10,11 @@ import { HomepageMetadata } from '../../model/homepage-metadata';
     standalone: false
 })
 export class HomepageComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  userService = inject(UserService);
+
 
   homepageMarathons: HomepageMetadata;
-
-  constructor(private route: ActivatedRoute,
-              public userService: UserService) {
-  }
 
   ngOnInit() {
     this.homepageMarathons = this.route.snapshot.data.homepageMetadata;

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { LineRunner, V2ScheduleLine } from '../../../../../../model/schedule-line';
+import { V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { faCalendarTimes, faCalendarWeek, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { getRunnerDisplayName, getRunnerUsername } from '../../../../../../utils/helpers';
 
@@ -18,7 +18,7 @@ export class SubmissionRowComponent {
 
   @Input() i: number;
   @Input() line: V2ScheduleLine;
-  @Input() selectedAvailabilities: Array<string> = [];
+  @Input() selectedAvailabilities: string[] = [];
   @Output() moveToSchedule = new EventEmitter<number>();
   @Output() selectAvailability = new EventEmitter<{ username: string, on: boolean }>();
 }

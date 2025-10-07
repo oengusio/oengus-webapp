@@ -1,14 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {
-  faTwitch,
-  faTwitter,
-  faDiscord,
-  faInstagram,
-  faFacebookF,
-  faSnapchatGhost,
-  faMastodon
-} from '@fortawesome/free-brands-svg-icons';
-import { faTrophy, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { Component, Input } from '@angular/core';
+import { faDiscord, faFacebookF, faInstagram, faMastodon, faSnapchatGhost, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faPhone, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { SocialAccount } from '../../../../model/social-account';
 import { SocialPlatform } from '../../../../model/social-platform';
 import { parseMastodonUrl } from '../../../../utils/helpers';
@@ -19,7 +11,7 @@ import { parseMastodonUrl } from '../../../../utils/helpers';
     styleUrls: ['./connection.component.scss'],
     standalone: false
 })
-export class ConnectionComponent implements OnInit {
+export class ConnectionComponent {
 
   @Input() connection: SocialAccount;
 
@@ -35,11 +27,6 @@ export class ConnectionComponent implements OnInit {
     'EMAIL': faEnvelope,
     'PHONE': faPhone,
   };
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   get profileLink(): string {
     if (this.connection.platform === 'MASTODON') {

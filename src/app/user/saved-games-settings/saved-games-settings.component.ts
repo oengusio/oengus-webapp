@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SavedGame } from '../../../model/user-profile-history';
 import { UserService } from '../../../services/user.service';
 import { SelfUser } from '../../../model/user';
@@ -14,19 +14,19 @@ import { SavedGamesService } from '../../../services/saved-games.service';
   standalone: false,
 })
 export class SavedGamesSettingsComponent implements OnInit {
+  private userService = inject(UserService);
+  private route = inject(ActivatedRoute);
+  private savedGameService = inject(SavedGamesService);
+
   protected readonly faPlus = faPlus;
   protected readonly user: SelfUser;
   protected readonly maxCategories = 20;
 
-  games: Array<SavedGame> = [];
+  games: SavedGame[] = [];
 
   isSupporter = false;
 
-  constructor(
-    private userService: UserService,
-    private route: ActivatedRoute,
-    private savedGameService: SavedGamesService,
-  ) {
+  constructor() {
     this.user = this.route.snapshot.data.user;
   }
 

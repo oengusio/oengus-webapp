@@ -84,11 +84,11 @@
             <label class="checkbox" for="emulated{{i}}">
               <input
                 type="checkbox"
+                class="emuCb"
                 [checked]="game.emulated"
                 [(ngModel)]="game.emulated"
                 name="emulated{{i}}"
                 id="emulated{{i}}"
-                style="margin-right: 0.25rem"
               />
               {{ 'marathon.submit.game.console.emulated' | translate }}
             </label>

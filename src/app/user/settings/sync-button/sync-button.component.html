@@ -3,10 +3,10 @@
   <div class="column is-four-fifths vertical-center">
     @if (synced) {
       <span>{{ username }}</span>
-      <button type="button" class="button is-info" style="margin-left: 1rem" (click)="sync.emit()">
+      <button type="button" class="button is-info" (click)="sync.emit()">
         <fa-icon [icon]="faSyncAlt"></fa-icon>
       </button>
-      <button type="button" class="button is-warning" style="margin-left: 0.5rem" (click)="unsync.emit()">
+      <button type="button" class="button is-warning" (click)="unsync.emit()">
         {{'user.settings.accountSync.unsync' | translate}}
       </button>
     } @else {

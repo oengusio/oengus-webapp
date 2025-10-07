@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { MarathonSettingsWithHelpfulProps } from '../../../../model/marathon';
 import { MarathonService } from '../../../../services/marathon.service';
 import { environment } from '../../../../environments/environment';
@@ -17,6 +17,9 @@ import { connectionMetas } from '../../../../model/social-account';
     standalone: false
 })
 export class GeneralSettingsComponent implements OnInit {
+  marathonService = inject(MarathonService);
+  userService = inject(UserService);
+
 
   @Input() public settings: MarathonSettingsWithHelpfulProps;
   @Input() public moderators: UserProfile[];
@@ -27,7 +30,7 @@ export class GeneralSettingsComponent implements OnInit {
 
   public userResults = [];
   public countries = countriesImport as unknown as Map<string, string>;
-  public languages = (<any>isoLang);
+  public languages = isoLang;
 
   public now: Date;
   public env = environment;
@@ -44,7 +47,7 @@ export class GeneralSettingsComponent implements OnInit {
   public isMissingMarathon = false;
   public checkWebhookDebounced;
 
-  constructor(public marathonService: MarathonService, public userService: UserService) {
+  constructor() {
     this.now = new Date();
     this.now.setSeconds(0);
 
@@ -57,7 +60,7 @@ export class GeneralSettingsComponent implements OnInit {
     this.isOengusBotWebhook = (this.settings.webhook || '').startsWith('oengus-bot');
   }
 
-  checkWebhook(text: any): void {
+  checkWebhook(text: string): void {
     if (!text) {
       this.isWebhookOnline = true;
       this.isOengusBotWebhook = false;

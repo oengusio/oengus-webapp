@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from '@danielmoncada/angular-datetime-picker';
@@ -20,6 +20,17 @@ import { FaConfig } from '@fortawesome/angular-fontawesome';
     standalone: false
 })
 export class AppComponent implements OnInit {
+  userService = inject(UserService);
+  private translate = inject(TranslateService);
+  private toastr = inject(NwbAlertService);
+  private dateTimeAdapter = inject<DateTimeAdapter<unknown>>(DateTimeAdapter);
+  private router = inject(Router);
+  private location = inject(Location);
+  private titleService = inject(TitleService);
+  private loader = inject(LoadingBarService);
+  private temporal = inject(TemporalServiceService);
+  private localeService = inject(LocaleService);
+
   title = !environment.sandbox ? 'Oengus' : 'Oengus [Sandbox]';
 
   // @ViewChild('navBurger', {static: true}) navBurger: ElementRef;
@@ -29,18 +40,9 @@ export class AppComponent implements OnInit {
   public environment = environment;
   public loading = true;
 
-  constructor(public userService: UserService,
-              private translate: TranslateService,
-              private toastr: NwbAlertService,
-              private dateTimeAdapter: DateTimeAdapter<any>,
-              private router: Router,
-              private location: Location,
-              private titleService: TitleService,
-              private loader: LoadingBarService,
-              private temporal: TemporalServiceService,
-              private localeService: LocaleService,
-              faConfig: FaConfig,
-  ) {
+  constructor() {
+    const faConfig = inject(FaConfig);
+
     faConfig.autoAddCss = false;
 
     this.loader.stateObserver.subscribe((loading) => {
@@ -88,7 +90,7 @@ export class AppComponent implements OnInit {
   }
 
   onRouteActivated(component) {
-    if (Object.getPrototypeOf(component).hasOwnProperty('title')) {
+    if (Object.prototype.hasOwnProperty.call(Object.getPrototypeOf(component), 'title')) {
       this.titleService.setTitle(component.title);
     } else {
       this.titleService.resetTitle();

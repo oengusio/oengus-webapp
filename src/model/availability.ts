@@ -4,6 +4,4 @@ export class Availability {
   username: string;
 }
 
-export interface AvailabilityResponse {
-  [key: string]: Availability[];
-}
+export type AvailabilityResponse = Record<string, Availability[]>;

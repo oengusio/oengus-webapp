@@ -7,7 +7,5 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class NewUserComponent {
-  get title(): string {
-    return 'Invalid account state!';
-  }
+  readonly title = 'Invalid account state!';
 }

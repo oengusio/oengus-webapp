@@ -4,7 +4,7 @@ export class DonationExtraData {
 
   id: number;
   question: Question;
-  answer: any;
+  answer: string | boolean;
 
   constructor() {
     this.question = {

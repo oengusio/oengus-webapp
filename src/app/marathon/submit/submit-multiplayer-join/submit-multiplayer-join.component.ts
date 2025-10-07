@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NwbAlertConfig } from '@oengus/ng-wizi-bulma';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CategoryService } from '../../../../services/category.service';
 import { MarathonService } from '../../../../services/marathon.service';
 import { NotificationService } from '../../../../services/notification.service';
@@ -13,6 +12,10 @@ import { Opponent } from '../../../../model/opponent';
   standalone: false,
 })
 export class SubmitMultiplayerJoinComponent {
+  private categoryService = inject(CategoryService);
+  marathonService = inject(MarathonService);
+  private notifyService = inject(NotificationService);
+
 
   code = '';
 
@@ -21,13 +24,6 @@ export class SubmitMultiplayerJoinComponent {
   @Output() private addOpponent = new EventEmitter<Opponent>();
   @Output() private removeOpponent = new EventEmitter<number>();
 
-  constructor(
-    private categoryService: CategoryService,
-    public marathonService: MarathonService,
-    private notifyService: NotificationService,
-  ) {
-  }
-
   async getMultiplayerSubmission() {
     try {
       const opponent = await firstValueFrom(
@@ -35,6 +31,7 @@ export class SubmitMultiplayerJoinComponent {
       );
 
       this.addOpponent.emit(opponent);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       this.notifyService.toast('alert.submit.' + error.error, 3000, 'warning');
     }

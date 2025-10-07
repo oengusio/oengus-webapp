@@ -9,13 +9,14 @@
 
   <form ngForm="newMarathonForm" (ngSubmit)="submit()" #form="ngForm">
     <div class="field">
-      <label class="label">{{ 'marathon.settings.name.label' | translate}}</label>
+      <label for="name" class="label">{{ 'marathon.settings.name.label' | translate}}</label>
       <div class="control">
         <input class="input"
           [ngClass]="{'is-danger': name.invalid}"
           type="text"
           [(ngModel)]="marathon.name"
           name="name"
+          id="name"
           maxlength="40"
           minlength="4"
           pattern="^[\w\- À-ÿ]{4,40}$"
@@ -41,7 +42,7 @@
         </div>
       }
     </div>
-    <label class="label">{{ 'marathon.settings.shortname.label' | translate}}</label>
+    <label for="id" class="label">{{ 'marathon.settings.shortname.label' | translate}}</label>
     <div class="field">
       <div class="field has-addons is-marginless">
         <div class="control">
@@ -56,6 +57,7 @@
             [(ngModel)]="marathon.id"
             (ngModelChange)="marathonId = $event"
             name="id"
+            id="id"
             maxlength="10"
             minlength="4"
             pattern="^[\w\-]{4,10}$"
@@ -99,7 +101,7 @@
     <div class="columns">
       <div class="column is-half">
         <div class="field">
-          <label class="label">{{ 'marathon.settings.startDate.label' | translate}}</label>
+          <label for="startDate" class="label">{{ 'marathon.settings.startDate.label' | translate}}</label>
           <div class="control">
             <input class="input"
               readonly
@@ -107,6 +109,7 @@
               [owlDateTimeTrigger]="dtStartDate"
               [owlDateTime]="dtStartDate"
               [(ngModel)]="marathon.startDate"
+              id="startDate"
               name="startDate"
               [min]="now"
               required
@@ -125,7 +128,7 @@
       </div>
       <div class="column is-half">
         <div class="field">
-          <label class="label">{{ 'marathon.settings.endDate.label' | translate}}</label>
+          <label for="endDate" class="label">{{ 'marathon.settings.endDate.label' | translate}}</label>
           <div class="control">
             <input class="input"
               readonly
@@ -133,7 +136,7 @@
               [owlDateTimeTrigger]="dtEndDate" [owlDateTime]="dtEndDate"
               [disabled]="!marathon.startDate"
               [min]="marathon.startDate"
-              [(ngModel)]="marathon.endDate" name="endDate" required #endDate="ngModel">
+              [(ngModel)]="marathon.endDate" id="endDate" name="endDate" required #endDate="ngModel">
             <owl-date-time #dtEndDate></owl-date-time>
           </div>
           @if (endDate.invalid) {
@@ -148,19 +151,19 @@
       </div>
     </div>
     <div class="field">
-      <label class="label">{{ 'marathon.settings.type.label' | translate}}</label>
+      <label for="isOnsite" class="label">{{ 'marathon.settings.type.label' | translate}}</label>
       <div class="control is-flex">
-        <span style="margin-right: 0.5rem">{{ 'marathon.settings.type.online' | translate}}</span>
-        <nwb-switch [(ngModel)]="marathon.onsite" name="isOnsite">
+        <span class="cbLeft">{{ 'marathon.settings.type.online' | translate}}</span>
+        <nwb-switch [(ngModel)]="marathon.onsite" id="isOnsite" name="isOnsite">
           <span>{{ 'marathon.settings.type.onsite' | translate}}</span>
         </nwb-switch>
       </div>
     </div>
     <div class="field">
-      <label class="label">{{ 'marathon.settings.privacy.label' | translate}}</label>
+      <label for="isPrivate" class="label">{{ 'marathon.settings.privacy.label' | translate}}</label>
       <div class="control is-flex">
-        <span style="margin-right: 0.5rem">{{ 'marathon.settings.privacy.public' | translate}}</span>
-        <nwb-switch [(ngModel)]="marathon.isPrivate" name="isPrivate">
+        <span class="cbLeft">{{ 'marathon.settings.privacy.public' | translate}}</span>
+        <nwb-switch [(ngModel)]="marathon.isPrivate" id="isPrivate" name="isPrivate">
           <span>{{ 'marathon.settings.privacy.private' | translate}}</span>
         </nwb-switch>
       </div>

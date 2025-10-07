@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SignupDto } from '../../../model/dto/signup-dto';
 import { faEnvelope, faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../services/auth.service';
@@ -12,6 +12,12 @@ import { TranslateService } from '@ngx-translate/core';
     standalone: false
 })
 export class SignUpComponent {
+  readonly title = 'Sign Up';
+
+  private authService = inject(AuthService);
+  private toastr = inject(NwbAlertService);
+  private translateService = inject(TranslateService);
+
   iconUser = faUser;
   iconEmail = faEnvelope;
   iconPadlock = faLock;
@@ -33,13 +39,7 @@ export class SignUpComponent {
     connections: [],
   };
 
-  errors: { [key: string]: string } = {};
-
-  constructor(
-    private authService: AuthService,
-    private toastr: NwbAlertService,
-    private translateService: TranslateService,
-  ) {}
+  errors: Record<string, string> = {};
 
   async submit() {
     this.loading = true;
@@ -54,6 +54,7 @@ export class SignUpComponent {
       if (result.status === 'SIGNUP_SUCCESS') {
         this.showNextStep = true;
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       this.triggerValidationToaster();
 
@@ -83,9 +84,5 @@ export class SignUpComponent {
         });
       },
     });
-  }
-
-  get title(): string {
-    return 'Sign Up';
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { Router } from '@angular/router';
@@ -12,10 +12,13 @@ import { SignupDto, SignupResponseDto } from '../model/dto/signup-dto';
   providedIn: 'root'
 })
 export class AuthService extends BaseService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
 
-  constructor(private http: HttpClient,
-              private router: Router,
-              toastr: NwbAlertService) {
+
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr, 'auth');
   }
 
@@ -91,11 +94,11 @@ export class AuthService extends BaseService {
     return this.http.post<{ status: boolean }>(this.v2Url('verify-email'), null);
   }
 
-  requestPasswordReset(email: String) {
+  requestPasswordReset(email: string) {
     return this.http.post<{ status: string }>(this.v2Url('password-reset/request'), { email });
   }
 
-  resetPassword(token: String, newPassword: String) {
+  resetPassword(token: string, newPassword: string) {
     return this.http.post<{ status: string }>(this.v2Url('password-reset'), {
       token,
       password: newPassword,
@@ -123,6 +126,7 @@ export class AuthService extends BaseService {
   }
 
   get tokenExpirationDate(): Date {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, body] = this.token.split('.');
     const { exp }: { exp: number } = JSON.parse(atob(body));
 

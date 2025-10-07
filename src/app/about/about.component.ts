@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-about',
@@ -6,16 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./about.component.scss'],
     standalone: false
 })
-export class AboutComponent implements OnInit {
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
-  get title(): string {
-    return 'About';
-  }
+export class AboutComponent {
+  readonly title = 'About';
 
 }

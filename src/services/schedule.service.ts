@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, tap } from 'rxjs';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
@@ -13,15 +13,17 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ScheduleService extends BaseService {
-  private scheduleCache: Map<string, Array<ScheduleInfo>> = new Map();
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient,
-              toastr: NwbAlertService
-  ) {
+  private scheduleCache = new Map<string, ScheduleInfo[]>();
+
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr, 'marathons');
   }
 
-  getAllOverview(marathonId: string): Observable<Array<ScheduleInfo>> {
+  getAllOverview(marathonId: string): Observable<ScheduleInfo[]> {
     if (this.scheduleCache.has(marathonId)) {
       return of(this.scheduleCache.get(marathonId));
     }
@@ -40,7 +42,7 @@ export class ScheduleService extends BaseService {
     );
   }
 
-  getAllOverviewManagement(marathonId: string): Observable<Array<ScheduleInfo>> {
+  getAllOverviewManagement(marathonId: string): Observable<ScheduleInfo[]> {
     return this.http.get<DataListDto<ScheduleInfo>>(this.v2Url(`${marathonId}/schedules/manage`)).pipe(
       map((res) => res.data),
     );
@@ -83,7 +85,7 @@ export class ScheduleService extends BaseService {
     return this.http.get<DataListDto<V2ScheduleLine>>(this.v2Url(`${marathonId}/schedules/${scheduleId}/manage/lines`));
   }
 
-  updateLines(marathonId: string, scheduleId: number, lines: Array<V2ScheduleLine>): Observable<DataListDto<V2ScheduleLine>> {
+  updateLines(marathonId: string, scheduleId: number, lines: V2ScheduleLine[]): Observable<DataListDto<V2ScheduleLine>> {
     return this.http.put<DataListDto<V2ScheduleLine>>(
       this.v2Url(`${marathonId}/schedules/${scheduleId}/manage/lines`),
       {

@@ -2,7 +2,7 @@ import { environment } from '../environments/environment';
 import {NwbAlertConfig, NwbAlertService, NwbAlertComponent} from '@oengus/ng-wizi-bulma';
 
 export class BaseService {
-  constructor(private toastr: NwbAlertService, private base: String = '') {}
+  constructor(private toastr: NwbAlertService, private base = '') {}
 
   private stripLastSlash(path: string): string {
     if (path.endsWith('/')) {
@@ -22,15 +22,15 @@ export class BaseService {
     return this.stripLastSlash(`${fullPath}${parsedPath}`);
   }
 
-  protected v2Url(path: string = ''): string {
+  protected v2Url(path = ''): string {
     return this.url(path, 'v2');
   }
 
-  protected v1Url(path: string = ''): string {
+  protected v1Url(path = ''): string {
     return this.url(path, 'v1');
   }
 
-  protected toast(message: string, duration: number = 3000, color: string = 'success'): NwbAlertComponent {
+  protected toast(message: string, duration = 3000, color = 'success'): NwbAlertComponent {
     const alertConfig: NwbAlertConfig = {
       message,
       duration,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserService } from '../../../../services/user.service';
 import { SelfUser } from '../../../../model/user';
 
@@ -8,12 +8,8 @@ import { SelfUser } from '../../../../model/user';
     styleUrls: ['./header-bar-user.component.scss'],
     standalone: false
 })
-export class HeaderBarUserComponent implements OnInit {
-
-  constructor(public userService: UserService) { }
-
-  ngOnInit(): void {
-  }
+export class HeaderBarUserComponent {
+  userService = inject(UserService);
 
   get user(): SelfUser {
     return this.userService.user;

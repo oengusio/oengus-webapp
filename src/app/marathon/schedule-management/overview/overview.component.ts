@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { ScheduleService } from '../../../../services/schedule.service';
@@ -14,17 +14,17 @@ import { UserService } from '../../../../services/user.service';
     standalone: false
 })
 export class OverviewComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private scheduleService = inject(ScheduleService);
+  private marathonService = inject(MarathonService);
+  private userService = inject(UserService);
+  private toastr = inject(NwbAlertService);
+
 
   schedules: ScheduleInfo[] = [];
   private supporterStatus: UserSupporterStatus;
 
-  constructor(
-    private route: ActivatedRoute,
-    private scheduleService: ScheduleService,
-    private marathonService: MarathonService,
-    private userService: UserService,
-    private toastr: NwbAlertService,
-  ) {
+  constructor() {
     this.schedules = this.route.snapshot.data.schedules;
 
     const creatorId = this.marathonService.marathon.creator.id;

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import moment from 'moment-timezone';
 import { TranslateService } from '@ngx-translate/core';
 import { TemporalServiceService } from './termporal/temporal-service.service';
@@ -57,15 +57,14 @@ export const availableLocaleNames = Object.keys(availableLocales);
   providedIn: 'root'
 })
 export class LocaleService {
+  private translate = inject(TranslateService);
+  private translateRouter = inject(LocalizeRouterService);
+  private dateTimeAdapter = inject<DateTimeAdapter<unknown>>(DateTimeAdapter);
+  private temporal = inject(TemporalServiceService);
+
   public language = localStorage.getItem('language') ? localStorage.getItem('language') : navigator.language.split('-')[0];
 
-  constructor(private translate: TranslateService,
-              private translateRouter: LocalizeRouterService,
-              private dateTimeAdapter: DateTimeAdapter<any>,
-              private temporal: TemporalServiceService) {
-  }
-
-  get languagesJson(): { [key: string]: { name: string; nativeName: string } } {
+  get languagesJson(): Record<string, { name: string; nativeName: string }> {
     return isoLang;
   }
 

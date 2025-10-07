@@ -4,19 +4,19 @@
       @for (patron of patrons; track patron) {
         <div class="tags has-addons">
           <div class="avatar tag is-primary">
-            <img [src]="patron.image_url">
+            <img [src]="patron.image_url" alt="Patron supporter {{ patron.full_name }}">
           </div>
       <a [href]="'https://www.patreon.com/user?u=' + patron.id" target="_blank" class="tag is-primary is-large">
         {{ patron.full_name }}
       </a>
     </div>
 }
-  
+
 } @else {
 
     <span [innerHTML]="'patrons.noPatrons' | translate"></span>
-  
+
 }
-  
+
 </div>
 }

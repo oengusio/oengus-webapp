@@ -16,7 +16,7 @@ export class SubmissionCategoryComponent implements OnInit, OnDestroy {
   @Input() public rawStatus: string;
   @Input() public showDelete: boolean;
 
-  @Output() public triggerDelete: EventEmitter<void> = new EventEmitter();
+  @Output() public triggerDelete = new EventEmitter<void>();
 
   public faFilm = faFilm;
   public faTimes = faTimes;
@@ -28,8 +28,6 @@ export class SubmissionCategoryComponent implements OnInit, OnDestroy {
     'BACKUP': 'is-primary',
     'BONUS': 'is-info',
   };
-
-  constructor() { }
 
   get safeStatus(): string {
     return this.rawStatus || 'TODO';

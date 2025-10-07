@@ -10,7 +10,6 @@ export class Formatting implements LocaleSensitive {
 
   format(date: Date, format: dateTimeFormatKey): string {
     const options = dateTimeFormats[format];
-    // @ts-ignore
     const dateTimeFormat = new Intl.DateTimeFormat(this.locale, options);
 
     return dateTimeFormat.format(date);

@@ -2,9 +2,9 @@ import { LocaleSensitive } from './i18n';
 import { dateTimeFormatKey, dateTimeFormats } from './config';
 
 export class Range implements LocaleSensitive {
-  private formatters: { [key: string]: Intl.DateTimeFormat } = { };
+  private formatters: Record<string, Intl.DateTimeFormat> = { };
 
-  /* eslint-disable-next-line no-useless-constructor */ /* ESLint doesn't understand this constructor ISN'T useless in TypeScript */
+    /* ESLint doesn't understand this constructor ISN'T useless in TypeScript */
   constructor(private locale = 'en-GB') { }
 
   public format(start: Date|string|number, end: Date|string|number, format: dateTimeFormatKey): string {
@@ -19,7 +19,7 @@ export class Range implements LocaleSensitive {
     // TS doesn't know about formatRange, despite being standard and widely implemented
     // See also https://caniuse.com/mdn-javascript_builtins_intl_datetimeformat_formatrange
     // See also https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/formatRange
-    return (formatter as any).formatRange(startDate, endDate);
+    return formatter.formatRange(startDate, endDate);
   }
 
   public changeLocale(locale: string): void {

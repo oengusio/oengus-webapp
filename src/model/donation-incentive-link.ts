@@ -7,7 +7,4 @@ export class DonationIncentiveLink {
   incentive: Incentive;
   bid: Bid;
   amount: number;
-
-  constructor() {
-  }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MarathonSettings, MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
+import { Component, inject, OnInit } from '@angular/core';
+import { MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
 import { cloneDeep } from 'lodash';
@@ -21,6 +21,12 @@ import { UserProfile } from '../../../model/user-profile';
     standalone: false
 })
 export class SettingsComponent implements OnInit {
+  marathonService = inject(MarathonService);
+  userService = inject(UserService);
+  private activatedRoute = inject(ActivatedRoute);
+  private translateService = inject(TranslateService);
+  private toastr = inject(NwbAlertService);
+
 
   private marathonId: string;
   public settings: MarathonSettingsWithHelpfulProps;
@@ -42,14 +48,7 @@ export class SettingsComponent implements OnInit {
 
   public settingsValid = true;
 
-  constructor(
-    public marathonService: MarathonService,
-    public userService: UserService,
-    private activatedRoute: ActivatedRoute,
-    private translateService: TranslateService,
-    private toastr: NwbAlertService
-  ) {
-  }
+  readonly title = 'Settings';
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ settings, questions, moderators }) => {
@@ -148,7 +147,7 @@ export class SettingsComponent implements OnInit {
     this.computeQuestionsPositions();
   }
 
-  questionTypeChange({questionType, i: index, fieldType }: { questionType: string, i: number, fieldType: string }) {
+  questionTypeChange({questionType, i: index }: { questionType: string, i: number, fieldType: string }) {
     if (questionType === 'SUBMISSION') {
       if (this.submissionsQuestions[index].fieldType === 'FREETEXT') {
         this.submissionsQuestions[index].required = false;
@@ -198,9 +197,5 @@ export class SettingsComponent implements OnInit {
   drop(event: CdkDragDrop<Question[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     this.computeQuestionsPositions();
-  }
-
-  get title(): string {
-    return 'Settings';
   }
 }

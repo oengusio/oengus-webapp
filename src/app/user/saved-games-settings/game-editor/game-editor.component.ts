@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, inject } from '@angular/core';
 import { SavedGame } from '../../../../model/user-profile-history';
 import gameConsoles from '../../../../assets/consoles.json';
 import { SavedGamesService } from '../../../../services/saved-games.service';
@@ -12,6 +12,8 @@ import { faFloppyDisk, faPencil, faCancel } from '@fortawesome/free-solid-svg-ic
   styleUrl: './game-editor.component.scss'
 })
 export class GameEditorComponent implements OnInit {
+  private savedGameService = inject(SavedGamesService);
+
   protected readonly possibleConsoles = gameConsoles;
 
   protected readonly editIcon = faPencil;
@@ -27,11 +29,6 @@ export class GameEditorComponent implements OnInit {
   loading = false;
 
   game: SavedGame;
-
-  constructor(
-    private savedGameService: SavedGamesService,
-  ) {
-  }
 
   ngOnInit() {
     this.game = {...this.inputGame};

@@ -1,6 +1,4 @@
-interface FormatList {
-  [key: string]: Intl.DateTimeFormatOptions;
-}
+type FormatList = Record<string, Intl.DateTimeFormatOptions>;
 
 export const dateTimeFormats: FormatList = {
   longDate: { dateStyle: 'long' },

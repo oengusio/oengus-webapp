@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserProfile } from '../../../model/user-profile';
 import { UserService } from '../../../services/user.service';
@@ -11,6 +11,9 @@ import { ProfileHistoryComponent } from './profile-history/profile-history.compo
     standalone: false
 })
 export class ProfileComponent {
+  private route = inject(ActivatedRoute);
+  userService = inject(UserService);
+
   @ViewChild('historyComponent')
   private historyComp: ProfileHistoryComponent;
 
@@ -51,7 +54,7 @@ export class ProfileComponent {
     }
   ];
 
-  constructor(private route: ActivatedRoute, public userService: UserService) {
+  constructor() {
     this.route.data.subscribe(routeData => {
       this.updateUser(routeData.user);
     });

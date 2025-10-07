@@ -14,6 +14,7 @@ export class ImportRunDialogComponent {
   @Input() savedGames: SavedGame[];
 
   @Output() doImport = new EventEmitter<SavedCategory[]>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() cancel = new EventEmitter<void>();
 
   selectedCategories: SavedCategory[] = [];

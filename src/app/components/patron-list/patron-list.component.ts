@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import Patron from '../../../model/patron';
 import { PatreonService } from '../../../services/patreon.service';
 
@@ -9,17 +9,17 @@ import { PatreonService } from '../../../services/patreon.service';
     standalone: false
 })
 export class PatronListComponent implements OnInit {
+  private patreonService = inject(PatreonService);
+
 
   patrons: Patron[] = [];
-
-  constructor(private patreonService: PatreonService) { }
 
   ngOnInit(): void {
     this.patreonService.fetchPatrons().subscribe({
       next: (response) => {
         this.patrons = response.patrons;
       },
-      error: (ignored) => {
+      error: () => {
         // Just ignore any errors
         this.patrons = [];
       }

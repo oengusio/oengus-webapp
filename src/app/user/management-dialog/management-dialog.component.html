@@ -35,9 +35,9 @@
       </div>
 
       <div class="field">
-        <label class="label">Edit user roles</label>
+        <label for="role1" class="label">Edit user roles</label>
         <label class="checkbox">
-          <input type="checkbox" (change)="toggleRole('USER')" [checked]="isRole('USER')" />
+          <input id="role1" type="checkbox" (change)="toggleRole('USER')" [checked]="isRole('USER')" />
           Role user
         </label>
         <br />

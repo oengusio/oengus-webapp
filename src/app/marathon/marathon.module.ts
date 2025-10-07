@@ -219,7 +219,7 @@ const marathonRoutes: Routes = [
         },
         canActivate: [
           isEmailVerifiedGuardGuard,
-          (route, state) => inject(CanActivateMarathonIncentivesGuard).canActivate(route, state)
+          (route) => inject(CanActivateMarathonIncentivesGuard).canActivate(route)
 
         ]
       },
@@ -237,7 +237,7 @@ const marathonRoutes: Routes = [
         canActivate: [
           isEmailVerifiedGuardGuard,
           canActivateMarathonSettingsGuard,
-          (route, state) => inject(CanActivateMarathonIncentivesGuard).canActivate(route, state),
+          (route) => inject(CanActivateMarathonIncentivesGuard).canActivate(route),
           canActivateMarathonActiveGuard,
         ]
       },

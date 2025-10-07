@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { DurationService } from '../../../../../../services/duration.service';
 import moment from 'moment-timezone';
@@ -18,8 +18,10 @@ type UserSearchType = { username: string; profile: null; isCustom: true} |  { us
     standalone: false
 })
 export class NormalRunEditorComponent implements OnInit {
+  private userService = inject(UserService);
+
   iconTimes = faTimes;
-  userSearch: { [key: string]: UserSearchType[] } = {};
+  userSearch: Record<string, UserSearchType[]> = {};
 
   @Input() line: V2ScheduleLine;
   @Input() i: number;
@@ -31,11 +33,6 @@ export class NormalRunEditorComponent implements OnInit {
 
   setupTimeHuman = '00:00:00';
   estimateHuman = '00:00:00';
-
-  constructor(
-    private userService: UserService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.setupTimeHuman = DurationService.toHuman(this.line.setupTime);
@@ -96,7 +93,7 @@ export class NormalRunEditorComponent implements OnInit {
       const combinedItems: UserSearchType[] = response.map((user) => ({
         isCustom: false,
         username: user.username,
-        // @ts-ignore
+        // @ts-expect-error wrong typing
         profile: user as UserProfile,
       }));
 

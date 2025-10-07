@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-marathon-discord-settings',
@@ -6,11 +6,6 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./discord-settings.component.scss'],
     standalone: false
 })
-export class DiscordSettingsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class DiscordSettingsComponent {
 
 }

@@ -5,7 +5,4 @@ export class Page<T> {
   totalElements: number;
   number: number;
   size: number;
-
-  constructor() {
-  }
 }

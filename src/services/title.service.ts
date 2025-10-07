@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {environment} from '../environments/environment';
 import {Title} from '@angular/platform-browser';
 
@@ -6,10 +6,12 @@ import {Title} from '@angular/platform-browser';
   providedIn: 'root'
 })
 export class TitleService {
+  private title = inject(Title);
+
   private baseTitle = !environment.sandbox ? 'Oengus' : 'Oengus [Sandbox]';
   private mainTitle: string;
 
-  constructor(private title: Title) {
+  constructor() {
     this.mainTitle = this.baseTitle;
   }
 

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, GuardResult, MaybeAsync } from '@angular/router';
 import { firstValueFrom, forkJoin, of } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { MarathonService } from '../../services/marathon.service';
@@ -11,11 +11,11 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CanActivateMarathonSettingsGuard  {
+  private userService = inject(UserService);
+  private marathonService = inject(MarathonService);
 
-  constructor(private userService: UserService, private marathonService: MarathonService) {
-  }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
+  canActivate(route: ActivatedRouteSnapshot): MaybeAsync<GuardResult> {
     if (!this.userService.user && !this.marathonService.marathon) {
       const checkObservable = forkJoin([
         this.userService.getMe(),
@@ -23,7 +23,7 @@ export class CanActivateMarathonSettingsGuard  {
       ])
         .pipe(
           map(([user, marathon]) => this.condition(user, marathon)),
-          catchError(err => of(false)),
+          catchError(() => of(false)),
         );
 
       return firstValueFrom(checkObservable);
@@ -40,6 +40,6 @@ export class CanActivateMarathonSettingsGuard  {
   }
 }
 
-export const canActivateMarathonSettingsGuard: CanActivateFn = (route, state) => {
-  return inject(CanActivateMarathonSettingsGuard).canActivate(route, state);
+export const canActivateMarathonSettingsGuard: CanActivateFn = (route) => {
+  return inject(CanActivateMarathonSettingsGuard).canActivate(route);
 };

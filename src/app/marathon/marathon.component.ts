@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { MarathonService } from '../../services/marathon.service';
@@ -12,15 +12,17 @@ import { TitleService } from '../../services/title.service';
     standalone: false
 })
 export class MarathonComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private titleService = inject(TitleService);
+  userService = inject(UserService);
+  marathonService = inject(MarathonService);
+
 
   public faTimes = faTimes;
 
   public collapsed = false;
 
-  constructor(private route: ActivatedRoute,
-              private titleService: TitleService,
-              public userService: UserService,
-              public marathonService: MarathonService) {
+  constructor() {
     if (!this.marathonService.marathon || this.marathonService.marathon.id !== this.route.snapshot.data.marathon.id) {
       delete this.marathonService.marathon;
       this.marathonService.marathon = {...this.route.snapshot.data.marathon};
@@ -41,7 +43,7 @@ export class MarathonComponent implements OnInit {
   }
 
   marathonRouteActivate(component) {
-    if (Object.getPrototypeOf(component).hasOwnProperty('title')) {
+    if (Object.prototype.hasOwnProperty.call(Object.getPrototypeOf(component), 'title')) {
       this.titleService.setSubTitle(component.title);
     } else {
       this.titleService.resetSubTitle();

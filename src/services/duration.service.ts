@@ -6,9 +6,6 @@ import moment from 'moment';
 })
 export class DurationService {
 
-  constructor() {
-  }
-
   static toHuman(estimate: string): string {
     if (!estimate) {
       return '';
@@ -16,11 +13,9 @@ export class DurationService {
 
     if (window.Temporal.Duration) {
       const d: Temporal.Duration = window.Temporal.Duration.from(estimate);
-      // tslint:disable:no-shadowed-variable
       const hours = d.hours.toString().padStart(2, '0');
       const minutes = d.minutes.toString().padStart(2, '0');
       const seconds = d.seconds.toString().padStart(2, '0');
-      // tslint:enable:no-shadowed-variable
 
       return `${hours}:${minutes}:${seconds}`;
     }

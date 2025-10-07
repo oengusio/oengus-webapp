@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Incentive } from '../model/incentive';
@@ -10,10 +10,13 @@ import {BaseService} from './BaseService';
   providedIn: 'root'
 })
 export class IncentiveService extends BaseService {
+  private http = inject(HttpClient);
+  private translateService = inject(TranslateService);
 
-  constructor(private http: HttpClient,
-              toastr: NwbAlertService,
-              private translateService: TranslateService) {
+
+  constructor() {
+    const toastr = inject(NwbAlertService);
+
     super(toastr, 'marathons');
   }
 
@@ -23,11 +26,11 @@ export class IncentiveService extends BaseService {
 
   saveAll(marathonId: string, incentives: Incentive[]) {
     return this.http.post(this.url(`${marathonId}/incentives`), incentives, {observe: 'response'})
-      .subscribe((response: any) => {
+      .subscribe(() => {
         this.translateService.get('alert.incentives.save.success').subscribe((res: string) => {
           this.toast(res);
         });
-      }, error => {
+      }, () => {
         this.translateService.get('alert.incentives.save.error').subscribe((res: string) => {
           this.toast(res, 3000, 'warning');
         });
@@ -36,11 +39,11 @@ export class IncentiveService extends BaseService {
 
   delete(marathonId: string, incentiveId: number) {
     return this.http.delete(this.url(`${marathonId}/incentives/${incentiveId}`))
-      .subscribe((response: any) => {
+      .subscribe(() => {
         this.translateService.get('alert.incentives.delete.success').subscribe((res: string) => {
           this.toast(res);
         });
-      }, error => {
+      }, () => {
         this.translateService.get('alert.incentives.delete.error').subscribe((res: string) => {
           this.toast(res, 3000, 'warning');
         });

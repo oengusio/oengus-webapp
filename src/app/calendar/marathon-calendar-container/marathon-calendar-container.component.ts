@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Marathon } from '../../../model/marathon';
 import { ActivatedRoute } from '@angular/router';
 import { MarathonService } from '../../../services/marathon.service';
@@ -11,6 +11,9 @@ import { parseInt } from 'lodash';
     standalone: false
 })
 export class MarathonCalendarContainerComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private marathonService = inject(MarathonService);
+
   marathons: Marathon[] = [];
 
   year: number;
@@ -19,10 +22,6 @@ export class MarathonCalendarContainerComponent implements OnInit {
   loading = true;
 
   tableView = localStorage.getItem('calendar_tableViewBool') !== 'false';
-
-  constructor(private route: ActivatedRoute,
-              private marathonService: MarathonService) {
-  }
 
   ngOnInit(): void {
     this.route.params.subscribe(({ year, month }) => {
