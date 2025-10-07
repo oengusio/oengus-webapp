@@ -27,6 +27,6 @@ export class CanActivateMarathonActiveGuard {
   }
 }
 
-export const canActivateMarathonActiveGuard: CanActivateFn = (route, state) => {
-  return inject(CanActivateMarathonActiveGuard).canActivate(route, state);
+export const canActivateMarathonActiveGuard: CanActivateFn = (route) => {
+  return inject(CanActivateMarathonActiveGuard).canActivate(route);
 };
