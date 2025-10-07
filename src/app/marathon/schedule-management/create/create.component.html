@@ -52,7 +52,7 @@
     }
   </div>
 
-  <label class="label">
+  <label for="id" class="label">
     {{ 'marathon.schedule.management.settings.slug.label' | translate }}
   </label>
   <div class="field">
@@ -68,6 +68,7 @@
           type="text"
           [(ngModel)]="data.slug"
           name="id"
+          id="id"
           maxlength="255"
           minlength="1"
           pattern="^[\w\-]{1,255}$"

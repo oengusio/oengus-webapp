@@ -11,6 +11,7 @@ import { passwordResetErrorToMessage } from '../../../utils/authHelpers';
     standalone: false
 })
 export class PasswordResetComponent implements OnInit {
+  readonly title = 'Reset Password';
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
 
@@ -50,15 +51,12 @@ export class PasswordResetComponent implements OnInit {
       } else {
         this.errorTranslationKey = 'You should never see this message. If you do, let me know what you did.';
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       this.notificationClass = 'is-danger';
       this.errorTranslationKey = passwordResetErrorToMessage(e);
     } finally {
       this.loading = false;
     }
-  }
-
-  get title(): string {
-    return 'Reset Password';
   }
 }

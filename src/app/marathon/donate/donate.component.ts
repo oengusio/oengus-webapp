@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, NgZone, OnInit, inject } from '@angular/core';
 import { Donation } from '../../../model/donation';
 import { DonationService } from '../../../services/donation.service';
@@ -18,6 +19,8 @@ import { Bid } from '../../../model/bid';
     standalone: false
 })
 export class DonateComponent implements OnInit {
+  readonly title = 'Donate';
+
   private donationService = inject(DonationService);
   marathonService = inject(MarathonService);
   userService = inject(UserService);
@@ -37,6 +40,7 @@ export class DonateComponent implements OnInit {
 
   isBid = (tbd: any): tbd is Bid => (tbd as Bid).incentiveId !== undefined;
   isIncentive = (tbd: any): tbd is Incentive => (tbd as Incentive).scheduleLine !== undefined;
+
 
   constructor() {
     const userService = this.userService;
@@ -59,7 +63,7 @@ export class DonateComponent implements OnInit {
       if (!this.donation.answers || this.donation.answers.length === 0) {
         this.donation.answers = [];
         this.marathonService.marathon.questions.forEach(question => {
-          // @ts-ignore
+          // @ts-expect-error wrong typing
           if (question.questionType === 'DONATION') {
             const answer = new DonationExtraData();
             answer.question = question;
@@ -100,7 +104,7 @@ export class DonateComponent implements OnInit {
     this.paypalConfig = {
       currency: this.marathonService.marathon.donationCurrency,
       clientId: environment.paypalClientId,
-      createOrderOnServer: (data) => {
+      createOrderOnServer: () => {
         return new Promise<string>((resolve, reject) => {
           this.links.forEach(link => {
             const donationIncentiveLink = new DonationIncentiveLink();
@@ -114,6 +118,7 @@ export class DonateComponent implements OnInit {
           });
           this.donationService.donate(this.marathonService.marathon.id, this.donation).subscribe(response => {
             console.log(JSON.stringify(response));
+            // @ts-expect-error wrong types.
             resolve(response.body.id);
           }, reject);
         });
@@ -136,7 +141,7 @@ export class DonateComponent implements OnInit {
         label: 'paypal',
         layout: 'vertical'
       },
-      onApprove: (data) => {
+      onApprove: () => {
         this.loading = true;
       },
       onCancel: (data) => {
@@ -151,10 +156,6 @@ export class DonateComponent implements OnInit {
         return actions.resolve();
       }
     };
-  }
-
-  get title(): string {
-    return 'Donate';
   }
 }
 

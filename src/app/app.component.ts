@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from '@danielmoncada/angular-datetime-picker';
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   userService = inject(UserService);
   private translate = inject(TranslateService);
   private toastr = inject(NwbAlertService);
-  private dateTimeAdapter = inject<DateTimeAdapter<any>>(DateTimeAdapter);
+  private dateTimeAdapter = inject<DateTimeAdapter<unknown>>(DateTimeAdapter);
   private router = inject(Router);
   private location = inject(Location);
   private titleService = inject(TitleService);
@@ -90,7 +90,7 @@ export class AppComponent implements OnInit {
   }
 
   onRouteActivated(component) {
-    if (Object.getPrototypeOf(component).hasOwnProperty('title')) {
+    if (Object.prototype.hasOwnProperty.call(Object.getPrototypeOf(component), 'title')) {
       this.titleService.setTitle(component.title);
     } else {
       this.titleService.resetTitle();

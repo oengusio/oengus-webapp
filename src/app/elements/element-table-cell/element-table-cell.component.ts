@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
+import { Component, ElementRef, HostBinding, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

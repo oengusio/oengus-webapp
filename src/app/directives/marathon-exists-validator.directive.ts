@@ -1,4 +1,4 @@
-import { Directive, Input, inject } from '@angular/core';
+import { Directive, inject, Input } from '@angular/core';
 import { AbstractControl, AsyncValidator, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { MarathonService } from '../../services/marathon.service';
@@ -12,11 +12,7 @@ import { map } from 'rxjs/operators';
 export class MarathonExistsValidatorDirective implements AsyncValidator {
   private marathonService = inject(MarathonService);
 
-
   @Input() previousMarathonName: string;
-
-  registerOnValidatorChange(fn: () => void): void {
-  }
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     return this.marathonService.exists(control.value).pipe(map(errors => {

@@ -19,7 +19,7 @@ export class PatronListComponent implements OnInit {
       next: (response) => {
         this.patrons = response.patrons;
       },
-      error: (ignored) => {
+      error: () => {
         // Just ignore any errors
         this.patrons = [];
       }

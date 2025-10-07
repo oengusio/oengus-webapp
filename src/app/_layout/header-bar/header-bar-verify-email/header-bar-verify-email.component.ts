@@ -26,6 +26,7 @@ export class HeaderBarVerifyEmailComponent {
         this.loading = false;
       },
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       error: (err: any) => {
         console.log(err);
         this.loading = false;

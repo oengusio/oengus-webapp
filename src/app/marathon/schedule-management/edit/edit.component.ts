@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { environment } from '../../../../environments/environment';
@@ -223,6 +223,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
         this.toastr.open(alertConfig);
       });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.log(e);
       alert(`Something broke: ${e.message}`);
@@ -260,6 +261,7 @@ export class EditComponent implements OnInit, OnDestroy {
         this.loading = false;
       },
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       error: (err: any) => {
         console.log(err);
         const alertConfig: NwbAlertConfig = {
@@ -354,6 +356,7 @@ export class EditComponent implements OnInit, OnDestroy {
           });
         });
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.error(e);
     }

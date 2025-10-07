@@ -12,6 +12,8 @@ import { TranslateService } from '@ngx-translate/core';
     standalone: false
 })
 export class SignUpComponent {
+  readonly title = 'Sign Up';
+
   private authService = inject(AuthService);
   private toastr = inject(NwbAlertService);
   private translateService = inject(TranslateService);
@@ -52,6 +54,7 @@ export class SignUpComponent {
       if (result.status === 'SIGNUP_SUCCESS') {
         this.showNextStep = true;
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       this.triggerValidationToaster();
 
@@ -81,9 +84,5 @@ export class SignUpComponent {
         });
       },
     });
-  }
-
-  get title(): string {
-    return 'Sign Up';
   }
 }

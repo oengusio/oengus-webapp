@@ -12,12 +12,13 @@ import { environment } from '../../../environments/environment';
 export class NewMarathonComponent implements OnInit {
   marathonService = inject(MarathonService);
 
-
   public marathon: Marathon;
   public now: Date;
   public env = environment;
   public loading = false;
   public marathonId = '';
+
+  readonly title = 'Create a new marathon';
 
   constructor() {
     this.now = new Date();
@@ -33,9 +34,5 @@ export class NewMarathonComponent implements OnInit {
     this.marathonService.create(this.marathon).add(() => {
       this.loading = false;
     });
-  }
-
-  get title(): string {
-    return 'Create a new marathon';
   }
 }

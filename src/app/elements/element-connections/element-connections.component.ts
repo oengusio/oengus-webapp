@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SocialAccount } from '../../../model/social-account';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,7 +8,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
     styleUrls: ['./element-connections.component.scss'],
     standalone: false
 })
-export class ElementConnectionsComponent implements OnInit {
+export class ElementConnectionsComponent {
   faPlus = faPlus;
 
   @Input() discordId = '';
@@ -16,11 +16,6 @@ export class ElementConnectionsComponent implements OnInit {
 
   @Input() connections: SocialAccount[] = [];
   @Output() connectionsChange = new EventEmitter<SocialAccount[]>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   addNewConnection(): void {
     this.connections.push({

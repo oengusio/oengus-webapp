@@ -28,6 +28,9 @@ export class ScheduleComponent implements OnDestroy {
 
   runHash = '';
 
+  // TODO: this title system needs to be reworked to allow for more dynamic titles
+  readonly title = 'Schedule';
+
   constructor() {
     const route = this.route;
 
@@ -90,10 +93,5 @@ export class ScheduleComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.scheduleRefresher.unsubscribe();
-  }
-
-  get title(): string {
-    // TODO: this title system needs to be reworked to allow for more dynamic titles
-    return 'Schedule';
   }
 }

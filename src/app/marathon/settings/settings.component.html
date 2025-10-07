@@ -106,14 +106,13 @@
             <input class="input"
               type="text"
               [(ngModel)]="deleteShortname"
-              name="deleteShortname" style="margin-bottom: 1rem">
+              name="deleteShortname">
             <br>
               <button class="button is-primary" type="button"
                 [disabled]="deleteShortname !== settings.id" (click)="marathonService.delete(deleteShortname)">
                 {{'action.confirm' | translate}}
               </button>
-              <button class="button is-danger" type="button" (click)="deleteConfirm = false"
-                style="margin-left: 1rem">
+              <button class="button is-danger cancelBtn" type="button" (click)="deleteConfirm = false">
                 {{'action.cancel' | translate}}
               </button>
             </div>

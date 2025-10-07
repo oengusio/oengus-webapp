@@ -11,6 +11,7 @@ import { AuthService } from '../../../services/auth.service';
     standalone: false
 })
 export class ForgotPasswordComponent {
+  readonly title = 'Forgot your password';
   private authService = inject(AuthService);
 
   iconUser = faEnvelope;
@@ -39,6 +40,7 @@ export class ForgotPasswordComponent {
         this.errorTranslationKey = 'You should never see this message. If you do, let me know what you did.';
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.log(e.error);
       this.notificationClass = 'is-danger';
@@ -46,9 +48,5 @@ export class ForgotPasswordComponent {
     } finally {
       this.loading = false;
     }
-  }
-
-  get title(): string {
-    return 'Forgot your password';
   }
 }

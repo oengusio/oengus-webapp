@@ -147,7 +147,7 @@ export class SettingsComponent implements OnInit {
     this.computeQuestionsPositions();
   }
 
-  questionTypeChange({questionType, i: index, fieldType }: { questionType: string, i: number, fieldType: string }) {
+  questionTypeChange({questionType, i: index }: { questionType: string, i: number, fieldType: string }) {
     if (questionType === 'SUBMISSION') {
       if (this.submissionsQuestions[index].fieldType === 'FREETEXT') {
         this.submissionsQuestions[index].required = false;

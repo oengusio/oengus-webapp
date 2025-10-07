@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HomepageMetadata } from '../../../model/homepage-metadata';
 import { getRowParity } from '../../../assets/table';
 import { Marathon } from '../../../model/marathon';
@@ -17,7 +17,7 @@ interface HomepageListData {
     styleUrls: ['./marathons.component.scss'],
     standalone: false
 })
-export class MarathonsComponent implements OnInit {
+export class MarathonsComponent {
 
   @Input() homepageMarathons: HomepageMetadata;
 
@@ -58,9 +58,6 @@ export class MarathonsComponent implements OnInit {
 
   private keyCache: Record<string, Record<number, Date>> = {};
 
-  ngOnInit(): void {
-  }
-
   shouldRenderList(key: keyof HomepageMetadata): boolean {
     return (this.homepageMarathons?.[key]?.length ?? 0) > 0;
   }
@@ -75,7 +72,7 @@ export class MarathonsComponent implements OnInit {
     if (!this.keyCache[marathon.id]) {
       const found = keys.map(key => ({key, date: marathon[key] as Date}))
         .map(({key, date: strDate}) => ({key, date: new Date(strDate)}))
-        .filter(({key, date}) => keys.length === 1 ? date : date && date > this.now)
+        .filter(({date}) => keys.length === 1 ? date : date && date > this.now)
         .find(item => item.date);
 
       this.keyCache[marathon.id] = {

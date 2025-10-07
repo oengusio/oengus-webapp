@@ -12,9 +12,8 @@ import { map } from 'rxjs/operators';
 export class UsernameExistsValidatorDirective implements AsyncValidator {
   private userService = inject(UserService);
 
-
-  registerOnValidatorChange(fn: () => void): void {
-  }
+  /*registerOnValidatorChange(fn: () => void): void {
+  }*/
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     return this.userService.exists(control.value).pipe(map(errors => {

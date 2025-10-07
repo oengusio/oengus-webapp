@@ -57,6 +57,7 @@ export class CreateComponent {
       this.router.navigate([
         'marathon', this.marathonId, 'schedule-management', createdSchedule.id
       ]);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.log(e);
 

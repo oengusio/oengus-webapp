@@ -93,7 +93,7 @@ export class NormalRunEditorComponent implements OnInit {
       const combinedItems: UserSearchType[] = response.map((user) => ({
         isCustom: false,
         username: user.username,
-        // @ts-ignore
+        // @ts-expect-error wrong typing
         profile: user as UserProfile,
       }));
 

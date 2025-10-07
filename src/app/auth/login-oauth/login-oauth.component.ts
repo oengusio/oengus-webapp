@@ -58,6 +58,7 @@ export class LoginOauthComponent implements OnInit {
           });
           return;
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       const { error }: { error: LoginResponse } = e;
 

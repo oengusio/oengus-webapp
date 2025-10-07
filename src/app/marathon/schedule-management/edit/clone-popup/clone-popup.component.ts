@@ -70,6 +70,7 @@ export class ClonePopupComponent implements OnInit {
 
       this.open = false;
       window.location.reload();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Error cloning schedule:', error);
       alert('TODO: proper error handling ' + error.message);

@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, UrlTree } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
 import { MarathonService } from '../../services/marathon.service';
@@ -13,10 +13,10 @@ export class CanActivateMarathonIncentivesGuard  {
   private marathonService = inject(MarathonService);
 
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+  canActivate(route: ActivatedRouteSnapshot):
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!this.marathonService.marathon) {
-      return new Promise<boolean>((resolve, reject) => {
+      return new Promise<boolean>((resolve) => {
         resolve(this.marathonService.find(route.parent.paramMap.get('id')).pipe(
           map((marathon) => !!marathon.hasIncentives)
         ).toPromise());

@@ -10,12 +10,6 @@ export class TotalValidatorDirective implements Validator {
 
   @Input('appTotalValidator') total: number;
 
-  constructor() {
-  }
-
-  registerOnValidatorChange(fn: () => void): void {
-  }
-
   validate(control: AbstractControl): ValidationErrors | null {
     const keys = Object.keys(control.value).filter(value => value.startsWith('amount'));
     const inputTotal = keys.map(key => control.value[key]).reduce((acc, cur) => acc + cur, 0);

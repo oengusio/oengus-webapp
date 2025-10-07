@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { faCalendarTimes, faCalendarWeek, faFilm } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionService } from '../../../services/selection.service';
@@ -10,7 +10,7 @@ import { Availability } from '../../../model/availability';
 import * as vis from 'vis-timeline';
 import { DataSet } from 'vis-data';
 import { SubmissionService } from '../../../services/submission.service';
-import {Submission} from '../../../model/submission';
+import { Submission } from '../../../model/submission';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -42,6 +42,7 @@ export class SelectionComponent implements OnInit {
   public availabilitiesSelected = [];
 
   private timezone = moment.tz.guess();
+  readonly title = 'Select Runs';
 
   constructor() {
     this.availabilitiesGroups = new DataSet([]);
@@ -73,7 +74,7 @@ export class SelectionComponent implements OnInit {
   }
 
   async loadSelection(): Promise<void> {
-    // @ts-ignore SHUT UP
+    // @ts-expect-error SHUT UP
     this.selection = await firstValueFrom(this.selectionService.getAllForMarathonAdmin(
       this.route.snapshot.parent.paramMap.get('id'),
       this.route.snapshot.data['statuses'])
@@ -85,6 +86,7 @@ export class SelectionComponent implements OnInit {
     // Somehow this delay solves the availabilities not showing.
     await new Promise((resolve) => window.requestAnimationFrame(resolve));
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const timeline = new vis.Timeline(document.getElementById('timeline'),
       this.availabilitiesItems,
       this.availabilitiesGroups,
@@ -255,10 +257,6 @@ export class SelectionComponent implements OnInit {
       this.availabilitiesItems.remove(this.availabilitiesItems.getIds({filter: (item) => item.group === username}));
     });
     this.availabilitiesSelected = [];
-  }
-
-  get title(): string {
-    return 'Select Runs';
   }
 
   get marathonId() {

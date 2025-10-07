@@ -30,7 +30,7 @@ export class GeneralSettingsComponent implements OnInit {
 
   public userResults = [];
   public countries = countriesImport as unknown as Map<string, string>;
-  public languages = (isoLang as any);
+  public languages = isoLang;
 
   public now: Date;
   public env = environment;
@@ -60,7 +60,7 @@ export class GeneralSettingsComponent implements OnInit {
     this.isOengusBotWebhook = (this.settings.webhook || '').startsWith('oengus-bot');
   }
 
-  checkWebhook(text: any): void {
+  checkWebhook(text: string): void {
     if (!text) {
       this.isWebhookOnline = true;
       this.isOengusBotWebhook = false;

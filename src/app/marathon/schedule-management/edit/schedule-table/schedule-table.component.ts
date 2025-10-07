@@ -72,5 +72,7 @@ export class ScheduleTableComponent {
     this.computeSchedule.emit();
   }
 
-  toggleCollapseAll(open: boolean): void {}
+  toggleCollapseAll(): void {
+    // No impl needed
+  }
 }

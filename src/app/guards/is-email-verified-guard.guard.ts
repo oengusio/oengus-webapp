@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, CanActivateFn, GuardResult } from '@angular/router';
 import { inject, Injectable } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { firstValueFrom } from 'rxjs';
@@ -10,7 +10,7 @@ export class IsEmailVerifiedGuardGuard implements CanActivate {
   private userService = inject(UserService);
 
 
-  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<GuardResult> {
+  async canActivate(): Promise<GuardResult> {
     if (!this.userService.user) {
       const currentUser = await firstValueFrom(this.userService.getMe());
 
@@ -21,6 +21,6 @@ export class IsEmailVerifiedGuardGuard implements CanActivate {
   }
 }
 
-export const isEmailVerifiedGuardGuard: CanActivateFn = (route, state) => {
-  return inject(IsEmailVerifiedGuardGuard).canActivate(route, state);
+export const isEmailVerifiedGuardGuard: CanActivateFn = () => {
+  return inject(IsEmailVerifiedGuardGuard).canActivate();
 };

@@ -11,12 +11,6 @@ export class MinDurationValidatorDirective implements Validator {
 
   @Input('appMinDurationValidator') minDuration: number;
 
-  constructor() {
-  }
-
-  registerOnValidatorChange(fn: () => void): void {
-  }
-
   validate(control: AbstractControl): ValidationErrors | null {
     if (moment.duration(control.value).asSeconds() > this.minDuration) {
       return null;

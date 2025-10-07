@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IncentiveService } from '../../../services/incentive.service';
 import { ActivatedRoute } from '@angular/router';
 import { Incentive } from '../../../model/incentive';
@@ -14,11 +14,10 @@ import { ScheduleLine } from '../../../model/schedule-line';
     styleUrls: ['./incentive-management.component.scss'],
     standalone: false
 })
-export class IncentiveManagementComponent implements OnInit {
+export class IncentiveManagementComponent {
   private route = inject(ActivatedRoute);
   private incentiveService = inject(IncentiveService);
-  private marathonService = inject(MarathonService);
-
+  protected marathonService = inject(MarathonService);
 
   public incentives: Incentive[];
   public schedule: Schedule;
@@ -27,13 +26,11 @@ export class IncentiveManagementComponent implements OnInit {
   public faCheck = faCheck;
 
   public loading = false;
+  readonly title = 'Mange Incentives';
 
   constructor() {
     this.schedule = this.route.snapshot.data.schedule;
     this.incentives = this.route.snapshot.data.incentives;
-  }
-
-  ngOnInit() {
   }
 
   submit() {
@@ -70,9 +67,5 @@ export class IncentiveManagementComponent implements OnInit {
 
   countNotDeletedBids(incentive: Incentive) {
     return incentive.bids.filter(bid => !bid.toDelete).length;
-  }
-
-  get title(): string {
-    return 'Mange Incentives';
   }
 }

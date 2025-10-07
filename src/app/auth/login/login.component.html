@@ -21,9 +21,9 @@
 
         <fieldset [disabled]="loading">
           <div class="field">
-            <label class="label">{{ 'user.settings.username.label' | translate }}</label>
+            <label for="username" class="label">{{ 'user.settings.username.label' | translate }}</label>
             <div class="control has-icons-left">
-              <input class="input" type="text" placeholder="OengusIO" name="username" [(ngModel)]="loginData.username">
+              <input class="input" type="text" placeholder="OengusIO" id="username" name="username" [(ngModel)]="loginData.username">
               <span class="icon is-small is-left">
                 <fa-icon [icon]="iconUser"></fa-icon>
               </span>
@@ -34,7 +34,7 @@
 
           @if (mfaNeeded) {
             <div class="field">
-              <label class="label">{{ 'login.2fa.label' | translate }}</label>
+              <label for="2fa" class="label">{{ 'login.2fa.label' | translate }}</label>
               <div class="control">
                 <input class="input"
                   type="text"
@@ -42,16 +42,17 @@
                   inputmode="numeric"
                   pattern="[0-9]*"
                   name="2fa"
+                  id="2fa"
                   [(ngModel)]="loginData.twoFactorCode" />
               </div>
             </div>
           }
 
           <div class="control">
-            <button type="submit" style="margin-right: 1rem"
+            <button type="submit"
               [ngClass]="{'is-loading': loading}"
               (click)="performLogin()"
-            class="button is-primary">{{'login.button' | translate}}</button>
+            class="button is-primary mr-2">{{'login.button' | translate}}</button>
 
             <a [routerLink]="'/forgot-password' | localize">{{ 'login.forgotPass' | translate }}</a>
           </div>

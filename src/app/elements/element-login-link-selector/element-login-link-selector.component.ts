@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[login-link]',
   imports: [],
   template: '<ng-content></ng-content>',

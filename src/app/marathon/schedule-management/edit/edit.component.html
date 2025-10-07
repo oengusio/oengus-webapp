@@ -67,7 +67,7 @@
       }
     </div>
 
-    <label class="label">
+    <label for="id" class="label">
       {{ 'marathon.schedule.management.settings.slug.label' | translate }}
     </label>
     <div class="field">
@@ -83,6 +83,7 @@
             type="text"
             [(ngModel)]="scheduleInfo.slug"
             name="id"
+            id="id"
             maxlength="255"
             minlength="1"
             pattern="^[\w\-]{1,255}$"
@@ -182,13 +183,13 @@
 
   <section class="section">
     <div id="timeline"></div>
-    <div style="margin-top: var(--spacing)">
+    <div class="mtSpacing">
       <!-- custom data toggle -->
       <nwb-switch [(ngModel)]="hideCompleteUsers">
         <span>{{ 'marathon.schedule.management.hideCompleteUsers' | translate }}</span>
       </nwb-switch>
     </div>
-    <div style="margin-top: var(--spacing)">
+    <div class="mtSpacing">
       <button type="button"
         class="button is-info"
         (click)="clearSelectedAvailabilities()">

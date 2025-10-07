@@ -1,6 +1,6 @@
-<label class="label">Country</label>
+<label for="platform" class="label">Country</label>
 <div class="select is-fullwidth">
-  <select name="platform" [ngModel]="country" (ngModelChange)="countryChange.emit($event)">
+  <select id="platform" name="platform" [ngModel]="country" (ngModelChange)="countryChange.emit($event)">
     <option [ngValue]="null" selected>{{ 'global.non_select' | translate }}</option>
     @for (country of countries; track country) {
       <option [ngValue]="country">

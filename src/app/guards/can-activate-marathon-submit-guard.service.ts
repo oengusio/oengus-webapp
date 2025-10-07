@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, GuardResult, MaybeAsync, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { firstValueFrom, forkJoin, of } from 'rxjs';
 import { MarathonService } from '../../services/marathon.service';
@@ -16,13 +16,13 @@ export class CanActivateMarathonSubmitGuard  {
   private router = inject(Router);
 
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
+  canActivate(route: ActivatedRouteSnapshot): MaybeAsync<GuardResult> {
     if (!this.userService.token) {
       return this.router.navigate(['/403'], { skipLocationChange: true });
     }
 
     if (!this.userService.user && !this.marathonService.marathon) {
-      return new Promise<boolean>((resolve, reject) => {
+      return new Promise<boolean>((resolve) => {
         resolve(
           firstValueFrom(
             forkJoin([this.userService.getMe(), this.marathonService.find(route.parent.paramMap.get('id'))]).pipe(
@@ -43,6 +43,6 @@ export class CanActivateMarathonSubmitGuard  {
   }
 }
 
-export const canActivateMarathonSubmitGuard: CanActivateFn = (route, state) => {
-  return inject(CanActivateMarathonSubmitGuard).canActivate(route, state);
+export const canActivateMarathonSubmitGuard: CanActivateFn = (route) => {
+  return inject(CanActivateMarathonSubmitGuard).canActivate(route);
 };

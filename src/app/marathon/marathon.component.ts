@@ -43,7 +43,7 @@ export class MarathonComponent implements OnInit {
   }
 
   marathonRouteActivate(component) {
-    if (Object.getPrototypeOf(component).hasOwnProperty('title')) {
+    if (Object.prototype.hasOwnProperty.call(Object.getPrototypeOf(component), 'title')) {
       this.titleService.setSubTitle(component.title);
     } else {
       this.titleService.resetSubTitle();
