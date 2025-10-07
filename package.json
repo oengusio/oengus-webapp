@@ -40,7 +40,7 @@
     "@oengus/ng-wizi-bulma": "^20.0.0",
     "@sentry/angular": "^10.8.0",
     "angular-ng-autocomplete": "2.0.12",
-    "bulma": "^0.9.4",
+    "bulma": "^1.0.4",
     "bulma-extensions": "^6.2.7",
     "bulmaswatch": "^0.8.1",
     "core-js": "^3.44.0",
