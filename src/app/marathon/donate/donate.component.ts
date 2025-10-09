@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, NgZone, OnInit, inject } from '@angular/core';
+import { Component, inject, NgZone, OnInit } from '@angular/core';
 import { Donation } from '../../../model/donation';
 import { DonationService } from '../../../services/donation.service';
 import { MarathonService } from '../../../services/marathon.service';
@@ -8,7 +8,6 @@ import { environment } from '../../../environments/environment';
 import { DonationExtraData } from '../../../model/donation-extra-data';
 import { Incentive } from '../../../model/incentive';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { DonationIncentiveLink } from '../../../model/donation-incentive-link';
 import { Bid } from '../../../model/bid';
 
@@ -36,7 +35,6 @@ export class DonateComponent implements OnInit {
 
   public paypalConfig: any/*IPayPalConfig*/;
   public loading = false;
-  public faTimes = faTimes;
 
   isBid = (tbd: any): tbd is Bid => (tbd as Bid).incentiveId !== undefined;
   isIncentive = (tbd: any): tbd is Incentive => (tbd as Incentive).scheduleLine !== undefined;

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-sync-button',
@@ -8,8 +7,6 @@ import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
     standalone: false
 })
 export class SyncButtonComponent {
-  public faSyncAlt = faSyncAlt;
-
   @Input() public title: string;
   @Input() public username: string;
   @Input() public synced: boolean;

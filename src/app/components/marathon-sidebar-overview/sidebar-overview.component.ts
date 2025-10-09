@@ -1,7 +1,5 @@
-import { Component, HostBinding, Input, OnInit, inject } from '@angular/core';
+import { Component, HostBinding, inject, Input, OnInit } from '@angular/core';
 import { Marathon } from '../../../model/marathon';
-import { faBook, faCalendar, faCircle, faHome, faHomeLg, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { faCalendar as faCalendarRegular } from '@fortawesome/free-regular-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { ScheduleService } from '../../../services/schedule.service';
 import { ScheduleInfo } from '../../../model/schedule';
@@ -20,12 +18,6 @@ export class SidebarOverviewComponent implements OnInit {
   @Input() isBigHome = false;
   @HostBinding('class.collapsed') @Input() collapsed = false;
 
-  iconCircle = faCircle;
-  iconPaperPlane = faPaperPlane;
-  iconCalendar = faCalendar;
-  iconCalendarRegular = faCalendarRegular;
-  iconBook = faBook;
-
   schedules: ScheduleInfo[] = [];
 
   ngOnInit(): void {
@@ -37,7 +29,7 @@ export class SidebarOverviewComponent implements OnInit {
   }
 
   get iconHome() {
-    return this.isBigHome ? faHomeLg : faHome;
+    return this.isBigHome ? 'fa-lg fa-home' : 'fa-home';
   }
 
   get marathonId() {

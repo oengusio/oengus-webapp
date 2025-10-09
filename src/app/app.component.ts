@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { TranslateService } from '@ngx-translate/core';
-import { DateTimeAdapter } from '@danielmoncada/angular-datetime-picker';
 import { environment } from '../environments/environment';
 import { Location } from '@angular/common';
 import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
@@ -23,7 +22,6 @@ export class AppComponent implements OnInit {
   userService = inject(UserService);
   private translate = inject(TranslateService);
   private toastr = inject(NwbAlertService);
-  private dateTimeAdapter = inject<DateTimeAdapter<unknown>>(DateTimeAdapter);
   private router = inject(Router);
   private location = inject(Location);
   private titleService = inject(TitleService);

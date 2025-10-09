@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MarathonService } from '../../../../services/marathon.service';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-submit-header',
@@ -11,9 +10,6 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 })
 export class SubmitHeaderComponent {
   private marathonService = inject(MarathonService);
-
-  faCheck = faCheck;
-  faTimes = faTimes;
 
   get startDate() {
     return this.marathonService.marathon.startDate;

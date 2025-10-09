@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
-import { faCancel, faFloppyDisk, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { SavedCategory } from '../../../../model/user-profile-history';
 import { firstValueFrom } from 'rxjs';
 import { SavedGamesService } from '../../../../services/saved-games.service';
@@ -13,10 +12,6 @@ import { DurationService } from '../../../../services/duration.service';
 })
 export class CategoryEditorComponent implements OnInit, OnChanges {
   private savedGameService = inject(SavedGamesService);
-
-  protected readonly editIcon = faPencil;
-  protected readonly saveIcon = faFloppyDisk;
-  protected readonly cancelIcon = faCancel;
 
   @Input() gameId: number;
   @Input('category') inputCategory: SavedCategory;

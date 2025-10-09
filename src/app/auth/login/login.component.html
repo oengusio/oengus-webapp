@@ -25,7 +25,7 @@
             <div class="control has-icons-left">
               <input class="input" type="text" placeholder="OengusIO" id="username" name="username" [(ngModel)]="loginData.username">
               <span class="icon is-small is-left">
-                <fa-icon [icon]="iconUser"></fa-icon>
+                <i class="fa-solid fa-user"></i>
               </span>
             </div>
           </div>
@@ -70,13 +70,13 @@
   <div class="buttons is-centered are-large">
     <a [href]="authService.getDiscordAuthUri()" class="button is-discord">
       <span class="icon">
-        <fa-icon [icon]="iconDiscord"></fa-icon>
+        <i class="fa-brands fa-discord"></i>
       </span>
       <span>{{ 'login.provider.discord' | translate }}</span>
     </a>
     <a [href]="authService.getTwitchAuthUrl()" class="button is-twitch">
       <span class="icon">
-        <fa-icon [icon]="iconTwitch"></fa-icon>
+        <i class="fa-brands fa-twitch"></i>
       </span>
       <span>{{ 'login.provider.twitch' | translate }}</span>
     </a>

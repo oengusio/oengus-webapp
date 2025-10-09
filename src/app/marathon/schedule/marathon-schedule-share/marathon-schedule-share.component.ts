@@ -1,6 +1,5 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { V2Schedule } from '../../../../model/schedule';
-import { faShare } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,8 +13,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class MarathonScheduleShareComponent {
   private toastr = inject(NwbAlertService);
   private translate = inject(TranslateService);
-
-  iconShare = faShare;
 
   @Input() schedule: V2Schedule;
 

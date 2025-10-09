@@ -1,6 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
 import { GameService } from '../../../services/game.service';
@@ -48,10 +47,6 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   public statusFilter = '';
 
   public active: AllowedTabs = 'submissions';
-
-  public faTimes = faTimes;
-  public faSearch = faSearch;
-
   private searchTerm = new Subject<SearchItem>();
 
   private handlerBound = this.ctrlFHandler.bind(this);

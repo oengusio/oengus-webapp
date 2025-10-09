@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
-import { faDiscord, faMastodon, faTwitch, faTwitter, faYoutube, faBluesky } from '@fortawesome/free-brands-svg-icons';
-import { faComputer } from '@fortawesome/free-solid-svg-icons';
 import { SocialPlatform } from '../../../../model/social-platform';
 import { stripAtPrefix } from '../../../../model/social-account';
 import { parseMastodonUrl } from '../../../../utils/helpers';
@@ -14,14 +12,6 @@ import { parseMastodonUrl } from '../../../../utils/helpers';
 })
 export class DetailsComponent {
   @Input() marathon: Marathon;
-
-  public faTwitch = faTwitch;
-  public faTwitter = faTwitter;
-  public faMastodon = faMastodon;
-  public faBluesky = faBluesky;
-  public faDiscord = faDiscord;
-  public faYoutube = faYoutube;
-  public faComputer = faComputer;
 
   get isLive(): boolean {
     if (!this.marathon) {

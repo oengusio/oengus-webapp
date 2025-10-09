@@ -5,7 +5,7 @@
 <ul class="menu-list">
   <li [title]="'marathon.menu.home' | translate">
     <a [routerLink]="'/marathon/' + marathonId | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-      <fa-icon class="menu-item-icon" [icon]="iconHome"></fa-icon>
+      <i class="menu-item-icon fa-solid {{iconHome}}"></i>
       <span class="menu-item-label">
         {{ 'marathon.menu.home' | translate }}
       </span>
@@ -17,7 +17,7 @@
       <li [title]="'marathon.menu.schedule' | translate">
         <!-- 1 schedule: normal link -->
         <a [routerLink]="'/marathon/' + marathonId + '/schedule/' + schedules[0].slug | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-          <fa-icon class="menu-item-icon" [icon]="iconCalendar"></fa-icon>
+          <i class="menu-item-icon fa-solid fa-calendar"></i>
           <span class="menu-item-label">
             {{ 'marathon.menu.schedule' | translate }}
           </span>
@@ -26,14 +26,14 @@
     } @else {
       <li>
         <a class="menu-item-link no-hover menu-item-has-children">
-          <fa-icon class="menu-item-icon" [icon]="iconCalendarRegular"></fa-icon>
+          <i class="menu-item-icon fa-regular fa-calendar"></i>
           <span class="menu-item-label">{{ 'marathon.menu.schedules' | translate }}</span>
         </a>
         <ul class="menu-item-children">
           @for (schedule of schedules; track schedule) {
             <li [title]="'marathon.menu.schedule' | translate">
               <a [routerLink]="'/marathon/' + marathonId + '/schedule/' + schedule.slug | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-                <fa-icon class="menu-item-icon" [icon]="iconCalendar"></fa-icon>
+                <i class="menu-item-icon fa-solid fa-calendar"></i>
                 <span class="menu-item-label">
                   {{ schedule.name }}
                 </span>
@@ -48,7 +48,7 @@
 
   <li [title]="'marathon.menu.viewSubmissions' | translate">
     <a [routerLink]="'/marathon/' + marathonId + '/submissions' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-      <fa-icon class="menu-item-icon" [icon]="iconBook"></fa-icon>
+      <i class="menu-item-icon fa-solid fa-book"></i>
       <span class="menu-item-label">
         {{ 'marathon.menu.viewSubmissions' | translate }}
       </span>
@@ -61,9 +61,9 @@
         [title]="'marathon.menu.submitRuns' | translate"
         >
         <a [routerLink]="'/marathon/' + marathonId + '/submit' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-          <fa-icon class="menu-item-icon" [icon]="iconPaperPlane"></fa-icon>
+          <i class="menu-item-icon fa-solid fa-paper-plane"></i>
           <span class="menu-item-label">
-            <fa-icon class="menu-item-icon submit-live-icon" [icon]="iconCircle"></fa-icon>
+            <i class="menu-item-icon submit-live-icon fa-solid fa-circle"></i>
             {{ (marathon.hasSubmitted ? 'marathon.menu.editSubmission' : 'marathon.menu.submitRuns') | translate }}
           </span>
         </a>

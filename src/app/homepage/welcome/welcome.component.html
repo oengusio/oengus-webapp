@@ -32,7 +32,7 @@
             {{ 'homepage.plannedFeatures.' + feature.key | translate }}
           </span>
           @if (feature.complete) {
-            <fa-icon [icon]="faCheck" size="sm"></fa-icon>
+            <i class="fa-solid fa-sm fa-check"></i>
           }
         </li>
       }
@@ -43,7 +43,7 @@
         <span>
           {{ 'homepage.plannedFeatures.title' | translate }}
         </span>
-        <fa-icon [icon]="faAngleDown"></fa-icon>
+        <i class="fa-solid fa-angle-down"></i>
       </button>
     </div>
   </div>

@@ -75,7 +75,7 @@
     @if (submission.id > 0 && !marathonService.marathon.isPrivate) {
       <app-submit-share-buttons
         [gameNames]="gameNames"
-        />
+      />
     }
   </h3>
   @if (marathonService.hasDstChange()) {
@@ -155,7 +155,7 @@
               @if (!!availability.from && !!availability.to) {
                 <a (click)="duplicateAvailabilityToNextDay(i)"
                    class="dupeBtn" [nwbToolTip]="'marathon.submit.availabilities.duplicate' | translate">
-                  <fa-icon [icon]="faClone"></fa-icon>
+                  <i class="fa-solid fa-clone"></i>
                 </a>
               }
               <button class="delete rmAvail" (click)="removeAvailability(i)"></button>
@@ -278,7 +278,7 @@
         <button type="button" class="button is-small is-primary is-pulled-left addBtn" (click)="addGame()"
                 [disabled]="!marathonService.marathon.unlimitedGames && submission.games.length >=
                     marathonService.marathon.maxGamesPerRunner">
-          <fa-icon [icon]="faPlus"></fa-icon>
+          <i class="fa-solid fa-plus"></i>
         </button>
         <button
           type="button"
@@ -286,7 +286,7 @@
           (click)="importDialogOpen = true"
           [disabled]="!marathonService.marathon.unlimitedGames && submission.games.length >= marathonService.marathon.maxGamesPerRunner"
         >
-          <fa-icon [icon]="faImport"/>
+          <i class="fa-solid fa-cloud-arrow-up"></i>
           <span>Import saved games</span>
         </button>
       </div>
@@ -417,7 +417,7 @@
                   class="button is-small is-primary addBtn"
                   (click)="addCategory(i)"
                   [disabled]="!marathonService.marathon.unlimitedCategories && game.categories.length >= maxCategoriesPerGame">
-                <fa-icon [icon]="faPlus"></fa-icon>
+                  <i class="fa-solid fa-plus"></i>
               </button>
             }
           </p>
@@ -633,7 +633,7 @@
         @if (submission.id > 0 && !marathonService.marathon.isPrivate) {
           <app-submit-share-buttons
             [gameNames]="gameNames"
-            />
+          />
         }
       </div>
       @if (submission.id > 0 && !marathonService.marathon.scheduleDone) {

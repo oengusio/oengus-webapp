@@ -64,11 +64,11 @@
       (selectAvailability)="selectAvailability.emit($event)"
       [line]="line"
       >
-      <fa-icon [icon]="iconBars"
+      <i
         cdkDragHandle
         [cdkDragHandleDisabled]="expanded.has(line.position)"
-        class="is-pulled-right"
-      oengusDragDandlePosition></fa-icon>
+        class="fa-solid fa-bars is-pulled-right"
+      oengusDragDandlePosition></i>
     </app-schedule-edit-row>
     @if (expanded.has(line.position) || showAllCustomData) {
       <app-element-table-detail [class]="getRowParity(i)">

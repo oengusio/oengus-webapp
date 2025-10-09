@@ -1,41 +1,41 @@
 <table class="table is-fullwidth">
   <thead>
-    <tr>
-      <th></th>
-      <th>
-        {{ 'marathon.schedule.table.time' | translate }}
-      </th>
-      <th>
-        {{ 'marathon.schedule.table.runner' | translate }}
-      </th>
-      <th>
-        {{ 'marathon.schedule.table.game' | translate }}
-      </th>
-      <th>
-        {{ 'marathon.schedule.table.category' | translate }}
-      </th>
-      <th>
-        {{ 'marathon.schedule.table.type' | translate }}
-      </th>
-      <th>
-        {{ 'marathon.schedule.table.console' | translate }}
-      </th>
-      <th>
-        {{ 'marathon.schedule.table.estimate' | translate }}
-      </th>
-      <th>
-        {{ 'marathon.schedule.table.setup' | translate }}
-      </th>
-      <th>
-        {{ 'marathon.schedule.table.actions' | translate }}
-      </th>
-    </tr>
+  <tr>
+    <th></th>
+    <th>
+      {{ 'marathon.schedule.table.time' | translate }}
+    </th>
+    <th>
+      {{ 'marathon.schedule.table.runner' | translate }}
+    </th>
+    <th>
+      {{ 'marathon.schedule.table.game' | translate }}
+    </th>
+    <th>
+      {{ 'marathon.schedule.table.category' | translate }}
+    </th>
+    <th>
+      {{ 'marathon.schedule.table.type' | translate }}
+    </th>
+    <th>
+      {{ 'marathon.schedule.table.console' | translate }}
+    </th>
+    <th>
+      {{ 'marathon.schedule.table.estimate' | translate }}
+    </th>
+    <th>
+      {{ 'marathon.schedule.table.setup' | translate }}
+    </th>
+    <th>
+      {{ 'marathon.schedule.table.actions' | translate }}
+    </th>
+  </tr>
   </thead>
   <tbody cdkDropList (cdkDropListDropped)="scheduleDrop($event)">
     @if (!lines.length) {
       <tr>
         <td colspan="10">
-          {{ 'marathon.schedule.table.placeholder' | translate}}
+          {{ 'marathon.schedule.table.placeholder' | translate }}
         </td>
       </tr>
     }
@@ -44,7 +44,8 @@
       @if (shouldShowDay(i)) {
         <tr>
           <td colspan="10" class="day is-info">
-            <app-element-temporal-datetime [dateTime]="line.date" format="longDateWithWeekday"></app-element-temporal-datetime>
+            <app-element-temporal-datetime [dateTime]="line.date"
+                                           format="longDateWithWeekday"></app-element-temporal-datetime>
           </td>
         </tr>
       }
@@ -52,7 +53,7 @@
         [class]="getRowParity(i)"
         cdkDrag
         [cdkDragDisabled]="showAllCustomData || expanded.has(line.position)"
-        >
+      >
         <td>
           <app-element-table-cell
             [isExpandButton]="true"
@@ -61,14 +62,14 @@
             class="expandable"
           ></app-element-table-cell>
         </td>
-      <td [class]="{
+        <td [class]="{
         'is-warning': !matchesAvailabilities(line)
       }">
           <app-element-temporal-datetime [dateTime]="line.date" format="shortTime"></app-element-temporal-datetime>
         </td>
         @if (line.setupBlock) {
           <td>
-            <strong>{{'marathon.schedule.setupBlock' | translate}}</strong>
+            <strong>{{ 'marathon.schedule.setupBlock' | translate }}</strong>
           </td>
           <td colspan="5">
             <app-simple-md [data]="line.setupBlockText || 'marathon.schedule.setupBlock' | translate"></app-simple-md>
@@ -79,23 +80,23 @@
         } @else {
           <td>
             @for (runner of line.runners; track runner) {
-<p [class]="{
-          'has-text-warning': !isAvailable(line, runner)
-        }">
+              <p [class]="{
+                'has-text-warning': !isAvailable(line, runner)
+              }">
                 @if (selectedAvailabilities.includes(getRunnerUsername(runner))) {
-<a (click)="selectAvailability.emit({
-              username: getRunnerUsername(runner),
-              on: false
-           })"
-                    >
-                    <fa-icon [icon]="iconCalendarTimes"></fa-icon>
+                  <a (click)="selectAvailability.emit({
+                    username: getRunnerUsername(runner),
+                    on: false
+                 })"
+                  >
+                    <i class="fa-solid fa-calendar-times"></i>
                   </a>
                 } @else {
-              <a (click)="selectAvailability.emit({
-              username: getRunnerUsername(runner),
-              on: true
-           })">
-                    <fa-icon [icon]="iconCalendarWeek"></fa-icon>
+                  <a (click)="selectAvailability.emit({
+                    username: getRunnerUsername(runner),
+                    on: true
+                 })">
+                    <i class="fa-solid fa-calendar-week"></i>
                   </a>
                 }
                 {{ getRunnerDisplayName(runner) }}
@@ -113,70 +114,70 @@
           </td>
           <td>
             {{ line.console }}@if (line.emulated) {
-            <sup>{{ 'global.emu' | translate}}</sup>
+            <sup>{{ 'global.emu' | translate }}</sup>
           }
-        </td>
-        <td>
-          <app-element-temporal-duration [duration]="line.estimate"></app-element-temporal-duration>
-        </td>
-        <td>
-          <app-element-temporal-duration [duration]="line.setupTime"></app-element-temporal-duration>
-        </td>
-      }
-      <td class="actions">
-        <!-- Setup blocks are custom runs imo, but for legacy reasons they are not -->
-        @if (!line.customRun && !line.setupBlock) {
-          <a (click)="moveToToDo.emit(i)">
-            <fa-icon [icon]="iconChevronLeft"></fa-icon>
-          </a>
+          </td>
+          <td>
+            <app-element-temporal-duration [duration]="line.estimate"></app-element-temporal-duration>
+          </td>
+          <td>
+            <app-element-temporal-duration [duration]="line.setupTime"></app-element-temporal-duration>
+          </td>
         }
-        @if (line.customRun || line.setupBlock) {
-          <a (click)="delete.emit(i)">
-            <fa-icon [icon]="iconTimes"></fa-icon>
+        <td class="actions">
+          <!-- Setup blocks are custom runs imo, but for legacy reasons they are not -->
+          @if (!line.customRun && !line.setupBlock) {
+            <a (click)="moveToToDo.emit(i)">
+              <i class="fa-solid fa-chevron-left"></i>
+            </a>
+          }
+          @if (line.customRun || line.setupBlock) {
+            <a (click)="delete.emit(i)">
+              <i class="fa-solid fa-times"></i>
+            </a>
+          }
+          <a (click)="toggleExpand(line.position)">
+            <i class="fa-solid fa-edit"></i>
           </a>
-        }
-        <a (click)="toggleExpand(line.position)">
-          <fa-icon [icon]="iconEdit"></fa-icon>
-        </a>
-        <fa-icon [icon]="iconBars"
-          cdkDragHandle
-          [cdkDragHandleDisabled]="expanded.has(line.position)"
-          class="is-pulled-right"
-        ></fa-icon>
-      </td>
-    </tr>
-    @if (showAllCustomData || expanded.has(line.position)) {
-      <tr>
-        <td colspan="10">
-          <app-element-table-detail [class]="getRowParity(i)">
-            @if (line.setupBlock) {
-              <app-setup-block-editor
-                (setupTimeChanged)="estimateChangedDebounce()"
-              [line]="line"></app-setup-block-editor>
-            }
-            @if (!line.setupBlock) {
-              <app-normal-run-editor
-                (estimateChanged)="estimateChangedDebounce()"
-                (setupTimeChanged)="estimateChangedDebounce()"
-                (loadAvailabilities)="loadAvailabilities.emit($event)"
-              [line]="line"></app-normal-run-editor>
-            }
-            <!-- (custom data exists for both setup block and normal runs) -->
-            <div class="field custom-data-field">
-              <label for="custom-data-{{i}}">
-                {{ 'marathon.schedule.management.customData.inputText' | translate }}
-              </label>
-              <div class="control">
-                <textarea id="custom-data-{{i}}" class="textarea"
-                  [ngModel]="line.customData"
-                  (blur)="onCustomDataBlur(i, $event)"
-                placeholder='{"layout": "19:9", "other-data": "here"} or whatever else you want'></textarea>
-              </div>
-            </div>
-          </app-element-table-detail>
+          <i
+            class="fa-solid fa-bars is-pulled-right"
+            cdkDragHandle
+            [cdkDragHandleDisabled]="expanded.has(line.position)"
+          ></i>
         </td>
       </tr>
+      @if (showAllCustomData || expanded.has(line.position)) {
+        <tr>
+          <td colspan="10">
+            <app-element-table-detail [class]="getRowParity(i)">
+              @if (line.setupBlock) {
+                <app-setup-block-editor
+                  (setupTimeChanged)="estimateChangedDebounce()"
+                  [line]="line"></app-setup-block-editor>
+              }
+              @if (!line.setupBlock) {
+                <app-normal-run-editor
+                  (estimateChanged)="estimateChangedDebounce()"
+                  (setupTimeChanged)="estimateChangedDebounce()"
+                  (loadAvailabilities)="loadAvailabilities.emit($event)"
+                  [line]="line"></app-normal-run-editor>
+              }
+              <!-- (custom data exists for both setup block and normal runs) -->
+              <div class="field custom-data-field">
+                <label for="custom-data-{{i}}">
+                  {{ 'marathon.schedule.management.customData.inputText' | translate }}
+                </label>
+                <div class="control">
+                <textarea id="custom-data-{{i}}" class="textarea"
+                          [ngModel]="line.customData"
+                          (blur)="onCustomDataBlur(i, $event)"
+                          placeholder='{"layout": "19:9", "other-data": "here"} or whatever else you want'></textarea>
+                </div>
+              </div>
+            </app-element-table-detail>
+          </td>
+        </tr>
+      }
     }
-  }
-</tbody>
+  </tbody>
 </table>

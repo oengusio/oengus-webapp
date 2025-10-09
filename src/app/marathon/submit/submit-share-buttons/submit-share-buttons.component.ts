@@ -1,5 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
-import { faTwitter, faBluesky } from '@fortawesome/free-brands-svg-icons';
+import { Component, inject, Input } from '@angular/core';
 import { MarathonService } from '../../../../services/marathon.service';
 import { environment } from '../../../../environments/environment';
 
@@ -12,8 +11,6 @@ import { environment } from '../../../../environments/environment';
 export class SubmitShareButtonsComponent {
   private marathonService = inject(MarathonService);
 
-  protected faTwitter = faTwitter;
-  protected faBluesky = faBluesky;
   protected localStorage = localStorage;
   protected shortDomain = environment.shortUrl;
 

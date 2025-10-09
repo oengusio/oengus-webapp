@@ -1,6 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { LoginDetails, LoginResponse, LoginResponseStatus } from '../../../model/auth';
 import { AuthService } from '../../../services/auth.service';
@@ -32,10 +30,6 @@ export class LoginComponent {
   loading = false;
   passwordHidden = true;
   mfaNeeded = !!localStorage.getItem('alwaysShowMfa');
-
-  iconUser = faUser;
-  iconDiscord = faDiscord;
-  iconTwitch = faTwitch;
 
   performLogin(): void {
     this.loading = true;
