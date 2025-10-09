@@ -4,7 +4,7 @@
 <ul class="menu-list">
   <li [title]="'marathon.menu.settings' | translate">
     <a [routerLink]="'/marathon/' + marathonId + '/settings' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-      <fa-icon [icon]="iconSettings" class="menu-item-icon"></fa-icon>
+      <i class="menu-item-icon fa-solid fa-cogs"></i>
       <span class="menu-item-label">
         {{ 'marathon.menu.settings' | translate }}
       </span>
@@ -12,7 +12,7 @@
   </li>
   <li [title]="'marathon.menu.selectRuns' | translate">
     <a [routerLink]="'/marathon/' + marathonId + '/selection' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-      <fa-icon [icon]="iconSelectRuns" class="menu-item-icon"></fa-icon>
+      <i class="menu-item-icon fa-solid fa-check-square"></i>
       <span class="menu-item-label">
         {{ 'marathon.menu.selectRuns' | translate }}
       </span>
@@ -20,7 +20,7 @@
   </li>
   <li [title]="'marathon.menu.manageSchedule' | translate">
     <a [routerLink]="'/marathon/' + marathonId + '/schedule-management/overview' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-      <fa-icon [icon]="iconManageSchedule" class="menu-item-icon"></fa-icon>
+      <i class="menu-item-icon fa-solid fa-calendar-check"></i>
       <span class="menu-item-label">
         {{ 'marathon.menu.manageSchedules' | translate }}
       </span>
@@ -29,7 +29,7 @@
   @if (marathon.hasDonations && marathon.hasIncentives) {
     <li [title]="'marathon.menu.manageIncentives' | translate">
       <a [routerLink]="'/marathon/' + marathonId + '/incentives/manage' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-        <fa-icon [icon]="iconManageIncentive" class="menu-item-icon"></fa-icon>
+        <i class="menu-item-icon fa-solid fa-dot-circle"></i>
         <span class="menu-item-label">
           {{ 'marathon.menu.manageIncentives' | translate }}
         </span>

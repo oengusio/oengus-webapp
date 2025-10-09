@@ -6,7 +6,7 @@
   @if (acceptingDonations) {
     <li [title]="'marathon.menu.donate' | translate">
       <a [routerLink]="'/marathon/' + marathonId + '/donate' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-        <fa-icon [icon]="iconDonate" class="menu-item-icon"></fa-icon>
+        <i class="menu-item-icon fa-solid fa-donate"></i>
         <span class="menu-item-label">
           {{ 'marathon.menu.donate' | translate }}
         </span>
@@ -16,7 +16,7 @@
   @if (marathon.hasDonations) {
     <li [title]="'marathon.menu.donations' | translate">
       <a [routerLink]="'/marathon/' + marathonId + '/donations' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-        <fa-icon [icon]="iconMoney" class="menu-item-icon"></fa-icon>
+        <i class="menu-item-icon fa-solid fa-money-bill"></i>
         <span class="menu-item-label">
           {{ 'marathon.menu.donations' | translate }}
         </span>
@@ -26,7 +26,7 @@
   @if (marathon.hasIncentives) {
     <li [title]="'marathon.menu.incentives' | translate">
       <a [routerLink]="'/marathon/' + marathonId + '/incentives' | localize" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}" class="menu-item-link">
-        <fa-icon [icon]="iconIncentives" class="menu-item-icon"></fa-icon>
+        <i class="menu-item-icon fa-solid fa-bullseye"></i>
         <span class="menu-item-label">
           {{ 'marathon.menu.incentives' | translate }}
         </span>
