@@ -267,15 +267,15 @@
               [disabled]="question.fieldType === 'FREETEXT'"></nwb-switch>
             </td>
             <td>
-              <fa-icon [icon]="faBars" cdkDragHandle class="is-pulled-right"></fa-icon>
+              <i class="fa-solid fa-bars is-pulled-right" cdkDragHandle></i>
               @if (question.fieldType ===
                 'SELECT') {
                 <a (click)="addOption.emit({questionType: 'SUBMISSION', i})" class="plsBtn">
-                  <fa-icon [icon]="faPlus"></fa-icon>
+                  <i class="fa-solid fa-plus"></i>
                 </a>
               }
               <a (click)="removeQuestion.emit({questionType: 'SUBMISSION', i})">
-                <fa-icon [icon]="faTimes"></fa-icon>
+                <i class="fa-solid fa-times"></i>
               </a>
             </td>
           </tr>
@@ -304,7 +304,7 @@
                 <td></td>
                 <td>
                   <a (click)="removeOption.emit({questionType: 'SUBMISSION', i, j })">
-                    <fa-icon [icon]="faTimes"></fa-icon>
+                    <i class="fa-solid fa-times"></i>
                   </a>
                 </td>
               </tr>
