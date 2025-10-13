@@ -18,10 +18,10 @@ export class MiscService extends BaseService {
   }
 
   searchPronouns(pronouns: string): Observable<string[]> {
-    return this.http.get<string[]>(this.url(`/pronouns?search=${pronouns}`));
+    return this.http.get<string[]>(this.url(`pronouns?search=${pronouns}`));
   }
 
   searchLanguage(search: string): Observable<Language[]> {
-    return this.http.get<Language[]>(this.url(`/languages?search=${search}&locale=${localStorage.getItem('language')}`));
+    return this.http.get<Language[]>(this.url(`languages?search=${search}&locale=${localStorage.getItem('language')}`));
   }
 }
