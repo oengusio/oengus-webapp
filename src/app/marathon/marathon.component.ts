@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { MarathonService } from '../../services/marathon.service';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { TitleService } from '../../services/title.service';
 
 @Component({
@@ -16,9 +15,6 @@ export class MarathonComponent implements OnInit {
   private titleService = inject(TitleService);
   userService = inject(UserService);
   marathonService = inject(MarathonService);
-
-
-  public faTimes = faTimes;
 
   public collapsed = false;
 

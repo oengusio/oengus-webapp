@@ -5,7 +5,6 @@ import { UserService } from '../../../services/user.service';
 import { cloneDeep } from 'lodash';
 import { DurationService } from '../../../services/duration.service';
 import moment from 'moment';
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Question } from '../../../model/question';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ActivatedRoute } from '@angular/router';
@@ -39,9 +38,6 @@ export class SettingsComponent implements OnInit {
   public deleteConfirm = false;
   public updateStartTime = false;
   public deleteShortname: string;
-
-  public faTimes = faTimes;
-  public faPlus = faPlus;
 
   public submissionsQuestions: Question[];
   public donationsQuestions: Question[];

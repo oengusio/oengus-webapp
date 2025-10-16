@@ -10,7 +10,6 @@ import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import * as Sentry from '@sentry/angular';
 import { TemporalServiceService } from '../services/termporal/temporal-service.service';
 import { LocaleService } from '../services/locale.service';
-import { FaConfig } from '@fortawesome/angular-fontawesome';
 
 @Component({
     selector: 'app-root',
@@ -39,10 +38,6 @@ export class AppComponent implements OnInit {
   public loading = true;
 
   constructor() {
-    const faConfig = inject(FaConfig);
-
-    faConfig.autoAddCss = false;
-
     this.loader.stateObserver.subscribe((loading) => {
       this.loading = loading;
     });

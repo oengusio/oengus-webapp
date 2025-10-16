@@ -9,7 +9,6 @@ import { NwbCommonModule, NwbEditInPlaceModule, NwbPaginatorModule, NwbSwitchMod
 import { DirectivesModule } from '../directives/directives.module';
 import { canActivateMarathonSettingsGuard } from '../guards/can-activate-marathon-settings-guard.service';
 import { MarathonResolver } from '../resolvers/marathon-resolver';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SettingsComponent } from './settings/settings.component';
 import { SubmitComponent } from './submit/submit.component';
 import { SubmissionResolver } from '../resolvers/submission-resolver';
@@ -332,7 +331,6 @@ const marathonRoutes: Routes = [
     OwlNativeDateTimeModule,
     NwbSwitchModule,
     DirectivesModule,
-    FontAwesomeModule,
     NwbCommonModule,
     AutocompleteLibModule,
     OengusCommonModule,

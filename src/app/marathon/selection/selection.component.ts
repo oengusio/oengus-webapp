@@ -1,5 +1,4 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { faCalendarTimes, faCalendarWeek, faFilm } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionService } from '../../../services/selection.service';
 import { MarathonService } from '../../../services/marathon.service';
@@ -30,10 +29,6 @@ export class SelectionComponent implements OnInit {
   public submissions: Submission[] = [];
   public selection: Record<string, Selection>;
   public loading = false;
-
-  public faFilm = faFilm;
-  public faCalendarWeek = faCalendarWeek;
-  public faCalendarTimes = faCalendarTimes;
 
   @ViewChild('timeline', {static: false}) timeline: ElementRef;
   public availabilitiesGroups: vis.DataSetDataGroup;
