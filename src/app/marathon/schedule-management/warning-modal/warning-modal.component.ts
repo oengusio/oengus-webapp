@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-publish-warning-modal',
@@ -8,7 +7,6 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
     standalone: false
 })
 export class WarningModalComponent implements OnInit {
-  readonly faExclamation = faExclamationTriangle;
   buttonLoading = false;
 
   @Output() publishConfirm = new EventEmitter<boolean>();
