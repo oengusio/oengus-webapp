@@ -24,6 +24,9 @@ $input-placeholder-color: #9d8484;
   background-color: $warning !important;
 }
 
+// GOOGLE FONTS REEEEE
+$bulmaswatch-import-font: false;
+
 @import 'bulma/bulma';
 @import 'bulmaswatch/solar/overrides';
 @import '@duncte123/bulma-tagsinput/src/sass/index';
