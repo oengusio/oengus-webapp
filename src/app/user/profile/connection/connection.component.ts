@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { faDiscord, faFacebookF, faInstagram, faMastodon, faSnapchatGhost, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope, faPhone, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { SocialAccount } from '../../../../model/social-account';
 import { SocialPlatform } from '../../../../model/social-platform';
 import { parseMastodonUrl } from '../../../../utils/helpers';
@@ -16,16 +14,16 @@ export class ConnectionComponent {
   @Input() connection: SocialAccount;
 
   public platformMap = {
-    'SPEEDRUNCOM': faTrophy,
-    'MASTODON': faMastodon,
-    'TWITTER': faTwitter,
-    'TWITCH': faTwitch,
-    'FACEBOOK': faFacebookF,
-    'INSTAGRAM': faInstagram,
-    'SNAPCHAT': faSnapchatGhost,
-    'DISCORD': faDiscord,
-    'EMAIL': faEnvelope,
-    'PHONE': faPhone,
+    'SPEEDRUNCOM': 'fa-regular fa-trophy',
+    'MASTODON': 'fa-brands fa-mastodon',
+    'TWITTER': 'fa-brands fa-twitter',
+    'TWITCH': 'fa-brands fa-twitch',
+    'FACEBOOK': 'fa-brands fa-facebook-f',
+    'INSTAGRAM': 'fa-brands fa-instagram',
+    'SNAPCHAT': 'fa-brands fa-snapchat-ghost',
+    'DISCORD': 'fa-brands fa-discord',
+    'EMAIL': 'fa-solid fa-envelope',
+    'PHONE': 'fa-solid fa-phone',
   };
 
   get profileLink(): string {

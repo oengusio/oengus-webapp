@@ -138,7 +138,7 @@
         [class.is-loading]="loading"
         (click)="saveGame()"
         type="button">
-        <fa-icon [icon]="saveIcon"></fa-icon>
+        <i class="fa-solid fa-floppy-disk"></i>
       </button>
 
       <button
@@ -147,11 +147,11 @@
         (click)="cancelEdit()"
         aria-label="Cancel"
         type="button">
-        <fa-icon [icon]="cancelIcon"></fa-icon>
+        <i class="fa-solid fa-cancel"></i>
       </button>
     } @else {
       <button aria-label="Edit" class="button is-info" (click)="editing = true" type="button">
-        <fa-icon [icon]="editIcon"></fa-icon>
+        <i class="fa-solid fa-pencil"></i>
       </button>
     }
   </div>

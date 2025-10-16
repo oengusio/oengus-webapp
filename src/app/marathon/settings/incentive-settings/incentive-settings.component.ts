@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
 import { Question } from '../../../../model/question';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -27,8 +26,4 @@ export class IncentiveSettingsComponent {
   @Output() public removeQuestion = new EventEmitter<{ questionType: 'DONATION', i: number }>();
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() public drop = new EventEmitter<CdkDragDrop<Question[]>>();
-
-  public faTimes = faTimes;
-  public faPlus = faPlus;
-  public faBars = faBars;
 }

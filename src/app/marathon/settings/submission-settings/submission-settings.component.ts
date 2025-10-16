@@ -1,5 +1,4 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MarathonService } from '../../../../services/marathon.service';
 import { MarathonSettings } from '../../../../model/marathon';
 import { Question } from '../../../../model/question';
@@ -27,10 +26,6 @@ export class SubmissionSettingsComponent {
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() public drop = new EventEmitter<CdkDragDrop<Question[]>>();
 
-
-  public faTimes = faTimes;
-  public faPlus = faPlus;
-  public faBars = faBars;
   public botInvite = 'https://discord.com/oauth2/authorize?client_id=559625844197163008&permissions=68608&scope=bot';
 
   public loadingDiscordCheck = false;

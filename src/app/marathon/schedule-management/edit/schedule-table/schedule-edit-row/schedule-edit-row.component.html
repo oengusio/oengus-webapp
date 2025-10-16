@@ -32,14 +32,14 @@
               on: false
            })"
               >
-              <fa-icon [icon]="iconCalendarTimes"></fa-icon>
+              <i class="fa-solid fa-calendar-times"></i>
             </a>
           } @else {
             <a (click)="selectAvailability.emit({
               username: getRunnerUsername(runner),
               on: true
            })">
-              <fa-icon [icon]="iconCalendarWeek"></fa-icon>
+              <i class="fa-solid fa-calendar-week"></i>
             </a>
           }
           {{ getRunnerDisplayName(runner) }}
@@ -73,16 +73,16 @@
   <!-- Setup blocks are custom runs imo, but for legacy reasons they are not -->
   @if (!line.customRun && !line.setupBlock) {
     <a (click)="moveToToDo.emit(i)">
-      <fa-icon [icon]="iconChevronLeft"></fa-icon>
+      <i class="fa-solid fa-chevron-left"></i>
     </a>
   }
   @if (line.customRun || line.setupBlock) {
     <a (click)="delete.emit(i)">
-      <fa-icon [icon]="iconTimes"></fa-icon>
+      <i class="fa-solid fa-times"></i>
     </a>
   }
   <a (click)="toggleExpand.emit(line.position)">
-    <fa-icon [icon]="iconEdit"></fa-icon>
+    <i class="fa-solid fa-edit"></i>
   </a>
   <ng-content select="[oengusDragDandlePosition]"></ng-content>
 </app-element-table-cell>

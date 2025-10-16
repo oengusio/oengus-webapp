@@ -1,6 +1,4 @@
-import { Component, HostBinding, Input, inject } from '@angular/core';
-import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { Component, HostBinding, inject, Input } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -16,10 +14,6 @@ export class WidgetSigninPickerComponent {
   @Input() isRight = false;
 
   @HostBinding('class.navbar-item') get navbar() { return this.type === 'NAVBAR'; }
-
-  iconDiscord = faDiscord;
-  iconTwitch = faTwitch;
-  iconLoginNew = faRightToBracket;
 
   get dropdownItemClass(): string {
     return /^navbar$/i.test(this.type) ? 'navbar-item' : 'dropdown-item';
