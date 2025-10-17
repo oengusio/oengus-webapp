@@ -62,7 +62,7 @@ export class ProfileComponent {
 
   updateUser(user: UserProfile): void {
     this.user = user;
-    this.historyComp.resetTabs();
+    this.historyComp?.resetTabs();
   }
 
   get isAdmin(): boolean {
