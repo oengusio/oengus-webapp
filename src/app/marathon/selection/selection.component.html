@@ -107,13 +107,13 @@
                             @if (!availabilitiesSelected.includes(submission.user.username)) {
                               <a (click)="getAvailabilitiesForRunner(submission.user.id)" class="availLink"
                                 >
-                                <i class="fa-solid fa-calendar-week"></i>
+                                <fa-icon [icon]="faCalendarWeek"></fa-icon>
                               </a>
                             }
                             @if (availabilitiesSelected.includes(submission.user.username)) {
                               <a (click)="removeAvailabilitiesForRunner(submission.user.username)" class="availLink"
                                 >
-                                <i class="fa-solid fa-calendar-times"></i>
+                                <fa-icon [icon]="faCalendarTimes"></fa-icon>
                               </a>
                             }
                             <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
@@ -133,7 +133,7 @@
                     }
                     <td>{{category.name}} <a [href]="category.video" target="_blank" aria-label="Video">
                       <span class="icon">
-                        <i class="fa-solid fa-film"></i>
+                        <fa-icon [icon]="faFilm"></fa-icon>
                       </span>
                     </a>
                   </td>
@@ -147,19 +147,19 @@
                               @if (!availabilitiesSelected.includes(opponent.user.username)) {
                                 <a (click)="getAvailabilitiesForRunner(opponent.user.id)" class="availLink"
                                   >
-                                  <i class="fa-solid fa-calendar-week"></i>
+                                  <fa-icon [icon]="faCalendarWeek"></fa-icon>
                                 </a>
                               }
                               @if (availabilitiesSelected.includes(opponent.user.username)) {
                                 <a (click)="removeAvailabilitiesForRunner(opponent.user.username)" class="availLink"
                                   >
-                                  <i class="fa-solid fa-calendar-times"></i>
+                                  <fa-icon [icon]="faCalendarTimes"></fa-icon>
                                 </a>
                               }
                               <app-user [user]="opponent.user" [showSocialLinks]="true"></app-user>
                               <a [href]="opponent.video" target="_blank" aria-label="Video">
                                 <span class="icon">
-                                  <i class="fa-solid fa-film"></i>
+                                  <fa-icon [icon]="faFilm"></fa-icon>
                                 </span>
                               </a>
                             </div>

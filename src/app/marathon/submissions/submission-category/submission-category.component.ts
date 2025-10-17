@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Category } from '../../../../model/category';
-import { Marathon } from '../../../../model/marathon';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Category} from '../../../../model/category';
+import {Marathon} from '../../../../model/marathon';
+import { faFilm, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-submission-category',
@@ -17,6 +18,8 @@ export class SubmissionCategoryComponent implements OnInit, OnDestroy {
 
   @Output() public triggerDelete = new EventEmitter<void>();
 
+  public faFilm = faFilm;
+  public faTimes = faTimes;
   public status: string;
 
   private statusMap = {

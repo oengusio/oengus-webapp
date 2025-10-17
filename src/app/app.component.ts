@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DateTimeAdapter } from '@danielmoncada/angular-datetime-picker';
 import { environment } from '../environments/environment';
 import { Location } from '@angular/common';
 import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
@@ -10,6 +11,7 @@ import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import * as Sentry from '@sentry/angular';
 import { TemporalServiceService } from '../services/termporal/temporal-service.service';
 import { LocaleService } from '../services/locale.service';
+import { FaConfig } from '@fortawesome/angular-fontawesome';
 
 @Component({
     selector: 'app-root',
@@ -21,6 +23,7 @@ export class AppComponent implements OnInit {
   userService = inject(UserService);
   private translate = inject(TranslateService);
   private toastr = inject(NwbAlertService);
+  private dateTimeAdapter = inject<DateTimeAdapter<unknown>>(DateTimeAdapter);
   private router = inject(Router);
   private location = inject(Location);
   private titleService = inject(TitleService);
@@ -38,6 +41,10 @@ export class AppComponent implements OnInit {
   public loading = true;
 
   constructor() {
+    const faConfig = inject(FaConfig);
+
+    faConfig.autoAddCss = false;
+
     this.loader.stateObserver.subscribe((loading) => {
       this.loading = loading;
     });

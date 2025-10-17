@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { passwordResetErrorToMessage } from '../../../utils/authHelpers';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
@@ -12,6 +13,8 @@ import { AuthService } from '../../../services/auth.service';
 export class ForgotPasswordComponent {
   readonly title = 'Forgot your password';
   private authService = inject(AuthService);
+
+  iconUser = faEnvelope;
 
   errorTranslationKey: string | null = null;
   notificationClass = 'is-danger';

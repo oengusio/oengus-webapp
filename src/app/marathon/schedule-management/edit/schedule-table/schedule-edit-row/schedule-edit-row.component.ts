@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { faBars, faCalendarTimes, faCalendarWeek, faChevronLeft, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { getRowParity } from '../../../../../../assets/table';
 import { LineRunner, V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { AvailabilityResponse } from '../../../../../../model/availability';
@@ -27,7 +28,13 @@ export class ScheduleEditRowComponent {
 
   getRunnerUsername = getRunnerUsername;
   getRunnerDisplayName = getRunnerDisplayName;
+  iconBars = faBars;
+  iconTimes = faTimes;
   getRowParity = getRowParity;
+  iconEdit = faEdit;
+  iconChevronLeft = faChevronLeft;
+  iconCalendarWeek = faCalendarWeek;
+  iconCalendarTimes = faCalendarTimes;
 
   matchesAvailabilities() {
     return this.line.runners.every(runner => {

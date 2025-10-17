@@ -194,16 +194,16 @@
               [disabled]="question.fieldType === 'FREETEXT'"></nwb-switch>
             </td>
             <td>
-              <i class="fa-solid fa-bars is-pulled-right" cdkDragHandle></i>
+              <fa-icon [icon]="faBars" cdkDragHandle class="is-pulled-right"></fa-icon>
               @if (question.fieldType === 'SELECT') {
                 <a (click)="addOption.emit({questionType: 'DONATION', i})"
                   class="plusBtn"
                   >
-                  <i class="fa-solid fa-plus"></i>
+                  <fa-icon [icon]="faPlus"></fa-icon>
                 </a>
               }
               <a (click)="removeQuestion.emit({questionType: 'DONATION', i})">
-                <i class="fa-solid fa-items"></i>
+                <fa-icon [icon]="faTimes"></fa-icon>
               </a>
             </td>
           </tr>
@@ -232,7 +232,7 @@
                 <td></td>
                 <td>
                   <a (click)="removeOption.emit({questionType: 'DONATION', i, j })">
-                    <i class="fa-solid fa-items"></i>
+                    <fa-icon [icon]="faTimes"></fa-icon>
                   </a>
                 </td>
               </tr>

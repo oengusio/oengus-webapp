@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { DurationService } from '../../../../../../services/duration.service';
 import moment from 'moment-timezone';
@@ -6,6 +6,7 @@ import { UserProfile } from '../../../../../../model/user-profile';
 import { MAX_NAME_LENGTH } from '../../../../../../model/user';
 import DOMPurify from 'dompurify';
 import { UserService } from '../../../../../../services/user.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AutocompleteComponent } from 'angular-ng-autocomplete';
 
 type UserSearchType = { username: string; profile: null; isCustom: true} |  { username: string; profile: UserProfile; isCustom: false};
@@ -19,6 +20,7 @@ type UserSearchType = { username: string; profile: null; isCustom: true} |  { us
 export class NormalRunEditorComponent implements OnInit {
   private userService = inject(UserService);
 
+  iconTimes = faTimes;
   userSearch: Record<string, UserSearchType[]> = {};
 
   @Input() line: V2ScheduleLine;

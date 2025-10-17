@@ -33,7 +33,7 @@
               required
               />
             <span class="icon is-small is-left">
-              <i class="fa-solid fa-user"></i>
+              <fa-icon [icon]="iconUser"></fa-icon>
             </span>
           </div>
           @if (errors.displayName) {
@@ -77,7 +77,7 @@
               required
               />
             <span class="icon is-small is-left">
-              <i class="fa-solid fa-user"></i>
+              <fa-icon [icon]="iconUser"></fa-icon>
             </span>
           </div>
           @if (errors.username) {
@@ -131,7 +131,7 @@
               />
             <p class="help" [innerHTML]="'user.settings.email.help' | translate"></p>
             <span class="icon is-small is-left">
-              <i class="fa-solid fa-envelope"></i>
+              <fa-icon [icon]="iconEmail"></fa-icon>
             </span>
           </div>
           @if (errors.email) {
@@ -165,7 +165,7 @@
               #pwField="ngModel"
               />
             <span class="icon is-small is-left">
-              <i class="fa-solid fa-lock"></i>
+              <fa-icon [icon]="iconPadlock"></fa-icon>
             </span>
           </div>
           <div class="control">
@@ -173,9 +173,9 @@
               [title]="(passwordHidden ? 'login.password.show' : 'login.password.hide') | translate">
               <span class="icon cursor-pointer">
                 @if (passwordHidden) {
-                  <i class="fa-solid fa-eye"></i>
+                  <fa-icon [icon]="iconEye"></fa-icon>
                 } @else {
-                  <i class="fa-solid fa-eye-slash"></i>
+                  <fa-icon [icon]="iconEyeSlash"></fa-icon>
                 }
               </span>
             </button>
@@ -201,7 +201,6 @@
         <app-element-languages [(languages)]="data.languagesSpoken"></app-element-languages>
         <!-- connections -->
         <app-element-connections class="field" [(connections)]="data.connections"></app-element-connections>
-
         <div class="field">
           <div class="control">
             <button class="button is-link"

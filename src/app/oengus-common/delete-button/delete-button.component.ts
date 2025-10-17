@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-delete-button',
@@ -7,6 +8,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   standalone: false,
 })
 export class DeleteButtonComponent {
+
+  public faTimes = faTimes;
+  public faCheck = faCheck;
+
   public showConfirm = false;
 
   @Output() public confirmHandler = new EventEmitter<void>();

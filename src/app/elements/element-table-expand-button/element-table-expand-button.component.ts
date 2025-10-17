@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-element-table-expand-button',
@@ -10,7 +11,7 @@ export class ElementTableExpandButtonComponent {
   @Input() expanded: boolean;
 
   get icon() {
-    return this.expanded ? 'fa-caret-down' : 'fa-caret-right';
+    return this.expanded ? faCaretDown : faCaretRight;
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { Marathon } from '../../../../model/marathon';
+import { faBullseye, faDonate, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-sidebar-tracker',
@@ -10,6 +11,10 @@ import { Marathon } from '../../../../model/marathon';
 export class SidebarTrackerComponent {
   @Input() marathon: Marathon;
   @HostBinding('class.collapsed') @Input() collapsed = false;
+
+  iconDonate = faDonate;
+  iconMoney = faMoneyBill;
+  iconIncentives = faBullseye;
 
   get marathonId() {
     return this.marathon.id;

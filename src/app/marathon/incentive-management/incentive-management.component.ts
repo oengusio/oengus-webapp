@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Incentive } from '../../../model/incentive';
 import { Schedule } from '../../../model/schedule';
 import { MarathonService } from '../../../services/marathon.service';
+import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Bid } from '../../../model/bid';
 import { ScheduleLine } from '../../../model/schedule-line';
 
@@ -20,6 +21,9 @@ export class IncentiveManagementComponent {
 
   public incentives: Incentive[];
   public schedule: Schedule;
+  public faPlus = faPlus;
+  public faTimes = faTimes;
+  public faCheck = faCheck;
 
   public loading = false;
   readonly title = 'Mange Incentives';

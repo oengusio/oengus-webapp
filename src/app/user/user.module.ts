@@ -9,6 +9,7 @@ import { UserResolver } from '../resolvers/user-resolver';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProfileComponent } from './profile/profile.component';
 import { UserProfileResolver } from '../resolvers/user-profile-resolver';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConnectionComponent } from './profile/connection/connection.component';
 import { SyncButtonComponent } from './settings/sync-button/sync-button.component';
 import { UserProfileComponent } from './profile/user-profile/user-profile.component';
@@ -92,6 +93,7 @@ const userRoutes: Routes = [
     LocalizeRouterModule.forChild(userRoutes),
     FormsModule,
     DirectivesModule,
+    FontAwesomeModule,
     ElementModule,
     MarkdownPipe,
     NwbSwitchModule,

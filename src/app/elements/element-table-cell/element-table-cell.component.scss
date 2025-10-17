@@ -24,7 +24,7 @@
     grid-row-start: auto;
     grid-row-end: auto;
 
-    > i.fa-solid {
+    > fa-icon ::ng-deep > svg {
       width: 10px;
       max-width: 10px;
     }

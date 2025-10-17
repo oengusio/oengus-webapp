@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { User } from '../../../model/user';
+import { faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { SocialAccount } from '../../../model/social-account';
 import { SocialPlatform } from '../../../model/social-platform';
 
@@ -19,12 +21,12 @@ export class UserComponent {
   @Input() showSocialLinks = false;
   @Input() showProfileLink = true;
 
-  private readonly acceptedTypes = ['BLUESKY', 'TWITCH', 'SPEEDRUNCOM'];
+  private readonly acceptedTypes = ['TWITTER', 'TWITCH', 'SPEEDRUNCOM'];
   public platforms = SocialPlatform;
   public iconMapping = {
-    'TWITCH': 'fa-brands fa-twitch',
-    'BLUESKY': 'fa-brands fa-bluesky',
-    'SPEEDRUNCOM': 'fa-solid fa-trophy',
+    'TWITCH': faTwitch,
+    'TWITTER': faTwitter,
+    'SPEEDRUNCOM': faTrophy,
   };
 
   public localStorage = localStorage;

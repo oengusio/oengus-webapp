@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { faMastodon } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
     selector: 'app-element-share-mastodon',
@@ -11,6 +12,8 @@ export class ElementShareMastodonComponent {
   @Input() text: string;
 
   shareUrl = 'mastodon.social';
+
+  faMastodon = faMastodon;
 
   getInstance(): string {
     return window.prompt(

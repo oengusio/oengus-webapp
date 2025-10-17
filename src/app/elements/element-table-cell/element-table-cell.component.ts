@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostBinding, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-element-table-cell',
@@ -28,7 +29,7 @@ export class ElementTableCellComponent implements OnChanges {
   @Input() isExpandButton = false;
   @Input() expanded: boolean;
   get icon() {
-    return this.expanded ? 'fa-caret-down' : 'fa-caret-right';
+    return this.expanded ? faCaretDown : faCaretRight;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

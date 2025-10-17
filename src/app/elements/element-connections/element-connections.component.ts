@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SocialAccount } from '../../../model/social-account';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-element-connections',
@@ -8,6 +9,8 @@ import { SocialAccount } from '../../../model/social-account';
     standalone: false
 })
 export class ElementConnectionsComponent {
+  faPlus = faPlus;
+
   @Input() discordId = '';
   @Input() twitchId = '';
 

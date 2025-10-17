@@ -3,6 +3,7 @@ import { SavedGame } from '../../../../model/user-profile-history';
 import gameConsoles from '../../../../assets/consoles.json';
 import { SavedGamesService } from '../../../../services/saved-games.service';
 import { firstValueFrom } from 'rxjs';
+import { faFloppyDisk, faPencil, faCancel } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-game-editor',
@@ -14,6 +15,10 @@ export class GameEditorComponent implements OnInit {
   private savedGameService = inject(SavedGamesService);
 
   protected readonly possibleConsoles = gameConsoles;
+
+  protected readonly editIcon = faPencil;
+  protected readonly saveIcon = faFloppyDisk;
+  protected readonly cancelIcon = faCancel;
 
   @Input('game') inputGame: SavedGame;
   @Input('index') i = 0;

@@ -44,9 +44,10 @@
       <p class="heading">{{'marathon.submit.racesAllowed' | translate}}</p>
       <p class="title">
         @if (hasMultiplayer) {
-          <i class="fa-solid fa-check"></i>
+          <fa-icon [icon]="faCheck"
+          ></fa-icon>
         } @else {
-          <i class="fa-solid fa-times"></i>
+          <fa-icon [icon]="faTimes"></fa-icon>
         }
       </p>
     </div>

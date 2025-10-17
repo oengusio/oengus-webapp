@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { faAngleDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { environment } from '../../../environments/environment';
 
@@ -11,6 +12,8 @@ import { environment } from '../../../environments/environment';
 export class WelcomeComponent {
   userService = inject(UserService);
 
+  faCheck = faCheck;
+  faAngleDown = faAngleDown;
   isFoldOpen = false;
   sandbox = environment.sandbox;
   plannedFeatures = [
