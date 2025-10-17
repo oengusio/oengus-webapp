@@ -1,4 +1,6 @@
-export const speedrunsMeIcon = {
+import { IconDefinition } from '@fortawesome/angular-fontawesome';
+
+export const speedrunsMeIcon: IconDefinition = {
   prefix: 'fac',
   iconName: 'speedrunsme',
   icon: [

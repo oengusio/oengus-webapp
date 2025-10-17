@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserComponent } from './user/user.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MonetaryAmountComponent } from './monetary-amount/monetary-amount.component';
 import { RouterModule } from '@angular/router';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
@@ -16,6 +17,7 @@ import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
   ],
   imports: [
     CommonModule,
+    FontAwesomeModule,
     RouterModule,
     NwbCommonModule,
     LocalizeRouterModule,

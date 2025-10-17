@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NwbCommonModule } from '@oengus/ng-wizi-bulma';
 import { ElementTableComponent } from './element-table/element-table.component';
 import { ElementTableCellComponent } from './element-table-cell/element-table-cell.component';
@@ -84,6 +85,7 @@ import { ElementI18nComponent } from './element-i18n/element-i18n.component';
   ],
   imports: [
     CommonModule,
+    FontAwesomeModule,
     NwbCommonModule,
     TranslateModule,
     RouterModule,

@@ -4,7 +4,7 @@
     @if (synced) {
       <span>{{ username }}</span>
       <button type="button" class="button is-info" (click)="sync.emit()">
-        <i class="fa-solid fa-sync-alt"></i>
+        <fa-icon [icon]="faSyncAlt"></fa-icon>
       </button>
       <button type="button" class="button is-warning" (click)="unsync.emit()">
         {{'user.settings.accountSync.unsync' | translate}}

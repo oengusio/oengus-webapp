@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NwbAlertModule, NwbCommonModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { MarathonModule } from './marathon/marathon.module';
 import { DirectivesModule } from './directives/directives.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomepageComponent } from './homepage/homepage.component';
 import { HomepageMetadataResolver } from './resolvers/next-marathons-resolver';
 import { UserModule } from './user/user.module';
@@ -203,6 +204,7 @@ const appRoutes: Routes = [
     MarathonModule,
     UserModule,
     DirectivesModule,
+    FontAwesomeModule,
     OengusCommonModule,
     NwbCommonModule,
     ButtonsModule,

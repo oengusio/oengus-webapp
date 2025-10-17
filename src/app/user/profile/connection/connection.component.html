@@ -2,7 +2,7 @@
   <p class="heading">{{ connection.platform }}</p>
   <p class="title">
     <a [href]="profileLink" target="_blank">
-      <i [class]="platformMap[connection.platform]"></i>
+      <fa-icon [icon]="platformMap[connection.platform]"></fa-icon>
     </a>
   </p>
   <p>{{ connection.username }}</p>

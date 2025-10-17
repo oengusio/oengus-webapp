@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-element-dropdown',
@@ -7,6 +8,8 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
     standalone: false
 })
 export class ElementDropdownComponent implements OnInit {
+  faAngleDown = faAngleDown;
+
   @HostBinding('class.is-active') get active() { return this.isActive; }
   @HostBinding('class.dropdown') get dropdown() { return !this.isNavbar; }
   @HostBinding('class.navbar-item') get navbar() { return this.isNavbar; }

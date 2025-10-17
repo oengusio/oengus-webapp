@@ -1,9 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SavedGame } from '../../../model/user-profile-history';
 import { UserService } from '../../../services/user.service';
 import { SelfUser } from '../../../model/user';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { SavedGamesService } from '../../../services/saved-games.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class SavedGamesSettingsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private savedGameService = inject(SavedGamesService);
 
+  protected readonly faPlus = faPlus;
   protected readonly user: SelfUser;
   protected readonly maxCategories = 20;
 

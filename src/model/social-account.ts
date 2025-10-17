@@ -1,5 +1,19 @@
+import { faEnvelope, faPhone, faStar, faTrophy, faTv } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/angular-fontawesome';
 import { SocialPlatform, SocialPlatformName } from './social-platform';
+import {
+  faBluesky,
+  faDiscord,
+  faFacebookF,
+  faInstagram,
+  faMastodon,
+  faSnapchatGhost,
+  faTwitch,
+  faTwitter,
+  faYoutube,
+} from '@fortawesome/free-brands-svg-icons';
 import { parseMastodonUrl } from '../utils/helpers';
+import { speedrunsMeIcon } from '../assets/icons/speedrunsme';
 
 export type ConnectionPlatform = SocialPlatformName | 'PHONE';
 
@@ -12,7 +26,7 @@ export class SocialAccount {
 export interface ConnectionMeta {
   linkBase?: (fragment: string) => string;
   usernameFormatter?: (username: string) => string;
-  icon: string;
+  icon: IconDefinition;
   header?: string;
   link?: string;
   maxLength?: number;
@@ -26,77 +40,77 @@ const simpleUsernameRegex = '^[\\w\\-0-9]+$';
 export const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
   BLUESKY: {
     linkBase: (fragment) => `${SocialPlatform.BLUESKY}${stripAtPrefix(fragment)}`,
-    icon: 'fa-brands fa-bluesky',
+    icon: faBluesky,
     header: 'platform.BLUESKY',
     regex: '^(@([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$',
   },
   DISCORD: {
-    icon: 'fa-brands fa-discord',
+    icon: faDiscord,
     header: 'platform.DISCORD',
     regex: simpleUsernameRegex,
     maxLength: 30,
   },
   EMAIL: {
     linkBase: fragment => `mailto:${fragment}`,
-    icon: 'fa-solid fa-envelope',
+    icon: faEnvelope,
     header: 'platform.EMAIL',
   },
   FACEBOOK: {
     linkBase: fragment => `https://www.facebook.com/${fragment}`,
-    icon: 'fa-brands fa-facebook',
+    icon: faFacebookF,
     header: 'platform.FACEBOOK',
     regex: simpleUsernameRegex,
     maxLength: 32,
   },
   INSTAGRAM: {
     linkBase: fragment => `https://www.instagram.com/${fragment}`,
-    icon: 'fa-brands fa-instagram',
+    icon: faInstagram,
     header: 'platform.INSTAGRAM',
     regex: simpleUsernameRegex,
     maxLength: 32,
   },
   PHONE: {
     linkBase: fragment => `tel:${fragment}`,
-    icon: 'fa-solid fa-phone',
+    icon: faPhone,
     header: 'platform.PHONE',
     regex: /[0-9+]+/,
   },
   NICO: {
     linkBase: fragment => `https://com.nicovideo.jp/community/${fragment}`,
-    icon: 'fa-solid fa-tv',
+    icon: faTv,
     header: 'platform.NICO',
   },
   MASTODON: {
     linkBase: (fragment) => parseMastodonUrl(fragment),
-    icon: 'fa-brands fa-mastodon',
+    icon: faMastodon,
     header: 'platform.MASTODON',
   },
   SNAPCHAT: {
     linkBase: fragment => `https://www.snapchat.com/add/${fragment}`,
-    icon: 'fa-brands fa-snapchat',
+    icon: faSnapchatGhost,
     header: 'platform.SNAPCHAT',
     regex: simpleUsernameRegex,
   },
   SPEEDRUNCOM: {
     linkBase: fragment => `https://speedrun.com/user/${fragment}`,
-    icon: 'fa-solid fa-trophy',
+    icon: faTrophy,
     header: 'platform.SPEEDRUNCOM',
   },
   SPEEDRUNSME: {
     linkBase: fragment => `https://speedruns.me/${fragment}`,
-    icon: 'ong-speedrunsme',
+    icon: speedrunsMeIcon,
     header: 'platform.SPEEDRUNSME',
   },
   TWITCH: {
     linkBase: fragment => `https://www.twitch.tv/${fragment}`,
-    icon: 'fa-brands fa-twitch',
+    icon: faTwitch,
     header: 'platform.TWITCH',
     regex: simpleUsernameRegex,
     maxLength: 32,
   },
   TWITTER: {
     linkBase: fragment => `https://www.twitter.com/${fragment}`,
-    icon: 'fa-brands fa-twitter',
+    icon: faTwitter,
     header: 'platform.TWITTER',
     regex: simpleUsernameRegex,
     maxLength: 32,
@@ -104,13 +118,13 @@ export const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
   YOUTUBE: {
     linkBase: fragment => `https://www.youtube.com/@${fragment}`,
     usernameFormatter: username => `@${username}`,
-    icon: 'fa-brands fa-youtube',
+    icon: faYoutube,
     header: 'platform.YOUTUBE',
     regex: simpleUsernameRegex,
   },
 
   _DEFAULT: {
-    icon: 'fa-solid fa-star',
+    icon: faStar,
   },
 };
 

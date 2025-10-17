@@ -18,7 +18,7 @@
     (click)="addGame()"
     [disabled]="!isSupporter"
   >
-    <i class="fa-solid fa-plus"></i>
+    <fa-icon [icon]="faPlus"></fa-icon>
   </button>
   <div class="is-clearfix"></div>
 
@@ -43,7 +43,7 @@
                   class="button is-small is-primary"
                   (click)="addCategory(i)"
                   [disabled]="game.categories.length >= maxCategories">
-            <i class="fa-solid fa-plus"></i>
+            <fa-icon [icon]="faPlus"></fa-icon>
           </button>
         </p>
 

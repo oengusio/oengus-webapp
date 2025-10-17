@@ -3,21 +3,21 @@
     <a class="is-tooltip-danger" (click)="confirm()"
       [nwbToolTip]="baseText"
       nwbToolTipPosition="left"
-      [nwbToolTipIsMultiline]="true">
-      <i class="fa-solid fa-times"></i>
+      nwbToolTipIsMultiline="true">
+      <fa-icon [icon]="faTimes"></fa-icon>
     </a>
   }
   @if (showConfirm) {
     <a class="is-tooltip-danger" (click)="confirmHandler.next()"
       nwbToolTipPosition="left"
       [nwbToolTip]="confirmText">
-      <i class="fa-solid fa-check"></i>
+      <fa-icon [icon]="faCheck"></fa-icon>
     </a>
 
     <a class="is-tooltip-danger" (click)="cancel()"
        nwbToolTipPosition="left"
        [nwbToolTip]="cancelText">
-      <i class="fa-solid fa-times"></i>
+      <fa-icon [icon]="faTimes"></fa-icon>
     </a>
   }
 </div>

@@ -150,11 +150,11 @@
                 <td>
                   @if (incentive.bidWar) {
                     <a (click)="addBid(i)" class="mr-1">
-                      <i class="fa-solid fa-plus"></i>
+                      <fa-icon [icon]="faPlus"></fa-icon>
                     </a>
                   }
                   <a (click)="incentive.toDelete = true">
-                    <i class="fa-solid fa-times"></i>
+                    <fa-icon [icon]="faTimes"></fa-icon>
                   </a>
                 </td>
               </tr>
@@ -217,11 +217,11 @@
                         <a (click)="bid.approved = true" class="mr-1"
                           [nwbToolTip]="'marathon.incentives.management.approveBid' | translate" [nwbToolTipIsMultiline]="true"
                           nwbToolTipPosition="left">
-                          <i class="fa-solid fa-check"></i>
+                          <fa-icon [icon]="faCheck"></fa-icon>
                         </a>
                       }
                       <a (click)="removeBid(i,j)">
-                        <i class="fa-solid fa-times"></i>
+                        <fa-icon [icon]="faTimes"></fa-icon>
                       </a>
                     </td>
                   </tr>

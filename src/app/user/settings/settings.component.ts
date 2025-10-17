@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { SelfUser } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SocialAccount } from '../../../model/social-account';
@@ -46,6 +47,8 @@ export class SettingsComponent {
   private router = inject(Router);
   private translateService = inject(TranslateService);
   private notificationService = inject(NotificationService);
+
+  public faPlus = faPlus;
 
   public user: SelfUser;
   public loading = false;

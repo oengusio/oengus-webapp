@@ -3,6 +3,7 @@ import { LineRunner, V2ScheduleLine } from '../../../../../model/schedule-line';
 import { AvailabilityResponse } from '../../../../../model/availability';
 import { getRowParity, toggleTableExpand } from '../../../../../assets/table';
 import moment from 'moment-timezone';
+import { faBars, faCalendarTimes, faCalendarWeek, faChevronLeft, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { debounce } from 'lodash';
 import { getRunnerDisplayName, getRunnerUsername } from '../../../../../utils/helpers';
@@ -34,6 +35,13 @@ export class ScheduleTableOldElementComponent {
 
   expanded = new Set<number>();
   estimateChangedDebounce = debounce(this.estimateChanged, 500);
+
+  iconBars = faBars;
+  iconTimes = faTimes;
+  iconEdit = faEdit;
+  iconChevronLeft = faChevronLeft;
+  iconCalendarWeek = faCalendarWeek;
+  iconCalendarTimes = faCalendarTimes;
 
   public toggleExpand(linePosition: number, openOnly = false): void {
     toggleTableExpand(this.expanded, linePosition, openOnly);

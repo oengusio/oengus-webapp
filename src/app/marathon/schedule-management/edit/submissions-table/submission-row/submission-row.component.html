@@ -8,14 +8,14 @@
           on: false
        })"
             >
-            <i class="fa-solid fa-calendar-times"></i>
+            <fa-icon [icon]="iconCalendarTimes"></fa-icon>
           </a>
         } @else {
         <a (click)="selectAvailability.emit({
           username: getRunnerUsername(runner),
           on: true
        })">
-          <i class="fa-solid fa-calendar-week"></i>
+            <fa-icon [icon]="iconCalendarWeek"></fa-icon>
           </a>
         }
         {{ getRunnerDisplayName(runner) }}
@@ -32,7 +32,7 @@
   </app-element-table-cell>
   <app-element-table-cell>
     <a (click)="moveToSchedule.emit(i)">
-      <i class="fa-solid fa-chevron-right"></i>
+      <fa-icon [icon]="iconChevronRight"></fa-icon>
     </a>
   </app-element-table-cell>
 </app-element-table-row>

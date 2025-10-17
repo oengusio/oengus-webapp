@@ -4,16 +4,22 @@
   </span>
   <div options>
     <a [href]="authService.getDiscordAuthUri()" (click)="storeCurrentPage()" [class]="dropdownItemClass">
-      <i class="fa-brands fa-discord"></i>
+      <fa-icon [icon]="iconDiscord"></fa-icon>
       <span>
         {{ 'navbar.login.discord' | translate }}
       </span>
     </a>
     <a [href]="authService.getTwitchAuthUrl()" (click)="storeCurrentPage()" [class]="dropdownItemClass">
-      <i class="fa-brands fa-twitch"></i>
+      <fa-icon [icon]="iconTwitch"></fa-icon>
       <span>
         {{ 'navbar.login.twitch' | translate }}
       </span>
     </a>
+    <!--<a href="" [class]="dropdownItemClass">
+      <fa-icon [icon]="iconLoginNew"></fa-icon>
+      <span>
+        {{ 'navbar.login.password' | translate }}
+      </span>
+    </a>-->
   </div>
 </app-element-dropdown>

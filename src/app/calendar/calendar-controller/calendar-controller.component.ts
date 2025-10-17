@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 interface CalendarLinkInfo {
   year: number;
@@ -17,6 +18,9 @@ export class CalendarControllerComponent {
 
   @Input() calendarView: boolean;
   @Output() calendarViewChange = new EventEmitter<boolean>();
+
+  iconLeft = faCaretLeft;
+  iconRight = faCaretRight;
 
   changeCalendarView(newVal: boolean): void {
     this.calendarViewChange.emit(newVal);

@@ -1,4 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { faDiscord, faGithub, faMastodon, faPatreon, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faBug, faLanguage } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../../services/user.service';
 
 @Component({
@@ -10,7 +12,16 @@ import { UserService } from '../../../../services/user.service';
 export class HeaderBarNavComponent {
   userService = inject(UserService);
 
+
   isNavbarActive = false;
+
+  iconDiscord = faDiscord;
+  iconMastodon = faMastodon;
+  iconTwitter = faTwitter;
+  iconGithub = faGithub;
+  iconBug = faBug;
+  iconLanguage = faLanguage;
+  iconPatreon = faPatreon;
 
   get isActiveClass() {
     return {

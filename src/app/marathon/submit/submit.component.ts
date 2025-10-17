@@ -3,6 +3,7 @@ import { SubmissionService } from '../../../services/submission.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Submission } from '../../../model/submission';
 import { MarathonService } from '../../../services/marathon.service';
+import { faCheck, faClone, faPlus, faTimes, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { Game } from '../../../model/game';
 import { Category } from '../../../model/category';
 import moment from 'moment-timezone';
@@ -84,6 +85,11 @@ export class SubmitComponent {
   private router = inject(Router);
 
   protected submission: Submission;
+  protected faCheck = faCheck;
+  protected faTimes = faTimes;
+  protected faPlus = faPlus;
+  protected faImport = faCloudArrowUp;
+  protected faClone = faClone;
   protected moment = moment;
   protected timezone = moment.tz.guess();
   protected loading = false;

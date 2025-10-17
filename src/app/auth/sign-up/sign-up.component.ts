@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { SignupDto } from '../../../model/dto/signup-dto';
+import { faEnvelope, faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../services/auth.service';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,6 +17,12 @@ export class SignUpComponent {
   private authService = inject(AuthService);
   private toastr = inject(NwbAlertService);
   private translateService = inject(TranslateService);
+
+  iconUser = faUser;
+  iconEmail = faEnvelope;
+  iconPadlock = faLock;
+  iconEye = faEye;
+  iconEyeSlash = faEyeSlash;
 
   showNextStep = false;
 
