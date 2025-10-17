@@ -36,7 +36,7 @@
     "@fullcalendar/daygrid": "^6.1.19",
     "@gilsdav/ngx-translate-router": "^7.2.1",
     "@ngx-translate/core": "^16.0.4",
-    "@ngx-translate/http-loader": "^16.0.1",
+    "@ngx-translate/http-loader": "^17.0.0",
     "@oengus/ng-wizi-bulma": "^20.0.0",
     "@sentry/angular": "^10.8.0",
     "angular-ng-autocomplete": "2.0.12",
