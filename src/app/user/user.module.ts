@@ -20,7 +20,7 @@ import { ProfileHistoryComponent } from './profile/profile-history/profile-histo
 import { SubmissionComponent } from './profile/profile-history/submission/submission.component';
 import { ModeratedComponent } from './profile/profile-history/moderated/moderated.component';
 import { AdminControlsComponent } from './profile/admin-controls/admin-controls.component';
-import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { MfaModalComponent } from './settings/mfa-modal/mfa-modal.component';
 import { ManagementDialogComponent } from './management-dialog/management-dialog.component';
 import { SavedGamesComponent } from './profile/profile-history/saved-games/saved-games.component';

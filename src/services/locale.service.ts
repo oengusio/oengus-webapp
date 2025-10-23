@@ -25,7 +25,7 @@ import localeFi from '@angular/common/locales/fi';
 import localeCa from '@angular/common/locales/ca';
 import localeRu from '@angular/common/locales/ru';
 import isoLang from '../assets/languages.json';
-import { LocalizeRouterService } from '@gilsdav/ngx-translate-router';
+import { LocalizeRouterService } from '@oengusio/ngx-translate-router';
 
 // removed languages have none to no translations
 export const availableLocales = {
@@ -83,7 +83,7 @@ export class LocaleService {
       this.language = langFromUrl;
     }
 
-    this.translate.setDefaultLang('en-GB');
+    this.translate.setFallbackLang('en-GB');
 
     if (this.language in availableLocales) {
       console.log('Setting language to ' + this.language);

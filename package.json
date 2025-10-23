@@ -34,7 +34,7 @@
     "@fullcalendar/angular": "^6.1.19",
     "@fullcalendar/core": "^6.1.19",
     "@fullcalendar/daygrid": "^6.1.19",
-    "@gilsdav/ngx-translate-router": "^7.2.1",
+    "@oengusio/ngx-translate-router": "^8.0.0",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "@oengus/ng-wizi-bulma": "^20.0.0",

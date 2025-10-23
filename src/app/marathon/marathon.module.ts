@@ -55,7 +55,7 @@ import { DetailsComponent } from './home/details/details.component';
 import { DescriptionComponent } from './home/description/description.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
-import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { OverviewComponent as ScheduleManagementOverViewComponent } from './schedule-management/overview/overview.component';
 import { ScheduleOverviewResolver } from '../resolvers/schedule-overview-resolver';
 import { CreateComponent as ScheduleManagementCreateComponent } from './schedule-management/create/create.component';

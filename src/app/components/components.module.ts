@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { OengusMdComponent } from './oengus-md/oengus-md.component';
 import { WidgetSigninPickerComponent } from './widget-signin-picker/widget-signin-picker.component';
 import { ElementModule } from '../elements/elements.module';
-import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { SimpleMdComponent } from './simple-md/simple-md.component';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { MarkdownPipe } from '../pipes/markdown.pipe';

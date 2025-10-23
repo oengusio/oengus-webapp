@@ -6,7 +6,7 @@ import { MonetaryAmountComponent } from './monetary-amount/monetary-amount.compo
 import { RouterModule } from '@angular/router';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import {NwbCommonModule} from '@oengus/ng-wizi-bulma';
-import { LocalizeRouterModule } from '@gilsdav/ngx-translate-router';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 
 @NgModule({
   declarations: [UserComponent, MonetaryAmountComponent, DeleteButtonComponent],

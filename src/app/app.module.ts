@@ -14,7 +14,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomepageComponent } from './homepage/homepage.component';
 import { HomepageMetadataResolver } from './resolvers/next-marathons-resolver';
 import { UserModule } from './user/user.module';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { provideTranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OengusCommonModule } from './oengus-common/oengus-common.module';
 import { AboutComponent } from './about/about.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -45,7 +45,7 @@ import { HeaderBarComponent } from './_layout/header-bar/header-bar.component';
 import { HeaderBarCookiesComponent } from './_layout/header-bar/header-bar-cookies/header-bar-cookies.component';
 import { HeaderBarNavComponent } from './_layout/header-bar/header-bar-nav/header-bar-nav.component';
 import { HeaderLanguagePickerComponent } from './_layout/header-bar/header-language-picker/header-language-picker.component';
-import { LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings, ManualParserLoader } from '@gilsdav/ngx-translate-router';
+import { LocalizeParser, LocalizeRouterModule, LocalizeRouterSettings, ManualParserLoader } from '@oengusio/ngx-translate-router';
 import { Location } from '@angular/common';
 import { availableLocaleNames } from '../services/locale.service';
 import { HeaderBarUserComponent } from './_layout/header-bar/header-bar-user/header-bar-user.component';
@@ -175,10 +175,8 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useClass: WebpackTranslateLoader,
-      },
+      fallbackLang: 'en-GB',
+      loader: provideTranslateLoader(WebpackTranslateLoader),
     }),
     RouterModule.forRoot(appRoutes, {
       // useHash: false,
