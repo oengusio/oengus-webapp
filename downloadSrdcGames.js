@@ -27,6 +27,21 @@ async function fetchWithOffset(offset) {
   })
 }
 
+const toFix = {
+  '2DS': 'Nintendo 2DS',
+  '2DS Backwards Compatibility': 'Nintendo 2DS Backwards Compatibility',
+  '2DS XL': 'Nintendo 2DS XL',
+  '3DS Backwards Compatibility': 'Nintendo 3DS Backwards Compatibility',
+}
+
+function fixName(name) {
+  if (name in toFix) {
+    return toFix[name];
+  }
+
+  return name;
+}
+
 async function main() {
   let offset = 0;
   let lastData = [];
@@ -42,7 +57,7 @@ async function main() {
 
     console.log(lastData);
 
-    totalData.push(...lastData);
+    totalData.push(...lastData.map(fixName));
 
     offset += 200;
   } while (lastData.length > 0);
