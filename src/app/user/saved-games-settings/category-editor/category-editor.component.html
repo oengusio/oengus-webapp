@@ -150,6 +150,7 @@
       aria-label="Save"
       class="button is-success"
       [class.is-loading]="loading"
+      [disabled]="loading"
       (click)="saveCategory()"
       type="button">
       <fa-icon [icon]="saveIcon"></fa-icon>
@@ -158,6 +159,7 @@
       <button
         class="button is-danger"
         [class.is-loading]="loading"
+        [disabled]="loading"
         (click)="cancelEdit()"
         aria-label="Cancel"
         type="button">

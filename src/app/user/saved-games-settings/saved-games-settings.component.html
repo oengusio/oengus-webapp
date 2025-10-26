@@ -24,7 +24,7 @@
 
   <form action="" ngForm="submitForm" #form="ngForm">
     <fieldset [disabled]="!isSupporter">
-      @for (game of games; track i; let i = $index;) {
+      @for (game of games; track `${game.id}${i}`; let i = $index;) {
         <hr class="has-background-grey"/>
 
         <button class="delete is-absolute" (click)="removeGame(i)"></button>
@@ -50,7 +50,7 @@
         <hr class="has-background-grey-darker"/>
 
         <div class="columns is-multiline" [attr.data-gi]="i">
-          @for (category of game.categories; track j; let j = $index; ) {
+          @for (category of game.categories; track `${category.id}${j}`; let j = $index; ) {
             <div
               class="column is-relative is-full-touch"
               [ngClass]="{ 'is-half': (game.categories.length > 1 && !(j === game.categories.length - 1 && j % 2 === 0)) }"

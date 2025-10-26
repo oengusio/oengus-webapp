@@ -30,22 +30,22 @@ export class SavedGamesService extends BaseService {
       delete game.categories;
     }
 
-    return this.http.patch<SavedGame>(this.v2Url(`/${game.id}`), game);
+    return this.http.patch<SavedGame>(this.v2Url(`${game.id}`), game);
   }
 
   delete(gameId: number) {
-    return this.http.delete<BooleanStatusDto>(this.v2Url(`/${gameId}`));
+    return this.http.delete<BooleanStatusDto>(this.v2Url(`${gameId}`));
   }
 
   createCategory(gameId: number, category: SavedCategory): Observable<SavedCategory> {
-    return this.http.post<SavedCategory>(this.v2Url(`/${gameId}`), category);
+    return this.http.post<SavedCategory>(this.v2Url(`${gameId}`), category);
   }
 
   updateCategory(gameId: number, category: SavedCategory): Observable<SavedCategory> {
-    return this.http.patch<SavedCategory>(this.v2Url(`/${gameId}/${category.id}`), category);
+    return this.http.patch<SavedCategory>(this.v2Url(`${gameId}/${category.id}`), category);
   }
 
   deleteCategory(gameId: number, categoryId: number) {
-    return this.http.delete<BooleanStatusDto>(this.v2Url(`/${gameId}/${categoryId}`));
+    return this.http.delete<BooleanStatusDto>(this.v2Url(`${gameId}/${categoryId}`));
   }
 }
