@@ -50,7 +50,8 @@ async function main() {
     'N/A',
     'Other'
   ]
-  let totalData = [];
+  // start with manual entries because of srdc fuckups
+  let totalData = ['Sega Mega Drive EU', 'Sega Mega Drive JP'];
 
   do {
     lastData = await fetchWithOffset(offset);
