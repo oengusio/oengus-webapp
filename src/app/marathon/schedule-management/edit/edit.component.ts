@@ -168,7 +168,7 @@ export class EditComponent implements OnInit, OnDestroy {
               console: game.console,
               emulated: game.emulated,
               ratio: game.ratio,
-              type: runners.length > 1 ? 'RACE' : 'SINGLE',
+              type: runners.length > 1 ? category.type : 'SINGLE',
               runners,
               category: category.name,
               estimate: category.estimate,

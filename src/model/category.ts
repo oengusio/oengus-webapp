@@ -1,4 +1,5 @@
 import { Opponent } from './opponent';
+import { RunType } from './schedule-line';
 
 export class Category {
 
@@ -12,7 +13,7 @@ export class Category {
   description: string;
   video: string;
   visible: boolean;
-  type: string;
+  type: RunType;
   code: string;
   status: string;
   expectedRunnerCount: number;
@@ -34,12 +35,12 @@ export enum RunStatus {
   REJECTED,
 }
 
-export enum RunType {
-  SINGLE = 'SINGLE',
-  RACE = 'RACE',
-  COOP = 'COOP',
-  COOP_RACE = 'COOP_RACE',
-  OTHER = 'OTHER',
-  RELAY = 'RELAY',
-  RELAY_RACE = 'RELAY_RACE',
-}
+// export enum RunType {
+//   SINGLE = 'SINGLE',
+//   RACE = 'RACE',
+//   COOP = 'COOP',
+//   COOP_RACE = 'COOP_RACE',
+//   OTHER = 'OTHER',
+//   RELAY = 'RELAY',
+//   RELAY_RACE = 'RELAY_RACE',
+// }
