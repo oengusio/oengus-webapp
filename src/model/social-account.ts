@@ -30,7 +30,7 @@ export interface ConnectionMeta {
   header?: string;
   link?: string;
   maxLength?: number;
-  regex?: RegExp | string;
+  regex?: string;
 }
 
 export type ConnectionMetas = Record<ConnectionPlatform, ConnectionMeta>;
@@ -42,7 +42,7 @@ export const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
     linkBase: (fragment) => `${SocialPlatform.BLUESKY}${stripAtPrefix(fragment)}`,
     icon: faBluesky,
     header: 'platform.BLUESKY',
-    regex: '^(@([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$',
+    regex: '^(@([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?)$',
   },
   DISCORD: {
     icon: faDiscord,
@@ -73,7 +73,7 @@ export const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
     linkBase: fragment => `tel:${fragment}`,
     icon: faPhone,
     header: 'platform.PHONE',
-    regex: /[0-9+]+/,
+    regex: '[0-9+]+',
   },
   NICO: {
     linkBase: fragment => `https://com.nicovideo.jp/community/${fragment}`,
@@ -95,11 +95,13 @@ export const connectionMetas: ConnectionMetas&{ _DEFAULT: ConnectionMeta } = {
     linkBase: fragment => `https://speedrun.com/user/${fragment}`,
     icon: faTrophy,
     header: 'platform.SPEEDRUNCOM',
+    regex: simpleUsernameRegex,
   },
   SPEEDRUNSME: {
     linkBase: fragment => `https://speedruns.me/${fragment}`,
     icon: speedrunsMeIcon,
     header: 'platform.SPEEDRUNSME',
+    regex: simpleUsernameRegex,
   },
   TWITCH: {
     linkBase: fragment => `https://www.twitch.tv/${fragment}`,
