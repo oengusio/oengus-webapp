@@ -1,3 +1,5 @@
+@use '../../../assets/table/variables' as table-vars;
+
 .homepage-marathons-container {
   width: 100%;
 }
@@ -6,39 +8,73 @@
   grid-template-columns: repeat(4, auto);
   grid-template-columns: auto min-content min-content auto;
 
-  > .title {
-    // Span from start to finish
+  .marathon-link {
+    grid-column: span 4;
+    display: grid;
+    align-items: center;
+    width: 100%;
+    grid-template-columns: repeat(4, auto);
+    grid-template-columns: 50px 1fr 1fr;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    border-left: 10px solid table-vars.$info-color;
+    transition: 300ms;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: 2fr 50px 1fr 1fr;
+      grid-column: span 4;
+    }
+
+    &:hover {
+      border-left: 20px solid table-vars.$info-color;
+    }
+  }
+
+  .title {
     grid-column: 1 / -1;
     padding-inline-start: 0;
     margin: 0;
   }
 
-  > .location {
+  .marathon-name,
+  .location,
+  .language,
+  .time{
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .marathon-name {
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+
+    @media (max-width: 1023px) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .location {
     display: flex;
     justify-content: center;
+    background-color: table-vars.$light-color;
   }
 
-  > .time {
+  .language {
+    background-color: table-vars.$light-color;
+  }
+
+  .time {
     text-align: end;
+    width: 100%;
+    background-color: table-vars.$light-color;
+    justify-content: flex-end;
   }
 
-  > .spacer {
+  .spacer {
     // Span from start to finish
     grid-column: 1 / -1;
     height: calc(3 * var(--spacing) / 2);
-  }
-}
-
-@media (max-width: 1023px) {
-  .marathons-list-container {
-    //grid-template-rows: 20fr;
-
-    > .marathon-name {
-      grid-column: 1 / -1;
-    }
-
-    > .location {
-      grid-column: 1 / span 2;
-    }
   }
 }
