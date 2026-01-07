@@ -1,58 +1,250 @@
 @use '../../../../assets/table';
+@use '../../../../assets/table/variables' as table-vars;
 
 .schedule-container {
-  @include table.shrink($default-template-columns: 9, $has-expand-button: true, $shrinking-rules: (
-    1150px '.setup' 8,
-    1023px '.console' 7,
-    900px '.type' 6,
-    768px '.estimate' 5,
-    600px '.category' 4,
-  ));
-
-  // Temporary relocation of ElementTable styling
-  display: grid;
-  grid-auto-rows: auto;
+  display: flex;
   width: 100%;
   max-width: 100%;
-  // End temporary styles
-  overflow-x: auto;
+  gap: 0.5rem;
+  flex-direction: column;
+  max-width: 1800px;
+  margin: 0 auto;
 
   > .run {
-    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: calc(var(--spacing) / 2);
+    gap: 2rem;
+    align-items: flex-start;
+    background-color: table-vars.$light-color;
+
+    @media (min-width: 1024px) {
+      border-left: 10px solid table-vars.$info-color;
+      grid-template-columns: 2fr 3fr;
+    }
+
+    &.setup-block {
+      border-left-color: white;
+    }
   }
 
-  > .day {
-    font-weight: bold;
+  .run-left {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    align-items: center;
+    height: calc(100% + var(--spacing));
+    background-color: table-vars.$light-color;
+    margin: calc(-1 * (var(--spacing) / 2));
+    padding: var(--spacing) calc(var(--spacing) / 2) var(--spacing);
+    border-left: 10px solid table-vars.$info-color;
+    position: relative;
+
+    @media (min-width: 1024px) {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      border-left: none;
+    }
+
+    .row-title {
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .time {
+      @media (max-width: 1023px) {
+        color: white;
+      }
+    }
+
+    .link-icon {
+      position: absolute;
+      bottom: calc(var(--spacing) / 2);
+      right: calc(var(--spacing) / 2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: table-vars.$info-color;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.2s ease, background-color 0.2s ease;
+      text-decoration: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+
+      .icon-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .icon {
+        position: absolute;
+        font-size: 0.875rem;
+        color: inherit;
+        transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s ease;
+      }
+
+      .icon.hidden {
+        opacity: 0;
+        transform: scale(0.8);
+        pointer-events: none;
+      }
+
+      .icon:not(.hidden) {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      &:hover {
+        background-color: white;
+        
+        fa-icon {
+          color: table-vars.$info-color;
+        }
+      }
+    }
+
+    .copied-popup {
+      position: absolute;
+      bottom: calc(2rem + var(--spacing));
+      right: calc(var(--spacing) / 2);
+      background-color: table-vars.$info-color;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 10;
+      animation: fadeInOut 1s ease-in-out;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+      fa-icon {
+        font-size: 1rem;
+        color: white;
+      }
+    }
+  }
+
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: translateY(0.25rem);
+    }
+    15% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    85% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-0.25rem);
+    }
+  }
+
+  > .run:hover .run-left .link-icon {
+    opacity: 1;
+  }
+
+  .run.setup-block {
+    .run-left {
+      border-left-color: white;
+    }
+  }
+
+  .run-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    justify-content: center;
+    height: 100%;
+    padding-left: calc(var(--spacing) * 2);
+    padding-bottom: calc(var(--spacing) / 2);
+
+    @media (min-width: 1024px) {
+      padding: 0;
+    }
+  }
+
+  .type-line {
+    font-size: 18px;
+  }
+
+  .category-line{
+    font-size: 18px;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid table-vars.$info-color;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+
+    @media (max-width: 499px) {
+      flex-direction: column;
+    }
+  }
+
+  .content-right {
+    font-size: 14px;
+    text-align: right;
+    background-color: table-vars.$light-color;
+    padding: calc(var(--spacing) / 2);
+  }
+
+  .setup-line {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 140px;
+
+    @media (max-width: 499px) {
+      flex-direction: row;
+      text-align: left;
+      width: 100%;
+    }
+  }
+
+  .runners-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    color: lighten(table-vars.$info-color, 20%);
+
+    .runner-line-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-weight: 700;
+    }
+  }
+
+  > .day {	
+    padding: calc(var(--spacing) / 2);
+    background-color: table-vars.$info-color;
+    font-weight: 700;
     text-align: center;
-  }
-
-  > .is-advertisement {
-    // Span from start to finish
-    grid-column: 1 / -1;
-    justify-self: center;
-  }
-}
-
-// This solution is less than ideal.
-// I'd prefer to avoid leaking information from parents, this isn't portable
-// This allows these rules to work only when in desktop and when the sidebar is expanded
-@media (min-width: 1023px) {
-  .marathon-container:not(.collapsed) .schedule-container {
-    @include table.shrink($default-template-columns: 9, $has-expand-button: true, $shrinking-rules: (
-      1450px '.setup' 8,
-      1350px '.console' 7,
-      1250px '.type' 6,
-      1100px '.estimate' 5,
-    ));
-  }
-}
-
-@media (max-width: 500px) {
-  // At really small sizes, long names can become problematic
-  // this allows them to take scrollbars instead. We don't do this at every
-  // size, since doing this forces scrolls when they aren't needed
-  ::ng-deep .runners,
-  ::ng-deep .game {
-    overflow-x: auto;
+    color: white;
   }
 }

@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { faGamepad, faLink, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
-import { toggleTableExpand } from '../../../../assets/table';
 
 @Component({
     selector: 'app-marathon-schedule-list',
@@ -8,25 +8,20 @@ import { toggleTableExpand } from '../../../../assets/table';
     styleUrls: ['./marathon-schedule-list.component.scss'],
     standalone: false
 })
-export class MarathonScheduleListComponent implements OnChanges, OnInit {
+export class MarathonScheduleListComponent implements OnChanges {
   @Input() runs: V2ScheduleLine[];
   @Input() currentRun: V2ScheduleLine;
   @Input() nextRun: V2ScheduleLine;
   @Input() runHash: string;
 
-  expanded = new Set<number>();
-
-  ngOnInit(): void {
-    this.expandRunHash();
-  }
+  faGamepad = faGamepad;
+  faLink = faLink;
+  faCircleCheck = faCircleCheck;
+  showCopiedPopup: number | null = null;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.runHash && changes.runHash.currentValue !== changes.runHash.previousValue) {
-      this.expandRunHash();
-    }
-
-    if (changes.runs) {
-      this.expanded.clear();
+      this.scrollToRunHash();
     }
   }
 
@@ -50,44 +45,68 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
       currentRun.getFullYear() !== previousRun.getFullYear();
   }
 
-  getRowParity(index: number, run: V2ScheduleLine): { 'is-primary': boolean, 'is-even': boolean, 'is-odd': boolean } {
-    return {
-      'is-even': index % 2 === 0,
-      'is-odd': index % 2 === 1,
-      'is-primary': run.id === this.currentRun?.id,
-    };
-  }
-
-  getId(run: V2ScheduleLine): string|undefined {
-    switch (run.id) {
-      case this.currentRun?.id:
-        return 'current';
-      case this.nextRun?.id:
-        return 'next';
-      default:
-        return undefined;
-    }
-  }
-
-  expandRunHash(): void {
+  scrollToRunHash(): void {
     if (this.runHash) {
       const runHashRegExp = /^#run-(\d+)$/;
       const runHashResults = runHashRegExp.exec(this.runHash);
 
       if (runHashResults) {
-        this.toggleExpand(Number.parseInt(runHashResults[1], 10), true);
+        const runId = Number.parseInt(runHashResults[1], 10);
+        const element = document.getElementById(`run-${runId}`);
+        if (element) {
+          window.requestAnimationFrame(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+        }
       } else if (this.currentRun || this.nextRun) {
-        if (this.runHash === '#current') {
-          this.toggleExpand(this.currentRun?.id, true);
-        } else if (this.runHash === '#next') {
-          this.toggleExpand(this.nextRun?.id, true);
+        let element: HTMLElement | null = null;
+        if (this.runHash === '#current' && this.currentRun) {
+          element = document.getElementById(`run-${this.currentRun.id}`);
+        } else if (this.runHash === '#next' && this.nextRun) {
+          element = document.getElementById(`run-${this.nextRun.id}`);
+        }
+        if (element) {
+          window.requestAnimationFrame(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
         }
       }
     }
   }
 
-  toggleExpand(runId: number, openOnly = false): void {
-    toggleTableExpand(this.expanded, runId, openOnly);
-    this.expanded = new Set(this.expanded);
+  copyLinkToClipboard(runId: number, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // Get current URL without hash
+    const baseUrl = window.location.href.split('#')[0];
+    const link = `${baseUrl}#run-${runId}`;
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(link).then(() => {
+      this.showCopiedPopup = runId;
+      setTimeout(() => {
+        this.showCopiedPopup = null;
+      }, 1000);
+    }).catch((err) => {
+      console.error('Failed to copy link:', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = link;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        this.showCopiedPopup = runId;
+        setTimeout(() => {
+          this.showCopiedPopup = null;
+        }, 1000);
+      } catch (fallbackErr) {
+        console.error('Fallback copy failed:', fallbackErr);
+      }
+      document.body.removeChild(textArea);
+    });
   }
 }
