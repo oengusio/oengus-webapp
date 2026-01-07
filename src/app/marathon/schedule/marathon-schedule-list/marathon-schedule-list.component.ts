@@ -90,23 +90,6 @@ export class MarathonScheduleListComponent implements OnChanges {
       }, 1000);
     }).catch((err) => {
       console.error('Failed to copy link:', err);
-      // Fallback for older browsers
-      const textArea = document.createElement('textarea');
-      textArea.value = link;
-      textArea.style.position = 'fixed';
-      textArea.style.opacity = '0';
-      document.body.appendChild(textArea);
-      textArea.select();
-      try {
-        document.execCommand('copy');
-        this.showCopiedPopup = runId;
-        setTimeout(() => {
-          this.showCopiedPopup = null;
-        }, 1000);
-      } catch (fallbackErr) {
-        console.error('Fallback copy failed:', fallbackErr);
-      }
-      document.body.removeChild(textArea);
     });
   }
 }
