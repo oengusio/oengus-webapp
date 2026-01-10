@@ -50,9 +50,9 @@ module.exports = tseslint.config(
     ],
     rules: {
       '@angular-eslint/template/no-inline-styles': ['error'],
-      '@angular-eslint/template/elements-content': ['warn'],
-      '@angular-eslint/template/click-events-have-key-events': ['warn'],
-      '@angular-eslint/template/interactive-supports-focus': ['warn'],
+      '@angular-eslint/template/elements-content': ['error'],
+      '@angular-eslint/template/click-events-have-key-events': ['error'],
+      '@angular-eslint/template/interactive-supports-focus': ['error'],
     },
   }
 );

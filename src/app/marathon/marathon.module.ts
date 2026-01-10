@@ -4,7 +4,7 @@ import { MarathonComponent } from './marathon.component';
 import { HomeComponent } from './home/home.component';
 import { NewMarathonComponent } from './new-marathon/new-marathon.component';
 import { FormsModule } from '@angular/forms';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@oengus/angular-datetime-picker';
 import { NwbCommonModule, NwbEditInPlaceModule, NwbPaginatorModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { DirectivesModule } from '../directives/directives.module';
 import { canActivateMarathonSettingsGuard } from '../guards/can-activate-marathon-settings-guard.service';
@@ -49,7 +49,9 @@ import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { OverviewComponent } from './schedule-management/overview/overview.component';
+import { OverviewComponent } from './schedule-management/overview/overview.component';
 import { ScheduleOverviewResolver } from '../resolvers/schedule-overview-resolver';
+import { CreateComponent } from './schedule-management/create/create.component';
 import { CreateComponent } from './schedule-management/create/create.component';
 import { EditComponent as ScheduleManagementEditComponent } from './schedule-management/edit/edit.component';
 import { ScheduleByIdResolver } from '../resolvers/schedule-by-id-resolver';
@@ -156,6 +158,7 @@ const marathonRoutes: Routes = [
       {
         path: 'schedule-management/overview',
         component: OverviewComponent,
+        component: OverviewComponent,
         resolve: {
           schedules: ScheduleOverviewResolver,
         },
@@ -170,6 +173,7 @@ const marathonRoutes: Routes = [
       },
       {
         path: 'schedule-management/new',
+        component: CreateComponent,
         component: CreateComponent,
         resolve: {
           //

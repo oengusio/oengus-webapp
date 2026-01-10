@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@oengus/angular-datetime-picker';
 import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { Marathon } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';

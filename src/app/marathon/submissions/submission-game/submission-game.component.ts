@@ -26,7 +26,7 @@ export class SubmissionGameComponent implements OnDestroy {
   @Input() public marathon: Marathon;
   @Input() public showDelete: boolean;
   @Input() public userIsAdmin: boolean;
-  @Input() private selection: Map<number, Selection>;
+  @Input() public selection: Map<number, Selection>;
 
   @Output() public deleteGame = new EventEmitter<void>();
   @Output() public deleteCategory = new EventEmitter<number>();

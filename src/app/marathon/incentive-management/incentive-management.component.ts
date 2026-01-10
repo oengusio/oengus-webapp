@@ -11,17 +11,19 @@ import { MarathonService } from '../../../services/marathon.service';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Bid } from '../../../model/bid';
 import { ScheduleLine } from '../../../model/schedule-line';
+import { NwbAllModule } from '@oengus/ng-wizi-bulma';
 
 @Component({
     selector: 'app-incentive-management',
     templateUrl: './incentive-management.component.html',
     styleUrls: ['./incentive-management.component.scss'],
-    imports: [
-        CommonModule,
-        FormsModule,
-        TranslateModule,
-        FontAwesomeModule,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    FontAwesomeModule,
+    NwbAllModule,
+  ],
 })
 export class IncentiveManagementComponent {
   private route = inject(ActivatedRoute);

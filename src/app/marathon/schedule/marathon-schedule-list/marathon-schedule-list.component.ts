@@ -1,10 +1,15 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faGamepad, faLink, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
 import { toggleTableExpand } from '../../../../assets/table';
+import { ElementModule } from '../../../elements/elements.module';
+import { MarathonScheduleRowComponent } from '../marathon-schedule-row/marathon-schedule-row.component';
+import { RunDetailsComponent } from '../run-details/run-details.component';
 import { ElementModule } from '../../../elements/elements.module';
 import { ComponentsModule } from '../../../components/components.module';
 
@@ -12,6 +17,13 @@ import { ComponentsModule } from '../../../components/components.module';
     selector: 'app-marathon-schedule-list',
     templateUrl: './marathon-schedule-list.component.html',
     styleUrls: ['./marathon-schedule-list.component.scss'],
+    imports: [
+        CommonModule,
+        TranslateModule,
+        ElementModule,
+        MarathonScheduleRowComponent,
+        RunDetailsComponent,
+    ]
     imports: [
         CommonModule,
         TranslateModule,
