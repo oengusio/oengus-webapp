@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faGamepad, faLink, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
-import { toggleTableExpand } from '../../../../assets/table';
 import { ElementModule } from '../../../elements/elements.module';
 import { ComponentsModule } from '../../../components/components.module';
 
@@ -113,12 +112,12 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   }
 
   scrollToRun(runId: number): void {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       const element = document.getElementById(`run-${runId}`);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-    }, 100);
+    });
   }
 
   copyLinkToClipboard(runId: number, event: Event): void {
