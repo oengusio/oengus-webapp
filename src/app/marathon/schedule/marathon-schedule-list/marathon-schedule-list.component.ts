@@ -33,7 +33,6 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   faLink = faLink;
   faCircleCheck = faCircleCheck;
   showCopiedPopup: number | null = null;
-  expanded = new Set<number>();
 
   ngOnInit(): void {
     this.expandRunHash();
@@ -42,10 +41,6 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.runHash && changes.runHash.currentValue !== changes.runHash.previousValue) {
       this.expandRunHash();
-    }
-
-    if (changes.runs) {
-      this.expanded.clear();
     }
   }
 
@@ -106,14 +101,11 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
 
       if (runHashResults) {
         const runId = Number.parseInt(runHashResults[1], 10);
-        this.toggleExpand(runId, true);
         this.scrollToRun(runId);
       } else if (this.currentRun || this.nextRun) {
         if (this.runHash === '#current' && this.currentRun) {
-          this.toggleExpand(this.currentRun.id, true);
           this.scrollToRun(this.currentRun.id);
         } else if (this.runHash === '#next' && this.nextRun) {
-          this.toggleExpand(this.nextRun.id, true);
           this.scrollToRun(this.nextRun.id);
         }
       }
@@ -127,11 +119,6 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
         element.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }, 100);
-  }
-
-  toggleExpand(runId: number, openOnly = false): void {
-    toggleTableExpand(this.expanded, runId, openOnly);
-    this.expanded = new Set(this.expanded);
   }
 
   copyLinkToClipboard(runId: number, event: Event): void {
