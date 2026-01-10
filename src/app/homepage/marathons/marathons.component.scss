@@ -26,7 +26,14 @@
     }
 
     &:hover {
-      border-left: 20px solid table-vars.$info-color;
+      background: white;
+
+      .marathon-name,
+      .location,
+      .language,
+      .time {
+        color: black;
+      }
     }
   }
 
@@ -43,6 +50,7 @@
     height: 100%;
     display: flex;
     align-items: center;
+    transition: 200ms;
   }
   
   .marathon-name {
