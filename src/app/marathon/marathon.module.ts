@@ -49,9 +49,7 @@ import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { OverviewComponent } from './schedule-management/overview/overview.component';
-import { OverviewComponent } from './schedule-management/overview/overview.component';
 import { ScheduleOverviewResolver } from '../resolvers/schedule-overview-resolver';
-import { CreateComponent } from './schedule-management/create/create.component';
 import { CreateComponent } from './schedule-management/create/create.component';
 import { EditComponent as ScheduleManagementEditComponent } from './schedule-management/edit/edit.component';
 import { ScheduleByIdResolver } from '../resolvers/schedule-by-id-resolver';
@@ -71,7 +69,6 @@ import { marathonSettingsResolverResolver } from '../resolvers/marathon-settings
 import { questionsResolverResolver } from '../resolvers/questions-resolver.resolver';
 import { moderatorsResolver } from '../resolvers/moderators.resolver';
 import { ClonePopupComponent } from './schedule-management/edit/clone-popup/clone-popup.component';
-import { MarkdownPipe } from '../pipes/markdown.pipe';
 import { SubmissionLazyLoaderComponent } from './submissions/submission-lazy-loader/submission-lazy-loader.component';
 import { isEmailVerifiedGuardGuard } from '../guards/is-email-verified-guard.guard';
 import { SubmitHeaderComponent } from './submit/submit-header/submit-header.component';
@@ -158,7 +155,6 @@ const marathonRoutes: Routes = [
       {
         path: 'schedule-management/overview',
         component: OverviewComponent,
-        component: OverviewComponent,
         resolve: {
           schedules: ScheduleOverviewResolver,
         },
@@ -173,7 +169,6 @@ const marathonRoutes: Routes = [
       },
       {
         path: 'schedule-management/new',
-        component: CreateComponent,
         component: CreateComponent,
         resolve: {
           //
@@ -288,7 +283,6 @@ const marathonRoutes: Routes = [
     ButtonsModule,
     ElementModule,
     ComponentsModule,
-    MarkdownPipe,
     DescriptionEditorComponent,
     ElementLoginLinkSelectorComponent,
     MarathonScheduleListComponent,
