@@ -3,7 +3,7 @@
     <a class="is-tooltip-danger" (click)="confirm()" (keyup.enter)="confirm()"
       [nwbToolTip]="baseText"
       nwbToolTipPosition="left"
-      nwbToolTipIsMultiline="true" tabindex="0" aria-label="Delete">
+      [nwbToolTipIsMultiline]="true" tabindex="0" aria-label="Delete">
       <fa-icon [icon]="faTimes"></fa-icon>
     </a>
   }

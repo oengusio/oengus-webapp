@@ -7,20 +7,20 @@ import { environment } from '../../../../environments/environment';
 import { UserProfile } from '../../../../model/user-profile';
 import { User } from '../../../../model/user';
 import { UserLinkComponent } from '../../../elements/user-link/user-link.component';
-import { ElementPronounsComponent } from '../../../elements/element-pronouns/element-pronouns.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
     styleUrls: ['./user-profile.component.scss'],
-    imports: [
-        CommonModule,
-        RouterModule,
-        LocalizeRouterModule,
-        FontAwesomeModule,
-        UserLinkComponent,
-        ElementPronounsComponent,
-    ]
+  imports: [
+    CommonModule,
+    RouterModule,
+    LocalizeRouterModule,
+    FontAwesomeModule,
+    UserLinkComponent,
+    TranslatePipe,
+  ],
 })
 export class UserProfileComponent {
   @Input() user: UserProfile;

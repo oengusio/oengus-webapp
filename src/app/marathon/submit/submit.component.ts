@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@oengus/angular-datetime-picker';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
+import { NwbAllModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SubmissionService } from '../../../services/submission.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -38,6 +38,7 @@ import { OengusMdComponent } from '../../components/oengus-md/oengus-md.componen
 import { ElementTemporalDatetimeComponent } from '../../elements/temporal/element-temporal-datetime/element-temporal-datetime.component';
 import { ElementI18nComponent } from '../../elements/element-i18n/element-i18n.component';
 import { DirectivesModule } from '../../directives/directives.module';
+import { UserLinkComponent } from '../../elements/user-link/user-link.component';
 
 @Component({
   selector: 'app-submit',
@@ -62,7 +63,9 @@ import { DirectivesModule } from '../../directives/directives.module';
     OengusMdComponent,
     ElementTemporalDatetimeComponent,
     ElementI18nComponent,
-  ]
+    NwbAllModule,
+    UserLinkComponent,
+  ],
 })
 export class SubmitComponent {
 

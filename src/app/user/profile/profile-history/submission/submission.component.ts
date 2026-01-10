@@ -5,21 +5,27 @@ import { HistoryGame, HistoryGameCategory, UserProfileHistory } from '../../../.
 import { RunStatus } from '../../../../../model/category';
 import { ElementTableComponent } from '../../../../elements/element-table/element-table.component';
 import { ElementTableCellComponent } from '../../../../elements/element-table-cell/element-table-cell.component';
-import { ElementTableRowComponent } from '../../../../elements/element-table-row/element-table-row.component';
 import { ElementTemporalDurationComponent } from '../../../../elements/temporal/element-temporal-duration/element-temporal-duration.component';
+import { LocalizeRouterPipe } from '@oengusio/ngx-translate-router';
+import {
+  ElementTemporalDistanceComponent
+} from '../../../../elements/temporal/element-temporal-distance/element-temporal-distance.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-user-profile-submission-history',
     templateUrl: './submission.component.html',
     styleUrls: ['./submission.component.scss'],
-    imports: [
-        CommonModule,
-        TranslateModule,
-        ElementTableComponent,
-        ElementTableCellComponent,
-        ElementTableRowComponent,
-        ElementTemporalDurationComponent,
-    ]
+  imports: [
+    CommonModule,
+    TranslateModule,
+    ElementTableComponent,
+    ElementTableCellComponent,
+    ElementTemporalDurationComponent,
+    LocalizeRouterPipe,
+    ElementTemporalDistanceComponent,
+    RouterLink,
+  ],
 })
 export class SubmissionComponent {
   @Input() submissions: UserProfileHistory[];

@@ -38,7 +38,7 @@ export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
   @Input() public selection: Map<number, Selection>;
   @Input() public showDelete: boolean;
   @Input() public userIsAdmin: boolean;
-  @Input() private doInitialLoad = true;
+  @Input() public doInitialLoad = true;
 
   @Output() private loadNextPage = new EventEmitter<number>();
   @Output() private deleteSubmission = new EventEmitter<number>();

@@ -16,17 +16,21 @@ import { DataSet } from 'vis-data';
 import { SubmissionService } from '../../../services/submission.service';
 import { Submission } from '../../../model/submission';
 import { firstValueFrom } from 'rxjs';
+import { UserComponent } from '../../oengus-common/user/user.component';
+import { LoadingIndicatorComponent } from '../../elements/loading-indicator/loading-indicator.component';
 
 @Component({
     selector: 'app-selection',
     templateUrl: './selection.component.html',
     styleUrls: ['./selection.component.scss'],
-    imports: [
-        CommonModule,
-        FormsModule,
-        TranslateModule,
-        FontAwesomeModule,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    FontAwesomeModule,
+    UserComponent,
+    LoadingIndicatorComponent,
+  ],
 })
 export class SelectionComponent implements OnInit {
   private route = inject(ActivatedRoute);

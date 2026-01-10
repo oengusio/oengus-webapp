@@ -28,6 +28,7 @@ import { MarathonScheduleExportComponent } from '../../schedule/marathon-schedul
 import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
 import { DirectivesModule } from '../../../directives/directives.module';
 import { MarkdownPipe } from '../../../pipes/markdown.pipe';
+import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/loading-indicator.component';
 
 // Options are 'id' and 'content'
 const AVAILABILITY_SORT_KEY = 'content';
@@ -36,22 +37,23 @@ const AVAILABILITY_SORT_KEY = 'content';
     selector: 'app-edit',
     templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.scss'],
-    imports: [
-        CommonModule,
-        FormsModule,
-        TranslateModule,
-        FontAwesomeModule,
-        NwbSwitchModule,
-        ScheduleTableComponent,
-        ScheduleTableOldElementComponent,
-        WarningModalComponent,
-        SubmissionsTableComponent,
-        ClonePopupComponent,
-        MarathonScheduleExportComponent,
-        ElementI18nComponent,
-        DirectivesModule,
-        MarkdownPipe,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    FontAwesomeModule,
+    NwbSwitchModule,
+    ScheduleTableComponent,
+    ScheduleTableOldElementComponent,
+    WarningModalComponent,
+    SubmissionsTableComponent,
+    ClonePopupComponent,
+    MarathonScheduleExportComponent,
+    ElementI18nComponent,
+    DirectivesModule,
+    MarkdownPipe,
+    LoadingIndicatorComponent,
+  ],
 })
 export class EditComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
