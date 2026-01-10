@@ -1,12 +1,12 @@
 <div class="tabs is-toggle">
   <ul>
     <li [class.is-active]="!previewActive">
-      <a (click)="$event.preventDefault(); previewActive = false;">{{
+      <a (click)="$event.preventDefault(); previewActive = false;" (keyup.enter)="$event.preventDefault(); previewActive = false;" tabindex="0">{{
         'editor.markdown.controls.edit' | translate
         }}</a>
     </li>
     <li [class.is-active]="previewActive">
-      <a (click)="$event.preventDefault(); previewActive = true;">{{
+      <a (click)="$event.preventDefault(); previewActive = true;" (keyup.enter)="$event.preventDefault(); previewActive = true;" tabindex="0">{{
           'editor.markdown.controls.preview' | translate
         }}</a>
     </li>

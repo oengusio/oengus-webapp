@@ -9,6 +9,7 @@ module.exports = tseslint.config(
       '**/.angular/**',
       '**/node_modules/**',
       '**/dist/**',
+      '**/e2e/**',
     ],
   },
   {

@@ -13,7 +13,7 @@
       <a [routerLink]="'/user/saved-games-settings' | localize" class="navbar-item">
         {{ 'navbar.savedGames' | translate }}
       </a>
-      <a class="navbar-item" (click)="userService.logout()">
+      <a class="navbar-item" (click)="userService.logout()" (keyup.enter)="userService.logout()" tabindex="0">
         {{'navbar.logout' | translate}}
       </a>
     </div>

@@ -196,13 +196,13 @@
             <td>
               <fa-icon [icon]="faBars" cdkDragHandle class="is-pulled-right"></fa-icon>
               @if (question.fieldType === 'SELECT') {
-                <a (click)="addOption.emit({questionType: 'DONATION', i})"
-                  class="plusBtn"
+                <a (click)="addOption.emit({questionType: 'DONATION', i})" (keyup.enter)="addOption.emit({questionType: 'DONATION', i})"
+                  class="plusBtn" tabindex="0" aria-label="Add option"
                   >
                   <fa-icon [icon]="faPlus"></fa-icon>
                 </a>
               }
-              <a (click)="removeQuestion.emit({questionType: 'DONATION', i})">
+              <a (click)="removeQuestion.emit({questionType: 'DONATION', i})" (keyup.enter)="removeQuestion.emit({questionType: 'DONATION', i})" tabindex="0" aria-label="Remove question">
                 <fa-icon [icon]="faTimes"></fa-icon>
               </a>
             </td>
@@ -231,7 +231,7 @@
                 </td>
                 <td></td>
                 <td>
-                  <a (click)="removeOption.emit({questionType: 'DONATION', i, j })">
+                  <a (click)="removeOption.emit({questionType: 'DONATION', i, j })" (keyup.enter)="removeOption.emit({questionType: 'DONATION', i, j })" tabindex="0" aria-label="Remove option">
                     <fa-icon [icon]="faTimes"></fa-icon>
                   </a>
                 </td>
