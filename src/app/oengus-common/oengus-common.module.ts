@@ -9,7 +9,7 @@ import {NwbCommonModule} from '@oengus/ng-wizi-bulma';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 
 @NgModule({
-  declarations: [UserComponent, MonetaryAmountComponent, DeleteButtonComponent],
+  declarations: [],
   exports: [
     UserComponent,
     MonetaryAmountComponent,
@@ -21,6 +21,9 @@ import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
     RouterModule,
     NwbCommonModule,
     LocalizeRouterModule,
+    UserComponent,
+    MonetaryAmountComponent,
+    DeleteButtonComponent,
   ],
 })
 export class OengusCommonModule {

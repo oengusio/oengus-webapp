@@ -1,4 +1,8 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { passwordResetErrorToMessage } from '../../../utils/authHelpers';
 import { firstValueFrom } from 'rxjs';
@@ -8,7 +12,12 @@ import { AuthService } from '../../../services/auth.service';
     selector: 'app-forgot-password',
     templateUrl: './forgot-password.component.html',
     styleUrls: ['./forgot-password.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+    ]
 })
 export class ForgotPasswordComponent {
   readonly title = 'Forgot your password';

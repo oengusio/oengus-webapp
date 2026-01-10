@@ -15,10 +15,10 @@
   <div class="tabs is-centered">
     <ul>
       <li [ngClass]="{'is-active':active==='submissions'}">
-        <a (click)="switchTab('submissions')">{{'marathon.submissions.tabs.submissions' | translate}}</a>
+        <a (click)="switchTab('submissions')" (keyup.enter)="switchTab('submissions')" tabindex="0">{{'marathon.submissions.tabs.submissions' | translate}}</a>
       </li>
       <li [ngClass]="{'is-active':active==='answers'}">
-        <a (click)="switchTab('answers')">{{'marathon.submissions.tabs.answers' | translate}}</a>
+        <a (click)="switchTab('answers')" (keyup.enter)="switchTab('answers')" tabindex="0">{{'marathon.submissions.tabs.answers' | translate}}</a>
       </li>
     </ul>
   </div>

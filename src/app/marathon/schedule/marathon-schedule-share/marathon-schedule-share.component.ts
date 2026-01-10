@@ -1,15 +1,21 @@
 import { Component, Input, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { V2Schedule } from '../../../../model/schedule';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-marathon-schedule-share',
     templateUrl: './marathon-schedule-share.component.html',
     styleUrls: ['./marathon-schedule-share.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        FontAwesomeModule,
+    ]
 })
 export class MarathonScheduleShareComponent {
   private toastr = inject(NwbAlertService);

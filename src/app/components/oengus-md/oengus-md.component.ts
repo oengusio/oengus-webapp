@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MarkdownService } from '../../../services/markdown.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -6,7 +7,9 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     selector: 'app-oengus-md',
     templateUrl: './oengus-md.component.html',
     styleUrls: ['./oengus-md.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+    ]
 })
 export class OengusMdComponent implements OnInit {
   private readonly markdown = inject(MarkdownService);

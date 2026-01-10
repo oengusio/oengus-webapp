@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-about-privacy',
@@ -8,7 +11,11 @@ import { Component } from '@angular/core';
         class: 'box',
         id: 'privacy-section',
     },
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+    ]
 })
 export class AboutPrivacyComponent {
 }

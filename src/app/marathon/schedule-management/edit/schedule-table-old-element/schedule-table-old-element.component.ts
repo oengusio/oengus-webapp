@@ -1,4 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LineRunner, V2ScheduleLine } from '../../../../../model/schedule-line';
 import { AvailabilityResponse } from '../../../../../model/availability';
 import { getRowParity, toggleTableExpand } from '../../../../../assets/table';
@@ -7,6 +12,13 @@ import { faBars, faCalendarTimes, faCalendarWeek, faChevronLeft, faEdit, faTimes
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { debounce } from 'lodash';
 import { getRunnerDisplayName, getRunnerUsername } from '../../../../../utils/helpers';
+import { ElementTableCellComponent } from '../../../../elements/element-table-cell/element-table-cell.component';
+import { ElementTemporalDatetimeComponent } from '../../../../elements/temporal/element-temporal-datetime/element-temporal-datetime.component';
+import { ElementTemporalDurationComponent } from '../../../../elements/temporal/element-temporal-duration/element-temporal-duration.component';
+import { SimpleMdComponent } from '../../../../components/simple-md/simple-md.component';
+import { ElementTableDetailComponent } from '../../../../elements/element-table-detail/element-table-detail.component';
+import { SetupBlockEditorComponent } from '../schedule-table/setup-block-editor/setup-block-editor.component';
+import { NormalRunEditorComponent } from '../schedule-table/normal-run-editor/normal-run-editor.component';
 
 /**
  * @-deprecated please use the new component when we get it working.
@@ -15,7 +27,20 @@ import { getRunnerDisplayName, getRunnerUsername } from '../../../../../utils/he
     selector: 'app-schedule-table-old-element',
     templateUrl: './schedule-table-old-element.component.html',
     styleUrls: ['./schedule-table-old-element.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+        DragDropModule,
+        ElementTableCellComponent,
+        ElementTemporalDatetimeComponent,
+        ElementTemporalDurationComponent,
+        SimpleMdComponent,
+        ElementTableDetailComponent,
+        SetupBlockEditorComponent,
+        NormalRunEditorComponent,
+    ]
 })
 export class ScheduleTableOldElementComponent {
   public getRowParity = getRowParity;

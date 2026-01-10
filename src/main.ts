@@ -1,6 +1,7 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowser } from '@angular/platform-browser';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 
+import { AppComponent } from './app/app.component';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 // import { marker } from '@biesbjerg/ngx-translate-extract-marker';
@@ -33,6 +34,8 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowser()
-  .bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(AppModule),
+  ]
+}).catch(err => console.error(err));

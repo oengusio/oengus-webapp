@@ -1,14 +1,25 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Marathon } from '../../../model/marathon';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Marathon } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { parseInt } from 'lodash';
+import { CalendarControllerComponent } from '../calendar-controller/calendar-controller.component';
+import { CalendarViewTableComponent } from '../calendar-view-table/calendar-view-table.component';
+import { CalendarViewScheduleComponent } from '../calendar-view-schedule/calendar-view-schedule.component';
+import { ElementModule } from '../../elements/elements.module';
 
 @Component({
     selector: 'app-marathon-calendar-container',
     templateUrl: './marathon-calendar-container.component.html',
     styleUrls: ['./marathon-calendar-container.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        CalendarControllerComponent,
+        CalendarViewTableComponent,
+        CalendarViewScheduleComponent,
+        ElementModule,
+    ]
 })
 export class MarathonCalendarContainerComponent implements OnInit {
   private route = inject(ActivatedRoute);

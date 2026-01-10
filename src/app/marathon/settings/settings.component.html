@@ -27,13 +27,13 @@
       <div class="tabs is-centered">
         <ul>
           <li [ngClass]="{'is-active':active==='general'}">
-            <a (click)="active = 'general'">{{'marathon.settings.tabs.general' | translate}}</a>
+            <a (click)="active = 'general'" (keyup.enter)="active = 'general'" tabindex="0">{{'marathon.settings.tabs.general' | translate}}</a>
           </li>
           <!--<li [ngClass]="{'is-active':active==='discord'}">
             <a (click)="active = 'discord'">{{'marathon.settings.tabs.discord' | translate}}</a>
           </li>-->
           <li [ngClass]="{'is-active':active==='submissions'}">
-            <a (click)="active = 'submissions'">{{'marathon.settings.tabs.submissions' | translate}}</a>
+            <a (click)="active = 'submissions'" (keyup.enter)="active = 'submissions'" tabindex="0">{{'marathon.settings.tabs.submissions' | translate}}</a>
           </li>
           <!--<li [ngClass]="{'is-active':active==='incentives'}">
           <a (click)="active = 'incentives'">{{'marathon.settings.tabs.incentives' | translate}}</a>
@@ -41,7 +41,7 @@
         @if (!marathonService.isArchived() ||
           marathonService.isAdmin(userService.user)) {
           <li [ngClass]="{'is-active':active==='dangerZone'}">
-            <a (click)="active = 'dangerZone'">{{'marathon.settings.tabs.dangerZone' | translate}}</a>
+            <a (click)="active = 'dangerZone'" (keyup.enter)="active = 'dangerZone'" tabindex="0">{{'marathon.settings.tabs.dangerZone' | translate}}</a>
           </li>
         }
       </ul>

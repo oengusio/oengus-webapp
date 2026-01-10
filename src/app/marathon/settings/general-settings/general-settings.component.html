@@ -525,7 +525,7 @@
             <tr>
               <td>{{moderator.username}}
                 @if (currentUserIsOwner) {
-                  <button class="delete is-pulled-right" (click)="removeModerator(i)"
+                  <button class="delete is-pulled-right" (click)="removeModerator(i)" aria-label="Remove moderator"
                   ></button>
                 }
               </td>

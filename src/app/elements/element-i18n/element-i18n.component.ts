@@ -1,12 +1,16 @@
 import { AfterViewInit, Component, Input, OnDestroy, Renderer2, ViewContainerRef, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-element-i18n',
     templateUrl: './element-i18n.component.html',
     styleUrls: ['./element-i18n.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+    ]
 })
 export class ElementI18nComponent implements OnDestroy, AfterViewInit {
   private viewContainerRef = inject(ViewContainerRef);

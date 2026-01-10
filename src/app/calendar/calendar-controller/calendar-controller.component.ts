@@ -1,5 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { ElementModule } from '../../elements/elements.module';
 
 interface CalendarLinkInfo {
   year: number;
@@ -10,7 +18,16 @@ interface CalendarLinkInfo {
     selector: 'app-calendar-controller',
     templateUrl: './calendar-controller.component.html',
     styleUrls: ['./calendar-controller.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+        FontAwesomeModule,
+        NwbSwitchModule,
+        ElementModule,
+    ]
 })
 export class CalendarControllerComponent {
   @Input() year: number;

@@ -1,4 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 
 @Component({
     selector: 'app-header-bar-cookies',
@@ -7,7 +11,12 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
     host: {
         class: 'box has-background-dark',
     },
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+    ]
 })
 export class HeaderBarCookiesComponent implements OnInit {
   @Output() visibilityUpdated = new EventEmitter<boolean>();

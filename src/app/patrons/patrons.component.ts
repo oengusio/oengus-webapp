@@ -1,4 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import Patron from '../../model/patron';
 import { ActivatedRoute } from '@angular/router';
 
@@ -6,7 +8,10 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'app-patrons',
     templateUrl: './patrons.component.html',
     styleUrls: ['./patrons.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+    ]
 })
 export class PatronsComponent {
   private route = inject(ActivatedRoute);

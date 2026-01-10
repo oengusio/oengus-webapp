@@ -1,4 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import Patron from '../../../model/patron';
 import { PatreonService } from '../../../services/patreon.service';
 
@@ -6,7 +8,10 @@ import { PatreonService } from '../../../services/patreon.service';
     selector: 'app-patron-list',
     templateUrl: './patron-list.component.html',
     styleUrls: ['./patron-list.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+    ]
 })
 export class PatronListComponent implements OnInit {
   private patreonService = inject(PatreonService);

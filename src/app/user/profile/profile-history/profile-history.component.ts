@@ -1,14 +1,31 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { UserProfile } from '../../../../model/user-profile';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HistoryMarathon, SavedGame, UserProfileHistory } from '../../../../model/user-profile-history';
 import { UserService } from '../../../../services/user.service';
+import { SubmissionComponent } from './submission/submission.component';
+import { ModeratedComponent } from './moderated/moderated.component';
+import { SavedGamesComponent } from './saved-games/saved-games.component';
+import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/loading-indicator.component';
 
 @Component({
     selector: 'app-profile-history',
     templateUrl: './profile-history.component.html',
     styleUrls: ['./profile-history.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+        SubmissionComponent,
+        ModeratedComponent,
+        SavedGamesComponent,
+        LoadingIndicatorComponent,
+    ]
 })
 export class ProfileHistoryComponent implements OnInit {
   private route = inject(ActivatedRoute);

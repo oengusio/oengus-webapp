@@ -1,4 +1,9 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { SelfUser } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -12,12 +17,34 @@ import { AuthService } from '../../../services/auth.service';
 import { InitMFADto } from '../../../model/auth';
 import { firstValueFrom } from 'rxjs';
 import { NotificationService } from '../../../services/notification.service';
+import { MfaModalComponent } from './mfa-modal/mfa-modal.component';
+import { SyncButtonComponent } from './sync-button/sync-button.component';
+import { ConnectionComponent } from '../profile/connection/connection.component';
+import { ElementPronounsComponent } from '../../elements/element-pronouns/element-pronouns.component';
+import { ElementCountryComponent } from '../../elements/element-country/element-country.component';
+import { ElementLanguagesComponent } from '../../elements/element-languages/element-languages.component';
+import { ElementConnectionsComponent } from '../../elements/element-connections/element-connections.component';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+        NwbSwitchModule,
+        DirectivesModule,
+        MfaModalComponent,
+        SyncButtonComponent,
+        ConnectionComponent,
+        ElementPronounsComponent,
+        ElementCountryComponent,
+        ElementLanguagesComponent,
+        ElementConnectionsComponent,
+    ]
 })
 export class SettingsComponent {
 

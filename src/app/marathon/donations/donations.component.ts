@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { Donation } from '../../../model/donation';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { NwbPaginatorModule } from '@oengus/ng-wizi-bulma';
+import { Donation } from '../../../model/donation';
 import { MarathonService } from '../../../services/marathon.service';
 import { DonationService } from '../../../services/donation.service';
 import { Page } from '../../../model/page';
@@ -8,12 +11,20 @@ import moment from 'moment';
 import { NwbPageEvent } from '@oengus/ng-wizi-bulma';
 import { DonationStats } from '../../../model/donation-stats';
 import { UserService } from '../../../services/user.service';
+import { OengusCommonModule } from '../../oengus-common/oengus-common.module';
+import { OengusMdComponent } from '../../components/oengus-md/oengus-md.component';
 
 @Component({
     selector: 'app-donations',
     templateUrl: './donations.component.html',
     styleUrls: ['./donations.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        NwbPaginatorModule,
+        OengusCommonModule,
+        OengusMdComponent,
+    ]
 })
 export class DonationsComponent {
   private route = inject(ActivatedRoute);

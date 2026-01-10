@@ -1,12 +1,21 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MarathonService } from '../../../../services/marathon.service';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ElementTemporalDatetimeComponent } from '../../../elements/temporal/element-temporal-datetime/element-temporal-datetime.component';
 
 @Component({
   selector: 'app-submit-header',
   templateUrl: './submit-header.component.html',
   styleUrl: './submit-header.component.scss',
-  standalone: false,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    FontAwesomeModule,
+    ElementTemporalDatetimeComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubmitHeaderComponent {

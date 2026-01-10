@@ -1,10 +1,13 @@
 import { Component, ElementRef, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-element-table',
     templateUrl: './element-table.component.html',
     styleUrls: ['./element-table.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+    ]
 })
 export class ElementTableComponent implements OnChanges {
   private elem = inject(ElementRef);

@@ -1,10 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { CommonModule } from '@angular/common';
+import { Router, RouterOutlet, Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationStart } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTimeAdapter } from '@danielmoncada/angular-datetime-picker';
-import { environment } from '../environments/environment';
 import { Location } from '@angular/common';
-import { Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 import { LoadingBarService } from '../services/loading-bar.service';
 import { TitleService } from '../services/title.service';
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
@@ -12,12 +12,22 @@ import * as Sentry from '@sentry/angular';
 import { TemporalServiceService } from '../services/termporal/temporal-service.service';
 import { LocaleService } from '../services/locale.service';
 import { FaConfig } from '@fortawesome/angular-fontawesome';
+import { environment } from '../environments/environment';
+import { HeaderBarComponent } from './_layout/header-bar/header-bar.component';
+import { FooterBarComponent } from './_layout/footer/footer-bar/footer-bar.component';
+import { NotificationListComponent } from './components/notification-list/notification-list.component';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        HeaderBarComponent,
+        FooterBarComponent,
+        NotificationListComponent,
+    ]
 })
 export class AppComponent implements OnInit {
   userService = inject(UserService);

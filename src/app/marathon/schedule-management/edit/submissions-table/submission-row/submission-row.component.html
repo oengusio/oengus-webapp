@@ -8,16 +8,20 @@
           <a (click)="selectAvailability.emit({
               username: runnerUserName,
               on: false
-           })"
-          >
+           })" (keyup.enter)="selectAvailability.emit({
+              username: runnerUserName,
+              on: false
+           })" tabindex="0" aria-label="Remove availability">
             <fa-icon [icon]="iconCalendarTimes"></fa-icon>
           </a>
         } @else {
           <a (click)="selectAvailability.emit({
               username: runnerUserName,
               on: true
-           })"
-          >
+           })" (keyup.enter)="selectAvailability.emit({
+              username: runnerUserName,
+              on: true
+           })" tabindex="0" aria-label="Add availability">
             <fa-icon [icon]="iconCalendarWeek"></fa-icon>
           </a>
         }
@@ -34,7 +38,7 @@
     <app-element-temporal-duration [duration]="line.estimate"></app-element-temporal-duration>
   </app-element-table-cell>
   <app-element-table-cell>
-    <a (click)="moveToSchedule.emit(i)">
+    <a (click)="moveToSchedule.emit(i)" (keyup.enter)="moveToSchedule.emit(i)" tabindex="0" aria-label="Move to schedule">
       <fa-icon [icon]="iconChevronRight"></fa-icon>
     </a>
   </app-element-table-cell>

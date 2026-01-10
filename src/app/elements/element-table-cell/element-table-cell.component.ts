@@ -1,11 +1,16 @@
 import { Component, ElementRef, HostBinding, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCaretDown, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-element-table-cell',
     templateUrl: './element-table-cell.component.html',
     styleUrls: ['./element-table-cell.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FontAwesomeModule,
+    ]
 })
 export class ElementTableCellComponent implements OnChanges {
   private elem = inject(ElementRef);

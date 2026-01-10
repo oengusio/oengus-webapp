@@ -1,4 +1,13 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SubmissionService } from '../../../services/submission.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Submission } from '../../../model/submission';
@@ -21,12 +30,39 @@ import { firstValueFrom } from 'rxjs';
 import { Opponent } from '../../../model/opponent';
 import { SavedCategory, SavedGame } from '../../../model/user-profile-history';
 import { DurationService } from '../../../services/duration.service';
+import { ImportRunDialogComponent } from './import-run-dialog/import-run-dialog.component';
+import { SubmitHeaderComponent } from './submit-header/submit-header.component';
+import { SubmitShareButtonsComponent } from './submit-share-buttons/submit-share-buttons.component';
+import { SubmitMultiplayerJoinComponent } from './submit-multiplayer-join/submit-multiplayer-join.component';
+import { OengusMdComponent } from '../../components/oengus-md/oengus-md.component';
+import { ElementTemporalDatetimeComponent } from '../../elements/temporal/element-temporal-datetime/element-temporal-datetime.component';
+import { ElementI18nComponent } from '../../elements/element-i18n/element-i18n.component';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @Component({
   selector: 'app-submit',
   templateUrl: './submit.component.html',
   styleUrls: ['./submit.component.scss'],
-  standalone: false,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    TranslateModule,
+    LocalizeRouterModule,
+    FontAwesomeModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    NwbSwitchModule,
+    AutocompleteLibModule,
+    DirectivesModule,
+    ImportRunDialogComponent,
+    SubmitHeaderComponent,
+    SubmitShareButtonsComponent,
+    SubmitMultiplayerJoinComponent,
+    OengusMdComponent,
+    ElementTemporalDatetimeComponent,
+    ElementI18nComponent,
+  ]
 })
 export class SubmitComponent {
 

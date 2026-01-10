@@ -27,7 +27,7 @@
       @for (game of games; track `${game.id}${i}`; let i = $index;) {
         <hr class="has-background-grey"/>
 
-        <button class="delete is-absolute" (click)="removeGame(i)"></button>
+        <button class="delete is-absolute" (click)="removeGame(i)" aria-label="Remove game"></button>
 
         <app-game-editor
           [game]="game"
@@ -60,7 +60,7 @@
 
                   @if (game.categories.length > 1) {
                     <button class="delete is-absolute"
-                            (click)="removeCategory(i, j)"></button>
+                            (click)="removeCategory(i, j)" aria-label="Remove category"></button>
                   }
 
                   <app-category-editor

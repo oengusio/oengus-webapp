@@ -1,11 +1,18 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-delete-button',
   templateUrl: './delete-button.component.html',
   styleUrls: ['./delete-button.component.scss'],
-  standalone: false,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    FontAwesomeModule,
+  ],
 })
 export class DeleteButtonComponent {
 

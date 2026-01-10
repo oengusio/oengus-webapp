@@ -1,5 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { ScheduleService } from '../../../../services/schedule.service';
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
@@ -11,7 +14,12 @@ import { UserService } from '../../../../services/user.service';
     selector: 'app-overview',
     templateUrl: './overview.component.html',
     styleUrls: ['./overview.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+    ]
 })
 export class OverviewComponent implements OnInit {
   private route = inject(ActivatedRoute);

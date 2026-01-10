@@ -1,19 +1,23 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { UserService } from '../../../services/user.service';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
-import { TranslateService } from '@ngx-translate/core';
 import { LoadingBarService } from '../../../services/loading-bar.service';
 import { AuthService } from '../../../services/auth.service';
 import { firstValueFrom } from 'rxjs';
 import { LoginResponse, LoginResponseStatus } from '../../../model/auth';
 import { NotificationService } from '../../../services/notification.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
     selector: 'app-login-oauth',
     templateUrl: './login-oauth.component.html',
     styleUrls: ['./login-oauth.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+    ]
 })
 export class LoginOauthComponent implements OnInit {
   private authService = inject(AuthService);

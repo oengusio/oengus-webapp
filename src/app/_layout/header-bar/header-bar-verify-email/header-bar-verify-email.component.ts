@@ -1,4 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../../../services/user.service';
 import { AuthService } from '../../../../services/auth.service';
 
@@ -6,7 +8,10 @@ import { AuthService } from '../../../../services/auth.service';
     selector: 'app-header-bar-verify-email',
     templateUrl: './header-bar-verify-email.component.html',
     styleUrls: ['./header-bar-verify-email.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+    ]
 })
 export class HeaderBarVerifyEmailComponent {
   private authService = inject(AuthService);
