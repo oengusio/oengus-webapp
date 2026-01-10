@@ -6,6 +6,7 @@ import { V2ScheduleLine } from '../../../../model/schedule-line';
     selector: 'app-marathon-schedule-list',
     templateUrl: './marathon-schedule-list.component.html',
     styleUrls: ['./marathon-schedule-list.component.scss'],
+    // eslint-disable-next-line @angular-eslint/prefer-standalone
     standalone: false
 })
 export class MarathonScheduleListComponent implements OnChanges {

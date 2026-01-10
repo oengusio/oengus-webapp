@@ -15,6 +15,7 @@ interface HomepageListData {
     selector: 'app-homepage-marathons',
     templateUrl: './marathons.component.html',
     styleUrls: ['./marathons.component.scss'],
+    // eslint-disable-next-line @angular-eslint/prefer-standalone
     standalone: false
 })
 export class MarathonsComponent {

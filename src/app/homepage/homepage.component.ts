@@ -7,6 +7,7 @@ import { HomepageMetadata } from '../../model/homepage-metadata';
     selector: 'app-homepage',
     templateUrl: './homepage.component.html',
     styleUrls: ['./homepage.component.scss'],
+    // eslint-disable-next-line @angular-eslint/prefer-standalone
     standalone: false
 })
 export class HomepageComponent implements OnInit {
