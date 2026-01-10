@@ -1,4 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SavedGame } from '../../../model/user-profile-history';
 import { UserService } from '../../../services/user.service';
 import { SelfUser } from '../../../model/user';
@@ -6,12 +10,24 @@ import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { SavedGamesService } from '../../../services/saved-games.service';
+import { GameEditorComponent } from './game-editor/game-editor.component';
+import { CategoryEditorComponent } from './category-editor/category-editor.component';
+import { MarkdownPipe } from '../../pipes/markdown.pipe';
 
 @Component({
   selector: 'app-saved-games-settings',
   templateUrl: './saved-games-settings.component.html',
   styleUrl: './saved-games-settings.component.scss',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    FontAwesomeModule,
+    GameEditorComponent,
+    CategoryEditorComponent,
+    MarkdownPipe,
+  ]
 })
 export class SavedGamesSettingsComponent implements OnInit {
   private userService = inject(UserService);

@@ -1,12 +1,22 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { SavedCategory, SavedGame } from '../../../../model/user-profile-history';
 import { DurationService } from '../../../../services/duration.service';
+import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
 
 @Component({
   selector: 'app-import-run-dialog',
-  standalone: false,
+  standalone: true,
   templateUrl: './import-run-dialog.component.html',
   styleUrl: './import-run-dialog.component.scss',
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    ElementI18nComponent,
+  ],
 })
 export class ImportRunDialogComponent {
 

@@ -1,12 +1,23 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
 import { toggleTableExpand } from '../../../../assets/table';
+import { ElementModule } from '../../../elements/elements.module';
+import { MarathonScheduleRowComponent } from '../marathon-schedule-row/marathon-schedule-row.component';
+import { RunDetailsComponent } from '../run-details/run-details.component';
 
 @Component({
     selector: 'app-marathon-schedule-list',
     templateUrl: './marathon-schedule-list.component.html',
     styleUrls: ['./marathon-schedule-list.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        ElementModule,
+        MarathonScheduleRowComponent,
+        RunDetailsComponent,
+    ]
 })
 export class MarathonScheduleListComponent implements OnChanges, OnInit {
   @Input() runs: V2ScheduleLine[];

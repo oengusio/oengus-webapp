@@ -1,4 +1,8 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InitMFADto } from '../../../../model/auth';
 import { AuthService } from '../../../../services/auth.service';
 
@@ -6,7 +10,12 @@ import { AuthService } from '../../../../services/auth.service';
     selector: 'app-mfa-modal',
     templateUrl: './mfa-modal.component.html',
     styleUrls: ['./mfa-modal.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+    ]
 })
 export class MfaModalComponent {
   private authService = inject(AuthService);

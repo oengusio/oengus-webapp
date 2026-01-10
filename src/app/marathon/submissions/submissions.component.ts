@@ -1,5 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { CommonModule, KeyValuePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
@@ -11,6 +15,8 @@ import { Answer } from '../../../model/answer';
 import { debounceTime, distinctUntilChanged, firstValueFrom, Subject } from 'rxjs';
 import { SubmissionPage } from '../../../model/submission-page';
 import { SubmissionLazyLoaderComponent } from './submission-lazy-loader/submission-lazy-loader.component';
+import { UserLinkComponent } from '../../elements/user-link/user-link.component';
+import { OengusMdComponent } from '../../components/oengus-md/oengus-md.component';
 
 interface SearchItem {
   term: string;
@@ -23,7 +29,16 @@ type AllowedTabs = 'submissions' | 'answers';
     selector: 'app-submissions',
     templateUrl: './submissions.component.html',
     styleUrls: ['./submissions.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        KeyValuePipe,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+        SubmissionLazyLoaderComponent,
+        UserLinkComponent,
+        OengusMdComponent,
+    ]
 })
 export class SubmissionsComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);

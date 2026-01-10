@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-about-info',
@@ -7,7 +9,10 @@ import { Component } from '@angular/core';
     host: {
         class: 'box',
     },
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+    ]
 })
 export class AboutInfoComponent {
 }

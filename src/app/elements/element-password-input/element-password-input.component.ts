@@ -1,4 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -8,7 +12,12 @@ import { faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
     host: {
         'class': 'field',
     },
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+    ]
 })
 export class ElementPasswordInputComponent {
   passwordHidden = true;

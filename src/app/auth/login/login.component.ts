@@ -1,18 +1,31 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { LoginDetails, LoginResponse, LoginResponseStatus } from '../../../model/auth';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
+import { ElementModule } from '../../elements/elements.module';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+        FontAwesomeModule,
+        ElementModule,
+    ]
 })
 export class LoginComponent {
   private userService = inject(UserService);

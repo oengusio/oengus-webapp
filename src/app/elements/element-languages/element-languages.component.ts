@@ -1,5 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import BulmaTagsInput from '@duncte123/bulma-tagsinput';
 import { firstValueFrom } from 'rxjs';
 import { MiscService } from '../../../services/misc.service';
@@ -16,7 +18,11 @@ interface LangType {
     host: {
         'class': 'field',
     },
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+    ]
 })
 export class ElementLanguagesComponent implements OnInit {
   private miscService = inject(MiscService);

@@ -1,13 +1,24 @@
 import { Component, HostBinding, Input, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../services/auth.service';
+import { ElementModule } from '../../elements/elements.module';
 
 @Component({
     selector: 'app-widget-signin-picker',
     templateUrl: './widget-signin-picker.component.html',
     styleUrls: ['./widget-signin-picker.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+        FontAwesomeModule,
+        ElementModule,
+    ]
 })
 export class WidgetSigninPickerComponent {
   authService = inject(AuthService);

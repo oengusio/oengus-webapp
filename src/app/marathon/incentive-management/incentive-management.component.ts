@@ -1,4 +1,8 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IncentiveService } from '../../../services/incentive.service';
 import { ActivatedRoute } from '@angular/router';
 import { Incentive } from '../../../model/incentive';
@@ -12,7 +16,12 @@ import { ScheduleLine } from '../../../model/schedule-line';
     selector: 'app-incentive-management',
     templateUrl: './incentive-management.component.html',
     styleUrls: ['./incentive-management.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+    ]
 })
 export class IncentiveManagementComponent {
   private route = inject(ActivatedRoute);

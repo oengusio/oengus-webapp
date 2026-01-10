@@ -1,15 +1,25 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { CategoryService } from '../../../../services/category.service';
 import { MarathonService } from '../../../../services/marathon.service';
 import { NotificationService } from '../../../../services/notification.service';
 import { firstValueFrom } from 'rxjs';
 import { Opponent } from '../../../../model/opponent';
+import { UserLinkComponent } from '../../../elements/user-link/user-link.component';
 
 @Component({
   selector: 'app-submit-multiplayer-join',
   templateUrl: './submit-multiplayer-join.component.html',
   styleUrl: './submit-multiplayer-join.component.scss',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    UserLinkComponent,
+  ],
 })
 export class SubmitMultiplayerJoinComponent {
   private categoryService = inject(CategoryService);

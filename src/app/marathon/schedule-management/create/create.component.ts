@@ -1,16 +1,25 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScheduleCreateRequest } from '../../../../model/schedule';
 import { firstValueFrom } from 'rxjs';
 import { ScheduleService } from '../../../../services/schedule.service';
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
+import { DirectivesModule } from '../../../directives/directives.module';
 
 @Component({
     selector: 'app-create',
     templateUrl: './create.component.html',
     styleUrls: ['./create.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        DirectivesModule,
+    ]
 })
 export class CreateComponent {
   private route = inject(ActivatedRoute);

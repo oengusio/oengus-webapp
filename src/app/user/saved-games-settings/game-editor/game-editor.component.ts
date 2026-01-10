@@ -1,4 +1,8 @@
 import { Component, EventEmitter, Input, Output, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SavedGame } from '../../../../model/user-profile-history';
 import gameConsoles from '../../../../assets/consoles.json';
 import { SavedGamesService } from '../../../../services/saved-games.service';
@@ -7,7 +11,13 @@ import { faFloppyDisk, faPencil, faCancel } from '@fortawesome/free-solid-svg-ic
 
 @Component({
   selector: 'app-game-editor',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    FontAwesomeModule,
+  ],
   templateUrl: './game-editor.component.html',
   styleUrl: './game-editor.component.scss'
 })

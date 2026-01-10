@@ -1,5 +1,9 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { Marathon } from 'src/model/marathon';
+import { ElementModule } from '../../elements/elements.module';
+import { CalendarViewRowComponent } from '../calendar-view-row/calendar-view-row.component';
 
 interface CalendarType {
   datetime: string;
@@ -11,7 +15,12 @@ interface CalendarType {
     selector: 'app-calendar-view-table',
     templateUrl: './calendar-view-table.component.html',
     styleUrls: ['./calendar-view-table.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        ElementModule,
+        CalendarViewRowComponent,
+    ]
 })
 export class CalendarViewTableComponent implements OnInit, OnChanges {
   @Input() year: number;

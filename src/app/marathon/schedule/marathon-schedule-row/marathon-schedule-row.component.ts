@@ -1,11 +1,20 @@
 import { Component, ElementRef, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
+import { ElementModule } from '../../../elements/elements.module';
+import { ComponentsModule } from '../../../components/components.module';
 
 @Component({
     selector: 'app-marathon-schedule-row',
     templateUrl: './marathon-schedule-row.component.html',
     styleUrls: ['./marathon-schedule-row.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        ElementModule,
+        ComponentsModule,
+    ]
 })
 export class MarathonScheduleRowComponent implements OnChanges {
   private elRef = inject(ElementRef);

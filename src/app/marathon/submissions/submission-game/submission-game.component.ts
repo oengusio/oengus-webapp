@@ -1,13 +1,24 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { Game } from '../../../../model/game';
 import { Marathon } from '../../../../model/marathon';
 import { Category } from '../../../../model/category';
+import { OengusCommonModule } from '../../../oengus-common/oengus-common.module';
+import { SimpleMdComponent } from '../../../components/simple-md/simple-md.component';
+import { SubmissionCategoryComponent } from '../submission-category/submission-category.component';
 
 @Component({
     selector: 'app-submission-game',
     templateUrl: './submission-game.component.html',
     styleUrls: ['./submission-game.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        OengusCommonModule,
+        SimpleMdComponent,
+        SubmissionCategoryComponent,
+    ]
 })
 export class SubmissionGameComponent implements OnDestroy {
 

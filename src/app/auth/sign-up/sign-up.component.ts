@@ -1,15 +1,31 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SignupDto } from '../../../model/dto/signup-dto';
 import { faEnvelope, faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../services/auth.service';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
-import { TranslateService } from '@ngx-translate/core';
+import { ElementModule } from '../../elements/elements.module';
+import { OengusCommonModule } from '../../oengus-common/oengus-common.module';
 
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+        FontAwesomeModule,
+        ElementModule,
+        OengusCommonModule,
+    ]
 })
 export class SignUpComponent {
   readonly title = 'Sign Up';

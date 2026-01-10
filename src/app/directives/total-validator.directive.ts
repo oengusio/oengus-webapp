@@ -4,7 +4,6 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 @Directive({
     selector: '[appTotalValidator]',
     providers: [{ provide: NG_VALIDATORS, useExisting: TotalValidatorDirective, multi: true }],
-    standalone: false
 })
 export class TotalValidatorDirective implements Validator {
 

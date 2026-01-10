@@ -1,14 +1,26 @@
 import { Component, ViewChild, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { UserProfile } from '../../../model/user-profile';
 import { UserService } from '../../../services/user.service';
 import { ProfileHistoryComponent } from './profile-history/profile-history.component';
+import { ManagementDialogComponent } from '../management-dialog/management-dialog.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AdminControlsComponent } from './admin-controls/admin-controls.component';
+import { UserSocialComponent } from './user-social/user-social.component';
 
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        ManagementDialogComponent,
+        UserProfileComponent,
+        AdminControlsComponent,
+        UserSocialComponent,
+        ProfileHistoryComponent,
+    ]
 })
 export class ProfileComponent {
   private route = inject(ActivatedRoute);

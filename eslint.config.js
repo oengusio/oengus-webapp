@@ -5,16 +5,19 @@ const angular = require("angular-eslint");
 
 module.exports = tseslint.config(
   {
+    ignores: [
+      '**/.angular/**',
+      '**/node_modules/**',
+      '**/dist/**',
+    ],
+  },
+  {
     files: ["src/**/*.ts"],
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
-    ],
-    ignores: [
-      '.angular/**',
-      'node_modules/**',
     ],
     processor: angular.processInlineTemplates,
     rules: {
@@ -43,10 +46,6 @@ module.exports = tseslint.config(
     extends: [
       ...angular.configs.templateRecommended,
       ...angular.configs.templateAccessibility,
-    ],
-    ignores: [
-      '.angular/**',
-      'node_modules/**',
     ],
     rules: {
       '@angular-eslint/template/no-inline-styles': ['error'],
