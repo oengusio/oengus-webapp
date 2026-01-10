@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, Event as RouterEvent, NavigationCancel, NavigationEnd, NavigationError, NavigationStart } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { DateTimeAdapter } from '@danielmoncada/angular-datetime-picker';
+import { DateTimeAdapter } from '@oengus/angular-datetime-picker';
 import { Location } from '@angular/common';
 import { UserService } from '../services/user.service';
 import { LoadingBarService } from '../services/loading-bar.service';

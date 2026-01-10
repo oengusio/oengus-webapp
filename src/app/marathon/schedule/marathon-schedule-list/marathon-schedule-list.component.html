@@ -27,14 +27,6 @@
   </app-element-table-cell>
 
   @for (run of runs; track run; let index = $index) {
-    <!--<app-element-advertisement
-    *ngIf="index !== 0 && shouldShowDay(index)"
-    dataMinHeight="100px"
-    class="is-advertisement"
-    [showAdvertisement]="advertisementIndices.includes(index)"
-    [showSpacer]="true"
-    [isHorizontal]="true"
-  ></app-element-advertisement>-->
   @if (shouldShowDay(index)) {
     <app-element-table-cell class="day is-info" columnStart="1" columnEnd="-1">
       <app-element-temporal-datetime [dateTime]="run.date" format="longDateWithWeekday"></app-element-temporal-datetime>
