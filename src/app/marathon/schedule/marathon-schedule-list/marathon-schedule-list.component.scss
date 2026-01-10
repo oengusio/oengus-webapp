@@ -247,4 +247,25 @@
     text-align: center;
     color: white;
   }
+
+  > .run.past-run {
+    opacity: 0.5;
+  }
+
+  > .run.current-run {
+    border-left-color: table-vars.$primary-color;
+    
+    .run-left {
+      border-left-color: table-vars.$primary-color;
+      background-color: white;
+
+      .row-title {
+        color: black;
+      }
+
+      .time {
+        color: black;
+      }
+    }
+  }
 }

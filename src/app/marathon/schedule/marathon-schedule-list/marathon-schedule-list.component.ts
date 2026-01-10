@@ -1,11 +1,12 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faGamepad, faLink, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
 import { toggleTableExpand } from '../../../../assets/table';
 import { ElementModule } from '../../../elements/elements.module';
-import { MarathonScheduleRowComponent } from '../marathon-schedule-row/marathon-schedule-row.component';
-import { RunDetailsComponent } from '../run-details/run-details.component';
+import { ComponentsModule } from '../../../components/components.module';
 
 @Component({
     selector: 'app-marathon-schedule-list',
@@ -14,9 +15,9 @@ import { RunDetailsComponent } from '../run-details/run-details.component';
     imports: [
         CommonModule,
         TranslateModule,
+        FontAwesomeModule,
         ElementModule,
-        MarathonScheduleRowComponent,
-        RunDetailsComponent,
+        ComponentsModule,
     ]
 })
 export class MarathonScheduleListComponent implements OnChanges, OnInit {
@@ -25,6 +26,10 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   @Input() nextRun: V2ScheduleLine;
   @Input() runHash: string;
 
+  faGamepad = faGamepad;
+  faLink = faLink;
+  faCircleCheck = faCircleCheck;
+  showCopiedPopup: number | null = null;
   expanded = new Set<number>();
 
   ngOnInit(): void {
@@ -69,15 +74,23 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
     };
   }
 
-  getId(run: V2ScheduleLine): string|undefined {
-    switch (run.id) {
-      case this.currentRun?.id:
-        return 'current';
-      case this.nextRun?.id:
-        return 'next';
-      default:
-        return undefined;
+  getId(run: V2ScheduleLine): string {
+    if (run.id === this.currentRun?.id) {
+      return 'current';
     }
+    if (run.id === this.nextRun?.id) {
+      return 'next';
+    }
+    return `run-${run.id}`;
+  }
+
+  isBeforeCurrentRun(run: V2ScheduleLine): boolean {
+    if (!this.currentRun || !this.runs) {
+      return false;
+    }
+    const currentIndex = this.runs.findIndex(r => r.id === this.currentRun.id);
+    const runIndex = this.runs.findIndex(r => r.id === run.id);
+    return runIndex >= 0 && currentIndex >= 0 && runIndex < currentIndex;
   }
 
   expandRunHash(): void {
@@ -100,5 +113,25 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   toggleExpand(runId: number, openOnly = false): void {
     toggleTableExpand(this.expanded, runId, openOnly);
     this.expanded = new Set(this.expanded);
+  }
+
+  copyLinkToClipboard(runId: number, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // Get current URL without hash
+    const { origin, pathname } = window.location
+    const baseUrl = origin + pathname;
+    const link = `${baseUrl}#run-${runId}`;
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(link).then(() => {
+      this.showCopiedPopup = runId;
+      setTimeout(() => {
+        this.showCopiedPopup = null;
+      }, 1000);
+    }).catch((err) => {
+      console.error('Failed to copy link:', err);
+    });
   }
 }

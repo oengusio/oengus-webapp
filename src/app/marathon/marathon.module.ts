@@ -44,7 +44,6 @@ import { MarathonScheduleExportComponent } from './schedule/marathon-schedule-ex
 import { ElementModule } from '../elements/elements.module';
 import { MarathonScheduleCurrentComponent } from './schedule/marathon-schedule-current/marathon-schedule-current.component';
 import { MarathonScheduleListComponent } from './schedule/marathon-schedule-list/marathon-schedule-list.component';
-import { MarathonScheduleRowComponent } from './schedule/marathon-schedule-row/marathon-schedule-row.component';
 import { RunDetailsComponent } from './schedule/run-details/run-details.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
@@ -289,7 +288,6 @@ const marathonRoutes: Routes = [
     DescriptionEditorComponent,
     ElementLoginLinkSelectorComponent,
     MarathonScheduleListComponent,
-    MarathonScheduleRowComponent,
     RunDetailsComponent,
     ScheduleComponent,
     MarathonScheduleShareComponent,

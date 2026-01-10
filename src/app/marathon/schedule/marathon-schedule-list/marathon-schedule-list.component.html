@@ -6,7 +6,7 @@
       </div>
     }
     @if (run.setupBlock) {
-      <div class="run setup-block">
+      <div class="run setup-block" [id]="getId(run)" [class.past-run]="isBeforeCurrentRun(run)" [class.current-run]="run.id === currentRun?.id">
         <div class="run-left">
           <div class="row-title">
             <app-simple-md [data]="(run.setupBlockText || 'marathon.schedule.setupBlock' | translate)"></app-simple-md>
@@ -26,7 +26,7 @@
         </div>
       </div>
     } @else {
-      <div class="run" [id]="'run-' + run.id">
+      <div class="run" [id]="getId(run)" [class.past-run]="isBeforeCurrentRun(run)" [class.current-run]="run.id === currentRun?.id">
         <div class="run-left">
           <div class="row-title">
             <app-simple-md [data]="run.game"></app-simple-md>
