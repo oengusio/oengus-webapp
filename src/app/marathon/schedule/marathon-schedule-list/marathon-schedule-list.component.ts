@@ -75,13 +75,16 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   }
 
   getId(run: V2ScheduleLine): string {
-    if (run.id === this.currentRun?.id) {
-      return 'current';
-    }
-    if (run.id === this.nextRun?.id) {
-      return 'next';
-    }
+    // Always return run-{id} for clipboard links to work
     return `run-${run.id}`;
+  }
+
+  getCurrentId(): string | undefined {
+    return this.currentRun ? `run-${this.currentRun.id}` : undefined;
+  }
+
+  getNextId(): string | undefined {
+    return this.nextRun ? `run-${this.nextRun.id}` : undefined;
   }
 
   isBeforeCurrentRun(run: V2ScheduleLine): boolean {
@@ -99,15 +102,28 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
       const runHashResults = runHashRegExp.exec(this.runHash);
 
       if (runHashResults) {
-        this.toggleExpand(Number.parseInt(runHashResults[1], 10), true);
+        const runId = Number.parseInt(runHashResults[1], 10);
+        this.toggleExpand(runId, true);
+        this.scrollToRun(runId);
       } else if (this.currentRun || this.nextRun) {
-        if (this.runHash === '#current') {
-          this.toggleExpand(this.currentRun?.id, true);
-        } else if (this.runHash === '#next') {
-          this.toggleExpand(this.nextRun?.id, true);
+        if (this.runHash === '#current' && this.currentRun) {
+          this.toggleExpand(this.currentRun.id, true);
+          this.scrollToRun(this.currentRun.id);
+        } else if (this.runHash === '#next' && this.nextRun) {
+          this.toggleExpand(this.nextRun.id, true);
+          this.scrollToRun(this.nextRun.id);
         }
       }
     }
+  }
+
+  scrollToRun(runId: number): void {
+    setTimeout(() => {
+      const element = document.getElementById(`run-${runId}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   }
 
   toggleExpand(runId: number, openOnly = false): void {
