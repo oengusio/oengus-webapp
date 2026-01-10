@@ -11,7 +11,6 @@ import { faFloppyDisk, faPencil, faCancel } from '@fortawesome/free-solid-svg-ic
 
 @Component({
   selector: 'app-game-editor',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

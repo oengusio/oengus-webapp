@@ -18,7 +18,6 @@ import { MarkdownPipe } from '../../pipes/markdown.pipe';
   selector: 'app-saved-games-settings',
   templateUrl: './saved-games-settings.component.html',
   styleUrl: './saved-games-settings.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

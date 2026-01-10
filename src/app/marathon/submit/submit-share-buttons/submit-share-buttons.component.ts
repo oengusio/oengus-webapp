@@ -11,7 +11,6 @@ import { ElementShareMastodonComponent } from '../../../elements/element-share-m
   selector: 'app-submit-share-buttons',
   templateUrl: './submit-share-buttons.component.html',
   styleUrl: './submit-share-buttons.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

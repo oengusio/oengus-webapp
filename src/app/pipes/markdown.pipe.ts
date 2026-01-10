@@ -2,7 +2,6 @@ import { Pipe, PipeTransform, inject } from '@angular/core';
 import { MarkdownService } from '../../services/markdown.service';
 
 @Pipe({
-  standalone: true,
   name: 'markdown'
 })
 export class MarkdownPipe implements PipeTransform {

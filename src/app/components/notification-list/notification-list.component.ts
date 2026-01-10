@@ -7,7 +7,6 @@ import { MarkdownPipe } from '../../pipes/markdown.pipe';
   selector: 'app-notification-list',
   templateUrl: './notification-list.component.html',
   styleUrl: './notification-list.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     MarkdownPipe,

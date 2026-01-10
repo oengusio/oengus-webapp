@@ -10,7 +10,6 @@ import { ElementTemporalDatetimeComponent } from '../../../elements/temporal/ele
   selector: 'app-submit-header',
   templateUrl: './submit-header.component.html',
   styleUrl: './submit-header.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

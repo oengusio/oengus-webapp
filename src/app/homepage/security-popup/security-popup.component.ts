@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-security-popup',
   templateUrl: './security-popup.component.html',
   styleUrl: './security-popup.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
   ]

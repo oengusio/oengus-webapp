@@ -7,7 +7,6 @@ import { ElementModule } from '../elements/elements.module';
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',
   styleUrl: './privacy-policy.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

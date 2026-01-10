@@ -13,7 +13,6 @@ import { UserLinkComponent } from '../../../elements/user-link/user-link.compone
   selector: 'app-submit-multiplayer-join',
   templateUrl: './submit-multiplayer-join.component.html',
   styleUrl: './submit-multiplayer-join.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

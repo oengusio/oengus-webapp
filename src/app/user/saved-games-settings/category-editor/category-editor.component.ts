@@ -12,7 +12,6 @@ import { DirectivesModule } from '../../../directives/directives.module';
 
 @Component({
   selector: 'app-category-editor',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

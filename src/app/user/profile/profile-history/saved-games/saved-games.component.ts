@@ -11,7 +11,6 @@ import { ElementTemporalDurationComponent } from '../../../../elements/temporal/
   selector: 'app-user-profile-saved-games',
   templateUrl: './saved-games.component.html',
   styleUrl: './saved-games.component.scss',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

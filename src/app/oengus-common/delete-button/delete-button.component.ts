@@ -8,7 +8,6 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
   selector: 'app-delete-button',
   templateUrl: './delete-button.component.html',
   styleUrls: ['./delete-button.component.scss'],
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,
