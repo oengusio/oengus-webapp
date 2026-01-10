@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, NgZone, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Donation } from '../../../model/donation';
 import { DonationService } from '../../../services/donation.service';
 import { MarathonService } from '../../../services/marathon.service';
@@ -11,12 +16,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { DonationIncentiveLink } from '../../../model/donation-incentive-link';
 import { Bid } from '../../../model/bid';
+import { MonetaryAmountComponent } from '../../oengus-common/monetary-amount/monetary-amount.component';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @Component({
     selector: 'app-donate',
     templateUrl: './donate.component.html',
     styleUrls: ['./donate.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        RouterModule,
+        FontAwesomeModule,
+        MonetaryAmountComponent,
+        DirectivesModule,
+    ]
 })
 export class DonateComponent implements OnInit {
   readonly title = 'Donate';

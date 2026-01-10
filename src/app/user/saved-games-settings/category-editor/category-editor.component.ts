@@ -1,13 +1,24 @@
 import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCancel, faFloppyDisk, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { SavedCategory } from '../../../../model/user-profile-history';
 import { firstValueFrom } from 'rxjs';
 import { SavedGamesService } from '../../../../services/saved-games.service';
 import { DurationService } from '../../../../services/duration.service';
+import { DirectivesModule } from '../../../directives/directives.module';
 
 @Component({
   selector: 'app-category-editor',
-  standalone: false,
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    FontAwesomeModule,
+    DirectivesModule,
+  ],
   templateUrl: './category-editor.component.html',
   styleUrl: './category-editor.component.scss'
 })

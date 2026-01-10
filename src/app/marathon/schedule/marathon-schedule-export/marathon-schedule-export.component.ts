@@ -1,14 +1,21 @@
 import { Component, Input, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { ScheduleService } from '../../../../services/schedule.service';
 import { MarathonService } from '../../../../services/marathon.service';
 import { downloadBlob } from '../../../../utils/helpers';
 import { LoadingBarService } from '../../../../services/loading-bar.service';
+import { ElementDropdownComponent } from '../../../elements/element-dropdown/element-dropdown.component';
 
 @Component({
     selector: 'app-marathon-schedule-export',
     templateUrl: './marathon-schedule-export.component.html',
     styleUrls: ['./marathon-schedule-export.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        ElementDropdownComponent,
+    ]
 })
 export class MarathonScheduleExportComponent {
   private scheduleService = inject(ScheduleService);

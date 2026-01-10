@@ -1,4 +1,9 @@
 import { Component, HostBinding, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Marathon } from '../../../../model/marathon';
 import { faCalendarCheck, faCheckSquare, faCogs, faDotCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -6,7 +11,13 @@ import { faCalendarCheck, faCheckSquare, faCogs, faDotCircle } from '@fortawesom
     selector: 'app-sidebar-admin',
     templateUrl: './sidebar-admin.component.html',
     styleUrls: ['./sidebar-admin.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+        FontAwesomeModule,
+    ]
 })
 export class SidebarAdminComponent {
   @Input() marathon: Marathon;

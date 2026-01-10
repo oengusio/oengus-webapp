@@ -1,16 +1,29 @@
 import { Component, OnDestroy, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { V2Schedule } from '../../../model/schedule';
 import moment from 'moment-timezone';
 import { MarathonService } from '../../../services/marathon.service';
 import { V2ScheduleLine } from '../../../model/schedule-line';
 import { Subscription, timer } from 'rxjs';
+import { MarathonScheduleShareComponent } from './marathon-schedule-share/marathon-schedule-share.component';
+import { MarathonScheduleExportComponent } from './marathon-schedule-export/marathon-schedule-export.component';
+import { MarathonScheduleCurrentComponent } from './marathon-schedule-current/marathon-schedule-current.component';
+import { MarathonScheduleListComponent } from './marathon-schedule-list/marathon-schedule-list.component';
 
 @Component({
     selector: 'app-schedule',
     templateUrl: './schedule.component.html',
     styleUrls: ['./schedule.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        MarathonScheduleShareComponent,
+        MarathonScheduleExportComponent,
+        MarathonScheduleCurrentComponent,
+        MarathonScheduleListComponent,
+    ]
 })
 export class ScheduleComponent implements OnDestroy {
   private route = inject(ActivatedRoute);

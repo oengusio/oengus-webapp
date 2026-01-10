@@ -1,4 +1,8 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCalendarTimes, faCalendarWeek, faFilm } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { SelectionService } from '../../../services/selection.service';
@@ -17,7 +21,12 @@ import { firstValueFrom } from 'rxjs';
     selector: 'app-selection',
     templateUrl: './selection.component.html',
     styleUrls: ['./selection.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+    ]
 })
 export class SelectionComponent implements OnInit {
   private route = inject(ActivatedRoute);

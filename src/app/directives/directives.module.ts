@@ -10,6 +10,9 @@ import { ScheduleSlugExistsValidatorDirective } from './schedule-slug-exists-val
 
 @NgModule({
   declarations: [
+  ],
+  imports: [
+    CommonModule,
     UsernameExistsValidatorDirective,
     MarathonExistsValidatorDirective,
     MinNumberValidatorDirective,
@@ -17,9 +20,6 @@ import { ScheduleSlugExistsValidatorDirective } from './schedule-slug-exists-val
     MinDurationValidatorDirective,
     TotalValidatorDirective,
     ScheduleSlugExistsValidatorDirective,
-  ],
-  imports: [
-    CommonModule,
   ],
   exports: [
     UsernameExistsValidatorDirective,

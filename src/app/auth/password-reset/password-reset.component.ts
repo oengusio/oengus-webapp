@@ -1,14 +1,23 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../services/auth.service';
 import { firstValueFrom } from 'rxjs';
 import { passwordResetErrorToMessage } from '../../../utils/authHelpers';
+import { ElementModule } from '../../elements/elements.module';
 
 @Component({
     selector: 'app-password-reset',
     templateUrl: './password-reset.component.html',
     styleUrls: ['./password-reset.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        ElementModule,
+    ]
 })
 export class PasswordResetComponent implements OnInit {
   readonly title = 'Reset Password';

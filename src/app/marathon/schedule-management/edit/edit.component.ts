@@ -1,4 +1,9 @@
 import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { environment } from '../../../../environments/environment';
@@ -16,6 +21,13 @@ import moment from 'moment-timezone';
 import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ScheduleTableOldElementComponent } from './schedule-table-old-element/schedule-table-old-element.component';
+import { WarningModalComponent } from '../warning-modal/warning-modal.component';
+import { SubmissionsTableComponent } from './submissions-table/submissions-table.component';
+import { ClonePopupComponent } from './clone-popup/clone-popup.component';
+import { MarathonScheduleExportComponent } from '../../schedule/marathon-schedule-export/marathon-schedule-export.component';
+import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
+import { DirectivesModule } from '../../../directives/directives.module';
+import { MarkdownPipe } from '../../../pipes/markdown.pipe';
 
 // Options are 'id' and 'content'
 const AVAILABILITY_SORT_KEY = 'content';
@@ -24,7 +36,22 @@ const AVAILABILITY_SORT_KEY = 'content';
     selector: 'app-edit',
     templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+        NwbSwitchModule,
+        ScheduleTableComponent,
+        ScheduleTableOldElementComponent,
+        WarningModalComponent,
+        SubmissionsTableComponent,
+        ClonePopupComponent,
+        MarathonScheduleExportComponent,
+        ElementI18nComponent,
+        DirectivesModule,
+        MarkdownPipe,
+    ]
 })
 export class EditComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);

@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { BasicUserInfo } from '../../../model/user';
 import { environment } from '../../../environments/environment';
 import { LineRunner } from '../../../model/schedule-line';
@@ -7,7 +10,11 @@ import { LineRunner } from '../../../model/schedule-line';
     selector: 'app-user-link',
     templateUrl: './user-link.component.html',
     styleUrls: ['./user-link.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        LocalizeRouterModule,
+    ]
 })
 export class UserLinkComponent {
   @Input() user: BasicUserInfo | LineRunner;

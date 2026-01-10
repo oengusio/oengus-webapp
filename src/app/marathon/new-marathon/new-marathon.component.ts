@@ -1,13 +1,27 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { Marathon } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { environment } from '../../../environments/environment';
+import { DirectivesModule } from '../../directives/directives.module';
 
 @Component({
     selector: 'app-new-marathon',
     templateUrl: './new-marathon.component.html',
     styleUrls: ['./new-marathon.component.css'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule,
+        NwbSwitchModule,
+        DirectivesModule,
+    ]
 })
 export class NewMarathonComponent implements OnInit {
   marathonService = inject(MarathonService);

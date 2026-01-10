@@ -1,6 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import BulmaTagsInput from '@duncte123/bulma-tagsinput';
-import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { MiscService } from '../../../services/misc.service';
 
@@ -11,7 +13,11 @@ import { MiscService } from '../../../services/misc.service';
     host: {
         'class': 'field',
     },
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+    ]
 })
 export class ElementPronounsComponent implements OnInit {
   private miscService = inject(MiscService);

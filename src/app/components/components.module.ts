@@ -17,20 +17,14 @@ import { ElementLoginLinkSelectorComponent } from '../elements/element-login-lin
 
 @NgModule({
   declarations: [
-    PatronListComponent,
-    SidebarOverviewComponent,
-    OengusMdComponent,
-    WidgetSigninPickerComponent,
-    SimpleMdComponent,
-    NotificationListComponent,
   ],
   exports: [
-    OengusMdComponent,
+    // Standalone components re-exported (must be in both imports and exports)
+    NotificationListComponent,
     PatronListComponent,
     SidebarOverviewComponent,
-    WidgetSigninPickerComponent,
+    OengusMdComponent,
     SimpleMdComponent,
-    NotificationListComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +36,12 @@ import { ElementLoginLinkSelectorComponent } from '../elements/element-login-lin
     ElementModule,
     MarkdownPipe,
     ElementLoginLinkSelectorComponent,
+    WidgetSigninPickerComponent,
+    NotificationListComponent,
+    PatronListComponent,
+    SidebarOverviewComponent,
+    OengusMdComponent,
+    SimpleMdComponent,
   ],
 })
 export class ComponentsModule { }

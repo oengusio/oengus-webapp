@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-monetary-amount',
     templateUrl: './monetary-amount.component.html',
     styleUrls: ['./monetary-amount.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+    ]
 })
 export class MonetaryAmountComponent {
 

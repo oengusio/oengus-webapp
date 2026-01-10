@@ -1,15 +1,23 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { MarathonService } from '../../services/marathon.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { TitleService } from '../../services/title.service';
+import { MarathonHeaderComponent } from './layout/marathon-header/marathon-header.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
 @Component({
     selector: 'app-marathon',
     templateUrl: './marathon.component.html',
     styleUrls: ['./marathon.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        MarathonHeaderComponent,
+        SidebarComponent,
+    ]
 })
 export class MarathonComponent implements OnInit {
   private route = inject(ActivatedRoute);

@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faDiscord, faFacebookF, faInstagram, faMastodon, faSnapchatGhost, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faPhone, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { SocialAccount } from '../../../../model/social-account';
@@ -9,7 +12,11 @@ import { parseMastodonUrl } from '../../../../utils/helpers';
     selector: 'app-connection',
     templateUrl: './connection.component.html',
     styleUrls: ['./connection.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        FontAwesomeModule,
+    ]
 })
 export class ConnectionComponent {
 

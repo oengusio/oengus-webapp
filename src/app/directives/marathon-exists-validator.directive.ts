@@ -7,7 +7,6 @@ import { map } from 'rxjs/operators';
 @Directive({
     selector: '[appMarathonExistsValidator]',
     providers: [{ provide: NG_ASYNC_VALIDATORS, useExisting: MarathonExistsValidatorDirective, multi: true }],
-    standalone: false
 })
 export class MarathonExistsValidatorDirective implements AsyncValidator {
   private marathonService = inject(MarathonService);

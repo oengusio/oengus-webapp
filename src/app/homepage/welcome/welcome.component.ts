@@ -1,13 +1,22 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAngleDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { environment } from '../../../environments/environment';
+import { WidgetSigninPickerComponent } from '../../components/widget-signin-picker/widget-signin-picker.component';
 
 @Component({
     selector: 'app-homepage-welcome',
     templateUrl: './welcome.component.html',
     styleUrls: ['./welcome.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        FontAwesomeModule,
+        WidgetSigninPickerComponent,
+    ]
 })
 export class WelcomeComponent {
   userService = inject(UserService);

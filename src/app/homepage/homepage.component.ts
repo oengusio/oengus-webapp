@@ -1,14 +1,22 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { HomepageMetadata } from '../../model/homepage-metadata';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { MarathonsComponent } from './marathons/marathons.component';
+import { SponsorsComponent } from './sponsors/sponsors.component';
 
 @Component({
     selector: 'app-homepage',
     templateUrl: './homepage.component.html',
     styleUrls: ['./homepage.component.scss'],
-    // eslint-disable-next-line @angular-eslint/prefer-standalone
-    standalone: false
+    imports: [
+        CommonModule,
+        WelcomeComponent,
+        MarathonsComponent,
+        SponsorsComponent,
+    ]
 })
 export class HomepageComponent implements OnInit {
   private route = inject(ActivatedRoute);

@@ -1,28 +1,43 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { faGamepad, faLink, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
+import { toggleTableExpand } from '../../../../assets/table';
+import { ElementModule } from '../../../elements/elements.module';
+import { MarathonScheduleRowComponent } from '../marathon-schedule-row/marathon-schedule-row.component';
+import { RunDetailsComponent } from '../run-details/run-details.component';
 
 @Component({
     selector: 'app-marathon-schedule-list',
     templateUrl: './marathon-schedule-list.component.html',
     styleUrls: ['./marathon-schedule-list.component.scss'],
-    // eslint-disable-next-line @angular-eslint/prefer-standalone
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        ElementModule,
+        MarathonScheduleRowComponent,
+        RunDetailsComponent,
+    ]
 })
-export class MarathonScheduleListComponent implements OnChanges {
+export class MarathonScheduleListComponent implements OnChanges, OnInit {
   @Input() runs: V2ScheduleLine[];
   @Input() currentRun: V2ScheduleLine;
   @Input() nextRun: V2ScheduleLine;
   @Input() runHash: string;
 
-  faGamepad = faGamepad;
-  faLink = faLink;
-  faCircleCheck = faCircleCheck;
-  showCopiedPopup: number | null = null;
+  expanded = new Set<number>();
+
+  ngOnInit(): void {
+    this.expandRunHash();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.runHash && changes.runHash.currentValue !== changes.runHash.previousValue) {
-      this.scrollToRunHash();
+      this.expandRunHash();
+    }
+
+    if (changes.runs) {
+      this.expanded.clear();
     }
   }
 
@@ -46,52 +61,44 @@ export class MarathonScheduleListComponent implements OnChanges {
       currentRun.getFullYear() !== previousRun.getFullYear();
   }
 
-  scrollToRunHash(): void {
+  getRowParity(index: number, run: V2ScheduleLine): { 'is-primary': boolean, 'is-even': boolean, 'is-odd': boolean } {
+    return {
+      'is-even': index % 2 === 0,
+      'is-odd': index % 2 === 1,
+      'is-primary': run.id === this.currentRun?.id,
+    };
+  }
+
+  getId(run: V2ScheduleLine): string|undefined {
+    switch (run.id) {
+      case this.currentRun?.id:
+        return 'current';
+      case this.nextRun?.id:
+        return 'next';
+      default:
+        return undefined;
+    }
+  }
+
+  expandRunHash(): void {
     if (this.runHash) {
       const runHashRegExp = /^#run-(\d+)$/;
       const runHashResults = runHashRegExp.exec(this.runHash);
 
       if (runHashResults) {
-        const runId = Number.parseInt(runHashResults[1], 10);
-        const element = document.getElementById(`run-${runId}`);
-        if (element) {
-          window.requestAnimationFrame(() => {
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          });
-        }
+        this.toggleExpand(Number.parseInt(runHashResults[1], 10), true);
       } else if (this.currentRun || this.nextRun) {
-        let element: HTMLElement | null = null;
-        if (this.runHash === '#current' && this.currentRun) {
-          element = document.getElementById(`run-${this.currentRun.id}`);
-        } else if (this.runHash === '#next' && this.nextRun) {
-          element = document.getElementById(`run-${this.nextRun.id}`);
-        }
-        if (element) {
-          window.requestAnimationFrame(() => {
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          });
+        if (this.runHash === '#current') {
+          this.toggleExpand(this.currentRun?.id, true);
+        } else if (this.runHash === '#next') {
+          this.toggleExpand(this.nextRun?.id, true);
         }
       }
     }
   }
 
-  copyLinkToClipboard(runId: number, event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-    
-    // Get current URL without hash
-    const { origin, pathname } = window.location
-    const baseUrl = origin + pathname;
-    const link = `${baseUrl}#run-${runId}`;
-    
-    // Copy to clipboard
-    navigator.clipboard.writeText(link).then(() => {
-      this.showCopiedPopup = runId;
-      setTimeout(() => {
-        this.showCopiedPopup = null;
-      }, 1000);
-    }).catch((err) => {
-      console.error('Failed to copy link:', err);
-    });
+  toggleExpand(runId: number, openOnly = false): void {
+    toggleTableExpand(this.expanded, runId, openOnly);
+    this.expanded = new Set(this.expanded);
   }
 }

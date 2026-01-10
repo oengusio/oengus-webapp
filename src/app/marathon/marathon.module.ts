@@ -44,23 +44,16 @@ import { MarathonScheduleExportComponent } from './schedule/marathon-schedule-ex
 import { ElementModule } from '../elements/elements.module';
 import { MarathonScheduleCurrentComponent } from './schedule/marathon-schedule-current/marathon-schedule-current.component';
 import { MarathonScheduleListComponent } from './schedule/marathon-schedule-list/marathon-schedule-list.component';
+import { MarathonScheduleRowComponent } from './schedule/marathon-schedule-row/marathon-schedule-row.component';
 import { RunDetailsComponent } from './schedule/run-details/run-details.component';
-import { MarathonHeaderComponent } from './layout/marathon-header/marathon-header.component';
-import { SidebarTrackerComponent } from './layout/sidebar-tracker/sidebar-tracker.component';
-import { SidebarAdminComponent } from './layout/sidebar-admin/sidebar-admin.component';
-import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { SidebarModeratorsComponent } from './layout/sidebar-moderators/sidebar-moderators.component';
-import { DetailsComponent } from './home/details/details.component';
-import { DescriptionComponent } from './home/description/description.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
-import { OverviewComponent as ScheduleManagementOverViewComponent } from './schedule-management/overview/overview.component';
+import { OverviewComponent } from './schedule-management/overview/overview.component';
 import { ScheduleOverviewResolver } from '../resolvers/schedule-overview-resolver';
-import { CreateComponent as ScheduleManagementCreateComponent } from './schedule-management/create/create.component';
+import { CreateComponent } from './schedule-management/create/create.component';
 import { EditComponent as ScheduleManagementEditComponent } from './schedule-management/edit/edit.component';
 import { ScheduleByIdResolver } from '../resolvers/schedule-by-id-resolver';
-import { HomeSubmitButtonComponent } from './home/home-submit-button/home-submit-button.component';
 import { WarningModalComponent } from './schedule-management/warning-modal/warning-modal.component';
 import { ScheduleBySlugResolver } from '../resolvers/schedule-by-slug-resolver';
 import { SubmissionsTableComponent } from './schedule-management/edit/submissions-table/submissions-table.component';
@@ -163,7 +156,7 @@ const marathonRoutes: Routes = [
       },
       {
         path: 'schedule-management/overview',
-        component: ScheduleManagementOverViewComponent,
+        component: OverviewComponent,
         resolve: {
           schedules: ScheduleOverviewResolver,
         },
@@ -178,7 +171,7 @@ const marathonRoutes: Routes = [
       },
       {
         path: 'schedule-management/new',
-        component: ScheduleManagementCreateComponent,
+        component: CreateComponent,
         resolve: {
           //
         },
@@ -271,54 +264,6 @@ const marathonRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    MarathonComponent,
-    HomeComponent,
-    NewMarathonComponent,
-    SettingsComponent,
-    SubmitComponent,
-    SubmissionsComponent,
-    SelectionComponent,
-    ScheduleComponent,
-    IncentiveManagementComponent,
-    IncentiveComponent,
-    DonateComponent,
-    DonationsComponent,
-    SubmissionCategoryComponent,
-    SubmissionGameComponent,
-    GeneralSettingsComponent,
-    SubmissionSettingsComponent,
-    DiscordSettingsComponent,
-    IncentiveSettingsComponent,
-    MarathonScheduleExportComponent,
-    MarathonScheduleCurrentComponent,
-    MarathonScheduleListComponent,
-    RunDetailsComponent,
-    MarathonHeaderComponent,
-    SidebarTrackerComponent,
-    SidebarAdminComponent,
-    SidebarComponent,
-    SidebarModeratorsComponent,
-    DetailsComponent,
-    DescriptionComponent,
-    ScheduleManagementOverViewComponent,
-    ScheduleManagementCreateComponent,
-    ScheduleManagementEditComponent,
-    HomeSubmitButtonComponent,
-    WarningModalComponent,
-    SubmissionsTableComponent,
-    ScheduleTableComponent,
-    SetupBlockEditorComponent,
-    NormalRunEditorComponent,
-    ScheduleEditRowComponent,
-    SubmissionRowComponent,
-    ScheduleTableOldElementComponent,
-    SubmissionLazyLoaderComponent,
-    MarathonScheduleShareComponent,
-    ClonePopupComponent,
-    SubmitHeaderComponent,
-    SubmitMultiplayerJoinComponent,
-    SubmitShareButtonsComponent,
-    ImportRunDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -343,6 +288,45 @@ const marathonRoutes: Routes = [
     MarkdownPipe,
     DescriptionEditorComponent,
     ElementLoginLinkSelectorComponent,
+    MarathonScheduleListComponent,
+    MarathonScheduleRowComponent,
+    RunDetailsComponent,
+    ScheduleComponent,
+    MarathonScheduleShareComponent,
+    MarathonScheduleExportComponent,
+    MarathonScheduleCurrentComponent,
+    IncentiveComponent,
+    DonationsComponent,
+    SubmissionCategoryComponent,
+    SubmissionGameComponent,
+    SubmissionLazyLoaderComponent,
+    SubmissionsComponent,
+    NewMarathonComponent,
+    SubmitShareButtonsComponent,
+    SubmitHeaderComponent,
+    SubmitMultiplayerJoinComponent,
+    WarningModalComponent,
+    OverviewComponent,
+    CreateComponent,
+    ClonePopupComponent,
+    ImportRunDialogComponent,
+    SubmissionsTableComponent,
+    SubmissionRowComponent,
+    ScheduleEditRowComponent,
+    ScheduleTableOldElementComponent,
+    SetupBlockEditorComponent,
+    NormalRunEditorComponent,
+    ScheduleTableComponent,
+    GeneralSettingsComponent,
+    DiscordSettingsComponent,
+    IncentiveSettingsComponent,
+    SubmissionSettingsComponent,
+    SettingsComponent,
+    DonateComponent,
+    IncentiveManagementComponent,
+    SelectionComponent,
+    SubmitComponent,
+    ScheduleManagementEditComponent,
   ],
   exports: [
     //

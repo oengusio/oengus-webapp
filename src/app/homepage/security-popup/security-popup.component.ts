@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-security-popup',
   templateUrl: './security-popup.component.html',
   styleUrl: './security-popup.component.scss',
-  standalone: false,
+  imports: [
+    CommonModule,
+  ]
 })
 export class SecurityPopupComponent implements OnInit {
   open = true;
