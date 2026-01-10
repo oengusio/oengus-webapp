@@ -8,7 +8,6 @@ import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18
 
 @Component({
   selector: 'app-import-run-dialog',
-  standalone: true,
   templateUrl: './import-run-dialog.component.html',
   styleUrl: './import-run-dialog.component.scss',
   imports: [
