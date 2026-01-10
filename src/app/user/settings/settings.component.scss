@@ -1,8 +1,8 @@
-@import 'bulmaswatch/solar/variables';
+@use 'bulmaswatch/solar/variables' as vars;
 
 .modal-card {
   position: relative;
-  background-color: $grey-darker;
+  background-color: vars.$grey-darker;
 }
 
 .modal-card:before  {

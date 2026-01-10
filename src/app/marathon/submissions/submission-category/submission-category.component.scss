@@ -1,13 +1,14 @@
-@import "bulmaswatch/solar/variables";
+@use "bulmaswatch/solar/variables" as vars;
+@use 'sass:color';
 
 hr {
-  border: 1px solid $grey-alt;
+  border: 1px solid vars.$grey-alt;
 }
 
 .message.is-success {
   .message-body {
     p {
-      color: darken($green, 4);
+      color: color.adjust(vars.$green, $lightness: -4%);
     }
   }
 }

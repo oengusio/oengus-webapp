@@ -1,47 +1,36 @@
 @use 'sass:color' as color;
+@use 'bulmaswatch/solar/variables' as *;
+@forward 'bulmaswatch/solar/variables';
 
-@import 'bulmaswatch/solar/variables';
+@use './elements' with (
+  $twitchPurple: #9146FF,
+  $discordBlurple: #5865F2
+);
 
 $white: white;
+$discordBlurple: #5865F2;
+$twitchPurple: #9146FF;
+$googleWhite: #000000;
+$input-placeholder-color: #9d8484;
+$code: #ffc8e2;
 
-// Improve text contrast for accessibility
 $-lightness-change: 36%;
 $text: color.scale($text, $lightness: $-lightness-change);
 $title-color: color.scale($title-color, $lightness: $-lightness-change);
 $subtitle-color: $title-color;
-$code: #ffc8e2;
-
-$discordBlurple: #5865F2;
-$twitchPurple: #9146FF;
-$googleWhite: #000000;
-
-$input-placeholder-color: #9d8484;
-//$input-background-color: $white;
-
-//$table-colors
-
-.is-warning {
-  background-color: $warning !important;
-}
-
-// GOOGLE FONTS REEEEE
-$bulmaswatch-import-font: false;
 
 @import 'bulma/bulma';
+
+$bulmaswatch-import-font: false;
 @import 'bulmaswatch/solar/overrides';
 @import '@duncte123/bulma-tagsinput/src/sass/index';
-@import './elements';
-
-@import 'bulma-extensions/dist/css/bulma-extensions.min.css';
 @import 'bulma-extensions/bulma-tooltip/src/sass/index';
 @import 'node_modules/@oengus/ng-wizi-bulma/ng-wizi-bulma';
-// Manually copied in the file, it was not exported
+@import 'bulma-extensions/dist/css/bulma-extensions.min.css';
 @import "./assets/themes/ng-pick-datetime-picker.min.css";
 @import "flag-icon-css/css/flag-icons.min.css";
 @import "vis-timeline/dist/vis-timeline-graph2d.min.css";
-
-
-// set the colours from the dark mode ourselves
+@import 'markdown-it-github-alerts/styles/github-base.css';
 
 :root {
   --color-note: #2f81f7;
@@ -52,4 +41,6 @@ $bulmaswatch-import-font: false;
   --color-important: #a371f7;
 }
 
-@import 'markdown-it-github-alerts/styles/github-base.css';
+.is-warning {
+  background-color: $warning !important;
+}

@@ -18,7 +18,6 @@ import * as vis from 'vis-timeline';
 import { DataSet } from 'vis-data';
 import { Availability, AvailabilityResponse } from '../../../../model/availability';
 import moment from 'moment-timezone';
-import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ScheduleTableOldElementComponent } from './schedule-table-old-element/schedule-table-old-element.component';
 import { WarningModalComponent } from '../warning-modal/warning-modal.component';
@@ -27,7 +26,6 @@ import { ClonePopupComponent } from './clone-popup/clone-popup.component';
 import { MarathonScheduleExportComponent } from '../../schedule/marathon-schedule-export/marathon-schedule-export.component';
 import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
 import { DirectivesModule } from '../../../directives/directives.module';
-import { MarkdownPipe } from '../../../pipes/markdown.pipe';
 
 // Options are 'id' and 'content'
 const AVAILABILITY_SORT_KEY = 'content';
@@ -42,7 +40,6 @@ const AVAILABILITY_SORT_KEY = 'content';
         TranslateModule,
         FontAwesomeModule,
         NwbSwitchModule,
-        ScheduleTableComponent,
         ScheduleTableOldElementComponent,
         WarningModalComponent,
         SubmissionsTableComponent,
@@ -50,7 +47,6 @@ const AVAILABILITY_SORT_KEY = 'content';
         MarathonScheduleExportComponent,
         ElementI18nComponent,
         DirectivesModule,
-        MarkdownPipe,
     ]
 })
 export class EditComponent implements OnInit, OnDestroy {
@@ -62,7 +58,7 @@ export class EditComponent implements OnInit, OnDestroy {
   private toastr = inject(NwbAlertService);
   private translateService = inject(TranslateService);
 
-  @ViewChild('scheduleTableComponent') scheduleTable: ScheduleTableComponent | ScheduleTableOldElementComponent;
+  @ViewChild('scheduleTableComponent') scheduleTable: ScheduleTableOldElementComponent;
 
   scheduleInfo: ScheduleInfo;
   marathonId = '';

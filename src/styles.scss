@@ -1,26 +1,8 @@
-/**
- * Global styles for the site
- */
-
-@use './assets/themes/default' as theme;
-
-
-// @font-face {
-//   font-family: 'OpenDyslectic';
-//   src: url('/assets/fonts/OpenDyslectic/OpenDyslexic-Regular.woff2') format('woff2');
-// }
+@use './assets/themes/default' as *;
 
 * {
-  // Controls how far stuff is apart from each other.
-  // Matches the Bulma box padding so that we can have consistent spacing
-  // We're using CSS variables over SASS variables so it can be changed on the fly as needed
   --spacing: 20px;
-
-  // For best effect, manually enable this
-  // cursor: url("./assets/tony_cursor_fixed.png"), auto !important;
 }
-
-// <editor-fold desc="v2 default layout" defaultstate="collapsed">
 
 html {
   font-family:
@@ -71,14 +53,12 @@ html {
   }
 }
 
-// </editor-fold>
-
 a {
   color: inherit;
   text-decoration: underline;
 
   &:hover:not(.no-hover) {
-    color: theme.$link-hover !important;
+    color: $link-hover !important;
 
     &.menu-item-link:not(.is-active) {
       background-color: inherit;
@@ -93,7 +73,6 @@ a {
 
 .title {
   word-break: normal;
-  // Line break is kinda like word break, but for languages without spaces, like Chinese, Japanese, or Korean
   line-break: normal;
 }
 
@@ -106,15 +85,9 @@ hr {
   justify-content: center;
 }
 
-//.markdown-container {
-//  *:not(a) {
-//    color: theme.$text;
-//  }
-//}
-
 
 .tags-input.is-filter input{
-  color: theme.$text !important;
+  color: $text !important;
 }
 
 #twitch-embed {
@@ -133,20 +106,20 @@ hr {
 }
 
 .vis-timeline, .vis-timeline * {
-  border-color: theme.$border !important;
-  color: theme.$text !important;
+  border-color: $border !important;
+  color: $text !important;
 }
 
 .vis-item {
-  background-color: theme.$primary;
+  background-color: $primary;
 }
 
 .vis-timeline .vis-even {
-  background-color: theme.$table-striped-row-even-background-color;
+  background-color: $table-striped-row-even-background-color;
 }
 
 .table td.is-emphasized, .table th.is-emphasized, .table tr.is-emphasized {
-  background-color: rgba(theme.$primary, 0.3) !important;
+  background-color: rgba($primary, 0.3) !important;
   color: #fff
 }
 
@@ -159,7 +132,7 @@ div.loading-bar {
   width: 100%;
   height: $bar_height;
   overflow: hidden;
-  background-color: theme.$grey-light;
+  background-color: $grey-light;
   z-index: 100;
 
   &:before {
@@ -169,7 +142,7 @@ div.loading-bar {
     left: -200px;
     width: 200px;
     height: $bar_height;
-    background-color: theme.$primary;
+    background-color: $primary;
     animation: loading 2s linear infinite;
   }
 }
@@ -201,7 +174,6 @@ div.loading-bar {
   }
 }
 
-/* Special case for mobile navbar items that need to hide */
 .navbar-item.mob {
   &.has-dropdown {
     .navbar-dropdown {

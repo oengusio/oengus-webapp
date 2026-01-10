@@ -1,4 +1,4 @@
-@import 'bulmaswatch/solar/variables';
+@use 'bulmaswatch/solar/variables' as vars;
 
 .minimized {
   margin-right: 1rem;
@@ -10,7 +10,7 @@
 }
 
 .menu-list a.is-emphasized {
-  background-color: rgba($primary, 0.3);
+  background-color: rgba(vars.$primary, 0.3);
   color: #fff;
 }
 

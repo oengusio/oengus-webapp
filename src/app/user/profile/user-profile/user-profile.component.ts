@@ -7,7 +7,6 @@ import { environment } from '../../../../environments/environment';
 import { UserProfile } from '../../../../model/user-profile';
 import { User } from '../../../../model/user';
 import { UserLinkComponent } from '../../../elements/user-link/user-link.component';
-import { ElementPronounsComponent } from '../../../elements/element-pronouns/element-pronouns.component';
 
 @Component({
     selector: 'app-user-profile',
@@ -19,7 +18,6 @@ import { ElementPronounsComponent } from '../../../elements/element-pronouns/ele
         LocalizeRouterModule,
         FontAwesomeModule,
         UserLinkComponent,
-        ElementPronounsComponent,
     ]
 })
 export class UserProfileComponent {

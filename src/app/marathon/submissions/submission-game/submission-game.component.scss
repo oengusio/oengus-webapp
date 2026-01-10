@@ -1,19 +1,19 @@
-@import "bulmaswatch/solar/variables";
+@use "bulmaswatch/solar/variables" as vars;
 
 .validated {
-  background-color: rgba($green, .3);
+  background-color: rgba(vars.$green, .3);
 }
 
 .bonus {
-  background-color: rgba($info, .3);
+  background-color: rgba(vars.$info, .3);
 }
 
 .rejected {
-  background-color: rgba($red, .3);
+  background-color: rgba(vars.$red, .3);
 }
 
 .backup {
-  background-color: rgba($primary, .3);
+  background-color: rgba(vars.$primary, .3);
 }
 
 app-submission-category:not(:last-child) {

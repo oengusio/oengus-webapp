@@ -19,7 +19,6 @@ import { firstValueFrom } from 'rxjs';
 import { NotificationService } from '../../../services/notification.service';
 import { MfaModalComponent } from './mfa-modal/mfa-modal.component';
 import { SyncButtonComponent } from './sync-button/sync-button.component';
-import { ConnectionComponent } from '../profile/connection/connection.component';
 import { ElementPronounsComponent } from '../../elements/element-pronouns/element-pronouns.component';
 import { ElementCountryComponent } from '../../elements/element-country/element-country.component';
 import { ElementLanguagesComponent } from '../../elements/element-languages/element-languages.component';
@@ -39,7 +38,6 @@ import { DirectivesModule } from '../../directives/directives.module';
         DirectivesModule,
         MfaModalComponent,
         SyncButtonComponent,
-        ConnectionComponent,
         ElementPronounsComponent,
         ElementCountryComponent,
         ElementLanguagesComponent,

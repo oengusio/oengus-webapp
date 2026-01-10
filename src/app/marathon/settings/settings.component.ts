@@ -21,7 +21,6 @@ import { UserProfile } from '../../../model/user-profile';
 import { GeneralSettingsComponent } from './general-settings/general-settings.component';
 import { DiscordSettingsComponent } from './discord-settings/discord-settings.component';
 import { SubmissionSettingsComponent } from './submission-settings/submission-settings.component';
-import { IncentiveSettingsComponent } from './incentive-settings/incentive-settings.component';
 
 @Component({
     selector: 'app-settings',
@@ -36,7 +35,6 @@ import { IncentiveSettingsComponent } from './incentive-settings/incentive-setti
         GeneralSettingsComponent,
         DiscordSettingsComponent,
         SubmissionSettingsComponent,
-        IncentiveSettingsComponent,
     ]
 })
 export class SettingsComponent implements OnInit {

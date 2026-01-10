@@ -1,4 +1,4 @@
-@import "bulmaswatch/solar/variables";
+@use "bulmaswatch/solar/variables" as vars;
 
 h1 small {
   font-size: 0.5em;
@@ -7,17 +7,17 @@ h1 small {
 }
 
 .validated {
-  background-color: rgba($green, .3);
+  background-color: rgba(vars.$green, .3);
 }
 
 .bonus {
-  background-color: rgba($info, .3);
+  background-color: rgba(vars.$info, .3);
 }
 
 .rejected {
-  background-color: rgba($red, .3);
+  background-color: rgba(vars.$red, .3);
 }
 
 .backup {
-  background-color: rgba($warning, .3);
+  background-color: rgba(vars.$warning, .3);
 }

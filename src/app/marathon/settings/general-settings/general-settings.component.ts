@@ -16,9 +16,6 @@ import { firstValueFrom } from 'rxjs';
 import { UserProfile } from '../../../../model/user-profile';
 import { connectionMetas } from '../../../../model/social-account';
 import { DirectivesModule } from '../../../directives/directives.module';
-import { ElementCountryComponent } from '../../../elements/element-country/element-country.component';
-import { ElementLanguagesComponent } from '../../../elements/element-languages/element-languages.component';
-import { UserLinkComponent } from '../../../elements/user-link/user-link.component';
 import { DescriptionEditorComponent } from './description-editor/description-editor.component';
 import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
 
@@ -35,9 +32,6 @@ import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18
         NwbSwitchModule,
         AutocompleteLibModule,
         DirectivesModule,
-        ElementCountryComponent,
-        ElementLanguagesComponent,
-        UserLinkComponent,
         DescriptionEditorComponent,
         ElementI18nComponent,
     ]

@@ -1,5 +1,8 @@
 @use 'sass:color' as color;
 
+$twitchPurple: #9146FF !default;
+$discordBlurple: #5865F2 !default;
+
 .button.is-twitch {
   color: white;
   border-color: white;

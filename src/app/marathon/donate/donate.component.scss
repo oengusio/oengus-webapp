@@ -1,4 +1,4 @@
-@import 'bulmaswatch/solar/variables';
+@use 'bulmaswatch/solar/variables' as vars;
 
 .loader-wrapper {
   position: absolute;
@@ -8,7 +8,7 @@
   width: 100%;
   opacity: 0;
   z-index: -1;
-  background-color: $grey-dark;
+  background-color: vars.$grey-dark;
   transition: opacity .3s;
   display: flex;
   justify-content: center;

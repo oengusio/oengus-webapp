@@ -1,7 +1,7 @@
-@import "bulmaswatch/solar/variables";
+@use "bulmaswatch/solar/variables" as vars;
 
 .is-static-stat {
-  background-color: $table-striped-row-even-background-color;
+  background-color: vars.$table-striped-row-even-background-color;
 }
 
 .availLink {
