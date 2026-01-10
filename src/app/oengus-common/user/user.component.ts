@@ -1,4 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { User } from '../../../model/user';
 import { faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +16,12 @@ import { SocialPlatform } from '../../../model/social-platform';
     selector: 'app-user',
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        LocalizeRouterModule,
+        FontAwesomeModule,
+    ]
 })
 export class UserComponent {
 

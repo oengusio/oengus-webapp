@@ -1,14 +1,29 @@
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
 import { Submission } from '../../../../model/submission';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { MarathonService } from '../../../../services/marathon.service';
 import { SubmissionPage } from '../../../../model/submission-page';
+import { UserLinkComponent } from '../../../elements/user-link/user-link.component';
+import { OengusCommonModule } from '../../../oengus-common/oengus-common.module';
+import { SubmissionGameComponent } from '../submission-game/submission-game.component';
+import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/loading-indicator.component';
 
 @Component({
     selector: 'app-submission-lazy-loader',
     templateUrl: './submission-lazy-loader.component.html',
     styleUrl: './submission-lazy-loader.component.scss',
-    standalone: false
+    imports: [
+        CommonModule,
+        AsyncPipe,
+        TranslateModule,
+        UserLinkComponent,
+        OengusCommonModule,
+        SubmissionGameComponent,
+        LoadingIndicatorComponent,
+    ]
 })
 export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
   marathonService = inject(MarathonService);

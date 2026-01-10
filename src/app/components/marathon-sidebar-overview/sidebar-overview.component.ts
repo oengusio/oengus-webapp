@@ -1,16 +1,29 @@
 import { Component, HostBinding, Input, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Marathon } from '../../../model/marathon';
 import { faBook, faCalendar, faCircle, faHome, faHomeLg, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar as faCalendarRegular } from '@fortawesome/free-regular-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { ScheduleService } from '../../../services/schedule.service';
 import { ScheduleInfo } from '../../../model/schedule';
+import { ElementLoginLinkSelectorComponent } from '../../elements/element-login-link-selector/element-login-link-selector.component';
 
 @Component({
     selector: 'app-marathon-sidebar-overview',
     templateUrl: './sidebar-overview.component.html',
     styleUrls: ['./sidebar-overview.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+        FontAwesomeModule,
+        ElementLoginLinkSelectorComponent,
+    ]
 })
 export class SidebarOverviewComponent implements OnInit {
   private userService = inject(UserService);

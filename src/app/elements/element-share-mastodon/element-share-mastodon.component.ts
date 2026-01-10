@@ -1,11 +1,18 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMastodon } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
     selector: 'app-element-share-mastodon',
     templateUrl: './element-share-mastodon.component.html',
     styleUrls: ['./element-share-mastodon.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        FontAwesomeModule,
+    ]
 })
 export class ElementShareMastodonComponent {
 

@@ -1,11 +1,24 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { Marathon } from '../../../model/marathon';
+import { ElementModule } from '../../elements/elements.module';
+import { ComponentsModule } from '../../components/components.module';
 
 @Component({
     selector: 'app-calendar-view-row',
     templateUrl: './calendar-view-row.component.html',
     styleUrls: ['./calendar-view-row.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+        ElementModule,
+        ComponentsModule,
+    ]
 })
 export class CalendarViewRowComponent {
   @Input() marathon: Marathon;

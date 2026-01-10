@@ -1,11 +1,18 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConnectionMeta, connectionMetas, SocialAccount } from '../../../../../model/social-account';
 
 @Component({
     selector: 'app-box',
     templateUrl: './box.component.html',
     styleUrls: ['./box.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        FontAwesomeModule,
+    ]
 })
 export class BoxComponent {
   @Input() connection: SocialAccount;

@@ -1,4 +1,9 @@
 import { Component, HostBinding, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Marathon } from '../../../../model/marathon';
 import { faBullseye, faDonate, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
@@ -6,7 +11,13 @@ import { faBullseye, faDonate, faMoneyBill } from '@fortawesome/free-solid-svg-i
     selector: 'app-sidebar-tracker',
     templateUrl: './sidebar-tracker.component.html',
     styleUrls: ['./sidebar-tracker.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+        FontAwesomeModule,
+    ]
 })
 export class SidebarTrackerComponent {
   @Input() marathon: Marathon;

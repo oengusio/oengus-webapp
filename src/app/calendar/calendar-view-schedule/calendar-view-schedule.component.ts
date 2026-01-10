@@ -1,16 +1,20 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { Marathon } from '../../../model/marathon';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { FullCalendarComponent } from '@fullcalendar/angular';
+import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/core';
-import { Router } from '@angular/router';
 import { LocaleService } from '../../../services/locale.service';
 
 @Component({
     selector: 'app-calendar-view-schedule',
     templateUrl: './calendar-view-schedule.component.html',
     styleUrl: './calendar-view-schedule.component.scss',
-    standalone: false
+    imports: [
+        CommonModule,
+        FullCalendarModule,
+    ]
 })
 export class CalendarViewScheduleComponent implements OnInit, OnChanges {
   private router = inject(Router);

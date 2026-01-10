@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 
 interface TwitchEmbedOptions {
@@ -32,7 +33,9 @@ declare const Twitch: { Embed: TwitchEmbed };
     selector: 'app-element-twitch-player',
     templateUrl: './element-twitch-player.component.html',
     styleUrls: ['./element-twitch-player.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+    ]
 })
 export class ElementTwitchPlayerComponent implements OnInit {
   @Input() channel: string | null = null;

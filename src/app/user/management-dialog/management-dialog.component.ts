@@ -1,4 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { UserProfile } from '../../../model/user-profile';
 import { UserService } from '../../../services/user.service';
 
@@ -6,7 +11,13 @@ import { UserService } from '../../../services/user.service';
     selector: 'app-user-management-dialog',
     templateUrl: './management-dialog.component.html',
     styleUrls: ['./management-dialog.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+        NwbSwitchModule,
+    ]
 })
 export class ManagementDialogComponent implements OnInit {
   userService = inject(UserService);

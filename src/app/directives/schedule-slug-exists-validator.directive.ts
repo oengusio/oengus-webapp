@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 @Directive({
     selector: '[appScheduleSlugExistsValidator]',
     providers: [{ provide: NG_ASYNC_VALIDATORS, useExisting: ScheduleSlugExistsValidatorDirective, multi: true }],
-    standalone: false
 })
 export class ScheduleSlugExistsValidatorDirective implements AsyncValidator {
   private marathonService = inject(MarathonService);

@@ -1,14 +1,23 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { ScheduleService } from '../../../../../services/schedule.service';
 import { MarathonService } from '../../../../../services/marathon.service';
 import { ScheduleInfo } from '../../../../../model/schedule';
 import { firstValueFrom } from 'rxjs';
+import { MarkdownPipe } from '../../../../pipes/markdown.pipe';
 
 @Component({
     selector: 'app-clone-popup',
     templateUrl: './clone-popup.component.html',
     styleUrl: './clone-popup.component.scss',
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        MarkdownPipe,
+    ]
 })
 export class ClonePopupComponent implements OnInit {
   private scheduleService = inject(ScheduleService);

@@ -1,4 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { DurationService } from '../../../../../../services/duration.service';
 import moment from 'moment-timezone';
@@ -8,6 +13,7 @@ import DOMPurify from 'dompurify';
 import { UserService } from '../../../../../../services/user.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AutocompleteComponent } from 'angular-ng-autocomplete';
+import { UserLinkComponent } from '../../../../../elements/user-link/user-link.component';
 
 type UserSearchType = { username: string; profile: null; isCustom: true} |  { username: string; profile: UserProfile; isCustom: false};
 
@@ -15,7 +21,14 @@ type UserSearchType = { username: string; profile: null; isCustom: true} |  { us
     selector: 'app-normal-run-editor',
     templateUrl: './normal-run-editor.component.html',
     styleUrls: ['./normal-run-editor.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+        AutocompleteLibModule,
+        UserLinkComponent,
+    ]
 })
 export class NormalRunEditorComponent implements OnInit {
   private userService = inject(UserService);

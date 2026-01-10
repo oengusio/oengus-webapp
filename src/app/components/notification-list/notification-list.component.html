@@ -2,7 +2,7 @@
   <section class="section container">
     @for (notification of notifications; track notification; let i = $index) {
       <div class="notification is-{{notification.color}}">
-        <button class="delete" (click)="deleteNotification(i)"></button>
+        <button class="delete" (click)="deleteNotification(i)" aria-label="Delete notification"></button>
         <div [innerHTML]="notification.message | markdown"></div>
       </div>
     }

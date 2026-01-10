@@ -1,4 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { Marathon } from '../../../../model/marathon';
 import { Question } from '../../../../model/question';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -9,7 +15,14 @@ import { environment } from '../../../../environments/environment';
     selector: 'app-marathon-incentive-settings',
     templateUrl: './incentive-settings.component.html',
     styleUrls: ['./incentive-settings.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        DragDropModule,
+        FontAwesomeModule,
+        NwbSwitchModule,
+    ]
 })
 export class IncentiveSettingsComponent {
   @Input() public marathon: Marathon;

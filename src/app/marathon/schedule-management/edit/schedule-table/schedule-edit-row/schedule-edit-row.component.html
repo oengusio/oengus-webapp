@@ -2,7 +2,9 @@
   <app-element-table-cell [isExpandButton]="true"
     [expanded]="expanded"
     (click)="toggleExpand.emit(line.position)"
+    (keyup.enter)="toggleExpand.emit(line.position)"
     class="expandable"
+    tabindex="0"
   ></app-element-table-cell>
   <app-element-table-cell [class]="{
     'is-warning': !matchesAvailabilities()
@@ -30,15 +32,20 @@
 <a (click)="selectAvailability.emit({
               username: getRunnerUsername(runner),
               on: false
-           })"
-              >
+           })" (keyup.enter)="selectAvailability.emit({
+              username: getRunnerUsername(runner),
+              on: false
+           })" tabindex="0" aria-label="Remove availability">
               <fa-icon [icon]="iconCalendarTimes"></fa-icon>
             </a>
           } @else {
             <a (click)="selectAvailability.emit({
               username: getRunnerUsername(runner),
               on: true
-           })">
+           })" (keyup.enter)="selectAvailability.emit({
+              username: getRunnerUsername(runner),
+              on: true
+           })" tabindex="0" aria-label="Add availability">
               <fa-icon [icon]="iconCalendarWeek"></fa-icon>
             </a>
           }
@@ -72,16 +79,16 @@
 <app-element-table-cell class="actions">
   <!-- Setup blocks are custom runs imo, but for legacy reasons they are not -->
   @if (!line.customRun && !line.setupBlock) {
-    <a (click)="moveToToDo.emit(i)">
+    <a (click)="moveToToDo.emit(i)" (keyup.enter)="moveToToDo.emit(i)" tabindex="0" aria-label="Move to todo">
       <fa-icon [icon]="iconChevronLeft"></fa-icon>
     </a>
   }
   @if (line.customRun || line.setupBlock) {
-    <a (click)="delete.emit(i)">
+    <a (click)="delete.emit(i)" (keyup.enter)="delete.emit(i)" tabindex="0" aria-label="Delete">
       <fa-icon [icon]="iconTimes"></fa-icon>
     </a>
   }
-  <a (click)="toggleExpand.emit(line.position)">
+  <a (click)="toggleExpand.emit(line.position)" (keyup.enter)="toggleExpand.emit(line.position)" tabindex="0" aria-label="Edit">
     <fa-icon [icon]="iconEdit"></fa-icon>
   </a>
   <ng-content select="[oengusDragDandlePosition]"></ng-content>

@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { httpInterceptorProviders } from '../interceptors';
 import { FormsModule } from '@angular/forms';
@@ -129,47 +128,9 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginOauthComponent,
-    HomepageComponent,
-    AboutComponent,
-    PatronsComponent,
-    CalendarComponent,
-    PageNotFoundComponent,
-    SignUpComponent,
-    LoginComponent,
-    WelcomeComponent,
-    SponsorsComponent,
-    MarathonsComponent,
-    FooterBarComponent,
-    FooterPatronsComponent,
-    MarathonCalendarContainerComponent,
-    CalendarControllerComponent,
-    CalendarViewScheduleComponent,
-    CalendarViewTableComponent,
-    CalendarViewRowComponent,
-    AboutInfoComponent,
-    AboutContactComponent,
-    AboutPrivacyComponent,
-    HeaderBarComponent,
-    HeaderBarCookiesComponent,
-    HeaderBarNavComponent,
-    HeaderLanguagePickerComponent,
-    HeaderBarUserComponent,
-    UnauthorizedComponent,
-    HeaderBarDisplayNameComponent,
-    HeaderBarVerifyEmailComponent,
-    PasswordResetComponent,
-    ForgotPasswordComponent,
-    LoginOauthComponent,
-    SecurityPopupComponent,
-    PrivacyPolicyComponent,
   ],
   exports: [
     //
-  ],
-  bootstrap: [
-    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -210,6 +171,39 @@ const appRoutes: Routes = [
     ComponentsModule,
     FullCalendarModule,
     ElementLoginLinkSelectorComponent,
+    PageNotFoundComponent,
+    UnauthorizedComponent,
+    PrivacyPolicyComponent,
+    PatronsComponent,
+    AboutComponent,
+    AboutInfoComponent,
+    AboutContactComponent,
+    AboutPrivacyComponent,
+    WelcomeComponent,
+    SponsorsComponent,
+    SecurityPopupComponent,
+    HomepageComponent,
+    MarathonsComponent,
+    SignUpComponent,
+    LoginComponent,
+    PasswordResetComponent,
+    ForgotPasswordComponent,
+    LoginOauthComponent,
+    FooterBarComponent,
+    FooterPatronsComponent,
+    HeaderBarComponent,
+    HeaderBarCookiesComponent,
+    HeaderBarNavComponent,
+    HeaderLanguagePickerComponent,
+    HeaderBarUserComponent,
+    HeaderBarDisplayNameComponent,
+    HeaderBarVerifyEmailComponent,
+    CalendarComponent,
+    MarathonCalendarContainerComponent,
+    CalendarControllerComponent,
+    CalendarViewScheduleComponent,
+    CalendarViewTableComponent,
+    CalendarViewRowComponent,
   ],
   providers: [
     {

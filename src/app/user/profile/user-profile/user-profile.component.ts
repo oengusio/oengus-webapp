@@ -1,13 +1,26 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { environment } from '../../../../environments/environment';
 import { UserProfile } from '../../../../model/user-profile';
 import { User } from '../../../../model/user';
+import { UserLinkComponent } from '../../../elements/user-link/user-link.component';
+import { ElementPronounsComponent } from '../../../elements/element-pronouns/element-pronouns.component';
 
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
     styleUrls: ['./user-profile.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        RouterModule,
+        LocalizeRouterModule,
+        FontAwesomeModule,
+        UserLinkComponent,
+        ElementPronounsComponent,
+    ]
 })
 export class UserProfileComponent {
   @Input() user: UserProfile;

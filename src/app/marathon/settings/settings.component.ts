@@ -1,4 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
@@ -13,12 +18,26 @@ import { firstValueFrom } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { UserProfile } from '../../../model/user-profile';
+import { GeneralSettingsComponent } from './general-settings/general-settings.component';
+import { DiscordSettingsComponent } from './discord-settings/discord-settings.component';
+import { SubmissionSettingsComponent } from './submission-settings/submission-settings.component';
+import { IncentiveSettingsComponent } from './incentive-settings/incentive-settings.component';
 
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+        NwbSwitchModule,
+        GeneralSettingsComponent,
+        DiscordSettingsComponent,
+        SubmissionSettingsComponent,
+        IncentiveSettingsComponent,
+    ]
 })
 export class SettingsComponent implements OnInit {
   marathonService = inject(MarathonService);

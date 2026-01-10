@@ -7,7 +7,7 @@
 
 <!-- Trigger -->
 @if (isNavbar) {
-  <a class="navbar-link" (click)="toggleActive()" [ngClass]="{ 'is-disabled': disabled }">
+  <a class="navbar-link" (click)="toggleActive()" (keyup.enter)="toggleActive()" [ngClass]="{ 'is-disabled': disabled }" tabindex="0">
     <ng-container *ngTemplateOutlet="dropdownTrigger"></ng-container>
   </a>
 } @else {

@@ -153,12 +153,12 @@
             </td>
             <td class="v-align-middle">
               @if (!!availability.from && !!availability.to) {
-                <a (click)="duplicateAvailabilityToNextDay(i)"
-                   class="dupeBtn" [nwbToolTip]="'marathon.submit.availabilities.duplicate' | translate">
+                <a (click)="duplicateAvailabilityToNextDay(i)" (keyup.enter)="duplicateAvailabilityToNextDay(i)"
+                   class="dupeBtn" [nwbToolTip]="'marathon.submit.availabilities.duplicate' | translate" tabindex="0" aria-label="Duplicate availability">
                   <fa-icon [icon]="faClone"></fa-icon>
                 </a>
               }
-              <button class="delete rmAvail" (click)="removeAvailability(i)"></button>
+              <button class="delete rmAvail" (click)="removeAvailability(i)" aria-label="Remove availability"></button>
             </td>
           </tr>
         }
@@ -295,7 +295,7 @@
       @for (game of submission.games; track game; let i = $index) {
         <hr class="has-background-grey"/>
         <button class="delete is-absolute delBtn"
-        (click)="removeGame(i)"></button>
+        (click)="removeGame(i)" aria-label="Remove game"></button>
         <div class="columns is-multiline">
           <div class="column is-half">
             <div class="field">
@@ -430,7 +430,7 @@
                   <div class="message-body">
                     @if (game.categories.length > 1) {
                       <button class="delete is-absolute delBtn"
-                        (click)="removeCategory(i, j)"
+                        (click)="removeCategory(i, j)" aria-label="Remove category"
                       ></button>
                     }
                     <div class="columns is-multiline">

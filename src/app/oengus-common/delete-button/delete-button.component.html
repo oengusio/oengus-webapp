@@ -1,22 +1,22 @@
 <div class="is-pulled-right">
   @if (!showConfirm) {
-    <a class="is-tooltip-danger" (click)="confirm()"
+    <a class="is-tooltip-danger" (click)="confirm()" (keyup.enter)="confirm()"
       [nwbToolTip]="baseText"
       nwbToolTipPosition="left"
-      nwbToolTipIsMultiline="true">
+      nwbToolTipIsMultiline="true" tabindex="0" aria-label="Delete">
       <fa-icon [icon]="faTimes"></fa-icon>
     </a>
   }
   @if (showConfirm) {
-    <a class="is-tooltip-danger" (click)="confirmHandler.next()"
+    <a class="is-tooltip-danger" (click)="confirmHandler.next()" (keyup.enter)="confirmHandler.next()"
       nwbToolTipPosition="left"
-      [nwbToolTip]="confirmText">
+      [nwbToolTip]="confirmText" tabindex="0" aria-label="Confirm">
       <fa-icon [icon]="faCheck"></fa-icon>
     </a>
 
-    <a class="is-tooltip-danger" (click)="cancel()"
+    <a class="is-tooltip-danger" (click)="cancel()" (keyup.enter)="cancel()"
        nwbToolTipPosition="left"
-       [nwbToolTip]="cancelText">
+       [nwbToolTip]="cancelText" tabindex="0" aria-label="Cancel">
       <fa-icon [icon]="faTimes"></fa-icon>
     </a>
   }

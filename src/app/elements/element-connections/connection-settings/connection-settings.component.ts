@@ -1,4 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule, KeyValuePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConnectionMeta, connectionMetas, SocialAccount } from '../../../../model/social-account';
 import { SocialPlatform, SocialPlatformName } from '../../../../model/social-platform';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +11,13 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
     selector: 'app-connection-settings',
     templateUrl: './connection-settings.component.html',
     styleUrls: ['./connection-settings.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        KeyValuePipe,
+        FormsModule,
+        TranslateModule,
+        FontAwesomeModule,
+    ]
 })
 export class ConnectionSettingsComponent {
   @Input() public connection: SocialAccount;

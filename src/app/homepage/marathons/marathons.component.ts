@@ -1,7 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule, KeyValuePipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { HomepageMetadata } from '../../../model/homepage-metadata';
 import { getRowParity } from '../../../assets/table';
 import { Marathon } from '../../../model/marathon';
+import { ElementModule } from '../../elements/elements.module';
 
 interface HomepageListData {
   key: keyof HomepageMetadata;
@@ -15,7 +20,14 @@ interface HomepageListData {
     selector: 'app-homepage-marathons',
     templateUrl: './marathons.component.html',
     styleUrls: ['./marathons.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        KeyValuePipe,
+        RouterModule,
+        TranslateModule,
+        LocalizeRouterModule,
+        ElementModule,
+    ]
 })
 export class MarathonsComponent {
 

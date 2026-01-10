@@ -1,16 +1,41 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { V2ScheduleLine } from '../../../../../model/schedule-line';
 import { getRowParity, toggleTableExpand } from '../../../../../assets/table';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AvailabilityResponse } from '../../../../../model/availability';
 import { debounce } from 'lodash';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { ElementTableComponent } from '../../../../elements/element-table/element-table.component';
+import { ElementTableRowComponent } from '../../../../elements/element-table-row/element-table-row.component';
+import { ElementTableCellComponent } from '../../../../elements/element-table-cell/element-table-cell.component';
+import { ScheduleEditRowComponent } from './schedule-edit-row/schedule-edit-row.component';
+import { ElementTableDetailComponent } from '../../../../elements/element-table-detail/element-table-detail.component';
+import { SetupBlockEditorComponent } from './setup-block-editor/setup-block-editor.component';
+import { NormalRunEditorComponent } from './normal-run-editor/normal-run-editor.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-schedule-table',
     templateUrl: './schedule-table.component.html',
     styleUrls: ['./schedule-table.component.scss'],
-    standalone: false
+    imports: [
+        CommonModule,
+        TranslateModule,
+        DragDropModule,
+        FontAwesomeModule,
+        FormsModule,
+        ElementTableComponent,
+        ElementTableRowComponent,
+        ElementTableCellComponent,
+        ScheduleEditRowComponent,
+        ElementTableDetailComponent,
+        SetupBlockEditorComponent,
+        NormalRunEditorComponent,
+    ]
 })
 export class ScheduleTableComponent {
   public getRowParity = getRowParity;
