@@ -35,8 +35,6 @@ import { SubmitHeaderComponent } from './submit-header/submit-header.component';
 import { SubmitShareButtonsComponent } from './submit-share-buttons/submit-share-buttons.component';
 import { SubmitMultiplayerJoinComponent } from './submit-multiplayer-join/submit-multiplayer-join.component';
 import { OengusMdComponent } from '../../components/oengus-md/oengus-md.component';
-import { ElementTemporalDatetimeComponent } from '../../elements/temporal/element-temporal-datetime/element-temporal-datetime.component';
-import { ElementI18nComponent } from '../../elements/element-i18n/element-i18n.component';
 import { DirectivesModule } from '../../directives/directives.module';
 import { UserLinkComponent } from '../../elements/user-link/user-link.component';
 
@@ -61,8 +59,6 @@ import { UserLinkComponent } from '../../elements/user-link/user-link.component'
     SubmitShareButtonsComponent,
     SubmitMultiplayerJoinComponent,
     OengusMdComponent,
-    ElementTemporalDatetimeComponent,
-    ElementI18nComponent,
     NwbAllModule,
     UserLinkComponent,
   ],

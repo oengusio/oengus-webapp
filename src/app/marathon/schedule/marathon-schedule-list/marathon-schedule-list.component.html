@@ -1,49 +1,97 @@
 <div class="schedule-container">
-  <!-- Header -->
-  <app-element-table-cell [isHeader]="true" class="expandable"></app-element-table-cell>
-  <app-element-table-cell [isHeader]="true" class="time">
-    {{ 'marathon.schedule.table.time' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell [isHeader]="true" class="runners">
-    {{ 'marathon.schedule.table.runner' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell [isHeader]="true" class="game">
-    {{ 'marathon.schedule.table.game' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell [isHeader]="true" class="category">
-    {{ 'marathon.schedule.table.category' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell [isHeader]="true" class="type">
-    {{ 'marathon.schedule.table.type' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell [isHeader]="true" class="console">
-    {{ 'marathon.schedule.table.console' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell [isHeader]="true" class="estimate">
-    {{ 'marathon.schedule.table.estimate' | translate }}
-  </app-element-table-cell>
-  <app-element-table-cell [isHeader]="true" class="setup">
-    {{ 'marathon.schedule.table.setup' | translate }}
-  </app-element-table-cell>
-
   @for (run of runs; track run; let index = $index) {
-  @if (shouldShowDay(index)) {
-    <app-element-table-cell class="day is-info" columnStart="1" columnEnd="-1">
-      <app-element-temporal-datetime [dateTime]="run.date" format="longDateWithWeekday"></app-element-temporal-datetime>
-    </app-element-table-cell>
+    @if (shouldShowDay(index)) {
+      <div class="day is-info">
+        <app-element-temporal-datetime [dateTime]="run.date" format="longDateWithWeekday"></app-element-temporal-datetime>
+      </div>
+    }
+    @if (run.setupBlock) {
+      <div class="run setup-block" [id]="getId(run)" [class.past-run]="isBeforeCurrentRun(run)" [class.current-run]="run.id === currentRun?.id">
+        <div class="run-left">
+          <div class="row-title">
+            <app-simple-md [data]="(run.setupBlockText | translate)"></app-simple-md>
+          </div>
+          <div class="time">
+            <app-element-temporal-datetime [dateTime]="run.date" format="shortTime"></app-element-temporal-datetime>
+          </div>
+          <button type="button" class="link-icon" (click)="copyLinkToClipboard(run.id, $event)">
+            <span class="icon-wrapper">
+              <fa-icon [icon]="faLink" class="icon icon-link" [class.hidden]="showCopiedPopup === run.id"></fa-icon>
+              <fa-icon [icon]="faCircleCheck" class="icon icon-check" [class.hidden]="showCopiedPopup !== run.id"></fa-icon>
+            </span>
+          </button>
+        </div>
+        <div class="run-right">
+          <div class="type-line">
+            <strong>
+              @if (run.type) {
+                {{ 'marathon.schedule.setupBlock' | translate }}
+              }
+            </strong>
+          </div>
+          
+          <div class="content-right">
+            @if (run.setupTime) {
+              <div class="setup-line">
+                <strong>{{ 'marathon.schedule.table.setup' | translate }}:</strong> <app-element-temporal-duration [duration]="run.setupTime"></app-element-temporal-duration>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="run" [id]="getId(run)" [class.past-run]="isBeforeCurrentRun(run)" [class.current-run]="run.id === currentRun?.id" [attr.data-run-id]="run.id">
+        <div class="run-left">
+          <div class="row-title">
+            <app-simple-md [data]="run.game"></app-simple-md>
+          </div>
+          <div class="time">
+            <app-element-temporal-datetime [dateTime]="run.date" format="shortTime"></app-element-temporal-datetime>
+          </div>
+          <button type="button" class="link-icon" (click)="copyLinkToClipboard(run.id, $event)">
+            <span class="icon-wrapper">
+              <fa-icon [icon]="faLink" class="icon icon-link" [class.hidden]="showCopiedPopup === run.id"></fa-icon>
+              <fa-icon [icon]="faCircleCheck" class="icon icon-check" [class.hidden]="showCopiedPopup !== run.id"></fa-icon>
+            </span>
+          </button>
+        </div>
+        <div class="run-right">
+          <div class="category-line">
+              <strong>
+                <app-simple-md [data]="run.category"></app-simple-md>
+              </strong>
+              @if (run.console) {
+                <span class="console"> (<app-element-console [console]="run.console" [emulated]="run.emulated"></app-element-console>)</span>
+              }
+              @if (run.estimate) {
+                <span class="estimate"> (<app-element-temporal-duration [duration]="run.estimate"></app-element-temporal-duration>)</span>
+              }
+          </div>
+          <div class="content">
+            <div class="content-left">
+              <div class="runners-line">
+                @for (runner of run.runners; track runner) {
+                  <span class="runner-line-name">
+                    <fa-icon [icon]="faGamepad"></fa-icon>
+                    <app-user-link [user]="runner" [isLink]="runner?.profile?.id > 0"></app-user-link>
+                  </span>
+                }
+                @if (run.type) {
+                  <span> - {{ 'marathon.schedule.type.' + run.type | translate }}</span>
+                }
+              </div>
+            </div>
+              
+            <div class="content-right">
+              @if (run.setupTime) {
+                <div class="setup-line">
+                  <strong>{{ 'marathon.schedule.table.setup' | translate }}:</strong> <app-element-temporal-duration [duration]="run.setupTime"></app-element-temporal-duration>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
   }
-  <app-marathon-schedule-row
-    class="run"
-    [class]="getRowParity(index, run)"
-    [expanded]="expanded.has(run.id)"
-    [internalId]="getId(run)"
-    [runHash]="runHash"
-    (click)="toggleExpand(run.id)"
-  [run]="run"></app-marathon-schedule-row>
-  @if (expanded.has(run.id)) {
-    <app-element-table-detail class="expanded-run" [class]="getRowParity(index, run)">
-      <app-run-details [run]="run"></app-run-details>
-    </app-element-table-detail>
-  }
-}
 </div>

@@ -44,7 +44,6 @@ import { MarathonScheduleExportComponent } from './schedule/marathon-schedule-ex
 import { ElementModule } from '../elements/elements.module';
 import { MarathonScheduleCurrentComponent } from './schedule/marathon-schedule-current/marathon-schedule-current.component';
 import { MarathonScheduleListComponent } from './schedule/marathon-schedule-list/marathon-schedule-list.component';
-import { MarathonScheduleRowComponent } from './schedule/marathon-schedule-row/marathon-schedule-row.component';
 import { RunDetailsComponent } from './schedule/run-details/run-details.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
@@ -70,7 +69,6 @@ import { marathonSettingsResolverResolver } from '../resolvers/marathon-settings
 import { questionsResolverResolver } from '../resolvers/questions-resolver.resolver';
 import { moderatorsResolver } from '../resolvers/moderators.resolver';
 import { ClonePopupComponent } from './schedule-management/edit/clone-popup/clone-popup.component';
-import { MarkdownPipe } from '../pipes/markdown.pipe';
 import { SubmissionLazyLoaderComponent } from './submissions/submission-lazy-loader/submission-lazy-loader.component';
 import { isEmailVerifiedGuardGuard } from '../guards/is-email-verified-guard.guard';
 import { SubmitHeaderComponent } from './submit/submit-header/submit-header.component';
@@ -285,11 +283,9 @@ const marathonRoutes: Routes = [
     ButtonsModule,
     ElementModule,
     ComponentsModule,
-    MarkdownPipe,
     DescriptionEditorComponent,
     ElementLoginLinkSelectorComponent,
     MarathonScheduleListComponent,
-    MarathonScheduleRowComponent,
     RunDetailsComponent,
     ScheduleComponent,
     MarathonScheduleShareComponent,
