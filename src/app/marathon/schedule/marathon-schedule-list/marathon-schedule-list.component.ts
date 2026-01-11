@@ -125,7 +125,7 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
     event.stopPropagation();
     
     // Get current URL without hash
-    const { origin, pathname } = window.location
+    const { origin, pathname } = window.location;
     const baseUrl = origin + pathname;
     const link = `${baseUrl}#run-${runId}`;
     
