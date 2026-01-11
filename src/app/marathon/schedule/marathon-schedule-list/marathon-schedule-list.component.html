@@ -14,6 +14,12 @@
           <div class="time">
             <app-element-temporal-datetime [dateTime]="run.date" format="shortTime"></app-element-temporal-datetime>
           </div>
+          <button type="button" class="link-icon" (click)="copyLinkToClipboard(run.id, $event)">
+            <span class="icon-wrapper">
+              <fa-icon [icon]="faLink" class="icon icon-link" [class.hidden]="showCopiedPopup === run.id"></fa-icon>
+              <fa-icon [icon]="faCircleCheck" class="icon icon-check" [class.hidden]="showCopiedPopup !== run.id"></fa-icon>
+            </span>
+          </button>
         </div>
         <div class="run-right">
           <div class="type-line">
