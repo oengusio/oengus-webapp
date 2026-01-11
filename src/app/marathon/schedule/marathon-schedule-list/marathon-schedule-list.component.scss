@@ -37,7 +37,7 @@
     height: calc(100% + var(--spacing));
     background-color: table-vars.$light-color;
     margin: calc(-1 * (var(--spacing) / 2));
-    padding: var(--spacing) calc(var(--spacing) / 2) var(--spacing);
+    padding: var(--spacing);
     border-left: 10px solid table-vars.$info-color;
     position: relative;
 
@@ -174,6 +174,7 @@
     flex-direction: column;
     gap: 0.25rem;
     justify-content: center;
+    align-items: flex-end;
     height: 100%;
     padding-left: calc(var(--spacing) * 2);
     padding-bottom: calc(var(--spacing) / 2);
@@ -185,10 +186,15 @@
 
   .type-line {
     font-size: 18px;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #ffffff88;
   }
 
   .category-line{
     font-size: 18px;
+    width: 100%;
     padding-bottom: 0.5rem;
     margin-bottom: 0.5rem;
     border-bottom: 1px solid table-vars.$info-color;

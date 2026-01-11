@@ -9,7 +9,7 @@
       <div class="run setup-block" [id]="getId(run)" [class.past-run]="isBeforeCurrentRun(run)" [class.current-run]="run.id === currentRun?.id">
         <div class="run-left">
           <div class="row-title">
-            <app-simple-md [data]="(run.setupBlockText || 'marathon.schedule.setupBlock' | translate)"></app-simple-md>
+            <app-simple-md [data]="(run.setupBlockText | translate)"></app-simple-md>
           </div>
           <div class="time">
             <app-element-temporal-datetime [dateTime]="run.date" format="shortTime"></app-element-temporal-datetime>
@@ -25,9 +25,17 @@
           <div class="type-line">
             <strong>
               @if (run.type) {
-                {{ 'marathon.schedule.type.' + run.type | translate }}
+                {{ 'marathon.schedule.setupBlock' | translate }}
               }
             </strong>
+          </div>
+          
+          <div class="content-right">
+            @if (run.setupTime) {
+              <div class="setup-line">
+                <strong>{{ 'marathon.schedule.table.setup' | translate }}:</strong> <app-element-temporal-duration [duration]="run.setupTime"></app-element-temporal-duration>
+              </div>
+            }
           </div>
         </div>
       </div>
