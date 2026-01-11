@@ -18,7 +18,7 @@
     text-decoration: none;
     margin-bottom: 0.5rem;
     border-left: 10px solid table-vars.$info-color;
-    transition: 300ms;
+    transition: 150ms;
 
     @media (min-width: 1024px) {
       grid-template-columns: 2fr 50px 1fr 1fr;
