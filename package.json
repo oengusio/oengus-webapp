@@ -60,7 +60,7 @@
     "tslib": "^2.8.1",
     "vis-data": "^7.1.9",
     "vis-timeline": "^7.7.4",
-    "zone.js": "~0.15.1"
+    "zone.js": "~0.16.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^21.0.5",
