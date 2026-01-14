@@ -81,7 +81,7 @@
     "@types/markdown-it-emoji": "^3.0.1",
     "@types/moment-timezone": "^0.5.30",
     "@types/node": "~25.0.6",
-    "@typescript-eslint/types": "^8.52.0",
+    "@typescript-eslint/types": "^8.53.0",
     "@typescript-eslint/utils": "^8.52.0",
     "angular-eslint": "20.3.0",
     "codelyzer": "~6.0.2",
