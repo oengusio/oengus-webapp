@@ -1,4 +1,5 @@
 @use 'sass:color' as color;
+@use "vis-timeline/dist/vis-timeline-graph2d.min.css";
 
 @import 'bulmaswatch/solar/variables';
 
@@ -38,7 +39,6 @@ $bulmaswatch-import-font: false;
 // Manually copied in the file, it was not exported
 @import "./assets/themes/ng-pick-datetime-picker.min.css";
 @import "flag-icon-css/css/flag-icons.min.css";
-@import "vis-timeline/dist/vis-timeline-graph2d.min.css";
 
 
 // set the colours from the dark mode ourselves
