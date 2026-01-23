@@ -91,7 +91,7 @@
 
   let outdated = false;
 
-  if (browserName === 'Chrome' && browserMajorVersion < 140) {
+  if (browserName === 'Chrome' && browserMajorVersion < 135) {
     outdated = true;
   } else if (browserName === 'Firefox' && browserMajorVersion < 140) {
     outdated = true;
@@ -111,7 +111,7 @@
 
     browserInfo.style.color = 'white';
     browserInfo.style.textShadow = '0px 0px 4px black, 0 0 1em blue, 0 0 0.2em blue';
-    browserInfo.innerHTML = `Detected: ${browserName} version ${browserVersion}`;
+    browserInfo.innerHTML = `Detected: ${browserName} version ${browserVersion} (only Firefox 140+ and Chrome 139+ are officially supported)`;
 
     document.body.appendChild(browserInfo);
     document.body.appendChild(opaImg);
