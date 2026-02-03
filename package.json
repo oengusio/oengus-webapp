@@ -38,7 +38,7 @@
     "@oengus/angular-datetime-picker": "^21.0.0",
     "@oengus/ng-wizi-bulma": "^20.0.0",
     "@oengusio/ngx-translate-router": "^8.0.0",
-    "@sentry/angular": "^10.33.0",
+    "@sentry/angular": "^10.38.0",
     "angular-ng-autocomplete": "2.0.12",
     "bulma": "^0.9.4",
     "bulma-extensions": "^6.2.7",
