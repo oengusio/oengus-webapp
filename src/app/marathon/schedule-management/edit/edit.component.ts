@@ -14,7 +14,7 @@ import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { SubmissionService } from '../../../../services/submission.service';
 import { SelectionService } from '../../../../services/selection.service';
 import { MarathonService } from '../../../../services/marathon.service';
-import * as vis from 'vis-timeline';
+import { DataSetDataGroup, DataSetDataItem, Timeline, IdType } from 'vis-timeline/esnext';
 import { DataSet } from 'vis-data';
 import { Availability, AvailabilityResponse } from '../../../../model/availability';
 import moment from 'moment-timezone';
@@ -27,7 +27,6 @@ import { ClonePopupComponent } from './clone-popup/clone-popup.component';
 import { MarathonScheduleExportComponent } from '../../schedule/marathon-schedule-export/marathon-schedule-export.component';
 import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
 import { DirectivesModule } from '../../../directives/directives.module';
-import { MarkdownPipe } from '../../../pipes/markdown.pipe';
 import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/loading-indicator.component';
 
 // Options are 'id' and 'content'
@@ -43,7 +42,6 @@ const AVAILABILITY_SORT_KEY = 'content';
     TranslateModule,
     FontAwesomeModule,
     NwbSwitchModule,
-    ScheduleTableComponent,
     ScheduleTableOldElementComponent,
     WarningModalComponent,
     SubmissionsTableComponent,
@@ -51,7 +49,6 @@ const AVAILABILITY_SORT_KEY = 'content';
     MarathonScheduleExportComponent,
     ElementI18nComponent,
     DirectivesModule,
-    MarkdownPipe,
     LoadingIndicatorComponent,
   ],
 })
@@ -82,10 +79,10 @@ export class EditComponent implements OnInit, OnDestroy {
 
 
   public timezone = moment.tz.guess();
-  private timeline: vis.Timeline;
-  private timebar: vis.IdType;
-  public availabilitiesGroups: vis.DataSetDataGroup;
-  public availabilitiesItems: vis.DataSetDataItem;
+  private timeline: Timeline;
+  private timebar: IdType;
+  public availabilitiesGroups: DataSetDataGroup;
+  public availabilitiesItems: DataSetDataItem;
   public availabilitiesSelected = [];
   private availabilitiesSelectedItems = [];
   public allAvailabilities: AvailabilityResponse = {};
@@ -143,7 +140,7 @@ export class EditComponent implements OnInit, OnDestroy {
     // Somehow this delay solves the availabilities not showing.
     await new Promise((resolve) => window.requestAnimationFrame(resolve));
 
-    this.timeline = new vis.Timeline(document.getElementById('timeline'),
+    this.timeline = new Timeline(document.getElementById('timeline'),
       this.availabilitiesItems,
       this.availabilitiesGroups,
       {

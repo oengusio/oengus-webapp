@@ -11,7 +11,7 @@ import { DurationService } from '../../../services/duration.service';
 import moment from 'moment-timezone';
 import { Selection } from '../../../model/selection';
 import { Availability } from '../../../model/availability';
-import * as vis from 'vis-timeline';
+import { DataSetDataGroup, DataSetDataItem, Timeline } from 'vis-timeline/esnext';
 import { DataSet } from 'vis-data';
 import { SubmissionService } from '../../../services/submission.service';
 import { Submission } from '../../../model/submission';
@@ -49,8 +49,8 @@ export class SelectionComponent implements OnInit {
   public faCalendarTimes = faCalendarTimes;
 
   @ViewChild('timeline', {static: false}) timeline: ElementRef;
-  public availabilitiesGroups: vis.DataSetDataGroup;
-  public availabilitiesItems: vis.DataSetDataItem;
+  public availabilitiesGroups: DataSetDataGroup;
+  public availabilitiesItems: DataSetDataItem;
 
   public availabilitiesSelected = [];
 
@@ -100,7 +100,7 @@ export class SelectionComponent implements OnInit {
     await new Promise((resolve) => window.requestAnimationFrame(resolve));
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const timeline = new vis.Timeline(document.getElementById('timeline'),
+    const timeline = new Timeline(document.getElementById('timeline'),
       this.availabilitiesItems,
       this.availabilitiesGroups,
       {

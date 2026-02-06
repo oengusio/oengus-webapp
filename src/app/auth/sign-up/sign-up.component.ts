@@ -11,21 +11,24 @@ import { AuthService } from '../../../services/auth.service';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { ElementModule } from '../../elements/elements.module';
 import { OengusCommonModule } from '../../oengus-common/oengus-common.module';
+import { UsernameExistsValidatorDirective } from '../../directives/username-exists-validator.directive';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
-    selector: 'app-sign-up',
-    templateUrl: './sign-up.component.html',
-    styleUrls: ['./sign-up.component.scss'],
-    imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule,
-        TranslateModule,
-        LocalizeRouterModule,
-        FontAwesomeModule,
-        ElementModule,
-        OengusCommonModule,
-    ]
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    TranslateModule,
+    LocalizeRouterModule,
+    FontAwesomeModule,
+    ElementModule,
+    OengusCommonModule,
+    UsernameExistsValidatorDirective,
+  ],
 })
 export class SignUpComponent {
   readonly title = 'Sign Up';
@@ -76,9 +79,13 @@ export class SignUpComponent {
 
       const errors: { field: string; defaultMessage: string }[] = e.error.errors ?? [];
 
-      errors.forEach(({ field, defaultMessage }) => {
+      errors.forEach(({field, defaultMessage}) => {
         this.errors[field] = defaultMessage;
       });
+
+      if (e.error.status === 'USERNAME_TAKEN') {
+        this.errors['username'] = await firstValueFrom(this.translateService.get('user.settings.username.error.exists'));
+      }
 
       window.scrollTo(0, 0);
 
@@ -96,7 +103,7 @@ export class SignUpComponent {
           message,
           duration: 5000,
           position: 'is-right',
-          color: 'is-danger'
+          color: 'is-danger',
         });
       },
     });
