@@ -8,9 +8,15 @@
     @if (run.setupBlock) {
       <div class="run setup-block" [id]="getId(run)" [class.past-run]="isBeforeCurrentRun(run)" [class.current-run]="run.id === currentRun?.id">
         <div class="run-left">
-          <div class="row-title">
-            <app-simple-md [data]="(run.setupBlockText | translate)"></app-simple-md>
-          </div>
+          @if (run.setupBlockText) {
+            <div class="row-title">
+              <app-simple-md [data]="(run.setupBlockText | translate)"></app-simple-md>
+            </div>
+          } @else {
+            <div class="row-title">
+              {{ 'marathon.schedule.setupBlock' | translate }}
+            </div>
+          }
           <div class="time">
             <app-element-temporal-datetime [dateTime]="run.date" format="shortTime"></app-element-temporal-datetime>
           </div>
