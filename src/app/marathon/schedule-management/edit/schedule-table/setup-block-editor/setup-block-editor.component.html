@@ -11,8 +11,7 @@
              [(ngModel)]="line.setupBlockText"
              [ngModelOptions]="{ updateOn: 'blur' }"
              maxlength="50"
-             placeholder="Setup Block"
-             required/>
+             placeholder="Setup Block"/>
       <p class="help is-pulled-right">{{line.setupBlockText?.length}}/50</p>
       <p class="help">
         {{ 'marathon.schedule.management.help.setupBlock' | translate }}
