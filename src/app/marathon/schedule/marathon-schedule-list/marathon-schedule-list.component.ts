@@ -23,6 +23,8 @@ import { ComponentsModule } from '../../../components/components.module';
     ]
 })
 export class MarathonScheduleListComponent implements OnChanges, OnInit {
+  private static readonly LAYOUT_STORAGE_KEY = 'marathon-schedule-layout';
+
   @Input() runs: V2ScheduleLine[];
   @Input() currentRun: V2ScheduleLine;
   @Input() nextRun: V2ScheduleLine;
@@ -32,8 +34,10 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   faLink = faLink;
   faCircleCheck = faCircleCheck;
   showCopiedPopup: number | null = null;
+  isCompactLayout = false;
 
   ngOnInit(): void {
+    this.loadLayoutState();
     this.expandRunHash();
   }
 
@@ -138,5 +142,29 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
     }).catch((err) => {
       console.error('Failed to copy link:', err);
     });
+  }
+
+  private loadLayoutState(): void {
+    const savedLayout = localStorage.getItem(MarathonScheduleListComponent.LAYOUT_STORAGE_KEY);
+    if (savedLayout !== null) {
+      this.isCompactLayout = savedLayout === 'compact';
+    }
+  }
+
+  private saveLayoutState(): void {
+    localStorage.setItem(
+      MarathonScheduleListComponent.LAYOUT_STORAGE_KEY,
+      this.isCompactLayout ? 'compact' : 'default'
+    );
+  }
+
+  isLayoutDefault(): void {
+    this.isCompactLayout = false;
+    this.saveLayoutState();
+  }
+
+  isLayoutCompact(): void {
+    this.isCompactLayout = true;
+    this.saveLayoutState();
   }
 }
