@@ -8,9 +8,11 @@
     @if (run.setupBlock) {
       <div class="run setup-block" [id]="getId(run)" [class.past-run]="isBeforeCurrentRun(run)" [class.current-run]="run.id === currentRun?.id">
         <div class="run-left">
-          <div class="row-title">
-            <app-simple-md [data]="(run.setupBlockText | translate)"></app-simple-md>
-          </div>
+          @if (run.setupBlockText) {
+            <div class="row-title">
+              <app-simple-md [data]="(run.setupBlockText | translate)"></app-simple-md>
+            </div>
+          }
           <div class="time">
             <app-element-temporal-datetime [dateTime]="run.date" format="shortTime"></app-element-temporal-datetime>
           </div>
@@ -42,9 +44,11 @@
     } @else {
       <div class="run" [id]="getId(run)" [class.past-run]="isBeforeCurrentRun(run)" [class.current-run]="run.id === currentRun?.id" [attr.data-run-id]="run.id">
         <div class="run-left">
-          <div class="row-title">
-            <app-simple-md [data]="run.game"></app-simple-md>
-          </div>
+          @if (run.game) {
+            <div class="row-title">
+              <app-simple-md [data]="run.game"></app-simple-md>
+            </div>
+          }
           <div class="time">
             <app-element-temporal-datetime [dateTime]="run.date" format="shortTime"></app-element-temporal-datetime>
           </div>
