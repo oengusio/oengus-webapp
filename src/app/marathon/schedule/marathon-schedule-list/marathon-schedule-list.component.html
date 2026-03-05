@@ -35,7 +35,7 @@
               }
             </strong>
           </div>
-          
+
           <div class="content-right">
             @if (run.setupTime) {
               <div class="setup-line">
@@ -78,7 +78,7 @@
               <div class="runners-line">
                 @for (runner of run.runners; track runner) {
                   <span class="runner-line-name">
-                    <fa-icon [icon]="faGamepad"></fa-icon>
+                    <fa-icon [icon]="iconUser"></fa-icon>
                     <app-user-link [user]="runner" [isLink]="runner?.profile?.id > 0"></app-user-link>
                   </span>
                 }
@@ -87,7 +87,7 @@
                 }
               </div>
             </div>
-              
+
             <div class="content-right">
               @if (run.setupTime) {
                 <div class="setup-line">
