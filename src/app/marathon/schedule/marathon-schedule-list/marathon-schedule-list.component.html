@@ -1,4 +1,13 @@
-<div class="schedule-container">
+<span class="schedule-switch-label"> Layout style:</span>
+<div class="schedule-switch-container">
+  <button type="button" class="button is-info" [class.is-light]="isCompactLayout" (click)="isLayoutDefault()" [class.compact]="isCompactLayout">
+    <span>Default</span>
+  </button>
+  <button type="button" class="button is-info" [class.is-light]="!isCompactLayout" (click)="isLayoutCompact()" [class.compact]="isCompactLayout">
+    <span>Compact</span>
+  </button>
+</div>
+<div class="schedule-container" [class.compact]="isCompactLayout">
   @for (run of runs; track run; let index = $index) {
     @if (shouldShowDay(index)) {
       <div class="day is-info">
