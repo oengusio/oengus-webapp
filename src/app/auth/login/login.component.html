@@ -1,18 +1,19 @@
 <section class="section container">
   <h1 class="title is-1">{{ 'login.title' | translate }}</h1>
+  @switch (loginError) {
+    @case ('USERNAME_PASSWORD_INCORRECT') {
+      <div class="notification is-danger">
+        <button class="delete" (click)="loginError = null" aria-label="Close"></button>
+        The entered username and password are incorrect.
+      </div>
+    }
 
-  @if (loginError === 'USERNAME_PASSWORD_INCORRECT') {
-    <div class="notification is-danger">
-      <button class="delete" (click)="loginError = null" aria-label="Close"></button>
-      The entered username and password are incorrect.
-    </div>
-  }
-
-  @if (loginError === 'MFA_INVALID') {
-    <div class="notification is-danger">
-      <button class="delete" (click)="loginError = null" aria-label="Close"></button>
-      2FA code is not valid.
-    </div>
+    @case ('MFA_INVALID') {
+      <div class="notification is-danger">
+        <button class="delete" (click)="loginError = null" aria-label="Close"></button>
+        2FA code is not valid.
+      </div>
+    }
   }
 
   <div class="columns">
