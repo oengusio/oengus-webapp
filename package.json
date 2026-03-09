@@ -81,7 +81,7 @@
     "@types/node": "~25.1.0",
     "@typescript-eslint/types": "^8.56.1",
     "@typescript-eslint/utils": "^8.56.1",
-    "angular-eslint": "20.3.0",
+    "angular-eslint": "21.3.0",
     "codelyzer": "~6.0.2",
     "eslint": "^9.35.0",
     "jasmine-core": "~6.0.1",
