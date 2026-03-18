@@ -1,6 +1,6 @@
 {
   "name": "webapp",
-  "version": "2026.01.1",
+  "version": "2026.03.1",
   "scripts": {
     "ng": "ng",
     "start": "npm dev",
