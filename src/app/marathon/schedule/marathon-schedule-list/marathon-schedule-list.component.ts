@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faGamepad, faLink, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faLink, faCircleCheck, faUser } from '@fortawesome/free-solid-svg-icons';
 import { V2ScheduleLine } from '../../../../model/schedule-line';
 import { ElementModule } from '../../../elements/elements.module';
 import { ComponentsModule } from '../../../components/components.module';
@@ -28,7 +28,7 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   @Input() nextRun: V2ScheduleLine;
   @Input() runHash: string;
 
-  faGamepad = faGamepad;
+  iconUser = faUser;
   faLink = faLink;
   faCircleCheck = faCircleCheck;
   showCopiedPopup: number | null = null;
@@ -123,12 +123,12 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   copyLinkToClipboard(runId: number, event: Event): void {
     event.preventDefault();
     event.stopPropagation();
-    
+
     // Get current URL without hash
     const { origin, pathname } = window.location;
     const baseUrl = origin + pathname;
     const link = `${baseUrl}#run-${runId}`;
-    
+
     // Copy to clipboard
     navigator.clipboard.writeText(link).then(() => {
       this.showCopiedPopup = runId;

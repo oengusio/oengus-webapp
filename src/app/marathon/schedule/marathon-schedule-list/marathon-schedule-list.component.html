@@ -8,9 +8,15 @@
     @if (run.setupBlock) {
       <div class="run setup-block" [id]="getId(run)" [class.past-run]="isBeforeCurrentRun(run)" [class.current-run]="run.id === currentRun?.id">
         <div class="run-left">
-          <div class="row-title">
-            <app-simple-md [data]="(run.setupBlockText | translate)"></app-simple-md>
-          </div>
+          @if (run.setupBlockText) {
+            <div class="row-title">
+              <app-simple-md [data]="(run.setupBlockText | translate)"></app-simple-md>
+            </div>
+          } @else {
+            <div class="row-title">
+              {{ 'marathon.schedule.setupBlock' | translate }}
+            </div>
+          }
           <div class="time">
             <app-element-temporal-datetime [dateTime]="run.date" format="shortTime"></app-element-temporal-datetime>
           </div>
@@ -29,7 +35,7 @@
               }
             </strong>
           </div>
-          
+
           <div class="content-right">
             @if (run.setupTime) {
               <div class="setup-line">
@@ -72,7 +78,7 @@
               <div class="runners-line">
                 @for (runner of run.runners; track runner) {
                   <span class="runner-line-name">
-                    <fa-icon [icon]="faGamepad"></fa-icon>
+                    <fa-icon [icon]="iconUser"></fa-icon>
                     <app-user-link [user]="runner" [isLink]="runner?.profile?.id > 0"></app-user-link>
                   </span>
                 }
@@ -81,7 +87,7 @@
                 }
               </div>
             </div>
-              
+
             <div class="content-right">
               @if (run.setupTime) {
                 <div class="setup-line">
