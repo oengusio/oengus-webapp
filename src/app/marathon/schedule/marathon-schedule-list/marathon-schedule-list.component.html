@@ -84,10 +84,10 @@
                     <app-user-link [user]="runner" [isLink]="runner?.profile?.id > 0"></app-user-link>
                   </span>
                 }
-                @if (run.type) {
-                  <span> - {{ 'marathon.schedule.type.' + run.type | translate }}</span>
-                }
               </div>
+              @if (run.type) {
+                <span class="runner-line-type"> - {{ 'marathon.schedule.type.' + run.type | translate }}</span>
+              }
             </div>
 
             <div class="content-right">

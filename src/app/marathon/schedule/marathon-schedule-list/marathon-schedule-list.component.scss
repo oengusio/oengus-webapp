@@ -319,6 +319,13 @@
       flex-direction: column;
     }
   }
+  .content-left {
+    @media (min-width: 1024px) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+  }
 
   .content-right {
     font-size: 0.875em;
@@ -353,6 +360,10 @@
       gap: 0.25rem;
       font-weight: 700;
     }
+  }
+
+  .runner-line-type {
+    color: lighten(table-vars.$info-color, 20%);
   }
 
   > .day {	
