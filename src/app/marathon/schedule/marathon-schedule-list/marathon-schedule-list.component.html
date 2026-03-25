@@ -1,13 +1,4 @@
-<span class="schedule-switch-label"> Layout style:</span>
-<div class="schedule-switch-container">
-  <button type="button" class="button is-info" [class.is-light]="isCompactLayout" (click)="isLayoutDefault()" [class.compact]="isCompactLayout">
-    <span>Default</span>
-  </button>
-  <button type="button" class="button is-info" [class.is-light]="!isCompactLayout" (click)="isLayoutCompact()" [class.compact]="isCompactLayout">
-    <span>Compact</span>
-  </button>
-</div>
-<div class="schedule-container" [class.compact]="isCompactLayout">
+<div class="schedule-container compact">
   @for (run of runs; track run; let index = $index) {
     @if (shouldShowDay(index)) {
       <div class="day is-info">
@@ -75,12 +66,14 @@
               <strong>
                 <app-simple-md [data]="run.category"></app-simple-md>
               </strong>
-              @if (run.console) {
-                <span class="console"> (<app-element-console [console]="run.console" [emulated]="run.emulated"></app-element-console>)</span>
-              }
-              @if (run.estimate) {
-                <span class="estimate"> (<app-element-temporal-duration [duration]="run.estimate"></app-element-temporal-duration>)</span>
-              }
+              <div class="category-line-extra">
+                @if (run.console) {
+                  <span class="console"> (<app-element-console [console]="run.console" [emulated]="run.emulated"></app-element-console>)</span>
+                }
+                @if (run.estimate) {
+                  <span class="estimate"> (<app-element-temporal-duration [duration]="run.estimate"></app-element-temporal-duration>)</span>
+                }
+              </div>
           </div>
           <div class="content">
             <div class="content-left">

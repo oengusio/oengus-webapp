@@ -1,18 +1,6 @@
 @use '../../../../assets/table';
 @use '../../../../assets/table/variables' as table-vars;
 
-.schedule-switch-label {
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-.schedule-switch-container {
-  display: flex;
-  justify-content: flex-start;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
 .schedule-container {
   display: flex;
   width: 100%;
@@ -131,7 +119,7 @@
   .run-left {
     display: flex;
     flex-direction: row-reverse;
-    gap: 0.5rem;
+    gap: 1rem;
     justify-content: flex-end;
     align-items: center;
     height: calc(100% + var(--spacing));
@@ -299,6 +287,26 @@
     padding-bottom: 0.5rem;
     margin-bottom: 0.5rem;
     border-bottom: 1px solid table-vars.$info-color;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+
+    @media (max-width: 1200px) {
+      display: flex;
+      gap: 0.25rem;
+      flex-direction: column;
+    }
+
+    .console,
+    .estimate {
+      white-space: nowrap;
+    }
+  }
+
+  .category-line-extra {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
   }
 
   .content {
