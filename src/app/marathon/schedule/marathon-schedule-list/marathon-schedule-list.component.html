@@ -1,4 +1,4 @@
-<div class="schedule-container">
+<div class="schedule-container compact">
   @for (run of runs; track run; let index = $index) {
     @if (shouldShowDay(index)) {
       <div class="day is-info">
@@ -66,12 +66,14 @@
               <strong>
                 <app-simple-md [data]="run.category"></app-simple-md>
               </strong>
-              @if (run.console) {
-                <span class="console"> (<app-element-console [console]="run.console" [emulated]="run.emulated"></app-element-console>)</span>
-              }
-              @if (run.estimate) {
-                <span class="estimate"> (<app-element-temporal-duration [duration]="run.estimate"></app-element-temporal-duration>)</span>
-              }
+              <div class="category-line-extra">
+                @if (run.console) {
+                  <span class="console"> (<app-element-console [console]="run.console" [emulated]="run.emulated"></app-element-console>)</span>
+                }
+                @if (run.estimate) {
+                  <span class="estimate"> (<app-element-temporal-duration [duration]="run.estimate"></app-element-temporal-duration>)</span>
+                }
+              </div>
           </div>
           <div class="content">
             <div class="content-left">
@@ -82,10 +84,10 @@
                     <app-user-link [user]="runner" [isLink]="runner?.profile?.id > 0"></app-user-link>
                   </span>
                 }
-                @if (run.type) {
-                  <span> - {{ 'marathon.schedule.type.' + run.type | translate }}</span>
-                }
               </div>
+              @if (run.type) {
+                <span class="runner-line-type"> - {{ 'marathon.schedule.type.' + run.type | translate }}</span>
+              }
             </div>
 
             <div class="content-right">
