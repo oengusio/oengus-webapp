@@ -14,9 +14,10 @@
   }
 
   @if (sandbox) {
-    <p [innerHTML]="'homepage.welcomeText.par4.sandbox' | translate"></p>
+    <p [innerHTML]="'homepage.welcomeText.par4.sandbox_new.line1' | translate | markdown"></p>
+    <p [innerHTML]="'homepage.welcomeText.par4.sandbox_new.line2' | translate | markdown"></p>
   } @else {
-    <p [innerHTML]="'homepage.welcomeText.par4.prod' | translate"></p>
+    <p [innerHTML]="'homepage.welcomeText.par4.prod_new' | translate | markdown"></p>
   }
 
 

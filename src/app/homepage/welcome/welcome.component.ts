@@ -6,17 +6,19 @@ import { faAngleDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { environment } from '../../../environments/environment';
 import { WidgetSigninPickerComponent } from '../../components/widget-signin-picker/widget-signin-picker.component';
+import { MarkdownPipe } from '../../pipes/markdown.pipe';
 
 @Component({
     selector: 'app-homepage-welcome',
     templateUrl: './welcome.component.html',
     styleUrls: ['./welcome.component.scss'],
-    imports: [
-        CommonModule,
-        TranslateModule,
-        FontAwesomeModule,
-        WidgetSigninPickerComponent,
-    ]
+  imports: [
+    CommonModule,
+    TranslateModule,
+    FontAwesomeModule,
+    WidgetSigninPickerComponent,
+    MarkdownPipe,
+  ],
 })
 export class WelcomeComponent {
   userService = inject(UserService);
