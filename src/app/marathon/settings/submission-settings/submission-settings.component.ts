@@ -64,7 +64,9 @@ export class SubmissionSettingsComponent {
           this.settings.discordGuildId = id;
           this.settings.discordGuildName = name;
         })
-        .add(() => this.loadingDiscordCheck = false);
+        .add(() => {
+          this.loadingDiscordCheck = false;
+        });
     }
   }
 

@@ -179,7 +179,7 @@
     <div class="column">
       <fieldset [disabled]="!settings.discord && !settings.discordPrivate">
         <div class="field">
-          <div class="control loader" [ngClass]="{'is-loading': loadingDiscordCheck}"></div>
+          <div class="control discord-loader" [ngClass]="{'is-loading': loadingDiscordCheck}"></div>
           <label for="discordRequired" class="label">{{ 'marathon.settings.discordRequirement.label' | translate }}</label>
           <div class="control">
             <nwb-switch [(ngModel)]="settings.discordRequired"
