@@ -3,17 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, tap } from 'rxjs';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { ScheduleCreateRequest, ScheduleInfo, V2Schedule } from '../model/schedule';
-import moment from 'moment-timezone';
 import { BaseService } from './BaseService';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
 import { V2ScheduleLine } from '../model/schedule-line';
 import { map } from 'rxjs/operators';
+import { TemporalServiceService } from './termporal/temporal-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduleService extends BaseService {
   private http = inject(HttpClient);
+  private temporalService = inject(TemporalServiceService);
 
   private scheduleCache = new Map<string, ScheduleInfo[]>();
 
@@ -103,7 +104,7 @@ export class ScheduleService extends BaseService {
 
   getExportUrl(marathonId: string, scheduleId: number, format: string): string {
     return this.v2Url(`${marathonId}/schedules/${scheduleId}/export?format=${format}&zoneId=${
-      moment.tz.guess()}&locale=${localStorage.getItem('language')}`);
+      this.temporalService.timeZone.timeZone}&locale=${localStorage.getItem('language')}`);
   }
 
   fetchExport(marathonId: string, scheduleId: number, format: string): Observable<Blob> {

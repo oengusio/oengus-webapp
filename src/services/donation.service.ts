@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Page } from '../model/page';
 import { DonationStats } from '../model/donation-stats';
-import moment from 'moment-timezone';
 import {BaseService} from './BaseService';
+import { TemporalServiceService } from './termporal/temporal-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ export class DonationService extends BaseService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private translateService = inject(TranslateService);
+  private temporalService = inject(TemporalServiceService);
 
 
   constructor() {
@@ -57,7 +58,7 @@ export class DonationService extends BaseService {
   }
 
   exportAllForMarathon(marathonId: string) {
-    const exportUrl = this.url(`${marathonId}/donations/export?zoneId=${moment.tz.guess()}`);
+    const exportUrl = this.url(`${marathonId}/donations/export?zoneId=${this.temporalService.timeZone.timeZone}`);
     this.http.get(exportUrl, {responseType: 'text'})
       .subscribe(response => {
           const blob = new Blob([response], {type: 'text/csv'});

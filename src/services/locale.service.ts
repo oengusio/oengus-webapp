@@ -1,5 +1,4 @@
 import { Injectable, inject } from '@angular/core';
-import moment from 'moment-timezone';
 import { TranslateService } from '@ngx-translate/core';
 import { TemporalServiceService } from './termporal/temporal-service.service';
 import { DateTimeAdapter } from '@oengus/angular-datetime-picker';
@@ -100,20 +99,6 @@ export class LocaleService {
     this.translateRouter.changeLanguage(language);
     this.temporal.changeLocale(language);
 
-    this.setMomentTimezone(language);
-
     this.dateTimeAdapter.setLocale(language.split('_')[0]);
-  }
-
-  setMomentTimezone(language: string): void {
-    const date = new Date();
-
-    if (date.getMonth() === 3 && date.getDate() === 1 && date.getHours() >= 14 ) {
-      moment.locale('x-pseudo');
-    } else if (language === 'zh_Hant_HK') {
-      moment.locale('zh_hk');
-    } else {
-      moment.locale(language.split('_')[0].replace('en', 'en_GB'));
-    }
   }
 }
