@@ -1,27 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
+import { NwbAlertConfig, NwbAlertService, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
 import { cloneDeep } from 'lodash';
 import { DurationService } from '../../../services/duration.service';
-import moment from 'moment';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Question } from '../../../model/question';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
-import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { UserProfile } from '../../../model/user-profile';
 import { GeneralSettingsComponent } from './general-settings/general-settings.component';
 import { DiscordSettingsComponent } from './discord-settings/discord-settings.component';
 import { SubmissionSettingsComponent } from './submission-settings/submission-settings.component';
-import { IncentiveSettingsComponent } from './incentive-settings/incentive-settings.component';
 
 @Component({
     selector: 'app-settings',
@@ -36,7 +32,6 @@ import { IncentiveSettingsComponent } from './incentive-settings/incentive-setti
         GeneralSettingsComponent,
         DiscordSettingsComponent,
         SubmissionSettingsComponent,
-        IncentiveSettingsComponent,
     ]
 })
 export class SettingsComponent implements OnInit {
@@ -102,7 +97,7 @@ export class SettingsComponent implements OnInit {
     }
 
     this.loading = true;
-    this.settings.defaultSetupTime = moment.duration(this.settings.defaultSetupTimeHuman).toISOString();
+    this.settings.defaultSetupTime = DurationService.toIso(this.settings.defaultSetupTimeHuman);
 
     this.questions = [];
     this.questions = this.questions.concat(this.submissionsQuestions);

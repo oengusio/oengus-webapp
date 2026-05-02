@@ -58,7 +58,8 @@
     <tbody>
       @for (donation of donations.content; track donation) {
         <tr>
-          <td>{{moment(donation.date).format('L LT')}}</td>
+<!--          <td>{{moment(donation.date).format('L LT')}}</td>-->
+          <td>TODO: FIX MOMENT REPLACEMENT</td>
           <td>{{donation.nickname}}</td>
           <td>
             <app-monetary-amount [amount]="donation.amount"

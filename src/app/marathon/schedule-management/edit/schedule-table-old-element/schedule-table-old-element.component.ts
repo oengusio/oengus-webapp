@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,7 +7,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LineRunner, V2ScheduleLine } from '../../../../../model/schedule-line';
 import { AvailabilityResponse } from '../../../../../model/availability';
 import { getRowParity, toggleTableExpand } from '../../../../../assets/table';
-import moment from 'moment-timezone';
 import { faBars, faCalendarTimes, faCalendarWeek, faChevronLeft, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { debounce } from 'lodash';
@@ -19,6 +18,7 @@ import { SimpleMdComponent } from '../../../../components/simple-md/simple-md.co
 import { ElementTableDetailComponent } from '../../../../elements/element-table-detail/element-table-detail.component';
 import { SetupBlockEditorComponent } from '../schedule-table/setup-block-editor/setup-block-editor.component';
 import { NormalRunEditorComponent } from '../schedule-table/normal-run-editor/normal-run-editor.component';
+import { TemporalServiceService } from '../../../../../services/termporal/temporal-service.service';
 
 /**
  * @-deprecated please use the new component when we get it working.
@@ -43,10 +43,11 @@ import { NormalRunEditorComponent } from '../schedule-table/normal-run-editor/no
     ]
 })
 export class ScheduleTableOldElementComponent {
+  private temporalService = inject(TemporalServiceService);
+
   public getRowParity = getRowParity;
   getRunnerUsername = getRunnerUsername;
   getRunnerDisplayName = getRunnerDisplayName;
-  public timezone = moment.tz.guess();
 
   @Input() lines: V2ScheduleLine[] = [];
   @Input() availabilities: AvailabilityResponse;
@@ -84,15 +85,26 @@ export class ScheduleTableOldElementComponent {
       return true;
     }
 
-    // TODO: do we still need moment?
-    const startDateRun = moment.tz(line.date, this.timezone);
-    const endDateRun = moment.tz(line.date, this.timezone).add(moment.duration(line.estimate));
+    let dateToParse: string | number;
+
+    // TODO: make sure these are always strings, this is inconsistent BULLSHIT
+    if (typeof line.date === 'string') {
+      dateToParse = line.date;
+    } else {
+      dateToParse = line.date.getTime();
+    }
+
+    const startDateRun = this.temporalService.parseDate(dateToParse);
+    const endDateRun = this.temporalService.parseDate(dateToParse).add(Temporal.Duration.from(line.estimate));
+
+    const isSameOrBefore = (one: Temporal.ZonedDateTime, two: Temporal.ZonedDateTime) => Temporal.ZonedDateTime.compare(one, two) <= 0;
+    const isSameOrAfter = (one: Temporal.ZonedDateTime, two: Temporal.ZonedDateTime) => Temporal.ZonedDateTime.compare(one, two) >= 0;
 
     return this.availabilities[runner.profile.username] &&
       this.availabilities[runner.profile.username].some(availability => {
-        const startDateAvail = moment.tz(availability.from, this.timezone);
-        const endDateAvail = moment.tz(availability.to, this.timezone);
-        return startDateAvail.isSameOrBefore(startDateRun) && endDateAvail.isSameOrAfter(endDateRun);
+        const startDateAvail = this.temporalService.parseDate(availability.from as unknown as string);
+        const endDateAvail = this.temporalService.parseDate(availability.to as unknown as string);
+        return isSameOrBefore(startDateAvail, startDateRun) && isSameOrAfter(endDateAvail, endDateRun);
       });
   }
 

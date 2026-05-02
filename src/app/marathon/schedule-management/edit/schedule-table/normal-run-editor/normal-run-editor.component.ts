@@ -6,7 +6,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { V2ScheduleLine } from '../../../../../../model/schedule-line';
 import { DurationService } from '../../../../../../services/duration.service';
-import moment from 'moment-timezone';
 import { UserProfile } from '../../../../../../model/user-profile';
 import { MAX_NAME_LENGTH } from '../../../../../../model/user';
 import DOMPurify from 'dompurify';
@@ -53,12 +52,12 @@ export class NormalRunEditorComponent implements OnInit {
   }
 
   onSetupTimeBlur(): void {
-    this.line.setupTime = moment.duration(this.setupTimeHuman).toISOString();
+    this.line.setupTime = DurationService.toIso(this.setupTimeHuman);
     this.setupTimeChanged.emit(this.line.setupTime);
   }
 
   onEstimateBlur(): void {
-    this.line.estimate = moment.duration(this.estimateHuman).toISOString();
+    this.line.estimate = DurationService.toIso(this.estimateHuman);
     this.estimateChanged.emit(this.line.estimate);
   }
 

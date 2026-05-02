@@ -42,4 +42,14 @@ export class TemporalServiceService implements LocaleSensitive {
     this.format.changeLocale(locale);
     this.range.changeLocale(locale);
   }
+
+  parseDate(date: string | number) {
+    if (typeof date === 'string') {
+      return Temporal.Instant.from(date)
+        .toZonedDateTimeISO(timeZoneImport.timeZone);
+    }
+
+    return Temporal.Instant.fromEpochMilliseconds(date)
+      .toZonedDateTimeISO(timeZoneImport.timeZone);
+  }
 }

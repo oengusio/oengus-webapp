@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { V2Schedule } from '../../../model/schedule';
-import moment from 'moment-timezone';
 import { MarathonService } from '../../../services/marathon.service';
 import { V2ScheduleLine } from '../../../model/schedule-line';
 import { Subscription, timer } from 'rxjs';
@@ -11,30 +10,30 @@ import { MarathonScheduleShareComponent } from './marathon-schedule-share/marath
 import { MarathonScheduleExportComponent } from './marathon-schedule-export/marathon-schedule-export.component';
 import { MarathonScheduleCurrentComponent } from './marathon-schedule-current/marathon-schedule-current.component';
 import { MarathonScheduleListComponent } from './marathon-schedule-list/marathon-schedule-list.component';
+import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
 
 @Component({
-    selector: 'app-schedule',
-    templateUrl: './schedule.component.html',
-    styleUrls: ['./schedule.component.scss'],
-    imports: [
-        CommonModule,
-        TranslateModule,
-        MarathonScheduleShareComponent,
-        MarathonScheduleExportComponent,
-        MarathonScheduleCurrentComponent,
-        MarathonScheduleListComponent,
-    ]
+  selector: 'app-schedule',
+  templateUrl: './schedule.component.html',
+  styleUrls: ['./schedule.component.scss'],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    MarathonScheduleShareComponent,
+    MarathonScheduleExportComponent,
+    MarathonScheduleCurrentComponent,
+    MarathonScheduleListComponent,
+  ],
 })
 export class ScheduleComponent implements OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   marathonService = inject(MarathonService);
-
+  temporalService = inject(TemporalServiceService);
 
   public schedule: V2Schedule;
-  public moment = moment;
 
-  public timezone = moment.tz.guess();
+  public timezone = this.temporalService.timeZone.timeZone;
 
   public currentIndex: number | undefined;
   private scheduleRefresher: Subscription;
@@ -63,7 +62,7 @@ export class ScheduleComponent implements OnDestroy {
         const initialDelay = 60 * 1000 - (now.getSeconds() * 1000 + now.getMilliseconds());
         this.scheduleRefresher = timer(initialDelay, 60000).subscribe(() => this.setCurrentRunId());
       } else {
-        this.router.navigate(['/404'], { skipLocationChange: true});
+        this.router.navigate(['/404'], {skipLocationChange: true});
       }
     });
   }
@@ -97,11 +96,21 @@ export class ScheduleComponent implements OnDestroy {
   }
 
   isCurrentRun(line: V2ScheduleLine) {
-    const now = moment.now();
-    return moment.tz(line.date, this.timezone).isBefore(now) &&
-      moment.tz(line.date, this.timezone)
-        .add(moment.duration(line.estimate))
-        .add(moment.duration(line.setupTime)).isAfter(now);
+    const estimateDuration = Temporal.Duration.from(line.estimate);
+    const setupDuration = Temporal.Duration.from(line.setupTime);
+
+    const lineDate = Temporal.Instant.from(line.date as unknown as string)
+      .toZonedDateTimeISO(this.timezone);
+
+    const now = Temporal.Now.zonedDateTimeISO(this.timezone);
+
+    // -1 gets returned if lineDate is *before* now.
+    return Temporal.ZonedDateTime.compare(lineDate, now) === -1 &&
+      // and we get 1 if lineDate (with setup and estimate) comes *after* now.
+      Temporal.ZonedDateTime.compare(
+        lineDate.add(estimateDuration).add(setupDuration),
+        now,
+      ) === 1;
   }
 
   ngOnDestroy(): void {

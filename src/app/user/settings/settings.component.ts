@@ -1,14 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { SelfUser } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { SocialAccount } from '../../../model/social-account';
 import { SocialPlatform, SocialPlatformName } from '../../../model/social-platform';
 import { PatreonStatusDto, RelationShip } from '../../../model/annoying-patreon-shit';
@@ -19,7 +18,6 @@ import { firstValueFrom } from 'rxjs';
 import { NotificationService } from '../../../services/notification.service';
 import { MfaModalComponent } from './mfa-modal/mfa-modal.component';
 import { SyncButtonComponent } from './sync-button/sync-button.component';
-import { ConnectionComponent } from '../profile/connection/connection.component';
 import { ElementPronounsComponent } from '../../elements/element-pronouns/element-pronouns.component';
 import { ElementCountryComponent } from '../../elements/element-country/element-country.component';
 import { ElementLanguagesComponent } from '../../elements/element-languages/element-languages.component';
@@ -39,7 +37,6 @@ import { DirectivesModule } from '../../directives/directives.module';
         DirectivesModule,
         MfaModalComponent,
         SyncButtonComponent,
-        ConnectionComponent,
         ElementPronounsComponent,
         ElementCountryComponent,
         ElementLanguagesComponent,

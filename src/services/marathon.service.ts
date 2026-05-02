@@ -8,7 +8,6 @@ import { ValidationErrors } from '@angular/forms';
 import { UserService } from './user.service';
 import { HomepageMetadata } from '../model/homepage-metadata';
 import { TranslateService } from '@ngx-translate/core';
-import moment from 'moment-timezone';
 import { SelfUser, User } from '../model/user';
 import { BaseService } from './BaseService';
 import { parseMastodonUrl } from '../utils/helpers';
@@ -16,6 +15,7 @@ import { Question } from '../model/question';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
 import { map } from 'rxjs/operators';
 import { UserProfile } from '../model/user-profile';
+import { TemporalServiceService } from './termporal/temporal-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +25,7 @@ export class MarathonService extends BaseService {
   private router = inject(Router);
   private userService = inject(UserService);
   private translateService = inject(TranslateService);
+  private temporalService = inject(TemporalServiceService);
 
   private _marathon: Marathon;
 
@@ -131,13 +132,15 @@ export class MarathonService extends BaseService {
     const params = new HttpParams()
       .set('start', start.toISOString())
       .set('end', end.toISOString())
-      .set('zoneId', moment.tz.guess());
+      .set('zoneId', this.temporalService.timeZone.timeZone);
 
     return this.http.get<Marathon[]>(this.url('forDates'), { params });
   }
 
   isArchived(marathon: Marathon = this._marathon): boolean {
-    return moment(marathon.endDate).isBefore(moment());
+    const endDate = this.temporalService.parseDate(marathon.endDate as unknown as string);
+
+    return Temporal.ZonedDateTime.compare(endDate, Temporal.Now.zonedDateTimeISO(this.temporalService.timeZone.timeZone)) === -1;
   }
 
   fetchDiscordInfo(marathon: MarathonSettings | Marathon): Observable<{ id: string, name: string }> {
@@ -154,7 +157,10 @@ export class MarathonService extends BaseService {
   }
 
   hasDstChange(): boolean {
-    return moment(this.marathon.startDate).isDST() !== moment(this.marathon.endDate).isDST();
+    const startDate = this.temporalService.parseDate(this.marathon.startDate as unknown as string);
+    const endDate = this.temporalService.parseDate(this.marathon.endDate as unknown as string);
+
+    return startDate.offset !== endDate.offset;
   }
 
   isWebhookOnline(marathonId: string, url: string): Observable<unknown> {

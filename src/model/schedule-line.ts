@@ -63,7 +63,7 @@ export interface V2ScheduleLine {
   setupBlock: boolean;
   setupBlockText: string;
   customData: string;
-  date: Date;
+  date: Date; // TODO: why is this a date? Should matcht the api and be a string
   // This is only used in the UI to hide categories that have moved to the schedule.
   categoryId: number;
 }

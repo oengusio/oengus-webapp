@@ -7,7 +7,6 @@ import { Donation } from '../../../model/donation';
 import { MarathonService } from '../../../services/marathon.service';
 import { DonationService } from '../../../services/donation.service';
 import { Page } from '../../../model/page';
-import moment from 'moment';
 import { NwbPageEvent } from '@oengus/ng-wizi-bulma';
 import { DonationStats } from '../../../model/donation-stats';
 import { UserService } from '../../../services/user.service';
@@ -34,7 +33,6 @@ export class DonationsComponent {
 
   public donations: Page<Donation>;
   public stats: DonationStats;
-  public moment = moment;
   public pageSizeOptions = [10, 25, 50, 100];
 
   readonly title = 'Donations';

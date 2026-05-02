@@ -1,6 +1,6 @@
 import { Directive, Input } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
-import moment from 'moment';
+import { DurationService } from '../../services/duration.service';
 
 @Directive({
     selector: '[appMinDurationValidator]',
@@ -11,13 +11,20 @@ export class MinDurationValidatorDirective implements Validator {
   @Input('appMinDurationValidator') minDuration: number;
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (moment.duration(control.value).asSeconds() > this.minDuration) {
-      return null;
-    } else {
+    if (!control.value) {
       return {
         minDuration: true
       };
     }
-  }
 
+    const duration = Temporal.Duration.from(DurationService.toIso(control.value));
+
+    if (duration.total('seconds') > this.minDuration) {
+      return null;
+    }
+
+    return {
+      minDuration: true
+    };
+  }
 }

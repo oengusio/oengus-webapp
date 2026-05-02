@@ -12,14 +12,12 @@ import { SubmissionService } from '../../../services/submission.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Submission } from '../../../model/submission';
 import { MarathonService } from '../../../services/marathon.service';
-import { faCheck, faClone, faPlus, faTimes, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faClone, faPlus, faTimes, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { Game } from '../../../model/game';
 import { Category } from '../../../model/category';
-import moment from 'moment-timezone';
 import { Availability } from '../../../model/availability';
 import { Answer } from '../../../model/answer';
 import { environment } from '../../../environments/environment';
-import { CategoryService } from '../../../services/category.service';
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../../../services/user.service';
@@ -37,6 +35,7 @@ import { SubmitMultiplayerJoinComponent } from './submit-multiplayer-join/submit
 import { OengusMdComponent } from '../../components/oengus-md/oengus-md.component';
 import { DirectivesModule } from '../../directives/directives.module';
 import { UserLinkComponent } from '../../elements/user-link/user-link.component';
+import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
 
 @Component({
   selector: 'app-submit',
@@ -108,9 +107,9 @@ export class SubmitComponent {
   get marathonDiscord(): string {
     return `https://discord.gg/${this.marathonService.marathon.discord}`;
   }
+
   protected submissionService = inject(SubmissionService);
   protected marathonService = inject(MarathonService);
-  private categoryService = inject(CategoryService);
   private translateService = inject(TranslateService);
   private userService = inject(UserService);
   private toastr = inject(NwbAlertService);
@@ -118,15 +117,14 @@ export class SubmitComponent {
   private http = inject(HttpClient);
   private location = inject(Location);
   private router = inject(Router);
+  private temporalService = inject(TemporalServiceService);
 
   protected submission: Submission;
-  protected faCheck = faCheck;
   protected faTimes = faTimes;
   protected faPlus = faPlus;
   protected faImport = faCloudArrowUp;
   protected faClone = faClone;
-  protected moment = moment;
-  protected timezone = moment.tz.guess();
+  protected timezone = this.temporalService.timeZone.timeZone;
   protected loading = false;
   protected localStorage = localStorage;
   protected possibleConsoles: string[] = gameConsoles;
@@ -248,26 +246,32 @@ export class SubmitComponent {
   }
 
   duplicateAvailabilityToNextDay(index: number) {
-    const endDate = this.marathonService.marathon.endDate;
+    const endDate = this.temporalService.parseDate(this.marathonService.marathon.endDate as unknown as string);
     const availability = {...this.submission.availabilities[index]};
-    const fromMoment = moment.tz(availability.from, this.timezone);
-    const toMoment = moment.tz(availability.to, this.timezone);
-    const duration = moment.duration(toMoment.diff(fromMoment));
-    let tmpFrom = moment.tz(availability.to, this.timezone);
+
+    const fromTemporal = this.temporalService.parseDate(availability.from as unknown as string);
+    const toTemporal = this.temporalService.parseDate(availability.to as unknown as string);
+    const duration = fromTemporal.until(toTemporal);
+    let tmpFrom = fromTemporal;
 
     // only add one day if we're not in midnight on the to day
-    if (!(toMoment.hour() >= 0 && toMoment.hour() <= 5)) {
-      tmpFrom = tmpFrom.add(1, 'days');
+    if (!(toTemporal.hour >= 0 && toTemporal.hour <= 5)) {
+      tmpFrom = tmpFrom.add(Temporal.Duration.from({ days: 1 }));
     }
 
-    availability.from = tmpFrom.hour(fromMoment.hour())
-      .minute(fromMoment.minute())
-      .toDate();
+    // TODO: what the fuck is going on here?
+    /*availability.from = tmpFrom.hour(fromTemporal.hour())
+      .minute(fromTemporal.minute())
+      .toDate();*/
 
-    availability.to = moment.tz(availability.from, this.timezone).add(duration).toDate();
+    availability.from = new Date(tmpFrom.epochMilliseconds);
 
-    if (moment.tz(availability.to, this.timezone).isAfter(moment.tz(endDate, this.timezone))) {
-      availability.to = moment.tz(endDate, this.timezone).toDate();
+    const newToTemporal = tmpFrom.add(duration);
+    availability.to = new Date(newToTemporal.epochMilliseconds);
+
+    // If avail is after end date set it to the end date
+    if (Temporal.ZonedDateTime.compare(newToTemporal, endDate) === 1) {
+      availability.to = new Date(endDate.epochMilliseconds);
     }
 
     this.submission.availabilities.push(availability);

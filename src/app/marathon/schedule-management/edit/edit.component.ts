@@ -17,7 +17,6 @@ import { MarathonService } from '../../../../services/marathon.service';
 import { DataSetDataGroup, DataSetDataItem, Timeline, IdType } from 'vis-timeline/esnext';
 import { DataSet } from 'vis-data';
 import { Availability, AvailabilityResponse } from '../../../../model/availability';
-import moment from 'moment-timezone';
 import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ScheduleTableOldElementComponent } from './schedule-table-old-element/schedule-table-old-element.component';
@@ -28,6 +27,7 @@ import { MarathonScheduleExportComponent } from '../../schedule/marathon-schedul
 import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
 import { DirectivesModule } from '../../../directives/directives.module';
 import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/loading-indicator.component';
+import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
 
 // Options are 'id' and 'content'
 const AVAILABILITY_SORT_KEY = 'content';
@@ -60,6 +60,7 @@ export class EditComponent implements OnInit, OnDestroy {
   private marathonService = inject(MarathonService);
   private toastr = inject(NwbAlertService);
   private translateService = inject(TranslateService);
+  private temporalService = inject(TemporalServiceService);
 
   @ViewChild('scheduleTableComponent') scheduleTable: ScheduleTableComponent | ScheduleTableOldElementComponent;
 
@@ -77,8 +78,6 @@ export class EditComponent implements OnInit, OnDestroy {
   submissionsLoaded = false;
   showAllCustomData = false;
 
-
-  public timezone = moment.tz.guess();
   private timeline: Timeline;
   private timebar: IdType;
   public availabilitiesGroups: DataSetDataGroup;
@@ -140,12 +139,16 @@ export class EditComponent implements OnInit, OnDestroy {
     // Somehow this delay solves the availabilities not showing.
     await new Promise((resolve) => window.requestAnimationFrame(resolve));
 
+    const oneHour = Temporal.Duration.from({ hours: 1 });
+
     this.timeline = new Timeline(document.getElementById('timeline'),
       this.availabilitiesItems,
       this.availabilitiesGroups,
       {
-        min: moment.tz(this.marathonService.marathon.startDate, this.timezone).subtract(1, 'hours').toDate(),
-        max: moment.tz(this.marathonService.marathon.endDate, this.timezone).add(1, 'hours').toDate(),
+        min: this.temporalService.parseDate(this.marathonService.marathon.startDate as unknown as string)
+          .subtract(oneHour).epochMilliseconds,
+        max: this.temporalService.parseDate(this.marathonService.marathon.endDate as unknown as string)
+          .add(oneHour).epochMilliseconds,
         orientation: {
           axis: 'both',
           item: 'bottom',
@@ -460,25 +463,31 @@ export class EditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.lines[0].date = this.marathonService.marathon.startDate;
+    // TODO: EW, need to migrate fully to instants
+    this.lines[0].date = new Date(this.marathonService.marathon.startDate);
     this.lines[0].position = 0;
 
     for (let i = 1; i < this.lines.length; i++) {
       const prevEl = this.lines[i - 1];
 
-      this.lines[i].date = moment.tz(prevEl.date, this.timezone)
-        .add(moment.duration(prevEl.estimate))
-        .add(moment.duration(prevEl.setupTime))
-        .toDate();
+      this.lines[i].date = new Date(
+        this.temporalService.parseDate(prevEl.date.toISOString())
+          .add(Temporal.Duration.from(prevEl.estimate))
+          .add(Temporal.Duration.from(prevEl.setupTime))
+          .epochMilliseconds,
+      );
       this.lines[i].position = i;
     }
     const lastElement = this.lines[this.lines.length - 1];
 
     if (this.timeline) {
-      this.timeline.setCustomTime(moment.tz(lastElement.date, this.timezone)
-        .add(moment.duration(lastElement.estimate))
-        .add(moment.duration(lastElement.setupTime))
-        .toDate(), this.timebar);
+      this.timeline.setCustomTime(
+        this.temporalService.parseDate(lastElement.date.toISOString())
+        .add(Temporal.Duration.from(lastElement.estimate))
+        .add(Temporal.Duration.from(lastElement.setupTime))
+        .epochMilliseconds,
+        this.timebar,
+      );
     }
   }
 
