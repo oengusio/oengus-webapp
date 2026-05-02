@@ -1,11 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, of, OperatorFunction, tap } from 'rxjs';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
-import { ScheduleCreateRequest, ScheduleInfo, V2Schedule } from '../model/schedule';
+import { ScheduleCreateRequest, ScheduleInfo, V2Schedule, V2ScheduleRawApi } from '../model/schedule';
 import { BaseService } from './BaseService';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
-import { V2ScheduleLine } from '../model/schedule-line';
+import { V2ScheduleLine, V2ScheduleLineRawApi } from '../model/schedule-line';
 import { map } from 'rxjs/operators';
 import { TemporalServiceService } from './termporal/temporal-service.service';
 
@@ -69,9 +69,10 @@ export class ScheduleService extends BaseService {
 
   getBySlug(marathonId: string, slug: string): Observable<V2Schedule> {
     // TODO: make slug a query param instead?
-    return this.http.get<V2Schedule>(this.v2Url(
+    return this.http.get<V2ScheduleRawApi>(this.v2Url(
       `${marathonId}/schedules/for-slug/${slug}`
-    ));
+    ))
+      .pipe(this.mapScheduleDates());
   }
 
   createSchedule(marathonId: string, data: ScheduleCreateRequest): Observable<ScheduleInfo> {
@@ -83,16 +84,21 @@ export class ScheduleService extends BaseService {
   }
 
   getLines(marathonId: string, scheduleId: number): Observable<DataListDto<V2ScheduleLine>> {
-    return this.http.get<DataListDto<V2ScheduleLine>>(this.v2Url(`${marathonId}/schedules/${scheduleId}/manage/lines`));
+    return this.http.get<DataListDto<V2ScheduleLineRawApi>>(this.v2Url(`${marathonId}/schedules/${scheduleId}/manage/lines`))
+      .pipe(this.mapScheduleLine());
   }
 
   updateLines(marathonId: string, scheduleId: number, lines: V2ScheduleLine[]): Observable<DataListDto<V2ScheduleLine>> {
-    return this.http.put<DataListDto<V2ScheduleLine>>(
+    return this.http.put<DataListDto<V2ScheduleLineRawApi>>(
       this.v2Url(`${marathonId}/schedules/${scheduleId}/manage/lines`),
       {
-        data: lines,
+        data: lines.map((line) => ({
+          ...line,
+          date: line.date.toInstant().toString(),
+        })),
       }
-    );
+    )
+      .pipe(this.mapScheduleLine());
   }
 
   publish(marathonId: string, scheduleId: number): Observable<BooleanStatusDto> {
@@ -109,5 +115,25 @@ export class ScheduleService extends BaseService {
 
   fetchExport(marathonId: string, scheduleId: number, format: string): Observable<Blob> {
     return this.http.get(this.getExportUrl(marathonId, scheduleId, format), {responseType: 'blob'});
+  }
+
+  private mapScheduleDates(): OperatorFunction<V2ScheduleRawApi, V2Schedule> {
+    return map((raw) => ({
+      ...raw,
+      lines: raw.lines.map((line) => ({
+        ...line,
+        date: this.temporalService.parseDate(line.date),
+      })),
+    }));
+  }
+
+  private mapScheduleLine(): OperatorFunction<DataListDto<V2ScheduleLineRawApi>, DataListDto<V2ScheduleLine>> {
+    return map((raw) => ({
+      ...raw,
+      data: raw.data.map((line) => ({
+        ...line,
+        date: this.temporalService.parseDate(line.date),
+      })),
+    }));
   }
 }

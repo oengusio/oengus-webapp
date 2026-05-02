@@ -47,7 +47,7 @@ export interface LineRunner {
   profile?: BasicUserInfo;
 }
 
-export interface V2ScheduleLine {
+export interface V2ScheduleLineRawApi<DateType = string> {
   id: number;
   game: string;
   console: string;
@@ -63,7 +63,9 @@ export interface V2ScheduleLine {
   setupBlock: boolean;
   setupBlockText: string;
   customData: string;
-  date: Date; // TODO: why is this a date? Should matcht the api and be a string
+  date: DateType;
   // This is only used in the UI to hide categories that have moved to the schedule.
   categoryId: number;
 }
+
+export type V2ScheduleLine = V2ScheduleLineRawApi<Temporal.ZonedDateTime>;

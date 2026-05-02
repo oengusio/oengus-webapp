@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Marathon, MarathonSettings } from '../model/marathon';
+import { Marathon, MarathonSettings, MarathonSettingsRawApi } from '../model/marathon';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, OperatorFunction, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { UserService } from './user.service';
 import { HomepageMetadata } from '../model/homepage-metadata';
@@ -66,8 +66,16 @@ export class MarathonService extends BaseService {
     });
   }
 
-  updateSettings(marathon: Partial<MarathonSettings> & { id: string }) {
-    return this.http.patch<MarathonSettings>(this.v2Url(`${marathon.id}/settings`), marathon);
+  updateSettings(marathon: Partial<MarathonSettings> & { id: string }): Observable<MarathonSettings> {
+    return this.http.patch<MarathonSettingsRawApi>(this.v2Url(`${marathon.id}/settings`), {
+      ...marathon,
+      startDate: marathon.startDate.toInstant().toString(),
+      endDate: marathon.endDate.toInstant().toString(),
+      submissionsStartDate: marathon.submissionsStartDate.toInstant().toString(),
+      submissionsEndDate: marathon.submissionsEndDate.toInstant().toString(),
+    }).pipe(
+      this.mapMarathonSettings(),
+    );
   }
 
   updateQuestions(marathonId: string, questions: Question[]): Observable<boolean> {
@@ -171,7 +179,9 @@ export class MarathonService extends BaseService {
   }
 
   loadSettings(marathonId: string): Observable<MarathonSettings> {
-    return this.http.get<MarathonSettings>(this.v2Url(`${marathonId}/settings`));
+    return this.http.get<MarathonSettingsRawApi>(this.v2Url(`${marathonId}/settings`)).pipe(
+      this.mapMarathonSettings(),
+    );
   }
 
   loadQuestions(marathonId: string): Observable<DataListDto<Question>> {
@@ -180,5 +190,15 @@ export class MarathonService extends BaseService {
 
   loadModerators(marathonId: string): Observable<DataListDto<UserProfile>> {
     return this.http.get<DataListDto<UserProfile>>(this.v2Url(`${marathonId}/settings/moderators`));
+  }
+
+  private mapMarathonSettings(): OperatorFunction<MarathonSettingsRawApi, MarathonSettings> {
+    return map((raw) => ({
+      ...raw,
+      startDate: this.temporalService.parseDate(raw.startDate),
+      endDate: this.temporalService.parseDate(raw.endDate),
+      submissionsStartDate: this.temporalService.parseDate(raw.submissionsStartDate),
+      submissionsEndDate: this.temporalService.parseDate(raw.submissionsEndDate),
+    }));
   }
 }

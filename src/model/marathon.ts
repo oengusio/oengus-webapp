@@ -1,15 +1,14 @@
 import { BasicUserInfo } from './user';
 import { Question } from './question';
 
-export class Marathon {
-
+export interface Marathon {
   id: string;
   name: string;
   creator: BasicUserInfo;
-  startDate: Date;
-  endDate: Date;
-  submissionsStartDate: Date;
-  submissionsEndDate: Date;
+  startDate: Temporal.ZonedDateTime;
+  endDate: Temporal.ZonedDateTime;
+  submissionsStartDate: Temporal.ZonedDateTime;
+  submissionsEndDate: Temporal.ZonedDateTime;
   description: string;
   onsite: boolean;
   location: string;
@@ -52,40 +51,22 @@ export class Marathon {
   discordGuildName: string;
   discordRequired: boolean;
   announceAcceptedSubmissions: boolean;
-
-  constructor() {
-    this.onsite = false;
-    this.maxGamesPerRunner = 5;
-    this.maxCategoriesPerGame = 3;
-    this.maxNumberOfScreens = 4;
-    this.discordPrivacy = false;
-    this.submitsOpen = false;
-    this.selectionDone = false;
-    this.donationsOpen = false;
-    this.videoRequired = true;
-    this.unlimitedGames = false;
-    this.unlimitedCategories = false;
-    this.emulatorAuthorized = true;
-    this.isPrivate = true;
-    this.questions = [];
-    this.announceAcceptedSubmissions = false;
-  }
 }
 
-export class MarathonWithExtraData extends Marathon {
-  effectiveDate: Date;
+export interface MarathonWithExtraData extends Marathon {
+  effectiveDate: Temporal.ZonedDateTime;
   translateKey: string;
 }
 
-export interface MarathonSettings {
+export interface MarathonSettingsRawApi<DateType = string> {
   id: string;
   name: string;
   description: string;
   isPrivate: boolean;
-  startDate: Date;
-  endDate: Date;
-  submissionsStartDate: Date;
-  submissionsEndDate: Date;
+  startDate: DateType;
+  endDate: DateType;
+  submissionsStartDate: DateType;
+  submissionsEndDate: DateType;
   onsite: boolean;
   location: string;
   country: string;
@@ -122,6 +103,8 @@ export interface MarathonSettings {
   webhook: string;
   announceAcceptedSubmissions: boolean;
 }
+
+export type MarathonSettings = MarathonSettingsRawApi<Temporal.ZonedDateTime>;
 
 export interface MarathonSettingsWithHelpfulProps extends MarathonSettings {
   defaultSetupTimeHuman: string;

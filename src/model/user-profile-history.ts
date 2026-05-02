@@ -3,7 +3,7 @@ import { RunStatus } from './category';
 export class HistoryMarathon {
   marathonId: string;
   marathonName: string;
-  marathonStartDate: Date;
+  marathonStartDate: Date; // TODO: update
 }
 
 export class UserProfileHistory extends HistoryMarathon {

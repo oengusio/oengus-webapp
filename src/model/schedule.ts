@@ -1,5 +1,5 @@
 import { Marathon } from './marathon';
-import { ScheduleLine, V2ScheduleLine } from './schedule-line';
+import { ScheduleLine, V2ScheduleLine, V2ScheduleLineRawApi } from './schedule-line';
 
 export class Schedule {
   id: number;
@@ -25,6 +25,8 @@ export interface ScheduleInfo extends ScheduleCreateRequest {
   published: boolean;
 }
 
-export interface V2Schedule extends ScheduleInfo {
-  lines: V2ScheduleLine[];
+export interface V2ScheduleRawApi<DateType = string> extends ScheduleInfo {
+  lines: V2ScheduleLineRawApi<DateType>[];
 }
+
+export type V2Schedule = V2ScheduleRawApi<Temporal.ZonedDateTime>;
