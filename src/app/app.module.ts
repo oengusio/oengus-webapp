@@ -4,7 +4,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { httpInterceptorProviders } from '../interceptors';
 import { FormsModule } from '@angular/forms';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@oengus/angular-datetime-picker';
+import { OwlDateTimeModule, OwlTemporalDateTimeModule, OWL_DATE_TIME_LOCALE } from '@oengus/angular-datetime-picker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NwbAlertModule, NwbCommonModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { MarathonModule } from './marathon/marathon.module';
@@ -157,7 +157,7 @@ const appRoutes: Routes = [
     }),
     FormsModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule,
+    OwlTemporalDateTimeModule,
     NwbSwitchModule,
     NwbAlertModule,
     MarathonModule,
@@ -217,6 +217,8 @@ const appRoutes: Routes = [
     HomepageModeratedResolver,
     PatronsResolver,
     provideHttpClient(withInterceptorsFromDi()),
+    {provide: OWL_DATE_TIME_LOCALE, useValue: 'en-GB'},
+    // {provide: OWL_DATE_TIME_LOCALE, useValue: 'fr'},
   ],
 })
 export class AppModule {

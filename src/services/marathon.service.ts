@@ -1,12 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Marathon, MarathonSettings, MarathonSettingsRawApi } from '../model/marathon';
+import { Marathon, MarathonRaw, MarathonSettings, MarathonSettingsRawApi } from '../model/marathon';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { Observable, OperatorFunction, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { UserService } from './user.service';
-import { HomepageMetadata } from '../model/homepage-metadata';
+import { HomepageMetadata, HomepageMetaDataRaw } from '../model/homepage-metadata';
 import { TranslateService } from '@ngx-translate/core';
 import { SelfUser, User } from '../model/user';
 import { BaseService } from './BaseService';
@@ -81,7 +81,7 @@ export class MarathonService extends BaseService {
   updateQuestions(marathonId: string, questions: Question[]): Observable<boolean> {
     return this.http.put<BooleanStatusDto>(
       this.v2Url(`${marathonId}/settings/questions`),
-      { questions }
+      {questions},
     )
       .pipe(map(x => x.status));
   }
@@ -89,7 +89,7 @@ export class MarathonService extends BaseService {
   updateModerators(marathonId: string, userIds: number[]): Observable<boolean> {
     return this.http.put<BooleanStatusDto>(
       this.v2Url(`${marathonId}/settings/moderators`),
-      { userIds }
+      {userIds},
     )
       .pipe(map(x => x.status));
   }
@@ -129,7 +129,7 @@ export class MarathonService extends BaseService {
   }
 
   findHomepageMetadata(): Observable<HomepageMetadata> {
-    return this.http.get<HomepageMetadata>(this.v2Url('for-home'));
+    return this.http.get<HomepageMetaDataRaw>(this.v2Url('for-home')).pipe(this.mapHomepage());
   }
 
   findHomepageModerated(): Observable<{ marathons: Marathon[] }> {
@@ -142,7 +142,8 @@ export class MarathonService extends BaseService {
       .set('end', end.toISOString())
       .set('zoneId', this.temporalService.timeZone.timeZone);
 
-    return this.http.get<Marathon[]>(this.url('forDates'), { params });
+    return this.http.get<MarathonRaw[]>(this.url('forDates'), {params})
+      .pipe(this.mapMarathons());
   }
 
   isArchived(marathon: Marathon = this._marathon): boolean {
@@ -200,5 +201,30 @@ export class MarathonService extends BaseService {
       submissionsStartDate: this.temporalService.parseDate(raw.submissionsStartDate),
       submissionsEndDate: this.temporalService.parseDate(raw.submissionsEndDate),
     }));
+  }
+
+  private mapMarathons(): OperatorFunction<MarathonRaw[], Marathon[]> {
+    return map(
+      (raw) => raw.map((marathon) => this.mapSingleMarathon(marathon)),
+    );
+  }
+
+  private mapHomepage(): OperatorFunction<HomepageMetaDataRaw, HomepageMetadata> {
+    return map((raw) => ({
+      live: raw.live.map((m) => this.mapSingleMarathon(m)),
+      next: raw.next.map((m) => this.mapSingleMarathon(m)),
+      open: raw.open.map((m) => this.mapSingleMarathon(m)),
+      moderated: [],
+    }));
+  }
+
+  private mapSingleMarathon(marathon: MarathonRaw): Marathon {
+    return {
+      ...marathon,
+      startDate: this.temporalService.parseDate(marathon.startDate),
+      endDate: this.temporalService.parseDate(marathon.endDate),
+      submissionsStartDate: this.temporalService.parseDate(marathon.submissionsStartDate),
+      submissionsEndDate: this.temporalService.parseDate(marathon.submissionsEndDate),
+    };
   }
 }

@@ -1,4 +1,10 @@
-import { Marathon } from './marathon';
+import { Marathon, MarathonRaw } from './marathon';
+
+export interface HomepageMetaDataRaw {
+  next: MarathonRaw[];
+  open: MarathonRaw[];
+  live: MarathonRaw[];
+}
 
 export class HomepageMetadata {
 

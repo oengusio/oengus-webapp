@@ -54,13 +54,13 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
     }
 
     // Otherwise, only show when the day transitioned
-    const currentRun = new Date(this.runs[index].date);
+    const currentRun = this.runs[index].date;
     // We have an implicit index test for the index=0 case, so this is always safe
-    const previousRun = new Date(this.runs[index - 1].date);
+    const previousRun = this.runs[index - 1].date;
 
-    return currentRun.getDate() !== previousRun.getDate() ||
-      currentRun.getMonth() !== previousRun.getMonth() ||
-      currentRun.getFullYear() !== previousRun.getFullYear();
+    return currentRun.day !== previousRun.day ||
+      currentRun.month !== previousRun.month ||
+      currentRun.year !== previousRun.year;
   }
 
   getRowParity(index: number, run: V2ScheduleLine): { 'is-primary': boolean, 'is-even': boolean, 'is-odd': boolean } {

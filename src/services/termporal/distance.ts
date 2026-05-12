@@ -7,10 +7,27 @@ export class Distance implements LocaleSensitive {
     this.relativeTimeFormat = new Intl.RelativeTimeFormat(this.locale);
   }
 
-  public format(datetime: Date | string | number): string {
-    const date = new Date(datetime).getTime();
+  // TODO: extract into reusable function
+  private getInstant(date: Temporal.ZonedDateTime | string | number): Temporal.Instant {
+    if (date instanceof  Temporal.ZonedDateTime) {
+      return date.toInstant();
+    }
+
+    if (typeof date === 'number') {
+      return Temporal.Instant.fromEpochMilliseconds(date);
+    }
+
+    return Temporal.Instant.from(date);
+  }
+
+  public format(datetime: Temporal.ZonedDateTime | string | number): string {
+    const targetInstant = this.getInstant(datetime);
+    const nowInstant = Temporal.Now.instant();
+
+    const diffDur = nowInstant.until(targetInstant);
+
     // seconds
-    let diff = (date - Date.now()) / 1000;
+    let diff = diffDur.total('seconds');
     let unit: Intl.RelativeTimeFormatUnit = 'second';
     if (Math.abs(diff) > 89) {
       diff /= 60;

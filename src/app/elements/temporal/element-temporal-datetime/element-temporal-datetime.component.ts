@@ -14,10 +14,10 @@ import { dateTimeFormatKey } from '../../../../services/termporal/config';
 export class ElementTemporalDatetimeComponent {
   temporal = inject(TemporalServiceService);
 
-  @Input() dateTime: string | Date = new Date().toString();
+  @Input() dateTime: string | Temporal.ZonedDateTime = Temporal.Now.zonedDateTimeISO(this.temporal.timeZone.timeZone);
   @Input() format: dateTimeFormatKey = 'mediumDateTime';
 
-  get date(): Date {
-    return new Date(this.dateTime);
+  get date(): Temporal.ZonedDateTime {
+    return this.temporal.parseDate(this.dateTime);
   }
 }

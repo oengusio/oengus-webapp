@@ -1,15 +1,19 @@
 import { RunStatus } from './category';
 
-export class HistoryMarathon {
+export interface HistoryMarathonRawApi<DateType = string> {
   marathonId: string;
   marathonName: string;
-  marathonStartDate: Date; // TODO: update
+  marathonStartDate: DateType;
 }
 
-export class UserProfileHistory extends HistoryMarathon {
+export type HistoryMarathon = HistoryMarathonRawApi<Temporal.ZonedDateTime>;
+
+export interface UserProfileHistoryRawApi<DateType = string> extends HistoryMarathonRawApi<DateType> {
   visible: boolean;
   games: HistoryGame[];
 }
+
+export type UserProfileHistory = UserProfileHistoryRawApi<Temporal.ZonedDateTime>;
 
 export interface HistoryGame {
   categories: HistoryGameCategory[];
@@ -23,7 +27,7 @@ export interface HistoryGame {
 }
 
 export interface HistoryGameCategory {
-  code: string|null;
+  code: string | null;
   description: string;
   estimate: string;
   id: number;

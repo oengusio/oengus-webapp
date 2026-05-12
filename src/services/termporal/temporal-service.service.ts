@@ -43,13 +43,17 @@ export class TemporalServiceService implements LocaleSensitive {
     this.range.changeLocale(locale);
   }
 
-  parseDate(date: string | number) {
+  parseDate(date: string | number | Temporal.ZonedDateTime) {
     if (typeof date === 'string') {
       return Temporal.Instant.from(date)
         .toZonedDateTimeISO(timeZoneImport.timeZone);
     }
 
-    return Temporal.Instant.fromEpochMilliseconds(date)
-      .toZonedDateTimeISO(timeZoneImport.timeZone);
+    if (typeof date === 'number') {
+      return Temporal.Instant.fromEpochMilliseconds(date)
+        .toZonedDateTimeISO(timeZoneImport.timeZone);
+    }
+
+    return date;
   }
 }

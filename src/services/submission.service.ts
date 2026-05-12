@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Submission } from '../model/submission';
+import { Submission, SubmissionRawApi } from '../model/submission';
 import { firstValueFrom, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NwbAlertService } from '@oengus/ng-wizi-bulma';
@@ -8,6 +8,7 @@ import { BaseService } from './BaseService';
 import { Answer } from '../model/answer';
 import { SubmissionPage } from '../model/submission-page';
 import { AvailabilityResponse } from '../model/availability';
+import { TemporalServiceService } from './termporal/temporal-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ import { AvailabilityResponse } from '../model/availability';
 export class SubmissionService extends BaseService {
   private http = inject(HttpClient);
   private translateService = inject(TranslateService);
+  private temporalService = inject(TemporalServiceService);
 
 
   constructor() {
@@ -25,7 +27,16 @@ export class SubmissionService extends BaseService {
 
   async mine(marathonId: string): Promise<Submission> {
     try {
-      return await firstValueFrom(this.http.get<Submission>(this.url(`${marathonId}/submissions/me`)));
+      const submission = await firstValueFrom(this.http.get<SubmissionRawApi>(this.url(`${marathonId}/submissions/me`)));
+
+      return {
+        ...submission,
+        availabilities: submission.availabilities.map((a) => ({
+          ...a,
+          to: this.temporalService.parseDate(a.to),
+          from: this.temporalService.parseDate(a.from),
+        }))
+      };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       if (e.status === 404) {

@@ -35,7 +35,7 @@
     "@fullcalendar/daygrid": "^6.1.20",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
-    "@oengus/angular-datetime-picker": "^21.0.0",
+    "@oengus/angular-datetime-picker": "^21.0.5",
     "@oengus/ng-wizi-bulma": "^20.0.0",
     "@oengusio/ngx-translate-router": "^8.0.0",
     "@sentry/angular": "^10.51.0",

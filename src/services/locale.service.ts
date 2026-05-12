@@ -76,6 +76,12 @@ export class LocaleService {
       registerLocaleData(availableLocales[lang], lang);
     }
 
+    this.dateTimeAdapter.localeChanges.subscribe({
+      next (newVal) {
+        console.log(`DEBUG: Date time adapter language changed to ${newVal}`);
+      },
+    });
+
     const langFromUrl = this.translateRouter.parser.currentLang;
 
     if (langFromUrl) {
@@ -99,6 +105,7 @@ export class LocaleService {
     this.translateRouter.changeLanguage(language);
     this.temporal.changeLocale(language);
 
+    // TODO: this somehow does not seem to work?
     this.dateTimeAdapter.setLocale(language.split('_')[0]);
   }
 }

@@ -13,5 +13,5 @@ import { TemporalServiceService } from '../../../../services/termporal/temporal-
 export class ElementTemporalDistanceComponent {
   temporal = inject(TemporalServiceService);
 
-  @Input() dateTime: string | Date;
+  @Input() dateTime: string | Temporal.ZonedDateTime;
 }

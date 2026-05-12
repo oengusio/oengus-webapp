@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -6,6 +6,7 @@ import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { Marathon } from '../../../model/marathon';
 import { ElementModule } from '../../elements/elements.module';
 import { ComponentsModule } from '../../components/components.module';
+import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
 
 @Component({
     selector: 'app-calendar-view-row',
@@ -21,42 +22,45 @@ import { ComponentsModule } from '../../components/components.module';
     ]
 })
 export class CalendarViewRowComponent {
+  private temporalService = inject(TemporalServiceService);
+
   @Input() marathon: Marathon;
   @Input() datetime: string;
 
-  getHoursFraction(date: Date): number {
-    return date.getHours() + date.getMinutes() / 60;
+  getHoursFraction(date: Temporal.ZonedDateTime): number {
+    return date.hour + date.minute / 60;
   }
 
-  get todayStart(): Date {
-    return new Date(this.datetime);
+  get todayStart(): Temporal.ZonedDateTime {
+    return Temporal.Instant.from(this.datetime).toZonedDateTimeISO(this.temporalService.timeZone.timeZone);
   }
 
-  get todayEnd(): Date {
-    const todayEnd = new Date(this.todayStart);
-    todayEnd.setDate(this.todayStart.getDate() + 1);
-    return todayEnd;
+  get todayEnd(): Temporal.ZonedDateTime {
+    const startDate = this.todayStart;
+
+    return startDate.startOfDay().add(Temporal.Duration.from({ hours: startDate.hoursInDay }));
   }
 
-  get marathonStart(): Date {
-    return new Date(this.marathon.startDate);
+  get marathonStart(): Temporal.ZonedDateTime {
+    return this.marathon.startDate;
   }
 
-  get marathonEnd(): Date {
-    return new Date(this.marathon.endDate);
+  get marathonEnd(): Temporal.ZonedDateTime {
+    return this.marathon.endDate;
   }
 
   get start(): number {
-    return this.todayStart < this.marathonStart ? this.getHoursFraction(this.marathonStart) : 0;
+    return Temporal.ZonedDateTime.compare(this.todayStart, this.marathonStart) === -1 ? this.getHoursFraction(this.marathonStart) : 0;
   }
 
   get end(): number {
-    return this.todayEnd > this.marathonEnd ? this.getHoursFraction(this.marathonEnd) : 24;
+    return Temporal.ZonedDateTime.compare(this.todayEnd, this.marathonEnd) === 1 ? this.getHoursFraction(this.marathonEnd) : 24;
   }
 
   get rangeColor(): { 'is-primary': boolean, 'is-info': boolean } {
-    const now = Date.now();
-    const isNow = this.marathonStart.getTime() <= now && now <= this.marathonEnd.getTime();
+    const now = Temporal.Now.zonedDateTimeISO(this.temporalService.timeZone.timeZone);
+    const isNow = Temporal.ZonedDateTime.compare(this.marathonStart, now) <= 0
+      && Temporal.ZonedDateTime.compare(now, this.marathonEnd) <= 0;
     return {
       'is-primary': isNow,
       'is-info': !isNow,

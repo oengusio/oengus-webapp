@@ -64,17 +64,8 @@ export class ScheduleEditRowComponent {
       return true;
     }
 
-    let dateToParse: string | number;
-
-    // TODO: make sure these are always strings, this is inconsistent BULLSHIT
-    if (typeof this.line.date === 'string') {
-      dateToParse = this.line.date;
-    } else {
-      dateToParse = this.line.date.getTime();
-    }
-
-    const startDateRun = this.temporalService.parseDate(dateToParse);
-    const endDateRun = this.temporalService.parseDate(dateToParse).add(Temporal.Duration.from(this.line.estimate));
+    const startDateRun = this.line.date;
+    const endDateRun = this.line.date.add(Temporal.Duration.from(this.line.estimate));
 
     const isSameOrBefore = (one: Temporal.ZonedDateTime, two: Temporal.ZonedDateTime) => Temporal.ZonedDateTime.compare(one, two) <= 0;
     const isSameOrAfter = (one: Temporal.ZonedDateTime, two: Temporal.ZonedDateTime) => Temporal.ZonedDateTime.compare(one, two) >= 0;

@@ -31,6 +31,7 @@ export class CalendarViewScheduleComponent implements OnInit, OnChanges {
     plugins: [dayGridPlugin],
     locale: localStorage.getItem('language'),
     firstDay: 1,
+    now: new Date(),
     headerToolbar: {
       left: '',
       center: '',
@@ -79,8 +80,8 @@ export class CalendarViewScheduleComponent implements OnInit, OnChanges {
     return this.marathons.map((it) => ({
       id: it.id,
       title: it.name,
-      start: it.startDate,
-      end: it.endDate,
+      start: it.startDate.epochMilliseconds,
+      end: it.endDate.epochMilliseconds,
     }));
   }
 

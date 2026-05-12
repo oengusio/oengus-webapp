@@ -41,8 +41,8 @@ export class DetailsComponent {
       return false;
     }
 
-    const start = new Date(this.marathon.startDate).getTime();
-    const end = new Date(this.marathon.endDate).getTime();
+    const start = this.marathon.startDate.epochMilliseconds;
+    const end = this.marathon.endDate.epochMilliseconds;
     const now = Date.now();
     return start <= now && now <= end;
   }
