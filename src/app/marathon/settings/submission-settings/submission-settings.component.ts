@@ -72,10 +72,10 @@ export class SubmissionSettingsComponent {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmitsOpenChanged(event: any): void {
-    const now = new Date();
-    const closeDate = new Date(this.settings.submissionsEndDate);
+    const now = Temporal.Now.instant();
+    const closeDate = this.settings.submissionsEndDate?.toInstant();
 
-    if (!this.settings.submissionsOpen && (Boolean(this.settings.submissionsEndDate) && now > closeDate)) {
+    if (!this.settings.submissionsOpen && (Boolean(closeDate) && Temporal.Instant.compare(closeDate, now) === 1)) {
       const conf = confirm('Re-opening the submissions will clear the automatic open and close times, do you want to continue?');
 
       if (conf) {

@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@oengus/angular-datetime-picker';
+import { DateTimeAdapter, OwlDateTimeModule, OwlTemporalDateTimeModule } from '@oengus/angular-datetime-picker';
 import { NwbAllModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SubmissionService } from '../../../services/submission.service';
@@ -49,7 +49,7 @@ import { TemporalServiceService } from '../../../services/termporal/temporal-ser
     LocalizeRouterModule,
     FontAwesomeModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule,
+    OwlTemporalDateTimeModule,
     NwbSwitchModule,
     AutocompleteLibModule,
     DirectivesModule,
@@ -119,6 +119,9 @@ export class SubmitComponent {
   private router = inject(Router);
   private temporalService = inject(TemporalServiceService);
 
+
+  private dateTimeAdapter = inject<DateTimeAdapter<unknown>>(DateTimeAdapter);
+
   protected submission: Submission;
   protected faTimes = faTimes;
   protected faPlus = faPlus;
@@ -144,6 +147,8 @@ export class SubmitComponent {
   readonly title = 'Submit';
 
   private initSubmission(submission: Submission) {
+    console.log(this.dateTimeAdapter.getLocale());
+
     delete this.submission;
     this.submission = {...submission};
     this.submission.games.forEach(game => {
@@ -209,7 +214,7 @@ export class SubmitComponent {
     game.categories.push(new Category());
 
     // TODO: remove, for testing only
-
+    //
     // game.name = 'Portal';
     // game.console = 'PC';
     // game.ratio = '1:1';
@@ -229,20 +234,20 @@ export class SubmitComponent {
     this.submission.games[index].categories.push(new Category());
   }
 
-  minToAvailability(availability: Availability): Date {
+  minToAvailability(availability: Availability): Temporal.ZonedDateTime {
     if (availability.from) {
-      const fromDate = new Date(availability.from);
-
-      fromDate.setMinutes(fromDate.getMinutes() + 1);
-
-      return fromDate;
+      return availability.from.add(Temporal.Duration.from({ minutes: 1 }));
     }
 
     return this.marathonService.marathon.startDate;
   }
 
   addAvailability() {
-    this.submission.availabilities.push(new Availability());
+    this.submission.availabilities.push({
+      from: null,
+      to: null,
+      username: null,
+    });
   }
 
   duplicateAvailabilityToNextDay(index: number) {
@@ -264,14 +269,14 @@ export class SubmitComponent {
       .minute(fromTemporal.minute())
       .toDate();*/
 
-    availability.from = new Date(tmpFrom.epochMilliseconds);
+    availability.from = tmpFrom;
 
     const newToTemporal = tmpFrom.add(duration);
-    availability.to = new Date(newToTemporal.epochMilliseconds);
+    availability.to = newToTemporal;
 
     // If avail is after end date set it to the end date
     if (Temporal.ZonedDateTime.compare(newToTemporal, endDate) === 1) {
-      availability.to = new Date(endDate.epochMilliseconds);
+      availability.to = endDate;
     }
 
     this.submission.availabilities.push(availability);

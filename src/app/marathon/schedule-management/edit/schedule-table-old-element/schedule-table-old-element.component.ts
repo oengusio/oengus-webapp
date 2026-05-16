@@ -85,17 +85,8 @@ export class ScheduleTableOldElementComponent {
       return true;
     }
 
-    let dateToParse: string | number;
-
-    // TODO: make sure these are always strings, this is inconsistent BULLSHIT
-    if (typeof line.date === 'string') {
-      dateToParse = line.date;
-    } else {
-      dateToParse = line.date.getTime();
-    }
-
-    const startDateRun = this.temporalService.parseDate(dateToParse);
-    const endDateRun = this.temporalService.parseDate(dateToParse).add(Temporal.Duration.from(line.estimate));
+    const startDateRun = line.date;
+    const endDateRun = line.date.add(Temporal.Duration.from(line.estimate));
 
     const isSameOrBefore = (one: Temporal.ZonedDateTime, two: Temporal.ZonedDateTime) => Temporal.ZonedDateTime.compare(one, two) <= 0;
     const isSameOrAfter = (one: Temporal.ZonedDateTime, two: Temporal.ZonedDateTime) => Temporal.ZonedDateTime.compare(one, two) >= 0;
@@ -119,13 +110,13 @@ export class ScheduleTableOldElementComponent {
     }
 
     // Otherwise, only show when the day transitioned
-    const currentRun = new Date(this.lines[index].date);
+    const currentRun = this.lines[index].date;
     // We have an implicit index test for the index=0 case, so this is always safe
-    const previousRun = new Date(this.lines[index - 1].date);
+    const previousRun = this.lines[index - 1].date;
 
-    return currentRun.getDate() !== previousRun.getDate() ||
-      currentRun.getMonth() !== previousRun.getMonth() ||
-      currentRun.getFullYear() !== previousRun.getFullYear();
+    return currentRun.day !== previousRun.day ||
+      currentRun.month !== previousRun.month ||
+      currentRun.year !== previousRun.year;
   }
 
   scheduleDrop(event: CdkDragDrop<V2ScheduleLine[]>) {

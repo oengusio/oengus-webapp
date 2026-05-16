@@ -33,9 +33,9 @@ import { TemporalServiceService } from '../../../../services/termporal/temporal-
 const AVAILABILITY_SORT_KEY = 'content';
 
 @Component({
-    selector: 'app-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
   imports: [
     CommonModule,
     FormsModule,
@@ -122,7 +122,7 @@ export class EditComponent implements OnInit, OnDestroy {
       });
     });
 
-    const { data } = await firstValueFrom(this.scheduleService.getLines(this.marathonId, this.scheduleInfo.id));
+    const {data} = await firstValueFrom(this.scheduleService.getLines(this.marathonId, this.scheduleInfo.id));
 
     this.lines = data;
     await this.loadAllSubmissions();
@@ -139,22 +139,22 @@ export class EditComponent implements OnInit, OnDestroy {
     // Somehow this delay solves the availabilities not showing.
     await new Promise((resolve) => window.requestAnimationFrame(resolve));
 
-    const oneHour = Temporal.Duration.from({ hours: 1 });
+    const oneHour = Temporal.Duration.from({hours: 1});
+
+    console.log(this.marathonService.marathon.startDate);
 
     this.timeline = new Timeline(document.getElementById('timeline'),
       this.availabilitiesItems,
       this.availabilitiesGroups,
       {
-        min: this.temporalService.parseDate(this.marathonService.marathon.startDate as unknown as string)
-          .subtract(oneHour).epochMilliseconds,
-        max: this.temporalService.parseDate(this.marathonService.marathon.endDate as unknown as string)
-          .add(oneHour).epochMilliseconds,
+        min: this.marathonService.marathon.startDate.subtract(oneHour).epochMilliseconds,
+        max: this.marathonService.marathon.endDate.add(oneHour).epochMilliseconds,
         orientation: {
           axis: 'both',
           item: 'bottom',
         },
       });
-    this.timebar = this.timeline.addCustomTime(this.marathonService.marathon.startDate);
+    this.timebar = this.timeline.addCustomTime(this.marathonService.marathon.startDate.epochMilliseconds);
     this.computeSchedule();
   }
 
@@ -207,7 +207,7 @@ export class EditComponent implements OnInit, OnDestroy {
               setupBlock: false,
               setupBlockText: '',
               customData: '',
-              date: new Date(),
+              date: this.temporalService.now,
               categoryId: category.id,
             });
           });
@@ -234,10 +234,10 @@ export class EditComponent implements OnInit, OnDestroy {
         this.scheduleService.updateSchedule(this.marathonId, this.scheduleInfo.id, this.scheduleInfo),
       );
 
-      const { data: newLines } = await firstValueFrom(
+      const {data: newLines} = await firstValueFrom(
         this.scheduleService.updateLines(
           this.marathonId, this.scheduleInfo.id, this.lines,
-        )
+        ),
       );
 
       this.lines = newLines;
@@ -247,7 +247,7 @@ export class EditComponent implements OnInit, OnDestroy {
           message: res,
           duration: 3000,
           position: 'is-right',
-          color: 'is-success'
+          color: 'is-success',
         };
 
         this.toastr.open(alertConfig);
@@ -306,7 +306,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
   async loadAllAvailabilities() {
     const allAvailabilities = await firstValueFrom(
-      this.submissionService.availabilities(this.marathonId)
+      this.submissionService.availabilities(this.marathonId),
     );
 
     this.allAvailabilities = allAvailabilities;
@@ -326,8 +326,8 @@ export class EditComponent implements OnInit, OnDestroy {
         this.availabilitiesItems.add({
           id: username + index,
           group: username,
-          start: availability.from,
-          end: availability.to,
+          start: availability.from.epochMilliseconds,
+          end: availability.to.epochMilliseconds,
           content: '',
         });
       });
@@ -337,7 +337,7 @@ export class EditComponent implements OnInit, OnDestroy {
     this.availabilitiesItems.flush();
 
     // Sort availabilities alphabetically.
-    const sortedData = this.availabilitiesGroups.get({ order: AVAILABILITY_SORT_KEY });
+    const sortedData = this.availabilitiesGroups.get({order: AVAILABILITY_SORT_KEY});
 
     this.availabilitiesGroups.clear();
     this.availabilitiesGroups.add(sortedData);
@@ -379,8 +379,8 @@ export class EditComponent implements OnInit, OnDestroy {
           this.availabilitiesItems.add({
             id: key + index,
             group: key,
-            start: availability.from,
-            end: availability.to,
+            start: availability.from.epochMilliseconds,
+            end: availability.to.epochMilliseconds,
             content: '',
           });
         });
@@ -463,29 +463,25 @@ export class EditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // TODO: EW, need to migrate fully to instants
-    this.lines[0].date = new Date(this.marathonService.marathon.startDate);
+    this.lines[0].date = this.marathonService.marathon.startDate;
     this.lines[0].position = 0;
 
     for (let i = 1; i < this.lines.length; i++) {
       const prevEl = this.lines[i - 1];
 
-      this.lines[i].date = new Date(
-        this.temporalService.parseDate(prevEl.date.toISOString())
+      this.lines[i].date = prevEl.date
           .add(Temporal.Duration.from(prevEl.estimate))
-          .add(Temporal.Duration.from(prevEl.setupTime))
-          .epochMilliseconds,
-      );
+          .add(Temporal.Duration.from(prevEl.setupTime));
       this.lines[i].position = i;
     }
     const lastElement = this.lines[this.lines.length - 1];
 
     if (this.timeline) {
       this.timeline.setCustomTime(
-        this.temporalService.parseDate(lastElement.date.toISOString())
-        .add(Temporal.Duration.from(lastElement.estimate))
-        .add(Temporal.Duration.from(lastElement.setupTime))
-        .epochMilliseconds,
+        lastElement.date
+          .add(Temporal.Duration.from(lastElement.estimate))
+          .add(Temporal.Duration.from(lastElement.setupTime))
+          .epochMilliseconds,
         this.timebar,
       );
     }
@@ -568,13 +564,13 @@ export class EditComponent implements OnInit, OnDestroy {
             id: username,
             content: contentUsername,
           };
-        })
+        }),
       );
     }
 
     this.availabilitiesGroups.flush();
 
-    const sortedData = this.availabilitiesGroups.get({ order: AVAILABILITY_SORT_KEY });
+    const sortedData = this.availabilitiesGroups.get({order: AVAILABILITY_SORT_KEY});
 
     this.availabilitiesGroups.clear();
     this.availabilitiesGroups.add(sortedData);
@@ -587,10 +583,10 @@ export class EditComponent implements OnInit, OnDestroy {
         this.todoLines.map(
           (run) => run.runners
             .map((runner) => runner.profile ? runner.profile.username : null)
-            .filter((runner) => runner)
+            .filter((runner) => runner),
         )
-          .flat()
-      )
+          .flat(),
+      ),
     ];
   }
 

@@ -66,13 +66,13 @@ export class ScheduleTableComponent {
     }
 
     // Otherwise, only show when the day transitioned
-    const currentRun = new Date(this.lines[index].date);
+    const currentRun = this.lines[index].date;
     // We have an implicit index test for the index=0 case, so this is always safe
-    const previousRun = new Date(this.lines[index - 1].date);
+    const previousRun = this.lines[index - 1].date;
 
-    return currentRun.getDate() !== previousRun.getDate() ||
-      currentRun.getMonth() !== previousRun.getMonth() ||
-      currentRun.getFullYear() !== previousRun.getFullYear();
+    return currentRun.day !== previousRun.day ||
+      currentRun.month !== previousRun.month ||
+      currentRun.year !== previousRun.year;
   }
 
   deleteRow(linePosition: number): void {

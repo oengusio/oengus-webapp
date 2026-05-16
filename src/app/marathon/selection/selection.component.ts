@@ -256,8 +256,8 @@ export class SelectionComponent implements OnInit {
           this.availabilitiesItems.add({
             id: key + index,
             group: key,
-            start: availability.from,
-            end: availability.to,
+            start: availability.from.epochMilliseconds,
+            end: availability.to.epochMilliseconds,
             content: '',
           });
         });

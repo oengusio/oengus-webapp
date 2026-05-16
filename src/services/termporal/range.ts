@@ -7,11 +7,25 @@ export class Range implements LocaleSensitive {
     /* ESLint doesn't understand this constructor ISN'T useless in TypeScript */
   constructor(private locale = 'en-GB') { }
 
-  public format(start: Date|string|number, end: Date|string|number, format: dateTimeFormatKey): string {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
+  // TODO: extract into reusable function
+  private getInstant(date: Temporal.ZonedDateTime | string | number): Temporal.Instant {
+    if (date instanceof  Temporal.ZonedDateTime) {
+      return date.toInstant();
+    }
+
+    if (typeof date === 'number') {
+      return Temporal.Instant.fromEpochMilliseconds(date);
+    }
+
+    return Temporal.Instant.from(date);
+  }
+
+  public format(start: Temporal.ZonedDateTime|string|number, end: Temporal.ZonedDateTime|string|number, format: dateTimeFormatKey): string {
+    const startDate = this.getInstant(start);
+    const endDate = this.getInstant(end);
     const key = `${this.locale}__${format}`;
     let formatter = this.formatters[key];
+
     if (!formatter) {
       formatter = new Intl.DateTimeFormat(this.locale, dateTimeFormats[format] as Intl.DateTimeFormatOptions);
       this.formatters[key] = formatter;

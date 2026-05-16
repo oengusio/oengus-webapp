@@ -9,17 +9,17 @@ import { SimpleMdComponent } from '../../../components/simple-md/simple-md.compo
 import { UserLinkComponent } from '../../../elements/user-link/user-link.component';
 
 @Component({
-    selector: 'app-marathon-schedule-current',
-    templateUrl: './marathon-schedule-current.component.html',
-    styleUrls: ['./marathon-schedule-current.component.scss'],
-    imports: [
-        CommonModule,
-        RouterModule,
-        TranslateModule,
-        LocalizeRouterModule,
-        SimpleMdComponent,
-        UserLinkComponent,
-    ]
+  selector: 'app-marathon-schedule-current',
+  templateUrl: './marathon-schedule-current.component.html',
+  styleUrls: ['./marathon-schedule-current.component.scss'],
+  imports: [
+    CommonModule,
+    RouterModule,
+    TranslateModule,
+    LocalizeRouterModule,
+    SimpleMdComponent,
+    UserLinkComponent,
+  ],
 })
 export class MarathonScheduleCurrentComponent {
   private temporal = inject(TemporalServiceService);
@@ -40,7 +40,11 @@ export class MarathonScheduleCurrentComponent {
   }
 
   get messageHeaderArgs(): { duration?: string } {
-    return this.isNext ? { duration: this.temporal.distance.format(this.ticker?.date ?? new Date()) } : { };
+    return this.isNext ? {
+        duration:
+          this.temporal.distance.format(this.ticker?.date ?? this.temporal.now),
+      }
+      : {};
   }
 
 }

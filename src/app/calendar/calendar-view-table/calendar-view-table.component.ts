@@ -68,7 +68,9 @@ export class CalendarViewTableComponent implements OnInit, OnChanges {
   getMarathons(day: number, marathonList: Marathon[]): Marathon[]|undefined {
     const dayStart = new Date(this.year, this.month - 1, day);
     const dayEnd = new Date(this.year, this.month - 1, day + 1);
-    return marathonList.filter(marathon => new Date(marathon.endDate) > dayStart && new Date(marathon.startDate) < dayEnd);
+    return marathonList.filter(
+      marathon => new Date(marathon.endDate.epochMilliseconds) > dayStart && new Date(marathon.startDate.epochMilliseconds) < dayEnd,
+    );
   }
 
   private generateDailyCalendars(marathonList: Marathon[]): CalendarType[] {

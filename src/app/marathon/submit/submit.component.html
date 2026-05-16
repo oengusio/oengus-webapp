@@ -116,12 +116,10 @@
               #fromDate="ngModel">
               <owl-date-time #dtFromDate></owl-date-time>
               @if (fromDate.invalid) {
-                <div>
-                  @if (fromDate.errors.required) {
-                    <p class="help is-danger">
-                    {{'marathon.submit.availabilities.error.dateRequired' | translate}}</p>
-                  }
-                </div>
+                @if (fromDate.errors.required) {
+                  <p class="help is-danger">
+                  {{'marathon.submit.availabilities.error.dateRequired' | translate}}</p>
+                }
               }
             </td>
             <td><input class="input"
@@ -138,17 +136,15 @@
               #toDate="ngModel">
               <owl-date-time #dtToDate></owl-date-time>
               @if (toDate.invalid) {
-                <div>
-                  @if (toDate.errors.required) {
-                    <p class="help is-danger">
-                    {{'marathon.submit.availabilities.error.dateRequired' | translate}}</p>
-                  }
-                </div>
-              }
-              @if (toDate.errors?.owlDateTimeMin) {
-                <p class="help is-danger">
-                  {{ 'marathon.submit.availabilities.error.toDateTooLittle' | translate }}
-                </p>
+                @if (toDate.errors.required) {
+                  <p class="help is-danger">
+                  {{'marathon.submit.availabilities.error.dateRequired' | translate}}</p>
+                }
+                @if (toDate.errors?.owlDateTimeMin) {
+                  <p class="help is-danger">
+                    {{ 'marathon.submit.availabilities.error.toDateTooLittle' | translate }}
+                  </p>
+                }
               }
             </td>
             <td class="v-align-middle">
@@ -365,7 +361,7 @@
                   >
                   <button type="button" class="button">
                     <label class="checkbox">
-                      <input type="checkbox" [(ngModel)]="game.emulated" name="emulated{{i}}"
+                      <input type="checkbox" name="emulated{{i}}"
                          class="emuCb">{{'marathon.submit.game.console.emulated' | translate}}
                       </label>
                     </button>
