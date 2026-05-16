@@ -1,11 +1,13 @@
+export type QuestionType = 'SUBMISSION' | 'DONATION';
+
 export interface Question {
 
   id: number;
   label: string;
-  fieldType: string;
+  fieldType: string; // TODO: type these
   required: boolean;
   options: string[];
-  type: string;
+  type: QuestionType;
   description: string;
   position: number;
 }

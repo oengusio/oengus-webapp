@@ -112,7 +112,7 @@ export class MarathonService extends BaseService {
   }
 
   find(name: string): Observable<Marathon> {
-    return this.http.get<Marathon>(this.url(`${name}`));
+    return this.http.get<MarathonRaw>(this.url(`${name}`)).pipe(map((m) => this.mapSingleMarathon(m)));
   }
 
   delete(name: string) {

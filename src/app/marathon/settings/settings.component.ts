@@ -10,7 +10,7 @@ import { UserService } from '../../../services/user.service';
 import { cloneDeep } from 'lodash';
 import { DurationService } from '../../../services/duration.service';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Question } from '../../../model/question';
+import { Question, QuestionType } from '../../../model/question';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
@@ -146,7 +146,7 @@ export class SettingsComponent implements OnInit {
     this.settingsValid = isValid;
   }
 
-  addQuestion({ questionType }: { questionType: string }) {
+  addQuestion({ questionType }: { questionType: QuestionType }) {
     const question: Question = {
       description: '', fieldType: '', id: 0, label: '', options: [], position: 0, required: false, type: questionType
     };
