@@ -42,7 +42,7 @@ export class MarathonScheduleCurrentComponent {
   get messageHeaderArgs(): { duration?: string } {
     return this.isNext ? {
         duration:
-          this.temporal.distance.format(this.ticker?.date ?? Temporal.Now.zonedDateTimeISO(this.temporal.timeZone.timeZone)),
+          this.temporal.distance.format(this.ticker?.date ?? this.temporal.now),
       }
       : {};
   }

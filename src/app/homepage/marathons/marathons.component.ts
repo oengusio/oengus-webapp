@@ -68,7 +68,7 @@ export class MarathonsComponent {
 
   getRowParity = getRowParity;
 
-  private now = Temporal.Now.zonedDateTimeISO(this.temporal.timeZone.timeZone);
+  private now = this.temporal.now;
 
   private keyCache: Record<string, Record<number, Temporal.ZonedDateTime>> = {};
 

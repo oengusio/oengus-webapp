@@ -14,7 +14,7 @@ import { dateTimeFormatKey } from '../../../../services/termporal/config';
 export class ElementTemporalDatetimeComponent {
   temporal = inject(TemporalServiceService);
 
-  @Input() dateTime: string | Temporal.ZonedDateTime = Temporal.Now.zonedDateTimeISO(this.temporal.timeZone.timeZone);
+  @Input() dateTime: string | Temporal.ZonedDateTime = this.temporal.now;
   @Input() format: dateTimeFormatKey = 'mediumDateTime';
 
   get date(): Temporal.ZonedDateTime {

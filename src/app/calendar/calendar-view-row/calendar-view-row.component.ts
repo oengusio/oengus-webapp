@@ -58,7 +58,7 @@ export class CalendarViewRowComponent {
   }
 
   get rangeColor(): { 'is-primary': boolean, 'is-info': boolean } {
-    const now = Temporal.Now.zonedDateTimeISO(this.temporalService.timeZone.timeZone);
+    const now = this.temporalService.now;
     const isNow = Temporal.ZonedDateTime.compare(this.marathonStart, now) <= 0
       && Temporal.ZonedDateTime.compare(now, this.marathonEnd) <= 0;
     return {

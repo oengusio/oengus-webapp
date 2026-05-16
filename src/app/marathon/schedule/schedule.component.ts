@@ -33,8 +33,6 @@ export class ScheduleComponent implements OnDestroy {
 
   public schedule: V2Schedule;
 
-  public timezone = this.temporalService.timeZone.timeZone;
-
   public currentIndex: number | undefined;
   private scheduleRefresher: Subscription;
 
@@ -98,11 +96,9 @@ export class ScheduleComponent implements OnDestroy {
   isCurrentRun(line: V2ScheduleLine) {
     const estimateDuration = Temporal.Duration.from(line.estimate);
     const setupDuration = Temporal.Duration.from(line.setupTime);
+    const lineDate = line.date;
 
-    const lineDate = Temporal.Instant.from(line.date as unknown as string)
-      .toZonedDateTimeISO(this.timezone);
-
-    const now = Temporal.Now.zonedDateTimeISO(this.timezone);
+    const now = this.temporalService.now;
 
     // -1 gets returned if lineDate is *before* now.
     return Temporal.ZonedDateTime.compare(lineDate, now) === -1 &&

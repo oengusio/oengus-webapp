@@ -207,7 +207,7 @@ export class EditComponent implements OnInit, OnDestroy {
               setupBlock: false,
               setupBlockText: '',
               customData: '',
-              date: Temporal.Now.zonedDateTimeISO(this.temporalService.timeZone.timeZone),
+              date: this.temporalService.now,
               categoryId: category.id,
             });
           });

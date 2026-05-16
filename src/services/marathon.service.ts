@@ -149,7 +149,7 @@ export class MarathonService extends BaseService {
   isArchived(marathon: Marathon = this._marathon): boolean {
     const endDate = this.temporalService.parseDate(marathon.endDate as unknown as string);
 
-    return Temporal.ZonedDateTime.compare(endDate, Temporal.Now.zonedDateTimeISO(this.temporalService.timeZone.timeZone)) === -1;
+    return Temporal.ZonedDateTime.compare(endDate, this.temporalService.now) === -1;
   }
 
   fetchDiscordInfo(marathon: MarathonSettings | Marathon): Observable<{ id: string, name: string }> {
