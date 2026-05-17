@@ -71,8 +71,8 @@ export class MarathonService extends BaseService {
       ...marathon,
       startDate: marathon.startDate.toInstant().toString(),
       endDate: marathon.endDate.toInstant().toString(),
-      submissionsStartDate: marathon.submissionsStartDate.toInstant().toString(),
-      submissionsEndDate: marathon.submissionsEndDate.toInstant().toString(),
+      submissionsStartDate: marathon.submissionsStartDate?.toInstant()?.toString(),
+      submissionsEndDate: marathon.submissionsEndDate?.toInstant()?.toString(),
     }).pipe(
       this.mapMarathonSettings(),
     );

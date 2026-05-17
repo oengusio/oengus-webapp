@@ -2,7 +2,7 @@ import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { OwlDateTimeModule, OwlTemporalDateTimeModule } from '@oengus/angular-datetime-picker';
+import { OwlDateTimeModule } from '@oengus/angular-datetime-picker';
 import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { MarathonSettingsWithHelpfulProps } from '../../../../model/marathon';
@@ -28,7 +28,6 @@ import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18
         FormsModule,
         TranslateModule,
         OwlDateTimeModule,
-      OwlTemporalDateTimeModule,
         NwbSwitchModule,
         AutocompleteLibModule,
         DirectivesModule,

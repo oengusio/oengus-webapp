@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DateTimeAdapter, OwlDateTimeModule, OwlTemporalDateTimeModule } from '@oengus/angular-datetime-picker';
+import { DateTimeAdapter, OwlDateTimeModule } from '@oengus/angular-datetime-picker';
 import { NwbAllModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SubmissionService } from '../../../services/submission.service';
@@ -49,7 +49,6 @@ import { TemporalServiceService } from '../../../services/termporal/temporal-ser
     LocalizeRouterModule,
     FontAwesomeModule,
     OwlDateTimeModule,
-    OwlTemporalDateTimeModule,
     NwbSwitchModule,
     AutocompleteLibModule,
     DirectivesModule,

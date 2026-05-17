@@ -2,12 +2,13 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { OwlDateTimeModule, OwlTemporalDateTimeModule } from '@oengus/angular-datetime-picker';
+import { OwlDateTimeModule } from '@oengus/angular-datetime-picker';
 import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { Marathon } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { environment } from '../../../environments/environment';
 import { DirectivesModule } from '../../directives/directives.module';
+import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
 
 @Component({
     selector: 'app-new-marathon',
@@ -18,26 +19,21 @@ import { DirectivesModule } from '../../directives/directives.module';
         FormsModule,
         TranslateModule,
         OwlDateTimeModule,
-      OwlTemporalDateTimeModule,
         NwbSwitchModule,
         DirectivesModule,
     ]
 })
 export class NewMarathonComponent implements OnInit {
   marathonService = inject(MarathonService);
+  private temporalService = inject(TemporalServiceService);
 
   public marathon: Marathon;
-  public now: Date;
+  public now = this.temporalService.now.with({ second: 0 });
   public env = environment;
   public loading = false;
   public marathonId = '';
 
   readonly title = 'Create a new marathon';
-
-  constructor() {
-    this.now = new Date();
-    this.now.setSeconds(0);
-  }
 
   ngOnInit() {
     this.marathon = new Marathon();

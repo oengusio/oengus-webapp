@@ -117,8 +117,8 @@ export interface MarathonSettingsRawApi<DateType = string> {
   isPrivate: boolean;
   startDate: DateType;
   endDate: DateType;
-  submissionsStartDate?: DateType;
-  submissionsEndDate?: DateType;
+  submissionsStartDate?: DateType | null;
+  submissionsEndDate?: DateType | null;
   onsite: boolean;
   location: string;
   country: string;
