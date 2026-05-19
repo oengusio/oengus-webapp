@@ -27,5 +27,13 @@
       (selectAvailability)="selectAvailability.emit($event)"
       (moveToSchedule)="moveToSchedule.emit($event)"
     ></app-submission-row>
+  } @empty {
+    <app-element-table-row class="is-even">
+      <app-element-table-cell columnStart="1" columnEnd="7">
+        <div class="hello-row">
+          <p>EOL</p>
+        </div>
+      </app-element-table-cell>
+    </app-element-table-row>
   }
 </app-element-table>

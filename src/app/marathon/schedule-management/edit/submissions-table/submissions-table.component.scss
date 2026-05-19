@@ -3,3 +3,8 @@
 app-element-table {
   @include table.shrink($default-template-columns: 6, $has-expand-button: false);
 }
+
+.hello-row {
+  display: flex;
+  justify-content: center;
+}
