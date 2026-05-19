@@ -9,7 +9,7 @@ export class Formatting implements LocaleSensitive {
     const options = dateTimeFormats[format];
     const dateTimeFormat = new Intl.DateTimeFormat(this.locale, options);
 
-    return dateTimeFormat.format(date.epochMilliseconds);
+    return dateTimeFormat.format(date.toPlainDateTime());
   }
 
   changeLocale(locale: string): void {
