@@ -49,7 +49,7 @@
     "lodash": "^4.18.1",
     "markdown-it": "^14.1.1",
     "markdown-it-anchor": "^9.2.0",
-    "markdown-it-attrs": "^4.3.1",
+    "markdown-it-attrs": "^5.0.0",
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-github-alerts": "^1.0.1",
     "markdown-it-multimd-table": "^4.2.3",
