@@ -30,7 +30,7 @@ import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/l
 import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
 
 // Options are 'id' and 'content'
-const AVAILABILITY_SORT_KEY = 'content';
+const AVAILABILITY_SORT_KEY = 'id';
 
 @Component({
   selector: 'app-edit',
@@ -318,14 +318,14 @@ export class EditComponent implements OnInit, OnDestroy {
       const contentName = availabilities.length ? availabilities[0].username : username;
 
       this.availabilitiesGroups.add({
-        id: username,
+        id: username.toLowerCase(),
         content: contentName,
       });
 
       availabilities.forEach((availability, index) => {
         this.availabilitiesItems.add({
           id: username + index,
-          group: username,
+          group: username.toLowerCase(),
           start: availability.from.epochMilliseconds,
           end: availability.to.epochMilliseconds,
           content: '',
@@ -371,14 +371,14 @@ export class EditComponent implements OnInit, OnDestroy {
         }
 
         this.availabilitiesGroups.add({
-          id: key,
+          id: key.toLowerCase(),
           content: value[0].username,
         });
 
         value.forEach((availability, index) => {
           this.availabilitiesItems.add({
             id: key + index,
-            group: key,
+            group: key.toLowerCase(),
             start: availability.from.epochMilliseconds,
             end: availability.to.epochMilliseconds,
             content: '',
@@ -561,7 +561,7 @@ export class EditComponent implements OnInit, OnDestroy {
           const contentUsername = av.length ? av[0].username : username;
 
           return {
-            id: username,
+            id: username.toLowerCase(),
             content: contentUsername,
           };
         }),
