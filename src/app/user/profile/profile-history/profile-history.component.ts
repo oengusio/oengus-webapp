@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,6 +16,7 @@ import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/l
     selector: 'app-profile-history',
     templateUrl: './profile-history.component.html',
     styleUrls: ['./profile-history.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,

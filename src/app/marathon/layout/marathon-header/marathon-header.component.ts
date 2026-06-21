@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Marathon } from 'src/model/marathon';
 import { MarathonService } from '../../../../services/marathon.service';
@@ -10,6 +10,7 @@ import { SidebarAdminComponent } from '../sidebar-admin/sidebar-admin.component'
     selector: 'app-marathon-header',
     templateUrl: './marathon-header.component.html',
     styleUrls: ['./marathon-header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         SidebarOverviewComponent,

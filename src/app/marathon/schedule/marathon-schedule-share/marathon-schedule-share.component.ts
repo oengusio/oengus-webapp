@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -11,6 +11,7 @@ import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
     selector: 'app-marathon-schedule-share',
     templateUrl: './marathon-schedule-share.component.html',
     styleUrls: ['./marathon-schedule-share.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule,

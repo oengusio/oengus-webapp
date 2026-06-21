@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -27,6 +27,7 @@ import { TemporalServiceService } from '../../../../../services/termporal/tempor
     selector: 'app-schedule-table-old-element',
     templateUrl: './schedule-table-old-element.component.html',
     styleUrls: ['./schedule-table-old-element.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         FormsModule,

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,6 +17,7 @@ import { NwbAllModule } from '@oengus/ng-wizi-bulma';
     selector: 'app-incentive-management',
     templateUrl: './incentive-management.component.html',
     styleUrls: ['./incentive-management.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CommonModule,
     FormsModule,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AboutInfoComponent } from './about-info/about-info.component';
 import { AboutContactComponent } from './about-contact/about-contact.component';
@@ -8,6 +8,7 @@ import { AboutPrivacyComponent } from './about-privacy/about-privacy.component';
     selector: 'app-about',
     templateUrl: './about.component.html',
     styleUrls: ['./about.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         AboutInfoComponent,

@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { UserLinkComponent } from '../../../elements/user-link/user-link.compone
   selector: 'app-marathon-schedule-current',
   templateUrl: './marathon-schedule-current.component.html',
   styleUrls: ['./marathon-schedule-current.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CommonModule,
     RouterModule,

@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { faCalendarCheck, faCheckSquare, faCogs, faDotCircle } from '@fortawesom
     selector: 'app-sidebar-admin',
     templateUrl: './sidebar-admin.component.html',
     styleUrls: ['./sidebar-admin.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,

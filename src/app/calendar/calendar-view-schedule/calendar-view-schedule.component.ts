@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, inject } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Marathon } from '../../../model/marathon';
@@ -11,6 +11,7 @@ import { LocaleService } from '../../../services/locale.service';
     selector: 'app-calendar-view-schedule',
     templateUrl: './calendar-view-schedule.component.html',
     styleUrl: './calendar-view-schedule.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         FullCalendarModule,

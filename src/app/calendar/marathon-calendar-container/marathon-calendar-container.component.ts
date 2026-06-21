@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Marathon } from '../../../model/marathon';
@@ -13,6 +13,7 @@ import { ElementModule } from '../../elements/elements.module';
     selector: 'app-marathon-calendar-container',
     templateUrl: './marathon-calendar-container.component.html',
     styleUrls: ['./marathon-calendar-container.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         CalendarControllerComponent,

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SavedGame } from '../../../../../model/user-profile-history';
@@ -11,6 +11,7 @@ import { ElementTemporalDurationComponent } from '../../../../elements/temporal/
   selector: 'app-user-profile-saved-games',
   templateUrl: './saved-games.component.html',
   styleUrl: './saved-games.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CommonModule,
     TranslateModule,

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, KeyValuePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -21,6 +21,7 @@ interface HomepageListData {
     selector: 'app-homepage-marathons',
     templateUrl: './marathons.component.html',
     styleUrls: ['./marathons.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         KeyValuePipe,

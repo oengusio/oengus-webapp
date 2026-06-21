@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import Patron from '../../../model/patron';
@@ -8,6 +8,7 @@ import { PatreonService } from '../../../services/patreon.service';
     selector: 'app-patron-list',
     templateUrl: './patron-list.component.html',
     styleUrls: ['./patron-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule,

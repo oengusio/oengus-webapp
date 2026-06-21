@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,6 +16,7 @@ import { ElementLoginLinkSelectorComponent } from '../../../elements/element-log
     selector: 'app-header-bar-nav',
     templateUrl: './header-bar-nav.component.html',
     styleUrls: ['./header-bar-nav.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,

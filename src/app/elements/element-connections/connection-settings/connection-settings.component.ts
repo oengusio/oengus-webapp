@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, KeyValuePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
     selector: 'app-connection-settings',
     templateUrl: './connection-settings.component.html',
     styleUrls: ['./connection-settings.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         KeyValuePipe,

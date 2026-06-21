@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScheduleService } from '../../../../services/schedule.service';
@@ -11,6 +11,7 @@ import { ElementDropdownComponent } from '../../../elements/element-dropdown/ele
     selector: 'app-marathon-schedule-export',
     templateUrl: './marathon-schedule-export.component.html',
     styleUrls: ['./marathon-schedule-export.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule,

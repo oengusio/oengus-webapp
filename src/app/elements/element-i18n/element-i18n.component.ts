@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnDestroy, Renderer2, ViewContainerRef, inject } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, Renderer2, ViewContainerRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
@@ -7,6 +7,7 @@ import { Subject, takeUntil } from 'rxjs';
     selector: 'app-element-i18n',
     templateUrl: './element-i18n.component.html',
     styleUrls: ['./element-i18n.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule,

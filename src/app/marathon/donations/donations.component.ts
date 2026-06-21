@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,6 +17,7 @@ import { OengusMdComponent } from '../../components/oengus-md/oengus-md.componen
     selector: 'app-donations',
     templateUrl: './donations.component.html',
     styleUrls: ['./donations.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule,

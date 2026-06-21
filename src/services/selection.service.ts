@@ -20,12 +20,12 @@ export class SelectionService extends BaseService {
     super(toastr, 'marathons');
   }
 
-  getAllForMarathon(marathonId: string, statuses = []): Observable<Map<number, Selection>> {
+  getAllForMarathon(marathonId: string, statuses: string[] = []): Observable<Map<number, Selection>> {
     const params = new HttpParams().set('status', statuses.join(','));
     return this.http.get<Map<number, Selection>>(this.url(`${marathonId}/selections`), {params: params});
   }
 
-  getAllForMarathonAdmin(marathonId: string, statuses = []): Observable<Map<number, Selection>> {
+  getAllForMarathonAdmin(marathonId: string, statuses: string[] = []): Observable<Map<number, Selection>> {
     const params = new HttpParams().set('status', statuses.join(','));
     return this.http.get<Map<number, Selection>>(this.url(`${marathonId}/selections/admin`), { params: params });
   }

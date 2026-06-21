@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -12,6 +12,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     selector: 'app-marathon',
     templateUrl: './marathon.component.html',
     styleUrls: ['./marathon.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterOutlet,

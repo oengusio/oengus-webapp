@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Game } from '../../../../model/game';
@@ -12,6 +12,7 @@ import { SubmissionCategoryComponent } from '../submission-category/submission-c
     selector: 'app-submission-game',
     templateUrl: './submission-game.component.html',
     styleUrls: ['./submission-game.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule,

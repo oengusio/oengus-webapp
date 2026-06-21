@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
 import { dateTimeFormatKey } from '../../../../services/termporal/config';
@@ -7,6 +7,7 @@ import { dateTimeFormatKey } from '../../../../services/termporal/config';
     selector: 'app-element-temporal-range',
     templateUrl: './element-temporal-range.component.html',
     styleUrls: ['./element-temporal-range.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
     ]

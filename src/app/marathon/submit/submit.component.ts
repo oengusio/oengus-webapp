@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -41,6 +41,7 @@ import { TemporalServiceService } from '../../../services/termporal/temporal-ser
   selector: 'app-submit',
   templateUrl: './submit.component.html',
   styleUrls: ['./submit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CommonModule,
     FormsModule,

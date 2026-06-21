@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,6 +20,7 @@ import { DirectivesModule } from '../../../directives/directives.module';
     DirectivesModule,
   ],
   templateUrl: './category-editor.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './category-editor.component.scss'
 })
 export class CategoryEditorComponent implements OnInit, OnChanges {

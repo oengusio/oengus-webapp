@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit, inject } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,6 +16,7 @@ import { ElementLoginLinkSelectorComponent } from '../../elements/element-login-
     selector: 'app-marathon-sidebar-overview',
     templateUrl: './sidebar-overview.component.html',
     styleUrls: ['./sidebar-overview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,

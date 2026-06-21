@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -36,6 +36,7 @@ const AVAILABILITY_SORT_KEY = 'id';
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CommonModule,
     FormsModule,
@@ -62,6 +63,7 @@ export class EditComponent implements OnInit, OnDestroy {
   private translateService = inject(TranslateService);
   private temporalService = inject(TemporalServiceService);
 
+  // @ts-expect-error meh.
   @ViewChild('scheduleTableComponent') scheduleTable: ScheduleTableComponent | ScheduleTableOldElementComponent;
 
   scheduleInfo: ScheduleInfo;
@@ -78,12 +80,14 @@ export class EditComponent implements OnInit, OnDestroy {
   submissionsLoaded = false;
   showAllCustomData = false;
 
+  // @ts-expect-error meh.
   private timeline: Timeline;
+  // @ts-expect-error meh.
   private timebar: IdType;
   public availabilitiesGroups: DataSetDataGroup;
   public availabilitiesItems: DataSetDataItem;
-  public availabilitiesSelected = [];
-  private availabilitiesSelectedItems = [];
+  public availabilitiesSelected: IdType[] = [];
+  private availabilitiesSelectedItems: IdType[] = [];
   public allAvailabilities: AvailabilityResponse = {};
 
   private _hideCompleteUsers = true;
@@ -108,7 +112,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
     this.availabilitiesGroups = new DataSet([], {queue: {delay: 1000}});
     this.availabilitiesItems = new DataSet([], {queue: {delay: 1000}});
-    this.marathonId = this.route.snapshot.parent.paramMap.get('id');
+    this.marathonId = this.route.snapshot.parent?.paramMap.get('id') as string;
     this.scheduleInfo = this.route.snapshot.data.scheduleInfo;
     this.oldSlug = this.scheduleInfo.slug;
   }
@@ -143,7 +147,13 @@ export class EditComponent implements OnInit, OnDestroy {
 
     console.log(this.marathonService.marathon.startDate);
 
-    this.timeline = new Timeline(document.getElementById('timeline'),
+    const timelineEl = document.getElementById('timeline');
+
+    if (!timelineEl) {
+      return;
+    }
+
+    this.timeline = new Timeline(timelineEl,
       this.availabilitiesItems,
       this.availabilitiesGroups,
       {
@@ -333,15 +343,15 @@ export class EditComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.availabilitiesGroups.flush();
-    this.availabilitiesItems.flush();
+    this.availabilitiesGroups.flush?.();
+    this.availabilitiesItems.flush?.();
 
     // Sort availabilities alphabetically.
     const sortedData = this.availabilitiesGroups.get({order: AVAILABILITY_SORT_KEY});
 
     this.availabilitiesGroups.clear();
     this.availabilitiesGroups.add(sortedData);
-    this.availabilitiesGroups.flush();
+    this.availabilitiesGroups.flush?.();
   }
 
   async loadAvailabilitiesForRunner(userId: number) {
@@ -437,6 +447,7 @@ export class EditComponent implements OnInit, OnDestroy {
       console: '',
       customData: '',
       customRun: true,
+      // @ts-expect-error meh.
       date: undefined,
       emulated: false,
       estimate: 'PT0S',
@@ -496,7 +507,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
     const usernames = run.runners
       .map((runner) => runner.profile ? runner.profile.username : null)
-      .filter((runner) => runner);
+      .filter((runner) => runner) as string[];
 
     this.removeFromTimelineWhenNoMoreRunsTodo(usernames);
   }
@@ -518,7 +529,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
     const usernames = run.runners
       .map((runner) => runner.profile ? runner.profile.username : null)
-      .filter((runner) => runner);
+      .filter((runner) => runner) as string[];
 
     this.addToTimelineWhenRunsInTodo(usernames);
   }
@@ -540,7 +551,7 @@ export class EditComponent implements OnInit, OnDestroy {
       this.availabilitiesGroups.remove(filteredUsernames);
     }
 
-    this.availabilitiesGroups.flush();
+    this.availabilitiesGroups.flush?.();
   }
 
   private addToTimelineWhenRunsInTodo(usernames: string[]) {
@@ -568,13 +579,13 @@ export class EditComponent implements OnInit, OnDestroy {
       );
     }
 
-    this.availabilitiesGroups.flush();
+    this.availabilitiesGroups.flush?.();
 
     const sortedData = this.availabilitiesGroups.get({order: AVAILABILITY_SORT_KEY});
 
     this.availabilitiesGroups.clear();
     this.availabilitiesGroups.add(sortedData);
-    this.availabilitiesGroups.flush();
+    this.availabilitiesGroups.flush?.();
   }
 
   private getUsernamesInTodo(): string[] {
@@ -583,7 +594,7 @@ export class EditComponent implements OnInit, OnDestroy {
         this.todoLines.map(
           (run) => run.runners
             .map((runner) => runner.profile ? runner.profile.username : null)
-            .filter((runner) => runner),
+            .filter((runner) => runner) as string[],
         )
           .flat(),
       ),
@@ -594,7 +605,7 @@ export class EditComponent implements OnInit, OnDestroy {
     this.lines.forEach((run) => {
       const usernames = run.runners
         .map((runner) => runner.profile ? runner.profile.username : null)
-        .filter((runner) => runner);
+        .filter((runner) => runner) as string[];
 
       this.removeFromTimelineWhenNoMoreRunsTodo(usernames);
     });

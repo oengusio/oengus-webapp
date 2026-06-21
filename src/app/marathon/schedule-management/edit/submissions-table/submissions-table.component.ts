@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { V2ScheduleLine } from '../../../../../model/schedule-line';
@@ -12,6 +12,7 @@ import { SubmissionRowComponent } from './submission-row/submission-row.componen
     selector: 'app-submissions-table',
     templateUrl: './submissions-table.component.html',
     styleUrls: ['./submissions-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule,

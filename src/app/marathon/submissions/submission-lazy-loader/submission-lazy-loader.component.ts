@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe } from '@angular/common';
@@ -15,6 +15,7 @@ import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/l
     selector: 'app-submission-lazy-loader',
     templateUrl: './submission-lazy-loader.component.html',
     styleUrl: './submission-lazy-loader.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         AsyncPipe,

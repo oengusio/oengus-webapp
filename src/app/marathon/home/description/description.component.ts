@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Marathon } from 'src/model/marathon';
 import { OengusMdComponent } from '../../../components/oengus-md/oengus-md.component';
@@ -7,6 +7,7 @@ import { OengusMdComponent } from '../../../components/oengus-md/oengus-md.compo
     selector: 'app-description',
     templateUrl: './description.component.html',
     styleUrls: ['./description.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         OengusMdComponent,

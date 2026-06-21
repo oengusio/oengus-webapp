@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -14,6 +14,7 @@ import { TemporalServiceService } from '../../../services/termporal/temporal-ser
     selector: 'app-new-marathon',
     templateUrl: './new-marathon.component.html',
     styleUrls: ['./new-marathon.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         FormsModule,

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
@@ -10,6 +10,7 @@ import { LineRunner } from '../../../model/schedule-line';
     selector: 'app-user-link',
     templateUrl: './user-link.component.html',
     styleUrls: ['./user-link.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,

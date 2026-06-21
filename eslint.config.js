@@ -23,6 +23,7 @@ module.exports = tseslint.config(
     processor: angular.processInlineTemplates,
     rules: {
       '@angular-eslint/no-input-rename': 'off',
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
       '@angular-eslint/prefer-standalone': ['warn'],
       "@angular-eslint/directive-selector": [
         "error",

@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MarkdownService } from '../../../services/markdown.service';
 
@@ -6,6 +6,7 @@ import { MarkdownService } from '../../../services/markdown.service';
     selector: 'app-simple-md',
     templateUrl: './simple-md.component.html',
     styleUrls: ['./simple-md.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
     ]

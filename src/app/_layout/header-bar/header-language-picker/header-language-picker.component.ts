@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LocaleService } from '../../../../services/locale.service';
 import { ElementModule } from '../../../elements/elements.module';
@@ -7,6 +7,7 @@ import { ElementModule } from '../../../elements/elements.module';
     selector: 'app-header-language-picker',
     templateUrl: './header-language-picker.component.html',
     styleUrls: ['./header-language-picker.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         ElementModule,

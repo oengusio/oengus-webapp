@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Marathon } from 'src/model/marathon';
@@ -15,6 +15,7 @@ interface CalendarType {
     selector: 'app-calendar-view-table',
     templateUrl: './calendar-view-table.component.html',
     styleUrls: ['./calendar-view-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule,

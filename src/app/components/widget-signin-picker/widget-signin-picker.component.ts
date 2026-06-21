@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, inject } from '@angular/core';
+import { Component, HostBinding, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { ElementModule } from '../../elements/elements.module';
     selector: 'app-widget-signin-picker',
     templateUrl: './widget-signin-picker.component.html',
     styleUrls: ['./widget-signin-picker.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,

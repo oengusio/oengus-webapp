@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,6 +18,7 @@ import { MarkdownPipe } from '../../pipes/markdown.pipe';
   selector: 'app-saved-games-settings',
   templateUrl: './saved-games-settings.component.html',
   styleUrl: './saved-games-settings.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CommonModule,
     FormsModule,

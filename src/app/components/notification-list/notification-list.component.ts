@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../../services/notification.service';
 import { MarkdownPipe } from '../../pipes/markdown.pipe';
@@ -7,6 +7,7 @@ import { MarkdownPipe } from '../../pipes/markdown.pipe';
   selector: 'app-notification-list',
   templateUrl: './notification-list.component.html',
   styleUrl: './notification-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CommonModule,
     MarkdownPipe,

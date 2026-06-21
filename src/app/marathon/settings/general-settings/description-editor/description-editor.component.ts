@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../../../components/components.module';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe,
   ],
   templateUrl: './description-editor.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './description-editor.component.scss',
 })
 export class DescriptionEditorComponent {
