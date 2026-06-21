@@ -7,6 +7,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 })
 export class MaxNumberValidatorDirective implements Validator {
 
+  // @ts-expect-error meh.
   @Input('appMaxNumberValidator') maxNumber: number;
 
   validate(control: AbstractControl): ValidationErrors | null {

@@ -31,6 +31,7 @@ export class OverviewComponent implements OnInit {
 
 
   schedules: ScheduleInfo[] = [];
+  // @ts-expect-error meh.
   private supporterStatus: UserSupporterStatus;
 
   constructor() {

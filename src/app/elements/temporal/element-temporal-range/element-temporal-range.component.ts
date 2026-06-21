@@ -15,7 +15,9 @@ import { dateTimeFormatKey } from '../../../../services/termporal/config';
 export class ElementTemporalRangeComponent {
   temporal = inject(TemporalServiceService);
 
+  // @ts-expect-error meh.
   @Input() start: string | Temporal.ZonedDateTime;
+  // @ts-expect-error meh.
   @Input() end: string | Temporal.ZonedDateTime;
   @Input() format: dateTimeFormatKey = 'mediumDateTime';
 }

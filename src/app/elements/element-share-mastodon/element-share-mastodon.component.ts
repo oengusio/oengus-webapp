@@ -16,8 +16,7 @@ import { faMastodon } from '@fortawesome/free-brands-svg-icons';
     ]
 })
 export class ElementShareMastodonComponent {
-
-  @Input() text: string;
+  @Input() text = '';
 
   shareUrl = 'mastodon.social';
 
@@ -26,7 +25,7 @@ export class ElementShareMastodonComponent {
   getInstance(): string {
     return window.prompt(
       'Please tell me your Mastodon instance'
-    );
+    ) ?? '';
   }
 
   mastodonButtonClick(): boolean {

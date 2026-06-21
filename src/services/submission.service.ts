@@ -26,7 +26,7 @@ export class SubmissionService extends BaseService {
     super(toastr, 'marathons');
   }
 
-  async mine(marathonId: string): Promise<Submission> {
+  async mine(marathonId: string): Promise<Submission | null> {
     try {
       const submission = await firstValueFrom(this.http.get<SubmissionRawApi>(this.url(`${marathonId}/submissions/me`)));
 
@@ -159,7 +159,7 @@ export class SubmissionService extends BaseService {
       });
   }
 
-  delete(marathonId: string, submissionId: number, callback?) {
+  delete(marathonId: string, submissionId: number, callback?: () => void | null) {
     return this.http.delete(this.url(`${marathonId}/submissions/${submissionId}`)).subscribe({
       next: () => {
         this.translateService.get('alert.submission.deletion.success').subscribe((res: string) => {

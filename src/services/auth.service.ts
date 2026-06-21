@@ -119,7 +119,7 @@ export class AuthService extends BaseService {
   }
 
   get token(): string {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token') ?? '';
   }
 
   get tokenExpirationDate(): Date {

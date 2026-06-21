@@ -36,12 +36,15 @@ export class NormalRunEditorComponent implements OnInit {
   iconTimes = faTimes;
   userSearch: Record<string, UserSearchType[]> = {};
 
+  // @ts-expect-error meh.
   @Input() line: V2ScheduleLine;
+  // @ts-expect-error meh.
   @Input() i: number;
   @Output() loadAvailabilities = new EventEmitter<number>();
   @Output() estimateChanged = new EventEmitter<string>();
   @Output() setupTimeChanged = new EventEmitter<string>();
 
+  // @ts-expect-error meh.
   @ViewChild('autocompleteComponent') searchBox: AutocompleteComponent;
 
   setupTimeHuman = '00:00:00';

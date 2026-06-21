@@ -12,6 +12,6 @@ export class DonationsResolver  {
 
   resolve(route: ActivatedRouteSnapshot):
     Observable<Page<Donation>> | Promise<Page<Donation>> | Page<Donation> {
-    return this.donationService.find(route.parent.paramMap.get('id'), 0, 25);
+    return this.donationService.find(route.parent?.paramMap.get('id') ?? '', 0, 25);
   }
 }

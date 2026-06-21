@@ -14,5 +14,6 @@ import { TemporalServiceService } from '../../../../services/termporal/temporal-
 export class ElementTemporalDistanceComponent {
   temporal = inject(TemporalServiceService);
 
+  // @ts-expect-error meh.
   @Input() dateTime: string | Temporal.ZonedDateTime;
 }

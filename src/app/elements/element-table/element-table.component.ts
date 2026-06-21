@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class ElementTableComponent implements OnChanges {
   private elem = inject(ElementRef);
 
+  // @ts-expect-error meh.
   @Input() isDivided: boolean;
 
   ngOnChanges(changes: SimpleChanges): void {

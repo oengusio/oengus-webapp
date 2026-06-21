@@ -23,7 +23,9 @@ export class MarathonScheduleExportComponent {
   private marathonService = inject(MarathonService);
   private loadingBar = inject(LoadingBarService);
 
+  // @ts-expect-error meh.
   @Input() scheduleId: number;
+  // @ts-expect-error meh.
   @Input() disabled: boolean;
 
   formats = [ 'ics', 'csv', 'json', 'gdq' ];

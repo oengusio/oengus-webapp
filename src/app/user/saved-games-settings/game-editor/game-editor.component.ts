@@ -30,6 +30,7 @@ export class GameEditorComponent implements OnInit {
   protected readonly saveIcon = faFloppyDisk;
   protected readonly cancelIcon = faCancel;
 
+  // @ts-expect-error meh.
   @Input('game') inputGame: SavedGame;
   @Input('index') i = 0;
 
@@ -38,6 +39,7 @@ export class GameEditorComponent implements OnInit {
   editing = false;
   loading = false;
 
+  // @ts-expect-error meh.
   game: SavedGame;
 
   ngOnInit() {

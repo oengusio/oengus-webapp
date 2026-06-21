@@ -13,7 +13,7 @@ export class CanActivateMarathonActiveGuard {
 
   canActivate(route: ActivatedRouteSnapshot): MaybeAsync<GuardResult> {
     if (!this.marathonService.marathon) {
-      const findObservable = this.marathonService.find(route.parent.paramMap.get('id'))
+      const findObservable = this.marathonService.find(route.parent?.paramMap.get('id') ?? '')
         .pipe(
           map((marathon) => {
             return !this.marathonService.isArchived(marathon);

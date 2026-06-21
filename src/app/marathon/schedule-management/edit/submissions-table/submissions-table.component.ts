@@ -26,7 +26,7 @@ export class SubmissionsTableComponent {
   public getRowParity = getRowParity;
 
   @Input() todoLines: V2ScheduleLine[] = [];
-  @Input() selectedAvailabilities: string[];
+  @Input() selectedAvailabilities: string[] = [];
   @Output() moveToSchedule = new EventEmitter<number>();
   @Output() selectAvailability = new EventEmitter<{ username: string, on: boolean }>();
 }

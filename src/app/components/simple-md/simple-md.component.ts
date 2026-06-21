@@ -14,7 +14,7 @@ import { MarkdownService } from '../../../services/markdown.service';
 export class SimpleMdComponent {
   private readonly markdown = inject(MarkdownService);
 
-  @Input() public data: string;
+  @Input() public data = '';
 
   get markdownText(): string {
     if (!this.data) {

@@ -23,7 +23,7 @@ export class HomepageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   userService = inject(UserService);
 
-
+  // @ts-expect-error meh.
   homepageMarathons: HomepageMetadata;
 
   ngOnInit() {

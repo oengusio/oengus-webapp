@@ -18,6 +18,7 @@ import { LineRunner } from '../../../model/schedule-line';
     ]
 })
 export class UserLinkComponent {
+  // @ts-expect-error meh.
   @Input() user: BasicUserInfo | LineRunner;
   @Input() username = '';
   @Input() target = '_self';

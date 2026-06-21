@@ -23,6 +23,7 @@ import { ElementTemporalDurationComponent } from '../../../../elements/temporal/
 })
 export class SavedGamesComponent {
 
+  // @ts-expect-error meh.
   @Input() games: SavedGame[];
 
   getSpan(element: SavedGame): string {

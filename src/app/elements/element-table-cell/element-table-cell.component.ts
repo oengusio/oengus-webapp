@@ -33,7 +33,8 @@ export class ElementTableCellComponent implements OnChanges {
   }
 
   @Input() isExpandButton = false;
-  @Input() expanded: boolean;
+  @Input() expanded = false;
+
   get icon() {
     return this.expanded ? faCaretDown : faCaretRight;
   }

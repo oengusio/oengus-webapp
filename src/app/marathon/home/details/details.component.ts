@@ -27,6 +27,7 @@ import { ElementTwitchPlayerComponent } from '../../../elements/element-twitch-p
     ]
 })
 export class DetailsComponent {
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
 
   public faTwitch = faTwitch;

@@ -18,6 +18,7 @@ import { connectionMetas } from '../../../../model/social-account';
 import { DirectivesModule } from '../../../directives/directives.module';
 import { DescriptionEditorComponent } from './description-editor/description-editor.component';
 import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
+import { User } from '../../../../model/user';
 
 @Component({
     selector: 'app-marathon-general-settings',
@@ -40,15 +41,15 @@ export class GeneralSettingsComponent implements OnInit {
   marathonService = inject(MarathonService);
   userService = inject(UserService);
 
-
+  // @ts-expect-error meh.
   @Input() public settings: MarathonSettingsWithHelpfulProps;
-  @Input() public moderators: UserProfile[];
-  @Input() public updateStartTime: boolean;
-  @Input() public disabled: boolean;
+  @Input() public moderators: UserProfile[] = [];
+  @Input() public updateStartTime = false;
+  @Input() public disabled = false;
 
   @Output() public stateUpdate = new EventEmitter<boolean>();
 
-  public userResults = [];
+  public userResults: User[] = [];
   public countries = countriesImport as unknown as Map<string, string>;
   public languages = isoLang;
 
@@ -61,7 +62,7 @@ export class GeneralSettingsComponent implements OnInit {
   marathonDescMaxLen = 10000;
 
   // TODO: remove support for bot webhook (and give it its own settings)
-  public loadWebhookCheck: boolean;
+  public loadWebhookCheck = false;
   public isWebhookOnline = true;
   public isOengusBotWebhook = false;
   public isMissingMarathon = false;

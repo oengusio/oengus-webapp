@@ -1,11 +1,11 @@
 import { Submission } from './submission';
 
 export class Pagable {
-  first: boolean;
-  last: boolean;
-  empty: boolean;
-  totalPages: number;
-  currentPage: number;
+  first = false;
+  last = false;
+  empty = false;
+  totalPages = -1;
+  currentPage = -1;
 }
 
 export class SubmissionPage extends Pagable {

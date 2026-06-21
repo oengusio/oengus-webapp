@@ -26,7 +26,7 @@ export class ScheduleService extends BaseService {
 
   getAllOverview(marathonId: string): Observable<ScheduleInfo[]> {
     if (this.scheduleCache.has(marathonId)) {
-      return of(this.scheduleCache.get(marathonId));
+      return of(this.scheduleCache.get(marathonId) as ScheduleInfo[]);
     }
 
     // In theory, we only have one instance of the application in a browser tab

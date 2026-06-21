@@ -21,16 +21,17 @@ export class CalendarViewScheduleComponent implements OnInit, OnChanges {
   private router = inject(Router);
   private localeService = inject(LocaleService);
 
-  @Input() year: number;
-  @Input() month: number;
+  @Input() year = -1;
+  @Input() month = -1;
   @Input() marathons: Marathon[] = [];
 
+  // @ts-expect-error meh.
   @ViewChild('calendar', { static: true }) calendarComponent: FullCalendarComponent;
 
   public calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin],
-    locale: localStorage.getItem('language'),
+    locale: localStorage.getItem('language') ?? '',
     firstDay: 1,
     now: new Date(),
     headerToolbar: {

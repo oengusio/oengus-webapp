@@ -1,15 +1,15 @@
 import { Category } from './category';
 
 export class Game {
-  id: number;
-  name: string;
-  description: string;
+  id = -1;
+  name = '';
+  description = '';
   console: string;
-  ratio: string;
+  ratio = '';
   categories: Category[];
-  emulated: boolean;
-  visible: boolean;
-  status: string;
+  emulated = false;
+  visible = false;
+  status = '';
 
   constructor() {
     this.console = '';

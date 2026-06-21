@@ -18,9 +18,9 @@ import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 export class SyncButtonComponent {
   public faSyncAlt = faSyncAlt;
 
-  @Input() public title: string;
-  @Input() public username: string;
-  @Input() public synced: boolean;
+  @Input() public title = '';
+  @Input() public username = '';
+  @Input() public synced = false;
 
   @Output() public sync = new EventEmitter<void>();
   @Output() public unsync = new EventEmitter<void>();

@@ -1,8 +1,7 @@
 export class Page<T> {
-
-  content: T[];
-  totalPages: number;
-  totalElements: number;
-  number: number;
-  size: number;
+  content: T[] = [];
+  totalPages = -1;
+  totalElements = -1;
+  number = -1;
+  size = -1;
 }

@@ -2,20 +2,20 @@ import { ScheduleLine } from './schedule-line';
 import { Bid } from './bid';
 
 export class Incentive {
-
   id: number;
   scheduleLine: ScheduleLine;
-  name: string;
-  description: string;
+  name = '';
+  description = '';
   bidWar: boolean;
   locked: boolean;
-  goal: number;
+  goal = -1;
   currentAmount: number;
   bids: Bid[];
-  toDelete: boolean;
+  toDelete = false;
   openBid: boolean;
 
   constructor() {
+    this.id = -1;
     this.scheduleLine = new ScheduleLine();
     this.currentAmount = 0;
     this.bidWar = false;

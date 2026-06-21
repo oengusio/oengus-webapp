@@ -21,6 +21,7 @@ import { faCalendarCheck, faCheckSquare, faCogs, faDotCircle } from '@fortawesom
     ]
 })
 export class SidebarAdminComponent {
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
   @HostBinding('class.collapsed') @Input() collapsed = false;
 

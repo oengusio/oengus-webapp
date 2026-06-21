@@ -26,6 +26,6 @@ export class ElementPasswordInputComponent {
   iconEye = faEye;
   iconEyeSlash = faEyeSlash;
 
-  @Input() password: string | null;
+  @Input() password: string | null = null;
   @Output() passwordChange = new EventEmitter<string>();
 }

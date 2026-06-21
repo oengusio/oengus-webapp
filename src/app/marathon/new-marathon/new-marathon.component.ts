@@ -28,6 +28,7 @@ export class NewMarathonComponent implements OnInit {
   marathonService = inject(MarathonService);
   private temporalService = inject(TemporalServiceService);
 
+  // @ts-expect-error meh.
   public marathon: Marathon;
   public now = this.temporalService.now.with({ second: 0 });
   public env = environment;

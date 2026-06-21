@@ -20,8 +20,8 @@ import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18
 })
 export class ImportRunDialogComponent {
 
-  @Input() modalActive: boolean;
-  @Input() savedGames: SavedGame[];
+  @Input() modalActive = false;
+  @Input() savedGames: SavedGame[] = [];
 
   @Output() doImport = new EventEmitter<SavedCategory[]>();
   // eslint-disable-next-line @angular-eslint/no-output-native

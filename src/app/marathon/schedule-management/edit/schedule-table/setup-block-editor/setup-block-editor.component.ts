@@ -19,7 +19,9 @@ import { DurationService } from '../../../../../../services/duration.service';
 export class SetupBlockEditorComponent implements OnInit {
   @Output() setupTimeChanged = new EventEmitter<string>();
 
+  // @ts-expect-error meh.
   @Input() line: V2ScheduleLine;
+  // @ts-expect-error meh.
   @Input() i: number;
 
   humanSetupTime = '00:00:00';

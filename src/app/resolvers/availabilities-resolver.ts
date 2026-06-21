@@ -10,6 +10,6 @@ export class AvailabilitiesResolver  {
 
 
   resolve(route: ActivatedRouteSnapshot): Observable<AvailabilityResponse> | Promise<AvailabilityResponse> | AvailabilityResponse {
-    return this.submissionService.availabilities(route.parent.paramMap.get('id'));
+    return this.submissionService.availabilities(route.parent?.paramMap.get('id') ?? '');
   }
 }

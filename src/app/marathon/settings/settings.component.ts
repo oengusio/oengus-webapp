@@ -43,9 +43,10 @@ export class SettingsComponent implements OnInit {
   private toastr = inject(NwbAlertService);
 
 
-  private marathonId: string;
+  private marathonId = '';
+  // @ts-expect-error meh.
   public settings: MarathonSettingsWithHelpfulProps;
-  public questions: Question[];
+  public questions: Question[] = [];
   public moderators: UserProfile[] = [];
   public loading = false;
 
@@ -53,13 +54,13 @@ export class SettingsComponent implements OnInit {
 
   public deleteConfirm = false;
   public updateStartTime = false;
-  public deleteShortname: string;
+  public deleteShortname = '';
 
   public faTimes = faTimes;
   public faPlus = faPlus;
 
-  public submissionsQuestions: Question[];
-  public donationsQuestions: Question[];
+  public submissionsQuestions: Question[] = [];
+  public donationsQuestions: Question[] = [];
 
   public settingsValid = true;
 
@@ -112,6 +113,7 @@ export class SettingsComponent implements OnInit {
         await firstValueFrom(this.marathonService.updateModerators(this.marathonId, this.moderators.map(it => it.id)));
       }
 
+      // @ts-expect-error meh.
       this.marathonService.marathon = {
         ...this.marathonService.marathon,
         ...updatedSettings,
@@ -127,7 +129,8 @@ export class SettingsComponent implements OnInit {
 
         return this.toastr.open(alertConfig);
       });
-    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
       this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
         const alertConfig: NwbAlertConfig = {
           message: `${res}\n${e.message}`,

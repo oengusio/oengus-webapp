@@ -25,7 +25,6 @@ import { SocialPlatform } from '../../../model/social-platform';
     ]
 })
 export class UserComponent {
-
   @Input() username?: string;
   @Input() user?: User;
   @Input() showSocialLinks = false;
@@ -42,7 +41,7 @@ export class UserComponent {
   public localStorage = localStorage;
 
   get profileConnections(): SocialAccount[] {
-    return this.user.connections.filter((connection) => this.acceptedTypes.includes(connection.platform));
+    return this.user?.connections.filter((connection) => this.acceptedTypes.includes(connection.platform)) ?? [];
   }
 
 }

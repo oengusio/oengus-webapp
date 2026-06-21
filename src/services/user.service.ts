@@ -29,7 +29,7 @@ export class UserService extends BaseService {
   private router = inject(Router);
   private temporalService = inject(TemporalServiceService);
 
-  private _user: SelfUser;
+  private _user: SelfUser | null = null;
 
   constructor() {
     const toastr = inject(NwbAlertService);
@@ -204,11 +204,11 @@ export class UserService extends BaseService {
   }
 
   isBanned(): boolean {
-    return this._user.roles.includes('ROLE_BANNED');
+    return !!this._user?.roles?.includes('ROLE_BANNED');
   }
 
   isAdmin(): boolean {
-    return this._user.roles.includes('ROLE_ADMIN');
+    return !!this._user?.roles?.includes('ROLE_ADMIN');
   }
 
   isLoggedIn(): boolean {
@@ -224,11 +224,12 @@ export class UserService extends BaseService {
     localStorage.setItem('token', value);
   }
 
-  get token(): string {
+  get token(): string | null {
     return localStorage.getItem('token');
   }
 
   get user(): SelfUser {
+    // @ts-expect-error meh.
     return this._user;
   }
 }

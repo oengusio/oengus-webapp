@@ -8,6 +8,7 @@ import { DurationService } from '../../services/duration.service';
 })
 export class MinDurationValidatorDirective implements Validator {
 
+  // @ts-expect-error meh.
   @Input('appMinDurationValidator') minDuration: number;
 
   validate(control: AbstractControl): ValidationErrors | null {

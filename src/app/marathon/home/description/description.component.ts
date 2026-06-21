@@ -14,5 +14,6 @@ import { OengusMdComponent } from '../../../components/oengus-md/oengus-md.compo
     ]
 })
 export class DescriptionComponent {
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
 }

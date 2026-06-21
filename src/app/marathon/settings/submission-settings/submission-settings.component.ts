@@ -30,8 +30,11 @@ import { DirectivesModule } from '../../../directives/directives.module';
 export class SubmissionSettingsComponent {
   marathonService = inject(MarathonService);
 
+  // @ts-expect-error meh.
   @Input() public settings: MarathonSettings;
+  // @ts-expect-error meh.
   @Input() public submissionsQuestions: Question[];
+  // @ts-expect-error meh.
   @Input() public disabled: boolean;
 
   @Output() public stateUpdate = new EventEmitter<boolean>();
@@ -76,7 +79,7 @@ export class SubmissionSettingsComponent {
     const now = Temporal.Now.instant();
     const closeDate = this.settings.submissionsEndDate?.toInstant();
 
-    if (!this.settings.submissionsOpen && (Boolean(closeDate) && Temporal.Instant.compare(closeDate, now) === 1)) {
+    if (!this.settings.submissionsOpen && (closeDate && Temporal.Instant.compare(closeDate, now) === 1)) {
       const conf = confirm('Re-opening the submissions will clear the automatic open and close times, do you want to continue?');
 
       if (conf) {

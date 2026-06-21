@@ -20,8 +20,9 @@ import { SidebarModeratorsComponent } from '../sidebar-moderators/sidebar-modera
     ]
 })
 export class SidebarComponent {
-  @Input() isAdmin: boolean;
+  @Input() isAdmin = false;
   @Input() collapsed = false;
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
   @Output() toggleSidebar = new EventEmitter<boolean>();
 

@@ -11,13 +11,19 @@ export class SelectionResolver  {
 
   resolve(route: ActivatedRouteSnapshot):
     Observable<Map<number, Selection>> | Promise<Map<number, Selection>> | Map<number, Selection> {
+    const marathonId = route.parent?.paramMap.get('id');
+
+    if (!marathonId) {
+      throw new Error('Missing marathon id');
+    }
+
     if (route.data['isAdminRoute']) {
-      return firstValueFrom(this.selectionService.getAllForMarathonAdmin(route.parent.paramMap.get('id'), route.data['statuses']))
+      return firstValueFrom(this.selectionService.getAllForMarathonAdmin(marathonId, route.data['statuses']))
         .catch(() => new Map());
     }
 
     return firstValueFrom(
-      this.selectionService.getAllForMarathon(route.parent.paramMap.get('id'), route.data['statuses'])
+      this.selectionService.getAllForMarathon(marathonId, route.data['statuses'])
     ).catch(() => new Map());
   }
 }

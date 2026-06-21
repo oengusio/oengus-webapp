@@ -122,7 +122,7 @@ export class SubmitComponent {
 
   private dateTimeAdapter = inject<DateTimeAdapter<unknown>>(DateTimeAdapter);
 
-  protected submission: Submission;
+  protected submission = new Submission();
   protected faTimes = faTimes;
   protected faPlus = faPlus;
   protected faImport = faCloudArrowUp;
@@ -134,7 +134,7 @@ export class SubmitComponent {
   protected deleteConfirm = false;
   protected savedGames: SavedGame[] = [];
 
-  protected code: string;
+  protected code = '';
 
   protected isDiscordCheckLoading = false;
   private showDiscordRequirement = true;
@@ -146,11 +146,15 @@ export class SubmitComponent {
 
   readonly title = 'Submit';
 
-  private initSubmission(submission: Submission) {
+  private initSubmission(submission: Submission | null) {
     console.log(this.dateTimeAdapter.getLocale());
 
-    delete this.submission;
-    this.submission = {...submission};
+    if (submission) {
+      this.submission = {...submission};
+    } else {
+      this.submission = new Submission();
+    }
+
     this.submission.games.forEach(game => {
       game.categories.forEach(category => {
         category.estimateHuman = DurationService.toHuman(category.estimate);
@@ -244,8 +248,11 @@ export class SubmitComponent {
 
   addAvailability() {
     this.submission.availabilities.push({
+      // @ts-expect-error code is fine.
       from: null,
+      // @ts-expect-error code is fine.
       to: null,
+      // @ts-expect-error code is fine.
       username: null,
     });
   }
@@ -354,7 +361,9 @@ export class SubmitComponent {
   }
 
   deleteSubmission(marathonId: string, submissionId: number) {
-    this.submissionService.delete(marathonId, submissionId, () => this.router.navigate(['/marathon', this.marathonService.marathon.id]));
+    this.submissionService.delete(marathonId, submissionId, () => {
+      this.router.navigate(['/marathon', this.marathonService.marathon.id]);
+    });
   }
 
   async checkUserInDiscord() {
@@ -488,7 +497,7 @@ export class SubmitComponent {
     this.submission.games.push(game);
   }
 
-  private getSavedGameById(gameId: number): SavedGame | null {
+  private getSavedGameById(gameId: number): SavedGame | undefined | null {
     return this.savedGames.find((it) => it.id === gameId);
   }
 
@@ -516,7 +525,7 @@ export class SubmitComponent {
     };
   }
 
-  private findAlreadyInsertedGameByName(gameName: string): Game | null {
+  private findAlreadyInsertedGameByName(gameName: string): Game | undefined | null {
     return this.submission.games.find((it) => it.name.toLowerCase() === gameName.toLowerCase());
   }
 }

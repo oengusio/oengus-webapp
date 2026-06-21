@@ -14,9 +14,8 @@ export interface SubmissionRawApi<DateType = string> {
 }
 
 export class Submission implements SubmissionRawApi<Temporal.ZonedDateTime> {
-
   id: number;
-  user: User;
+  user: User = new User();
   games: Game[];
   availabilities: Availability[];
   answers: Answer[];

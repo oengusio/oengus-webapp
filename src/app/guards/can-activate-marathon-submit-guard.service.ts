@@ -25,7 +25,7 @@ export class CanActivateMarathonSubmitGuard  {
       return new Promise<boolean>((resolve) => {
         resolve(
           firstValueFrom(
-            forkJoin([this.userService.getMe(), this.marathonService.find(route.parent.paramMap.get('id'))]).pipe(
+            forkJoin([this.userService.getMe(), this.marathonService.find(route.parent?.paramMap.get('id') ?? '')]).pipe(
               map(([user, marathon]) => {
                 return this.condition(user, marathon);
               }),

@@ -29,16 +29,18 @@ import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/l
 export class SubmissionLazyLoaderComponent implements OnInit, OnDestroy {
   marathonService = inject(MarathonService);
 
+  // @ts-expect-error meh.
   @ViewChild('lazyLoadTrigger') lazyLoadTrigger: ElementRef<HTMLDivElement>;
 
   public submissions$ = new BehaviorSubject<Submission[]>([]);
   public canLoadMore = true;
   private waitingOnNextPage = false;
 
+  // @ts-expect-error meh.
   @Input() public nextSubmissionPage: Subject<SubmissionPage>;
-  @Input() public selection: Map<number, Selection>;
-  @Input() public showDelete: boolean;
-  @Input() public userIsAdmin: boolean;
+  @Input() public selection = new Map<number, Selection>();
+  @Input() public showDelete = false;
+  @Input() public userIsAdmin = false;
   @Input() public doInitialLoad = true;
 
   @Output() private loadNextPage = new EventEmitter<number>();

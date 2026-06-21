@@ -45,14 +45,17 @@ export class PasswordResetComponent implements OnInit {
   }
 
   async performReset() {
-    if (!this.resetToken) {
+    const token = this.resetToken;
+
+    if (!token) {
       this.errorTranslationKey = 'auth.passwordReset.error.PASSWORD_RESET_CODE_INVALID';
+      return;
     }
 
     this.loading = true;
 
     try {
-      const { status } = await firstValueFrom(this.authService.resetPassword(this.resetToken, this.newPassword));
+      const { status } = await firstValueFrom(this.authService.resetPassword(token, this.newPassword));
 
       if (status === 'PASSWORD_RESET_SUCCESS') {
         this.notificationClass = 'is-success';

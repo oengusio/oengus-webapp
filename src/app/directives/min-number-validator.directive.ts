@@ -7,7 +7,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 })
 export class MinNumberValidatorDirective implements Validator {
 
-  @Input('appMinNumberValidator') minNumber: number;
+  @Input('appMinNumberValidator') minNumber = -1;
 
   validate(control: AbstractControl): ValidationErrors | null {
     if (control.value >= this.minNumber) {

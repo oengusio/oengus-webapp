@@ -12,8 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class MonetaryAmountComponent {
 
-  @Input() amount: number;
-  @Input() currency: string;
+  @Input() amount = -1;
+  @Input() currency = '';
 
   public localStorage = localStorage;
 

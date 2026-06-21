@@ -9,27 +9,26 @@ export type ScheduleRunner = { user: User } | { runnerName: string };
  * @deprecated v1 api, for removal when old UI is phased out in the future.
  */
 export class ScheduleLine {
-
   id: number;
-  gameName: string;
-  console: string;
-  emulated: boolean;
-  ratio: string;
-  categoryName: string;
-  estimate: string;
-  estimateHuman: string;
-  setupTime: string;
-  setupTimeHuman: string;
-  setupBlock: boolean;
-  setupBlockText: string;
-  useSetupBlockText: boolean;
-  customRun: boolean;
-  position: number;
-  categoryId: number;
-  runners: ScheduleRunner[];
-  date: Date;
-  type: string;
-  customData: string;
+  gameName = '';
+  console = '';
+  emulated = false;
+  ratio = '';
+  categoryName = '';
+  estimate = '';
+  estimateHuman = '';
+  setupTime = '';
+  setupTimeHuman = '';
+  setupBlock = false;
+  setupBlockText = '';
+  useSetupBlockText = false;
+  customRun = false;
+  position = -1;
+  categoryId = -1;
+  runners: ScheduleRunner[] = [];
+  date: Date = new Date();
+  type = '';
+  customData = '';
 
   constructor() {
     this.id = -1;

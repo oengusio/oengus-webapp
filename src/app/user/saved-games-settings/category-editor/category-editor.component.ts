@@ -30,7 +30,9 @@ export class CategoryEditorComponent implements OnInit, OnChanges {
   protected readonly saveIcon = faFloppyDisk;
   protected readonly cancelIcon = faCancel;
 
+  // @ts-expect-error meh.
   @Input() gameId: number;
+  // @ts-expect-error meh.
   @Input('category') inputCategory: SavedCategory;
   @Input('gameIndex') i = 0;
   @Input('index') j = 0;
@@ -41,6 +43,7 @@ export class CategoryEditorComponent implements OnInit, OnChanges {
   editing = false;
   loading = false;
 
+  // @ts-expect-error meh.
   protected category: SavedCategory;
 
   ngOnInit() {

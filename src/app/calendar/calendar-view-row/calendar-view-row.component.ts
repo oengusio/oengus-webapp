@@ -25,8 +25,9 @@ import { TemporalServiceService } from '../../../services/termporal/temporal-ser
 export class CalendarViewRowComponent {
   private temporalService = inject(TemporalServiceService);
 
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
-  @Input() datetime: string;
+  @Input() datetime = '';
 
   getHoursFraction(date: Temporal.ZonedDateTime): number {
     return date.hour + date.minute / 60;

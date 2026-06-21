@@ -9,25 +9,24 @@ export interface BasicUserInfo {
 }
 
 export class User implements BasicUserInfo {
-
-  id: number;
-  username: string;
-  displayName: string;
-  email: string;
+  id = -1;
+  username = '';
+  displayName = '';
+  email = '';
   // stored as comma seperated list in db
-  pronouns: string;
-  languagesSpoken: string;
-  mfaEnabled: boolean;
-  emailVerified: boolean;
-  country: string;
-  roles: string[];
-  connections: SocialAccount[];
-  enabled: boolean;
-  discordId: string;
-  twitterId: string;
-  twitchId: string;
-  patreonId: string;
-  savedGamesPublic: boolean;
+  pronouns = '';
+  languagesSpoken = '';
+  mfaEnabled = false;
+  emailVerified = false;
+  country = '';
+  roles: string[] = [];
+  connections: SocialAccount[] = [];
+  enabled = false;
+  discordId = '';
+  twitterId = '';
+  twitchId = '';
+  patreonId = '';
+  savedGamesPublic = false;
 }
 
 export interface SelfUser extends BasicUserInfo {

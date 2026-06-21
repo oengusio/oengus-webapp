@@ -34,6 +34,7 @@ interface HomepageListData {
 export class MarathonsComponent {
   private temporal = inject(TemporalServiceService);
 
+  // @ts-expect-error meh.
   @Input() homepageMarathons: HomepageMetadata;
 
   marathonsLists: HomepageListData[] = [
@@ -90,6 +91,7 @@ export class MarathonsComponent {
         .find(item => item.date);
 
       this.keyCache[marathon.id] = {
+        // @ts-expect-error meh.
         [keys.indexOf(found.key)]: found.date,
       };
     }

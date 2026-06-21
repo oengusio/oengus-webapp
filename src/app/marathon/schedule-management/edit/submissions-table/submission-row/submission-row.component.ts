@@ -34,7 +34,9 @@ export class SubmissionRowComponent {
   getRunnerUsername = getRunnerUsername;
   getRunnerDisplayName = getRunnerDisplayName;
 
+  // @ts-expect-error meh.
   @Input() i: number;
+  // @ts-expect-error meh.
   @Input() line: V2ScheduleLine;
   @Input() selectedAvailabilities: string[] = [];
   @Output() moveToSchedule = new EventEmitter<number>();

@@ -18,7 +18,6 @@ import { NwbCommonModule } from '@oengus/ng-wizi-bulma';
   ],
 })
 export class DeleteButtonComponent {
-
   public faTimes = faTimes;
   public faCheck = faCheck;
 
@@ -26,9 +25,9 @@ export class DeleteButtonComponent {
 
   @Output() public confirmHandler = new EventEmitter<void>();
   @Output() public cancelHandler = new EventEmitter<void>();
-  @Input() public baseText: string;
-  @Input() public confirmText: string;
-  @Input() public cancelText: string;
+  @Input() public baseText = '';
+  @Input() public confirmText = '';
+  @Input() public cancelText = '';
 
   confirm() {
     this.showConfirm = true;

@@ -32,9 +32,11 @@ export class ScheduleComponent implements OnDestroy {
   marathonService = inject(MarathonService);
   temporalService = inject(TemporalServiceService);
 
+  // @ts-expect-error meh.
   public schedule: V2Schedule;
 
   public currentIndex: number | undefined;
+  // @ts-expect-error meh.
   private scheduleRefresher: Subscription;
 
   runHash = '';
@@ -75,7 +77,7 @@ export class ScheduleComponent implements OnDestroy {
   }
 
   get currentRun() {
-    if (!this.schedule.lines.length) {
+    if (!this.schedule.lines.length || this.currentIndex === undefined) {
       return null;
     }
 

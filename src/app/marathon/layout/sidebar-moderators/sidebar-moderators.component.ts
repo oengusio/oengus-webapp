@@ -21,6 +21,7 @@ import { UserLinkComponent } from '../../../elements/user-link/user-link.compone
     ]
 })
 export class SidebarModeratorsComponent implements OnInit {
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
   @HostBinding('class.collapsed') @Input() collapsed = false;
 

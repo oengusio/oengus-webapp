@@ -29,6 +29,7 @@ import { ElementTemporalDistanceComponent } from '../../../../elements/temporal/
     ]
 })
 export class ModeratedComponent {
+  // @ts-expect-error meh.
   @Input() history: HistoryMarathon[];
 
   getRowParity = getRowParity;

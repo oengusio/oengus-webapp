@@ -12,6 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
     ]
 })
 export class ElementConsoleComponent {
-  @Input() console: string;
+  @Input() console = '';
   @Input() emulated = false;
 }

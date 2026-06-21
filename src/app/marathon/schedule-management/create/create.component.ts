@@ -40,7 +40,7 @@ export class CreateComponent {
   loading = false;
 
   constructor() {
-    this.marathonId = this.route.snapshot.parent.paramMap.get('id');
+    this.marathonId = this.route.snapshot.parent?.paramMap.get('id') ?? '';
   }
 
   async submit(): Promise<void> {

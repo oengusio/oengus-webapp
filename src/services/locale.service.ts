@@ -27,7 +27,8 @@ import isoLang from '../assets/languages.json';
 import { LocalizeRouterService } from '@oengusio/ngx-translate-router';
 
 // removed languages have none to no translations
-export const availableLocales = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const availableLocales: Record<string, any> = {
   'br': localeBr,
   'ca': localeCa,
   'cy': localeCy,
@@ -61,7 +62,7 @@ export class LocaleService {
   private dateTimeAdapter = inject<DateTimeAdapter<unknown>>(DateTimeAdapter);
   private temporal = inject(TemporalServiceService);
 
-  public language = localStorage.getItem('language') ? localStorage.getItem('language') : navigator.language.split('-')[0];
+  public language = localStorage.getItem('language') ?? navigator.language.split('-')[0] as string;
 
   get languagesJson(): Record<string, { name: string; nativeName: string }> {
     return isoLang;

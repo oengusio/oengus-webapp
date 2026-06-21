@@ -1,4 +1,4 @@
-import { BasicUserInfo } from './user';
+import { BasicUserInfo, User } from './user';
 import { Question } from './question';
 
 export interface MarathonRaw {
@@ -54,55 +54,55 @@ export interface MarathonRaw {
 }
 
 export class Marathon {
-  id: string;
-  name: string;
-  creator: BasicUserInfo;
-  startDate: Temporal.ZonedDateTime;
-  endDate: Temporal.ZonedDateTime;
-  submissionsStartDate: Temporal.ZonedDateTime;
-  submissionsEndDate: Temporal.ZonedDateTime;
-  description: string;
-  onsite: boolean;
-  location: string;
-  language: string;
-  maxGamesPerRunner: number;
-  maxCategoriesPerGame: number;
-  hasMultiplayer: boolean;
-  maxNumberOfScreens: number;
-  twitch: string;
-  twitter: string;
-  mastodon?: string;
-  bluesky?: string;
-  discord: string;
-  youtube: string;
-  country: string;
-  discordPrivacy: boolean;
-  submitsOpen: boolean;
-  moderators: BasicUserInfo[];
-  defaultSetupTime: string;
-  defaultSetupTimeHuman: string;
-  selectionDone: boolean;
-  scheduleDone: boolean;
-  isPrivate: boolean;
-  hasIncentives: boolean;
-  canEditSubmissions: boolean;
-  questions: Question[];
-  hasDonations: boolean;
-  payee: string;
-  donationCurrency: string;
-  supportedCharity: string;
-  webhook: string;
-  donationsTotal: number;
-  hasSubmitted: boolean;
-  donationsOpen: boolean;
-  videoRequired: boolean;
-  unlimitedGames: boolean;
-  unlimitedCategories: boolean;
-  emulatorAuthorized: boolean;
-  discordGuildId: string;
-  discordGuildName: string;
-  discordRequired: boolean;
-  announceAcceptedSubmissions: boolean;
+  id = '';
+  name = '';
+  creator: BasicUserInfo = new User();
+  startDate: Temporal.ZonedDateTime = Temporal.Now.zonedDateTimeISO();
+  endDate: Temporal.ZonedDateTime = Temporal.Now.zonedDateTimeISO();
+  submissionsStartDate: Temporal.ZonedDateTime = Temporal.Now.zonedDateTimeISO();
+  submissionsEndDate: Temporal.ZonedDateTime = Temporal.Now.zonedDateTimeISO();
+  description = '';
+  onsite = false;
+  location = '';
+  language = '';
+  maxGamesPerRunner = -1;
+  maxCategoriesPerGame = -1;
+  hasMultiplayer = false;
+  maxNumberOfScreens = -1;
+  twitch = '';
+  twitter = '';
+  mastodon ? = '';
+  bluesky ? = '';
+  discord = '';
+  youtube = '';
+  country = '';
+  discordPrivacy = false;
+  submitsOpen = false;
+  moderators: BasicUserInfo[] = [];
+  defaultSetupTime = '';
+  defaultSetupTimeHuman = '';
+  selectionDone = false;
+  scheduleDone = false;
+  isPrivate = false;
+  hasIncentives = false;
+  canEditSubmissions = false;
+  questions: Question[] = [];
+  hasDonations = false;
+  payee = '';
+  donationCurrency = '';
+  supportedCharity = '';
+  webhook = '';
+  donationsTotal = -1;
+  hasSubmitted = false;
+  donationsOpen = false;
+  videoRequired = false;
+  unlimitedGames = false;
+  unlimitedCategories = false;
+  emulatorAuthorized = false;
+  discordGuildId = '';
+  discordGuildName = '';
+  discordRequired = false;
+  announceAcceptedSubmissions = false;
 }
 
 export interface MarathonWithExtraData extends Marathon {
@@ -135,8 +135,8 @@ export interface MarathonSettingsRawApi<DateType = string> {
   allowEmulators: boolean;
 
   discordRequired: boolean;
-  discordGuildId: string;
-  discordGuildName: string;
+  discordGuildId: string | null;
+  discordGuildName: string | null;
 
   submissionsOpen: boolean;
 

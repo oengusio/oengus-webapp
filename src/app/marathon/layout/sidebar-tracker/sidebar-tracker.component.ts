@@ -21,6 +21,7 @@ import { faBullseye, faDonate, faMoneyBill } from '@fortawesome/free-solid-svg-i
     ]
 })
 export class SidebarTrackerComponent {
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
   @HostBinding('class.collapsed') @Input() collapsed = false;
 

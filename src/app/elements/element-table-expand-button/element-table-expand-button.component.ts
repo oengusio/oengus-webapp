@@ -16,7 +16,7 @@ import { ElementTableCellComponent } from '../element-table-cell/element-table-c
     ]
 })
 export class ElementTableExpandButtonComponent {
-  @Input() expanded: boolean;
+  @Input() expanded = false;
 
   get icon() {
     return this.expanded ? faCaretDown : faCaretRight;

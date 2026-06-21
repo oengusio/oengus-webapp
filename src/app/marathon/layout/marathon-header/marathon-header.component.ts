@@ -21,8 +21,9 @@ import { SidebarAdminComponent } from '../sidebar-admin/sidebar-admin.component'
 export class MarathonHeaderComponent {
   marathonService = inject(MarathonService);
 
-  @Input() isAdmin: boolean;
-  @Input() collapsed: boolean;
+  @Input() isAdmin = false;
+  @Input() collapsed = false;
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
   @Output() toggleSidebar = new EventEmitter<boolean>();
 

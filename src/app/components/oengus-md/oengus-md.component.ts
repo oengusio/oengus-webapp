@@ -16,7 +16,7 @@ export class OengusMdComponent implements OnInit {
   private readonly markdown = inject(MarkdownService);
   private readonly sanitizer = inject(DomSanitizer);
 
-  @Input() public data: string;
+  @Input() public data = '';
   @Input() padTop = false;
 
   trustedContent: SafeHtml = '';

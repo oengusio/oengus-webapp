@@ -23,6 +23,7 @@ import { UserService } from '../../../services/user.service';
 export class ManagementDialogComponent implements OnInit {
   userService = inject(UserService);
 
+  // @ts-expect-error meh.
   @Input() user: UserProfile;
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() close = new EventEmitter<void>();

@@ -1,12 +1,13 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faDiscord, faFacebookF, faInstagram, faMastodon, faSnapchatGhost, faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
+import { faBluesky, faDiscord, faFacebookF, faInstagram, faMastodon, faSnapchatGhost, faTwitch, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faPhone, faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { SocialAccount } from '../../../../model/social-account';
+import { ConnectionPlatform, SocialAccount } from '../../../../model/social-account';
 import { SocialPlatform } from '../../../../model/social-platform';
 import { parseMastodonUrl } from '../../../../utils/helpers';
+import { speedrunsMeIcon } from '../../../../assets/icons/speedrunsme';
 
 @Component({
     selector: 'app-connection',
@@ -21,9 +22,10 @@ import { parseMastodonUrl } from '../../../../utils/helpers';
 })
 export class ConnectionComponent {
 
+  // @ts-expect-error meh.
   @Input() connection: SocialAccount;
 
-  public platformMap = {
+  public platformMap: Record<ConnectionPlatform, IconDefinition> = {
     'SPEEDRUNCOM': faTrophy,
     'MASTODON': faMastodon,
     'TWITTER': faTwitter,
@@ -34,6 +36,10 @@ export class ConnectionComponent {
     'DISCORD': faDiscord,
     'EMAIL': faEnvelope,
     'PHONE': faPhone,
+    BLUESKY: faBluesky,
+    NICO: faBluesky,
+    YOUTUBE: faYoutube,
+    SPEEDRUNSME: speedrunsMeIcon,
   };
 
   get profileLink(): string {
@@ -41,6 +47,7 @@ export class ConnectionComponent {
       return parseMastodonUrl(this.connection.username);
     }
 
+    // @ts-expect-error meh.
     const urlPrefix = SocialPlatform[this.connection.platform];
 
     if (!urlPrefix) {

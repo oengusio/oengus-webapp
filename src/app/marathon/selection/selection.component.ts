@@ -49,11 +49,12 @@ export class SelectionComponent implements OnInit {
   public faCalendarWeek = faCalendarWeek;
   public faCalendarTimes = faCalendarTimes;
 
+  // @ts-expect-error meh.
   @ViewChild('timeline', {static: false}) timeline: ElementRef;
   public availabilitiesGroups: DataSetDataGroup;
   public availabilitiesItems: DataSetDataItem;
 
-  public availabilitiesSelected = [];
+  public availabilitiesSelected: string[] = [];
 
   readonly title = 'Select Runs';
 
@@ -89,7 +90,7 @@ export class SelectionComponent implements OnInit {
   async loadSelection(): Promise<void> {
     // @ts-expect-error SHUT UP
     this.selection = await firstValueFrom(this.selectionService.getAllForMarathonAdmin(
-      this.route.snapshot.parent.paramMap.get('id'),
+      this.route.snapshot.parent?.paramMap.get('id') ?? '',
       this.route.snapshot.data['statuses']),
     )
       .catch(() => new Map());
@@ -100,9 +101,14 @@ export class SelectionComponent implements OnInit {
     await new Promise((resolve) => window.requestAnimationFrame(resolve));
 
     const oneHour = Temporal.Duration.from({hours: 1});
+    const timelineEl = document.getElementById('timeline');
+
+    if (!timelineEl) {
+      throw new Error('missing timeline');
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const timeline = new Timeline(document.getElementById('timeline'),
+    const timeline = new Timeline(timelineEl,
       this.availabilitiesItems,
       this.availabilitiesGroups,
       {
@@ -143,7 +149,7 @@ export class SelectionComponent implements OnInit {
   }
 
   getNumberOfRunners() {
-    const runners = [];
+    const runners: number[] = [];
     this.submissions.forEach(submission => {
       if (!runners.includes(submission.user.id)) {
         runners.push(submission.user.id);

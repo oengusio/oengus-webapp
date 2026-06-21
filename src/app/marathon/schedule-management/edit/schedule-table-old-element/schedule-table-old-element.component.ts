@@ -51,8 +51,9 @@ export class ScheduleTableOldElementComponent {
   getRunnerDisplayName = getRunnerDisplayName;
 
   @Input() lines: V2ScheduleLine[] = [];
+  // @ts-expect-error meh.
   @Input() availabilities: AvailabilityResponse;
-  @Input() selectedAvailabilities: string[];
+  @Input() selectedAvailabilities: string[] = [];
   showAllCustomData = false;
   @Output() moveToToDo = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();

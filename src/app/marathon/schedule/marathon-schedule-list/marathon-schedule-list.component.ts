@@ -24,9 +24,13 @@ import { ComponentsModule } from '../../../components/components.module';
     ]
 })
 export class MarathonScheduleListComponent implements OnChanges, OnInit {
+  // @ts-expect-error meh.
   @Input() runs: V2ScheduleLine[];
+  // @ts-expect-error meh.
   @Input() currentRun: V2ScheduleLine;
+  // @ts-expect-error meh.
   @Input() nextRun: V2ScheduleLine;
+  // @ts-expect-error meh.
   @Input() runHash: string;
 
   iconUser = faUser;

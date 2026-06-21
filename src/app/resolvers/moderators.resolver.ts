@@ -7,6 +7,6 @@ import { map } from 'rxjs/operators';
 export const moderatorsResolver: ResolveFn<UserProfile[]> = (route) => {
   const marathonService = inject(MarathonService);
 
-  return marathonService.loadModerators(route.parent.paramMap.get('id'))
+  return marathonService.loadModerators(route.parent?.paramMap.get('id') ?? '')
     .pipe(map(x => x.data));
 };

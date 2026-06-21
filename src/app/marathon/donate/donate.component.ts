@@ -139,7 +139,7 @@ export class DonateComponent implements OnInit {
           }, reject);
         });
       },
-      authorizeOnServer: async (data) => {
+      authorizeOnServer: async (data: any) => {
         this.zone.run(() => {
           this.donationService.validate(this.marathonService.marathon.id, data.orderID).add(() => {
             this.loading = false;
@@ -160,14 +160,14 @@ export class DonateComponent implements OnInit {
       onApprove: () => {
         this.loading = true;
       },
-      onCancel: (data) => {
+      onCancel: (data: any) => {
         this.zone.run(() => {
           this.donationService.cancel(this.marathonService.marathon.id, data.orderID).subscribe(() => {
             this.loading = false;
           });
         });
       },
-      onShippingChange: (data, actions) => {
+      onShippingChange: (data: any, actions: any) => {
         // https://github.com/paypal/paypal-checkout-components/issues/1521
         return actions.resolve();
       }

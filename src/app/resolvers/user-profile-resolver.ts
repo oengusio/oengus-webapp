@@ -10,6 +10,12 @@ export class UserProfileResolver  {
 
 
   resolve(route: ActivatedRouteSnapshot): Observable<UserProfile> | Promise<UserProfile> | UserProfile {
-    return this.userService.getProfile(route.paramMap.get('name').toLowerCase());
+    const name = route.paramMap.get('name')?.toLowerCase();
+
+    if (!name) {
+      throw new Error('name not in params');
+    }
+
+    return this.userService.getProfile(name);
   }
 }

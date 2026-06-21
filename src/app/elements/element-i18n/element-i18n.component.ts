@@ -18,12 +18,14 @@ export class ElementI18nComponent implements OnDestroy, AfterViewInit {
   private translateService = inject(TranslateService);
   private renderer = inject(Renderer2);
 
-  @Input() key: string;
-  @Input() elementKey: string;
+  @Input() key = '';
+  @Input() elementKey = '';
 
   private destroy = new Subject<boolean>();
 
+  // @ts-expect-error meh.
   private elementWrapper: HTMLElement;
+  // @ts-expect-error meh.
   private element: HTMLElement;
 
   ngAfterViewInit(): void {
@@ -31,6 +33,7 @@ export class ElementI18nComponent implements OnDestroy, AfterViewInit {
       const wrapper = this.viewContainerRef.element;
       this.elementWrapper = wrapper.nativeElement;
       this.element = Array.from(wrapper.nativeElement.childNodes).find(
+        // @ts-expect-error meh.
         (el: HTMLElement) => el.dataset.key === this.elementKey,
       ) ?? wrapper.nativeElement.childNodes[0];
 

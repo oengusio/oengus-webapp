@@ -1,11 +1,10 @@
 export class Bid {
-
-  id: number;
-  name: string;
+  id = -1;
+  name = '';
   currentAmount: number;
-  approved: boolean;
+  approved = false;
   isNew = false;
-  incentiveId: number;
+  incentiveId = -1;
   toDelete = false;
 
   constructor() {

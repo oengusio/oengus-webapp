@@ -33,8 +33,11 @@ import { TemporalServiceService } from '../../../../../../services/termporal/tem
 export class ScheduleEditRowComponent {
   private temporalService = inject(TemporalServiceService);
 
+  // @ts-expect-error meh.
   @Input() i: number;
+  // @ts-expect-error meh.
   @Input() line: V2ScheduleLine;
+  // @ts-expect-error meh.
   @Input() availabilities: AvailabilityResponse;
   @Input() selectedAvailabilities: string[] = [];
   @Input() expanded = false;

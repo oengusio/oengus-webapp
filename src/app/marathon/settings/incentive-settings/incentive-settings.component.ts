@@ -26,8 +26,11 @@ import { environment } from '../../../../environments/environment';
     ]
 })
 export class IncentiveSettingsComponent {
+  // @ts-expect-error meh.
   @Input() public marathon: Marathon;
+  // @ts-expect-error meh.
   @Input() public donationsQuestions: Question[];
+  // @ts-expect-error meh.
   @Input() public disabled: boolean;
 
   public env = environment;

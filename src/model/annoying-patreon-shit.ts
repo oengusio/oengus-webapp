@@ -1,19 +1,21 @@
 export class PatreonStatusDto {
-  patreonId: string;
-  status: string;
-  pledgeAmount: number;
+  patreonId = '';
+  status = '';
+  pledgeAmount = -1;
 }
 
 export class RelationShip {
-  data: RelationData;
-  included: IncludedData[];
+  data: RelationData = new RelationData();
+  included: IncludedData[] = [];
 }
 
 export class RelationData {
-  id: string;
-  type: string;
+  id = '';
+  type = '';
   relationships: {
     memberships: MemberRelationshipRelationData;
+  } = {
+    memberships: new MemberRelationshipRelationData(),
   };
 }
 
@@ -21,14 +23,17 @@ export class MemberRelationshipRelationData {
   data: {
     id: string;
     type: string;
-  }[];
+  }[] = [];
 }
 
 export class IncludedData {
-  id: string;
-  type: string;
+  id = '';
+  type = '';
   attributes: {
     patron_status: string;
     will_pay_amount_cents: number;
+  } = {
+    patron_status: '',
+    will_pay_amount_cents: -1,
   };
 }

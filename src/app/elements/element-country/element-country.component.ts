@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ]
 })
 export class ElementCountryComponent {
-  @Input() country: string | null;
+  @Input() country: string | null = null;
   @Output() countryChange = new EventEmitter<string>();
 
   public countries = [

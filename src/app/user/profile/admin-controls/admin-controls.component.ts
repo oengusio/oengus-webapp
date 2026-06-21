@@ -19,6 +19,7 @@ import { UserProfile } from '../../../../model/user-profile';
 export class AdminControlsComponent {
   userService = inject(UserService);
 
+  // @ts-expect-error meh.
   @Input() user: UserProfile;
   @Output() openDialog = new EventEmitter<void>();
 

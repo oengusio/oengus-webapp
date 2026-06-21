@@ -27,7 +27,7 @@ export class MarathonService extends BaseService {
   private translateService = inject(TranslateService);
   private temporalService = inject(TemporalServiceService);
 
-  private _marathon: Marathon;
+  private _marathon: Marathon = new Marathon();
 
   get marathon(): Marathon {
     return this._marathon;
@@ -69,8 +69,8 @@ export class MarathonService extends BaseService {
   updateSettings(marathon: Partial<MarathonSettings> & { id: string }): Observable<MarathonSettings> {
     return this.http.patch<MarathonSettingsRawApi>(this.v2Url(`${marathon.id}/settings`), {
       ...marathon,
-      startDate: marathon.startDate.toInstant().toString(),
-      endDate: marathon.endDate.toInstant().toString(),
+      startDate: marathon.startDate?.toInstant().toString(),
+      endDate: marathon.endDate?.toInstant().toString(),
       submissionsStartDate: marathon.submissionsStartDate?.toInstant()?.toString(),
       submissionsEndDate: marathon.submissionsEndDate?.toInstant()?.toString(),
     }).pipe(
@@ -198,7 +198,9 @@ export class MarathonService extends BaseService {
       ...raw,
       startDate: this.temporalService.parseDate(raw.startDate),
       endDate: this.temporalService.parseDate(raw.endDate),
+      // @ts-expect-error meh.
       submissionsStartDate: this.temporalService.parseDate(raw.submissionsStartDate),
+      // @ts-expect-error meh.
       submissionsEndDate: this.temporalService.parseDate(raw.submissionsEndDate),
     }));
   }

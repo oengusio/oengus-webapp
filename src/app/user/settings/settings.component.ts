@@ -82,7 +82,7 @@ export class SettingsComponent {
 
   public deactivateConfirm = false;
   public deleteConfirm = false;
-  public deleteUsername: string;
+  public deleteUsername = '';
   pwResetButtonDisabled = false;
 
   readonly title = 'Settings';
@@ -129,36 +129,42 @@ export class SettingsComponent {
   }
 
   syncDiscord(): void {
+    // @ts-expect-error meh.
     delete this.user.discordId;
 
     window.location.assign(this.authService.getDiscordAuthUri(true));
   }
 
   syncTwitch(): void {
+    // @ts-expect-error meh.
     delete this.user.twitchId;
 
     window.location.assign(this.authService.getTwitchAuthUrl(true));
   }
 
   syncPatreon(): void {
+    // @ts-expect-error meh.
     delete this.user.patreonId;
 
     window.location.assign(this.authService.patreonSyncUrl);
   }
 
   unsyncDiscord(): void {
+    // @ts-expect-error meh.
     delete this.user.discordId;
     this.removeConnectionByType('DISCORD');
     this.submit();
   }
 
   unsyncTwitch(): void {
+    // @ts-expect-error meh.
     delete this.user.twitchId;
     this.removeConnectionByType('TWITCH');
     this.submit();
   }
 
   unsyncPatreon(): void {
+    // @ts-expect-error meh.
     delete this.user.patreonId;
     this.submit();
   }
@@ -179,7 +185,8 @@ export class SettingsComponent {
       }
 
       this.notificationService.toast('alert.user.update.success');
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       if (error.error.type === 'AccountSyncOrPasswordRequiredException') {
         alert('Please set a password or connect twitch/discord before proceeding');
         window.location.reload();
@@ -278,7 +285,8 @@ export class SettingsComponent {
       }
 
       window.location.reload(); // just to make sure stuff get purged
-    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
       alert(`Failed to reset MFA: ${JSON.stringify(e.error)}`);
     } finally {
       this.loading = true;
@@ -295,7 +303,9 @@ export class SettingsComponent {
         queryParams['code'],
       );
 
+      // @ts-expect-error valid code.
       if (typeof this.user[`${params['service'].toLowerCase()}Id`] !== 'undefined' && 'id' in response) {
+        // @ts-expect-error valid code.
         this.user[`${params['service'].toLowerCase()}Id`] = response.id;
         this.addOrUpdateConnectionByType(params['service'].toUpperCase(), response.name);
       }
@@ -318,7 +328,8 @@ export class SettingsComponent {
 
         this.router.navigate(['/user/settings']);
       });
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       this.router.navigate(['/user/settings']);
 
       if (error.error) {

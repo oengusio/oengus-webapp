@@ -11,8 +11,13 @@ export class ScheduleByIdResolver  {
 
   resolve(route: ActivatedRouteSnapshot):
     Observable<ScheduleInfo> | Promise<ScheduleInfo> | ScheduleInfo {
-    const scheduleId = parseInt(route.paramMap.get('scheduleId'), 10);
+    const scheduleId = parseInt(route.paramMap.get('scheduleId') ?? '0', 10);
+    const marathonId = route.parent?.paramMap.get('id');
 
-    return this.scheduleService.getInfoByIdManagement(route.parent.paramMap.get('id'), scheduleId);
+    if (!marathonId) {
+      throw new Error('Missing marathon id in params');
+    }
+
+    return this.scheduleService.getInfoByIdManagement(marathonId, scheduleId);
   }
 }

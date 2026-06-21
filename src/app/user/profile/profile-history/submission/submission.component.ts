@@ -29,6 +29,7 @@ import { RouterLink } from '@angular/router';
   ],
 })
 export class SubmissionComponent {
+  // @ts-expect-error meh.
   @Input() submissions: UserProfileHistory[];
 
   getSpan(element: UserProfileHistory|HistoryGame|HistoryGameCategory): string {

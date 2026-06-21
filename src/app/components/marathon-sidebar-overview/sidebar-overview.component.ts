@@ -30,6 +30,7 @@ export class SidebarOverviewComponent implements OnInit {
   private userService = inject(UserService);
   private scheduleService = inject(ScheduleService);
 
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
   @Input() isBigHome = false;
   @HostBinding('class.collapsed') @Input() collapsed = false;

@@ -24,9 +24,11 @@ export class MarathonScheduleShareComponent {
 
   iconShare = faShare;
 
+  // @ts-expect-error meh.
   @Input() schedule: V2Schedule;
 
   onShareClick() {
+    // @ts-expect-error SHUSH.
     if (navigator.share) {
       this.showShareDialog();
     } else {

@@ -100,7 +100,8 @@ export class AppComponent implements OnInit {
     this.localeService.initialize();
   }
 
-  onRouteActivated(component) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onRouteActivated(component: any) {
     if (Object.prototype.hasOwnProperty.call(Object.getPrototypeOf(component), 'title')) {
       this.titleService.setTitle(component.title);
     } else {

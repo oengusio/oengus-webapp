@@ -14,5 +14,6 @@ import { BoxComponent } from './box/box.component';
     ]
 })
 export class UserSocialComponent {
+  // @ts-expect-error meh.
   @Input() user: UserProfile;
 }

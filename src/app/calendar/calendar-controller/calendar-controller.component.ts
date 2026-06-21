@@ -31,10 +31,9 @@ interface CalendarLinkInfo {
     ]
 })
 export class CalendarControllerComponent {
-  @Input() year: number;
-  @Input() month: number;
-
-  @Input() calendarView: boolean;
+  @Input() year = -1;
+  @Input() month = -1;
+  @Input() calendarView = false;
   @Output() calendarViewChange = new EventEmitter<boolean>();
 
   iconLeft = faCaretLeft;

@@ -17,7 +17,7 @@ import { faDesktop } from '@fortawesome/free-solid-svg-icons';
     ]
 })
 export class MarathonLocationComponent {
-
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
 
   public faDesktop = faDesktop;

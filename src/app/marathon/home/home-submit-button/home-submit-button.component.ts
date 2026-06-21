@@ -25,6 +25,7 @@ export class HomeSubmitButtonComponent {
   private userService = inject(UserService);
   private marathonService = inject(MarathonService);
 
+  // @ts-expect-error meh.
   @Input() marathon: Marathon;
 
   get loggedIn(): boolean {

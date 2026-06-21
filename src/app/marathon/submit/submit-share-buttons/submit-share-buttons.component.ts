@@ -27,6 +27,7 @@ export class SubmitShareButtonsComponent {
   protected localStorage = localStorage;
   protected shortDomain = environment.shortUrl;
 
+  // @ts-expect-error meh.
   @Input() gameNames: string;
 
   get marathonName() {

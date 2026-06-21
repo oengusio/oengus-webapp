@@ -1,13 +1,12 @@
 import { Question } from './question';
 
 export class Answer {
-
-  id: number;
-  questionId: number;
-  submissionId: number;
+  id = -1;
+  questionId = -1;
+  submissionId = -1;
   question: Question;
-  answer: string | boolean;
-  username: string;
+  answer: string | boolean = false;
+  username = '';
 
   constructor() {
     this.question = {

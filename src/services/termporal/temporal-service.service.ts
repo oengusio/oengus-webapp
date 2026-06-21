@@ -10,7 +10,7 @@ import { durationExport } from './duration';
   providedIn: 'root'
 })
 export class TemporalServiceService implements LocaleSensitive {
-  private _locale: string;
+  private _locale = 'en-GB';
 
   get distance() {
     return distanceImport;

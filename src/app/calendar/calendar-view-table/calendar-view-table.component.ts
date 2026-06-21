@@ -24,13 +24,13 @@ interface CalendarType {
     ]
 })
 export class CalendarViewTableComponent implements OnInit, OnChanges {
-  @Input() year: number;
-  @Input() month: number;
+  @Input() year = -1;
+  @Input() month = -1;
   @Input() marathons: Marathon[] = [];
 
   // TODO: HACK
   //  ngFor calls this.dailyCalendars multiple times, breaking routerLinkActive (angular bug?).
-  realDaylyCallendars: CalendarType[];
+  realDaylyCallendars: CalendarType[] = [];
 
   ngOnInit(): void {
     this.realDaylyCallendars = this.generateDailyCalendars(this.marathons);

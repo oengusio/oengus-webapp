@@ -1,10 +1,9 @@
 import { Question } from './question';
 
 export class DonationExtraData {
-
-  id: number;
+  id = -1;
   question: Question;
-  answer: string | boolean;
+  answer: string | boolean = false;
 
   constructor() {
     this.question = {

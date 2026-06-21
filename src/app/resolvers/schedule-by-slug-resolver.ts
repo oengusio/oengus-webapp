@@ -10,9 +10,18 @@ export class ScheduleBySlugResolver  {
 
 
   resolve(route: ActivatedRouteSnapshot): Observable<V2Schedule> {
-    return this.scheduleService.getBySlug(
-      route.parent.paramMap.get('id'),
-      route.paramMap.get('slug')
-    );
+    const marathonId = route.parent?.paramMap.get('id');
+
+    if (!marathonId) {
+      throw new Error('missing marathon id');
+    }
+
+    const slug = route.paramMap.get('slug');
+
+    if (!slug) {
+      throw new Error('missing slug in params');
+    }
+
+    return this.scheduleService.getBySlug(marathonId, slug);
   }
 }

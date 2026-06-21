@@ -24,6 +24,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class UserProfileComponent {
+  // @ts-expect-error meh.
   @Input() user: UserProfile;
 
   get fakeUserModel(): User {

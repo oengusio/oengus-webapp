@@ -13,8 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ]
 })
 export class PageNotFoundComponent implements OnInit {
-  public path: string;
-  public titleKey: string;
+  public path = '';
+  public titleKey = '';
 
   constructor() {
     const maxTitles = 5;

@@ -2,9 +2,9 @@ import { Marathon } from './marathon';
 import { ScheduleLine, V2ScheduleLineRawApi } from './schedule-line';
 
 export class Schedule {
-  id: number;
-  name: string;
-  slug: string;
+  id = -1;
+  name = '';
+  slug = '';
   marathon?: Marathon;
   lines: ScheduleLine[];
 

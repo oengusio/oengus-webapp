@@ -1,7 +1,5 @@
 export class Selection {
-
-  id: number;
-  categoryId: number;
-  status: string;
-
+  id = -1;
+  categoryId = -1;
+  status = '';
 }

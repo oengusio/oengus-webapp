@@ -19,8 +19,8 @@
         [ngClass]="{'is-danger': username.invalid}"
         #username="ngModel"
         [disabled]="disabled"
-        [pattern]="connectionMeta.regex"
-        [attr.maxLength]="connectionMeta.maxLength"
+        [pattern]="connectionMeta?.regex ?? ''"
+        [attr.maxLength]="connectionMeta?.maxLength"
         [placeholder]="'user.settings.connections.username' | translate"
         [(ngModel)]="connection.username"/>
     </div>

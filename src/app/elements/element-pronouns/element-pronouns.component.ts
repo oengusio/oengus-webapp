@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+// @ts-expect-error meh.
 import BulmaTagsInput from '@duncte123/bulma-tagsinput';
 import { firstValueFrom } from 'rxjs';
 import { MiscService } from '../../../services/misc.service';
@@ -24,9 +25,10 @@ export class ElementPronounsComponent implements OnInit {
   private miscService = inject(MiscService);
   private translateService = inject(TranslateService);
 
-  @Input() pronouns: string[];
+  @Input() pronouns: string[] = [];
   @Output() pronounsChange = new EventEmitter<string[]>();
 
+  // @ts-expect-error meh.
   @ViewChild('pronounEl', {static: true}) pronounsInput: ElementRef<HTMLInputElement>;
 
   private pronounsTagsInput: BulmaTagsInput;

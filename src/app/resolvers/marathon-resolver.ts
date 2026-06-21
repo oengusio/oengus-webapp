@@ -11,6 +11,6 @@ export class MarathonResolver  {
 
   resolve(route: ActivatedRouteSnapshot):
     Observable<Marathon> | Promise<Marathon> | Marathon {
-    return this.marathonService.find(route.paramMap.get('id'));
+    return this.marathonService.find(route.paramMap.get('id') ?? '');
   }
 }

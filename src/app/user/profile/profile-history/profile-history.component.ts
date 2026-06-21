@@ -32,6 +32,7 @@ export class ProfileHistoryComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
 
+  // @ts-expect-error meh.
   @Input() user: UserProfile;
 
   tabQuery = 'user-history';

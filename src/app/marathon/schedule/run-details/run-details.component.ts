@@ -22,6 +22,7 @@ import { ComponentsModule } from '../../../components/components.module';
     ]
 })
 export class RunDetailsComponent {
+  // @ts-expect-error meh.
   @Input() run: V2ScheduleLine;
 
   get titleText(): string | null {

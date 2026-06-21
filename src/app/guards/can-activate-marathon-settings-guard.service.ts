@@ -19,7 +19,7 @@ export class CanActivateMarathonSettingsGuard  {
     if (!this.userService.user && !this.marathonService.marathon) {
       const checkObservable = forkJoin([
         this.userService.getMe(),
-        this.marathonService.find(route.parent.paramMap.get('id')),
+        this.marathonService.find(route.parent?.paramMap.get('id') ?? ''),
       ])
         .pipe(
           map(([user, marathon]) => this.condition(user, marathon)),

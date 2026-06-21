@@ -29,7 +29,7 @@ export class SubmitMultiplayerJoinComponent {
 
   code = '';
 
-  @Input() opponents: Opponent[];
+  @Input() opponents: Opponent[] = [];
 
   @Output() private addOpponent = new EventEmitter<Opponent>();
   @Output() private removeOpponent = new EventEmitter<number>();

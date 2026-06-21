@@ -7,6 +7,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 })
 export class TotalValidatorDirective implements Validator {
 
+  // @ts-expect-error meh.
   @Input('appTotalValidator') total: number;
 
   validate(control: AbstractControl): ValidationErrors | null {

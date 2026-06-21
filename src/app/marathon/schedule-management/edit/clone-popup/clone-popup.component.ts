@@ -24,6 +24,7 @@ export class ClonePopupComponent implements OnInit {
   private scheduleService = inject(ScheduleService);
   private marathonService = inject(MarathonService);
 
+  // @ts-expect-error meh.
   @Input() selfId: number;
 
   loading = false;
@@ -33,6 +34,7 @@ export class ClonePopupComponent implements OnInit {
 
   schedules: ScheduleInfo[] = [];
 
+  // @ts-expect-error meh.
   private marathonId: string;
 
   ngOnInit(): void {

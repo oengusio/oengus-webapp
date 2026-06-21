@@ -16,6 +16,7 @@ import { ConnectionMeta, connectionMetas, SocialAccount } from '../../../../../m
     ]
 })
 export class BoxComponent {
+  // @ts-expect-error meh.
   @Input() connection: SocialAccount;
 
   get usernameFormatted(): string {

@@ -28,7 +28,9 @@ export class MarathonCalendarContainerComponent implements OnInit {
 
   marathons: Marathon[] = [];
 
+  // @ts-expect-error meh.
   year: number;
+  // @ts-expect-error meh.
   month: number;
 
   loading = true;

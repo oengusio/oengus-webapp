@@ -18,4 +18,7 @@ export function passwordResetErrorToMessage(e: ErrorArg): string {
   } else {
     return e.message;
   }
+
+  // WHA?
+  return e.toString();
 }

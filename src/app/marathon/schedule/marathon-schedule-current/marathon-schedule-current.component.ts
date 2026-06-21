@@ -26,6 +26,7 @@ export class MarathonScheduleCurrentComponent {
   private temporal = inject(TemporalServiceService);
 
   @Input() isNext = false;
+  // @ts-expect-error meh.
   @Input() ticker: V2ScheduleLine;
 
   get messageClass(): string {

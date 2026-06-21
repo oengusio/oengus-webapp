@@ -2,20 +2,19 @@ import { Opponent } from './opponent';
 import { RunType } from './schedule-line';
 
 export class Category {
-
   id: number;
-  name: string;
-  estimate: string;
+  name = '';
+  estimate = '';
   /**
    * @deprecated use the service to convert on blur
    */
-  estimateHuman: string;
-  description: string;
-  video: string;
-  visible: boolean;
+  estimateHuman = '';
+  description = '';
+  video = '';
+  visible = false;
   type: RunType;
-  code: string;
-  status: string;
+  code = '';
+  status = '';
   expectedRunnerCount: number;
   opponents: Opponent[];
 

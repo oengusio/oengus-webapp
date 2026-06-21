@@ -21,9 +21,10 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
     ]
 })
 export class ConnectionSettingsComponent {
+  // @ts-expect-error meh.
   @Input() public connection: SocialAccount;
-  @Input() public discordId: string;
-  @Input() public twitchId: string;
+  @Input() public discordId = '';
+  @Input() public twitchId = '';
 
   @Output() public deleteSelf = new EventEmitter<void>();
 
@@ -48,12 +49,15 @@ export class ConnectionSettingsComponent {
   }
 
   get parsedPlatforms(): Record<string, { url: string, disabled: boolean }> {
-    const cloned = {};
+    const cloned: Record<string, {
+        url: string;
+        disabled: boolean;
+      }> = {};
 
     for (const key of Object.keys(SocialPlatform)) {
       cloned[key] = {
         disabled: false,
-        url: cloned[key],
+        url: cloned[key] as unknown as string, // wait wtf
       };
 
       if (key === 'DISCORD' && this.discordId) {

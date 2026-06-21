@@ -11,7 +11,11 @@ export class ScheduleOverviewResolver  {
 
   resolve(route: ActivatedRouteSnapshot):
     Observable<ScheduleInfo[]> | Promise<ScheduleInfo[]> | ScheduleInfo[] {
-    const marathonId = route.parent.paramMap.get('id');
+    const marathonId = route.parent?.paramMap.get('id');
+
+    if (!marathonId) {
+      throw new Error('missing marathon id');
+    }
 
     return this.scheduleService.getAllOverviewManagement(marathonId);
   }

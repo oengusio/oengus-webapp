@@ -43,8 +43,10 @@ export class ScheduleTableComponent {
   iconBars = faBars;
 
   @Input() lines: V2ScheduleLine[] = [];
+  // @ts-expect-error meh.
   @Input() availabilities: AvailabilityResponse;
-  @Input() selectedAvailabilities: string[];
+  @Input() selectedAvailabilities: string[] = [];
+  // @ts-expect-error meh.
   @Input() showAllCustomData: boolean;
   @Output() moveToToDo = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();

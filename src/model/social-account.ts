@@ -19,8 +19,8 @@ export type ConnectionPlatform = SocialPlatformName | 'PHONE';
 
 export class SocialAccount {
   id?: number;
-  platform: ConnectionPlatform;
-  username: string;
+  platform: ConnectionPlatform = 'BLUESKY';
+  username = '';
 }
 
 export interface ConnectionMeta {

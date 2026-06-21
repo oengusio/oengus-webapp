@@ -1,8 +1,6 @@
 export class DonationStats {
-
-  total: number;
-  max: number;
-  average: number;
-  count: number;
-
+  total = -1;
+  max = -1;
+  average = -1;
+  count = -1;
 }

@@ -41,7 +41,7 @@ export function getRunnerUsername(runner: LineRunner): string {
     return runner.profile.username;
   }
 
-  return runner.runnerName;
+  return runner.runnerName ?? 'MissingNo';
 }
 
 export function getRunnerDisplayName(runner: LineRunner): string {
@@ -49,5 +49,5 @@ export function getRunnerDisplayName(runner: LineRunner): string {
     return `${runner.profile.displayName} (${runner.profile.username})`;
   }
 
-  return runner.runnerName;
+  return runner.runnerName ?? 'MissingNo';
 }

@@ -49,7 +49,9 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
   private submissionService = inject(SubmissionService);
   private categoryService = inject(CategoryService);
 
+  // @ts-expect-error meh.
   @ViewChild('searchInput', {static: true}) searchInput: ElementRef<HTMLInputElement>;
+  // @ts-expect-error meh.
   @ViewChild('searchLazyLoader') searchLazyLoader: SubmissionLazyLoaderComponent;
 
   public nextSubmissionPageLoaded = new Subject<SubmissionPage>();
@@ -142,7 +144,7 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
     const nextPage = await firstValueFrom(this.submissionService.searchSubmissions(
       this.marathonService.marathon.id,
       this.gameFilter,
-      this.statusFilter ? this.statusFilter : null,
+      this.statusFilter ? this.statusFilter : undefined,
       pageNum
     ));
 
@@ -178,7 +180,9 @@ export class SubmissionsComponent implements OnInit, OnDestroy {
           this.answers.set(answer.username, []);
         }
 
-        this.answers.get(answer.username).push(answer);
+        // eslint-disable-next-line @typescript-eslint/ban-tslint-comment
+        // tslint:disable-next-line:no-non-null-assertion
+        this.answers.get(answer.username)!.push(answer);
       }
     });
   }

@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 export class MarathonExistsValidatorDirective implements AsyncValidator {
   private marathonService = inject(MarathonService);
 
+  // @ts-expect-error meh.
   @Input() previousMarathonName: string;
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {

@@ -27,8 +27,8 @@ export class ProfileComponent {
   private route = inject(ActivatedRoute);
   userService = inject(UserService);
 
-  @ViewChild('historyComponent')
-  private historyComp: ProfileHistoryComponent;
+  // @ts-expect-error meh.
+  @ViewChild('historyComponent') private historyComp: ProfileHistoryComponent;
 
   public user: UserProfile | null = null;
   public dialogOpen = false;
@@ -91,10 +91,10 @@ export class ProfileComponent {
       return false;
     }
 
-    return this.userService.user.id === this.user.id;
+    return this.userService.user.id === this.user?.id;
   }
 
   get title(): string {
-    return this.user.username;
+    return this.user?.username ?? '';
   }
 }
