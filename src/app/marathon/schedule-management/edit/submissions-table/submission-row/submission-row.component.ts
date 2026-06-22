@@ -10,6 +10,7 @@ import { ElementTableCellComponent } from '../../../../../elements/element-table
 import { ElementTemporalDurationComponent } from '../../../../../elements/temporal/element-temporal-duration/element-temporal-duration.component';
 import { RouterModule } from '@angular/router';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
+import { IdType } from 'vis-timeline/esnext';
 
 @Component({
     selector: 'app-submission-row',
@@ -38,7 +39,7 @@ export class SubmissionRowComponent {
   @Input() i: number;
   // @ts-expect-error meh.
   @Input() line: V2ScheduleLine;
-  @Input() selectedAvailabilities: string[] = [];
+  @Input() selectedAvailabilities: IdType[] = [];
   @Output() moveToSchedule = new EventEmitter<number>();
   @Output() selectAvailability = new EventEmitter<{ username: string, on: boolean }>();
 }

@@ -14,10 +14,10 @@
     } @else {
       <app-element-table-cell [isHeader]="true"
         class="day-range"
-        [class]="isToday($$implicit.endtime, $$implicit.datetime)"
+        [class]="isToday($$implicit.endtime ?? '', $$implicit.datetime)"
         columnStart="1"
         columnEnd="-1">
-        <app-element-temporal-range [start]="$$implicit.endtime" [end]="$$implicit.datetime" format="longDate" ></app-element-temporal-range>
+        <app-element-temporal-range [start]="$$implicit.endtime ?? ''" [end]="$$implicit.datetime" format="longDate" ></app-element-temporal-range>
       </app-element-table-cell>
       <app-element-table-cell class="no-marathons is-even"
         columnStart="1"

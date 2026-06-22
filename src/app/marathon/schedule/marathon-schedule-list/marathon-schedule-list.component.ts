@@ -27,9 +27,9 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
   // @ts-expect-error meh.
   @Input() runs: V2ScheduleLine[];
   // @ts-expect-error meh.
-  @Input() currentRun: V2ScheduleLine;
+  @Input() currentRun: V2ScheduleLine | null;
   // @ts-expect-error meh.
-  @Input() nextRun: V2ScheduleLine;
+  @Input() nextRun: V2ScheduleLine | null;
   // @ts-expect-error meh.
   @Input() runHash: string;
 
@@ -93,7 +93,7 @@ export class MarathonScheduleListComponent implements OnChanges, OnInit {
     if (!this.currentRun || !this.runs) {
       return false;
     }
-    const currentIndex = this.runs.findIndex(r => r.id === this.currentRun.id);
+    const currentIndex = this.runs.findIndex(r => r.id === this.currentRun?.id);
     const runIndex = this.runs.findIndex(r => r.id === run.id);
     return runIndex >= 0 && currentIndex >= 0 && runIndex < currentIndex;
   }

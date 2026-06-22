@@ -4,7 +4,7 @@
     <div class="select is-fullwidth">
       <select name="platform" [(ngModel)]="connection.platform" [disabled]="disabled">
         <option value="" selected disabled hidden>{{ 'user.settings.connections.select_platform' | translate }}</option>
-        @for (platform of parsedPlatforms | keyvalue; track platform) {
+        @for (platform of parsedPlatforms | keyvalue //noinspection ForBlockNonIterableVar; track platform) {
           <option [ngValue]="platform.key" [hidden]="platform.value.disabled">
             {{ 'platform.'+platform.key | translate }}
           </option>
@@ -27,7 +27,7 @@
 
     @if (username.invalid) {
       <div>
-        @for (error of username.errors | keyvalue; track error) {
+        @for (error of username.errors | keyvalue //noinspection ForBlockNonIterableVar; track error) {
           <p class="help is-danger">
             {{ 'marathon.settings.'+connection.platform.toLowerCase()+'.error.'+error.key | translate }}
           </p>

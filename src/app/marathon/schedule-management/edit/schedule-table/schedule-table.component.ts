@@ -17,26 +17,30 @@ import { SetupBlockEditorComponent } from './setup-block-editor/setup-block-edit
 import { NormalRunEditorComponent } from './normal-run-editor/normal-run-editor.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import {
+  ElementTemporalDatetimeComponent
+} from '../../../../elements/temporal/element-temporal-datetime/element-temporal-datetime.component';
 
 @Component({
     selector: 'app-schedule-table',
     templateUrl: './schedule-table.component.html',
     styleUrls: ['./schedule-table.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        CommonModule,
-        TranslateModule,
-        DragDropModule,
-        FontAwesomeModule,
-        FormsModule,
-        ElementTableComponent,
-        ElementTableRowComponent,
-        ElementTableCellComponent,
-        ScheduleEditRowComponent,
-        ElementTableDetailComponent,
-        SetupBlockEditorComponent,
-        NormalRunEditorComponent,
-    ]
+  imports: [
+    CommonModule,
+    TranslateModule,
+    DragDropModule,
+    FontAwesomeModule,
+    FormsModule,
+    ElementTableComponent,
+    ElementTableRowComponent,
+    ElementTableCellComponent,
+    ScheduleEditRowComponent,
+    ElementTableDetailComponent,
+    SetupBlockEditorComponent,
+    NormalRunEditorComponent,
+    ElementTemporalDatetimeComponent,
+  ],
 })
 export class ScheduleTableComponent {
   public getRowParity = getRowParity;

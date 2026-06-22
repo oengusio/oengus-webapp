@@ -47,7 +47,6 @@ export class ConnectionComponent {
       return parseMastodonUrl(this.connection.username);
     }
 
-    // @ts-expect-error meh.
     const urlPrefix = SocialPlatform[this.connection.platform];
 
     if (!urlPrefix) {

@@ -52,7 +52,7 @@
                         #incentiveName="ngModel">
                       <p class="help is-pulled-right">{{incentive.name?.length}}/50</p>
                     </div>
-                    @if (incentiveName.invalid) {
+                    @if (incentiveName.invalid && incentiveName.errors) {
                       <div>
                         @if (incentiveName.errors.required) {
                           <p class="help is-danger">
@@ -177,7 +177,7 @@
                             #bidName="ngModel">
                           <p class="help is-pulled-right">{{bid.name?.length}}/50</p>
                         </div>
-                        @if (bidName.invalid) {
+                        @if (bidName.invalid && bidName.errors) {
                           <div>
                             @if (bidName.errors.required) {
                               <p class="help is-danger">

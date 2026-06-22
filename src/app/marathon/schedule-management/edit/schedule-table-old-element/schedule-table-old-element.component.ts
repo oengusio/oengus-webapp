@@ -19,6 +19,7 @@ import { ElementTableDetailComponent } from '../../../../elements/element-table-
 import { SetupBlockEditorComponent } from '../schedule-table/setup-block-editor/setup-block-editor.component';
 import { NormalRunEditorComponent } from '../schedule-table/normal-run-editor/normal-run-editor.component';
 import { TemporalServiceService } from '../../../../../services/termporal/temporal-service.service';
+import { IdType } from 'vis-timeline/esnext';
 
 /**
  * @-deprecated please use the new component when we get it working.
@@ -53,7 +54,7 @@ export class ScheduleTableOldElementComponent {
   @Input() lines: V2ScheduleLine[] = [];
   // @ts-expect-error meh.
   @Input() availabilities: AvailabilityResponse;
-  @Input() selectedAvailabilities: string[] = [];
+  @Input() selectedAvailabilities: IdType[] = [];
   showAllCustomData = false;
   @Output() moveToToDo = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();

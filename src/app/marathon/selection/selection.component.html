@@ -114,7 +114,7 @@
                                 <fa-icon [icon]="faCalendarTimes"></fa-icon>
                               </a>
                             }
-                            <app-user [user]="submission.user" [showSocialLinks]="true"></app-user>
+                            <app-user [user]="submission.user" [showSocialLinks]="false"></app-user>
                           </div>
                         </td>
                         <td [attr.rowspan]="game.categories.length">
@@ -152,7 +152,7 @@
                                   <fa-icon [icon]="faCalendarTimes"></fa-icon>
                                 </a>
                               }
-                              <app-user [user]="opponent.user" [showSocialLinks]="true"></app-user>
+                              <app-user [user]="opponent.user" [showSocialLinks]="false"></app-user>
                               <a [href]="opponent.video" target="_blank" aria-label="Video">
                                 <span class="icon">
                                   <fa-icon [icon]="faFilm"></fa-icon>

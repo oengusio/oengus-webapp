@@ -5,7 +5,7 @@ export class Answer {
   questionId = -1;
   submissionId = -1;
   question: Question;
-  answer: string | boolean = false;
+  answer: string | boolean = '';
   username = '';
 
   constructor() {

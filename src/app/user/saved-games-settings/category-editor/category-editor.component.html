@@ -21,7 +21,7 @@
           />
           <p class="help is-pulled-right">{{ category.name?.length }}/100</p>
         </div>
-        @if (categoryName.invalid) {
+        @if (categoryName.invalid && categoryName.errors) {
           <div>
             @if (categoryName.errors.required) {
               <p class="help is-danger">
@@ -57,7 +57,7 @@
           />
           <p class="help">{{ 'marathon.submit.category.estimate.hint' | translate }}</p>
         </div>
-        @if (categoryEstimate.invalid) {
+        @if (categoryEstimate.invalid && categoryEstimate.errors) {
           <div>
             @if (categoryEstimate.errors.required) {
               <p class="help is-danger">
@@ -95,7 +95,7 @@
           />
           <p class="help is-pulled-right">{{ category.video?.length }}/100</p>
         </div>
-        @if (categoryVideo.invalid) {
+        @if (categoryVideo.invalid && categoryVideo.errors) {
           <div>
             @if (categoryVideo.errors.required) {
               <p class="help is-danger">
@@ -130,7 +130,7 @@
                         #categoryDescription="ngModel"></textarea>
       <p class="help is-pulled-right">{{ category.description?.length }}/300</p>
     </div>
-    @if (categoryDescription.invalid) {
+    @if (categoryDescription.invalid && categoryDescription.errors) {
       <div>
         @if (categoryDescription.errors.required) {
           <p class="help is-danger">

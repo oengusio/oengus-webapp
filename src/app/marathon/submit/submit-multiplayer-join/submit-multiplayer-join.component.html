@@ -50,7 +50,7 @@
                   #opponentVideo="ngModel">
                 <p class="help is-pulled-right">{{opponent.video?.length}}/100</p>
               </div>
-              @if (opponentVideo.invalid) {
+              @if (opponentVideo.invalid && opponentVideo.errors) {
                 <div>
                   @if (opponentVideo.errors.required) {
                     <p class="help is-danger">

@@ -30,7 +30,7 @@
   </div>
 </div>
 
-@if (mfaSettings?.secretKey) {
+@if (mfaSettings && mfaSettings?.secretKey) {
   <app-mfa-modal [mfaSettings]="mfaSettings" (mfaResult)="handleMfaResult($event)"></app-mfa-modal>
 }
 
@@ -69,7 +69,7 @@
           maxlength="32">
       </div>
       <p class="help">{{'user.settings.displayName.help' | translate}}</p>
-      @if (displayName.invalid) {
+      @if (displayName.invalid && displayName.errors) {
         <div>
           @if (displayName.errors.maxlength) {
             <p class="help is-danger"
@@ -99,7 +99,7 @@
           appUsernameExistsValidator
           required>
       </div>
-      @if (username.invalid) {
+      @if (username.invalid && username.errors) {
         <div>
           @if (username.errors.minlength) {
             <p class="help is-danger"
@@ -173,7 +173,7 @@
           #mail="ngModel" id="email" email required>
       </div>
       <p class="help" [innerHTML]="'user.settings.email.help' | translate"></p>
-      @if (mail.invalid) {
+      @if (mail.invalid && mail.errors) {
         <div>
           @if (mail.errors.email) {
             <p class="help is-danger">{{'user.settings.email.error.email' | translate}}</p>

@@ -4,8 +4,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "outDir": "../out-tsc/app",
-    "types": [],
-    "downlevelIteration": true
+    "types": []
   },
   "exclude": [
     "test.ts",
@@ -17,7 +16,6 @@
         "nullishCoalescingNotNullable": "suppress",
         "optionalChainNotNullable": "suppress"
       }
-    },
-    "strictTemplates": false
+    }
   }
 }

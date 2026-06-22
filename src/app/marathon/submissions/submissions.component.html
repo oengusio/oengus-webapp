@@ -111,7 +111,11 @@
               </td>
               <td>
                 <p class="content">
-                  <app-oengus-md [data]="answer.answer"></app-oengus-md>
+                  @if (typeof answer.answer === 'string') {
+                    <app-oengus-md [data]="answer.answer"></app-oengus-md>
+                  } @else {
+                    {{ answer.answer }}
+                  }
                 </p>
               </td>
             </tr>

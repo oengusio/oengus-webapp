@@ -26,13 +26,12 @@
             <app-element-table-cell class="language">
               {{ 'language.' + marathon.language | translate }}
             </app-element-table-cell>
-            @for (item of getTranslationData(marathon, marathonsList.timeTranslationValue) | keyvalue; track item) {
-              <app-element-table-cell class="time">
-                <app-element-i18n [key]="marathonsList.timeTranslationKey[item.key]" elementKey="duration">
-                  <app-element-temporal-distance [dateTime]="item.value"></app-element-temporal-distance>
-                </app-element-i18n>
-              </app-element-table-cell>
-            }
+            @let item = getTranslationData(marathon, marathonsList.timeTranslationValue);
+            <app-element-table-cell class="time">
+              <app-element-i18n [key]="marathonsList.timeTranslationKey[item.index]" elementKey="duration">
+                <app-element-temporal-distance [dateTime]="item.date"></app-element-temporal-distance>
+              </app-element-i18n>
+            </app-element-table-cell>
           </a>
         }
         <div class="spacer"></div>

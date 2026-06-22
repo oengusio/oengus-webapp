@@ -40,7 +40,7 @@
           #supportedCharity="ngModel">
         <p class="help is-pulled-right">{{marathon.supportedCharity?.length}}/100</p>
       </div>
-      @if (supportedCharity.invalid) {
+      @if (supportedCharity.invalid && supportedCharity.errors) {
         <div>
           @if (supportedCharity.errors.required) {
             <p class="help is-danger"
@@ -72,7 +72,7 @@
         <p class="help is-pulled-right">{{marathon.payee?.length}}/100</p>
         <p class="help">{{ 'marathon.settings.payee.help' | translate}}</p>
       </div>
-      @if (payee.invalid) {
+      @if (payee.invalid && payee.errors) {
         <div>
           @if (payee.errors.required) {
             <p class="help is-danger"
@@ -107,7 +107,7 @@
         <p class="help is-pulled-right">{{marathon.donationCurrency?.length}}/3</p>
         <p class="help">{{ 'marathon.settings.currencyIso.help' | translate}}</p>
       </div>
-      @if (currencyIso.invalid) {
+      @if (currencyIso.invalid && currencyIso.errors) {
         <div>
           @if (currencyIso.errors.required) {
             <p class="help is-danger"
@@ -143,7 +143,7 @@
   <button type="button" class="button is-info is-pulled-right mb-3"
     (click)="addQuestion.emit({ questionType: 'DONATION' })">{{ 'marathon.settings.customFields.add' | translate}}
   </button>
-  @if (donationsQuestions?.length > 0) {
+  @if (donationsQuestions?.length ?? 0 > 0) {
     <table class="table is-fullwidth is-striped">
       <thead>
         <tr>
@@ -168,7 +168,7 @@
                 maxlength="50"
                 #donationLabel="ngModel">
               <p class="help is-pulled-right">{{question.label?.length}}/50</p>
-              @if (donationLabel.invalid) {
+              @if (donationLabel.invalid && donationLabel.errors) {
                 <div>
                   @if (donationLabel.errors.required) {
                     <p class="help is-danger">
@@ -220,7 +220,7 @@
                     maxlength="50"
                     #donationOptionInput="ngModel">
                   <p class="help is-pulled-right">{{option?.length}}/50</p>
-                  @if (donationOptionInput.invalid) {
+                  @if (donationOptionInput.invalid && donationOptionInput.errors) {
                     <div>
                       @if (donationOptionInput.errors.required) {
                         <p class="help is-danger">

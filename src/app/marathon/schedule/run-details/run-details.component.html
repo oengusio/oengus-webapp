@@ -10,7 +10,7 @@
   }
 
   @for (runner of run.runners; track runner) {
-    <app-user-link [user]="runner" [isLink]="$safeNavigationMigration(runner?.profile?.id) > 0"></app-user-link>
+    <app-user-link [user]="runner" [isLink]="runner?.profile?.id ?? 0 > 0"></app-user-link>
   }
 </div>
 

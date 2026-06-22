@@ -18,21 +18,25 @@ import { DonationIncentiveLink } from '../../../model/donation-incentive-link';
 import { Bid } from '../../../model/bid';
 import { MonetaryAmountComponent } from '../../oengus-common/monetary-amount/monetary-amount.component';
 import { DirectivesModule } from '../../directives/directives.module';
+import { OengusMdComponent } from '../../components/oengus-md/oengus-md.component';
+import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 
 @Component({
     selector: 'app-donate',
     templateUrl: './donate.component.html',
     styleUrls: ['./donate.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        CommonModule,
-        FormsModule,
-        TranslateModule,
-        RouterModule,
-        FontAwesomeModule,
-        MonetaryAmountComponent,
-        DirectivesModule,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    RouterModule,
+    FontAwesomeModule,
+    MonetaryAmountComponent,
+    DirectivesModule,
+    OengusMdComponent,
+    NwbSwitchModule,
+  ],
 })
 export class DonateComponent implements OnInit {
   readonly title = 'Donate';

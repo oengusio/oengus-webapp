@@ -115,7 +115,7 @@
               required
               #fromDate="ngModel">
               <owl-date-time #dtFromDate></owl-date-time>
-              @if (fromDate.invalid) {
+              @if (fromDate.invalid && fromDate.errors) {
                 @if (fromDate.errors.required) {
                   <p class="help is-danger">
                   {{'marathon.submit.availabilities.error.dateRequired' | translate}}</p>
@@ -135,7 +135,7 @@
               required
               #toDate="ngModel">
               <owl-date-time #dtToDate></owl-date-time>
-              @if (toDate.invalid) {
+              @if (toDate.invalid && toDate.errors) {
                 @if (toDate.errors.required) {
                   <p class="help is-danger">
                   {{'marathon.submit.availabilities.error.dateRequired' | translate}}</p>
@@ -163,7 +163,7 @@
   }
 
   <fieldset [disabled]="!marathonService.marathon.submitsOpen">
-    @if (submission.answers?.length > 0) {
+    @if (submission.answers?.length ?? 0 > 0) {
       <h3 class="title is-3">{{'marathon.submit.details' | translate}}</h3>
       @for (answer of submission.answers; track answer; let i = $index) {
         <div class="field">
@@ -181,8 +181,12 @@
                 [required]="answer.question.required"
                 maxlength="50"
                 #answerField="ngModel">
-              <p class="help is-pulled-right">{{answer.answer?.length}}/50</p>
-              @if (answerField.invalid) {
+              `@if (typeof answer.answer === 'string') {
+                <p class="help is-pulled-right">{{answer.answer?.length}}/50</p>
+              } @else {
+                <p class="help is-pulled-right">0/50</p>
+              }`
+              @if (answerField.invalid && answerField.errors) {
                 <div>
                   @if (answerField.errors.required) {
                     <p class="help is-danger">
@@ -202,8 +206,12 @@
                 [ngClass]="{'is-danger': answerField.invalid}"
                 [required]="answer.question.required"
               #answerField="ngModel"></textarea>
-              <p class="help is-pulled-right">{{answer.answer?.length}}/500</p>
-              @if (answerField.invalid) {
+              @if (typeof answer.answer === 'string') {
+                <p class="help is-pulled-right">{{answer.answer?.length}}/500</p>
+              } @else {
+                <p class="help is-pulled-right">0/500</p>
+              }
+              @if (answerField.invalid && answerField.errors) {
                 <div>
                   @if (answerField.errors.required) {
                     <p class="help is-danger">
@@ -224,7 +232,7 @@
                   }
                 </select>
               </span>
-              @if (answerField.invalid) {
+              @if (answerField.invalid && answerField.errors) {
                 <div>
                   @if (answerField.errors.required) {
                     <p class="help is-danger">
@@ -245,7 +253,7 @@
                 [required]="answer.question.required"
                 name="answer{{i}}"
               #answerField="ngModel">{{answer.question.label}}</nwb-switch>
-              @if (answerField.invalid) {
+              @if (answerField.invalid && answerField.errors) {
                 <div>
                   @if (answerField.errors.required) {
                     <p class="help is-danger">
@@ -308,7 +316,7 @@
                   #gameName="ngModel">
                 <p class="help is-pulled-right">{{game.name?.length}}/100</p>
               </div>
-              @if (gameName.invalid) {
+              @if (gameName.invalid && gameName.errors) {
                 <div>
                   @if (gameName.errors.required) {
                     <p class="help is-danger">
@@ -333,7 +341,7 @@
                   #gameRatio="ngModel">
                 <p class="help is-pulled-right">{{game.ratio?.length}}/10</p>
               </div>
-              @if (gameRatio.invalid) {
+              @if (gameRatio.invalid && gameRatio.errors) {
                 <div>
                   @if (gameRatio.errors.required) {
                     <p class="help is-danger">
@@ -395,7 +403,7 @@
                 #gameDescription="ngModel"></textarea>
                 <p class="help is-pulled-right">{{game.description?.length}}/500</p>
               </div>
-              @if (gameDescription.invalid) {
+              @if (gameDescription.invalid && gameDescription.errors) {
                 <div>
                   @if (gameDescription.errors.required) {
                     <p class="help is-danger">
@@ -445,7 +453,7 @@
                               #categoryName="ngModel">
                             <p class="help is-pulled-right">{{category.name?.length}}/100</p>
                           </div>
-                          @if (categoryName.invalid) {
+                          @if (categoryName.invalid && categoryName.errors) {
                             <div>
                               @if (categoryName.errors.required) {
                                 <p class="help is-danger">
@@ -470,7 +478,7 @@
                             [appMinDurationValidator]="1"
                             #categoryEstimate="ngModel">
                           <p class="help">{{'marathon.submit.category.estimate.hint' | translate}}</p>
-                          @if (categoryEstimate.invalid) {
+                          @if (categoryEstimate.invalid && categoryEstimate.errors) {
                             <div>
                               @if (categoryEstimate.errors.required) {
                                 <p class="help is-danger">
@@ -503,7 +511,7 @@
                               #categoryVideo="ngModel" #testVideo>
                             <p class="help is-pulled-right">{{category.video?.length}}/100</p>
                           </div>
-                          @if (categoryVideo.invalid) {
+                          @if (categoryVideo.invalid && categoryVideo.errors) {
                             <div>
                               @if (categoryVideo.errors.required) {
                                 <p class="help is-danger">
@@ -600,7 +608,7 @@
                           #categoryDescription="ngModel"></textarea>
                           <p class="help is-pulled-right">{{category.description?.length}}/300</p>
                         </div>
-                        @if (categoryDescription.invalid) {
+                        @if (categoryDescription.invalid && categoryDescription.errors) {
                           <div>
                             @if (categoryDescription.errors.required) {
                               <p class="help is-danger">

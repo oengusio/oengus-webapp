@@ -1,11 +1,9 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { User } from '../../../model/user';
-import { faTwitch, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { SocialAccount } from '../../../model/social-account';
 import { SocialPlatform } from '../../../model/social-platform';
 
@@ -32,11 +30,6 @@ export class UserComponent {
 
   private readonly acceptedTypes = ['TWITTER', 'TWITCH', 'SPEEDRUNCOM'];
   public platforms = SocialPlatform;
-  public iconMapping = {
-    'TWITCH': faTwitch,
-    'TWITTER': faTwitter,
-    'SPEEDRUNCOM': faTrophy,
-  };
 
   public localStorage = localStorage;
 

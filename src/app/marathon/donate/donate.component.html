@@ -20,7 +20,7 @@
           pattern="^[\w\-]{0,16}$">
       </div>
       <p class="help is-pulled-right">{{donation.nickname?.length}}/16</p>
-      @if (nickname.invalid) {
+      @if (nickname.invalid && nickname.errors) {
         <div>
           @if (nickname.errors.maxlength) {
             <p class="help is-danger"
@@ -49,7 +49,7 @@
         [amount]="donation.amount"></app-monetary-amount>
       </p>
     </div>
-    @if (amount.invalid) {
+    @if (amount.invalid && amount.errors) {
       <div>
         @if (amount.errors.required) {
           <p class="help is-danger"
@@ -131,7 +131,7 @@
                               name="name-{{i}}"
                               #name="ngModel"
                               required>
-                            @if (name.invalid) {
+                            @if (name.invalid && name.errors) {
                               <div>
                                 @if (name.errors.required) {
                                   <p class="help is-danger"
@@ -152,7 +152,7 @@
                     [appMinNumberValidator]="1"
                     #amount="ngModel"
                     required>
-                    @if (amount.invalid) {
+                    @if (amount.invalid && amount.errors) {
                       <div>
                         @if (amount.errors.required) {
                           <p class="help is-danger"
@@ -188,7 +188,7 @@
               </table>
             }
           }
-          @if (donation.answers?.length > 0) {
+          @if (donation.answers?.length ?? 0 > 0) {
             <div class="is-clearfix"></div>
             <hr/>
             <h4 class="title is-4">{{'marathon.donate.extra.title' | translate}}</h4>
@@ -210,8 +210,12 @@
                       [required]="answer.question.required"
                       maxlength="50"
                       #answerField="ngModel">
-                    <p class="help is-pulled-right">{{answer.answer?.length}}/50</p>
-                    @if (answerField.invalid) {
+                    @if (typeof answer.answer === 'string') {
+                      <p class="help is-pulled-right">{{answer.answer?.length}}/50</p>
+                    } @else {
+                      <p class="help is-pulled-right">0/50</p>
+                    }
+                    @if (answerField.invalid && answerField.errors) {
                       <div>
                         @if (answerField.errors.required) {
                           <p class="help is-danger">
@@ -231,8 +235,12 @@
                       [ngClass]="{'is-danger': answerField.invalid}"
                       [required]="answer.question.required"
                     #answerField="ngModel"></textarea>
-                    <p class="help is-pulled-right">{{answer.answer?.length}}/500</p>
-                    @if (answerField.invalid) {
+                    @if (typeof answer.answer === 'string') {
+                      <p class="help is-pulled-right">{{answer.answer?.length}}/500</p>
+                    } @else {
+                      <p class="help is-pulled-right">0/500</p>
+                    }
+                    @if (answerField.invalid && answerField.errors) {
                       <div>
                         @if (answerField.errors.required) {
                           <p class="help is-danger">
@@ -253,7 +261,7 @@
                         }
                       </select>
                     </span>
-                    @if (answerField.invalid) {
+                    @if (answerField.invalid && answerField.errors) {
                       <div>
                         @if (answerField.errors.required) {
                           <p class="help is-danger">
@@ -274,7 +282,7 @@
                       [required]="answer.question.required"
                       name="answer{{i}}"
                     #answerField="ngModel">{{answer.question.label}}</nwb-switch>
-                    @if (answerField.invalid) {
+                    @if (answerField.invalid && answerField.errors) {
                       <div>
                         @if (answerField.errors.required) {
                           <p class="help is-danger">

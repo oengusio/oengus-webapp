@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, booleanAttribute } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
@@ -20,9 +20,9 @@ import { LineRunner } from '../../../model/schedule-line';
 export class UserLinkComponent {
   // @ts-expect-error meh.
   @Input() user: BasicUserInfo | LineRunner;
-  @Input() username = '';
+  @Input() username: string | undefined;
   @Input() target = '_self';
-  @Input() isLink = false;
+  @Input({ transform: booleanAttribute }) isLink = false;
   @Input() showAvatar = false;
 
   get userId(): string {

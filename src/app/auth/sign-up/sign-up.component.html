@@ -40,7 +40,7 @@
             <p class="help is-danger"
             >{{ errors.displayName }}</p>
           }
-          @if (displayName.invalid) {
+          @if (displayName.invalid && displayName.errors) {
             <div>
               @if (displayName.errors.maxlength) {
                 <p class="help is-danger"
@@ -84,7 +84,7 @@
             <p class="help is-danger"
             >{{ errors.username }}</p>
           }
-          @if (username.invalid) {
+          @if (username.invalid && username.errors) {
             <div>
               @if (username.errors.minlength) {
                 <p class="help is-danger"
@@ -138,7 +138,7 @@
             <p class="help is-danger"
             >{{ errors.email }}</p>
           }
-          @if (mail.invalid) {
+          @if (mail.invalid && mail.errors) {
             <div>
               @if (mail.errors.email) {
                 <p class="help is-danger">{{'user.settings.email.error.email' | translate}}</p>
@@ -187,7 +187,7 @@
             <p class="help is-danger">{{ errors.password }}</p>
           </div>
         }
-        @if (pwField.invalid) {
+        @if (pwField.invalid && pwField.errors) {
           <div class="field">
             @if (pwField.errors.required) {
               <p class="help is-danger"

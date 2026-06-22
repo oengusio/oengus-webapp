@@ -32,7 +32,15 @@ export class ForgotPasswordComponent {
   loading = false;
   email = '';
 
-  async requestNewPassword(form: HTMLFormElement) {
+  async requestNewPassword(form: EventTarget | null) {
+    if (!form) {
+      return;
+    }
+
+    if (!(form instanceof HTMLFormElement)) {
+      return;
+    }
+
     if (!form.reportValidity()) {
       return;
     }

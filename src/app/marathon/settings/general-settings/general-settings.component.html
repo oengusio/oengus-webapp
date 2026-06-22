@@ -17,7 +17,7 @@
       <p class="help is-pulled-right">{{settings.name?.length}}/40</p>
       <div class="clearfix"></div>
     </div>
-    @if (name.invalid) {
+    @if (name.invalid && name.errors) {
       <div>
         @if (name.errors.required) {
           <p class="help is-danger"
@@ -90,7 +90,7 @@
             #startDate="ngModel">
           <owl-date-time #dtStartDate></owl-date-time>
         </div>
-        @if (startDate.invalid) {
+        @if (startDate.invalid && startDate.errors) {
           <div>
             @if (startDate.errors.required) {
               <p class="help is-danger"
@@ -114,7 +114,7 @@
             [(ngModel)]="settings.endDate" id="endDate" name="endDate" required #endDate="ngModel">
           <owl-date-time #dtEndDate></owl-date-time>
         </div>
-        @if (endDate.invalid) {
+        @if (endDate.invalid && endDate.errors) {
           <div>
             @if (endDate.errors.required) {
               <p class="help is-danger"
@@ -148,7 +148,7 @@
             #submissionsStartDate="ngModel">
           <owl-date-time #dtSubmissionsStartDate></owl-date-time>
         </div>
-        @if (submissionsStartDate.invalid) {
+        @if (submissionsStartDate.invalid && submissionsStartDate.errors) {
           <div>
             @if (submissionsStartDate.errors.required) {
               <p class="help is-danger"
@@ -178,7 +178,7 @@
             #submissionsEndDate="ngModel">
           <owl-date-time #dtSubmissionsEndDate></owl-date-time>
         </div>
-        @if (submissionsEndDate.invalid) {
+        @if (submissionsEndDate.invalid && submissionsEndDate.errors) {
           <div>
             @if (submissionsEndDate.errors.required) {
               <p class="help is-danger"
@@ -209,6 +209,7 @@
         <label for="language" class="label">{{ 'marathon.settings.language.label' | translate}}</label>
         <div class="control">
           <span class="select">
+            <!--suppress AngularForBlockNonIterableVar -->
             <select [(ngModel)]="settings.language" id="language" name="language">
               @for (language of languages | keyvalue; track language) {
                 <option
@@ -225,6 +226,7 @@
           <label for="country" class="label">{{ 'marathon.settings.country.label' | translate}}</label>
           <div class="control">
             <span class="select">
+              <!--suppress AngularForBlockNonIterableVar -->
               <select [(ngModel)]="settings.country" name="country" id="country">
                 @for (country of countries | keyvalue; track country) {
                   <option
@@ -304,7 +306,7 @@
           <p class="help is-pulled-right">{{settings.twitch?.length}}/25</p>
         </div>
       </div>
-      @if (twitch.invalid) {
+      @if (twitch.invalid && twitch.errors) {
         <div>
           @if (twitch.errors.maxlength) {
             <p class="help is-danger"
@@ -335,7 +337,7 @@
             <span class="is-pulled-right">{{settings.youtube?.length}}/100</span>
           </p>
         </div>
-        @if (youtube.invalid) {
+        @if (youtube.invalid && youtube.errors) {
           <div>
             @if (youtube.errors.pattern) {
               <p class="help is-danger"
@@ -369,7 +371,7 @@
           <p class="help is-pulled-right">{{settings.discord?.length}}/20</p>
         </div>
       </div>
-      @if (discord.invalid) {
+      @if (discord.invalid && discord.errors) {
         <div>
           @if (discord.errors.pattern) {
             <p class="help is-danger"
@@ -402,7 +404,7 @@
           <p class="help is-pulled-right">{{settings.twitter?.length}}/15</p>
         </div>
       </div>
-      @if (twitter.invalid) {
+      @if (twitter.invalid && twitter.errors) {
         <div>
           @if (twitter.errors.maxlength) {
             <p class="help is-danger"
@@ -431,12 +433,12 @@
             #mastodon="ngModel">
         </div>
       </div>
-      @if (settings.mastodon) {
+      @if (settings.mastodon && mastodonSettings.linkBase) {
         <p class="help">
           {{ mastodonSettings.linkBase(settings.mastodon) }}
         </p>
       }
-      @if (mastodon.invalid) {
+      @if (mastodon.invalid && mastodon.errors) {
         <div>
           @if (mastodon.errors.maxlength) {
             <p class="help is-danger"
@@ -465,12 +467,12 @@
             #bluesky="ngModel">
         </div>
       </div>
-      @if (settings.bluesky) {
+      @if (settings.bluesky && bskySettings.linkBase) {
         <p class="help">
           {{ bskySettings.linkBase(settings.bluesky) }}
         </p>
       }
-      @if (bluesky.invalid) {
+      @if (bluesky.invalid && bluesky.errors) {
         <div>
           @if (bluesky.errors.maxlength) {
             <p class="help is-danger"
@@ -564,7 +566,7 @@
           required
           pattern="^(?:\d{1,3}):(?:[012345]\d):(?:[012345]\d)$"
           #defaultSetupTime="ngModel">
-        @if (defaultSetupTime.invalid) {
+        @if (defaultSetupTime.invalid && defaultSetupTime.errors) {
           <div>
             @if (defaultSetupTime.errors.required) {
               <p class="help is-danger">
@@ -608,7 +610,7 @@
           <p class="help is-pulled-right">{{settings.webhook?.length}}/200</p>
           <p class="help">{{ 'marathon.settings.webhook.help' | translate}}</p>
         </div>
-        @if (webhook.invalid) {
+        @if (webhook.invalid && webhook.errors) {
           <div>
             @if (webhook.errors.maxlength) {
               <p class="help is-danger"

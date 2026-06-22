@@ -24,7 +24,7 @@
                #name="ngModel">
         <p class="help is-pulled-right">{{ marathon.name?.length }}/40</p>
       </div>
-      @if (name.invalid) {
+      @if (name.invalid && name.errors) {
         @if (name.errors.required) {
           <p class="help is-danger"
           >{{ 'marathon.settings.name.error.required' | translate }}</p>
@@ -65,7 +65,7 @@
         </div>
       </div>
       <p class="help is-pulled-right">{{ marathon.id?.length }}/10</p>
-      @if (shortname.invalid) {
+      @if (shortname.invalid && shortname.errors) {
         <div>
           @if (shortname.errors.required) {
             <p class="help is-danger"
@@ -114,7 +114,7 @@
                    #startDate="ngModel">
             <owl-date-time #dtStartDate></owl-date-time>
           </div>
-          @if (startDate.invalid) {
+          @if (startDate.invalid && startDate.errors) {
             @if (startDate.errors.required) {
               <p class="help is-danger"
               >{{ 'marathon.settings.startDate.error.required' | translate }}</p>
@@ -136,7 +136,7 @@
                    [(ngModel)]="marathon.endDate" id="endDate" name="endDate" required #endDate="ngModel">
             <owl-date-time #dtEndDate></owl-date-time>
           </div>
-          @if (endDate.invalid) {
+          @if (endDate.invalid && endDate.errors) {
             @if (endDate.errors.required) {
               <p class="help is-danger"
               >{{ 'marathon.settings.endDate.error.required' | translate }}</p>
