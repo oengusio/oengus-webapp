@@ -14,7 +14,7 @@ import { UserService } from '../../../../services/user.service';
 import { debounce } from 'lodash';
 import { firstValueFrom } from 'rxjs';
 import { UserProfile } from '../../../../model/user-profile';
-import { connectionMetas } from '../../../../model/social-account';
+import { ConnectionMeta, connectionMetas } from '../../../../model/social-account';
 import { DirectivesModule } from '../../../directives/directives.module';
 import { DescriptionEditorComponent } from './description-editor/description-editor.component';
 import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
@@ -56,7 +56,7 @@ export class GeneralSettingsComponent implements OnInit {
   public now: Date;
   public env = environment;
 
-  bskySettings = connectionMetas.BLUESKY;
+  bskySettings = connectionMetas.BLUESKY as ConnectionMeta & { regex: string };
   mastodonSettings = connectionMetas.MASTODON;
 
   marathonDescMaxLen = 10000;
