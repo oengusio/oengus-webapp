@@ -1,8 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Marathon, MarathonRaw, MarathonSettings, MarathonSettingsRawApi } from '../model/marathon';
-import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { Observable, OperatorFunction, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { UserService } from './user.service';
@@ -16,6 +15,7 @@ import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
 import { map } from 'rxjs/operators';
 import { UserProfile } from '../model/user-profile';
 import { TemporalServiceService } from './termporal/temporal-service.service';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -46,7 +46,7 @@ export class MarathonService extends BaseService {
   }
 
   constructor() {
-    const toastr = inject(NwbAlertService);
+    const toastr = inject(NotificationService);
 
     super(toastr, 'marathons');
   }

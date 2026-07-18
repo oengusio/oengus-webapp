@@ -1,9 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { SelfUser, User, UserSupporterStatus } from '../model/user';
-import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { firstValueFrom, Observable, of, Subscription } from 'rxjs';
 import { ValidationErrors } from '@angular/forms';
 import { UserProfile } from '../model/user-profile';
@@ -19,6 +18,7 @@ import {
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
 import { map } from 'rxjs/operators';
 import { TemporalServiceService } from './termporal/temporal-service.service';
+import { NotificationService } from './notification.service';
 
 
 @Injectable({
@@ -32,7 +32,7 @@ export class UserService extends BaseService {
   private _user: SelfUser | null = null;
 
   constructor() {
-    const toastr = inject(NwbAlertService);
+    const toastr = inject(NotificationService);
 
     super(toastr, 'users');
   }

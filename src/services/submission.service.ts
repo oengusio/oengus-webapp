@@ -1,8 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Submission, SubmissionRawApi } from '../model/submission';
 import { firstValueFrom, Observable, OperatorFunction } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseService } from './BaseService';
 import { Answer } from '../model/answer';
@@ -10,6 +9,7 @@ import { SubmissionPage } from '../model/submission-page';
 import { AvailabilityResponse, AvailabilityResponseRaw } from '../model/availability';
 import { TemporalServiceService } from './termporal/temporal-service.service';
 import { map } from 'rxjs/operators';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class SubmissionService extends BaseService {
 
 
   constructor() {
-    const toastr = inject(NwbAlertService);
+    const toastr = inject(NotificationService);
 
     super(toastr, 'marathons');
   }

@@ -1,3 +1,4 @@
+// TODO: strip out
 import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { Injectable, inject } from '@angular/core';
@@ -38,11 +39,11 @@ export class NotificationService {
     // return this.toastRaw(message, duration, color);
   }
 
-  public toastRaw(message: string, duration = 3000, color = 'success') {
+  public toastRaw(message: string, duration = 5000, color = 'success', position = 'right') {
     const alertConfig: NwbAlertConfig = {
       message,
       duration,
-      position: 'is-right',
+      position: `is-${position}`,
       color: `is-${color}`
     };
 

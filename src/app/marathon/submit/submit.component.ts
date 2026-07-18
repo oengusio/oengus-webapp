@@ -1,7 +1,7 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -9,20 +9,16 @@ import { DateTimeAdapter, OwlDateTimeModule } from '@oengus/angular-datetime-pic
 import { NwbAllModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SubmissionService } from '../../../services/submission.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Submission } from '../../../model/submission';
 import { MarathonService } from '../../../services/marathon.service';
-import { faClone, faPlus, faTimes, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faClone, faCloudArrowUp, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Game } from '../../../model/game';
 import { Category } from '../../../model/category';
 import { Availability } from '../../../model/availability';
 import { Answer } from '../../../model/answer';
 import { environment } from '../../../environments/environment';
-import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
-import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../../../services/user.service';
 import { HttpClient } from '@angular/common/http';
-import { Location } from '@angular/common';
 import gameConsoles from '../../../assets/consoles.json';
 import { firstValueFrom } from 'rxjs';
 import { Opponent } from '../../../model/opponent';
@@ -36,6 +32,7 @@ import { OengusMdComponent } from '../../components/oengus-md/oengus-md.componen
 import { DirectivesModule } from '../../directives/directives.module';
 import { UserLinkComponent } from '../../elements/user-link/user-link.component';
 import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-submit',
@@ -110,9 +107,8 @@ export class SubmitComponent {
 
   protected submissionService = inject(SubmissionService);
   protected marathonService = inject(MarathonService);
-  private translateService = inject(TranslateService);
   private userService = inject(UserService);
-  private toastr = inject(NwbAlertService);
+  private toastr = inject(NotificationService);
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
   private location = inject(Location);
@@ -385,16 +381,7 @@ export class SubmitComponent {
       ));
 
       this.showDiscordRequirement = false;
-
-      this.translateService.get('alert.submit.DISCORD_VERIFIED').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-success',
-        };
-        this.toastr.open(alertConfig);
-      });
+      this.toastr.toast('alert.submit.DISCORD_VERIFIED');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log(error);

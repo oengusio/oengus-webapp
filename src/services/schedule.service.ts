@@ -1,13 +1,13 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, OperatorFunction, tap } from 'rxjs';
-import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { ScheduleCreateRequest, ScheduleInfo, V2Schedule, V2ScheduleRawApi } from '../model/schedule';
 import { BaseService } from './BaseService';
 import { BooleanStatusDto, DataListDto } from '../model/dto/base-dtos';
 import { V2ScheduleLine, V2ScheduleLineRawApi } from '../model/schedule-line';
 import { map } from 'rxjs/operators';
 import { TemporalServiceService } from './termporal/temporal-service.service';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ScheduleService extends BaseService {
   private scheduleCache = new Map<string, ScheduleInfo[]>();
 
   constructor() {
-    const toastr = inject(NwbAlertService);
+    const toastr = inject(NotificationService);
 
     super(toastr, 'marathons');
   }

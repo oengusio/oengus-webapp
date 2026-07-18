@@ -1,10 +1,10 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BaseService } from './BaseService';
 import { HttpClient } from '@angular/common/http';
-import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { SavedCategory, SavedGame } from '../model/user-profile-history';
 import { Observable } from 'rxjs';
 import { BooleanStatusDto } from '../model/dto/base-dtos';
+import { NotificationService } from './notification.service';
 
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
@@ -16,7 +16,7 @@ export class SavedGamesService extends BaseService {
 
 
   constructor() {
-    const toastr = inject(NwbAlertService);
+    const toastr = inject(NotificationService);
 
     super(toastr, 'users/@me/saved-games');
   }

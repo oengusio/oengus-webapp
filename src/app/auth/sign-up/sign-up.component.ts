@@ -8,11 +8,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SignupDto } from '../../../model/dto/signup-dto';
 import { faEnvelope, faEye, faEyeSlash, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../services/auth.service';
-import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { ElementModule } from '../../elements/elements.module';
 import { OengusCommonModule } from '../../oengus-common/oengus-common.module';
 import { UsernameExistsValidatorDirective } from '../../directives/username-exists-validator.directive';
 import { firstValueFrom } from 'rxjs';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -35,7 +35,7 @@ export class SignUpComponent {
   readonly title = 'Sign Up';
 
   private authService = inject(AuthService);
-  private toastr = inject(NwbAlertService);
+  private toastr = inject(NotificationService);
   private translateService = inject(TranslateService);
 
   iconUser = faUser;
@@ -98,15 +98,6 @@ export class SignUpComponent {
   }
 
   private triggerValidationToaster() {
-    this.translateService.get('alert.generic.validationError').subscribe({
-      next: (message: string) => {
-        this.toastr.open({
-          message,
-          duration: 5000,
-          position: 'is-right',
-          color: 'is-danger',
-        });
-      },
-    });
+    this.toastr.toast('alert.generic.validationError', 5000, 'right');
   }
 }

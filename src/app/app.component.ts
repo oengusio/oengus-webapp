@@ -7,7 +7,6 @@ import { Location } from '@angular/common';
 import { UserService } from '../services/user.service';
 import { LoadingBarService } from '../services/loading-bar.service';
 import { TitleService } from '../services/title.service';
-import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import * as Sentry from '@sentry/angular';
 import { TemporalServiceService } from '../services/termporal/temporal-service.service';
 import { LocaleService } from '../services/locale.service';
@@ -16,6 +15,7 @@ import { environment } from '../environments/environment';
 import { HeaderBarComponent } from './_layout/header-bar/header-bar.component';
 import { FooterBarComponent } from './_layout/footer/footer-bar/footer-bar.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
     selector: 'app-root',
@@ -33,7 +33,7 @@ import { NotificationListComponent } from './components/notification-list/notifi
 export class AppComponent implements OnInit {
   userService = inject(UserService);
   private translate = inject(TranslateService);
-  private toastr = inject(NwbAlertService);
+  private toastr = inject(NotificationService);
   private dateTimeAdapter = inject<DateTimeAdapter<unknown>>(DateTimeAdapter);
   private router = inject(Router);
   private location = inject(Location);
@@ -70,15 +70,7 @@ export class AppComponent implements OnInit {
         // Is this user activated?
         if (user && user.email && !user.enabled) {
           this.userService.logout(false);
-          this.translate.get('alert.user.login.disabledAccount').subscribe((res: string) => {
-            const alertConfig: NwbAlertConfig = {
-              message: res,
-              duration: 5000,
-              position: 'is-right',
-              color: 'is-warning'
-            };
-            this.toastr.open(alertConfig);
-          });
+          this.toastr.toast('alert.user.login.disabledAccount', 5000, 'warning');
 
           return;
         }

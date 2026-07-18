@@ -1,14 +1,14 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { Donation } from '../model/donation';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Page } from '../model/page';
 import { DonationStats } from '../model/donation-stats';
-import {BaseService} from './BaseService';
+import { BaseService } from './BaseService';
 import { TemporalServiceService } from './termporal/temporal-service.service';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class DonationService extends BaseService {
 
 
   constructor() {
-    const toastr = inject(NwbAlertService);
+    const toastr = inject(NotificationService);
 
     super(toastr, 'marathons');
   }

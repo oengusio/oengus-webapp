@@ -1,17 +1,17 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons';
 import { UserService } from '../../../services/user.service';
 import { LoginDetails, LoginResponse, LoginResponseStatus } from '../../../model/auth';
 import { AuthService } from '../../../services/auth.service';
 import { ElementModule } from '../../elements/elements.module';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
     selector: 'app-login',
@@ -32,8 +32,7 @@ export class LoginComponent {
   private userService = inject(UserService);
   private router = inject(Router);
   authService = inject(AuthService);
-  private translateService = inject(TranslateService);
-  private toastr = inject(NwbAlertService);
+  private toastr = inject(NotificationService);
 
 
   loginData: LoginDetails = {
@@ -99,14 +98,6 @@ export class LoginComponent {
 
   passwordResetRequiredToast() {
     this.router.navigate(['/forgot-password']);
-    this.translateService.get('alert.user.login.passwordResetRequired').subscribe((res: string) => {
-      const alertConfig: NwbAlertConfig = {
-        message: res,
-        duration: 8000,
-        position: 'is-right',
-        color: 'is-warning'
-      };
-      this.toastr.open(alertConfig);
-    });
+    this.toastr.toast('alert.user.login.passwordResetRequired', 8000, 'warning');
   }
 }

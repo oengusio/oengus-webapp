@@ -1,9 +1,9 @@
-import { Injectable, inject } from '@angular/core';
-import {BaseService} from './BaseService';
-import {Observable} from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BaseService } from './BaseService';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import {NwbAlertService} from '@oengus/ng-wizi-bulma';
-import {Language} from '../model/language';
+import { Language } from '../model/language';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class MiscService extends BaseService {
   private http = inject(HttpClient);
 
   constructor() {
-    const toastr = inject(NwbAlertService);
+    const toastr = inject(NotificationService);
 
     super(toastr);
   }

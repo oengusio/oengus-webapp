@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,24 +10,25 @@ import { environment } from '../../../../environments/environment';
 import { ScheduleService } from '../../../../services/schedule.service';
 import { firstValueFrom } from 'rxjs';
 import { LineRunner, V2ScheduleLine } from '../../../../model/schedule-line';
-import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { SubmissionService } from '../../../../services/submission.service';
 import { SelectionService } from '../../../../services/selection.service';
 import { MarathonService } from '../../../../services/marathon.service';
-import { DataSetDataGroup, DataSetDataItem, Timeline, IdType } from 'vis-timeline/esnext';
+import { DataSetDataGroup, DataSetDataItem, IdType, Timeline } from 'vis-timeline/esnext';
 import { DataSet } from 'vis-data';
 import { Availability, AvailabilityResponse } from '../../../../model/availability';
 import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
-import { TranslateService } from '@ngx-translate/core';
 import { ScheduleTableOldElementComponent } from './schedule-table-old-element/schedule-table-old-element.component';
 import { WarningModalComponent } from '../warning-modal/warning-modal.component';
 import { SubmissionsTableComponent } from './submissions-table/submissions-table.component';
 import { ClonePopupComponent } from './clone-popup/clone-popup.component';
-import { MarathonScheduleExportComponent } from '../../schedule/marathon-schedule-export/marathon-schedule-export.component';
+import {
+  MarathonScheduleExportComponent,
+} from '../../schedule/marathon-schedule-export/marathon-schedule-export.component';
 import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
 import { DirectivesModule } from '../../../directives/directives.module';
 import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/loading-indicator.component';
 import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
+import { NotificationService } from '../../../../services/notification.service';
 
 // Options are 'id' and 'content'
 const AVAILABILITY_SORT_KEY = 'id';
@@ -59,8 +60,7 @@ export class EditComponent implements OnInit, OnDestroy {
   private submissionService = inject(SubmissionService);
   private selectionService = inject(SelectionService);
   private marathonService = inject(MarathonService);
-  private toastr = inject(NwbAlertService);
-  private translateService = inject(TranslateService);
+  private toastr = inject(NotificationService);
   private temporalService = inject(TemporalServiceService);
 
   // @ts-expect-error meh.
@@ -252,16 +252,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
       this.lines = newLines;
 
-      this.translateService.get('alert.schedule.save.success').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-success',
-        };
-
-        this.toastr.open(alertConfig);
-      });
+      this.toastr.toast('alert.schedule.save.success');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       console.log(e);
@@ -287,15 +278,7 @@ export class EditComponent implements OnInit, OnDestroy {
         // Reload the window to see the new changes?
         // window.location.reload();
         this.scheduleInfo.published = true;
-        this.translateService.get('marathon.schedule.management.action.published').subscribe((msg: string) => {
-          const alertConfig: NwbAlertConfig = {
-            message: msg,
-            duration: 5000,
-            position: 'is-right',
-            color: 'is-success',
-          };
-          this.toastr.open(alertConfig);
-        });
+        this.toastr.toast('marathon.schedule.management.action.published', 5000);
 
         this.loading = false;
       },
@@ -303,13 +286,7 @@ export class EditComponent implements OnInit, OnDestroy {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       error: (err: any) => {
         console.log(err);
-        const alertConfig: NwbAlertConfig = {
-          message: `Something went wrong: ${err.message}`,
-          duration: 5000,
-          position: 'is-right',
-          color: 'is-warning',
-        };
-        this.toastr.open(alertConfig);
+        this.toastr.toastRaw(`Something went wrong: ${err.message}`, 5000, 'warning');
       },
     });
   }

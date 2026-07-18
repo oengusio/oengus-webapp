@@ -5,10 +5,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { ScheduleService } from '../../../../services/schedule.service';
-import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { MarathonService } from '../../../../services/marathon.service';
 import { UserSupporterStatus } from '../../../../model/user';
 import { UserService } from '../../../../services/user.service';
+import { NotificationService } from '../../../../services/notification.service';
 
 @Component({
     selector: 'app-overview',
@@ -27,7 +27,7 @@ export class OverviewComponent implements OnInit {
   private scheduleService = inject(ScheduleService);
   private marathonService = inject(MarathonService);
   private userService = inject(UserService);
-  private toastr = inject(NwbAlertService);
+  private toastr = inject(NotificationService);
 
 
   schedules: ScheduleInfo[] = [];
@@ -53,13 +53,7 @@ export class OverviewComponent implements OnInit {
 
     if (sure) {
       this.scheduleService.deleteById(schedule.marathonId, schedule.id).subscribe(() => {
-        const alertConfig: NwbAlertConfig = {
-          message: 'Schedule deleted',
-          duration: 5000,
-          position: 'is-right',
-          color: 'is-success'
-        };
-        this.toastr.open(alertConfig);
+        this.toastr.toastRaw('Schedule deleted', 5000);
 
         const idx = this.schedules.indexOf(schedule);
 

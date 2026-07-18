@@ -1,11 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { firstValueFrom, Observable } from 'rxjs';
 import { BaseService } from './BaseService';
 import { InitMFADto, LoginDetails, LoginResponse, OauthLoginDetails } from '../model/auth';
 import { environment } from '../environments/environment';
 import { SignupDto, SignupResponseDto } from '../model/dto/signup-dto';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class AuthService extends BaseService {
   private http = inject(HttpClient);
 
   constructor() {
-    const toastr = inject(NwbAlertService);
+    const toastr = inject(NotificationService);
 
     super(toastr, 'auth');
   }

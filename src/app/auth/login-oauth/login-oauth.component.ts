@@ -2,7 +2,6 @@ import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { LoadingBarService } from '../../../services/loading-bar.service';
 import { AuthService } from '../../../services/auth.service';
 import { firstValueFrom } from 'rxjs';
@@ -25,7 +24,7 @@ export class LoginOauthComponent implements OnInit {
   private userService = inject(UserService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private toastr = inject(NwbAlertService);
+  private toastr = inject(NotificationService);
   private notificationService = inject(NotificationService);
   private translateService = inject(TranslateService);
   private loader = inject(LoadingBarService);
@@ -80,13 +79,7 @@ export class LoginOauthComponent implements OnInit {
         default:
           this.router.navigate(['/']);
           this.translateService.get('alert.user.login.error').subscribe((res: string) => {
-            const alertConfig: NwbAlertConfig = {
-              message: res + '\n\nCode: ' + error.status,
-              duration: 5000,
-              position: 'is-right',
-              color: 'is-warning'
-            };
-            this.toastr.open(alertConfig);
+            this.toastr.toastRaw(res + '\n\nCode: ' + error.status, 5000, 'warning');
           });
       }
     }
@@ -104,27 +97,11 @@ export class LoginOauthComponent implements OnInit {
 
   disabledAccountToast() {
     this.router.navigate(['/']);
-    this.translateService.get('alert.user.login.disabledAccount').subscribe((res: string) => {
-      const alertConfig: NwbAlertConfig = {
-        message: res,
-        duration: 8000,
-        position: 'is-right',
-        color: 'is-warning'
-      };
-      this.toastr.open(alertConfig);
-    });
+    this.toastr.toast('alert.user.login.disabledAccount', 8000, 'warning');
   }
 
   passwordResetRequiredToast() {
     this.router.navigate(['/forgot-password']);
-    this.translateService.get('alert.user.login.passwordResetRequired').subscribe((res: string) => {
-      const alertConfig: NwbAlertConfig = {
-        message: res,
-        duration: 8000,
-        position: 'is-right',
-        color: 'is-warning'
-      };
-      this.toastr.open(alertConfig);
-    });
+    this.toastr.toast('alert.user.login.passwordResetRequired', 8000, 'warning');
   }
 }

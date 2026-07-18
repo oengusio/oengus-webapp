@@ -1,8 +1,9 @@
 import { environment } from '../environments/environment';
-import {NwbAlertConfig, NwbAlertService, NwbAlertComponent} from '@oengus/ng-wizi-bulma';
+import { NwbAlertComponent } from '@oengus/ng-wizi-bulma';
+import { NotificationService } from './notification.service';
 
 export class BaseService {
-  constructor(private toastr: NwbAlertService, private base = '') {}
+  constructor(private toastr: NotificationService, private base = '') {}
 
   private stripLastSlash(path: string): string {
     if (path.endsWith('/')) {
@@ -30,14 +31,7 @@ export class BaseService {
     return this.url(path, 'v1');
   }
 
-  protected toast(message: string, duration = 3000, color = 'success'): NwbAlertComponent {
-    const alertConfig: NwbAlertConfig = {
-      message,
-      duration,
-      position: 'is-right',
-      color: `is-${color}`
-    };
-
-    return this.toastr.open(alertConfig);
+  protected toast(message: string, duration = 3000, color = 'success', position = 'right'): NwbAlertComponent {
+    return this.toastr.toastRaw(message, duration, color, position);
   }
 }

@@ -1,9 +1,9 @@
-import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbAlertConfig, NwbAlertService, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
+import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
@@ -18,6 +18,7 @@ import { UserProfile } from '../../../model/user-profile';
 import { GeneralSettingsComponent } from './general-settings/general-settings.component';
 import { DiscordSettingsComponent } from './discord-settings/discord-settings.component';
 import { SubmissionSettingsComponent } from './submission-settings/submission-settings.component';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
     selector: 'app-settings',
@@ -40,7 +41,7 @@ export class SettingsComponent implements OnInit {
   userService = inject(UserService);
   private activatedRoute = inject(ActivatedRoute);
   private translateService = inject(TranslateService);
-  private toastr = inject(NwbAlertService);
+  private toastr = inject(NotificationService);
 
 
   private marathonId = '';
@@ -119,27 +120,11 @@ export class SettingsComponent implements OnInit {
         ...updatedSettings,
       };
 
-      this.translateService.get('alert.marathon.update.success').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: res,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-success'
-        };
-
-        return this.toastr.open(alertConfig);
-      });
+      return this.toastr.toast('alert.marathon.update.success');
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       this.translateService.get('alert.marathon.update.error').subscribe((res: string) => {
-        const alertConfig: NwbAlertConfig = {
-          message: `${res}\n${e.message}`,
-          duration: 3000,
-          position: 'is-right',
-          color: 'is-warning'
-        };
-
-        return this.toastr.open(alertConfig);
+        return this.toastr.toastRaw(`${res}\n${e.message}`, 5000, 'warning');
       });
     } finally {
       this.loading = false;

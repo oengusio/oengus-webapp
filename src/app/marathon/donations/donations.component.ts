@@ -2,12 +2,10 @@ import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NwbPaginatorModule } from '@oengus/ng-wizi-bulma';
 import { Donation } from '../../../model/donation';
 import { MarathonService } from '../../../services/marathon.service';
 import { DonationService } from '../../../services/donation.service';
 import { Page } from '../../../model/page';
-import { NwbPageEvent } from '@oengus/ng-wizi-bulma';
 import { DonationStats } from '../../../model/donation-stats';
 import { UserService } from '../../../services/user.service';
 import { OengusCommonModule } from '../../oengus-common/oengus-common.module';
@@ -21,7 +19,6 @@ import { OengusMdComponent } from '../../components/oengus-md/oengus-md.componen
     imports: [
         CommonModule,
         TranslateModule,
-        NwbPaginatorModule,
         OengusCommonModule,
         OengusMdComponent,
     ]
@@ -44,11 +41,11 @@ export class DonationsComponent {
     this.marathonService.marathon.donationsTotal = this.stats.total;
   }
 
-  pageChange(event: NwbPageEvent) {
+  /*pageChange(event: NwbPageEvent) {
     this.donationService.find(this.marathonService.marathon.id, event.pageIndex, event.pageSize).subscribe(response => {
       this.donations = response;
     });
-  }
+  }*/
 
   exportToCsv() {
     this.donationService.exportAllForMarathon(this.marathonService.marathon.id);
