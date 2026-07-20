@@ -28,7 +28,7 @@ export class HeaderBarVerifyEmailComponent {
     this.authService.requestNewVerificationEmail().subscribe({
       next: ({ status }) => {
         console.log(status);
-        alert('Email sent!');
+        alert('Email sent! (Unless you are with yahoo or any German provider, we\'re working on a fix)');
         this.loading = false;
       },
 
