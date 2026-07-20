@@ -1,7 +1,8 @@
 <!-- Computed property is only computed once! -->
 @if (hasCountry) {
-  <span [title]="'marathon.settings.type.onsite' | translate" [class]="'flag-icon flag-icon-' + marathon.country.toLowerCase()"></span>
-}
-@if (!hasCountry) {
-  <fa-icon [title]="'marathon.settings.type.online' | translate" [icon]="faDesktop"></fa-icon>
+  <span [nwbToolTip]="'marathon.settings.type.onsite' | translate" >
+    <span [class]="'flag-icon flag-icon-' + marathon.country.toLowerCase()"></span>
+  </span>
+} @else {
+  <fa-icon [nwbToolTip]="'marathon.settings.type.online' | translate" [icon]="faDesktop"></fa-icon>
 }

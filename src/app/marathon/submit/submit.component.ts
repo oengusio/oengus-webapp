@@ -33,6 +33,7 @@ import { UserLinkComponent } from '../../elements/user-link/user-link.component'
 import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
 import { NotificationService } from '../../../services/notification.service';
 import { NwbSwitchComponent } from '../../components/wizi/switch/switch.component';
+import { NwbToolTipDirective } from '../../components/wizi/tooltip/tooltip.directive';
 
 @Component({
   selector: 'app-submit',
@@ -56,6 +57,7 @@ import { NwbSwitchComponent } from '../../components/wizi/switch/switch.componen
     OengusMdComponent,
     UserLinkComponent,
     NwbSwitchComponent,
+    NwbToolTipDirective,
   ],
 })
 export class SubmitComponent {

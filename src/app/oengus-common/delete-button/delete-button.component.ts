@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { NwbToolTipDirective } from '../../components/wizi/tooltip/tooltip.directive';
 
 @Component({
   selector: 'app-delete-button',
@@ -13,6 +14,7 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
     CommonModule,
     TranslateModule,
     FontAwesomeModule,
+    NwbToolTipDirective,
   ],
 })
 export class DeleteButtonComponent {

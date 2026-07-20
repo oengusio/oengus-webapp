@@ -150,7 +150,7 @@
             <td class="v-align-middle">
               @if (!!availability.from && !!availability.to) {
                 <a (click)="duplicateAvailabilityToNextDay(i)" (keyup.enter)="duplicateAvailabilityToNextDay(i)"
-                   class="dupeBtn" [title]="'marathon.submit.availabilities.duplicate' | translate" tabindex="0" aria-label="Duplicate availability">
+                   class="dupeBtn" [nwbToolTip]="'marathon.submit.availabilities.duplicate' | translate" tabindex="0" aria-label="Duplicate availability">
                   <fa-icon [icon]="faClone"></fa-icon>
                 </a>
               }
@@ -365,8 +365,8 @@
               <!-- TODO: why do we have the same set twice here? -->
               @if (!marathonService.marathon.emulatorAuthorized) {
                 <fieldset class="control is-tooltip-danger" [disabled]="!marathonService.marathon.emulatorAuthorized"
-                  [title]="'marathon.submit.game.console.emulatorNotAllowed' | translate"
-                  >
+                  [nwbToolTip]="'marathon.submit.game.console.emulatorNotAllowed' | translate"
+                >
                   <button type="button" class="button">
                     <label class="checkbox">
                       <input type="checkbox" name="emulated{{i}}"

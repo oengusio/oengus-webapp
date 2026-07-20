@@ -215,7 +215,8 @@
                     <td>
                       @if (!bid.approved) {
                         <a (click)="bid.approved = true" (keyup.enter)="bid.approved = true" class="mr-1" tabindex="0"
-                          [title]="'marathon.incentives.management.approveBid' | translate" aria-label="Approve bid">
+                           [nwbToolTip]="'marathon.incentives.management.approveBid' | translate" [nwbToolTipIsMultiline]="true"
+                           nwbToolTipPosition="left" aria-label="Approve bid">
                           <fa-icon [icon]="faCheck"></fa-icon>
                         </a>
                       }

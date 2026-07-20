@@ -12,6 +12,7 @@ import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Bid } from '../../../model/bid';
 import { ScheduleLine } from '../../../model/schedule-line';
 import { NwbSwitchComponent } from '../../components/wizi/switch/switch.component';
+import { NwbToolTipDirective } from '../../components/wizi/tooltip/tooltip.directive';
 
 @Component({
     selector: 'app-incentive-management',
@@ -24,6 +25,7 @@ import { NwbSwitchComponent } from '../../components/wizi/switch/switch.componen
     TranslateModule,
     FontAwesomeModule,
     NwbSwitchComponent,
+    NwbToolTipDirective,
   ],
 })
 export class IncentiveManagementComponent {
