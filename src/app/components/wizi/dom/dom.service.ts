@@ -1,16 +1,6 @@
-import {
-  ApplicationRef,
-  ComponentRef,
-  EmbeddedViewRef,
-  inject,
-  Injectable,
-  Injector,
-  Optional,
-  SkipSelf,
-  ViewContainerRef,
-} from '@angular/core';
+import { ComponentRef, EmbeddedViewRef, Injectable, Injector } from '@angular/core';
 
-import { OverlayContainer } from '../overlay/overlay-container';
+// import { OverlayContainer } from '../overlay/overlay-container';
 // import { PortalInjector } from '../portal/portal-injector';
 
 @Injectable({
@@ -19,9 +9,9 @@ import { OverlayContainer } from '../overlay/overlay-container';
 export class DomService {
   // TODO: fix
   // private readonly viewContainerRef: ViewContainerRef = inject(ViewContainerRef);
-  private readonly appRef: ApplicationRef = inject(ApplicationRef);
-  private readonly injector: Injector = inject(Injector);
-  private readonly overlayContainer: OverlayContainer = inject(OverlayContainer);
+  // private readonly appRef: ApplicationRef = inject(ApplicationRef);
+  // private readonly injector: Injector = inject(Injector);
+  // private readonly overlayContainer: OverlayContainer = inject(OverlayContainer);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   attachComponentPortal<T>(component: ComponentType<T>, injector?: Injector): ComponentRef<T> {
