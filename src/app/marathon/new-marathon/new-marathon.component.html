@@ -149,18 +149,18 @@
       <label for="isOnsite" class="label">{{ 'marathon.settings.type.label' | translate }}</label>
       <div class="control is-flex">
         <span class="cbLeft">{{ 'marathon.settings.type.online' | translate }}</span>
-        <nwb-switch [(ngModel)]="marathon.onsite" id="isOnsite" name="isOnsite">
+        <app-nwb-switch [(ngModel)]="marathon.onsite" id="isOnsite" name="isOnsite">
           <span>{{ 'marathon.settings.type.onsite' | translate }}</span>
-        </nwb-switch>
+        </app-nwb-switch>
       </div>
     </div>
     <div class="field">
       <label for="isPrivate" class="label">{{ 'marathon.settings.privacy.label' | translate }}</label>
       <div class="control is-flex">
         <span class="cbLeft">{{ 'marathon.settings.privacy.public' | translate }}</span>
-        <nwb-switch [(ngModel)]="marathon.isPrivate" id="isPrivate" name="isPrivate">
+        <app-nwb-switch [(ngModel)]="marathon.isPrivate" id="isPrivate" name="isPrivate">
           <span>{{ 'marathon.settings.privacy.private' | translate }}</span>
-        </nwb-switch>
+        </app-nwb-switch>
       </div>
       <p class="help">{{ 'marathon.settings.privacy.help' | translate }}</p>
     </div>

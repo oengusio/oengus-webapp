@@ -5,9 +5,9 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { ElementModule } from '../../elements/elements.module';
+import { NwbSwitchComponent } from '../../components/wizi/switch/switch.component';
 
 interface CalendarLinkInfo {
   year: number;
@@ -19,16 +19,16 @@ interface CalendarLinkInfo {
     templateUrl: './calendar-controller.component.html',
     styleUrls: ['./calendar-controller.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule,
-        TranslateModule,
-        LocalizeRouterModule,
-        FontAwesomeModule,
-        NwbSwitchModule,
-        ElementModule,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    TranslateModule,
+    LocalizeRouterModule,
+    FontAwesomeModule,
+    ElementModule,
+    NwbSwitchComponent,
+  ],
 })
 export class CalendarControllerComponent {
   @Input() year = -1;

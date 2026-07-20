@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DateTimeAdapter, OwlDateTimeModule } from '@oengus/angular-datetime-picker';
-import { NwbAllModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SubmissionService } from '../../../services/submission.service';
 import { Submission } from '../../../model/submission';
@@ -33,6 +32,7 @@ import { DirectivesModule } from '../../directives/directives.module';
 import { UserLinkComponent } from '../../elements/user-link/user-link.component';
 import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
 import { NotificationService } from '../../../services/notification.service';
+import { NwbSwitchComponent } from '../../components/wizi/switch/switch.component';
 
 @Component({
   selector: 'app-submit',
@@ -47,7 +47,6 @@ import { NotificationService } from '../../../services/notification.service';
     LocalizeRouterModule,
     FontAwesomeModule,
     OwlDateTimeModule,
-    NwbSwitchModule,
     AutocompleteLibModule,
     DirectivesModule,
     ImportRunDialogComponent,
@@ -55,8 +54,8 @@ import { NotificationService } from '../../../services/notification.service';
     SubmitShareButtonsComponent,
     SubmitMultiplayerJoinComponent,
     OengusMdComponent,
-    NwbAllModule,
     UserLinkComponent,
+    NwbSwitchComponent,
   ],
 })
 export class SubmitComponent {

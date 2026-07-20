@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { UserProfile } from '../../../model/user-profile';
 import { UserService } from '../../../services/user.service';
 
@@ -17,7 +16,6 @@ import { UserService } from '../../../services/user.service';
         FormsModule,
         TranslateModule,
         FontAwesomeModule,
-        NwbSwitchModule,
     ]
 })
 export class ManagementDialogComponent implements OnInit {

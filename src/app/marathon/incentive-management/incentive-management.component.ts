@@ -11,7 +11,7 @@ import { MarathonService } from '../../../services/marathon.service';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Bid } from '../../../model/bid';
 import { ScheduleLine } from '../../../model/schedule-line';
-import { NwbAllModule } from '@oengus/ng-wizi-bulma';
+import { NwbSwitchComponent } from '../../components/wizi/switch/switch.component';
 
 @Component({
     selector: 'app-incentive-management',
@@ -23,7 +23,7 @@ import { NwbAllModule } from '@oengus/ng-wizi-bulma';
     FormsModule,
     TranslateModule,
     FontAwesomeModule,
-    NwbAllModule,
+    NwbSwitchComponent,
   ],
 })
 export class IncentiveManagementComponent {

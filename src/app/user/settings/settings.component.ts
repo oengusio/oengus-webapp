@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { SelfUser } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -23,26 +22,27 @@ import { ElementCountryComponent } from '../../elements/element-country/element-
 import { ElementLanguagesComponent } from '../../elements/element-languages/element-languages.component';
 import { ElementConnectionsComponent } from '../../elements/element-connections/element-connections.component';
 import { DirectivesModule } from '../../directives/directives.module';
+import { NwbSwitchComponent } from '../../components/wizi/switch/switch.component';
 
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        CommonModule,
-        FormsModule,
-        TranslateModule,
-        FontAwesomeModule,
-        NwbSwitchModule,
-        DirectivesModule,
-        MfaModalComponent,
-        SyncButtonComponent,
-        ElementPronounsComponent,
-        ElementCountryComponent,
-        ElementLanguagesComponent,
-        ElementConnectionsComponent,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    FontAwesomeModule,
+    DirectivesModule,
+    MfaModalComponent,
+    SyncButtonComponent,
+    ElementPronounsComponent,
+    ElementCountryComponent,
+    ElementLanguagesComponent,
+    ElementConnectionsComponent,
+    NwbSwitchComponent,
+  ],
 })
 export class SettingsComponent {
 

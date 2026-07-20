@@ -8,9 +8,9 @@
     <div class="field">
       <label for="hasDonations" class="label">{{ 'marathon.settings.donations.label' | translate}}</label>
       <div class="control">
-        <nwb-switch [(ngModel)]="marathon.hasDonations" id="hasDonations" name="hasDonations" [disabled]="donationsDisabled">
+        <app-nwb-switch [(ngModel)]="marathon.hasDonations" id="hasDonations" name="hasDonations" [disabled]="donationsDisabled">
           <span>{{ 'marathon.settings.donations.hasDonations' | translate}}</span>
-        </nwb-switch>
+        </app-nwb-switch>
       </div>
     </div>
   </div>
@@ -18,9 +18,9 @@
     <div class="field">
       <label for="donationsOpen" class="label">{{ 'marathon.settings.donationsOpen.label' | translate}}</label>
       <div class="control">
-        <nwb-switch [(ngModel)]="marathon.donationsOpen" id="donationsOpen" name="donationsOpen" [disabled]="donationsDisabled">
+        <app-nwb-switch [(ngModel)]="marathon.donationsOpen" id="donationsOpen" name="donationsOpen" [disabled]="donationsDisabled">
           <span>{{ 'marathon.settings.donations.donationsOpen' | translate}}</span>
-        </nwb-switch>
+        </app-nwb-switch>
       </div>
     </div>
   </div>
@@ -128,9 +128,9 @@
     <div class="field">
       <label for="hasIncentives" class="label">{{ 'marathon.settings.incentives.label' | translate}}</label>
       <div class="control">
-        <nwb-switch [(ngModel)]="marathon.hasIncentives" id="hasIncentives" name="hasIncentives" [disabled]="donationsDisabled">
+        <app-nwb-switch [(ngModel)]="marathon.hasIncentives" id="hasIncentives" name="hasIncentives" [disabled]="donationsDisabled">
           <span>{{ 'marathon.settings.incentives.hasIncentives' | translate}}</span>
-        </nwb-switch>
+        </app-nwb-switch>
       </div>
     </div>
   </div>
@@ -190,8 +190,8 @@
               </span>
             </td>
             <td>
-              <nwb-switch [(ngModel)]="question.required" name="donation-required{{i}}"
-              [disabled]="question.fieldType === 'FREETEXT'"></nwb-switch>
+              <app-nwb-switch [(ngModel)]="question.required" name="donation-required{{i}}"
+              [disabled]="question.fieldType === 'FREETEXT'"></app-nwb-switch>
             </td>
             <td>
               <fa-icon [icon]="faBars" cdkDragHandle class="is-pulled-right"></fa-icon>

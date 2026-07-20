@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { MarathonSettingsWithHelpfulProps } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { UserService } from '../../../services/user.service';
@@ -19,22 +18,23 @@ import { GeneralSettingsComponent } from './general-settings/general-settings.co
 import { DiscordSettingsComponent } from './discord-settings/discord-settings.component';
 import { SubmissionSettingsComponent } from './submission-settings/submission-settings.component';
 import { NotificationService } from '../../../services/notification.service';
+import { NwbSwitchComponent } from '../../components/wizi/switch/switch.component';
 
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        CommonModule,
-        FormsModule,
-        TranslateModule,
-        FontAwesomeModule,
-        NwbSwitchModule,
-        GeneralSettingsComponent,
-        DiscordSettingsComponent,
-        SubmissionSettingsComponent,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    FontAwesomeModule,
+    GeneralSettingsComponent,
+    DiscordSettingsComponent,
+    SubmissionSettingsComponent,
+    NwbSwitchComponent,
+  ],
 })
 export class SettingsComponent implements OnInit {
   marathonService = inject(MarathonService);

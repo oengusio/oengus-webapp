@@ -4,26 +4,26 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { Marathon } from '../../../../model/marathon';
 import { Question } from '../../../../model/question';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../../../environments/environment';
+import { NwbSwitchComponent } from '../../../components/wizi/switch/switch.component';
 
 @Component({
     selector: 'app-marathon-incentive-settings',
     templateUrl: './incentive-settings.component.html',
     styleUrls: ['./incentive-settings.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        CommonModule,
-        FormsModule,
-        TranslateModule,
-        DragDropModule,
-        FontAwesomeModule,
-        NwbSwitchModule,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    DragDropModule,
+    FontAwesomeModule,
+    NwbSwitchComponent,
+  ],
 })
 export class IncentiveSettingsComponent {
   // @ts-expect-error meh.

@@ -1,8 +1,7 @@
-// TODO: strip out
-import { NwbAlertConfig, NwbAlertService } from '@oengus/ng-wizi-bulma';
 import { TranslateService } from '@ngx-translate/core';
 import { Injectable, inject } from '@angular/core';
 import { firstValueFrom, Subject } from 'rxjs';
+import { NwbAlertConfig, NwbAlertService } from '../app/components/wizi/alert/alert.service';
 
 export interface NotificationItem {
   message: string;

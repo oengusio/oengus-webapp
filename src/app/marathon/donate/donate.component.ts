@@ -19,7 +19,7 @@ import { Bid } from '../../../model/bid';
 import { MonetaryAmountComponent } from '../../oengus-common/monetary-amount/monetary-amount.component';
 import { DirectivesModule } from '../../directives/directives.module';
 import { OengusMdComponent } from '../../components/oengus-md/oengus-md.component';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
+import { NwbSwitchComponent } from '../../components/wizi/switch/switch.component';
 
 @Component({
     selector: 'app-donate',
@@ -35,7 +35,7 @@ import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
     MonetaryAmountComponent,
     DirectivesModule,
     OengusMdComponent,
-    NwbSwitchModule,
+    NwbSwitchComponent,
   ],
 })
 export class DonateComponent implements OnInit {

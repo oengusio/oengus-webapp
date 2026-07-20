@@ -35,10 +35,12 @@ $bulmaswatch-import-font: false;
 
 @import 'bulma-extensions/dist/css/bulma-extensions.min.css';
 @import 'bulma-extensions/bulma-tooltip/src/sass/index';
-@import 'node_modules/@oengus/ng-wizi-bulma/ng-wizi-bulma';
 // Manually copied in the file, it was not exported
 @import "./assets/themes/ng-pick-datetime-picker.min.css";
 @import "flag-icon-css/css/flag-icons.min.css";
+
+// Import global wizi styles
+@import '../../app/components/wizi/alert/alert.component';
 
 
 // set the colours from the dark mode ourselves

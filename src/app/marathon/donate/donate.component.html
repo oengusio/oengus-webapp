@@ -278,10 +278,10 @@
                 }
                 @if (answer.question.fieldType === 'CHECKBOX') {
                   <div class="control">
-                    <nwb-switch [(ngModel)]="answer.answer"
+                    <app-nwb-switch [(ngModel)]="answer.answer"
                       [required]="answer.question.required"
                       name="answer{{i}}"
-                    #answerField="ngModel">{{answer.question.label}}</nwb-switch>
+                    #answerField="ngModel">{{answer.question.label}}</app-nwb-switch>
                     @if (answerField.invalid && answerField.errors) {
                       <div>
                         @if (answerField.errors.required) {

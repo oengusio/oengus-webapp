@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { NwbCommonModule } from '@oengus/ng-wizi-bulma';
 
 @Component({
   selector: 'app-delete-button',
@@ -14,7 +13,6 @@ import { NwbCommonModule } from '@oengus/ng-wizi-bulma';
     CommonModule,
     TranslateModule,
     FontAwesomeModule,
-    NwbCommonModule,
   ],
 })
 export class DeleteButtonComponent {

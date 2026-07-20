@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleInfo } from '../../../../model/schedule';
 import { environment } from '../../../../environments/environment';
@@ -29,6 +28,7 @@ import { DirectivesModule } from '../../../directives/directives.module';
 import { LoadingIndicatorComponent } from '../../../elements/loading-indicator/loading-indicator.component';
 import { TemporalServiceService } from '../../../../services/termporal/temporal-service.service';
 import { NotificationService } from '../../../../services/notification.service';
+import { NwbSwitchComponent } from '../../../components/wizi/switch/switch.component';
 
 // Options are 'id' and 'content'
 const AVAILABILITY_SORT_KEY = 'id';
@@ -43,7 +43,6 @@ const AVAILABILITY_SORT_KEY = 'id';
     FormsModule,
     TranslateModule,
     FontAwesomeModule,
-    NwbSwitchModule,
     ScheduleTableOldElementComponent,
     WarningModalComponent,
     SubmissionsTableComponent,
@@ -52,6 +51,7 @@ const AVAILABILITY_SORT_KEY = 'id';
     ElementI18nComponent,
     DirectivesModule,
     LoadingIndicatorComponent,
+    NwbSwitchComponent,
   ],
 })
 export class EditComponent implements OnInit, OnDestroy {

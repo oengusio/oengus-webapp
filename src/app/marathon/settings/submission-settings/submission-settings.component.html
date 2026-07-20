@@ -3,9 +3,9 @@
   <label for="submitsOpen" class="label">{{ 'marathon.settings.submissions.label' | translate}}</label>
   <div class="control is-flex">
     <span class="forbidden">{{'marathon.settings.submissions.closed' | translate}}</span>
-    <nwb-switch [(ngModel)]="settings.submissionsOpen" id="submitsOpen" name="submitsOpen" (click)="onSubmitsOpenChanged($event)" [disabled]="settings.selectionDone">
+    <app-nwb-switch [(ngModel)]="settings.submissionsOpen" id="submitsOpen" name="submitsOpen" (click)="onSubmitsOpenChanged($event)" [disabled]="settings.selectionDone">
       <span>{{ 'marathon.settings.submissions.open' | translate}}</span>
-    </nwb-switch>
+    </app-nwb-switch>
   </div>
 </div>
 <div class="columns">
@@ -102,12 +102,12 @@
         <label for="hasMultiplayer" class="label">{{'marathon.settings.multiplayer.label' | translate}}</label>
         <div class="control is-flex">
           <span class="forbidden">{{'marathon.settings.multiplayer.forbidden' | translate}}</span>
-          <nwb-switch [(ngModel)]="settings.allowMultiplayer"
+          <app-nwb-switch [(ngModel)]="settings.allowMultiplayer"
             name="hasMultiplayer"
             id="hasMultiplayer"
             [disabled]="settings.selectionDone">
             <span>{{'marathon.settings.multiplayer.allowed' | translate}}</span>
-          </nwb-switch>
+          </app-nwb-switch>
         </div>
       </div>
     </div>
@@ -151,12 +151,12 @@
       <div class="field">
         <label for="emulatorAuthorized" class="label">{{'marathon.settings.emulatorAuthorized.label' | translate}}</label>
         <div class="control">
-          <nwb-switch [(ngModel)]="settings.allowEmulators"
+          <app-nwb-switch [(ngModel)]="settings.allowEmulators"
             name="emulatorAuthorized"
             id="emulatorAuthorized"
             [disabled]="settings.selectionDone">
             <span>{{'marathon.settings.emulatorAuthorized.allowed' | translate}}</span>
-          </nwb-switch>
+          </app-nwb-switch>
         </div>
       </div>
     </div>
@@ -164,12 +164,12 @@
       <div class="field">
         <label for="videoRequired" class="label">{{'marathon.settings.videoRequired.label' | translate}}</label>
         <div class="control">
-          <nwb-switch [(ngModel)]="settings.videoRequired"
+          <app-nwb-switch [(ngModel)]="settings.videoRequired"
             name="videoRequired"
             id="videoRequired"
             [disabled]="settings.selectionDone">
             <span>{{'marathon.settings.videoRequired.allowed' | translate}}</span>
-          </nwb-switch>
+          </app-nwb-switch>
         </div>
       </div>
     </div>
@@ -182,13 +182,13 @@
           <div class="control discord-loader" [ngClass]="{'is-loading': loadingDiscordCheck}"></div>
           <label for="discordRequired" class="label">{{ 'marathon.settings.discordRequirement.label' | translate }}</label>
           <div class="control">
-            <nwb-switch [(ngModel)]="settings.discordRequired"
+            <app-nwb-switch [(ngModel)]="settings.discordRequired"
               name="discordRequired"
               id="discordRequired"
               [disabled]="loadingDiscordCheck"
               (change)="checkDiscordStatus()">
               <span>{{ 'marathon.settings.discordRequirement.required' | translate }}</span>
-            </nwb-switch>
+            </app-nwb-switch>
           </div>
         </div>
         <div class="help">
@@ -263,8 +263,8 @@
               </span>
             </td>
             <td>
-              <nwb-switch [(ngModel)]="question.required" name="submission-required{{i}}"
-              [disabled]="question.fieldType === 'FREETEXT'"></nwb-switch>
+              <app-nwb-switch [(ngModel)]="question.required" name="submission-required{{i}}"
+              [disabled]="question.fieldType === 'FREETEXT'"></app-nwb-switch>
             </td>
             <td>
               <fa-icon [icon]="faBars" cdkDragHandle class="is-pulled-right"></fa-icon>

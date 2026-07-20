@@ -28,7 +28,6 @@ import { SavedGamesSettingsComponent } from './saved-games-settings/saved-games-
 import { GameEditorComponent } from './saved-games-settings/game-editor/game-editor.component';
 import { CategoryEditorComponent } from './saved-games-settings/category-editor/category-editor.component';
 import { MarkdownPipe } from '../pipes/markdown.pipe';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 
 const userRoutes: Routes = [
   {
@@ -78,7 +77,6 @@ const userRoutes: Routes = [
     FontAwesomeModule,
     ElementModule,
     MarkdownPipe,
-    NwbSwitchModule,
     NewUserComponent,
     ProfileComponent,
     UserProfileComponent,

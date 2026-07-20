@@ -5,7 +5,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MonetaryAmountComponent } from './monetary-amount/monetary-amount.component';
 import { RouterModule } from '@angular/router';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
-import {NwbCommonModule} from '@oengus/ng-wizi-bulma';
 import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { LocalizeRouterModule } from '@oengusio/ngx-translate-router';
     CommonModule,
     FontAwesomeModule,
     RouterModule,
-    NwbCommonModule,
     LocalizeRouterModule,
     UserComponent,
     MonetaryAmountComponent,

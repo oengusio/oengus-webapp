@@ -1,0 +1,13 @@
+<div
+  [class]="'alert ' + ((config.color) ? config.color : ' is-primary') + ((config.extraClasses) ? ' ' + config.extraClasses : '') + ((config.position) ? ' ' + config.position : '')"
+  [class.is-active]="open"
+>
+  <div class="alert--message">
+    @if (config.icon) {
+      <span class="icon">
+        <i [class]="config.icon"></i>
+      </span>
+    }
+    <p [innerHTML]="config.message"></p>
+  </div>
+</div>

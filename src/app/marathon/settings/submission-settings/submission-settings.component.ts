@@ -4,28 +4,28 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MarathonService } from '../../../../services/marathon.service';
 import { MarathonSettings } from '../../../../model/marathon';
 import { Question } from '../../../../model/question';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { DirectivesModule } from '../../../directives/directives.module';
+import { NwbSwitchComponent } from '../../../components/wizi/switch/switch.component';
 
 @Component({
     selector: 'app-marathon-submission-settings',
     templateUrl: './submission-settings.component.html',
     styleUrls: ['./submission-settings.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        CommonModule,
-        FormsModule,
-        TranslateModule,
-        DragDropModule,
-        FontAwesomeModule,
-        NwbSwitchModule,
-        DirectivesModule,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    DragDropModule,
+    FontAwesomeModule,
+    DirectivesModule,
+    NwbSwitchComponent,
+  ],
 })
 export class SubmissionSettingsComponent {
   marathonService = inject(MarathonService);

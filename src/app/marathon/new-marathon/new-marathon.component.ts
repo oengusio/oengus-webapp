@@ -3,26 +3,26 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { OwlDateTimeModule } from '@oengus/angular-datetime-picker';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { Marathon } from '../../../model/marathon';
 import { MarathonService } from '../../../services/marathon.service';
 import { environment } from '../../../environments/environment';
 import { DirectivesModule } from '../../directives/directives.module';
 import { TemporalServiceService } from '../../../services/termporal/temporal-service.service';
+import { NwbSwitchComponent } from '../../components/wizi/switch/switch.component';
 
 @Component({
     selector: 'app-new-marathon',
     templateUrl: './new-marathon.component.html',
     styleUrls: ['./new-marathon.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        CommonModule,
-        FormsModule,
-        TranslateModule,
-        OwlDateTimeModule,
-        NwbSwitchModule,
-        DirectivesModule,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    OwlDateTimeModule,
+    DirectivesModule,
+    NwbSwitchComponent,
+  ],
 })
 export class NewMarathonComponent implements OnInit {
   marathonService = inject(MarathonService);

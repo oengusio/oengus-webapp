@@ -198,9 +198,9 @@
         <label for="isOnsite" class="label">{{ 'marathon.settings.type.label' | translate}}</label>
         <div class="control is-flex">
           <span class="disabledCb">{{ 'marathon.settings.type.online' | translate}}</span>
-          <nwb-switch [(ngModel)]="settings.onsite" id="isOnsite" name="isOnsite">
+          <app-nwb-switch [(ngModel)]="settings.onsite" id="isOnsite" name="isOnsite">
             <span>{{ 'marathon.settings.type.onsite' | translate}}</span>
-          </nwb-switch>
+          </app-nwb-switch>
         </div>
       </div>
     </div>
@@ -493,9 +493,9 @@
       <div class="field">
         <label for="discordPrivacy" class="label">{{ 'marathon.settings.discordPrivacy.label' | translate}}</label>
         <div class="control">
-          <nwb-switch [(ngModel)]="settings.discordPrivate" id="discordPrivacy" name="discordPrivacy">
+          <app-nwb-switch [(ngModel)]="settings.discordPrivate" id="discordPrivacy" name="discordPrivacy">
             <span>{{ 'marathon.settings.discordPrivacy.private' | translate}}</span>
-          </nwb-switch>
+          </app-nwb-switch>
         </div>
       </div>
       <p class="help">{{ 'marathon.settings.discordPrivacy.help' | translate}}</p>
@@ -505,9 +505,9 @@
         <label for="isPrivate" class="label">{{ 'marathon.settings.privacy.label' | translate}}</label>
         <div class="control is-flex">
           <span class="disabledCb">{{ 'marathon.settings.privacy.public' | translate}}</span>
-          <nwb-switch [(ngModel)]="settings.isPrivate" id="isPrivate" name="isPrivate">
+          <app-nwb-switch [(ngModel)]="settings.isPrivate" id="isPrivate" name="isPrivate">
             <span>{{ 'marathon.settings.privacy.private' | translate}}</span>
-          </nwb-switch>
+          </app-nwb-switch>
         </div>
       </div>
       <p class="help">{{ 'marathon.settings.privacy.help' | translate}}</p>
@@ -590,9 +590,9 @@
         <label for="announceAcceptedSubmissions" class="label">{{ 'marathon.settings.webhook.announceAcceptedSubmissions.title' | translate}}</label>
         <div class="control is-flex">
           <span class="disabledCb">{{ 'global.disabled' | translate}}</span>
-          <nwb-switch [(ngModel)]="settings.announceAcceptedSubmissions" name="announceAcceptedSubmissions" id="announceAcceptedSubmissions">
+          <app-nwb-switch [(ngModel)]="settings.announceAcceptedSubmissions" name="announceAcceptedSubmissions" id="announceAcceptedSubmissions">
             <span>{{ 'global.enabled' | translate}}</span>
-          </nwb-switch>
+          </app-nwb-switch>
         </div>
       </div>
       <div class="field">

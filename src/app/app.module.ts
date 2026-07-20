@@ -6,7 +6,6 @@ import { httpInterceptorProviders } from '../interceptors';
 import { FormsModule } from '@angular/forms';
 import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlTemporalDateTimeModule } from '@oengus/angular-datetime-picker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NwbAlertModule, NwbCommonModule, NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { MarathonModule } from './marathon/marathon.module';
 import { DirectivesModule } from './directives/directives.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -174,14 +173,11 @@ const appRoutes: Routes = [
     FormsModule,
     OwlDateTimeModule,
     OwlTemporalDateTimeModule,
-    NwbSwitchModule,
-    NwbAlertModule,
     MarathonModule,
     UserModule,
     DirectivesModule,
     FontAwesomeModule,
     OengusCommonModule,
-    NwbCommonModule,
     ButtonsModule,
     ElementModule,
     ComponentsModule,

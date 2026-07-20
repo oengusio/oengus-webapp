@@ -131,21 +131,21 @@
                 <td>
                   <div class="control is-flex">
                     <span class="mr-1">{{ 'marathon.incentives.management.donationGoal' | translate}}</span>
-                    <nwb-switch [(ngModel)]="incentive.bidWar" name="isBidWar{{i}}" [disabled]="incentive.locked">
+                    <app-nwb-switch [(ngModel)]="incentive.bidWar" name="isBidWar{{i}}" [disabled]="incentive.locked">
                       <span>{{ 'marathon.incentives.management.bidWar' | translate}}</span>
-                    </nwb-switch>
+                    </app-nwb-switch>
                   </div>
                   @if (incentive.bidWar) {
                     <div class="control">
-                      <nwb-switch [(ngModel)]="incentive.openBid" name="openBid{{i}}" [disabled]="incentive.locked">
+                      <app-nwb-switch [(ngModel)]="incentive.openBid" name="openBid{{i}}" [disabled]="incentive.locked">
                         <span>{{ 'marathon.incentives.management.openBid' | translate}}</span>
-                      </nwb-switch>
+                      </app-nwb-switch>
                     </div>
                   }
                 </td>
                 <td>
-                  <nwb-switch [(ngModel)]="incentive.locked" name="isLocked{{i}}">
-                  </nwb-switch>
+                  <app-nwb-switch [(ngModel)]="incentive.locked" name="isLocked{{i}}">
+                  </app-nwb-switch>
                 </td>
                 <td>
                   @if (incentive.bidWar) {

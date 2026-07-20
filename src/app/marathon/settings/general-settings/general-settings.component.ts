@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { OwlDateTimeModule } from '@oengus/angular-datetime-picker';
-import { NwbSwitchModule } from '@oengus/ng-wizi-bulma';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { MarathonSettingsWithHelpfulProps } from '../../../../model/marathon';
 import { MarathonService } from '../../../../services/marathon.service';
@@ -19,23 +18,24 @@ import { DirectivesModule } from '../../../directives/directives.module';
 import { DescriptionEditorComponent } from './description-editor/description-editor.component';
 import { ElementI18nComponent } from '../../../elements/element-i18n/element-i18n.component';
 import { User } from '../../../../model/user';
+import { NwbSwitchComponent } from '../../../components/wizi/switch/switch.component';
 
 @Component({
     selector: 'app-marathon-general-settings',
     templateUrl: './general-settings.component.html',
     styleUrls: ['./general-settings.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        CommonModule,
-        FormsModule,
-        TranslateModule,
-        OwlDateTimeModule,
-        NwbSwitchModule,
-        AutocompleteLibModule,
-        DirectivesModule,
-        DescriptionEditorComponent,
-        ElementI18nComponent,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    OwlDateTimeModule,
+    AutocompleteLibModule,
+    DirectivesModule,
+    DescriptionEditorComponent,
+    ElementI18nComponent,
+    NwbSwitchComponent,
+  ],
 })
 export class GeneralSettingsComponent implements OnInit {
   marathonService = inject(MarathonService);
