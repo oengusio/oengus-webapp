@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -69,7 +69,11 @@ export class SubmitComponent {
     if (this.route.snapshot.data.submission) {
       this.initSubmission(this.route.snapshot.data.submission);
     } else {
-      this.initSubmission(new Submission());
+      const newSubmission = new Submission();
+
+      newSubmission.user.id = userService.user.id;
+
+      this.initSubmission(newSubmission);
     }
 
     if (marathonService.marathon.submitsOpen) {
@@ -144,12 +148,16 @@ export class SubmitComponent {
   readonly title = 'Submit';
 
   private initSubmission(submission: Submission | null) {
-    console.log(this.dateTimeAdapter.getLocale());
-
     if (submission) {
       this.submission = {...submission};
     } else {
-      this.submission = new Submission();
+      const newSubmission = new Submission();
+
+      console.log('[submit.component.ts] Fell through into second if');
+
+      newSubmission.user.id = this.userService.user.id;
+
+      this.submission = newSubmission;
     }
 
     this.submission.games.forEach(game => {

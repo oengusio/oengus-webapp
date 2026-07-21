@@ -7,7 +7,7 @@ import { SubmissionService } from '../../services/submission.service';
 export class SubmissionResolver  {
   private submissionService = inject(SubmissionService);
 
-  async resolve(route: ActivatedRouteSnapshot): Promise<Submission> {
+  async resolve(route: ActivatedRouteSnapshot): Promise<Submission | null> {
     const marathonId = route.parent?.paramMap.get('id');
 
     if (!marathonId) {
@@ -16,6 +16,6 @@ export class SubmissionResolver  {
 
     const submission = await this.submissionService.mine(marathonId);
 
-    return submission ?? new Submission();
+    return submission;
   }
 }

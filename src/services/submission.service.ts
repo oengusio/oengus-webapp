@@ -19,7 +19,6 @@ export class SubmissionService extends BaseService {
   private translateService = inject(TranslateService);
   private temporalService = inject(TemporalServiceService);
 
-
   constructor() {
     const toastr = inject(NotificationService);
 
@@ -117,6 +116,11 @@ export class SubmissionService extends BaseService {
   private beNiceToApi(submission: Submission) {
     return {
       ...submission,
+      user: {
+        ...submission.user,
+        pronouns: [],
+        languagesSpoken: [],
+      },
       availabilities: submission.availabilities.map((a) => ({
         ...a,
         to: a.to.toInstant().toString(),

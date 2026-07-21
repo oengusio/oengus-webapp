@@ -65,10 +65,10 @@ export class Marathon {
   onsite = false;
   location = '';
   language = '';
-  maxGamesPerRunner = -1;
-  maxCategoriesPerGame = -1;
+  maxGamesPerRunner = 5;
+  maxCategoriesPerGame = 3;
   hasMultiplayer = false;
-  maxNumberOfScreens = -1;
+  maxNumberOfScreens = 4;
   twitch = '';
   twitter = '';
   mastodon ? = '';
@@ -83,7 +83,7 @@ export class Marathon {
   defaultSetupTimeHuman = '';
   selectionDone = false;
   scheduleDone = false;
-  isPrivate = false;
+  isPrivate = true;
   hasIncentives = false;
   canEditSubmissions = false;
   questions: Question[] = [];
@@ -95,14 +95,14 @@ export class Marathon {
   donationsTotal = -1;
   hasSubmitted = false;
   donationsOpen = false;
-  videoRequired = false;
+  videoRequired = true;
   unlimitedGames = false;
   unlimitedCategories = false;
-  emulatorAuthorized = false;
+  emulatorAuthorized = true;
   discordGuildId = '';
   discordGuildName = '';
   discordRequired = false;
-  announceAcceptedSubmissions = false;
+  announceAcceptedSubmissions = true;
 }
 
 export interface MarathonWithExtraData extends Marathon {
