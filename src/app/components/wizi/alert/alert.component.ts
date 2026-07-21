@@ -1,54 +1,47 @@
-import { Observable, Subject } from 'rxjs';
-import { NwbAlertConfig } from './alert.service';
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { NwbAlertConfig } from './NwbAlertConfig';
+import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import { NotificationService } from '../../../../services/notification.service';
 
 @Component({
-  selector: 'app-nwb-alert',
+  selector: 'app-nwb-alerts',
   templateUrl: './alert.component.html',
-  host: {
-    class: 'nwb-alert',
-  },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
-export class NwbAlertComponent implements OnInit {
-  public config: NwbAlertConfig = {
-    message: 'NOT CONFIGURED',
-  };
+export class NwbAlertComponent {
+  protected configs: (NwbAlertConfig & { open: boolean })[] = [];
 
-  /** Subject for notifying the user that the dialog has finished closing. */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _afterClosed = new Subject<any>();
+  constructor() {
+    const notificationService = inject(NotificationService);
 
-  open = false;
+    notificationService.observableToastr.subscribe((config) => {
+      const newLength = this.configs.push({
+        ...config,
+        open: false,
+      });
 
-  // private timer: NodeJS.Timeout | undefined;
+      setTimeout(() => {
+        this.configs[newLength - 1].open = true;
+      }, 50);
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.open = true;
-    }, 50);
+      if (config.duration) {
+        setTimeout(() => this.dismiss(config.id), config.duration);
+      }
+    });
+  }
 
-    if (this.config.duration ?? 0 > 0) {
-      /*this.timer = */setTimeout(() => this.dismiss(), this.config.duration);
+  dismiss(itemId: string) {
+    const idx = this.configs.findIndex((a) => a.id === itemId);
+
+    if (idx === -1) {
+      return;
     }
-  }
 
-  dismiss() {
-    this.open = false;
+    this.configs[idx].open = false;
 
     setTimeout(() => {
-      this._afterClosed.next(true);
-      this._afterClosed.complete();
+      this.configs.splice(idx, 1);
     }, 200);
-  }
-
-  /**
-   * Gets an observable that is notified when the dialog is finished closing.
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  afterClosed(): Observable<any> {
-    return this._afterClosed.asObservable();
   }
 }
