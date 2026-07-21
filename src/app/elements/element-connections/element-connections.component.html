@@ -8,7 +8,7 @@
   <div class="message-body">
     <p class="pb-2">{{ 'user.settings.connections.visibility' | translate }}</p>
     <div class="row">
-      @for (connection of connections; track connection) {
+      @for (connection of connections; track $index) {
         <app-connection-settings
           class="column is-full"
           [connection]="connection"
