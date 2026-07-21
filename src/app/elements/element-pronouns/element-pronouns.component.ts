@@ -57,7 +57,10 @@ export class ElementPronounsComponent implements OnInit {
         }
 
         firstValueFrom(this.miscService.searchPronouns(value))
-          .then(resolve)
+          .then((pronouns) => {
+            pronouns.push('any/all');
+            resolve(pronouns);
+          })
           .catch(() => resolve([]));
       }),
     });
