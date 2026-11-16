@@ -94,5 +94,10 @@
     "tslint": "~6.1.3",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.64.0"
+  },
+  "overrides": {
+    "@oengus/angular-datetime-picker": {
+      "temporal-polyfill": "^1.0.8"
+    }
   }
 }

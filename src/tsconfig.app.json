@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "outDir": "../out-tsc/app",
     "types": [],
-    "lib": ["esnext"]
+    "lib": ["esnext", "esnext.temporal", "esnext.intl", "esnext.date"]
   },
   "exclude": [
     "test.ts",

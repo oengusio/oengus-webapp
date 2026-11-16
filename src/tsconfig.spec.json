@@ -6,7 +6,7 @@
       "jasmine",
       "node"
     ],
-    "lib": ["esnext"]
+    "lib": ["esnext", "esnext.temporal", "esnext.intl", "esnext.date"]
   },
   "files": [
     "test.ts",

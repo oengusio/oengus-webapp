@@ -85,3 +85,4 @@ import 'zone.js';  // Included with Angular CLI.
  */
 
 import 'temporal-polyfill/global';
+import 'temporal-polyfill/types/global';
