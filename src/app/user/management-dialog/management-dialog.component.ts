@@ -29,6 +29,8 @@ export class ManagementDialogComponent implements OnInit {
   private roles: string[] = [];
   banLoading = false;
 
+  deleteLoading = false;
+
   ngOnInit(): void {
     this.userService.fetchRoles(this.user.id).subscribe((roles) => {
       this.roles = roles;
@@ -82,6 +84,15 @@ export class ManagementDialogComponent implements OnInit {
       }, complete: () => {
         this.banLoading = false;
       }
+    });
+  }
+
+  public deleteUser(): void {
+    this.deleteLoading = true;
+
+    this.userService.delete(this.user.id).subscribe(() => {
+      this.deleteLoading = false;
+      window.location.reload();
     });
   }
 

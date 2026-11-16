@@ -32,6 +32,11 @@
             [disabled]="banLoading"
           (click)="setActivated(true)">{{ 'user.profile.activate' | translate }}</button>
         }
+
+        <button class="button is-warning"
+            [ngClass]="{'is-loading': deleteLoading}"
+            [disabled]="deleteLoading"
+            (click)="deleteUser()">Delete user</button>
       </div>
 
       <div class="field">

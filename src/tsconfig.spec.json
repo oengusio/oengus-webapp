@@ -5,7 +5,8 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "lib": ["esnext"]
   },
   "files": [
     "test.ts",

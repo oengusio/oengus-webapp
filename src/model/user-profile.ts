@@ -4,6 +4,7 @@ export class UserProfile {
   id = -1;
   username = '';
   displayName = '';
+  bio = '';
   enabled = false;
   pronouns: string[] = [];
   languagesSpoken: string[] = [];
