@@ -2,9 +2,9 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, inject, 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Marathon } from '../../../model/marathon';
-import dayGridPlugin from '@fullcalendar/daygrid';
+import dayGridPlugin from '@fullcalendar/angular/daygrid';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, EventClickArg } from '@fullcalendar/core';
+import { CalendarOptions, EventClickInfo } from 'fullcalendar';
 import { LocaleService } from '../../../services/locale.service';
 
 @Component({
@@ -74,7 +74,7 @@ export class CalendarViewScheduleComponent implements OnInit, OnChanges {
 
   // If keydown ctrl or middle mouse button open in new tab?
   // Or just always open in new tab?
-  goToEvent(eventClickInfo: EventClickArg) {
+  goToEvent(eventClickInfo: EventClickInfo) {
     this.router.navigate(['/marathon', eventClickInfo.event.id]);
   }
 
