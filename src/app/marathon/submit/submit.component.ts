@@ -263,23 +263,24 @@ export class SubmitComponent {
   }
 
   duplicateAvailabilityToNextDay(index: number) {
-    const endDate = this.temporalService.parseDate(this.marathonService.marathon.endDate as unknown as string);
+    const endDate = this.temporalService.parseDate(this.marathonService.marathon.endDate);
     const availability = {...this.submission.availabilities[index]};
 
-    const fromTemporal = this.temporalService.parseDate(availability.from as unknown as string);
-    const toTemporal = this.temporalService.parseDate(availability.to as unknown as string);
+    const fromTemporal = this.temporalService.parseDate(availability.from);
+    const toTemporal = this.temporalService.parseDate(availability.to);
     const duration = fromTemporal.until(toTemporal);
-    let tmpFrom = fromTemporal;
+    let tmpFrom = toTemporal;
 
     // only add one day if we're not in midnight on the to day
     if (!(toTemporal.hour >= 0 && toTemporal.hour <= 5)) {
       tmpFrom = tmpFrom.add(Temporal.Duration.from({ days: 1 }));
     }
 
-    // TODO: what the fuck is going on here?
-    /*availability.from = tmpFrom.hour(fromTemporal.hour())
-      .minute(fromTemporal.minute())
-      .toDate();*/
+    // Clamp hours back down to the original from range as we switched the to and from around.
+    tmpFrom = tmpFrom.with({
+      hour: fromTemporal.hour,
+      minute: fromTemporal.minute,
+    });
 
     availability.from = tmpFrom;
 
